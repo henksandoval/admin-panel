@@ -1,0 +1,81 @@
+<div class="dashboard-page">
+  <!-- Page Header -->
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>
+    <p class="text-gray-600">Bienvenido al panel de administración</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    @for (stat of stats; track stat.title) {
+      <mat-card class="stat-card">
+        <mat-card-content class="p-6">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <p class="text-sm text-gray-600 mb-1">{{ stat.title }}</p>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ stat.value }}</h3>
+              <span class="text-sm font-semibold text-green-600">{{ stat.change }}</span>
+            </div>
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center {{ stat.bgColor }}">
+              <mat-icon class="{{ stat.color }}">{{ stat.icon }}</mat-icon>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  <!-- Content Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Recent Activity -->
+    <mat-card class="lg:col-span-2">
+      <mat-card-header class="p-6 pb-4">
+        <mat-card-title class="text-lg font-semibold text-gray-800">Actividad Reciente</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="p-6 pt-0">
+        <div class="space-y-4">
+          @for (activity of [1, 2, 3, 4]; track activity) {
+            <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <mat-icon class="text-blue-600">notifications</mat-icon>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-sm font-semibold text-gray-800 mb-1">Nueva orden recibida</h4>
+                <p class="text-sm text-gray-600">Cliente realizó una compra por $250.00</p>
+                <span class="text-xs text-gray-500 mt-1 inline-block">Hace 5 minutos</span>
+              </div>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Quick Actions -->
+    <mat-card>
+      <mat-card-header class="p-6 pb-4">
+        <mat-card-title class="text-lg font-semibold text-gray-800">Acciones Rápidas</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="p-6 pt-0">
+        <div class="space-y-3">
+          <button class="w-full flex items-center gap-3 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors text-left">
+            <mat-icon class="text-blue-600">add_circle</mat-icon>
+            <span class="text-sm font-medium text-gray-800">Nuevo Producto</span>
+          </button>
+          <button class="w-full flex items-center gap-3 p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors text-left">
+            <mat-icon class="text-green-600">person_add</mat-icon>
+            <span class="text-sm font-medium text-gray-800">Nuevo Cliente</span>
+          </button>
+          <button class="w-full flex items-center gap-3 p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors text-left">
+            <mat-icon class="text-purple-600">receipt</mat-icon>
+            <span class="text-sm font-medium text-gray-800">Nueva Orden</span>
+          </button>
+          <button class="w-full flex items-center gap-3 p-4 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors text-left">
+            <mat-icon class="text-orange-600">assessment</mat-icon>
+            <span class="text-sm font-medium text-gray-800">Ver Reportes</span>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

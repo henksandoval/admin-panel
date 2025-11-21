@@ -1,0 +1,30 @@
+<div class="layout-container">
+  <mat-sidenav-container class="sidenav-container" autosize>
+    <!-- Sidebar -->
+    <mat-sidenav
+      #sidenav
+      [mode]="isMobile() ? 'over' : 'side'"
+      [opened]="sidebarOpened()"
+      [fixedInViewport]="isMobile()"
+      [fixedTopGap]="0"
+      [fixedBottomGap]="0"
+      (backdropClick)="onBackdropClick()"
+      class="sidenav">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+
+    <!-- Main Content -->
+    <mat-sidenav-content class="sidenav-content">
+      <!-- Toolbar -->
+      <app-toolbar></app-toolbar>
+
+      <!-- Page Content -->
+      <main class="main-content bg-gray-50">
+        <div class="content-wrapper">
+          <router-outlet></router-outlet>
+        </div>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+

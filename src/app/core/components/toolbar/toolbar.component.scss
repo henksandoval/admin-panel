@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.toolbar {
+  height: 64px;
+  padding: 0 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+mat-divider {
+  margin: 8px 0;
+}
+
