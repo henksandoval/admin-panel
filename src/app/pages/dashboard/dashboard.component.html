@@ -35,9 +35,9 @@
       <mat-card-content class="p-6 pt-0">
         <div class="space-y-4">
           @for (activity of [1, 2, 3, 4]; track activity) {
-            <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
-              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                <mat-icon class="text-blue-600">notifications</mat-icon>
+            <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 activity-icon-bg">
+                <mat-icon class="activity-icon">notifications</mat-icon>
               </div>
               <div class="flex-1 min-w-0">
                 <h4 class="text-sm font-semibold text-gray-800 mb-1">Nueva orden recibida</h4>
@@ -57,21 +57,21 @@
       </mat-card-header>
       <mat-card-content class="p-6 pt-0">
         <div class="space-y-3">
-          <button class="w-full flex items-center gap-3 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors text-left">
-            <mat-icon class="text-blue-600">add_circle</mat-icon>
-            <span class="text-sm font-medium text-gray-800">Nuevo Producto</span>
+          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent">
+            <mat-icon>add_circle</mat-icon>
+            <span class="text-sm font-medium">Nuevo Producto</span>
           </button>
-          <button class="w-full flex items-center gap-3 p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors text-left">
-            <mat-icon class="text-green-600">person_add</mat-icon>
-            <span class="text-sm font-medium text-gray-800">Nuevo Cliente</span>
+          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent">
+            <mat-icon>person_add</mat-icon>
+            <span class="text-sm font-medium">Nuevo Cliente</span>
           </button>
-          <button class="w-full flex items-center gap-3 p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors text-left">
-            <mat-icon class="text-purple-600">receipt</mat-icon>
-            <span class="text-sm font-medium text-gray-800">Nueva Orden</span>
+          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent">
+            <mat-icon>receipt</mat-icon>
+            <span class="text-sm font-medium">Nueva Orden</span>
           </button>
-          <button class="w-full flex items-center gap-3 p-4 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors text-left">
-            <mat-icon class="text-orange-600">assessment</mat-icon>
-            <span class="text-sm font-medium text-gray-800">Ver Reportes</span>
+          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent">
+            <mat-icon>assessment</mat-icon>
+            <span class="text-sm font-medium">Ver Reportes</span>
           </button>
         </div>
       </mat-card-content>

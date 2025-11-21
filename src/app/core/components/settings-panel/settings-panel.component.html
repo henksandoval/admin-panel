@@ -1,0 +1,76 @@
+<!-- Settings Button (Floating) -->
+<button
+  class="settings-button"
+  mat-mini-fab
+  color="primary"
+  (click)="togglePanel()"
+  aria-label="Settings">
+  <mat-icon>settings</mat-icon>
+</button>
+
+<!-- Settings Panel -->
+<div class="settings-panel" [class.open]="isOpen">
+  <!-- Header -->
+  <div class="settings-header">
+    <div class="flex items-center gap-3">
+      <mat-icon class="text-white">settings</mat-icon>
+      <h2 class="text-white text-xl font-semibold m-0">Settings</h2>
+    </div>
+    <button
+      mat-icon-button
+      (click)="closePanel()"
+      class="text-white"
+      aria-label="Close settings">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div class="settings-content">
+    <!-- THEME Section -->
+    <div class="settings-section">
+      <h3 class="settings-section-title">THEME</h3>
+
+      <div class="theme-grid">
+        @for (theme of themes; track theme.id) {
+          <button
+            class="theme-option"
+            [class.active]="config().theme === theme.id"
+            (click)="selectTheme(theme.id)"
+            matRipple>
+            <div class="theme-color" [style.background-color]="theme.color">
+              @if (config().theme === theme.id) {
+                <mat-icon class="check-icon">check</mat-icon>
+              }
+            </div>
+            <span class="theme-label">{{ theme.label }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- SCHEME Section -->
+    <div class="settings-section">
+      <h3 class="settings-section-title">SCHEME</h3>
+
+      <div class="scheme-grid">
+        @for (scheme of schemes; track scheme.id) {
+          <button
+            class="scheme-option"
+            [class.active]="config().scheme === scheme.id"
+            (click)="selectScheme(scheme.id)"
+            matRipple>
+            <mat-icon>{{ scheme.icon }}</mat-icon>
+            <span>{{ scheme.label }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+@if (isOpen) {
+  <div class="settings-backdrop" (click)="closePanel()"></div>
+}
+

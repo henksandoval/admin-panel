@@ -41,3 +41,473 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* ===================================
+   Theme System - Complete UI Theming
+   =================================== */
+
+// CSS Variables for themes
+:root {
+  // Default theme (Blue)
+  --theme-primary: #3b82f6;
+  --theme-primary-50: #eff6ff;
+  --theme-primary-100: #dbeafe;
+  --theme-primary-200: #bfdbfe;
+  --theme-primary-300: #93c5fd;
+  --theme-primary-400: #60a5fa;
+  --theme-primary-500: #3b82f6;
+  --theme-primary-600: #2563eb;
+  --theme-primary-700: #1d4ed8;
+  --theme-primary-800: #1e40af;
+  --theme-primary-900: #1e3a8a;
+}
+
+// Theme: Brand (Cyan)
+body.theme-brand {
+  --theme-primary: #06b6d4;
+  --theme-primary-50: #ecfeff;
+  --theme-primary-100: #cffafe;
+  --theme-primary-200: #a5f3fc;
+  --theme-primary-300: #67e8f9;
+  --theme-primary-400: #22d3ee;
+  --theme-primary-500: #06b6d4;
+  --theme-primary-600: #0891b2;
+  --theme-primary-700: #0e7490;
+  --theme-primary-800: #155e75;
+  --theme-primary-900: #164e63;
+}
+
+// Theme: Teal
+body.theme-teal {
+  --theme-primary: #14b8a6;
+  --theme-primary-50: #f0fdfa;
+  --theme-primary-100: #ccfbf1;
+  --theme-primary-200: #99f6e4;
+  --theme-primary-300: #5eead4;
+  --theme-primary-400: #2dd4bf;
+  --theme-primary-500: #14b8a6;
+  --theme-primary-600: #0d9488;
+  --theme-primary-700: #0f766e;
+  --theme-primary-800: #115e59;
+  --theme-primary-900: #134e4a;
+}
+
+// Theme: Rose
+body.theme-rose {
+  --theme-primary: #f43f5e;
+  --theme-primary-50: #fff1f2;
+  --theme-primary-100: #ffe4e6;
+  --theme-primary-200: #fecdd3;
+  --theme-primary-300: #fda4af;
+  --theme-primary-400: #fb7185;
+  --theme-primary-500: #f43f5e;
+  --theme-primary-600: #e11d48;
+  --theme-primary-700: #be123c;
+  --theme-primary-800: #9f1239;
+  --theme-primary-900: #881337;
+}
+
+// Theme: Purple
+body.theme-purple {
+  --theme-primary: #a855f7;
+  --theme-primary-50: #faf5ff;
+  --theme-primary-100: #f3e8ff;
+  --theme-primary-200: #e9d5ff;
+  --theme-primary-300: #d8b4fe;
+  --theme-primary-400: #c084fc;
+  --theme-primary-500: #a855f7;
+  --theme-primary-600: #9333ea;
+  --theme-primary-700: #7e22ce;
+  --theme-primary-800: #6b21a8;
+  --theme-primary-900: #581c87;
+}
+
+// Theme: Amber
+body.theme-amber {
+  --theme-primary: #f59e0b;
+  --theme-primary-50: #fffbeb;
+  --theme-primary-100: #fef3c7;
+  --theme-primary-200: #fde68a;
+  --theme-primary-300: #fcd34d;
+  --theme-primary-400: #fbbf24;
+  --theme-primary-500: #f59e0b;
+  --theme-primary-600: #d97706;
+  --theme-primary-700: #b45309;
+  --theme-primary-800: #92400e;
+  --theme-primary-900: #78350f;
+}
+
+/* ===================================
+   Apply Theme to ALL UI Elements
+   =================================== */
+
+body {
+  // Headings and important text
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--theme-primary-700);
+  }
+
+  // Links
+  a {
+    color: var(--theme-primary-600);
+
+    &:hover {
+      color: var(--theme-primary-700);
+    }
+  }
+
+  // Buttons - Material
+  .mat-mdc-fab.mat-primary,
+  .mat-mdc-mini-fab.mat-primary {
+    --mdc-fab-container-color: var(--theme-primary-500);
+    --mat-fab-foreground-color: white;
+
+    &:hover {
+      --mdc-fab-container-color: var(--theme-primary-600);
+    }
+  }
+
+  .mat-mdc-button.mat-primary,
+  .mat-mdc-outlined-button.mat-primary {
+    --mdc-text-button-label-text-color: var(--theme-primary-600);
+    --mdc-outlined-button-label-text-color: var(--theme-primary-600);
+    --mdc-outlined-button-outline-color: var(--theme-primary-300);
+
+    &:hover {
+      --mdc-text-button-label-text-color: var(--theme-primary-700);
+      --mdc-outlined-button-label-text-color: var(--theme-primary-700);
+      --mdc-outlined-button-outline-color: var(--theme-primary-500);
+      background-color: var(--theme-primary-50);
+    }
+  }
+
+  .mat-mdc-raised-button.mat-primary,
+  .mat-mdc-unelevated-button.mat-primary {
+    --mdc-protected-button-container-color: var(--theme-primary-500);
+    --mdc-protected-button-label-text-color: white;
+
+    &:hover {
+      --mdc-protected-button-container-color: var(--theme-primary-600);
+    }
+  }
+
+  // Icons
+  .mat-icon.mat-primary {
+    color: var(--theme-primary-500);
+  }
+
+  // Badges
+  .mat-badge-content {
+    background-color: var(--theme-primary-500);
+  }
+
+  // Cards with theme accent
+  mat-card {
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s ease;
+
+    &:hover {
+      border-left-color: var(--theme-primary-300);
+    }
+  }
+
+  // Form fields focus
+  .mat-mdc-form-field.mat-focused {
+    .mat-mdc-form-field-focus-overlay {
+      background-color: var(--theme-primary-50);
+    }
+  }
+
+  // Checkboxes and radios
+  .mat-mdc-checkbox.mat-primary,
+  .mat-mdc-radio-button.mat-primary {
+    --mdc-checkbox-selected-icon-color: var(--theme-primary-500);
+    --mdc-checkbox-selected-hover-icon-color: var(--theme-primary-600);
+    --mdc-radio-selected-icon-color: var(--theme-primary-500);
+    --mdc-radio-selected-hover-icon-color: var(--theme-primary-600);
+  }
+
+  // Progress bars
+  .mat-mdc-progress-bar {
+    --mdc-linear-progress-active-indicator-color: var(--theme-primary-500);
+  }
+
+  // Sliders
+  .mat-mdc-slider {
+    --mdc-slider-handle-color: var(--theme-primary-500);
+    --mdc-slider-active-track-color: var(--theme-primary-500);
+  }
+
+  // Tabs
+  .mat-mdc-tab.mdc-tab--active {
+    .mdc-tab__text-label {
+      color: var(--theme-primary-600);
+    }
+
+    .mdc-tab-indicator__content--underline {
+      border-color: var(--theme-primary-500);
+    }
+  }
+}
+
+// Sidebar Navigation with theme
+.nav-item {
+  &:hover {
+    background-color: var(--theme-primary-50);
+    color: var(--theme-primary-700);
+
+    .nav-icon {
+      color: var(--theme-primary-600);
+    }
+  }
+
+  &.active {
+    background-color: var(--theme-primary-100) !important;
+    color: var(--theme-primary-700) !important;
+
+    .nav-icon {
+      color: var(--theme-primary-600) !important;
+    }
+
+    &::before {
+      background-color: var(--theme-primary-600) !important;
+    }
+  }
+}
+
+// Stats cards with theme
+.stat-card {
+  border-top: 3px solid var(--theme-primary-500);
+
+  &:hover {
+    box-shadow: 0 10px 30px -5px rgba(var(--theme-primary-500-rgb, 59, 130, 246), 0.3);
+  }
+}
+
+// Dashboard elements
+.text-blue-500,
+.text-blue-600 {
+  color: var(--theme-primary-600) !important;
+}
+
+.bg-blue-50,
+.bg-blue-100 {
+  background-color: var(--theme-primary-50) !important;
+}
+
+.bg-blue-500,
+.bg-blue-600 {
+  background-color: var(--theme-primary-500) !important;
+}
+
+.border-blue-500,
+.border-blue-600 {
+  border-color: var(--theme-primary-500) !important;
+}
+
+// Hover states for interactive elements
+button:not(.mat-mdc-button):not([mat-button]):hover,
+.clickable:hover {
+  background-color: var(--theme-primary-50);
+  color: var(--theme-primary-700);
+  border-color: var(--theme-primary-300);
+}
+
+// Focus states
+*:focus-visible {
+  outline: 2px solid var(--theme-primary-500);
+  outline-offset: 2px;
+}
+
+// Selection color
+::selection {
+  background-color: var(--theme-primary-200);
+  color: var(--theme-primary-900);
+}
+
+// Scrollbar theming
+::-webkit-scrollbar-thumb {
+  background-color: var(--theme-primary-300);
+
+  &:hover {
+    background-color: var(--theme-primary-400);
+  }
+
+  &:active {
+    background-color: var(--theme-primary-500);
+  }
+}
+
+/* ===================================
+   Dark Mode Scheme
+   =================================== */
+
+body.dark-mode {
+  color-scheme: dark;
+
+  // Background colors
+  .bg-white {
+    background-color: #1e293b !important;
+    color: #e2e8f0;
+  }
+
+  .bg-gray-50 {
+    background-color: #0f172a !important;
+    color: #e2e8f0;
+  }
+
+  // Text colors
+  .text-gray-800 {
+    color: #e2e8f0 !important;
+  }
+
+  .text-gray-600 {
+    color: #cbd5e0 !important;
+  }
+
+  .text-gray-700 {
+    color: #a0aec0 !important;
+  }
+
+  .text-gray-500 {
+    color: #718096 !important;
+  }
+
+  // Borders
+  .border-gray-200 {
+    border-color: #334155 !important;
+  }
+
+  // Cards with theme
+  mat-card {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    border-left-color: var(--theme-primary-700);
+
+    &:hover {
+      border-left-color: var(--theme-primary-500);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  // Toolbar
+  .toolbar {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+
+    h1, button, mat-icon {
+      color: #e2e8f0 !important;
+    }
+  }
+
+  // Headings in dark mode use theme
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--theme-primary-400) !important;
+  }
+
+  // Links in dark mode
+  a {
+    color: var(--theme-primary-400);
+
+    &:hover {
+      color: var(--theme-primary-300);
+    }
+  }
+
+  // Navigation in dark mode
+  .nav-item {
+    &:hover {
+      background-color: rgba(var(--theme-primary-500-rgb, 59, 130, 246), 0.1);
+      color: var(--theme-primary-300);
+    }
+
+    &.active {
+      background-color: rgba(var(--theme-primary-500-rgb, 59, 130, 246), 0.2) !important;
+      color: var(--theme-primary-300) !important;
+
+      &::before {
+        background-color: var(--theme-primary-400) !important;
+      }
+    }
+  }
+
+  // Stats cards in dark mode
+  .stat-card {
+    background-color: #1e293b !important;
+    border-top-color: var(--theme-primary-500);
+  }
+
+  // Theme colors in dark mode
+  .text-blue-500,
+  .text-blue-600 {
+    color: var(--theme-primary-400) !important;
+  }
+
+  .bg-blue-50,
+  .bg-blue-100 {
+    background-color: rgba(var(--theme-primary-500-rgb, 59, 130, 246), 0.1) !important;
+  }
+
+  // Buttons in dark mode
+  button:not(.mat-mdc-button):hover {
+    background-color: rgba(var(--theme-primary-500-rgb, 59, 130, 246), 0.15);
+    color: var(--theme-primary-300);
+  }
+
+  // Sidebar (ya es oscuro, solo ajustar si es necesario)
+
+  // Settings panel in dark mode
+  .settings-panel {
+    background-color: #1e293b;
+
+    .settings-content {
+      background-color: #1e293b;
+    }
+
+    .settings-section-title {
+      color: #94a3b8;
+    }
+
+    .theme-option {
+      &:hover {
+        background-color: #334155;
+      }
+
+      &.active {
+        background-color: #334155;
+      }
+    }
+
+    .theme-label {
+      color: #cbd5e0;
+    }
+
+    .scheme-option {
+      background-color: #334155;
+      border-color: #475569;
+      color: #cbd5e0;
+
+      mat-icon {
+        color: #cbd5e0;
+      }
+
+      &:hover {
+        background-color: #475569;
+      }
+    }
+  }
+
+  // Stats cards backgrounds
+  .stat-card {
+    background-color: #1e293b !important;
+  }
+
+  // Form inputs
+  input, textarea, select {
+    background-color: #334155 !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+  }
+}
+

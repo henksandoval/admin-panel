@@ -5,6 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { LayoutService } from '../../services/layout.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { SettingsPanelComponent } from '../settings-panel/settings-panel.component';
 
 @Component({
   selector: 'app-layout',
@@ -14,7 +15,8 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
     RouterOutlet,
     MatSidenavModule,
     SidebarComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SettingsPanelComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
