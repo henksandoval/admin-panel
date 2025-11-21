@@ -9,8 +9,9 @@
       [fixedTopGap]="0"
       [fixedBottomGap]="0"
       (backdropClick)="onBackdropClick()"
+      [class.collapsed]="sidebarCollapsed()"
       class="sidenav">
-      <app-sidebar></app-sidebar>
+      <app-sidebar [collapsed]="sidebarCollapsed()"></app-sidebar>
     </mat-sidenav>
 
     <!-- Main Content -->

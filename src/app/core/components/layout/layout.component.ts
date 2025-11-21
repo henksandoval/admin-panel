@@ -26,6 +26,7 @@ export class LayoutComponent {
 
   protected readonly sidebarOpened = this.layoutService.sidebarOpened;
   protected readonly isMobile = this.layoutService.isMobile;
+  protected readonly sidebarCollapsed = this.layoutService.sidebarCollapsed;
 
   onBackdropClick(): void {
     if (this.isMobile()) {

@@ -5,11 +5,15 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   providedIn: 'root'
 })
 export class LayoutService {
+  private readonly STORAGE_KEY_COLLAPSED = 'sidebar-collapsed';
+
   private readonly _sidebarOpened = signal(true);
   private readonly _isMobile = signal(false);
+  private readonly _sidebarCollapsed = signal(this.loadCollapsedState());
 
   readonly sidebarOpened = this._sidebarOpened.asReadonly();
   readonly isMobile = this._isMobile.asReadonly();
+  readonly sidebarCollapsed = this._sidebarCollapsed.asReadonly();
 
   constructor(private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver
@@ -33,6 +37,21 @@ export class LayoutService {
 
   openSidebar(): void {
     this._sidebarOpened.set(true);
+  }
+
+  toggleSidebarCollapse(): void {
+    const newState = !this._sidebarCollapsed();
+    this._sidebarCollapsed.set(newState);
+    this.saveCollapsedState(newState);
+  }
+
+  private loadCollapsedState(): boolean {
+    const stored = localStorage.getItem(this.STORAGE_KEY_COLLAPSED);
+    return stored === 'true';
+  }
+
+  private saveCollapsedState(collapsed: boolean): void {
+    localStorage.setItem(this.STORAGE_KEY_COLLAPSED, String(collapsed));
   }
 }
 

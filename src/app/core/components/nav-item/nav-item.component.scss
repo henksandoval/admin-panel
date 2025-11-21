@@ -69,11 +69,19 @@
 }
 
 .nav-badge {
-  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
   line-height: 1;
-  min-width: 20px;
+  min-width: 18px;
+  height: 18px;
+  padding: 2px 6px;
+  border-radius: 9px;
   text-align: center;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .nav-children {
@@ -89,5 +97,157 @@
 // Nivel 0 - Sin indentación extra
 .level-0 > .nav-item {
   // Ya tiene el padding base
+}
+
+// Collapsed state
+.nav-item-wrapper {
+  position: relative; // Important for floating submenu positioning
+
+  &.collapsed {
+    &.level-0 {
+      .nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .nav-icon {
+        margin: 0;
+      }
+
+      .nav-title,
+      .nav-arrow,
+      .nav-badge {
+        display: none;
+      }
+    }
+  }
+}
+
+// Floating Submenu
+.floating-submenu {
+  position: fixed; // Changed to fixed for better positioning
+  min-width: 240px;
+  background: #1e293b;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  margin-left: 8px;
+  z-index: 1500; // Higher z-index
+  animation: slideIn 0.15s ease;
+  pointer-events: auto; // Ensure it can receive mouse events
+
+  .submenu-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    font-size: 14px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      color: var(--theme-primary-400);
+    }
+  }
+
+  .submenu-items {
+    padding: 8px 0;
+    max-height: 400px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Position adjustments for nested items in floating menu
+.floating-submenu {
+  // Level 1 items (direct children)
+  > .submenu-items > .nav-item-wrapper {
+    .nav-item {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+  }
+
+  // Level 2 items (nested inside level 1)
+  .nav-children .nav-item-wrapper {
+    .nav-item {
+      padding-left: 32px !important; // More indent for level 2
+      padding-right: 16px !important;
+    }
+  }
+
+  // Level 3 items (nested inside level 2)
+  .nav-children .nav-children .nav-item-wrapper {
+    .nav-item {
+      padding-left: 48px !important; // Even more indent for level 3
+      padding-right: 16px !important;
+    }
+  }
+
+  // Collapsable items in floating submenu should show arrow
+  .nav-item.nav-collapsable {
+    .nav-arrow {
+      display: inline-flex !important;
+      visibility: visible !important;
+    }
+  }
+
+  // Children transitions in floating submenu
+  .nav-children {
+    transition: max-height 0.3s ease;
+    overflow: hidden;
+
+    &.open {
+      max-height: 2000px;
+      overflow: visible;
+    }
+  }
+
+  // Ensure badges are visible and styled in floating submenu
+  .nav-badge {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    min-width: 18px;
+    height: 18px;
+    padding: 2px 6px;
+    border-radius: 9px;
+    margin-left: auto;
+  }
+
+  // Make sure title and badge are in a flex layout
+  .nav-title {
+    flex: 1;
+    display: block !important;
+  }
 }
 

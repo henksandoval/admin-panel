@@ -16,6 +16,12 @@
 .sidenav {
   width: 280px;
   border-right: none;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible !important; // Allow floating submenu to overflow
+
+  &.collapsed {
+    width: 64px;
+  }
 }
 
 .sidenav-content {

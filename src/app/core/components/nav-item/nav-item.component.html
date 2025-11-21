@@ -1,56 +1,103 @@
-<div class="nav-item-wrapper" [class.level-0]="level() === 0">
+<div
+  class="nav-item-wrapper"
+  [class.level-0]="level() === 0"
+  [class.collapsed]="sidebarCollapsed()">
+
   <!-- Item with children (collapsable) -->
   @if (item().type === 'collapsable') {
     <div
       class="nav-item nav-collapsable"
-      [style.padding-left]="getPaddingLeft()"
+      [class.has-submenu]="showSubmenu()"
+      [style.padding-left]="sidebarCollapsed() && level() === 0 ? '12px' : getPaddingLeft()"
       (click)="toggleCollapse()"
+      (mouseenter)="onMouseEnter($event)"
+      (mouseleave)="onMouseLeave()"
+      [matTooltip]="sidebarCollapsed() && level() === 0 ? getTooltipText() : ''"
+      matTooltipPosition="right"
+      [matTooltipDisabled]="!sidebarCollapsed() || level() > 0"
       matRipple>
 
       @if (item().icon) {
         <mat-icon class="nav-icon">{{ item().icon }}</mat-icon>
       }
 
-      <span class="nav-title">{{ item().title }}</span>
+      @if (!sidebarCollapsed() || level() > 0) {
+        <span class="nav-title">{{ item().title }}</span>
 
-      <mat-icon class="nav-arrow" [class.open]="isOpen()">
-        keyboard_arrow_down
-      </mat-icon>
-    </div>
-
-    <!-- Children -->
-    <div class="nav-children" [class.open]="isOpen()">
-      @for (child of item().children; track child.id) {
-        <app-nav-item
-          [item]="child"
-          [level]="level() + 1">
-        </app-nav-item>
+        <mat-icon class="nav-arrow" [class.open]="isOpen()">
+          keyboard_arrow_down
+        </mat-icon>
       }
     </div>
+
+    <!-- Regular Children (when not collapsed) -->
+    @if (!sidebarCollapsed() || level() > 0) {
+      <div class="nav-children" [class.open]="isOpen()">
+        @for (child of item().children; track child.id) {
+          <app-nav-item
+            [item]="child"
+            [level]="level() + 1"
+            [sidebarCollapsed]="sidebarCollapsed()"
+            [inFloatingSubmenu]="inFloatingSubmenu()">
+          </app-nav-item>
+        }
+      </div>
+    }
+
+    <!-- Floating Submenu (when collapsed and hovering) -->
+    @if (sidebarCollapsed() && level() === 0 && showSubmenu()) {
+      <div
+        class="floating-submenu"
+        [style.top.px]="submenuPosition().top"
+        [style.left.px]="submenuPosition().left"
+        (mouseenter)="onSubmenuMouseEnter()"
+        (mouseleave)="onSubmenuMouseLeave()">
+        <div class="submenu-header">
+          @if (item().icon) {
+            <mat-icon>{{ item().icon }}</mat-icon>
+          }
+          <span>{{ item().title }}</span>
+        </div>
+        <div class="submenu-items">
+          @for (child of item().children; track child.id) {
+            <app-nav-item
+              [item]="child"
+              [level]="1"
+              [sidebarCollapsed]="false"
+              [inFloatingSubmenu]="true">
+            </app-nav-item>
+          }
+        </div>
+      </div>
+    }
   }
 
   <!-- Simple item with link -->
   @if (item().type === 'item') {
     <a
       class="nav-item nav-link"
-      [style.padding-left]="getPaddingLeft()"
+      [style.padding-left]="sidebarCollapsed() && level() === 0 ? '12px' : getPaddingLeft()"
       [routerLink]="item().url"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{exact: false}"
       (click)="onItemClick()"
+      [matTooltip]="sidebarCollapsed() && level() === 0 ? getTooltipText() : ''"
+      matTooltipPosition="right"
+      [matTooltipDisabled]="!sidebarCollapsed() || level() > 0"
       matRipple>
 
       @if (item().icon) {
         <mat-icon class="nav-icon">{{ item().icon }}</mat-icon>
       }
 
-      <span class="nav-title">{{ item().title }}</span>
+      @if (!sidebarCollapsed() || level() > 0) {
+        <span class="nav-title">{{ item().title }}</span>
 
-      @if (item().badge) {
-        <span
-          class="nav-badge {{ item().badge!.bg }} {{ item().badge!.fg }} text-xs font-semibold px-2 py-0.5 rounded-full ml-auto">
-          {{ item().badge!.title }}
-        </span>
+        @if (item().badge) {
+          <span class="nav-badge {{ item().badge!.bg }} {{ item().badge!.fg }}">
+            {{ item().badge!.title }}
+          </span>
+        }
       }
     </a>
   }

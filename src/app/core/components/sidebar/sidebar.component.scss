@@ -9,18 +9,44 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible; // Allow floating submenu to overflow
+
+  &.collapsed {
+    .sidebar-header {
+      padding: 16px 8px;
+    }
+
+    .sidebar-nav {
+      overflow-x: visible; // Allow submenu to show outside
+    }
+  }
 }
 
 .sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 24px 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
+  transition: padding 0.3s ease;
+}
+
+.collapse-toggle {
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.08);
+  }
 }
 
 .sidebar-nav {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible; // Changed to visible to allow floating submenu
   padding: 16px 0;
 
   /* Custom scrollbar */
