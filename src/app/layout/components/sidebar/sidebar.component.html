@@ -1,5 +1,4 @@
 <div class="sidebar-container" [class.collapsed]="collapsed()">
-  <!-- Logo / Brand -->
   <div class="sidebar-header">
     <div class="flex items-center gap-3 flex-1 min-w-0">
       <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -13,7 +12,6 @@
       }
     </div>
 
-    <!-- Toggle Collapse Button -->
     <button
       mat-icon-button
       (click)="toggleCollapse()"
@@ -25,14 +23,12 @@
     </button>
   </div>
 
-  <!-- Navigation -->
   <nav class="sidebar-nav">
     @for (item of navigation(); track item.id) {
       <app-nav-item [item]="item" [level]="0" [sidebarCollapsed]="collapsed()"></app-nav-item>
     }
   </nav>
 
-  <!-- Footer -->
   <div class="sidebar-footer">
     <div class="text-gray-500 text-xs text-center">
       © 2025 Admin Panel

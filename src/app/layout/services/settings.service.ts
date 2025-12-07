@@ -14,13 +14,11 @@ export interface SettingsConfig {
 export class SettingsService {
   private readonly STORAGE_KEY = 'app-settings';
 
-  // Estado de la configuración
   private readonly _config = signal<SettingsConfig>(this.loadSettings());
 
   readonly config = this._config.asReadonly();
 
   constructor() {
-    // Guardar cambios automáticamente
     effect(() => {
       const config = this._config();
       this.saveSettings(config);
@@ -28,7 +26,6 @@ export class SettingsService {
       this.applyScheme(config.scheme);
     });
 
-    // Aplicar configuración inicial
     this.applyTheme(this._config().theme);
     this.applyScheme(this._config().scheme);
   }
@@ -61,13 +58,11 @@ export class SettingsService {
   }
 
   private applyTheme(theme: Theme): void {
-    // Remover todas las clases de tema anteriores
     const themes: Theme[] = ['default', 'brand', 'teal', 'rose', 'purple', 'amber'];
     themes.forEach(t => {
       document.body.classList.remove(`theme-${t}`);
     });
 
-    // Aplicar nuevo tema
     document.body.classList.add(`theme-${theme}`);
   }
 

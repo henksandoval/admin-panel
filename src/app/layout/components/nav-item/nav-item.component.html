@@ -3,7 +3,6 @@
   [class.level-0]="level() === 0"
   [class.collapsed]="sidebarCollapsed()">
 
-  <!-- Item with children (collapsable) -->
   @if (item().type === 'collapsable') {
     <div
       class="nav-item nav-collapsable"
@@ -30,7 +29,6 @@
       }
     </div>
 
-    <!-- Regular Children (when not collapsed) -->
     @if (!sidebarCollapsed() || level() > 0) {
       <div class="nav-children" [class.open]="isOpen()">
         @for (child of item().children; track child.id) {
@@ -44,7 +42,6 @@
       </div>
     }
 
-    <!-- Floating Submenu (when collapsed and hovering) -->
     @if (sidebarCollapsed() && level() === 0 && showSubmenu()) {
       <div
         class="floating-submenu"
@@ -72,7 +69,6 @@
     }
   }
 
-  <!-- Simple item with link -->
   @if (item().type === 'item') {
     <a
       class="nav-item nav-link"

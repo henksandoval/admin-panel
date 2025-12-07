@@ -25,7 +25,7 @@ export class NavItemComponent {
   item = input.required<NavigationItem>();
   level = input<number>(0);
   sidebarCollapsed = input<boolean>(false);
-  inFloatingSubmenu = input<boolean>(false); // Track if we're inside floating submenu
+  inFloatingSubmenu = input<boolean>(false);
 
   protected readonly isOpen = signal(false);
   protected readonly showSubmenu = signal(false);
@@ -41,7 +41,6 @@ export class NavItemComponent {
   }
 
   onItemClick(): void {
-    // Si es un item con URL y estamos en móvil, cerrar el sidebar
     if (this.item().type === 'item' && this.layoutService.isMobile()) {
       this.layoutService.closeSidebar();
     }
@@ -64,7 +63,6 @@ export class NavItemComponent {
 
   onMouseLeave(): void {
     if (this.sidebarCollapsed()) {
-      // Small delay to allow moving to submenu
       setTimeout(() => {
         if (!this.isHoveringSubmenu()) {
           this.showSubmenu.set(false);
@@ -84,12 +82,6 @@ export class NavItemComponent {
 
   private isHoveringSubmenu(): boolean {
     return this.hoveringSubmenu();
-  }
-
-  getIndentClass(): string {
-    const level = this.level();
-    if (level === 0) return '';
-    return `pl-${level * 4}`;
   }
 
   getPaddingLeft(): string {

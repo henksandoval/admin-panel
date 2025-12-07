@@ -8,9 +8,7 @@
   <mat-icon>settings</mat-icon>
 </button>
 
-<!-- Settings Panel -->
 <div class="settings-panel" [class.open]="isOpen">
-  <!-- Header -->
   <div class="settings-header">
     <div class="flex items-center gap-3">
       <mat-icon class="text-white">settings</mat-icon>
@@ -25,12 +23,9 @@
     </button>
   </div>
 
-  <!-- Content -->
   <div class="settings-content">
-    <!-- THEME Section -->
     <div class="settings-section">
       <h3 class="settings-section-title">THEME</h3>
-
       <div class="theme-grid">
         @for (theme of themes; track theme.id) {
           <button
@@ -49,10 +44,8 @@
       </div>
     </div>
 
-    <!-- SCHEME Section -->
     <div class="settings-section">
       <h3 class="settings-section-title">SCHEME</h3>
-
       <div class="scheme-grid">
         @for (scheme of schemes; track scheme.id) {
           <button
@@ -69,7 +62,6 @@
   </div>
 </div>
 
-<!-- Backdrop -->
 @if (isOpen) {
   <div class="settings-backdrop" (click)="closePanel()"></div>
 }

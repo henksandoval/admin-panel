@@ -8,14 +8,11 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <!-- Breadcrumbs o título de página -->
     <div class="flex-1">
       <h1 class="text-xl font-semibold text-gray-800 m-0">Dashboard</h1>
     </div>
 
-    <!-- Actions -->
     <div class="flex items-center gap-2">
-      <!-- Search -->
       <button
         mat-icon-button
         class="text-gray-700"
@@ -23,7 +20,6 @@
         <mat-icon>search</mat-icon>
       </button>
 
-      <!-- Notifications -->
       <button
         mat-icon-button
         [matMenuTriggerFor]="notificationsMenu"
@@ -50,7 +46,6 @@
         </button>
       </mat-menu>
 
-      <!-- User Menu -->
       <button
         mat-icon-button
         [matMenuTriggerFor]="userMenu"
