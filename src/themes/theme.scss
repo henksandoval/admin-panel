@@ -1,0 +1,53 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use 'theme_colors' as theme-colors;
+
+// ================================================
+// SHARED THEME CONFIGURATION
+// ================================================
+
+$base-typography: (
+  brand-family: 'Poppins, Inter, sans-serif',
+  plain-family: 'Plus Jakarta Sans, Inter, sans-serif',
+);
+
+// ================================================
+// SIMPLIFIED THEME GENERATION
+// ================================================
+
+$themes: ();
+
+@each $color-name, $primary-palette in theme-colors.$primary-color-options {
+  // Create light theme - simplified structure
+  $light-theme: mat.define-theme((
+    color: (
+      theme-type: light,
+      primary: $primary-palette,
+      tertiary: theme-colors.$tertiary-palette,
+    ),
+    typography: $base-typography
+  ));
+
+  // Create dark theme - simplified structure
+  $dark-theme: mat.define-theme((
+    color: (
+      theme-type: dark,
+      primary: $primary-palette,
+      tertiary: theme-colors.$tertiary-palette,
+    ),
+    typography: $base-typography
+  ));
+
+  // Store themes in map
+  $themes: map.set($themes, $color-name, (
+    'light': $light-theme,
+    'dark': $dark-theme
+  ));
+}
+
+// ================================================
+// BACKWARD COMPATIBILITY (Default themes)
+// ================================================
+
+$light-theme: map.get(map.get($themes, 'default'), 'light');
+$dark-theme: map.get(map.get($themes, 'default'), 'dark');

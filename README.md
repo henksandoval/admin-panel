@@ -4,14 +4,15 @@ Panel de administración profesional construido con Angular 20, diseñado con un
 
 ## ✨ Características
 
-- 🎨 **Tailwind CSS First** - Sistema de estilos utility-first para desarrollo rápido
-- 🌙 **Dark Mode** - Tema oscuro/claro con persistencia
+- 🎨 **6 Temas de Colores** - Default, Brand, Teal, Rose, Purple, Amber con cambio en tiempo real
+- 🌙 **Dark Mode Completo** - Light/Dark mode para cada tema con persistencia
 - 📱 **Responsive** - Diseño adaptable para móvil, tablet y desktop
 - 🏗️ **Screaming Architecture** - Organizado por features/dominios
-- 🎭 **Material Design 3** - Componentes UI modernos
+- 🎭 **Material Design 3** - Componentes UI modernos con paletas completas
 - ⚡ **Angular 20** - Última versión con standalone components y signals
 - 🔒 **Type-Safe** - TypeScript estricto
 - 🚀 **Optimizado** - Build de producción optimizado
+- ⚙️ **Settings Panel** - Panel de configuración con cambio de temas instantáneo
 
 ## 🚀 Inicio Rápido
 
@@ -58,38 +59,54 @@ src/
 │   ├── features/               # Features/módulos por dominio
 │   │   └── dashboard/         # Feature de dashboard
 │   ├── layout/                # Layout principal y componentes
-│   │   ├── components/       # Sidebar, Toolbar, etc.
-│   │   └── services/         # Servicios de layout
+│   │   ├── components/       # Sidebar, Toolbar, Settings Panel
+│   │   └── services/         # Settings, Layout, Navigation services
 │   └── shared/               # Componentes, pipes, directivas compartidas
-└── styles.scss               # TODO el sistema de estilos (168 líneas)
+├── styles.scss               # Entry point (importa themes)
+└── themes/                   # Sistema de múltiples temas
+    ├── styles.scss          # Generador de CSS para 6 temas
+    ├── theme.scss           # Loop de creación de temas
+    └── theme_colors.scss    # 6 paletas Material 3 completas
 ```
 
-## 🎨 Sistema de Estilos
+## 🎨 Sistema de Temas Múltiples
 
-Este proyecto usa un enfoque **Tailwind-First** que facilita el desarrollo:
+Este proyecto implementa un sistema completo de tematización con 6 colores disponibles:
 
-### Características
+### 🎨 Temas Disponibles
 
+| Tema | Color | Hex Code |
+|------|-------|----------|
+| Default | Blue | `#3b82f6` |
+| Brand | Cyan | `#06b6d4` |
+| Teal | Teal | `#14b8a6` |
+| Rose | Rose | `#f43f5e` |
+| Purple | Purple | `#a855f7` |
+| Amber | Amber | `#f59e0b` |
+
+Cada tema incluye:
+- ✅ Paleta Material Design 3 completa (tonalidades 0-100)
+- ✅ Modo claro (Light Mode)
+- ✅ Modo oscuro (Dark Mode)
+- ✅ Cambio en tiempo real sin recompilar
+- ✅ Persistencia en localStorage
+
+### Características del Sistema
+
+- ✅ **Cambio instantáneo** - Click en Settings Panel y todo cambia
 - ✅ **95% Tailwind** - Clases utility directamente en HTML
-- ✅ **5% CSS Custom** - Solo para casos especiales
-- ✅ **Dark Mode incluido** - Con toggle en toolbar
+- ✅ **Material 3 integrado** - Todos los componentes responden al tema
 - ✅ **Sincronizado** - Tailwind + Material Design coordinados
 
-### Ejemplo Rápido
+### Ejemplo de Uso
 
-```html
-<!-- Card con dark mode -->
-<div class="bg-white dark:bg-secondary-800 p-6 rounded-lg shadow-md">
-  <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-    Título
-  </h3>
-  <p class="text-gray-600 dark:text-gray-400">
-    Contenido que funciona en light y dark mode
-  </p>
-</div>
+```typescript
+// Cambiar tema programáticamente
+settingsService.setTheme('purple');
+settingsService.setScheme('dark');
 ```
 
-**📖 [Ver Guía Completa de Estilos](./STYLES-GUIDE.md)**
+**📖 [Ver Guía Completa del Sistema de Temas](./MULTI-THEME-SYSTEM.md)**
 
 ## 🛠️ Comandos Disponibles
 

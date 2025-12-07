@@ -1,21 +1,19 @@
-<mat-toolbar class="toolbar bg-white border-b border-gray-200">
+<mat-toolbar class="toolbar">
   <div class="flex items-center gap-2 flex-1">
     <button
       mat-icon-button
       (click)="toggleSidebar()"
-      class="text-gray-700"
       aria-label="Toggle sidebar">
       <mat-icon>menu</mat-icon>
     </button>
 
     <div class="flex-1">
-      <h1 class="text-xl font-semibold text-gray-800 m-0">Dashboard</h1>
+      <h1 class="text-xl font-semibold m-0">Dashboard</h1>
     </div>
 
     <div class="flex items-center gap-2">
       <button
         mat-icon-button
-        class="text-gray-700"
         aria-label="Search">
         <mat-icon>search</mat-icon>
       </button>
@@ -23,25 +21,24 @@
       <button
         mat-icon-button
         [matMenuTriggerFor]="notificationsMenu"
-        class="text-gray-700"
         aria-label="Notifications">
         <mat-icon [matBadge]="5" matBadgeColor="warn" matBadgeSize="small">notifications</mat-icon>
       </button>
 
       <mat-menu #notificationsMenu="matMenu">
-        <div class="px-4 py-3 border-b border-gray-200">
-          <h3 class="text-sm font-semibold text-gray-800 m-0">Notificaciones</h3>
+        <div class="px-4 py-3 border-b border-gray-200 dark:border-secondary-700">
+          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 m-0">Notificaciones</h3>
         </div>
         <button mat-menu-item>
-          <mat-icon class="text-blue-500">info</mat-icon>
+          <mat-icon class="text-theme-600">info</mat-icon>
           <span class="text-sm">Nueva actualización disponible</span>
         </button>
         <button mat-menu-item>
-          <mat-icon class="text-green-500">check_circle</mat-icon>
+          <mat-icon class="text-success-600">check_circle</mat-icon>
           <span class="text-sm">Tarea completada</span>
         </button>
         <button mat-menu-item>
-          <mat-icon class="text-yellow-500">warning</mat-icon>
+          <mat-icon class="text-warning-600">warning</mat-icon>
           <span class="text-sm">Advertencia del sistema</span>
         </button>
       </mat-menu>
@@ -49,15 +46,14 @@
       <button
         mat-icon-button
         [matMenuTriggerFor]="userMenu"
-        class="text-gray-700"
         aria-label="User menu">
         <mat-icon>account_circle</mat-icon>
       </button>
 
       <mat-menu #userMenu="matMenu">
-        <div class="px-4 py-3 border-b border-gray-200">
-          <p class="text-sm font-semibold text-gray-800 m-0">Admin User</p>
-          <p class="text-xs text-gray-500 m-0">admin@example.com</p>
+        <div class="px-4 py-3 border-b border-gray-200 dark:border-secondary-700">
+          <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 m-0">Admin User</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 m-0">admin@example.com</p>
         </div>
         <button mat-menu-item>
           <mat-icon>person</mat-icon>

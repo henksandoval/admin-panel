@@ -21,32 +21,32 @@ export class DashboardComponent {
       value: '$45,231',
       change: '+12%',
       icon: 'attach_money',
-      color: 'text-green-500',
-      bgColor: 'bg-green-50'
+      color: 'text-success-600',
+      bgColor: 'bg-success-50'
     },
     {
       title: 'Usuarios',
       value: '2,543',
       change: '+8%',
       icon: 'people',
-      color: 'text-blue-500',
-      bgColor: 'bg-blue-50'
+      color: 'text-theme-600',
+      bgColor: 'bg-theme-100'
     },
     {
       title: 'Pedidos',
       value: '1,234',
       change: '+23%',
       icon: 'shopping_cart',
-      color: 'text-purple-500',
-      bgColor: 'bg-purple-50'
+      color: 'text-theme-600',
+      bgColor: 'bg-theme-100'
     },
     {
       title: 'Productos',
       value: '567',
       change: '+5%',
       icon: 'inventory_2',
-      color: 'text-orange-500',
-      bgColor: 'bg-orange-50'
+      color: 'text-warning-600',
+      bgColor: 'bg-warning-50'
     }
   ];
 }

@@ -5,12 +5,37 @@
 .toolbar {
   height: 64px;
   padding: 0 16px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 10;
+  background: linear-gradient(135deg, var(--theme-primary-600) 0%, var(--theme-primary-700) 100%);
+  color: white;
+  transition: background 0.3s ease;
+
+  // Override Material's default colors for buttons inside toolbar
+  button {
+    color: white;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, span {
+    color: white;
+  }
+
+  mat-icon {
+    color: white;
+  }
+}
+
+// Dark mode - mismo color pero más oscuro
+.dark-theme {
+  .toolbar {
+    background: linear-gradient(135deg, var(--theme-primary-700) 0%, var(--theme-primary-800) 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
 }
 
 mat-divider {
   margin: 8px 0;
+  border-top-color: rgba(255, 255, 255, 0.2);
 }
 

@@ -7,21 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Primary color - Blue (matching Material theme)
-        primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554',
-        },
-        // Secondary color - Slate/Gray
+        // NOTE: Primary colors are handled by CSS Variables (--theme-primary-*)
+        // These change dynamically based on selected theme in Settings Panel
+        // Use classes: bg-theme-500, text-theme-600, border-theme-400
+
+        // Secondary color - Slate/Gray (for neutral UI elements)
         secondary: {
           50: '#f8fafc',
           100: '#f1f5f9',
@@ -35,21 +25,7 @@ module.exports = {
           900: '#0f172a',
           950: '#020617',
         },
-        // Accent color - Cyan
-        accent: {
-          50: '#ecfeff',
-          100: '#cffafe',
-          200: '#a5f3fc',
-          300: '#67e8f9',
-          400: '#22d3ee',
-          500: '#06b6d4',
-          600: '#0891b2',
-          700: '#0e7490',
-          800: '#155e75',
-          900: '#164e63',
-          950: '#083344',
-        },
-        // Success
+        // Success (semantic color - always green)
         success: {
           50: '#f0fdf4',
           100: '#dcfce7',
@@ -87,19 +63,6 @@ module.exports = {
           700: '#b91c1c',
           800: '#991b1b',
           900: '#7f1d1d',
-        },
-        // Info
-        info: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
         },
       },
       fontFamily: {

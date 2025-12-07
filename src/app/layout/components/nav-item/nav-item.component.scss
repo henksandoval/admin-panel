@@ -24,7 +24,9 @@
   }
 
   &.active {
-    // Colors are managed by global theme system in styles.scss
+    background-color: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.95);
+
     &::before {
       content: '';
       position: absolute;
@@ -32,6 +34,11 @@
       top: 0;
       bottom: 0;
       width: 4px;
+      background-color: var(--theme-primary-400);
+    }
+
+    .nav-icon {
+      color: var(--theme-primary-400);
     }
   }
 }
@@ -127,7 +134,7 @@
 .floating-submenu {
   position: fixed; // Changed to fixed for better positioning
   min-width: 240px;
-  background: #1e293b;
+  background: var(--theme-primary-800);
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
   margin-left: 8px;
