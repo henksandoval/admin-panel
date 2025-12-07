@@ -34,12 +34,21 @@
   flex: 1;
   overflow-y: auto;
   min-height: 0;
+  background-color: var(--color-surface);
+  transition: background-color 0.3s ease;
 }
 
 .content-wrapper {
   padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+// Dark mode adjustments
+.dark-theme {
+  .main-content {
+    @apply bg-secondary-900;
+  }
 }
 
 // Responsive adjustments

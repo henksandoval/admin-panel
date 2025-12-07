@@ -1,46 +1,175 @@
+// ================================================
+// ADMIN PANEL - MAIN STYLES
+// ================================================
+// Complete styling system with Tailwind + Material Design
 
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+// ================================================
+// MATERIAL DESIGN 3 THEME
+// ================================================
+
+// Light theme using Material 3 Blue palette (matching Tailwind primary)
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: (
+    brand-family: 'Inter, system-ui, -apple-system, sans-serif',
+    plain-family: 'Inter, system-ui, -apple-system, sans-serif',
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+// Dark theme
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: (
+    brand-family: 'Inter, system-ui, -apple-system, sans-serif',
+    plain-family: 'Inter, system-ui, -apple-system, sans-serif',
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+// ================================================
+// TAILWIND CSS
+// ================================================
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+// ================================================
+// ANGULAR MATERIAL CORE
+// ================================================
+@include mat.core();
+
+// ================================================
+// LIGHT THEME (Default)
+// ================================================
+:root,
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+
+  // Custom CSS variables for easy access
+  --color-background: #ffffff;
+  --color-surface: #f9fafb;
+  --color-on-background: #1f2937;
+  --color-on-surface: #374151;
+  --color-border: #e5e7eb;
+  --color-hover: #f3f4f6;
+}
+
+// ================================================
+// DARK THEME
+// ================================================
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+
+  // Custom CSS variables for dark mode
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-on-background: #f1f5f9;
+  --color-on-surface: #e2e8f0;
+  --color-border: #334155;
+  --color-hover: #334155;
+
+  // Dark mode specific adjustments
+  color-scheme: dark;
+}
+
+// ================================================
+// GLOBAL STYLES
+// ================================================
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
-  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// ================================================
+// MATERIAL OVERRIDES (Minimal)
+// ================================================
+
+// Reduce default mat-card padding for better control with Tailwind
+mat-card {
+  padding: 0 !important;
+}
+
+// Make Material components work better with Tailwind
+.mat-mdc-card {
+  padding: 0 !important;
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: var(--color-surface);
+}
+
+// Smooth transitions for theme changes
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Disable transitions for specific elements
+button, input, select, textarea {
+  transition-property: none;
+}
+
+// ================================================
+// CUSTOM UTILITIES
+// ================================================
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-hover);
+}
+
+// Dark theme scrollbar
+.dark-theme {
+  ::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+}
 
 /* ===================================
    Theme System - Complete UI Theming
