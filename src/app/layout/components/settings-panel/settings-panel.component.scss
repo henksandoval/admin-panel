@@ -1,8 +1,4 @@
-:host {
-  display: block;
-}
-
-// Floating Settings Button
+// Settings button
 .settings-button {
   position: fixed;
   bottom: 24px;
@@ -20,7 +16,7 @@
   }
 }
 
-// Settings Panel
+// Settings panel
 .settings-panel {
   position: fixed;
   top: 0;
@@ -45,7 +41,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 24px;
-  background: linear-gradient(135deg, var(--theme-primary-500) 0%, var(--theme-primary-700) 100%);
+  background: linear-gradient(135deg, var(--theme-primary-500), var(--theme-primary-700));
   flex-shrink: 0;
 }
 
@@ -73,7 +69,7 @@
   }
 }
 
-// Section
+// Sections
 .settings-section {
   margin-bottom: 32px;
 
@@ -91,13 +87,20 @@
   text-transform: uppercase;
 }
 
-// Theme Grid
+// Grids
 .theme-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
+.scheme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+// Theme options base styles
 .theme-option {
   display: flex;
   flex-direction: column;
@@ -114,16 +117,6 @@
     background: #f8fafc;
     border-color: #e2e8f0;
   }
-
-  &.active {
-    background: var(--theme-primary-50);
-    border-color: var(--theme-primary-500);
-
-    .theme-label {
-      color: var(--theme-primary-700);
-      font-weight: 600;
-    }
-  }
 }
 
 .theme-color {
@@ -136,17 +129,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   transition: transform 0.2s ease;
-
-  .theme-option:hover & {
-    transform: scale(1.1);
-  }
-
-  .check-icon {
-    color: white;
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
-  }
 }
 
 .theme-label {
@@ -155,13 +137,32 @@
   transition: all 0.2s ease;
 }
 
-// Scheme Grid
-.scheme-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+.check-icon {
+  color: white;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
 }
 
+// Active state with CSS variables
+.theme-option.active {
+  background: var(--theme-primary-50);
+  border-color: var(--theme-primary-500);
+
+  .theme-label {
+    color: var(--theme-primary-700);
+    font-weight: 600;
+  }
+}
+
+// Nested hover (can't do easily in Tailwind)
+.theme-color {
+  .theme-option:hover & {
+    transform: scale(1.1);
+  }
+}
+
+// Scheme options base styles
 .scheme-option {
   display: flex;
   flex-direction: column;
@@ -189,15 +190,16 @@
     border-color: #cbd5e0;
     transform: translateY(-2px);
   }
+}
 
-  &.active {
-    background: linear-gradient(135deg, var(--theme-primary-500) 0%, var(--theme-primary-700) 100%);
-    border-color: var(--theme-primary-500);
+// Active scheme gradient
+.scheme-option.active {
+  background: linear-gradient(135deg, var(--theme-primary-500), var(--theme-primary-700));
+  border-color: var(--theme-primary-500);
+  color: white;
+
+  mat-icon {
     color: white;
-
-    mat-icon {
-      color: white;
-    }
   }
 }
 

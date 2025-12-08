@@ -19,8 +19,8 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
     SettingsPanelComponent
   ],
   template: `
-    <div class="layout-container">
-      <mat-sidenav-container class="sidenav-container" autosize>
+    <div class="h-full w-full">
+      <mat-sidenav-container class="h-full w-full" autosize (backdropClick)="onBackdropClick()">
         <mat-sidenav
           #sidenav
           [mode]="isMobile() ? 'over' : 'side'"
@@ -28,16 +28,15 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
           [fixedInViewport]="isMobile()"
           [fixedTopGap]="0"
           [fixedBottomGap]="0"
-          (backdropClick)="onBackdropClick()"
           [class.collapsed]="sidebarCollapsed()"
           class="sidenav">
           <app-sidebar [collapsed]="sidebarCollapsed()"></app-sidebar>
         </mat-sidenav>
 
-        <mat-sidenav-content class="sidenav-content">
+        <mat-sidenav-content class="flex flex-col h-full">
           <app-toolbar></app-toolbar>
-          <main class="main-content bg-gray-50">
-            <div class="content-wrapper">
+          <main class="main-content flex-1 overflow-y-auto min-h-0">
+            <div class="p-6 md:p-6 max-w-[1400px] mx-auto">
               <router-outlet></router-outlet>
             </div>
           </main>

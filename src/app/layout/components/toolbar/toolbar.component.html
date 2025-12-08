@@ -1,25 +1,28 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar h-16 px-4 shadow-md relative z-10 text-white transition-all duration-300">
   <div class="flex items-center gap-2 flex-1">
     <button
       mat-icon-button
       (click)="toggleSidebar()"
+      class="text-white"
       aria-label="Toggle sidebar">
       <mat-icon>menu</mat-icon>
     </button>
 
     <div class="flex-1">
-      <h1 class="text-xl font-semibold m-0">Dashboard</h1>
+      <h1 class="text-xl font-semibold m-0 text-white">Dashboard</h1>
     </div>
 
     <div class="flex items-center gap-2">
       <button
         mat-icon-button
+        class="text-white"
         aria-label="Search">
         <mat-icon>search</mat-icon>
       </button>
 
       <button
         mat-icon-button
+        class="text-white"
         [matMenuTriggerFor]="notificationsMenu"
         aria-label="Notifications">
         <mat-icon [matBadge]="5" matBadgeColor="warn" matBadgeSize="small">notifications</mat-icon>
@@ -45,6 +48,7 @@
 
       <button
         mat-icon-button
+        class="text-white"
         [matMenuTriggerFor]="userMenu"
         aria-label="User menu">
         <mat-icon>account_circle</mat-icon>
@@ -53,7 +57,7 @@
       <mat-menu #userMenu="matMenu">
         <div class="px-4 py-3 border-b border-gray-200 dark:border-secondary-700">
           <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 m-0">Admin User</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 m-0">admin@example.com</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 m-0">admin&#64;example.com</p>
         </div>
         <button mat-menu-item>
           <mat-icon>person</mat-icon>
@@ -63,7 +67,7 @@
           <mat-icon>settings</mat-icon>
           <span>Configuración</span>
         </button>
-        <mat-divider></mat-divider>
+        <mat-divider class="my-2"></mat-divider>
         <button mat-menu-item>
           <mat-icon>logout</mat-icon>
           <span>Cerrar Sesión</span>

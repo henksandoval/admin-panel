@@ -6,7 +6,7 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
     @for (stat of stats; track stat.title) {
-      <mat-card class="stat-card app-card">
+      <mat-card class="stat-card app-card transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
         <mat-card-content class="p-6">
           <div class="flex items-start justify-between">
             <div class="flex-1">
@@ -51,19 +51,19 @@
       </mat-card-header>
       <mat-card-content class="p-6 pt-0">
         <div class="space-y-3">
-          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200">
+          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200 hover:translate-x-1">
             <mat-icon>add_circle</mat-icon>
             <span class="text-sm font-medium">Nuevo Producto</span>
           </button>
-          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200">
+          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200 hover:translate-x-1">
             <mat-icon>person_add</mat-icon>
             <span class="text-sm font-medium">Nuevo Cliente</span>
           </button>
-          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200">
+          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200 hover:translate-x-1">
             <mat-icon>receipt</mat-icon>
             <span class="text-sm font-medium">Nueva Orden</span>
           </button>
-          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200">
+          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200 hover:translate-x-1">
             <mat-icon>assessment</mat-icon>
             <span class="text-sm font-medium">Ver Reportes</span>
           </button>

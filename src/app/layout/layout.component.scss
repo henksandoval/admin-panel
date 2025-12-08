@@ -1,18 +1,10 @@
+// Host element
 :host {
   display: block;
   height: 100%;
 }
 
-.layout-container {
-  height: 100%;
-  width: 100%;
-}
-
-.sidenav-container {
-  height: 100%;
-  width: 100%;
-}
-
+// Sidenav width transition and overflow
 .sidenav {
   width: 280px;
   border-right: none;
@@ -24,37 +16,16 @@
   }
 }
 
-.sidenav-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
+// Main content background with CSS variable
 .main-content {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
   background-color: var(--color-surface);
   transition: background-color 0.3s ease;
 }
 
-.content-wrapper {
-  padding: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-// Dark mode adjustments
 .dark-theme {
   .main-content {
     @apply bg-secondary-900;
   }
 }
 
-// Responsive adjustments
-@media (max-width: 768px) {
-  .content-wrapper {
-    padding: 16px;
-  }
-}
 

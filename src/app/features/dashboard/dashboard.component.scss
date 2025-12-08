@@ -1,7 +1,4 @@
-:host {
-  display: block;
-}
-
+// Dashboard fade-in animation
 .dashboard-page {
   animation: fadeIn 0.3s ease-in-out;
 }
@@ -17,18 +14,4 @@
   }
 }
 
-.stat-card {
-  transition: all 0.2s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-  }
-}
-
-.action-button {
-  &:hover {
-    transform: translateX(4px);
-  }
-}
 

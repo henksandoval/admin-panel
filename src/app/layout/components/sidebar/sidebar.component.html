@@ -1,7 +1,7 @@
-<div class="sidebar-container" [class.collapsed]="collapsed()">
-  <div class="sidebar-header">
+<div class="flex flex-col h-full w-full transition-all duration-300 overflow-visible" [class.collapsed]="collapsed()">
+  <div class="flex items-center gap-2 px-4 py-6 border-b border-white/10 flex-shrink-0 transition-padding duration-300" [class.px-2]="collapsed()">
     <div class="flex items-center gap-3 flex-1 min-w-0">
-      <div class="logo-container">
+      <div class="logo-container w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300">
         <span class="text-white text-xl font-bold">A</span>
       </div>
       @if (!collapsed()) {
@@ -17,19 +17,19 @@
       (click)="toggleCollapse()"
       [matTooltip]="collapsed() ? 'Expandir sidebar' : 'Contraer sidebar'"
       matTooltipPosition="right"
-      class="collapse-toggle"
+      class="text-white/70 hover:text-white/95 hover:bg-white/10 flex-shrink-0"
       aria-label="Toggle sidebar collapse">
       <mat-icon>{{ collapsed() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
     </button>
   </div>
 
-  <nav class="sidebar-nav">
+  <nav class="sidebar-nav flex-1 overflow-y-auto overflow-x-visible py-4">
     @for (item of navigation(); track item.id) {
       <app-nav-item [item]="item" [level]="0" [sidebarCollapsed]="collapsed()"></app-nav-item>
     }
   </nav>
 
-  <div class="sidebar-footer">
+  <div class="px-4 py-4 border-t border-white/10 flex-shrink-0">
     <div class="text-gray-500 text-xs text-center">
       © 2025 Admin Panel
     </div>
