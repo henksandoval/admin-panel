@@ -1,6 +1,6 @@
 <!-- Settings Button (Floating) -->
 <button
-  class="settings-button"
+  class="settings-button shadow-lg hover:scale-110 active:scale-95 transition-transform duration-200 ease-in-out"
   mat-mini-fab
   color="primary"
   (click)="togglePanel()"
@@ -8,8 +8,8 @@
   <mat-icon>settings</mat-icon>
 </button>
 
-<div class="settings-panel flex flex-col" [class.open]="isOpen">
-  <div class="settings-header">
+<div class="settings-panel fixed top-0 w-[400px] h-screen bg-white dark:bg-secondary-800 shadow-2xl z-[1100] flex flex-col" [class.open]="isOpen">
+  <div class="settings-header flex items-center justify-between p-6 flex-shrink-0">
     <div class="flex items-center gap-3">
       <mat-icon class="text-white">settings</mat-icon>
       <h2 class="text-white text-xl font-semibold m-0">Settings</h2>
@@ -23,37 +23,37 @@
     </button>
   </div>
 
-  <div class="settings-content">
-    <div class="settings-section">
-      <h3 class="settings-section-title">THEME</h3>
-      <div class="theme-grid">
+  <div class="settings-content flex-1 overflow-y-auto p-6">
+    <div class="mb-8 last:mb-0">
+      <h3 class="text-[11px] font-semibold tracking-wide text-slate-500 dark:text-slate-400 m-0 mb-4 uppercase">THEME</h3>
+      <div class="grid grid-cols-3 gap-3">
         @for (theme of themes; track theme.id) {
           <button
-            class="theme-option"
+            class="theme-option flex flex-col items-center gap-2 p-3 bg-transparent border-2 border-transparent rounded-xl cursor-pointer transition-all duration-200 hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-200 dark:hover:border-slate-600"
             [class.active]="config().theme === theme.id"
             (click)="selectTheme(theme.id)"
             matRipple>
-            <div class="theme-color" [style.background-color]="theme.color">
+            <div class="theme-color w-12 h-12 rounded-full flex items-center justify-center shadow-md relative transition-transform duration-200" [style.background-color]="theme.color">
               @if (config().theme === theme.id) {
-                <mat-icon class="check-icon">check</mat-icon>
+                <mat-icon class="text-white text-2xl w-6 h-6">check</mat-icon>
               }
             </div>
-            <span class="theme-label">{{ theme.label }}</span>
+            <span class="theme-label text-[13px] text-slate-600 dark:text-slate-300 transition-all duration-200">{{ theme.label }}</span>
           </button>
         }
       </div>
     </div>
 
-    <div class="settings-section">
-      <h3 class="settings-section-title">SCHEME</h3>
-      <div class="scheme-grid">
+    <div class="mb-8 last:mb-0">
+      <h3 class="text-[11px] font-semibold tracking-wide text-slate-500 dark:text-slate-400 m-0 mb-4 uppercase">SCHEME</h3>
+      <div class="grid grid-cols-3 gap-3">
         @for (scheme of schemes; track scheme.id) {
           <button
-            class="scheme-option"
+            class="scheme-option flex flex-col items-center gap-2 py-4 px-3 bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl cursor-pointer transition-all duration-200 text-slate-500 dark:text-slate-300 text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-600 hover:border-slate-300 dark:hover:border-slate-500 hover:-translate-y-0.5"
             [class.active]="config().scheme === scheme.id"
             (click)="selectScheme(scheme.id)"
             matRipple>
-            <mat-icon>{{ scheme.icon }}</mat-icon>
+            <mat-icon class="text-[28px] w-7 h-7">{{ scheme.icon }}</mat-icon>
             <span>{{ scheme.label }}</span>
           </button>
         }
@@ -63,6 +63,6 @@
 </div>
 
 @if (isOpen) {
-  <div class="settings-backdrop" (click)="closePanel()"></div>
+  <div class="settings-backdrop fixed inset-0 bg-black/50 z-[1050]" (click)="closePanel()"></div>
 }
 
