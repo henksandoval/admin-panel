@@ -8,6 +8,54 @@
 @tailwind utilities;
 
 // ================================================
+// FUNCIONES SCSS PARA GRADIENTES
+// ================================================
+
+// Función para crear gradientes con variables CSS del tema
+// Uso: background: theme-gradient(135deg, 500, 700);
+@function theme-gradient($direction, $from-weight, $to-weight) {
+  @return linear-gradient($direction, var(--theme-primary-#{$from-weight}), var(--theme-primary-#{$to-weight}));
+}
+
+// Función para crear gradientes con colores específicos (para casos especiales)
+// Uso: background: custom-gradient(135deg, #3b82f6, #1d4ed8);
+@function custom-gradient($direction, $from-color, $to-color) {
+  @return linear-gradient($direction, $from-color, $to-color);
+}
+
+// Función para crear gradientes de 3 colores
+// Uso: background: theme-gradient-3(135deg, 400, 500, 700);
+@function theme-gradient-3($direction, $weight-1, $weight-2, $weight-3) {
+  @return linear-gradient($direction, var(--theme-primary-#{$weight-1}), var(--theme-primary-#{$weight-2}), var(--theme-primary-#{$weight-3}));
+}
+
+// ================================================
+// ALIASES DE PESOS DE COLOR (más legibles y "humanos")
+// ================================================
+// Estos aliases hacen el código más expresivo y fácil de entender
+// En lugar de recordar números, usas nombres descriptivos
+
+// Colores muy claros (para fondos, hover states ligeros)
+$color-lightest: 50;   // Casi blanco con toque de color
+$color-lighter: 100;   // Muy claro
+$light: 200;     // Claro
+
+// Colores medios claros (para elementos secundarios, borders)
+$color-medium-light: 300;  // Claro-medio
+$color-soft: 400;          // Suave, medio-claro
+
+// Color base (el color principal del tema)
+$color-base: 500;      // ⭐ Color principal/base
+
+// Colores medios oscuros (para elementos interactivos, botones)
+$color-medium: 600;    // Medio-oscuro
+$color-strong: 700;    // Fuerte, oscuro
+
+// Colores muy oscuros (para fondos oscuros, contraste alto)
+$color-darker: 800;    // Muy oscuro
+$color-darkest: 900;   // Casi negro con toque de color
+
+// ================================================
 // BASE THEMING (NO DUPLICATES)
 // ================================================
 

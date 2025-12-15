@@ -1,3 +1,5 @@
+@use '../../../../themes/functions' as theme;
+
 .settings-button {
   position: fixed;
   bottom: 24px;
@@ -14,8 +16,9 @@
   }
 }
 
+// Gradiente del header usando aliases legibles (base → strong)
 .settings-header {
-  background: linear-gradient(135deg, var(--theme-primary-500), var(--theme-primary-700));
+  background: theme.theme-gradient(135deg, theme.$base, theme.$strong);
 }
 
 .settings-content {
@@ -74,9 +77,10 @@
   }
 }
 
+// Gradiente del scheme option active usando aliases legibles (base → strong)
 .scheme-option.active {
-  background: linear-gradient(135deg, var(--theme-primary-500), var(--theme-primary-700));
-  border-color: var(--theme-primary-500);
+  background: theme.theme-gradient(135deg, theme.$base, theme.$strong);
+  border-color: var(--theme-primary-#{theme.$base});
   color: white;
 
   mat-icon {
