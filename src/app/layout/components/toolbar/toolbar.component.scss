@@ -1,9 +1,9 @@
-// Toolbar gradient (can't be done in Tailwind with CSS variables)
-.toolbar {
+//TODO: Esta clase deberá moverse al archivo de estilos globales de la aplicación
+.toolbar-gradient {
   background: linear-gradient(135deg, var(--theme-primary-600), var(--theme-primary-700));
 }
 
-.dark-theme .toolbar {
+.dark-theme .toolbar-gradient {
   background: linear-gradient(135deg, var(--theme-primary-700), var(--theme-primary-800));
 }
 
