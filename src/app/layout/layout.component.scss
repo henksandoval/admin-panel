@@ -1,31 +1,9 @@
-// Host element
-:host {
-  display: block;
-  height: 100%;
-}
-
-// Sidenav width transition and overflow
-.sidenav {
-  width: 280px;
-  border-right: none;
+﻿.sidenav {
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: visible !important; // Allow floating submenu to overflow
-
+  &:not(.collapsed) {
+    width: 280px;
+  }
   &.collapsed {
     width: 64px;
   }
 }
-
-// Main content background with CSS variable
-.main-content {
-  background-color: var(--color-surface);
-  transition: background-color 0.3s ease;
-}
-
-.dark-theme {
-  .main-content {
-    @apply bg-secondary-900;
-  }
-}
-
-

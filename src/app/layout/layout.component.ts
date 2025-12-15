@@ -18,6 +18,9 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
     ToolbarComponent,
     SettingsPanelComponent
   ],
+  host: {
+    class: 'block h-full'
+  },
   template: `
     <div class="h-full w-full">
       <mat-sidenav-container class="h-full w-full" autosize (backdropClick)="onBackdropClick()">
@@ -29,13 +32,13 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
           [fixedTopGap]="0"
           [fixedBottomGap]="0"
           [class.collapsed]="sidebarCollapsed()"
-          class="sidenav">
+          class="sidenav border-r-0 overflow-visible">
           <app-sidebar [collapsed]="sidebarCollapsed()"></app-sidebar>
         </mat-sidenav>
 
         <mat-sidenav-content class="flex flex-col h-full">
           <app-toolbar></app-toolbar>
-          <main class="main-content flex-1 overflow-y-auto min-h-0">
+          <main class="flex-1 overflow-y-auto min-h-0 bg-gray-50 dark:bg-secondary-900 transition-colors duration-300">
             <div class="p-6 md:p-6 max-w-[1400px] mx-auto">
               <router-outlet></router-outlet>
             </div>
