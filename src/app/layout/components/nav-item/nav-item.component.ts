@@ -18,6 +18,9 @@ import { LayoutService } from '../../services/layout.service';
     MatRippleModule,
     MatTooltipModule
   ],
+  host: {
+    class: 'block'
+  },
   templateUrl: './nav-item.component.html',
   styleUrl: './nav-item.component.scss'
 })

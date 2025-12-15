@@ -1,11 +1,11 @@
 <div
-  class="nav-item-wrapper"
+  class="nav-item-wrapper w-full relative"
   [class.level-0]="level() === 0"
   [class.collapsed]="sidebarCollapsed()">
 
   @if (item().type === 'collapsable') {
     <div
-      class="nav-item nav-collapsable"
+      class="nav-item nav-collapsable flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-200 text-white/70 text-sm no-underline relative hover:bg-white/10 hover:text-white/95"
       [class.has-submenu]="showSubmenu()"
       [style.padding-left]="sidebarCollapsed() && level() === 0 ? '12px' : getPaddingLeft()"
       (click)="toggleCollapse()"
@@ -17,20 +17,20 @@
       matRipple>
 
       @if (item().icon) {
-        <mat-icon class="nav-icon">{{ item().icon }}</mat-icon>
+        <mat-icon class="nav-icon text-[20px] w-5 h-5 flex-shrink-0">{{ item().icon }}</mat-icon>
       }
 
       @if (!sidebarCollapsed() || level() > 0) {
-        <span class="nav-title">{{ item().title }}</span>
+        <span class="nav-title flex-1 whitespace-nowrap overflow-hidden text-ellipsis">{{ item().title }}</span>
 
-        <mat-icon class="nav-arrow" [class.open]="isOpen()">
+        <mat-icon class="nav-arrow text-[20px] w-5 h-5 flex-shrink-0 transition-transform duration-200" [class.open]="isOpen()">
           keyboard_arrow_down
         </mat-icon>
       }
     </div>
 
     @if (!sidebarCollapsed() || level() > 0) {
-      <div class="nav-children" [class.open]="isOpen()">
+      <div class="nav-children overflow-hidden transition-[max-height] duration-300 ease-in-out" [class.open]="isOpen()">
         @for (child of item().children; track child.id) {
           <app-nav-item
             [item]="child"
@@ -44,18 +44,18 @@
 
     @if (sidebarCollapsed() && level() === 0 && showSubmenu()) {
       <div
-        class="floating-submenu"
+        class="floating-submenu fixed min-w-[240px] rounded-lg shadow-2xl ml-2 z-[1500] pointer-events-auto"
         [style.top.px]="submenuPosition().top"
         [style.left.px]="submenuPosition().left"
         (mouseenter)="onSubmenuMouseEnter()"
         (mouseleave)="onSubmenuMouseLeave()">
-        <div class="submenu-header">
+        <div class="submenu-header flex items-center gap-3 p-4 border-b border-white/10 text-white/95 font-semibold text-sm">
           @if (item().icon) {
-            <mat-icon>{{ item().icon }}</mat-icon>
+            <mat-icon class="text-[20px] w-5 h-5">{{ item().icon }}</mat-icon>
           }
           <span>{{ item().title }}</span>
         </div>
-        <div class="submenu-items">
+        <div class="submenu-items py-2 max-h-[400px] overflow-y-auto">
           @for (child of item().children; track child.id) {
             <app-nav-item
               [item]="child"
@@ -71,7 +71,7 @@
 
   @if (item().type === 'item') {
     <a
-      class="nav-item nav-link"
+      class="nav-item nav-link flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-200 text-white/70 text-sm no-underline relative hover:bg-white/10 hover:text-white/95"
       [style.padding-left]="sidebarCollapsed() && level() === 0 ? '12px' : getPaddingLeft()"
       [routerLink]="item().url"
       routerLinkActive="active"
@@ -83,14 +83,14 @@
       matRipple>
 
       @if (item().icon) {
-        <mat-icon class="nav-icon">{{ item().icon }}</mat-icon>
+        <mat-icon class="nav-icon text-[20px] w-5 h-5 flex-shrink-0">{{ item().icon }}</mat-icon>
       }
 
       @if (!sidebarCollapsed() || level() > 0) {
-        <span class="nav-title">{{ item().title }}</span>
+        <span class="nav-title flex-1 whitespace-nowrap overflow-hidden text-ellipsis">{{ item().title }}</span>
 
         @if (item().badge) {
-          <span class="nav-badge {{ item().badge!.bg }} {{ item().badge!.fg }}">
+          <span class="nav-badge inline-flex items-center justify-center text-[10px] font-semibold leading-none min-w-[18px] h-[18px] px-1.5 py-0.5 rounded-[9px] text-center flex-shrink-0 ml-auto {{ item().badge!.bg }} {{ item().badge!.fg }}">
             {{ item().badge!.title }}
           </span>
         }
