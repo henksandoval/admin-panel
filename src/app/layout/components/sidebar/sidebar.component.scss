@@ -1,20 +1,12 @@
-// Sidebar gradient (can't be done in Tailwind with CSS variables)
 :host {
-  display: block;
-  height: 100%;
   background: linear-gradient(180deg, var(--theme-primary-800), var(--theme-primary-900));
 }
 
-// Logo gradient
 .logo-container {
   background: linear-gradient(to bottom right, var(--theme-primary-500), var(--theme-primary-600));
-
-  &:hover {
-    transform: scale(1.05);
-  }
 }
 
-// Custom scrollbar (not available in Tailwind)
+//TODO: Pendiente de confirmar si se puede mover a estilos globales, para normalizar el scrollbar de toda la aplicación
 .sidebar-nav {
   &::-webkit-scrollbar {
     width: 6px;

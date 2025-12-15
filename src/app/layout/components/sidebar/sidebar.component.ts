@@ -17,6 +17,9 @@ import { NavItemComponent } from '../nav-item/nav-item.component';
     MatTooltipModule,
     NavItemComponent
   ],
+  host: {
+    class: 'block h-full'
+  },
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

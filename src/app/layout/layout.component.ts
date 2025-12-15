@@ -32,7 +32,7 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
           [fixedTopGap]="0"
           [fixedBottomGap]="0"
           [class.collapsed]="sidebarCollapsed()"
-          class="sidenav border-r-0 overflow-visible">
+          class="sidenav overflow-visible">
           <app-sidebar [collapsed]="sidebarCollapsed()"></app-sidebar>
         </mat-sidenav>
 
