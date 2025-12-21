@@ -18,7 +18,7 @@ import { NavItemComponent } from '../nav-item/nav-item.component';
     NavItemComponent
   ],
   host: {
-    class: 'block h-full'
+    class: 'block h-full bg-gradient-to-b from-theme-600 to-theme-700 dark:from-theme-700 dark:to-theme-800'
   },
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'

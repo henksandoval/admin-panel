@@ -20,13 +20,10 @@ import { LayoutService } from '../../services/layout.service';
     MatBadgeModule,
     MatDividerModule
   ],
-  templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.scss'
+  templateUrl: './toolbar.component.html'
 })
 export class ToolbarComponent {
   private layoutService = inject(LayoutService);
-
-  protected readonly isMobile = this.layoutService.isMobile;
 
   toggleSidebar(): void {
     this.layoutService.toggleSidebar();

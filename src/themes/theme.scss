@@ -1,6 +1,5 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@use 'theme_colors' as theme-colors;
 
 // ================================================
 // SHARED THEME CONFIGURATION
@@ -11,29 +10,130 @@ $base-typography: (
   plain-family: 'Plus Jakarta Sans, Inter, sans-serif',
 );
 
-// ================================================
-// SIMPLIFIED THEME GENERATION
-// ================================================
+@function css-var-palette($prefix) {
+  @return (
+    // Core tones (Material Design 3)
+    0: var(--color-full-black),
+    10: var(#{$prefix}-900),     // Darkest
+    20: var(#{$prefix}-800),
+    25: var(#{$prefix}-800),
+    30: var(#{$prefix}-700),
+    35: var(#{$prefix}-700),
+    40: var(#{$prefix}-600),
+    50: var(#{$prefix}-500),
+    60: var(#{$prefix}-500),     // Base color (primary)
+    70: var(#{$prefix}-400),
+    80: var(#{$prefix}-300),
+    90: var(#{$prefix}-200),
+    95: var(#{$prefix}-100),
+    98: var(#{$prefix}-50),
+    99: var(#{$prefix}-50),
+    100: var(--color-full-white),
+
+    secondary: (
+      0: var(--color-full-black),
+      10: var(--color-secondary-900),
+      20: var(--color-secondary-800),
+      25: var(--color-secondary-800),
+      30: var(--color-secondary-700),
+      35: var(--color-secondary-700),
+      40: var(--color-secondary-600),
+      50: var(--color-secondary-500),
+      60: var(--color-secondary-500),
+      70: var(--color-secondary-400),
+      80: var(--color-secondary-300),
+      90: var(--color-secondary-200),
+      95: var(--color-secondary-100),
+      98: var(--color-secondary-50),
+      99: var(--color-secondary-50),
+      100: var(--color-full-white),
+    ),
+
+    // Neutral palette (uses CSS Variables from _variables.scss)
+    neutral: (
+      0: var(--color-full-black),
+      10: var(--color-neutral-900),
+      20: var(--color-neutral-800),
+      25: var(--color-neutral-800),
+      30: var(--color-neutral-700),
+      35: var(--color-neutral-700),
+      40: var(--color-neutral-600),
+      50: var(--color-neutral-500),
+      60: var(--color-neutral-500),
+      70: var(--color-neutral-400),
+      80: var(--color-neutral-300),
+      90: var(--color-neutral-200),
+      95: var(--color-neutral-100),
+      98: var(--color-neutral-50),
+      99: var(--color-neutral-50),
+      100: var(--color-full-white),
+    ),
+
+    // Error palette (uses CSS Variables from _variables.scss)
+    error: (
+      0: var(--color-full-black),
+      10: var(--color-error-900),
+      20: var(--color-error-800),
+      25: var(--color-error-800),
+      30: var(--color-error-700),
+      35: var(--color-error-700),
+      40: var(--color-error-600),
+      50: var(--color-error-500),
+      60: var(--color-error-500),
+      70: var(--color-error-400),
+      80: var(--color-error-300),
+      90: var(--color-error-200),
+      95: var(--color-error-100),
+      98: var(--color-error-50),
+      99: var(--color-error-50),
+      100: var(--color-full-white),
+    ),
+
+    // Neutral variant (uses CSS Variables from _variables.scss)
+    neutral-variant: (
+      0: var(--color-full-black),
+      10: var(--color-neutral-900),
+      20: var(--color-neutral-800),
+      25: var(--color-neutral-800),
+      30: var(--color-neutral-700),
+      35: var(--color-neutral-700),
+      40: var(--color-neutral-600),
+      50: var(--color-neutral-500),
+      60: var(--color-neutral-500),
+      70: var(--color-neutral-400),
+      80: var(--color-neutral-300),
+      90: var(--color-neutral-200),
+      95: var(--color-neutral-100),
+      98: var(--color-neutral-50),
+      99: var(--color-neutral-50),
+      100: var(--color-full-white),
+    ),
+  );
+}
+
+// Tertiary palette (accent color - teal/green)
+$tertiary-palette: css-var-palette('--theme-primary');
 
 $themes: ();
+$color-names: ('default', 'brand', 'teal', 'rose', 'purple', 'amber');
 
-@each $color-name, $primary-palette in theme-colors.$primary-color-options {
-  // Create light theme - simplified structure
+@each $color-name in $color-names {
+  $primary-palette: css-var-palette('--theme-primary');
+
   $light-theme: mat.define-theme((
     color: (
       theme-type: light,
       primary: $primary-palette,
-      tertiary: theme-colors.$tertiary-palette,
+      tertiary: $tertiary-palette,
     ),
     typography: $base-typography
   ));
 
-  // Create dark theme - simplified structure
   $dark-theme: mat.define-theme((
     color: (
       theme-type: dark,
       primary: $primary-palette,
-      tertiary: theme-colors.$tertiary-palette,
+      tertiary: $tertiary-palette,
     ),
     typography: $base-typography
   ));
@@ -44,10 +144,6 @@ $themes: ();
     'dark': $dark-theme
   ));
 }
-
-// ================================================
-// BACKWARD COMPATIBILITY (Default themes)
-// ================================================
 
 $light-theme: map.get(map.get($themes, 'default'), 'light');
 $dark-theme: map.get(map.get($themes, 'default'), 'dark');

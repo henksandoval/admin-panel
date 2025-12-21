@@ -1,25 +1,4 @@
-@use '../../../../themes/functions' as theme;
-
-.settings-button {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 1000;
-}
-
-.settings-panel {
-  right: -400px;
-  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &.open {
-    right: 0;
-  }
-}
-
-// Gradiente del header usando aliases legibles (base → strong)
-.settings-header {
-  background: theme.theme-gradient(135deg, theme.$color-base, theme.$color-strong);
-}
+// El degradado del header y las opciones de esquema se han movido a Tailwind CSS en el HTML
 
 .settings-content {
   &::-webkit-scrollbar {
@@ -27,89 +6,27 @@
   }
 
   &::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--color-neutral-100);
 
     .dark-theme & {
-      background: #1e293b;
+      background: var(--color-secondary-800);
     }
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #cbd5e0;
+    background: var(--color-secondary-300);
     border-radius: 3px;
 
     &:hover {
-      background: #a0aec0;
+      background: var(--color-secondary-400);
     }
 
     .dark-theme & {
-      background: #475569;
+      background: var(--color-secondary-600);
 
       &:hover {
-        background: #64748b;
+        background: var(--color-secondary-500);
       }
     }
   }
 }
-
-.theme-option.active {
-  background: var(--theme-primary-50);
-  border-color: var(--theme-primary-500);
-
-  .theme-label {
-    color: var(--theme-primary-700);
-    font-weight: 600;
-  }
-
-  .dark-theme & {
-    background: rgba(var(--theme-primary-500), 0.1);
-    border-color: var(--theme-primary-400);
-
-    .theme-label {
-      color: var(--theme-primary-400);
-    }
-  }
-}
-
-.theme-color {
-  .theme-option:hover & {
-    transform: scale(1.1);
-  }
-}
-
-// Gradiente del scheme option active usando aliases legibles (base → strong)
-.scheme-option.active {
-  background: theme.theme-gradient(135deg, theme.$color-base, theme.$color-strong);
-  border-color: var(--theme-primary-#{theme.$color-base});
-  color: white;
-
-  mat-icon {
-    color: white;
-  }
-}
-
-.settings-backdrop {
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-// Responsive adjustments
-@media (max-width: 640px) {
-  .settings-button {
-    bottom: 16px;
-    right: 16px;
-  }
-
-  .settings-panel {
-    width: 100%;
-    right: -100%;
-  }
-}
-

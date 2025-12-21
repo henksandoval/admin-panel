@@ -22,7 +22,7 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
     class: 'block h-full'
   },
   template: `
-    <div class="h-full w-full">
+    <div class="h-full w-full relative">
       <mat-sidenav-container class="h-full w-full" autosize (backdropClick)="onBackdropClick()">
         <mat-sidenav
           #sidenav
@@ -38,15 +38,17 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
 
         <mat-sidenav-content class="flex flex-col h-full">
           <app-toolbar></app-toolbar>
-          <main class="flex-1 overflow-y-auto min-h-0 bg-gray-50 dark:bg-secondary-900 transition-colors duration-300">
-            <div class="p-6 md:p-6 max-w-[1400px] mx-auto">
+          <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-secondary-900 transition-colors duration-300">
+            <div class="p-6 md:p-6 max-w-[1400px] mx-auto w-full">
               <router-outlet></router-outlet>
             </div>
           </main>
         </mat-sidenav-content>
       </mat-sidenav-container>
 
-      <app-settings-panel></app-settings-panel>
+      <div class="fixed bottom-6 right-6 z-[1000] max-sm:bottom-4 max-sm:right-4">
+        <app-settings-panel></app-settings-panel>
+      </div>
     </div>
   `,
   styleUrl: './layout.component.scss'

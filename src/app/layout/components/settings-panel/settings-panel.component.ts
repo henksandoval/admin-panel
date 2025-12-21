@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +38,9 @@ export class SettingsPanelComponent {
   ];
 
   protected isOpen = false;
+
+  protected isThemeActive = computed(() => (themeId: Theme) => this.config().theme === themeId);
+  protected isSchemeActive = computed(() => (schemeId: Scheme) => this.config().scheme === schemeId);
 
   togglePanel(): void {
     this.isOpen = !this.isOpen;

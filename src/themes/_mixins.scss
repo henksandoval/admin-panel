@@ -1,0 +1,86 @@
+@mixin theme-background {
+  background: var(--theme-primary-600);
+}
+
+@mixin theme-background-gradient {
+  background: linear-gradient(
+      135deg,
+      var(--theme-primary-600),
+      var(--theme-primary-700)
+  );
+}
+
+@mixin theme-color {
+  color: var(--theme-primary-500);
+
+  .dark-theme & {
+    color: var(--theme-primary-400);
+  }
+}
+
+@mixin theme-surface {
+  background-color: var(--color-full-white);
+  color: var(--color-neutral-900);
+
+  .dark-theme & {
+    background-color: var(--color-secondary-800);
+    color: var(--color-neutral-50);
+  }
+}
+
+@mixin theme-border($width: 1px, $style: solid) {
+  border: $width $style var(--color-secondary-300);
+
+  .dark-theme & {
+    border-color: var(--color-secondary-700);
+  }
+}
+
+@mixin theme-text {
+  color: var(--color-neutral-900);
+
+  .dark-theme & {
+    color: var(--color-neutral-100);
+  }
+}
+
+@mixin theme-text-secondary {
+  color: var(--color-neutral-600);
+
+  .dark-theme & {
+    color: var(--color-neutral-400);
+  }
+}
+
+@mixin theme-text-on-primary {
+  color: var(--color-full-white);
+
+  h1, h2, h3, h4, h5, h6,
+  p, span, div, a {
+    color: var(--color-full-white);
+  }
+
+  .mat-icon,
+  mat-icon {
+    color: var(--color-full-white);
+  }
+
+  .mat-mdc-icon-button,
+  .mat-icon-button {
+    --mdc-icon-button-icon-color: var(--color-full-white);
+    --mat-icon-button-state-layer-color: var(--color-full-white);
+    --mat-icon-button-ripple-color: var(--color-full-white);
+    color: var(--color-full-white);
+
+    .mat-icon {
+      color: var(--color-full-white);
+    }
+  }
+
+  button:not(.mat-mdc-icon-button) {
+    .mat-icon {
+      color: var(--color-full-white);
+    }
+  }
+}
+

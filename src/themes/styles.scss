@@ -1,20 +1,12 @@
 @use 'sass:map';
 @use './theme';
 @use './variables';
-@use './utilities';
+@use './mixins' as mixins;
 @use '@angular/material' as mat;
-
-// ================================================
-// TAILWIND
-// ================================================
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-// ================================================
-// ANGULAR MATERIAL
-// ================================================
 
 @include mat.core();
 
@@ -49,10 +41,6 @@
   }
 }
 
-// ================================================
-// BASE STYLES
-// ================================================
-
 html, body {
   height: 100%;
   margin: 0;
@@ -64,18 +52,43 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-// ================================================
-// ANGULAR MATERIAL OVERRIDES
-// ================================================
-
 mat-card,
 .mat-mdc-card {
-  padding: 0 !important;
+  padding: 0;
 }
 
-// ================================================
-// GLOBAL TRANSITIONS
-// ================================================
+mat-sidenav-container,
+.mat-drawer-container {
+  height: 100%;
+  background-color: transparent;
+}
+
+mat-sidenav-content,
+.mat-drawer-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+mat-sidenav,
+.mat-drawer {
+  border-right: 1px solid var(--color-neutral-400);
+  transition: border-color 0.3s ease;
+}
+
+.light-theme {
+  mat-sidenav,
+  .mat-drawer {
+    border-right-color: var(--color-secondary-600);
+  }
+}
+
+.dark-theme {
+  mat-sidenav,
+  .mat-drawer {
+    border-right-color: var(--color-neutral-400);
+  }
+}
 
 * {
   transition-property: background-color, border-color, color, fill, stroke;
@@ -87,39 +100,54 @@ button, input, select, textarea {
   transition-property: none;
 }
 
-// ================================================
-// GLOBAL SCROLLBAR
-// ================================================
-
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f9fafb;
+  background: var(--color-neutral-50);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e5e7eb;
+  background: var(--color-neutral-200);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d1d5db;
+  background: var(--color-neutral-300);
 }
 
 .dark-theme {
   ::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: var(--color-secondary-800);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #475569;
+    background: var(--color-secondary-600);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
+    background: var(--color-secondary-500);
   }
 }
 
+.app-theme-background {
+  @include mixins.theme-background;
+  @include mixins.theme-text-on-primary;
+
+  &[class*="mat-"],
+  &[class*="mat-mdc-"] {
+    @include mixins.theme-background;
+  }
+}
+
+.app-theme-background-gradient {
+  @include mixins.theme-background-gradient;
+  @include mixins.theme-text-on-primary;
+
+  &[class*="mat-"],
+  &[class*="mat-mdc-"] {
+    @include mixins.theme-background-gradient;
+  }
+}

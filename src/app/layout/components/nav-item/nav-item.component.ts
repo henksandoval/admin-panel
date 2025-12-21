@@ -1,6 +1,6 @@
-import { Component, input, signal } from '@angular/core';
+import {Component, inject, input, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -35,7 +35,8 @@ export class NavItemComponent {
   protected readonly hoveringSubmenu = signal(false);
   protected readonly submenuPosition = signal<{top: number, left: number}>({top: 0, left: 0});
 
-  constructor(private layoutService: LayoutService) {}
+  private readonly router: Router = inject(Router);
+  private readonly layoutService: LayoutService = inject(LayoutService);
 
   toggleCollapse(): void {
     if (this.item().type === 'collapsable' && !this.sidebarCollapsed()) {
@@ -94,5 +95,44 @@ export class NavItemComponent {
 
   getTooltipText(): string {
     return this.item().title;
+  }
+
+  isInActivePath(): boolean {
+    if (this.item().type !== 'collapsable') {
+      return false;
+    }
+
+    return this.getActiveChildDepth(this.item()) > 0;
+  }
+
+  getActivePathDepth(): number {
+    if (this.item().type !== 'collapsable') {
+      return 0;
+    }
+
+    return this.getActiveChildDepth(this.item());
+  }
+
+  private getActiveChildDepth(item: NavigationItem): number {
+    if (!item.children || item.children.length === 0) {
+      return 0;
+    }
+
+    for (const child of item.children) {
+      if (child.type === 'item' && child.url) {
+        if (this.router.isActive(child.url, false)) {
+          return 1;
+        }
+      }
+
+      if (child.type === 'collapsable') {
+        const childDepth = this.getActiveChildDepth(child);
+        if (childDepth > 0) {
+          return childDepth + 1;
+        }
+      }
+    }
+
+    return 0;
   }
 }
