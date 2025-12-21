@@ -2,12 +2,12 @@
 
 // Gradiente de fondo usando aliases legibles (darker → darkest)
 :host {
-  background: theme.theme-gradient(180deg, theme.$darker, theme.$darkest);
+  background: theme.theme-gradient(180deg, theme.$color-darker, theme.$color-darkest);
 }
 
 // Gradiente del logo usando aliases legibles (base → medium)
 .logo-container {
-  background: theme.theme-gradient(to bottom right, theme.$base, theme.$medium);
+  background: theme.theme-gradient(to bottom right, theme.$color-base, theme.$color-medium);
 }
 
 //TODO: Pendiente de confirmar si se puede mover a estilos globales, para normalizar el scrollbar de toda la aplicación

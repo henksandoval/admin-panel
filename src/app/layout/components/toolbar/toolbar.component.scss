@@ -1,11 +1,10 @@
 @use '../../../../themes/functions' as theme;
 
-// Gradiente del toolbar usando aliases legibles (medium → strong)
 .toolbar-gradient {
-  background: theme.theme-gradient(135deg, theme.$medium, theme.$strong);
+  background: theme.theme-gradient(135deg, theme.$color-medium, theme.$color-strong);
 }
 
 .dark-theme .toolbar-gradient {
-  background: theme.theme-gradient(135deg, theme.$strong, theme.$darker);
+  background: theme.theme-gradient(135deg, theme.$color-strong, theme.$color-darker);
 }
 

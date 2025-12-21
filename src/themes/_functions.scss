@@ -1,46 +1,85 @@
 // ================================================
-// FUNCIONES SCSS PARA GRADIENTES
+// SCSS FUNCTIONS - THEME UTILITIES
+// ================================================
+// Funciones reutilizables para generar estilos dinámicos
+// con las variables CSS del sistema de temas
 // ================================================
 
-// Función para crear gradientes con variables CSS del tema
-// Uso: background: theme-gradient(135deg, 500, 700);
+// ------------------------------------------------
+// SEMANTIC COLOR WEIGHTS
+// ------------------------------------------------
+// Nombres semánticos para los pesos de color del tema
+// IMPORTANTE: Usar estas variables en lugar de números mágicos
+//
+// GUÍA DE USO:
+//   50-200:   Tonos muy claros (backgrounds sutiles, badges)
+//   300-400:  Tonos claros/medios (borders, text secondary)
+//   500:      Color base del tema (principal)
+//   600-700:  Tonos fuertes (headers, toolbars, active states)
+//   800-900:  Tonos muy oscuros (dark mode backgrounds)
+//
+// EJEMPLO CORRECTO:
+//   background: fn.theme-gradient(135deg, $color-medium, $color-strong);
+//
+// EJEMPLO INCORRECTO:
+//   background: fn.theme-gradient(135deg, 600, 700);
+// ------------------------------------------------
+
+$color-lightest: 50;       // Tonos más claros (backgrounds sutiles)
+$color-lighter: 100;       // Tonos claros (backgrounds, badges)
+$color-light: 200;         // Tonos suaves (hover states light)
+$color-medium-light: 300;  // Tonos medios claros (borders, dividers)
+$color-soft: 400;          // Tonos suaves medios (text secondary, icons)
+$color-base: 500;          // Color base del tema (botones, accents)
+$color-medium: 600;        // Color medio (headers, primary actions)
+$color-strong: 700;        // Color fuerte (active states, emphasis)
+$color-darker: 800;        // Tonos oscuros (backgrounds dark mode)
+$color-darkest: 900;       // Tonos más oscuros (contrast backgrounds)
+
+// ------------------------------------------------
+// GRADIENT FUNCTIONS
+// ------------------------------------------------
+
+// Gradiente de dos colores usando pesos del tema
+// @param $direction - Dirección del gradiente (ej: 135deg, to right, to bottom)
+// @param $from-weight - Peso inicial (usa variables semánticas: $color-medium, $color-strong, etc.)
+// @param $to-weight - Peso final (usa variables semánticas)
+// @return linear-gradient con variables CSS del tema
+//
+// Ejemplo: background: fn.theme-gradient(135deg, $color-medium, $color-strong);
 @function theme-gradient($direction, $from-weight, $to-weight) {
-  @return linear-gradient($direction, var(--theme-primary-#{$from-weight}), var(--theme-primary-#{$to-weight}));
+  @return linear-gradient(
+    $direction,
+    var(--theme-primary-#{$from-weight}),
+    var(--theme-primary-#{$to-weight})
+  );
 }
 
-// Función para crear gradientes con colores específicos (para casos especiales)
-// Uso: background: custom-gradient(135deg, #3b82f6, #1d4ed8);
+// Gradiente de tres colores usando pesos del tema
+// @param $direction - Dirección del gradiente
+// @param $weight-1 - Primer peso (usa variables semánticas)
+// @param $weight-2 - Segundo peso (usa variables semánticas)
+// @param $weight-3 - Tercer peso (usa variables semánticas)
+// @return linear-gradient con tres paradas de color
+//
+// Ejemplo: background: fn.theme-gradient-3(180deg, $color-strong, $color-darker, $color-darkest);
+@function theme-gradient-3($direction, $weight-1, $weight-2, $weight-3) {
+  @return linear-gradient(
+    $direction,
+    var(--theme-primary-#{$weight-1}),
+    var(--theme-primary-#{$weight-2}),
+    var(--theme-primary-#{$weight-3})
+  );
+}
+
+// Gradiente con colores personalizados (no del tema)
+// @param $direction - Dirección del gradiente
+// @param $from-color - Color inicial (hex, rgb, etc.)
+// @param $to-color - Color final (hex, rgb, etc.)
+// @return linear-gradient con colores custom
+//
+// Ejemplo: background: fn.custom-gradient(45deg, #ff0000, #00ff00);
 @function custom-gradient($direction, $from-color, $to-color) {
   @return linear-gradient($direction, $from-color, $to-color);
 }
-
-// Función para crear gradientes de 3 colores
-// Uso: background: theme-gradient-3(135deg, 400, 500, 700);
-@function theme-gradient-3($direction, $weight-1, $weight-2, $weight-3) {
-  @return linear-gradient($direction, var(--theme-primary-#{$weight-1}), var(--theme-primary-#{$weight-2}), var(--theme-primary-#{$weight-3}));
-}
-
-// ================================================
-// ALIASES DE PESOS DE COLOR (más legibles y "humanos")
-// ================================================
-
-// Colores muy claros (para fondos, hover states ligeros)
-$lightest: 50;   // Casi blanco con toque de color
-$lighter: 100;   // Muy claro
-$light: 200;     // Claro
-
-// Colores medios claros (para elementos secundarios, borders)
-$medium-light: 300;  // Claro-medio
-$soft: 400;          // Suave, medio-claro
-
-// Color base (el color principal del tema)
-$base: 500;      // ⭐ Color principal/base
-
-// Colores medios oscuros (para elementos interactivos, botones)
-$medium: 600;    // Medio-oscuro
-$strong: 700;    // Fuerte, oscuro
-
-// Colores muy oscuros (para fondos oscuros, contraste alto)
-$darker: 800;    // Muy oscuro
-$darkest: 900;   // Casi negro con toque de color
 

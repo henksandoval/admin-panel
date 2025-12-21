@@ -1,164 +1,23 @@
 @use 'sass:map';
 @use './theme';
+@use './variables';
+@use './utilities';
 @use '@angular/material' as mat;
 
-// Tailwind CSS directives
+// ================================================
+// TAILWIND
+// ================================================
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 // ================================================
-// FUNCIONES SCSS PARA GRADIENTES
+// ANGULAR MATERIAL
 // ================================================
 
-// Función para crear gradientes con variables CSS del tema
-// Uso: background: theme-gradient(135deg, 500, 700);
-@function theme-gradient($direction, $from-weight, $to-weight) {
-  @return linear-gradient($direction, var(--theme-primary-#{$from-weight}), var(--theme-primary-#{$to-weight}));
-}
-
-// Función para crear gradientes con colores específicos (para casos especiales)
-// Uso: background: custom-gradient(135deg, #3b82f6, #1d4ed8);
-@function custom-gradient($direction, $from-color, $to-color) {
-  @return linear-gradient($direction, $from-color, $to-color);
-}
-
-// Función para crear gradientes de 3 colores
-// Uso: background: theme-gradient-3(135deg, 400, 500, 700);
-@function theme-gradient-3($direction, $weight-1, $weight-2, $weight-3) {
-  @return linear-gradient($direction, var(--theme-primary-#{$weight-1}), var(--theme-primary-#{$weight-2}), var(--theme-primary-#{$weight-3}));
-}
-
-// ================================================
-// ALIASES DE PESOS DE COLOR (más legibles y "humanos")
-// ================================================
-// Estos aliases hacen el código más expresivo y fácil de entender
-// En lugar de recordar números, usas nombres descriptivos
-
-// Colores muy claros (para fondos, hover states ligeros)
-$color-lightest: 50;   // Casi blanco con toque de color
-$color-lighter: 100;   // Muy claro
-$light: 200;     // Claro
-
-// Colores medios claros (para elementos secundarios, borders)
-$color-medium-light: 300;  // Claro-medio
-$color-soft: 400;          // Suave, medio-claro
-
-// Color base (el color principal del tema)
-$color-base: 500;      // ⭐ Color principal/base
-
-// Colores medios oscuros (para elementos interactivos, botones)
-$color-medium: 600;    // Medio-oscuro
-$color-strong: 700;    // Fuerte, oscuro
-
-// Colores muy oscuros (para fondos oscuros, contraste alto)
-$color-darker: 800;    // Muy oscuro
-$color-darkest: 900;   // Casi negro con toque de color
-
-// ================================================
-// BASE THEMING (NO DUPLICATES)
-// ================================================
-
-// Generate base theme styles only once for the default theme
-$default-light-theme: map.get(map.get(theme.$themes, 'default'), 'light');
-
-// Apply base Material styles
 @include mat.core();
 
-// ================================================
-// CSS CUSTOM PROPERTIES FOR EACH THEME
-// ================================================
-
-// Default theme colors (Blue #3b82f6)
-:root,
-body.theme-default {
-  --theme-primary-50: #eff6ff;
-  --theme-primary-100: #dbeafe;
-  --theme-primary-200: #bfdbfe;
-  --theme-primary-300: #93c5fd;
-  --theme-primary-400: #60a5fa;
-  --theme-primary-500: #3b82f6;
-  --theme-primary-600: #2563eb;
-  --theme-primary-700: #1d4ed8;
-  --theme-primary-800: #1e40af;
-  --theme-primary-900: #1e3a8a;
-}
-
-// Brand theme colors (Cyan #06b6d4)
-body.theme-brand {
-  --theme-primary-50: #ecfeff;
-  --theme-primary-100: #cffafe;
-  --theme-primary-200: #a5f3fc;
-  --theme-primary-300: #67e8f9;
-  --theme-primary-400: #22d3ee;
-  --theme-primary-500: #06b6d4;
-  --theme-primary-600: #0891b2;
-  --theme-primary-700: #0e7490;
-  --theme-primary-800: #155e75;
-  --theme-primary-900: #164e63;
-}
-
-// Teal theme colors (Teal #14b8a6)
-body.theme-teal {
-  --theme-primary-50: #f0fdfa;
-  --theme-primary-100: #ccfbf1;
-  --theme-primary-200: #99f6e4;
-  --theme-primary-300: #5eead4;
-  --theme-primary-400: #2dd4bf;
-  --theme-primary-500: #14b8a6;
-  --theme-primary-600: #0d9488;
-  --theme-primary-700: #0f766e;
-  --theme-primary-800: #115e59;
-  --theme-primary-900: #134e4a;
-}
-
-// Rose theme colors (Rose #f43f5e)
-body.theme-rose {
-  --theme-primary-50: #fff1f2;
-  --theme-primary-100: #ffe4e6;
-  --theme-primary-200: #fecdd3;
-  --theme-primary-300: #fda4af;
-  --theme-primary-400: #fb7185;
-  --theme-primary-500: #f43f5e;
-  --theme-primary-600: #e11d48;
-  --theme-primary-700: #be123c;
-  --theme-primary-800: #9f1239;
-  --theme-primary-900: #881337;
-}
-
-// Purple theme colors (Purple #a855f7)
-body.theme-purple {
-  --theme-primary-50: #faf5ff;
-  --theme-primary-100: #f3e8ff;
-  --theme-primary-200: #e9d5ff;
-  --theme-primary-300: #d8b4fe;
-  --theme-primary-400: #c084fc;
-  --theme-primary-500: #a855f7;
-  --theme-primary-600: #9333ea;
-  --theme-primary-700: #7e22ce;
-  --theme-primary-800: #6b21a8;
-  --theme-primary-900: #581c87;
-}
-
-// Amber theme colors (Amber #f59e0b)
-body.theme-amber {
-  --theme-primary-50: #fffbeb;
-  --theme-primary-100: #fef3c7;
-  --theme-primary-200: #fde68a;
-  --theme-primary-300: #fcd34d;
-  --theme-primary-400: #fbbf24;
-  --theme-primary-500: #f59e0b;
-  --theme-primary-600: #d97706;
-  --theme-primary-700: #b45309;
-  --theme-primary-800: #92400e;
-  --theme-primary-900: #78350f;
-}
-
-// ================================================
-// MATERIAL THEMES GENERATION
-// ================================================
-
-// Generate complete themes (all component styles including shape, typography, density)
 @each $color-name, $theme-variants in theme.$themes {
   $light-theme: map.get($theme-variants, 'light');
   $dark-theme: map.get($theme-variants, 'dark');
@@ -191,8 +50,9 @@ body.theme-amber {
 }
 
 // ================================================
-// GLOBAL STYLES
+// BASE STYLES
 // ================================================
+
 html, body {
   height: 100%;
   margin: 0;
@@ -205,308 +65,32 @@ body {
 }
 
 // ================================================
-// MATERIAL OVERRIDES (Minimal)
+// ANGULAR MATERIAL OVERRIDES
 // ================================================
 
-// Reduce default mat-card padding for better control with Tailwind
-mat-card {
-  padding: 0 !important;
-}
-
+mat-card,
 .mat-mdc-card {
   padding: 0 !important;
 }
 
-// Smooth transitions for theme changes
+// ================================================
+// GLOBAL TRANSITIONS
+// ================================================
+
 * {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// Disable transitions for specific elements
 button, input, select, textarea {
   transition-property: none;
 }
 
 // ================================================
-// CUSTOM UTILITIES - Theme-Aware Classes
+// GLOBAL SCROLLBAR
 // ================================================
 
-// Background colors using theme variables
-.bg-theme-50 { background-color: var(--theme-primary-50) !important; }
-.bg-theme-100 { background-color: var(--theme-primary-100) !important; }
-.bg-theme-200 { background-color: var(--theme-primary-200) !important; }
-.bg-theme-300 { background-color: var(--theme-primary-300) !important; }
-.bg-theme-400 { background-color: var(--theme-primary-400) !important; }
-.bg-theme-500 { background-color: var(--theme-primary-500) !important; }
-.bg-theme-600 { background-color: var(--theme-primary-600) !important; }
-.bg-theme-700 { background-color: var(--theme-primary-700) !important; }
-.bg-theme-800 { background-color: var(--theme-primary-800) !important; }
-.bg-theme-900 { background-color: var(--theme-primary-900) !important; }
-
-// Text colors using theme variables
-.text-theme-50 { color: var(--theme-primary-50) !important; }
-.text-theme-100 { color: var(--theme-primary-100) !important; }
-.text-theme-200 { color: var(--theme-primary-200) !important; }
-.text-theme-300 { color: var(--theme-primary-300) !important; }
-.text-theme-400 { color: var(--theme-primary-400) !important; }
-.text-theme-500 { color: var(--theme-primary-500) !important; }
-.text-theme-600 { color: var(--theme-primary-600) !important; }
-.text-theme-700 { color: var(--theme-primary-700) !important; }
-.text-theme-800 { color: var(--theme-primary-800) !important; }
-.text-theme-900 { color: var(--theme-primary-900) !important; }
-
-// Border colors using theme variables
-.border-theme-50 { border-color: var(--theme-primary-50) !important; }
-.border-theme-100 { border-color: var(--theme-primary-100) !important; }
-.border-theme-200 { border-color: var(--theme-primary-200) !important; }
-.border-theme-300 { border-color: var(--theme-primary-300) !important; }
-.border-theme-400 { border-color: var(--theme-primary-400) !important; }
-.border-theme-500 { border-color: var(--theme-primary-500) !important; }
-.border-theme-600 { border-color: var(--theme-primary-600) !important; }
-.border-theme-700 { border-color: var(--theme-primary-700) !important; }
-.border-theme-800 { border-color: var(--theme-primary-800) !important; }
-.border-theme-900 { border-color: var(--theme-primary-900) !important; }
-
-// ================================================
-// APP CUSTOM UTILITIES (Encapsulated Patterns)
-// ================================================
-
-// Text colors with automatic light/dark mode
-.app-text-theme {
-  color: var(--theme-primary-600);
-
-  .dark-theme & {
-    color: var(--theme-primary-400);
-  }
-}
-
-.app-text-theme-light {
-  color: var(--theme-primary-500);
-
-  .dark-theme & {
-    color: var(--theme-primary-300);
-  }
-}
-
-.app-text-theme-dark {
-  color: var(--theme-primary-700);
-
-  .dark-theme & {
-    color: var(--theme-primary-500);
-  }
-}
-
-// Background colors with automatic light/dark mode
-.app-bg-theme {
-  background-color: var(--theme-primary-100);
-
-  .dark-theme & {
-    background-color: var(--theme-primary-900);
-  }
-}
-
-.app-bg-theme-subtle {
-  background-color: var(--theme-primary-50);
-
-  .dark-theme & {
-    background-color: var(--theme-primary-900);
-    background-color: rgba(var(--theme-primary-900-rgb, 88, 28, 135), 0.3);
-  }
-}
-
-.app-bg-theme-solid {
-  background-color: var(--theme-primary-500);
-  color: white;
-}
-
-// Border colors with automatic light/dark mode
-.app-border-theme {
-  border-color: var(--theme-primary-300);
-
-  .dark-theme & {
-    border-color: var(--theme-primary-700);
-  }
-}
-
-.app-border-theme-light {
-  border-color: var(--theme-primary-200);
-
-  .dark-theme & {
-    border-color: var(--theme-primary-800);
-  }
-}
-
-// Text colors for neutral content (gray)
-.app-text-primary {
-  color: #1f2937;
-
-  .dark-theme & {
-    color: #f3f4f6;
-  }
-}
-
-.app-text-secondary {
-  color: #4b5563;
-
-  .dark-theme & {
-    color: #d1d5db;
-  }
-}
-
-.app-text-tertiary {
-  color: #6b7280;
-
-  .dark-theme & {
-    color: #9ca3af;
-  }
-}
-
-.app-text-muted {
-  color: #9ca3af;
-
-  .dark-theme & {
-    color: #6b7280;
-  }
-}
-
-// Background colors for neutral surfaces
-.app-bg-surface {
-  background-color: white;
-
-  .dark-theme & {
-    background-color: #1e293b;
-  }
-}
-
-.app-bg-surface-raised {
-  background-color: #f9fafb;
-
-  .dark-theme & {
-    background-color: #334155;
-  }
-}
-
-.app-bg-hover {
-  background-color: #f3f4f6;
-
-  .dark-theme & {
-    background-color: #475569;
-  }
-}
-
-// Border colors for neutral elements
-.app-border-default {
-  border-color: #e5e7eb;
-
-  .dark-theme & {
-    border-color: #334155;
-  }
-}
-
-.app-border-light {
-  border-color: #f3f4f6;
-
-  .dark-theme & {
-    border-color: #475569;
-  }
-}
-
-// Combined utilities (most common patterns)
-.app-card {
-  background-color: white;
-  border: 1px solid #e5e7eb;
-
-  .dark-theme & {
-    background-color: #1e293b;
-    border-color: #334155;
-  }
-}
-
-.app-button-primary {
-  background-color: var(--theme-primary-500);
-  color: white;
-
-  &:hover {
-    background-color: var(--theme-primary-600);
-  }
-
-  .dark-theme &:hover {
-    background-color: var(--theme-primary-400);
-  }
-}
-
-.app-button-secondary {
-  background-color: #f3f4f6;
-  color: #1f2937;
-
-  &:hover {
-    background-color: #e5e7eb;
-  }
-
-  .dark-theme & {
-    background-color: #334155;
-    color: #f3f4f6;
-  }
-
-  .dark-theme &:hover {
-    background-color: #475569;
-  }
-}
-
-.app-input {
-  background-color: white;
-  border: 1px solid #d1d5db;
-  color: #1f2937;
-
-  &:focus {
-    border-color: var(--theme-primary-500);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(var(--theme-primary-500-rgb, 59, 130, 246), 0.1);
-  }
-
-  .dark-theme & {
-    background-color: #1e293b;
-    border-color: #475569;
-    color: #f3f4f6;
-  }
-}
-
-.app-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  background-color: var(--theme-primary-100);
-  color: var(--theme-primary-700);
-
-  .dark-theme & {
-    background-color: var(--theme-primary-900);
-    color: var(--theme-primary-300);
-  }
-}
-
-// Icon utilities
-.app-icon-theme {
-  color: var(--theme-primary-600);
-
-  .dark-theme & {
-    color: var(--theme-primary-400);
-  }
-}
-
-.app-icon-muted {
-  color: #9ca3af;
-
-  .dark-theme & {
-    color: #6b7280;
-  }
-}
-
-// Scrollbar styling
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -525,7 +109,6 @@ button, input, select, textarea {
   background: #d1d5db;
 }
 
-// Dark theme scrollbar
 .dark-theme {
   ::-webkit-scrollbar-track {
     background: #1e293b;

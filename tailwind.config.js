@@ -7,9 +7,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // NOTE: Primary colors are handled by CSS Variables (--theme-primary-*)
+        // Dynamic theme colors - Uses CSS Variables (--theme-primary-*)
         // These change dynamically based on selected theme in Settings Panel
         // Use classes: bg-theme-500, text-theme-600, border-theme-400
+        theme: {
+          50: 'var(--theme-primary-50)',
+          100: 'var(--theme-primary-100)',
+          200: 'var(--theme-primary-200)',
+          300: 'var(--theme-primary-300)',
+          400: 'var(--theme-primary-400)',
+          500: 'var(--theme-primary-500)',
+          600: 'var(--theme-primary-600)',
+          700: 'var(--theme-primary-700)',
+          800: 'var(--theme-primary-800)',
+          900: 'var(--theme-primary-900)',
+        },
 
         // Secondary color - Slate/Gray (for neutral UI elements)
         secondary: {

@@ -18,7 +18,7 @@
 
 // Gradiente del header usando aliases legibles (base → strong)
 .settings-header {
-  background: theme.theme-gradient(135deg, theme.$base, theme.$strong);
+  background: theme.theme-gradient(135deg, theme.$color-base, theme.$color-strong);
 }
 
 .settings-content {
@@ -79,8 +79,8 @@
 
 // Gradiente del scheme option active usando aliases legibles (base → strong)
 .scheme-option.active {
-  background: theme.theme-gradient(135deg, theme.$base, theme.$strong);
-  border-color: var(--theme-primary-#{theme.$base});
+  background: theme.theme-gradient(135deg, theme.$color-base, theme.$color-strong);
+  border-color: var(--theme-primary-#{theme.$color-base});
   color: white;
 
   mat-icon {
