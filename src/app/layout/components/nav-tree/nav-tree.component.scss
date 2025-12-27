@@ -4,12 +4,15 @@
   .tree-node {
     .tree-node-content {
       &:hover {
+        background-color: var(--overlay-light-20);
+      }
+
+      &.parent-active {
         background-color: var(--overlay-light-10);
       }
 
       &.active {
-        background-color: var(--overlay-light-20);
-        border-left: 3px solid var(--color-full-white);
+        background-color: var(--overlay-light-30);
       }
     }
   }

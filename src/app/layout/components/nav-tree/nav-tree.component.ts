@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationItem } from '../../services/navigation.service';
 import { LayoutService } from '../../services/layout.service';
+
 @Component({
   selector: 'app-nav-tree',
   standalone: true,
@@ -32,6 +33,24 @@ export class NavTreeComponent {
     if (!url) return false;
     return this.router.isActive(url, false);
   }
+
+  protected isParentOfActive(node: NavigationItem): boolean {
+    if (!node.children) return false;
+    return this.hasActiveChild(node.children);
+  }
+
+  private hasActiveChild(children: NavigationItem[]): boolean {
+    return children.some(child => {
+      if (child.url && this.router.isActive(child.url, false)) {
+        return true;
+      }
+      if (child.children) {
+        return this.hasActiveChild(child.children);
+      }
+      return false;
+    });
+  }
+
   navigate(node: NavigationItem): void {
     if (node.url) {
       this.router.navigate([node.url]);

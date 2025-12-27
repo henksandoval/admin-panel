@@ -3,7 +3,11 @@
     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.title">
       <mat-icon class="mat-icon-rtl-mirror">{{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
     </button>
-    <div class="tree-node-content flex items-center gap-3 px-3 py-2 cursor-pointer rounded-lg flex-1 transition-colors duration-200" [matTooltip]="collapsed() ? node.title : ''" [matTooltipDisabled]="!collapsed()" matTooltipPosition="right">
+    <div class="tree-node-content flex items-center gap-3 px-3 py-2 cursor-pointer rounded-lg flex-1 transition-colors duration-200"
+         [class.parent-active]="isParentOfActive(node)"
+         [matTooltip]="collapsed() ? node.title : ''"
+         [matTooltipDisabled]="!collapsed()"
+         matTooltipPosition="right">
       @if (node.icon) {
         <mat-icon class="text-xl w-5 h-5">{{ node.icon }}</mat-icon>
       }
