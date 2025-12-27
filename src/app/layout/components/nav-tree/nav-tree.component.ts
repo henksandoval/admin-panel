@@ -27,9 +27,12 @@ export class NavTreeComponent {
   private layoutService = inject(LayoutService);
   dataSource = input.required<NavigationItem[]>();
   collapsed = input<boolean>(false);
+
   protected readonly childrenAccessor = (node: NavigationItem) => node.children ?? [];
-  hasChild = (_: number, node: NavigationItem) => !!node.children && node.children.length > 0;
-  isActive(url?: string): boolean {
+
+  protected hasChild = (_: number, node: NavigationItem) => !!node.children && node.children.length > 0;
+
+  protected isActive(url?: string): boolean {
     if (!url) return false;
     return this.router.isActive(url, false);
   }
@@ -37,6 +40,16 @@ export class NavTreeComponent {
   protected isParentOfActive(node: NavigationItem): boolean {
     if (!node.children) return false;
     return this.hasActiveChild(node.children);
+  }
+
+  protected getTotalBadgeCount(node: NavigationItem): number {
+    if (!node.children) {
+      return node.badge?.title ? +node.badge.title : 0;
+    }
+
+    return node.children.reduce((sum, child) => {
+      return sum + this.getTotalBadgeCount(child);
+    }, 0);
   }
 
   private hasActiveChild(children: NavigationItem[]): boolean {

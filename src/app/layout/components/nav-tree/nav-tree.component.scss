@@ -1,19 +1,56 @@
-﻿.nav-tree {
+﻿@use "sass:map";
+
+.nav-tree {
   background: transparent;
 
-  .tree-node {
-    .tree-node-content {
-      &:hover {
-        background-color: var(--overlay-light-20);
-      }
+  .mat-tree-node {
+    min-height: 44px;
+    animation: slideIn 200ms ease-out;
 
-      &.parent-active {
-        background-color: var(--overlay-light-10);
-      }
+    $levels: (
+      1: (padding: 0,       parent-bg-start: var(--overlay-light-25), parent-bg-mid: var(--overlay-light-20), parent-bg-end: var(--overlay-light-10)),
+      2: (padding: 0.5rem,  parent-bg-start: var(--overlay-light-20), parent-bg-mid: var(--overlay-light-15), parent-bg-end: var(--overlay-light-05)),
+      3: (padding: 1rem,    parent-bg-start: var(--overlay-light-15), parent-bg-mid: var(--overlay-light-10), parent-bg-end: var(--overlay-light-05)),
+      4: (padding: 1.5rem,  parent-bg-start: var(--overlay-light-10), parent-bg-mid: var(--overlay-light-05), parent-bg-end: var(--overlay-light-03)),
+      5: (padding: 2rem,    parent-bg-start: var(--overlay-light-05), parent-bg-mid: var(--overlay-light-03), parent-bg-end: transparent),
+    );
 
-      &.active {
-        background-color: var(--overlay-light-30);
+    @each $level, $props in $levels {
+      &[aria-level="#{$level}"] {
+        padding-left: map.get($props, padding);
+
+        &.parent-active {
+          background: linear-gradient(
+            to right,
+            map.get($props, parent-bg-start) 0%,
+            map.get($props, parent-bg-mid) 50%,
+            map.get($props, parent-bg-end) 85%,
+            transparent 100%
+          );
+          border-left: 2px solid map.get($props, parent-bg-start);
+          border-radius: 0 6px 6px 0;
+        }
       }
+    }
+
+    &.active {
+      background: linear-gradient(
+        to right,
+        var(--overlay-light-40) 0%,
+        var(--overlay-light-30) 50%,
+        var(--overlay-light-15) 85%,
+        transparent 100%
+      );
+      border-left: 3px solid var(--overlay-light-80);
+      border-radius: 0 8px 8px 0;
+      box-shadow:
+        inset 0 1px 0 var(--overlay-light-15),
+        0 2px 8px var(--overlay-dark-10);
+      position: relative;
+    }
+
+    &:hover {
+      background-color: var(--overlay-light-30);
     }
   }
 }
