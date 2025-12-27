@@ -135,6 +135,7 @@ button, input, select, textarea {
 .app-theme-background {
   @include mixins.theme-background;
   @include mixins.theme-text-on-primary;
+  @include mixins.theme-badge;
 
   &[class*="mat-"],
   &[class*="mat-mdc-"] {
@@ -145,9 +146,11 @@ button, input, select, textarea {
 .app-theme-background-gradient {
   @include mixins.theme-background-gradient;
   @include mixins.theme-text-on-primary;
+  @include mixins.theme-badge;
 
   &[class*="mat-"],
   &[class*="mat-mdc-"] {
     @include mixins.theme-background-gradient;
   }
 }
+

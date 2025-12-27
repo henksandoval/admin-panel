@@ -8,8 +8,7 @@ export interface NavigationItem {
   children?: NavigationItem[];
   badge?: {
     title: string;
-    bg: string;
-    fg: string;
+    type: 'important' | 'normal';
   };
 }
 
@@ -47,8 +46,7 @@ export class NavigationService {
               url: '/apps/ecommerce/orders',
               badge: {
                 title: '12',
-                bg: 'bg-red-500',
-                fg: 'text-white'
+                type: 'important'
               }
             },
             {
@@ -63,7 +61,11 @@ export class NavigationService {
           id: 'mail',
           title: 'Correo',
           icon: 'email',
-          url: '/apps/mail'
+          url: '/apps/mail',
+          badge: {
+            title: '9',
+            type: 'important'
+          }
         },
         {
           id: 'chat',
@@ -72,8 +74,7 @@ export class NavigationService {
           url: '/apps/chat',
           badge: {
             title: '3',
-            bg: 'bg-blue-500',
-            fg: 'text-white'
+            type: 'normal'
           }
         }
       ]
