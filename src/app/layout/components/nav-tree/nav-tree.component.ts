@@ -1,12 +1,13 @@
-﻿import { Component, input, inject, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationItem } from '../../services/navigation.service';
 import { LayoutService } from '../../services/layout.service';
+import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nav-tree',
@@ -22,19 +23,44 @@ import { LayoutService } from '../../services/layout.service';
   styleUrl: './nav-tree.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavTreeComponent {
+export class NavTreeComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private layoutService = inject(LayoutService);
+  private changeDetector = inject(ChangeDetectorRef);
+  private routerSubscription?: Subscription;
+
   dataSource = input.required<NavigationItem[]>();
   collapsed = input<boolean>(false);
 
   protected readonly childrenAccessor = (node: NavigationItem) => node.children ?? [];
 
+  public ngOnInit(): void {
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.changeDetector.markForCheck();
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.routerSubscription?.unsubscribe();
+  }
+
+  protected navigate(node: NavigationItem): void {
+    if (node.url) {
+      void this.router.navigate([node.url]);
+
+      if (this.layoutService.isMobile()) {
+        this.layoutService.closeSidebar();
+      }
+    }
+  }
+
   protected hasChild = (_: number, node: NavigationItem) => !!node.children && node.children.length > 0;
 
   protected isActive(url?: string): boolean {
     if (!url) return false;
-    return this.router.isActive(url, false);
+    return this.isRouteActive(url);
   }
 
   protected isParentOfActive(node: NavigationItem): boolean {
@@ -54,7 +80,7 @@ export class NavTreeComponent {
 
   private hasActiveChild(children: NavigationItem[]): boolean {
     return children.some(child => {
-      if (child.url && this.router.isActive(child.url, false)) {
+      if (child.url && this.isRouteActive(child.url)) {
         return true;
       }
       if (child.children) {
@@ -64,12 +90,12 @@ export class NavTreeComponent {
     });
   }
 
-  navigate(node: NavigationItem): void {
-    if (node.url) {
-      this.router.navigate([node.url]);
-      if (this.layoutService.isMobile()) {
-        this.layoutService.closeSidebar();
-      }
-    }
+  private isRouteActive(url: string): boolean {
+    return this.router.isActive(url, {
+      paths: 'subset',
+      queryParams: 'ignored',
+      fragment: 'ignored',
+      matrixParams: 'ignored'
+    });
   }
 }
