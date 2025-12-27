@@ -1,11 +1,11 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationService } from '../../services/navigation.service';
 import { LayoutService } from '../../services/layout.service';
-import { NavItemComponent } from '../nav-item/nav-item.component';
+import { NavTreeComponent } from '../nav-tree/nav-tree.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,13 +15,14 @@ import { NavItemComponent } from '../nav-item/nav-item.component';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    NavItemComponent
+    NavTreeComponent
   ],
   host: {
     class: 'block h-full bg-gradient-to-b from-theme-600 to-theme-700 dark:from-theme-700 dark:to-theme-800'
   },
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrl: './sidebar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
   private navigationService = inject(NavigationService);

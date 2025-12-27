@@ -1,0 +1,29 @@
+﻿<mat-tree #tree [dataSource]="dataSource()" [childrenAccessor]="childrenAccessor" class="nav-tree">
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="tree-node">
+    <button mat-icon-button disabled class="tree-toggle-spacer"></button>
+    <div class="tree-node-content" [class.active]="isActive(node.url)" (click)="navigate(node)" [matTooltip]="collapsed() ? node.title : ''" [matTooltipDisabled]="!collapsed()" matTooltipPosition="right">
+      @if (node.icon) {
+        <mat-icon>{{ node.icon }}</mat-icon>
+      }
+      @if (!collapsed()) {
+        <span class="tree-node-label">{{ node.title }}</span>
+        @if (node.badge) {
+          <span class="tree-node-badge {{ node.badge.bg }} {{ node.badge.fg }}">{{ node.badge.title }}</span>
+        }
+      }
+    </div>
+  </mat-tree-node>
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matTreeNodeToggle [cdkTreeNodeTypeaheadLabel]="node.title" class="tree-node">
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.title">
+      <mat-icon class="mat-icon-rtl-mirror">{{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
+    </button>
+    <div class="tree-node-content" [matTooltip]="collapsed() ? node.title : ''" [matTooltipDisabled]="!collapsed()" matTooltipPosition="right">
+      @if (node.icon) {
+        <mat-icon>{{ node.icon }}</mat-icon>
+      }
+      @if (!collapsed()) {
+        <span class="tree-node-label">{{ node.title }}</span>
+      }
+    </div>
+  </mat-tree-node>
+</mat-tree>

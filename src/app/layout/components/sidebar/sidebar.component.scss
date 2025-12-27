@@ -1,34 +1,26 @@
-// El degradado del host y el logo se han movido a Tailwind CSS
-// El botón de colapso también usa ahora clases de Tailwind
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-// Estilos del scrollbar
-.sidebar-nav {
+.sidebar-footer-text {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.nav-tree-container {
   &::-webkit-scrollbar {
     width: 6px;
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--color-secondary-800);
-
-    .dark-theme & {
-      background: var(--color-secondary-900);
-    }
+    background: rgba(0, 0, 0, 0.2);
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--color-secondary-600);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
 
     &:hover {
-      background: var(--color-secondary-500);
-    }
-
-    .dark-theme & {
-      background: var(--color-secondary-700);
-
-      &:hover {
-        background: var(--color-secondary-600);
-      }
+      background: rgba(255, 255, 255, 0.3);
     }
   }
 }
