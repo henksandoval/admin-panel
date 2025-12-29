@@ -1,10 +1,10 @@
-<div class="app-theme-background-gradient flex flex-col h-full w-full transition-all duration-300 overflow-hidden" [class.collapsed]="collapsed()">
-  <div class="flex items-center gap-2 px-4 py-6 border-b border-white/10 flex-shrink-0" [class.px-2]="collapsed()">
+<div class="app-theme-background-gradient flex flex-col h-full w-full transition-all duration-300 overflow-hidden">
+  <div class="flex items-center gap-2 px-4 py-6 border-b border-white/10 flex-shrink-0" [class.px-2]="isExpanded()">
     <div class="flex items-center gap-3 flex-1 min-w-0">
       <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-theme-500 to-theme-600 shadow-lg">
         <span class="text-white text-xl font-bold">A</span>
       </div>
-      @if (!collapsed()) {
+      @if (isExpanded()) {
         <div class="flex flex-col flex-1 min-w-0">
           <span class="text-white font-semibold text-lg leading-tight truncate">Admin Panel</span>
           <span class="text-white/60 text-xs truncate">Dashboard v1.0</span>
@@ -15,18 +15,19 @@
     <button
       mat-icon-button
       (click)="toggleCollapse()"
-      [matTooltip]="collapsed() ? 'Expandir' : 'Contraer'"
+      [matTooltip]="isExpanded() ? 'Expandir' : 'Contraer'"
       matTooltipPosition="right"
       class="text-white/70 hover:text-white hover:bg-white/10"
       aria-label="Toggle sidebar">
-      <mat-icon>{{ collapsed() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+      <mat-icon>{{ isExpanded() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
     </button>
   </div>
 
-  <div class="flex-1 overflow-y-auto py-2 nav-tree-container">
-    <app-nav-tree [dataSource]="navigation()" [collapsed]="collapsed()"></app-nav-tree>
-  </div>
-
+  @if (isExpanded()) {
+    <div class="flex-1 overflow-y-auto py-2 nav-tree-container">
+      <app-nav-tree [dataSource]="navigation()"></app-nav-tree>
+    </div>
+  }
   <div class="sidebar-footer px-4 py-4 flex-shrink-0">
     <div class="sidebar-footer-text text-xs text-center">
       © 2025 Admin Panel

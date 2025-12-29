@@ -28,12 +28,12 @@ export class SidebarComponent {
   private navigationService = inject(NavigationService);
   private layoutService = inject(LayoutService);
 
-  collapsed = input<boolean>(false);
+  isExpanded = input<boolean>(true);
 
   protected readonly navigation = this.navigationService.getNavigation();
 
   toggleCollapse(): void {
-    this.layoutService.toggleSidebarCollapse();
+    this.layoutService.toggleSidebarDisplay();
   }
 }
 

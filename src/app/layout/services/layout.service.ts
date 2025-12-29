@@ -5,15 +5,15 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   providedIn: 'root'
 })
 export class LayoutService {
-  private readonly STORAGE_KEY_COLLAPSED = 'sidebar-collapsed';
+  private readonly STORAGE_KEY_SIDEBAR_DISPLAY_MODE = 'sidebar-display-mode';
 
   private readonly _sidebarOpened = signal(true);
   private readonly _isMobile = signal(false);
-  private readonly _sidebarCollapsed = signal(this.loadCollapsedState());
+  private readonly _sidebarExpanded = signal(this.loadDisplayModeSidebar());
 
   readonly sidebarOpened = this._sidebarOpened.asReadonly();
   readonly isMobile = this._isMobile.asReadonly();
-  readonly sidebarCollapsed = this._sidebarCollapsed.asReadonly();
+  readonly sidebarExpanded = this._sidebarExpanded.asReadonly();
 
   constructor(private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver
@@ -39,19 +39,19 @@ export class LayoutService {
     this._sidebarOpened.set(true);
   }
 
-  toggleSidebarCollapse(): void {
-    const newState = !this._sidebarCollapsed();
-    this._sidebarCollapsed.set(newState);
-    this.saveCollapsedState(newState);
+  toggleSidebarDisplay(): void {
+    const newState = !this._sidebarExpanded();
+    this._sidebarExpanded.set(newState);
+    this.saveDisplayModeSidebar(newState);
   }
 
-  private loadCollapsedState(): boolean {
-    const stored = localStorage.getItem(this.STORAGE_KEY_COLLAPSED);
+  private loadDisplayModeSidebar(): boolean {
+    const stored = localStorage.getItem(this.STORAGE_KEY_SIDEBAR_DISPLAY_MODE);
     return stored === 'true';
   }
 
-  private saveCollapsedState(collapsed: boolean): void {
-    localStorage.setItem(this.STORAGE_KEY_COLLAPSED, String(collapsed));
+  private saveDisplayModeSidebar(collapsed: boolean): void {
+    localStorage.setItem(this.STORAGE_KEY_SIDEBAR_DISPLAY_MODE, String(collapsed));
   }
 }
 

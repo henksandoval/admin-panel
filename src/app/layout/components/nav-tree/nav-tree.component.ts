@@ -30,7 +30,6 @@ export class NavTreeComponent implements OnInit, OnDestroy {
   private routerSubscription?: Subscription;
 
   dataSource = input.required<NavigationItem[]>();
-  collapsed = input<boolean>(false);
 
   protected readonly childrenAccessor = (node: NavigationItem) => node.children ?? [];
 

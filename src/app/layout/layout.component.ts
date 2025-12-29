@@ -31,9 +31,9 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
           [fixedInViewport]="isMobile()"
           [fixedTopGap]="0"
           [fixedBottomGap]="0"
-          [class.collapsed]="sidebarCollapsed()"
+          [class.expanded]="sidebarExpanded()"
           class="sidenav overflow-visible">
-          <app-sidebar [collapsed]="sidebarCollapsed()"></app-sidebar>
+          <app-sidebar [isExpanded]="sidebarExpanded()"></app-sidebar>
         </mat-sidenav>
 
         <mat-sidenav-content class="flex flex-col h-full">
@@ -58,7 +58,7 @@ export class LayoutComponent {
 
   protected readonly sidebarOpened = this.layoutService.sidebarOpened;
   protected readonly isMobile = this.layoutService.isMobile;
-  protected readonly sidebarCollapsed = this.layoutService.sidebarCollapsed;
+  protected readonly sidebarExpanded = this.layoutService.sidebarExpanded
 
   onBackdropClick(): void {
     if (this.isMobile()) {
