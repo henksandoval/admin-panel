@@ -29,10 +29,24 @@
 }
 
 @mixin theme-border($width: 1px, $style: solid) {
-  border: $width $style var(--color-secondary-300);
+  border: $width $style var(--theme-primary-500);
 
   .dark-theme & {
-    border-color: var(--color-secondary-700);
+    border-color: var(--theme-primary-500);
+  }
+}
+
+@mixin overlay-borders {
+  .border-b,
+  .border-t {
+    border-color: var(--theme-primary-500);
+  }
+
+  .dark-theme & {
+    .border-b,
+    .border-t {
+      border-color: var(--theme-primary-500);
+    }
   }
 }
 

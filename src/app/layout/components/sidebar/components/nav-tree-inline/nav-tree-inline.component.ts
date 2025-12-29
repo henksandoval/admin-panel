@@ -38,11 +38,11 @@ export class NavTreeInlineComponent implements OnInit, OnDestroy {
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.updateActiveRootItem();
+        this.navigationService.updateActiveRootItem();
         this.changeDetector.markForCheck();
       });
 
-    this.updateActiveRootItem();
+    this.navigationService.updateActiveRootItem();
   }
 
   public ngOnDestroy(): void {
@@ -63,7 +63,7 @@ export class NavTreeInlineComponent implements OnInit, OnDestroy {
 
   protected isActive(url?: string): boolean {
     if (!url) return false;
-    return this.isRouteActive(url);
+    return this.navigationService.isRouteActive(url);
   }
 
   protected isParentOfActive(node: NavigationItem): boolean {
@@ -83,7 +83,7 @@ export class NavTreeInlineComponent implements OnInit, OnDestroy {
 
   private hasActiveChild(children: NavigationItem[]): boolean {
     return children.some(child => {
-      if (child.url && this.isRouteActive(child.url)) {
+      if (child.url && this.navigationService.isRouteActive(child.url)) {
         return true;
       }
       if (child.children) {
@@ -91,39 +91,5 @@ export class NavTreeInlineComponent implements OnInit, OnDestroy {
       }
       return false;
     });
-  }
-
-  private isRouteActive(url: string): boolean {
-    return this.router.isActive(url, {
-      paths: 'subset',
-      queryParams: 'ignored',
-      fragment: 'ignored',
-      matrixParams: 'ignored'
-    });
-  }
-
-  private updateActiveRootItem(): void {
-    const data = this.navigationService.getNavigation()();
-
-    for (const rootItem of data) {
-      if (this.itemContainsActiveRoute(rootItem)) {
-        this.navigationService.setActiveRootItemId(rootItem.id);
-        return;
-      }
-    }
-
-    this.navigationService.setActiveRootItemId(null);
-  }
-
-  private itemContainsActiveRoute(item: NavigationItem): boolean {
-    if (item.url && this.isRouteActive(item.url)) {
-      return true;
-    }
-
-    if (item.children && item.children.length > 0) {
-      return item.children.some(child => this.itemContainsActiveRoute(child));
-    }
-
-    return false;
   }
 }

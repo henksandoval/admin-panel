@@ -1,15 +1,13 @@
 <div class="app-theme-background-gradient flex flex-col h-full w-full transition-all duration-300 overflow-hidden">
-  <div class="flex items-center gap-2 px-4 py-6 border-b border-white/10 flex-shrink-0" [class.px-2]="isExpanded()">
+  <div class="flex items-center justify-between px-4 h-16 border-b">
     <div class="flex items-center gap-3 flex-1 min-w-0">
-      <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-theme-500 to-theme-600 shadow-lg">
-        <span class="text-white text-xl font-bold">A</span>
+      <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 sidebar-logo shadow-lg">
+        <span class="text-xl font-bold">A</span>
       </div>
-      @if (isExpanded()) {
-        <div class="flex flex-col flex-1 min-w-0">
-          <span class="text-white font-semibold text-lg leading-tight truncate">Admin Panel</span>
-          <span class="text-white/60 text-xs truncate">Dashboard v1.0</span>
-        </div>
-      }
+      <div [class.hidden]="!isExpanded()" class="flex flex-col flex-1 min-w-0">
+        <h1 class="font-semibold text-lg leading-tight truncate">Admin Panel</h1>
+        <p class="text-xs truncate sidebar-subtitle">Dashboard v1.0</p>
+      </div>
     </div>
   </div>
 
@@ -20,18 +18,19 @@
   } @else {
     <div class="flex-1 overflow-y-auto py-2 nav-tree-container flex flex-col items-center gap-1">
       @for (item of navigation(); track item.id) {
-        <button
-          mat-icon-button
-          [matTooltip]="item.title"
-          matTooltipPosition="right"
-          [class.active]="isItemActive(item)"
-          (click)="onIconClick(item)"
-          (mouseenter)="onIconHover(item, $event)">
-          <mat-icon>{{ item.icon }}</mat-icon>
-          @if (item.badge) {
-            <span class="icon-badge">{{ item.badge.title }}</span>
-          }
-        </button>
+        <div [class.active]="isItemActive(item)" class="relative w-full flex justify-center">
+          <button
+            mat-icon-button
+            [matTooltip]="item.title"
+            matTooltipPosition="right"
+            (click)="onIconClick(item)"
+            (mouseenter)="onIconHover(item, $event)">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            @if (item.badge) {
+              <span class="icon-badge">{{ item.badge.title }}</span>
+            }
+          </button>
+        </div>
       }
     </div>
 
@@ -42,18 +41,18 @@
       </app-nav-tree-floating>
     }
   }
-  <div class="sidebar-footer px-4 py-4 flex-shrink-0">
-    <button
-      mat-icon-button
-      (click)="toggleCollapse()"
-      [matTooltip]="isExpanded() ? 'Contraer' : 'Expandir'"
-      matTooltipPosition="right"
-      class="text-white/70 hover:text-white hover:bg-white/10"
-      aria-label="Toggle sidebar">
-      <mat-icon>{{ isExpanded() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
-    </button>
-    <div class="sidebar-footer-text text-xs text-center">
-      © 2025 Admin Panel
+
+  <footer class="px-4 py-4 flex-shrink-0 border-t">
+    <div [class]="isExpanded() ? 'flex items-center justify-between' : 'flex flex-col items-center gap-2'">
+      <button
+        mat-icon-button
+        (click)="toggleCollapse()"
+        [matTooltip]="isExpanded() ? 'Contraer' : 'Expandir'"
+        matTooltipPosition="right"
+        aria-label="Toggle sidebar">
+        <mat-icon>{{ isExpanded() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </button>
+      <p  [class.hidden]="!isExpanded()" class="text-xs">© 2025 Admin Panel</p>
     </div>
-  </div>
+  </footer>
 </div>

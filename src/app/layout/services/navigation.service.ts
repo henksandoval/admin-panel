@@ -1,4 +1,5 @@
-import { Injectable, signal, computed } from '@angular/core';
+import {Injectable, signal, computed, inject} from '@angular/core';
+import {Router} from '@angular/router';
 
 export interface NavigationItem {
   id: string;
@@ -16,6 +17,7 @@ export interface NavigationItem {
   providedIn: 'root'
 })
 export class NavigationService {
+  private router = inject(Router);
   private readonly navigationMenu = signal<NavigationItem[]>([
     {
       id: 'dashboard',
@@ -246,6 +248,15 @@ export class NavigationService {
   private readonly currentNavigationChildren = signal<NavigationItem[]>([]);
   private readonly activeRootItemId = signal<string | null>(null);
 
+  isRouteActive(url: string): boolean {
+    return this.router.isActive(url, {
+      paths: 'subset',
+      queryParams: 'ignored',
+      fragment: 'ignored',
+      matrixParams: 'ignored'
+    });
+  }
+
   getNavigation() {
     return this.navigationMenu.asReadonly();
   }
@@ -262,8 +273,33 @@ export class NavigationService {
     return this.activeRootItemId.asReadonly();
   }
 
-  setActiveRootItemId(itemId: string | null) {
+  updateActiveRootItem(): void {
+    const data = this.getNavigation()();
+
+    for (const rootItem of data) {
+      if (this.itemContainsActiveRoute(rootItem)) {
+        this.setActiveRootItemId(rootItem.id);
+        return;
+      }
+    }
+
+    this.setActiveRootItemId(null);
+  }
+
+  private setActiveRootItemId(itemId: string | null) {
     this.activeRootItemId.set(itemId);
+  }
+
+  private itemContainsActiveRoute(item: NavigationItem): boolean {
+    if (item.url && this.isRouteActive(item.url)) {
+      return true;
+    }
+
+    if (item.children && item.children.length > 0) {
+      return item.children.some(child => this.itemContainsActiveRoute(child));
+    }
+
+    return false;
   }
 }
 

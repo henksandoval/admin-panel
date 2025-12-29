@@ -21,7 +21,7 @@ import {NavTreeFloatingComponent} from './components/nav-tree-floating/nav-tree-
     NavTreeFloatingComponent
   ],
   host: {
-    class: 'block h-full bg-gradient-to-b from-theme-600 to-theme-700 dark:from-theme-700 dark:to-theme-800'
+    class: 'block h-full'
   },
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
@@ -63,7 +63,9 @@ export class SidebarComponent implements OnInit {
 
   protected onIconClick(item: NavigationItem): void {
     if (item.url) {
-      void this.router.navigate([item.url]);
+      void this.router.navigate([item.url]).then(() => {
+        this.navigationService.updateActiveRootItem();
+      });
     }
   }
 

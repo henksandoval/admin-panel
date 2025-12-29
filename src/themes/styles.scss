@@ -101,34 +101,20 @@ button, input, select, textarea {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-neutral-50);
+  background: var(--theme-primary-800);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-neutral-200);
-  border-radius: 4px;
-}
+  background: var(--theme-primary-500);
+  border-radius: 3px;
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-neutral-300);
-}
-
-.dark-theme {
-  ::-webkit-scrollbar-track {
-    background: var(--color-secondary-800);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-secondary-600);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-secondary-500);
+  &:hover {
+    background: var(--theme-primary-400);
   }
 }
 
@@ -136,6 +122,8 @@ button, input, select, textarea {
   @include mixins.theme-background;
   @include mixins.theme-text-on-primary;
   @include mixins.theme-badge;
+  @include mixins.theme-border();
+  @include mixins.overlay-borders;
 
   &[class*="mat-"],
   &[class*="mat-mdc-"] {
@@ -147,6 +135,8 @@ button, input, select, textarea {
   @include mixins.theme-background-gradient;
   @include mixins.theme-text-on-primary;
   @include mixins.theme-badge;
+  @include mixins.theme-border();
+  @include mixins.overlay-borders;
 
   &[class*="mat-"],
   &[class*="mat-mdc-"] {
