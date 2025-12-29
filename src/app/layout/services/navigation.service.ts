@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 
 export interface NavigationItem {
   id: string;
@@ -155,7 +155,11 @@ export class NavigationService {
               id: '400',
               title: 'Error 400',
               icon: 'error_outline',
-              url: '/pages/errors/400'
+              url: '/pages/errors/400',
+              badge: {
+                title: '12',
+                type: 'important'
+              }
             },
             {
               id: '401',
@@ -173,7 +177,11 @@ export class NavigationService {
               id: '404',
               title: 'Error 404',
               icon: 'error_outline',
-              url: '/pages/errors/404'
+              url: '/pages/errors/404',
+              badge: {
+                title: '17',
+                type: 'normal'
+              }
             },
             {
               id: '500',

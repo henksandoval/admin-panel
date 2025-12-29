@@ -1,4 +1,4 @@
-import {Component, inject, input, ChangeDetectionStrategy, signal, computed} from '@angular/core';
+import {Component, inject, input, ChangeDetectionStrategy, signal, computed, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,7 +27,7 @@ import {NavTreeFloatingComponent} from './components/nav-tree-floating/nav-tree-
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   private navigationService = inject(NavigationService);
   private layoutService = inject(LayoutService);
   private router = inject(Router);
@@ -41,8 +41,16 @@ export class SidebarComponent {
   protected readonly navigation = this.navigationService.getNavigation();
   protected readonly activeRootItemId = this.navigationService.getActiveRootItemId();
 
+  ngOnInit(): void {
+    if (this.layoutService.sidebarExpanded()) {
+      const menu = this.navigationService.getNavigation()();
+      this.navigationService.setCurrentNavigation(menu);
+    }
+  }
+
   protected toggleCollapse(): void {
     this.layoutService.toggleSidebarDisplay();
+    this.navigationService.setCurrentNavigation([]);
 
     if (this.layoutService.sidebarExpanded()) {
       this.navigationService.setCurrentNavigation(this.navigation());

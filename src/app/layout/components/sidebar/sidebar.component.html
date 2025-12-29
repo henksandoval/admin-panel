@@ -11,16 +11,6 @@
         </div>
       }
     </div>
-
-    <button
-      mat-icon-button
-      (click)="toggleCollapse()"
-      [matTooltip]="isExpanded() ? 'Expandir' : 'Contraer'"
-      matTooltipPosition="right"
-      class="text-white/70 hover:text-white hover:bg-white/10"
-      aria-label="Toggle sidebar">
-      <mat-icon>{{ isExpanded() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
-    </button>
   </div>
 
   @if (isExpanded()) {
@@ -53,6 +43,15 @@
     }
   }
   <div class="sidebar-footer px-4 py-4 flex-shrink-0">
+    <button
+      mat-icon-button
+      (click)="toggleCollapse()"
+      [matTooltip]="isExpanded() ? 'Contraer' : 'Expandir'"
+      matTooltipPosition="right"
+      class="text-white/70 hover:text-white hover:bg-white/10"
+      aria-label="Toggle sidebar">
+      <mat-icon>{{ isExpanded() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+    </button>
     <div class="sidebar-footer-text text-xs text-center">
       © 2025 Admin Panel
     </div>
