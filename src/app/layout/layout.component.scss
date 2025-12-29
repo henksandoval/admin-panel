@@ -1,8 +1,4 @@
 ﻿.sidenav {
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 0;
-  border-right: 1px solid var(--color-neutral-400);
-
   &:not(.expanded) {
     width: 64px;
   }
@@ -12,23 +8,15 @@
   }
 }
 
-:host-context(.light-theme) .sidenav {
-  border-right-color: var(--color-secondary-600);
+.main-content {
+  transition: background-color 0.3s ease;
 }
 
-:host-context(.dark-theme) .sidenav {
-  border-right-color: var(--color-neutral-400);
+.mat-drawer {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
-::ng-deep {
-  mat-sidenav-container {
-    height: 100% !important;
-  }
-
-  mat-sidenav-content {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-    overflow: hidden !important;
-  }
+.mat-drawer-side {
+  border-right: none;
 }

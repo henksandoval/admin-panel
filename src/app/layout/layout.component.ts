@@ -38,7 +38,7 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
 
         <mat-sidenav-content class="flex flex-col h-full">
           <app-toolbar></app-toolbar>
-          <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-secondary-900 transition-colors duration-300">
+          <main class="flex-1 overflow-y-auto main-content">
             <div class="p-6 md:p-6 max-w-[1400px] mx-auto w-full">
               <router-outlet></router-outlet>
             </div>

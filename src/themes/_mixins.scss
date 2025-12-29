@@ -38,13 +38,17 @@
 
 @mixin overlay-borders {
   .border-b,
-  .border-t {
+  .border-t,
+  .border-l,
+  .border-r {
     border-color: var(--theme-primary-500);
   }
 
   .dark-theme & {
     .border-b,
-    .border-t {
+    .border-t,
+    .border-l,
+    .border-r {
       border-color: var(--theme-primary-500);
     }
   }
