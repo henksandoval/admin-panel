@@ -1,0 +1,21 @@
+.floating-nav {
+  position: fixed;
+  left: 64px;
+  min-width: 280px;
+  max-width: 320px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  z-index: 1000;
+  background: linear-gradient(
+    135deg,
+    var(--theme-primary-600) 0%,
+    var(--theme-primary-700) 100%
+  );
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 8px 16px var(--overlay-dark-30),
+    0 0 0 1px var(--overlay-light-10);
+  border-radius: 12px;
+  padding: 8px 0;
+}

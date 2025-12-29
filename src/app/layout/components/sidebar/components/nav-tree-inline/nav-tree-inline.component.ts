@@ -1,16 +1,16 @@
-﻿import { Component, input, inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, input, inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NavigationItem } from '../../../../services/navigation.service';
-import { LayoutService } from '../../../../services/layout.service';
+import { NavigationItem, NavigationService } from '../../../../services/navigation.service';
 import { filter, Subscription } from 'rxjs';
+import {LayoutService} from '../../../../services/layout.service';
 
 @Component({
-  selector: 'app-nav-tree',
+  selector: 'app-nav-tree-inline',
   standalone: true,
   imports: [
     CommonModule,
@@ -19,17 +19,18 @@ import { filter, Subscription } from 'rxjs';
     MatButtonModule,
     MatTooltipModule
   ],
-  templateUrl: './nav-tree.component.html',
-  styleUrl: './nav-tree.component.scss',
+  templateUrl: './nav-tree-inline.component.html',
+  styleUrl: './nav-tree-inline.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavTreeComponent implements OnInit, OnDestroy {
+export class NavTreeInlineComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private layoutService = inject(LayoutService);
+  private navigationService = inject(NavigationService);
   private changeDetector = inject(ChangeDetectorRef);
   private routerSubscription?: Subscription;
 
-  dataSource = input.required<NavigationItem[]>();
+  protected readonly data = computed(() => this.navigationService.getCurrentNavigation()());
 
   protected readonly childrenAccessor = (node: NavigationItem) => node.children ?? [];
 
@@ -37,8 +38,11 @@ export class NavTreeComponent implements OnInit, OnDestroy {
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
+        this.updateActiveRootItem();
         this.changeDetector.markForCheck();
       });
+
+    this.updateActiveRootItem();
   }
 
   public ngOnDestroy(): void {
@@ -96,5 +100,30 @@ export class NavTreeComponent implements OnInit, OnDestroy {
       fragment: 'ignored',
       matrixParams: 'ignored'
     });
+  }
+
+  private updateActiveRootItem(): void {
+    const data = this.navigationService.getNavigation()();
+
+    for (const rootItem of data) {
+      if (this.itemContainsActiveRoute(rootItem)) {
+        this.navigationService.setActiveRootItemId(rootItem.id);
+        return;
+      }
+    }
+
+    this.navigationService.setActiveRootItemId(null);
+  }
+
+  private itemContainsActiveRoute(item: NavigationItem): boolean {
+    if (item.url && this.isRouteActive(item.url)) {
+      return true;
+    }
+
+    if (item.children && item.children.length > 0) {
+      return item.children.some(child => this.itemContainsActiveRoute(child));
+    }
+
+    return false;
   }
 }

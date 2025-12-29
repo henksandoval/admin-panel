@@ -25,4 +25,19 @@
   }
 }
 
-
+.active {
+  background: linear-gradient(
+      to right,
+      var(--overlay-light-40) 0%,
+      var(--overlay-light-30) 50%,
+      var(--overlay-light-15) 85%,
+      transparent 100%
+  );
+  border-left: 3px solid var(--overlay-light-80);
+  border-radius: 0 8px 8px 0;
+  box-shadow:
+    inset 0 1px 0 var(--overlay-light-15),
+    0 2px 8px var(--overlay-dark-10);
+  position: relative;
+  font-weight: 500;
+}

@@ -16,7 +16,7 @@ export interface NavigationItem {
   providedIn: 'root'
 })
 export class NavigationService {
-  private readonly navigation = signal<NavigationItem[]>([
+  private readonly navigationMenu = signal<NavigationItem[]>([
     {
       id: 'dashboard',
       title: 'Dashboard',
@@ -54,7 +54,32 @@ export class NavigationService {
               title: 'Clientes',
               icon: 'people',
               url: '/apps/ecommerce/customers'
-            }
+            },
+            {
+              id: 'reports',
+              title: 'Reportes',
+              icon: 'bar_chart',
+              children: [
+                {
+                  id: 'sales',
+                  title: 'Ventas',
+                  icon: 'attach_money',
+                  url: '/apps/ecommerce/reports/sales'
+                },
+                {
+                  id: 'purchases',
+                  title: 'Compras',
+                  icon: 'attach_file',
+                  url: '/apps/ecommerce/reports/purchases'
+                }
+              ]
+            },
+            {
+              id: 'analytics',
+              title: 'Analytics',
+              icon: 'insights',
+              url: '/apps/ecommerce/analytics'
+            },
           ]
         },
         {
@@ -106,6 +131,18 @@ export class NavigationService {
               title: 'Recuperar contraseña',
               icon: 'lock_reset',
               url: '/pages/auth/forgot-password'
+            },
+            {
+              id: 'lock-screen',
+              title: 'Bloquear pantalla',
+              icon: 'lock_open',
+              url: '/pages/auth/lock-screen'
+            },
+            {
+              id: 'two-factor-auth',
+              title: 'Autenticación de dos factores',
+              icon: 'vpn_key',
+              url: '/pages/auth/two-factor-auth'
             }
           ]
         },
@@ -114,6 +151,24 @@ export class NavigationService {
           title: 'Errores',
           icon: 'error',
           children: [
+            {
+              id: '400',
+              title: 'Error 400',
+              icon: 'error_outline',
+              url: '/pages/errors/400'
+            },
+            {
+              id: '401',
+              title: 'Error 401',
+              icon: 'error_outline',
+              url: '/pages/errors/401'
+            },
+            {
+              id: '403',
+              title: 'Error 403',
+              icon: 'error_outline',
+              url: '/pages/errors/403'
+            },
             {
               id: '404',
               title: 'Error 404',
@@ -125,6 +180,18 @@ export class NavigationService {
               title: 'Error 500',
               icon: 'warning',
               url: '/pages/errors/500'
+            },
+            {
+              id: '503',
+              title: 'Error 503',
+              icon: 'warning',
+              url: '/pages/errors/503'
+            },
+            {
+              id: '504',
+              title: 'Error 504',
+              icon: 'warning',
+              url: '/pages/errors/504'
             }
           ]
         },
@@ -168,9 +235,27 @@ export class NavigationService {
       url: '/settings'
     }
   ]);
+  private readonly currentNavigationChildren = signal<NavigationItem[]>([]);
+  private readonly activeRootItemId = signal<string | null>(null);
 
   getNavigation() {
-    return this.navigation.asReadonly();
+    return this.navigationMenu.asReadonly();
+  }
+
+  getCurrentNavigation() {
+    return this.currentNavigationChildren.asReadonly();
+  }
+
+  setCurrentNavigation(navigation: NavigationItem[]) {
+    this.currentNavigationChildren.set(navigation);
+  }
+
+  getActiveRootItemId() {
+    return this.activeRootItemId.asReadonly();
+  }
+
+  setActiveRootItemId(itemId: string | null) {
+    this.activeRootItemId.set(itemId);
   }
 }
 

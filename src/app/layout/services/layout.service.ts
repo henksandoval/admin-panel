@@ -20,7 +20,6 @@ export class LayoutService {
       .observe([Breakpoints.XSmall, Breakpoints.Small])
       .subscribe(result => {
         this._isMobile.set(result.matches);
-        // En móvil, cerrar el sidebar por defecto
         if (result.matches) {
           this._sidebarOpened.set(false);
         }
