@@ -5,8 +5,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NavigationItem } from '../../services/navigation.service';
-import { LayoutService } from '../../services/layout.service';
+import { NavigationItem } from '../../../../services/navigation.service';
+import { LayoutService } from '../../../../services/layout.service';
 import { filter, Subscription } from 'rxjs';
 
 @Component({

@@ -27,6 +27,29 @@
     <div class="flex-1 overflow-y-auto py-2 nav-tree-container">
       <app-nav-tree [dataSource]="navigation()"></app-nav-tree>
     </div>
+  } @else {
+    <div class="flex-1 overflow-y-auto py-2 nav-tree-container flex flex-col items-center gap-1">
+      @for (item of navigation(); track item.id) {
+        <button
+          mat-icon-button
+          [matTooltip]="item.title"
+          matTooltipPosition="right"
+          (mouseenter)="onIconHover(item, $event)">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          @if (item.badge) {
+            <span class="icon-badge">{{ item.badge.title }}</span>
+          }
+        </button>
+      }
+    </div>
+
+    @if (activeNavigationItem()) {
+      <app-nav-floating
+        [items]="activeNavigationItem()!.children!"
+        [topPosition]="hoveredIconTop()"
+        (closed)="onFloatingNavClosed()">
+      </app-nav-floating>
+    }
   }
   <div class="sidebar-footer px-4 py-4 flex-shrink-0">
     <div class="sidebar-footer-text text-xs text-center">
