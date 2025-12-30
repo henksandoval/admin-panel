@@ -1,76 +1,51 @@
-<div class="animate-slide-up">
-  <div class="mb-6">
-    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Dashboard</h1>
-    <p class="text-gray-600 dark:text-gray-400">Bienvenido al panel de administración</p>
-  </div>
+<div>
+  <h1>Dashboard Principal</h1>
+  <h2>Bienvenido al Panel de Control</h2>
+  <h3>Resumen de Actividades</h3>
+  <h4>Estadísticas del Mes</h4>
+  <h5>Detalles Adicionales</h5>
+  <h6>Información Complementaria</h6>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-    @for (stat of stats; track stat.title) {
-      <mat-card class="bg-white dark:bg-secondary-800 border border-gray-200 dark:border-secondary-700 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
-        <mat-card-content class="p-6">
-          <div class="flex items-start justify-between">
-            <div class="flex-1">
-              <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">{{ stat.title }}</p>
-              <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{ stat.value }}</h3>
-              <span class="text-sm font-semibold text-success-600 dark:text-success-400">{{ stat.change }}</span>
-            </div>
-            <div class="w-12 h-12 rounded-lg flex items-center justify-center {{ stat.bgColor }} dark:bg-opacity-20">
-              <mat-icon class="{{ stat.color }}">{{ stat.icon }}</mat-icon>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    }
-  </div>
+  <p>Este es un párrafo con texto descriptivo que explica el propósito del dashboard y proporciona contexto al usuario sobre la información que se muestra.</p>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <mat-card class="lg:col-span-2 bg-white dark:bg-secondary-800 border border-gray-200 dark:border-secondary-700">
-      <mat-card-header class="p-6 pb-4">
-        <mat-card-title class="text-lg font-semibold text-gray-800 dark:text-gray-100">Actividad Reciente</mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="p-6 pt-0">
-        <div class="space-y-4">
-          @for (activity of [1, 2, 3, 4]; track activity) {
-            <div class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-secondary-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-secondary-700 transition-colors cursor-pointer group">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-theme-100 dark:bg-theme-500/20 group-hover:bg-theme-200 dark:group-hover:bg-theme-500/30 transition-colors">
-                <mat-icon class="text-theme-600 dark:text-theme-400">notifications</mat-icon>
-              </div>
-              <div class="flex-1 min-w-0">
-                <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">Nueva orden recibida</h4>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Cliente realizó una compra por $250.00</p>
-                <span class="text-xs text-gray-400 dark:text-gray-500 mt-1 inline-block">Hace 5 minutos</span>
-              </div>
-            </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
+  <span>Texto en línea para etiquetas o información breve</span>
 
-    <mat-card class="bg-white dark:bg-secondary-800 border border-gray-200 dark:border-secondary-700">
-      <mat-card-header class="p-6 pb-4">
-        <mat-card-title class="text-lg font-semibold text-gray-800 dark:text-gray-100">Acciones Rápidas</mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="p-6 pt-0">
-        <div class="space-y-3">
-          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200 hover:translate-x-1">
-            <mat-icon>add_circle</mat-icon>
-            <span class="text-sm font-medium">Nuevo Producto</span>
-          </button>
-          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200 hover:translate-x-1">
-            <mat-icon>person_add</mat-icon>
-            <span class="text-sm font-medium">Nuevo Cliente</span>
-          </button>
-          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200 hover:translate-x-1">
-            <mat-icon>receipt</mat-icon>
-            <span class="text-sm font-medium">Nueva Orden</span>
-          </button>
-          <button class="action-button w-full flex items-center gap-3 p-4 rounded-lg transition-all text-left border-2 border-transparent bg-gray-50 dark:bg-secondary-700 hover:bg-gray-100 dark:hover:bg-secondary-600 text-gray-700 dark:text-gray-200 hover:translate-x-1">
-            <mat-icon>assessment</mat-icon>
-            <span class="text-sm font-medium">Ver Reportes</span>
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <strong>Texto con énfasis fuerte para resaltar información importante</strong>
+
+  <em>Texto con énfasis para destacar ciertos elementos</em>
+
+  <small>Texto pequeño para notas al pie o información secundaria</small>
+
+  <label>Etiqueta de formulario</label>
+
+  <blockquote>Cita o texto destacado que merece atención especial</blockquote>
+
+  <code>Fragmento de código en línea</code>
+
+  <pre>Bloque de texto preformateado</pre>
+
+  <a href="#">Enlace de navegación</a>
+
+  <ul>
+    <li>Primer elemento de lista</li>
+    <li>Segundo elemento de lista</li>
+    <li>Tercer elemento de lista</li>
+  </ul>
+
+  <ol>
+    <li>Elemento numerado uno</li>
+    <li>Elemento numerado dos</li>
+    <li>Elemento numerado tres</li>
+  </ol>
+
+  <dl>
+    <dt>Término de definición</dt>
+    <dd>Descripción del término</dd>
+  </dl>
+
+  <mark>Texto marcado o resaltado</mark>
+
+  <time>2024-01-15</time>
+
+  <abbr title="HyperText Markup Language">HTML</abbr>
 </div>
-

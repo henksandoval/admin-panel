@@ -52,6 +52,7 @@ $base-typography: (
     // Neutral palette (uses CSS Variables from _variables.scss)
     neutral: (
       0: var(--color-full-black),
+      6: var(--color-scheme-dark),
       10: var(--color-neutral-900),
       20: var(--color-neutral-800),
       25: var(--color-neutral-800),
@@ -64,7 +65,7 @@ $base-typography: (
       80: var(--color-neutral-300),
       90: var(--color-neutral-200),
       95: var(--color-neutral-100),
-      98: var(--color-neutral-50),
+      98: var(--color-scheme-light),
       99: var(--color-neutral-50),
       100: var(--color-full-white),
     ),
