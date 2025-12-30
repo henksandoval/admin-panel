@@ -34,10 +34,6 @@ export class LayoutService {
     this._sidebarOpened.set(false);
   }
 
-  openSidebar(): void {
-    this._sidebarOpened.set(true);
-  }
-
   toggleSidebarDisplay(): void {
     const newState = !this._sidebarExpanded();
     this._sidebarExpanded.set(newState);

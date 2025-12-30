@@ -14,30 +14,12 @@
   $light-theme: map.get($theme-variants, 'light');
   $dark-theme: map.get($theme-variants, 'dark');
 
-  // Selector para tema claro con el color específico
-  // El color por defecto (default) se aplica también a :root para compatibilidad
-  @if $color-name == 'default' {
-    :root,
-    .light-theme,
-    body.theme-#{$color-name}.light-theme {
-      @include mat.all-component-themes($light-theme);
-    }
-  } @else {
-    body.theme-#{$color-name}.light-theme {
-      @include mat.all-component-themes($light-theme);
-    }
+  body.theme-#{$color-name}.light-theme {
+    @include mat.all-component-themes($light-theme);
   }
 
-  // Selector para tema oscuro con el color específico
-  @if $color-name == 'default' {
-    .dark-theme,
-    body.theme-#{$color-name}.dark-theme {
-      @include mat.all-component-themes($dark-theme);
-    }
-  } @else {
-    body.theme-#{$color-name}.dark-theme {
-      @include mat.all-component-themes($dark-theme);
-    }
+  body.theme-#{$color-name}.dark-theme {
+    @include mat.all-component-themes($dark-theme);
   }
 }
 
@@ -61,10 +43,6 @@ mat-card,
   transition-property: background-color, border-color, color, fill, stroke;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-button, input, select, textarea {
-  transition-property: none;
 }
 
 ::-webkit-scrollbar {

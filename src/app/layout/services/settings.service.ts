@@ -70,25 +70,14 @@ export class SettingsService {
     const isDarkMode = scheme === 'dark' ||
       (scheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-    // Remove both theme classes
-    document.documentElement.classList.remove('light-theme', 'dark-theme', 'dark');
     document.body.classList.remove('light-theme', 'dark-theme');
 
     if (isDarkMode) {
-      document.documentElement.classList.add('dark-theme', 'dark');
       document.body.classList.add('dark-theme');
     } else {
-      document.documentElement.classList.add('light-theme');
       document.body.classList.add('light-theme');
     }
   }
-
-  toggleScheme(): void {
-    const currentScheme = this._config().scheme;
-    const newScheme: Scheme = currentScheme === 'light' ? 'dark' : 'light';
-    this.setScheme(newScheme);
-  }
-
   get isDarkMode(): boolean {
     return this._config().scheme === 'dark' ||
       (this._config().scheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
