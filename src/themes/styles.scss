@@ -16,30 +16,19 @@
 
   body.theme-#{$color-name}.light-theme {
     @include mat.all-component-themes($light-theme);
-    @include mat.system-level-colors($light-theme);
-    @include mat.system-level-typography($light-theme);
     color-scheme: light;
   }
 
   body.theme-#{$color-name}.dark-theme {
     @include mat.all-component-themes($dark-theme);
-    @include mat.system-level-colors($dark-theme);
-    @include mat.system-level-typography($dark-theme);
     color-scheme: dark;
   }
 }
 
 html, body {
-  color-scheme: light dark;
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-body {
-  font-family: var(--mat-sys-body-large-font, 'Inter', system-ui, sans-serif);
-  background-color: var(--mat-sys-surface, #fff);
-  color: var(--mat-sys-on-surface, #000);
 }
 
 ::-webkit-scrollbar {
@@ -58,20 +47,4 @@ body {
   &:hover {
     background: var(--mat-sys-outline-variant, #999);
   }
-}
-
-.app-theme-background {
-  @include mixins.theme-background;
-  @include mixins.theme-text-on-primary;
-  @include mixins.theme-badge;
-  @include mixins.theme-border();
-  @include mixins.overlay-borders;
-}
-
-.app-theme-background-gradient {
-  @include mixins.theme-background;
-  @include mixins.theme-text-on-primary;
-  @include mixins.theme-badge;
-  @include mixins.theme-border();
-  @include mixins.overlay-borders;
 }

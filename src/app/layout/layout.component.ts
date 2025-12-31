@@ -32,7 +32,7 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
           [fixedTopGap]="0"
           [fixedBottomGap]="0"
           [class.expanded]="sidebarExpanded()"
-          class="sidenav overflow-visible">
+          class="sidenav shadow-md transition-all duration-300 overflow-visible">
           <app-sidebar [isExpanded]="sidebarExpanded()"></app-sidebar>
         </mat-sidenav>
 
