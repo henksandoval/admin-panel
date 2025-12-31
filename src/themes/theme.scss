@@ -1,145 +1,47 @@
 @use 'sass:map';
+@use './brand-palette' as brand;
 @use '@angular/material' as mat;
+
+@function create-app-theme($primary, $tertiary, $type: light) {
+  @return mat.define-theme((
+    color: (
+      theme-type: $type,
+      primary: $primary,
+      tertiary: $tertiary,
+    ),
+    typography: $base-typography
+  ));
+}
 
 $base-typography: (
   brand-family: 'Poppins, Inter, sans-serif',
   plain-family: 'Plus Jakarta Sans, Inter, sans-serif',
 );
 
-$theme-default-light: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$blue-palette,
-    tertiary: mat.$cyan-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-default-dark: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$blue-palette,
-    tertiary: mat.$cyan-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-brand-light: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$cyan-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-brand-dark: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$azure-palette,
-    tertiary: mat.$cyan-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-teal-light: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$cyan-palette,
-    tertiary: mat.$blue-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-teal-dark: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$cyan-palette,
-    tertiary: mat.$blue-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-rose-light: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$magenta-palette,
-    tertiary: mat.$cyan-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-rose-dark: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$magenta-palette,
-    tertiary: mat.$cyan-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-purple-light: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$violet-palette,
-    tertiary: mat.$cyan-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-purple-dark: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$violet-palette,
-    tertiary: mat.$cyan-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-amber-light: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$orange-palette,
-    tertiary: mat.$yellow-palette,
-  ),
-  typography: $base-typography,
-));
-
-$theme-amber-dark: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$orange-palette,
-    tertiary: mat.$yellow-palette,
-  ),
-  typography: $base-typography,
-));
-
-$themes: (
-  'default': (
-    'light': $theme-default-light,
-    'dark': $theme-default-dark,
-  ),
-  'brand': (
-    'light': $theme-brand-light,
-    'dark': $theme-brand-dark,
-  ),
-  'teal': (
-    'light': $theme-teal-light,
-    'dark': $theme-teal-dark,
-  ),
-  'rose': (
-    'light': $theme-rose-light,
-    'dark': $theme-rose-dark,
-  ),
-  'purple': (
-    'light': $theme-purple-light,
-    'dark': $theme-purple-dark,
-  ),
-  'amber': (
-    'light': $theme-amber-light,
-    'dark': $theme-amber-dark,
-  ),
+$theme-config: (
+  'default': (primary: brand.$brand-primary, tertiary: brand.$brand-tertiary),
+  'brand': (primary: brand.$brand-primary, tertiary: brand.$brand-tertiary),
+  'azure': (primary: mat.$azure-palette, tertiary: mat.$cyan-palette),
+  'teal': (primary: mat.$cyan-palette, tertiary: mat.$blue-palette),
+  'rose': (primary: mat.$magenta-palette, tertiary: mat.$cyan-palette),
+  'purple': (primary: mat.$violet-palette, tertiary: mat.$cyan-palette),
+  'amber': (primary: mat.$orange-palette, tertiary: mat.$yellow-palette),
 );
 
-$light-theme: $theme-default-light;
-$dark-theme: $theme-default-dark;
+$themes: ();
+
+@each $name, $config in $theme-config {
+  $primary: map.get($config, 'primary');
+  $tertiary: map.get($config, 'tertiary');
+
+  $light: create-app-theme($primary, $tertiary, light);
+  $dark: create-app-theme($primary, $tertiary, dark);
+
+  $themes: map.set($themes, $name, (
+    'light': $light,
+    'dark': $dark
+  ));
+}
+
+$light-theme: map.get(map.get($themes, 'default'), 'light');
+$dark-theme: map.get(map.get($themes, 'default'), 'dark');
