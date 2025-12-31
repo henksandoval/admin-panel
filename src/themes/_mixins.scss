@@ -1,13 +1,12 @@
 @mixin theme-background {
-  background: var(--theme-primary-600);
+  background: var(--mat-sys-on-primary) !important;
 }
 
 @mixin theme-background-gradient {
-  background: linear-gradient(
-      135deg,
-      var(--theme-primary-600),
-      var(--theme-primary-700)
-  );
+  background: linear-gradient(135deg,
+    var(--mat-sys-on-primary) 0%,
+    var(--mat-sys-on-primary-container) 100%
+  ) !important;
 }
 
 @mixin theme-color {

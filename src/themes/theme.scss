@@ -1,150 +1,145 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
-// ================================================
-// SHARED THEME CONFIGURATION
-// ================================================
-
 $base-typography: (
   brand-family: 'Poppins, Inter, sans-serif',
   plain-family: 'Plus Jakarta Sans, Inter, sans-serif',
 );
 
-@function css-var-palette($prefix) {
-  @return (
-    // Core tones (Material Design 3)
-    0: var(--color-full-black),
-    10: var(#{$prefix}-900),     // Darkest
-    20: var(#{$prefix}-800),
-    25: var(#{$prefix}-800),
-    30: var(#{$prefix}-700),
-    35: var(#{$prefix}-700),
-    40: var(#{$prefix}-600),
-    50: var(#{$prefix}-500),
-    60: var(#{$prefix}-500),     // Base color (primary)
-    70: var(#{$prefix}-400),
-    80: var(#{$prefix}-300),
-    90: var(#{$prefix}-200),
-    95: var(#{$prefix}-100),
-    98: var(#{$prefix}-50),
-    99: var(#{$prefix}-50),
-    100: var(--color-full-white),
+$theme-default-light: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: $base-typography,
+));
 
-    secondary: (
-      0: var(--color-full-black),
-      10: var(--color-secondary-900),
-      20: var(--color-secondary-800),
-      25: var(--color-secondary-800),
-      30: var(--color-secondary-700),
-      35: var(--color-secondary-700),
-      40: var(--color-secondary-600),
-      50: var(--color-secondary-500),
-      60: var(--color-secondary-500),
-      70: var(--color-secondary-400),
-      80: var(--color-secondary-300),
-      90: var(--color-secondary-200),
-      95: var(--color-secondary-100),
-      98: var(--color-secondary-50),
-      99: var(--color-secondary-50),
-      100: var(--color-full-white),
-    ),
+$theme-default-dark: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$blue-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: $base-typography,
+));
 
-    // Neutral palette (uses CSS Variables from _variables.scss)
-    neutral: (
-      0: var(--color-full-black),
-      6: var(--color-scheme-dark),
-      10: var(--color-neutral-900),
-      20: var(--color-neutral-800),
-      25: var(--color-neutral-800),
-      30: var(--color-neutral-700),
-      35: var(--color-neutral-700),
-      40: var(--color-neutral-600),
-      50: var(--color-neutral-500),
-      60: var(--color-neutral-500),
-      70: var(--color-neutral-400),
-      80: var(--color-neutral-300),
-      90: var(--color-neutral-200),
-      95: var(--color-neutral-100),
-      98: var(--color-scheme-light),
-      99: var(--color-neutral-50),
-      100: var(--color-full-white),
-    ),
+$theme-brand-light: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: $base-typography,
+));
 
-    // Error palette (uses CSS Variables from _variables.scss)
-    error: (
-      0: var(--color-full-black),
-      10: var(--color-error-900),
-      20: var(--color-error-800),
-      25: var(--color-error-800),
-      30: var(--color-error-700),
-      35: var(--color-error-700),
-      40: var(--color-error-600),
-      50: var(--color-error-500),
-      60: var(--color-error-500),
-      70: var(--color-error-400),
-      80: var(--color-error-300),
-      90: var(--color-error-200),
-      95: var(--color-error-100),
-      98: var(--color-error-50),
-      99: var(--color-error-50),
-      100: var(--color-full-white),
-    ),
+$theme-brand-dark: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: $base-typography,
+));
 
-    // Neutral variant (uses CSS Variables from _variables.scss)
-    neutral-variant: (
-      0: var(--color-full-black),
-      10: var(--color-neutral-900),
-      20: var(--color-neutral-800),
-      25: var(--color-neutral-800),
-      30: var(--color-neutral-700),
-      35: var(--color-neutral-700),
-      40: var(--color-neutral-600),
-      50: var(--color-neutral-500),
-      60: var(--color-neutral-500),
-      70: var(--color-neutral-400),
-      80: var(--color-neutral-300),
-      90: var(--color-neutral-200),
-      95: var(--color-neutral-100),
-      98: var(--color-neutral-50),
-      99: var(--color-neutral-50),
-      100: var(--color-full-white),
-    ),
-  );
-}
+$theme-teal-light: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$cyan-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  typography: $base-typography,
+));
 
-// Tertiary palette (accent color - teal/green)
-$tertiary-palette: css-var-palette('--theme-primary');
+$theme-teal-dark: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$cyan-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  typography: $base-typography,
+));
 
-$themes: ();
-$color-names: ('default', 'brand', 'teal', 'rose', 'purple', 'amber');
+$theme-rose-light: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$magenta-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: $base-typography,
+));
 
-@each $color-name in $color-names {
-  $primary-palette: css-var-palette('--theme-primary');
+$theme-rose-dark: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$magenta-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: $base-typography,
+));
 
-  $light-theme: mat.define-theme((
-    color: (
-      theme-type: light,
-      primary: $primary-palette,
-      tertiary: $tertiary-palette,
-    ),
-    typography: $base-typography
-  ));
+$theme-purple-light: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$violet-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: $base-typography,
+));
 
-  $dark-theme: mat.define-theme((
-    color: (
-      theme-type: dark,
-      primary: $primary-palette,
-      tertiary: $tertiary-palette,
-    ),
-    typography: $base-typography
-  ));
+$theme-purple-dark: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$violet-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: $base-typography,
+));
 
-  // Store themes in map
-  $themes: map.set($themes, $color-name, (
-    'light': $light-theme,
-    'dark': $dark-theme
-  ));
-}
+$theme-amber-light: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$orange-palette,
+    tertiary: mat.$yellow-palette,
+  ),
+  typography: $base-typography,
+));
 
-$light-theme: map.get(map.get($themes, 'default'), 'light');
-$dark-theme: map.get(map.get($themes, 'default'), 'dark');
+$theme-amber-dark: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$orange-palette,
+    tertiary: mat.$yellow-palette,
+  ),
+  typography: $base-typography,
+));
+
+$themes: (
+  'default': (
+    'light': $theme-default-light,
+    'dark': $theme-default-dark,
+  ),
+  'brand': (
+    'light': $theme-brand-light,
+    'dark': $theme-brand-dark,
+  ),
+  'teal': (
+    'light': $theme-teal-light,
+    'dark': $theme-teal-dark,
+  ),
+  'rose': (
+    'light': $theme-rose-light,
+    'dark': $theme-rose-dark,
+  ),
+  'purple': (
+    'light': $theme-purple-light,
+    'dark': $theme-purple-dark,
+  ),
+  'amber': (
+    'light': $theme-amber-light,
+    'dark': $theme-amber-dark,
+  ),
+);
+
+$light-theme: $theme-default-light;
+$dark-theme: $theme-default-dark;

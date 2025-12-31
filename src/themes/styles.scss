@@ -16,10 +16,16 @@
 
   body.theme-#{$color-name}.light-theme {
     @include mat.all-component-themes($light-theme);
+    @include mat.system-level-colors($light-theme);
+    @include mat.system-level-typography($light-theme);
+    color-scheme: light;
   }
 
   body.theme-#{$color-name}.dark-theme {
     @include mat.all-component-themes($dark-theme);
+    @include mat.system-level-colors($dark-theme);
+    @include mat.system-level-typography($dark-theme);
+    color-scheme: dark;
   }
 }
 
@@ -31,19 +37,9 @@ html, body {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-mat-card,
-.mat-mdc-card {
-  padding: 0;
-}
-
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--mat-sys-body-large-font, 'Inter', system-ui, sans-serif);
+  background-color: var(--mat-sys-surface, #fff);
+  color: var(--mat-sys-on-surface, #000);
 }
 
 ::-webkit-scrollbar {
@@ -52,15 +48,15 @@ mat-card,
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--theme-primary-800);
+  background: var(--mat-sys-surface-container, #f5f5f5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--theme-primary-500);
+  background: var(--mat-sys-outline, #ccc);
   border-radius: 3px;
 
   &:hover {
-    background: var(--theme-primary-400);
+    background: var(--mat-sys-outline-variant, #999);
   }
 }
 
@@ -70,23 +66,12 @@ mat-card,
   @include mixins.theme-badge;
   @include mixins.theme-border();
   @include mixins.overlay-borders;
-
-  &[class*="mat-"],
-  &[class*="mat-mdc-"] {
-    @include mixins.theme-background;
-  }
 }
 
 .app-theme-background-gradient {
-  @include mixins.theme-background-gradient;
+  @include mixins.theme-background;
   @include mixins.theme-text-on-primary;
   @include mixins.theme-badge;
   @include mixins.theme-border();
   @include mixins.overlay-borders;
-
-  &[class*="mat-"],
-  &[class*="mat-mdc-"] {
-    @include mixins.theme-background-gradient;
-  }
 }
-
