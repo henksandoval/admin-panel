@@ -1,32 +1,15 @@
-// El degradado del header y las opciones de esquema se han movido a Tailwind CSS en el HTML
+.theme-color-button {
+  border-radius: 50% !important;
 
-.settings-content {
-  &::-webkit-scrollbar {
-    width: 6px;
+  &.active {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8),
+    0 0 0 5px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.25);
+    transform: scale(1.1);
   }
 
-  &::-webkit-scrollbar-track {
-    background: var(--color-neutral-100);
-
-    .dark-theme & {
-      background: var(--color-secondary-800);
-    }
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--color-secondary-300);
-    border-radius: 3px;
-
-    &:hover {
-      background: var(--color-secondary-400);
-    }
-
-    .dark-theme & {
-      background: var(--color-secondary-600);
-
-      &:hover {
-        background: var(--color-secondary-500);
-      }
-    }
+  &:hover:not(.active) {
+    transform: scale(1.1);
   }
 }
+

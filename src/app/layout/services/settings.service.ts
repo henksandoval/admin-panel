@@ -15,8 +15,10 @@ export class SettingsService {
   private readonly STORAGE_KEY = 'app-settings';
 
   private readonly _config = signal<SettingsConfig>(this.loadSettings());
+  private readonly _panelOpen = signal<boolean>(false);
 
   readonly config = this._config.asReadonly();
+  readonly panelOpen = this._panelOpen.asReadonly();
 
   constructor() {
     effect(() => {
@@ -36,6 +38,18 @@ export class SettingsService {
 
   setScheme(scheme: Scheme): void {
     this._config.update(config => ({ ...config, scheme }));
+  }
+
+  togglePanel(): void {
+    this._panelOpen.update(open => !open);
+  }
+
+  closePanel(): void {
+    this._panelOpen.set(false);
+  }
+
+  openPanel(): void {
+    this._panelOpen.set(true);
   }
 
   private loadSettings(): SettingsConfig {

@@ -1,24 +1,6 @@
-<button
-  class="shadow-lg hover:scale-110 active:scale-95 transition-transform duration-200 ease-in-out"
-  mat-mini-fab
-  color="primary"
-  (click)="togglePanel()"
-  aria-label="Settings">
-  <mat-icon>settings</mat-icon>
-</button>
-
-<div
-  class="fixed top-0 h-screen bg-white dark:bg-secondary-800 shadow-2xl z-[1100] flex flex-col transition-[right] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-  [class.right-0]="isOpen"
-  [class.-right-[400px]]="!isOpen"
-  [class.w-[400px]]="true"
-  [class.max-sm:w-full]="true"
-  [class.max-sm:-right-full]="!isOpen">
-  <div class="flex items-center justify-between p-6 flex-shrink-0 bg-gradient-to-br from-theme-500 to-theme-600 text-white">
-    <div class="flex items-center gap-3">
-      <mat-icon>settings</mat-icon>
-      <h2 class="text-xl font-semibold m-0">Settings</h2>
-    </div>
+<div class="flex flex-col h-full">
+  <div class="flex items-center justify-between px-6 py-4 border-b">
+    <h2 class="text-lg font-semibold m-0">Configuración</h2>
     <button
       mat-icon-button
       (click)="closePanel()"
@@ -28,64 +10,50 @@
   </div>
 
   <div class="settings-content flex-1 overflow-y-auto p-6">
-    <div class="mb-8 last:mb-0">
-      <h3 class="text-[11px] font-semibold tracking-wide text-slate-500 dark:text-slate-400 m-0 mb-4 uppercase">THEME</h3>
-      <div class="grid grid-cols-3 gap-3">
+    <div class="mb-8">
+      <h3 class="text-xs font-semibold tracking-wide uppercase m-0 mb-4 opacity-60">Modo</h3>
+      <mat-button-toggle-group
+        name="scheme"
+        aria-label="Modo de visualización"
+        [value]="config().scheme"
+        (valueChange)="selectScheme($event)"
+        class="w-full">
+        @for (scheme of schemes; track scheme.id) {
+          <mat-button-toggle [value]="scheme.id" class="flex-1">
+            <mat-icon class="text-lg">{{ scheme.icon }}</mat-icon>
+            <span class="ml-2">{{ scheme.label }}</span>
+          </mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="text-xs font-semibold tracking-wide uppercase m-0 mb-4 opacity-60">Color de Acento</h3>
+      <div class="flex gap-3 flex-wrap">
         @for (theme of themes; track theme.id) {
           <button
-            class="flex flex-col items-center gap-2 p-3 bg-transparent border-2 rounded-xl cursor-pointer transition-all duration-200 hover:bg-slate-50 dark:hover:bg-slate-700"
+            mat-icon-button
+            class="theme-color-button w-12 h-12"
+            [class.active]="isThemeActive()(theme.id)"
+            [style.background-color]="theme.color"
             (click)="selectTheme(theme.id)"
-            [class.border-theme-500]="isThemeActive()(theme.id)"
-            [class.bg-theme-50]="isThemeActive()(theme.id)"
-            [class.dark:bg-theme-500/10]="isThemeActive()(theme.id)"
-            [class.dark:border-theme-400]="isThemeActive()(theme.id)"
-            [class.border-transparent]="!isThemeActive()(theme.id)"
-            [class.hover:border-slate-200]="!isThemeActive()(theme.id)"
-            [class.dark:hover:border-slate-600]="!isThemeActive()(theme.id)"
-            matRipple>
-            <div
-              class="w-12 h-12 rounded-full flex items-center justify-center shadow-md relative transition-transform duration-200 hover:scale-110"
-              [style.background-color]="theme.color">
-              @if (isThemeActive()(theme.id)) {
-                <mat-icon class="text-white text-2xl w-6 h-6">check</mat-icon>
-              }
-            </div>
-            <span
-              class="text-[13px] transition-all duration-200"
-              [class.text-theme-700]="isThemeActive()(theme.id)"
-              [class.dark:text-theme-400]="isThemeActive()(theme.id)"
-              [class.font-semibold]="isThemeActive()(theme.id)"
-              [class.text-slate-600]="!isThemeActive()(theme.id)"
-              [class.dark:text-slate-300]="!isThemeActive()(theme.id)">
-              {{ theme.label }}
-            </span>
+            [attr.aria-label]="theme.label">
+            @if (isThemeActive()(theme.id)) {
+              <mat-icon class="text-white">check</mat-icon>
+            }
           </button>
         }
       </div>
     </div>
 
-    <div class="mb-8 last:mb-0">
-      <h3 class="text-[11px] font-semibold tracking-wide text-slate-500 dark:text-slate-400 m-0 mb-4 uppercase">SCHEME</h3>
-      <div class="grid grid-cols-3 gap-3">
-        @for (scheme of schemes; track scheme.id) {
-          <button
-            class="flex flex-col items-center gap-2 py-4 px-3 bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl cursor-pointer transition-all duration-200 text-slate-500 dark:text-slate-300 text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-600 hover:border-slate-300 dark:hover:border-slate-500 hover:-translate-y-0.5"
-            [class.!bg-gradient-to-br]="isSchemeActive()(scheme.id)"
-            [class.from-theme-500]="isSchemeActive()(scheme.id)"
-            [class.to-theme-600]="isSchemeActive()(scheme.id)"
-            [class.!border-theme-500]="isSchemeActive()(scheme.id)"
-            [class.!text-white]="isSchemeActive()(scheme.id)"
-            (click)="selectScheme(scheme.id)"
-            matRipple>
-            <mat-icon class="text-[28px] w-7 h-7" [class.text-white]="isSchemeActive()(scheme.id)">{{ scheme.icon }}</mat-icon>
-            <span>{{ scheme.label }}</span>
-          </button>
-        }
-      </div>
-    </div>
+  </div>
+
+  <div class="px-6 py-4 border-t">
+    <button
+      mat-stroked-button
+      class="w-full"
+      (click)="resetSettings()">
+      Restablecer valores
+    </button>
   </div>
 </div>
-
-@if (isOpen) {
-  <div class="fixed inset-0 bg-black/50 z-[1050] animate-fade-in" (click)="closePanel()"></div>
-}
