@@ -2,25 +2,14 @@
 @use './brand-palette' as brand;
 @use '@angular/material' as mat;
 
-@function create-app-theme($primary, $tertiary, $type: light) {
-  @return mat.define-theme((
-    color: (
-      theme-type: $type,
-      primary: $primary,
-      tertiary: $tertiary,
-    ),
-    typography: $base-typography
-  ));
-}
-
 $base-typography: (
   brand-family: 'Poppins, Inter, sans-serif',
   plain-family: 'Plus Jakarta Sans, Inter, sans-serif',
 );
 
 $theme-config: (
-  'default': (primary: brand.$brand-primary, tertiary: brand.$brand-tertiary),
-  'brand': (primary: brand.$brand-primary, tertiary: brand.$brand-tertiary),
+  'default': (primary: brand.$primary-palette, tertiary: brand.$tertiary-palette),
+  'brand': (primary: brand.$primary-palette, tertiary: brand.$tertiary-palette),
   'azure': (primary: mat.$azure-palette, tertiary: mat.$cyan-palette),
   'teal': (primary: mat.$cyan-palette, tertiary: mat.$blue-palette),
   'rose': (primary: mat.$magenta-palette, tertiary: mat.$cyan-palette),
@@ -28,20 +17,32 @@ $theme-config: (
   'amber': (primary: mat.$orange-palette, tertiary: mat.$yellow-palette),
 );
 
-$themes: ();
+@mixin apply-theme($primary, $tertiary, $type: light) {
+  $config: (
+    color: (
+      theme-type: $type,
+      primary: $primary,
+      tertiary: $tertiary,
+    ),
+    typography: $base-typography,
+  );
 
-@each $name, $config in $theme-config {
-  $primary: map.get($config, 'primary');
-  $tertiary: map.get($config, 'tertiary');
-
-  $light: create-app-theme($primary, $tertiary, light);
-  $dark: create-app-theme($primary, $tertiary, dark);
-
-  $themes: map.set($themes, $name, (
-    'light': $light,
-    'dark': $dark
-  ));
+  @include mat.theme($config);
 }
 
-$light-theme: map.get(map.get($themes, 'default'), 'light');
-$dark-theme: map.get(map.get($themes, 'default'), 'dark');
+@mixin apply-all-themes() {
+  @each $color-name, $config in $theme-config {
+    $primary: map.get($config, primary);
+    $tertiary: map.get($config, tertiary);
+
+    body.theme-#{$color-name}.light-theme {
+      color-scheme: light;
+      @include apply-theme($primary, $tertiary, light);
+    }
+
+    body.theme-#{$color-name}.dark-theme {
+      color-scheme: dark;
+      @include apply-theme($primary, $tertiary, dark);
+    }
+  }
+}

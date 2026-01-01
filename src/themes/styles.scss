@@ -9,21 +9,7 @@
 @tailwind utilities;
 
 @include mat.core();
-
-@each $color-name, $theme-variants in theme.$themes {
-  $light-theme: map.get($theme-variants, 'light');
-  $dark-theme: map.get($theme-variants, 'dark');
-
-  body.theme-#{$color-name}.light-theme {
-    @include mat.all-component-themes($light-theme);
-    color-scheme: light;
-  }
-
-  body.theme-#{$color-name}.dark-theme {
-    @include mat.all-component-themes($dark-theme);
-    color-scheme: dark;
-  }
-}
+@include theme.apply-all-themes();
 
 html, body {
   height: 100%;
