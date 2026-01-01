@@ -28,6 +28,16 @@ $theme-config: (
   );
 
   @include mat.theme($config);
+
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary),
+    container-text-color: var(--mat-sys-on-primary)
+  ));
+
+  //@include mat.sidenav-overrides((
+  //  container-background-color: var(--mat-sys-primary),
+  //  container-text-color: var(--mat-sys-primary)
+  //));
 }
 
 @mixin apply-all-themes() {
