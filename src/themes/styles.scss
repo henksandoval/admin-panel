@@ -1,7 +1,5 @@
 @use 'sass:map';
 @use './theme';
-@use './variables';
-@use './mixins' as mixins;
 @use '@angular/material' as mat;
 
 @tailwind base;
