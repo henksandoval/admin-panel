@@ -9,6 +9,10 @@
 @include mat.core();
 @include theme.apply-all-themes();
 
+body {
+  @include theme.define-overlay-tokens();
+}
+
 html, body {
   height: 100%;
   margin: 0;

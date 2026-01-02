@@ -8,26 +8,30 @@
     transition: background-color 150ms ease;
 
     $levels: (
-      1: (padding: 0,       parent-bg-start: var(--overlay-light-25), parent-bg-mid: var(--overlay-light-20), parent-bg-end: var(--overlay-light-10)),
-      2: (padding: 0.5rem,  parent-bg-start: var(--overlay-light-20), parent-bg-mid: var(--overlay-light-15), parent-bg-end: var(--overlay-light-05)),
-      3: (padding: 1rem,    parent-bg-start: var(--overlay-light-15), parent-bg-mid: var(--overlay-light-10), parent-bg-end: var(--overlay-light-05)),
-      4: (padding: 1.5rem,  parent-bg-start: var(--overlay-light-10), parent-bg-mid: var(--overlay-light-05), parent-bg-end: var(--overlay-light-03)),
-      5: (padding: 2rem,    parent-bg-start: var(--overlay-light-05), parent-bg-mid: var(--overlay-light-03), parent-bg-end: transparent),
+      1: (padding: 0,       opacity-start: 25, opacity-mid: 20, opacity-end: 10),
+      2: (padding: 0.5rem,  opacity-start: 20, opacity-mid: 15, opacity-end: 08),
+      3: (padding: 1rem,    opacity-start: 15, opacity-mid: 10, opacity-end: 05),
+      4: (padding: 1.5rem,  opacity-start: 10, opacity-mid: 08, opacity-end: 05),
+      5: (padding: 2rem,    opacity-start: 08, opacity-mid: 05, opacity-end: 00),
     );
 
     @each $level, $props in $levels {
+      $start: map.get($props, opacity-start);
+      $mid: map.get($props, opacity-mid);
+      $end: map.get($props, opacity-end);
+
       &[aria-level="#{$level}"] {
         padding-left: map.get($props, padding);
 
         &.parent-active {
           background: linear-gradient(
               to right,
-              map.get($props, parent-bg-start) 0%,
-              map.get($props, parent-bg-mid) 50%,
-              map.get($props, parent-bg-end) 85%,
+              var(--overlay-on-primary-#{$start}) 0%,
+              var(--overlay-on-primary-#{$mid}) 50%,
+              var(--overlay-on-primary-#{$end}, transparent) 85%,
               transparent 100%
           );
-          border-left: 2px solid map.get($props, parent-bg-start);
+          border-left: 2px solid var(--overlay-on-primary-#{$start});
           border-radius: 0 6px 6px 0;
         }
       }
@@ -36,21 +40,63 @@
     &.active {
       background: linear-gradient(
           to right,
-          var(--overlay-light-40) 0%,
-          var(--overlay-light-30) 50%,
-          var(--overlay-light-15) 85%,
+          var(--overlay-on-primary-40) 0%,
+          var(--overlay-on-primary-30) 50%,
+          var(--overlay-on-primary-15) 85%,
           transparent 100%
       );
-      border-left: 3px solid var(--overlay-light-80);
+      border-left: 3px solid var(--overlay-on-primary-80);
       box-shadow:
-        inset 0 1px 0 var(--overlay-light-15),
-        0 2px 8px var(--overlay-dark-10);
+        inset 0 1px 0 var(--overlay-on-primary-15),
+        0 2px 8px var(--overlay-shadow-10);
       position: relative;
       font-weight: 500;
     }
 
+    &:hover:not(.active) {
+      background-color: var(--nav-item-hover-bg);
+    }
+  }
+
+  // Estilos para badges
+  .app-badge {
+    background-color: var(--overlay-on-primary-20);
+    color: var(--mat-sys-on-primary);
+
+    &.normal {
+      background-color: var(--overlay-on-primary-15);
+    }
+
+    &.info {
+      background-color: var(--mat-sys-tertiary-container);
+      color: var(--mat-sys-on-tertiary-container);
+    }
+
+    &.warning {
+      background-color: var(--mat-sys-error-container);
+      color: var(--mat-sys-on-error-container);
+    }
+  }
+
+  // Contenido del nodo
+  .tree-node-content {
+    color: var(--mat-sys-on-primary);
+
+    mat-icon {
+      color: var(--overlay-on-primary-80);
+    }
+
+    &:hover mat-icon {
+      color: var(--mat-sys-on-primary);
+    }
+  }
+
+  // Botón de expansión
+  button[mat-icon-button] {
+    color: var(--overlay-on-primary-60);
+
     &:hover {
-      background-color: var(--overlay-light-30);
+      color: var(--mat-sys-on-primary);
     }
   }
 
