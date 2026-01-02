@@ -18,7 +18,17 @@ $theme-config: (
   'amber':   (primary: mat.$orange-palette,    tertiary: mat.$yellow-palette),
 );
 
-@mixin apply-theme($primary, $tertiary, $type: light) {
+@mixin _define-chrome-tokens($mode) {
+  @if $mode == light {
+    --chrome-bg: var(--mat-sys-primary);
+    --chrome-text: var(--mat-sys-on-primary);
+  } @else {
+    --chrome-bg: color-mix(in oklch, var(--mat-sys-on-primary) 100%, var(--mat-sys-surface-container) 0%);
+    --chrome-text: var(--mat-sys-on-surface-variant);
+  }
+}
+
+@mixin _apply-theme($primary, $tertiary, $type: light) {
   $config: (
     color: (
       theme-type: $type,
@@ -31,13 +41,13 @@ $theme-config: (
   @include mat.theme($config);
 
   @include mat.toolbar-overrides((
-    container-background-color: var(--mat-sys-primary),
-    container-text-color: var(--mat-sys-on-primary)
+    container-background-color: var(--chrome-bg),
+    container-text-color: var(--chrome-text)
   ));
 
   @include mat.sidenav-overrides((
-    container-background-color: var(--mat-sys-primary),
-    container-text-color: var(--mat-sys-on-primary)
+    container-background-color: var(--chrome-bg),
+    container-text-color: var(--chrome-text)
   ));
 }
 
@@ -48,20 +58,17 @@ $theme-config: (
 
     body.theme-#{$color-name}.light-theme {
       color-scheme: light;
-      @include apply-theme($primary, $tertiary, light);
+      @include _define-chrome-tokens(light);
+      @include _apply-theme($primary, $tertiary, light);
     }
 
     body.theme-#{$color-name}.dark-theme {
       color-scheme: dark;
-      @include apply-theme($primary, $tertiary, dark);
+      @include _define-chrome-tokens(dark);
+      @include _apply-theme($primary, $tertiary, dark);
     }
   }
 }
-
-// =============================================================================
-// OVERLAY TOKENS
-// Capas semitransparentes para crear profundidad y estados
-// =============================================================================
 
 @mixin define-overlay-tokens() {
   --overlay-on-primary-00: transparent;

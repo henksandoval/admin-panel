@@ -1,25 +1,13 @@
 ﻿@use "sass:map";
 
-// =============================================================================
-// NAV TREE COMPONENT
-// Árbol de navegación con soporte para múltiples niveles
-// =============================================================================
-
 .nav-tree {
   background: transparent;
-
-  // ===========================================================================
-  // TREE NODES
-  // ===========================================================================
+  color: var(--chrome-text);
 
   .mat-tree-node {
     min-height: 44px;
     transition: background-color 150ms ease;
-
-    // -------------------------------------------------------------------------
-    // NIVELES DE PROFUNDIDAD
-    // Cada nivel tiene padding progresivo y opacidades decrecientes
-    // -------------------------------------------------------------------------
+    color: inherit;
 
     $levels: (
       1: (padding: 0,       opacity-start: 25, opacity-mid: 20, opacity-end: 10),
@@ -51,10 +39,6 @@
       }
     }
 
-    // -------------------------------------------------------------------------
-    // ESTADO ACTIVO
-    // -------------------------------------------------------------------------
-
     &.active {
       background: linear-gradient(
           to right,
@@ -71,24 +55,13 @@
       font-weight: 500;
     }
 
-    // -------------------------------------------------------------------------
-    // ESTADO HOVER
-    // -------------------------------------------------------------------------
-
     &:hover:not(.active) {
       background-color: var(--nav-item-hover-bg);
     }
   }
 
-  // ===========================================================================
-  // NODE CONTENT
-  // ===========================================================================
-
   .tree-node-content {
-    color: var(--mat-sys-on-primary);
-
     mat-icon {
-      color: var(--overlay-on-primary-80);
       transition: color 150ms ease;
     }
 
@@ -97,12 +70,7 @@
     }
   }
 
-  // ===========================================================================
-  // EXPAND BUTTON
-  // ===========================================================================
-
   button[mat-icon-button] {
-    color: var(--overlay-on-primary-60);
     transition: color 150ms ease;
 
     &:hover {
