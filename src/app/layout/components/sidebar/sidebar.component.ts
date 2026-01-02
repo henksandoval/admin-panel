@@ -24,7 +24,6 @@ import {NavTreeFloatingComponent} from './components/nav-tree-floating/nav-tree-
     class: 'block h-full'
   },
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit {
