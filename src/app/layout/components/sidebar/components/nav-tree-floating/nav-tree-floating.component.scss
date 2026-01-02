@@ -6,11 +6,6 @@
   max-height: calc(100vh - 120px);
   overflow-y: auto;
   z-index: 1000;
-  background: linear-gradient(
-    135deg,
-    var(--theme-primary-600) 0%,
-    var(--theme-primary-700) 100%
-  );
   backdrop-filter: blur(10px);
 
   box-shadow:
