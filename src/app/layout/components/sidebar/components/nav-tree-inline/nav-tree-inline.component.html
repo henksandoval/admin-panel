@@ -2,7 +2,7 @@
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodeToggle [cdkTreeNodeTypeaheadLabel]="node.title" class="min-h-11"
      [class.parent-active]="isParentOfActive(node)">
     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.title">
-      <mat-icon class="mat-icon-rtl-mirror">{{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
+      <mat-icon>{{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
     </button>
     <div class="tree-node-content flex items-center gap-3 px-3 py-2 cursor-pointer rounded-lg flex-1 transition-colors duration-200"
          [matTooltip]="node.title"
