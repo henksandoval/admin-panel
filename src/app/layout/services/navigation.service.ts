@@ -9,7 +9,8 @@ export interface NavigationItem {
   children?: NavigationItem[];
   badge?: {
     title: string;
-    type: 'important' | 'normal';
+    type: 'normal'| 'success' | 'info' | 'warning' | 'error';
+    indicator?: boolean;
   };
 }
 
@@ -45,11 +46,7 @@ export class NavigationService {
               id: 'orders',
               title: 'Pedidos',
               icon: 'receipt_long',
-              url: '/apps/ecommerce/orders',
-              badge: {
-                title: '12',
-                type: 'important'
-              }
+              url: '/apps/ecommerce/orders'
             },
             {
               id: 'customers',
@@ -88,21 +85,13 @@ export class NavigationService {
           id: 'mail',
           title: 'Correo',
           icon: 'email',
-          url: '/apps/mail',
-          badge: {
-            title: '9',
-            type: 'important'
-          }
+          url: '/apps/mail'
         },
         {
           id: 'chat',
           title: 'Chat',
           icon: 'chat',
-          url: '/apps/chat',
-          badge: {
-            title: '3',
-            type: 'normal'
-          }
+          url: '/apps/chat'
         }
       ]
     },
@@ -157,11 +146,7 @@ export class NavigationService {
               id: '400',
               title: 'Error 400',
               icon: 'error_outline',
-              url: '/pages/errors/400',
-              badge: {
-                title: '12',
-                type: 'important'
-              }
+              url: '/pages/errors/400'
             },
             {
               id: '401',
@@ -179,11 +164,7 @@ export class NavigationService {
               id: '404',
               title: 'Error 404',
               icon: 'error_outline',
-              url: '/pages/errors/404',
-              badge: {
-                title: '17',
-                type: 'normal'
-              }
+              url: '/pages/errors/404'
             },
             {
               id: '500',
@@ -243,6 +224,119 @@ export class NavigationService {
       title: 'Configuración',
       icon: 'settings',
       url: '/settings'
+    },
+    {
+      id: 'badges',
+      title: 'Badges',
+      icon: 'loyalty',
+      url: '/badges',
+      children: [
+        {
+          id: 'normal',
+          title: 'Normal',
+          icon: 'loyalty',
+          url: '/badges/normal',
+          badge: {
+            title: '12',
+            type: 'normal'
+          }
+        },
+        {
+          id: 'success',
+          title: 'Éxito',
+          icon: 'loyalty',
+          url: '/badges/success',
+          badge: {
+            title: '11',
+            type: 'success'
+          }
+        },
+        {
+          id: 'info',
+          title: 'Información',
+          icon: 'loyalty',
+          url: '/badges/info',
+          badge: {
+            title: '2',
+            type: 'info'
+          }
+        },
+        {
+          id: 'warning',
+          title: 'Advertencia',
+          icon: 'loyalty',
+          url: '/badges/warning',
+          badge: {
+            title: '1',
+            type: 'warning'
+          }
+        },
+        {
+          id: 'error',
+          title: 'Error',
+          icon: 'loyalty',
+          url: '/badges/error',
+          badge: {
+            title: '6',
+            type: 'error'
+          }
+        },
+        {
+          id: 'normal-indicator',
+          title: 'Normal',
+          icon: 'loyalty',
+          url: '/badges/normal',
+          badge: {
+            title: '12',
+            type: 'normal',
+            indicator: true
+          }
+        },
+        {
+          id: 'success-indicator',
+          title: 'Éxito',
+          icon: 'loyalty',
+          url: '/badges/success',
+          badge: {
+            title: '10',
+            type: 'success',
+            indicator: true
+          }
+        },
+        {
+          id: 'info-indicator',
+          title: 'Información',
+          icon: 'loyalty',
+          url: '/badges/info',
+          badge: {
+            title: '2',
+            type: 'info',
+            indicator: true
+          }
+        },
+        {
+          id: 'warning-indicator',
+          title: 'Advertencia',
+          icon: 'loyalty',
+          url: '/badges/warning',
+          badge: {
+            title: '1',
+            type: 'warning',
+            indicator: true
+          }
+        },
+        {
+          id: 'error-indicator',
+          title: 'Error',
+          icon: 'loyalty',
+          url: '/badges/error',
+          badge: {
+            title: '9',
+            type: 'error',
+            indicator: true
+          }
+        },
+      ]
     }
   ]);
   private readonly currentNavigationChildren = signal<NavigationItem[]>([]);

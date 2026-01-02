@@ -25,7 +25,9 @@
       <span class="flex-1 text-sm whitespace-nowrap overflow-hidden text-ellipsis">{{ node.title }}</span>
       @if (node.badge) {
         <span class="app-badge inline-flex items-center justify-center text-[10px] font-semibold min-w-5 h-5 px-1.5 rounded-full ml-auto"
-              [ngClass]="node.badge.type">{{ node.badge.title }}</span>
+              [ngClass]="[ node.badge.type, node.badge.indicator ? 'has-indicator' : '' ]">
+          {{ node.badge.title }}
+        </span>
       }
     </div>
   </mat-tree-node>
