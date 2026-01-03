@@ -1,0 +1,99 @@
+.nav-tree-container {
+  .nav-icon-item {
+    position: relative;
+    transition: all var(--transition-duration-fast) var(--transition-timing);
+
+    // Estado: Parent Active (contiene la ruta activa)
+    &.parent-active {
+      background: linear-gradient(
+        to right,
+        var(--overlay-on-primary-20) 0%,
+        var(--overlay-on-primary-15) 50%,
+        var(--overlay-on-primary-08) 85%,
+        transparent 100%
+      );
+      border-left: 3px solid var(--overlay-on-primary-40);
+      border-radius: 0 8px 8px 0;
+      box-shadow: inset 0 1px 0 var(--overlay-on-primary-10);
+
+      button {
+        background: transparent !important;
+      }
+    }
+
+    // Estado: Active (ruta directa activa)
+    &.active {
+      background: linear-gradient(
+        to right,
+        var(--overlay-on-primary-50) 0%,
+        var(--overlay-on-primary-40) 50%,
+        var(--overlay-on-primary-20) 85%,
+        transparent 100%
+      );
+      border-left: 4px solid var(--mat-sys-on-primary);
+      border-radius: 0 8px 8px 0;
+      box-shadow:
+        inset 0 1px 0 var(--overlay-on-primary-20),
+        0 2px 10px var(--overlay-shadow-15),
+        0 1px 3px var(--overlay-shadow-10);
+
+      button {
+        background: transparent !important;
+
+        mat-icon {
+          font-weight: 600;
+        }
+      }
+    }
+
+    // Hover (solo en items no activos)
+    &:hover:not(.active):not(.parent-active) {
+      background-color: var(--nav-item-hover-bg);
+      border-radius: 0 8px 8px 0;
+    }
+
+    button {
+      position: relative;
+      transition: all var(--transition-duration-fast) var(--transition-timing);
+    }
+  }
+
+  // Badge en iconos
+  .nav-icon-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background-color: var(--badge-error-bg);
+    color: var(--badge-error-text);
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 2px 4px var(--overlay-shadow-20);
+  }
+
+  // Indicador de que el item tiene children
+  .nav-icon-children-indicator {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 6px;
+    height: 6px;
+    background-color: var(--mat-sys-primary);
+    border-radius: 50%;
+    opacity: 0.6;
+    transition: opacity var(--transition-duration-fast) var(--transition-timing);
+
+    .nav-icon-item.active &,
+    .nav-icon-item.parent-active & {
+      opacity: 1;
+      background-color: var(--mat-sys-on-primary);
+    }
+  }
+}

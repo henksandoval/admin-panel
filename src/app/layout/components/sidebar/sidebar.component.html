@@ -16,9 +16,12 @@
       <app-nav-tree-inline></app-nav-tree-inline>
     </div>
   } @else {
-    <div class="flex-1 overflow-y-auto py-2 flex flex-col items-center gap-1">
+    <div class="nav-tree-container flex-1 overflow-y-auto py-2 flex flex-col items-center gap-1">
       @for (item of navigation(); track item.id) {
-        <div [class.active]="isItemActive(item)" class="relative w-full flex justify-center">
+        <div
+          [class.active]="isItemActive(item)"
+          [class.parent-active]="isItemParentActive(item)"
+          class="nav-icon-item relative w-full flex justify-center">
           <button
             mat-icon-button
             [matTooltip]="item.title"
@@ -27,7 +30,10 @@
             (mouseenter)="onIconHover(item, $event)">
             <mat-icon>{{ item.icon }}</mat-icon>
             @if (item.badge) {
-              <span>{{ item.badge.title }}</span>
+              <span class="nav-icon-badge">{{ item.badge.title }}</span>
+            }
+            @if (item.children && item.children.length > 0) {
+              <span class="nav-icon-children-indicator"></span>
             }
           </button>
         </div>

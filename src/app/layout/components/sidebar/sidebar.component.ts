@@ -24,6 +24,7 @@ import {NavTreeFloatingComponent} from './components/nav-tree-floating/nav-tree-
     class: 'block h-full'
   },
   templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit {
@@ -57,6 +58,18 @@ export class SidebarComponent implements OnInit {
   }
 
   protected isItemActive(item: NavigationItem): boolean {
+    // Solo es active si la URL del item coincide directamente
+    if (item.url && this.navigationService.isRouteActive(item.url)) {
+      return true;
+    }
+    return false;
+  }
+
+  protected isItemParentActive(item: NavigationItem): boolean {
+    // Es parent-active si contiene la ruta activa pero no es la ruta directa
+    if (this.isItemActive(item)) {
+      return false; // Si es active, no es parent-active
+    }
     return this.activeRootItemId() === item.id;
   }
 
