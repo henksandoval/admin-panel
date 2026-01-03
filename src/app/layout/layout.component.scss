@@ -1,10 +1,10 @@
 .sidenav {
   &:not(.expanded) {
-    width: 64px;
+    width: var(--sidebar-width-collapsed);
   }
 
   &.expanded {
-    width: 280px;
+    width: var(--sidebar-width-expanded);
   }
 }
 

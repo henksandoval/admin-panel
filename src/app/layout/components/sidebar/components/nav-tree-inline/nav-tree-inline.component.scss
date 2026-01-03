@@ -6,7 +6,7 @@
 
   .mat-tree-node {
     min-height: 44px;
-    transition: background-color 150ms ease;
+    transition: background-color var(--transition-duration-fast) var(--transition-timing);
     color: inherit;
 
     $levels: (
@@ -62,12 +62,12 @@
 
   .tree-node-content {
     mat-icon {
-      transition: color 150ms ease;
+      transition: color var(--transition-duration-fast) var(--transition-timing);
     }
   }
 
   button[mat-icon-button] {
-    transition: color 150ms ease;
+    transition: color var(--transition-duration-fast) var(--transition-timing);
   }
 
   .mat-mdc-icon-button {

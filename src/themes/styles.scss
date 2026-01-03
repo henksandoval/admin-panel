@@ -15,6 +15,11 @@ body {
   @include theme.define-badge-tokens();
 }
 
+.dark-theme {
+  @include theme.define-overlay-tokens-dark();
+  @include theme.define-badge-tokens-dark();
+}
+
 html,
 body {
   height: 100%;

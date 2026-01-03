@@ -106,6 +106,21 @@ $theme-config: (
   --overlay-shadow-40: color-mix(in srgb, var(--mat-sys-shadow, #000) 40%, transparent);
 }
 
+@mixin define-overlay-tokens-dark() {
+  --overlay-on-primary-05: color-mix(in srgb, var(--mat-sys-on-surface) 5%, transparent);
+  --overlay-on-primary-08: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+  --overlay-on-primary-10: color-mix(in srgb, var(--mat-sys-on-surface) 10%, transparent);
+  --overlay-on-primary-12: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
+  --overlay-on-primary-15: color-mix(in srgb, var(--mat-sys-on-surface) 15%, transparent);
+  --overlay-on-primary-20: color-mix(in srgb, var(--mat-sys-on-surface) 20%, transparent);
+  --overlay-on-primary-25: color-mix(in srgb, var(--mat-sys-on-surface) 25%, transparent);
+  --overlay-on-primary-30: color-mix(in srgb, var(--mat-sys-on-surface) 30%, transparent);
+  --overlay-on-primary-40: color-mix(in srgb, var(--mat-sys-on-surface) 40%, transparent);
+  --overlay-on-primary-50: color-mix(in srgb, var(--mat-sys-on-surface) 50%, transparent);
+  --overlay-on-primary-60: color-mix(in srgb, var(--mat-sys-on-surface) 60%, transparent);
+  --overlay-on-primary-80: color-mix(in srgb, var(--mat-sys-on-surface) 80%, transparent);
+}
+
 @mixin define-navigation-tokens() {
   --nav-item-hover-bg: var(--overlay-on-primary-12);
   --nav-item-active-bg: var(--overlay-on-primary-25);
@@ -128,7 +143,7 @@ $theme-config: (
 
 @mixin define-badge-tokens() {
   --badge-normal-bg: var(--overlay-on-primary-20);
-  --badge-normal-text: var(--mat-sys-on-primary);
+  --badge-normal-text: var(--chrome-text);
 
   --badge-info-bg: var(--mat-sys-tertiary-container);
   --badge-info-text: var(--mat-sys-on-tertiary-container);
@@ -146,4 +161,8 @@ $theme-config: (
   --badge-indicator-text: var(--mat-sys-on-error);
 
   --badge-indicator-border: 0.1px outset var(--mat-sys-surface);
+}
+
+@mixin define-badge-tokens-dark() {
+  --badge-normal-bg: var(--overlay-on-primary-50);
 }

@@ -1,16 +1,20 @@
 .floating-nav {
   position: fixed;
-  left: 64px;
-  min-width: 280px;
-  max-width: 320px;
+  left: var(--sidebar-width-collapsed);
+  min-width: var(--floating-nav-min-width);
+  max-width: var(--floating-nav-max-width);
   max-height: calc(100vh - 120px);
   overflow-y: auto;
-  z-index: 1000;
+  z-index: var(--z-dropdown);
+
+  // Background con color del chrome para consistencia
+  background-color: var(--chrome-bg);
   backdrop-filter: blur(10px);
 
+  // Sombras usando variables correctas del sistema
   box-shadow:
-    0 8px 16px var(--overlay-dark-30),
-    0 0 0 1px var(--overlay-light-10);
+    0 8px 16px var(--overlay-shadow-30),
+    0 0 0 1px var(--overlay-on-surface-10);
   border-radius: 12px;
   padding: 8px 0;
 }

@@ -3,6 +3,26 @@
   --sys-on-caution: var(--mat-sys-surface);
   --sys-caution-container: #c6a805;
   --sys-on-caution-container: var(--mat-sys-on-tertiary-container);
+
+  --sidebar-width-expanded: 280px;
+  --sidebar-width-collapsed: 64px;
+  --toolbar-height: 64px;
+  --floating-nav-min-width: 280px;
+  --floating-nav-max-width: 320px;
+
+  --z-base: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  --transition-duration-fast: 150ms;
+  --transition-duration-base: 200ms;
+  --transition-duration-slow: 300ms;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark-theme {
