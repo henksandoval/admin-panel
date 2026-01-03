@@ -64,18 +64,10 @@
     mat-icon {
       transition: color 150ms ease;
     }
-
-    &:hover mat-icon {
-      color: var(--mat-sys-on-primary);
-    }
   }
 
   button[mat-icon-button] {
     transition: color 150ms ease;
-
-    &:hover {
-      color: var(--mat-sys-on-primary);
-    }
   }
 
   .mat-mdc-icon-button {
