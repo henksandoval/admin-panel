@@ -13,7 +13,6 @@
   --z-base: 1;
   --z-sidebar: 1010;
   --z-toolbar: 1020;
-  --z-sticky: 1020;
   --z-floating-nav: 1030;
   --z-fixed: 1030;
   --z-settings-panel: 1040;
@@ -26,6 +25,7 @@
   --transition-duration-base: 200ms;
   --transition-duration-slow: 300ms;
   --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: var(--transition-duration-fast) var(--transition-timing);
 }
 
 .dark-theme {

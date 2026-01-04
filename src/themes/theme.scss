@@ -57,7 +57,7 @@ $theme-config: (
     --chrome-bg: var(--mat-sys-primary);
     --chrome-text: var(--mat-sys-on-primary);
   } @else {
-    --chrome-bg: color-mix(in oklch, var(--mat-sys-on-primary) 100%, var(--mat-sys-surface-container) 0%);
+    --chrome-bg: var(--mat-sys-on-primary);
     --chrome-text: var(--mat-sys-on-surface-variant);
   }
 }
