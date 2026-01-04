@@ -1,4 +1,4 @@
-﻿@use "sass:map";
+﻿@use '../../../../../../themes/navigation-mixins' as nav;
 
 .nav-tree {
   background: transparent;
@@ -6,68 +6,33 @@
 
   .mat-tree-node {
     min-height: 44px;
-    transition: background-color var(--transition-duration-fast) var(--transition-timing);
     color: inherit;
 
-    $levels: (
-      1: (padding: 0,       opacity-start: 25, opacity-mid: 20, opacity-end: 10),
-      2: (padding: 0.5rem,  opacity-start: 20, opacity-mid: 15, opacity-end: 08),
-      3: (padding: 1rem,    opacity-start: 15, opacity-mid: 10, opacity-end: 05),
-      4: (padding: 1.5rem,  opacity-start: 10, opacity-mid: 08, opacity-end: 05),
-      5: (padding: 2rem,    opacity-start: 08, opacity-mid: 05, opacity-end: 00),
+    &[aria-level] {
+      padding-left: calc((attr(aria-level number, 1) - 1) * 0.5rem);
+    }
+
+    @include nav.nav-item-all-states(
+      $active-border: 3px,
+      $parent-border: 2px,
+      $parent-intensity: light,
+      $has-shadow: true
     );
 
-    @each $level, $props in $levels {
-      $start: map.get($props, opacity-start);
-      $mid: map.get($props, opacity-mid);
-      $end: map.get($props, opacity-end);
-
-      &[aria-level="#{$level}"] {
-        padding-left: map.get($props, padding);
-
-        &.parent-active {
-          background: linear-gradient(
-              to right,
-              var(--overlay-on-primary-#{$start}) 0%,
-              var(--overlay-on-primary-#{$mid}) 50%,
-              var(--overlay-on-primary-#{$end}, transparent) 85%,
-              transparent 100%
-          );
-          border-left: 2px solid var(--overlay-on-primary-#{$start});
-          border-radius: 0 6px 6px 0;
-        }
+    &.parent-active {
+      &[aria-level="1"] { @include nav.nav-item-parent-active(2px, medium); }
+      &[aria-level="2"] { @include nav.nav-item-parent-active(2px, light); }
+      &[aria-level="3"], &[aria-level="4"], &[aria-level="5"] {
+        background-color: var(--overlay-on-primary-08);
+        border-left: 1px solid var(--overlay-on-primary-15);
       }
-    }
-
-    &.active {
-      background: linear-gradient(
-          to right,
-          var(--overlay-on-primary-40) 0%,
-          var(--overlay-on-primary-30) 50%,
-          var(--overlay-on-primary-15) 85%,
-          transparent 100%
-      );
-      border-left: 3px solid var(--overlay-on-primary-80);
-      box-shadow:
-        inset 0 1px 0 var(--overlay-on-primary-15),
-        0 2px 8px var(--overlay-shadow-10);
-      position: relative;
-      font-weight: 500;
-    }
-
-    &:hover:not(.active) {
-      background-color: var(--nav-item-hover-bg);
     }
   }
 
   .tree-node-content {
     mat-icon {
-      transition: color var(--transition-duration-fast) var(--transition-timing);
+      transition: color var(--layout-transition-fast);
     }
-  }
-
-  button[mat-icon-button] {
-    transition: color var(--transition-duration-fast) var(--transition-timing);
   }
 
   .mat-mdc-icon-button {

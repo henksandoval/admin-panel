@@ -344,25 +344,24 @@ body {
 @mixin nav-item-active($border-width: 4px, $has-shadow: true) {
   &.active {
     background: linear-gradient(
-      to right,
-      var(--overlay-on-primary-50) 0%,
-      var(--overlay-on-primary-40) 50%,
-      var(--overlay-on-primary-20) 85%,
-      transparent 100%
+        to right,
+        var(--overlay-on-primary-50) 0%,
+        var(--overlay-on-primary-40) 50%,
+        var(--overlay-on-primary-20) 85%,
+        transparent 100%
     );
     border-left: $border-width solid var(--mat-sys-on-primary);
-    
+
     @if $has-shadow {
-      box-shadow:
-        inset 0 1px 0 var(--overlay-on-primary-20),
-        0 2px 10px var(--nav-item-active-shadow),
-        0 1px 3px var(--overlay-shadow-10);
+      box-shadow: inset 0 1px 0 var(--overlay-on-primary-20),
+      0 2px 10px var(--nav-item-active-shadow),
+      0 1px 3px var(--overlay-shadow-10);
     }
-    
+
     // Contenido dentro del item activo
     button, .tree-node-content {
       background: transparent !important;
-      
+
       mat-icon {
         font-weight: 600;
       }
@@ -398,20 +397,20 @@ body {
       border: var(--overlay-on-primary-60)
     )
   );
-  
+
   $gradient: map.get($gradients, $intensity);
-  
+
   &.parent-active {
     background: linear-gradient(
-      to right,
-      map.get($gradient, start) 0%,
-      map.get($gradient, mid) 50%,
-      map.get($gradient, end) 85%,
-      transparent 100%
+        to right,
+        map.get($gradient, start) 0%,
+        map.get($gradient, mid) 50%,
+        map.get($gradient, end) 85%,
+        transparent 100%
     );
     border-left: $border-width solid map.get($gradient, border);
     box-shadow: inset 0 1px 0 var(--overlay-on-primary-10);
-    
+
     button, .tree-node-content {
       background: transparent !important;
     }
@@ -429,9 +428,9 @@ body {
   $parent-intensity: medium,
   $has-shadow: true
 ) {
-  @include nav-item-base();
-  @include nav-item-hover();
-  @include nav-item-active($active-border, $has-shadow);
+  @include _nav-item-base();
+  @include _nav-item-hover();
+  @include _nav-item-active($active-border, $has-shadow);
   @include nav-item-parent-active($parent-border, $parent-intensity);
 }
 ```

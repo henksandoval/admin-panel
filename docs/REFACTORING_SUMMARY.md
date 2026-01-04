@@ -274,12 +274,13 @@ background-color: var(--my-custom-bg);  // Solo el color custom
 ```
 
 ### Después: DRY con Mixins
+
 ```scss
 // ✅ _navigation-mixins.scss (1 vez, ~130 líneas, reutilizable)
 @mixin nav-item-all-states($active-border: 4px, ...) {
-  @include nav-item-base();
-  @include nav-item-hover();
-  @include nav-item-active($active-border);
+  @include _nav-item-base();
+  @include _nav-item-hover();
+  @include _nav-item-active($active-border);
   @include nav-item-parent-active();
 }
 
@@ -295,7 +296,7 @@ background-color: var(--my-custom-bg);  // Solo el color custom
 
 .mat-tree-node {
   @include nav.nav-item-all-states(
-    $active-border: 3px,        // ← Customización fácil
+    $active-border: 3px, // ← Customización fácil
     $parent-intensity: light
   );
 }
