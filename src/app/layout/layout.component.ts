@@ -51,7 +51,7 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
         </mat-sidenav>
         <mat-sidenav-content class="flex flex-col h-full">
           <app-toolbar></app-toolbar>
-          <main class="main-content-transition flex-1 overflow-y-auto">
+          <main class="flex-1 overflow-y-auto">
             <div class="p-6 md:p-6 max-w-[1400px] mx-auto w-full">
               <router-outlet></router-outlet>
             </div>

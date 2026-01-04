@@ -1,7 +1,5 @@
 .sidenav {
-  &:not(.expanded) {
-    width: var(--sidebar-width-collapsed);
-  }
+  width: var(--sidebar-width-collapsed);
 
   &.expanded {
     width: var(--sidebar-width-expanded);
@@ -9,10 +7,6 @@
 }
 
 .mat-drawer {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.mat-drawer-side {
+  border-radius: 0;
   border-right: none;
 }

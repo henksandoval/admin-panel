@@ -20,7 +20,15 @@ import { LayoutService } from '../../services/layout.service';
     MatBadgeModule,
     MatDividerModule
   ],
-  templateUrl: './toolbar.component.html'
+  templateUrl: './toolbar.component.html',
+  styles: `
+    .toolbar {
+      height: var(--toolbar-height);
+      position: relative;
+      z-index: var(--z-toolbar);
+      transition: all var(--transition-slow);
+    }
+  `
 })
 export class ToolbarComponent {
   private layoutService = inject(LayoutService);
