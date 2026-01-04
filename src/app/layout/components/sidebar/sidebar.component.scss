@@ -18,7 +18,7 @@
     background-color: var(--mat-sys-primary);
     border-radius: 50%;
     opacity: 0.6;
-    transition: opacity var(--layout-transition-fast);
+    transition: opacity var(--transition-fast);
 
     .nav-icon-item.active &,
     .nav-icon-item.parent-active & {
