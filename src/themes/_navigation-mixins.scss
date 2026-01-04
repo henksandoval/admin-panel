@@ -14,7 +14,7 @@
 
 @mixin _nav-item-base() {
   position: relative;
-  transition: all var(--layout-transition-fast);
+  transition: all var(--transition-duration-fast) var(--transition-timing);
   border-radius: 0 8px 8px 0;
 }
 
