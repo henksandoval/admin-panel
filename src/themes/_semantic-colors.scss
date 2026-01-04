@@ -1,0 +1,12 @@
+:root {
+  --sys-caution: #e8b931;
+  --sys-on-caution: var(--mat-sys-surface);
+  --sys-caution-container: #c6a805;
+  --sys-on-caution-container: var(--mat-sys-on-tertiary-container);
+}
+
+.dark-theme {
+  --sys-caution: #a07c0a;
+  --sys-on-caution: var(--mat-sys-on-surface);
+  --sys-caution-container: #cb9d13;
+}

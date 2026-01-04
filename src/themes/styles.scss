@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use './theme' as app-styles;
+@use './theming' as app-styles;
 @use '@angular/material' as mat;
 
 @tailwind base;
