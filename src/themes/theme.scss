@@ -18,6 +18,40 @@ $theme-config: (
   'amber':   (primary: mat.$orange-palette,    tertiary: mat.$yellow-palette),
 );
 
+@mixin build-themes() {
+  @include _apply-all-themes();
+
+  body {
+    @include _define-overlay-tokens();
+    @include _define-navigation-tokens();
+    @include _define-badge-tokens();
+  }
+
+  .dark-theme {
+    @include _define-overlay-tokens-dark();
+    @include _define-badge-tokens-dark();
+  }
+}
+
+@mixin _apply-all-themes() {
+  @each $color-name, $config in $theme-config {
+    $primary: map.get($config, primary);
+    $tertiary: map.get($config, tertiary);
+
+    body.theme-#{$color-name}.light-theme {
+      color-scheme: light;
+      @include _define-chrome-tokens(light);
+      @include _apply-theme($primary, $tertiary, light);
+    }
+
+    body.theme-#{$color-name}.dark-theme {
+      color-scheme: dark;
+      @include _define-chrome-tokens(dark);
+      @include _apply-theme($primary, $tertiary, dark);
+    }
+  }
+}
+
 @mixin _define-chrome-tokens($mode) {
   @if $mode == light {
     --chrome-bg: var(--mat-sys-primary);
@@ -51,26 +85,7 @@ $theme-config: (
   ));
 }
 
-@mixin apply-all-themes() {
-  @each $color-name, $config in $theme-config {
-    $primary: map.get($config, primary);
-    $tertiary: map.get($config, tertiary);
-
-    body.theme-#{$color-name}.light-theme {
-      color-scheme: light;
-      @include _define-chrome-tokens(light);
-      @include _apply-theme($primary, $tertiary, light);
-    }
-
-    body.theme-#{$color-name}.dark-theme {
-      color-scheme: dark;
-      @include _define-chrome-tokens(dark);
-      @include _apply-theme($primary, $tertiary, dark);
-    }
-  }
-}
-
-@mixin define-overlay-tokens() {
+@mixin _define-overlay-tokens() {
   --overlay-on-primary-00: transparent;
 
   --overlay-on-primary-05: color-mix(in srgb, var(--mat-sys-on-primary) 5%, transparent);
@@ -106,7 +121,7 @@ $theme-config: (
   --overlay-shadow-40: color-mix(in srgb, var(--mat-sys-shadow, #000) 40%, transparent);
 }
 
-@mixin define-overlay-tokens-dark() {
+@mixin _define-overlay-tokens-dark() {
   --overlay-on-primary-05: color-mix(in srgb, var(--mat-sys-on-surface) 5%, transparent);
   --overlay-on-primary-08: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
   --overlay-on-primary-10: color-mix(in srgb, var(--mat-sys-on-surface) 10%, transparent);
@@ -121,7 +136,7 @@ $theme-config: (
   --overlay-on-primary-80: color-mix(in srgb, var(--mat-sys-on-surface) 80%, transparent);
 }
 
-@mixin define-navigation-tokens() {
+@mixin _define-navigation-tokens() {
   --nav-item-hover-bg: var(--overlay-on-primary-12);
   --nav-item-active-bg: var(--overlay-on-primary-25);
   --nav-item-active-border: var(--overlay-on-primary-60);
@@ -141,7 +156,7 @@ $theme-config: (
   --nav-surface-parent-bg: var(--overlay-on-surface-05);
 }
 
-@mixin define-badge-tokens() {
+@mixin _define-badge-tokens() {
   --badge-normal-bg: var(--overlay-on-primary-20);
   --badge-normal-text: var(--chrome-text);
 
@@ -163,6 +178,6 @@ $theme-config: (
   --badge-indicator-border: 0.1px outset var(--mat-sys-surface);
 }
 
-@mixin define-badge-tokens-dark() {
+@mixin _define-badge-tokens-dark() {
   --badge-normal-bg: var(--overlay-on-primary-50);
 }

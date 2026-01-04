@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use './theme';
+@use './theme' as app-theme;
 @use '@angular/material' as mat;
 
 @tailwind base;
@@ -7,18 +7,7 @@
 @tailwind utilities;
 
 @include mat.core();
-@include theme.apply-all-themes();
-
-body {
-  @include theme.define-overlay-tokens();
-  @include theme.define-navigation-tokens();
-  @include theme.define-badge-tokens();
-}
-
-.dark-theme {
-  @include theme.define-overlay-tokens-dark();
-  @include theme.define-badge-tokens-dark();
-}
+@include app-theme.build-themes();
 
 html,
 body {
