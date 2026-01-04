@@ -27,6 +27,7 @@ import { LayoutService } from '../../services/layout.service';
       position: relative;
       z-index: var(--z-toolbar);
       transition: all var(--transition-slow);
+      box-shadow: 0 2px 4px var(--overlay-shadow-10);
     }
   `
 })
