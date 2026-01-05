@@ -83,6 +83,13 @@ $theme-config: (
     container-background-color: var(--chrome-bg),
     container-text-color: var(--chrome-text)
   ));
+
+  mat-toolbar,
+  mat-sidenav {
+    .mat-mdc-icon-button {
+      color: var(--chrome-text);
+    }
+  }
 }
 
 @mixin _define-overlay-tokens() {
