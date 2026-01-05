@@ -56,18 +56,18 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
               <router-outlet></router-outlet>
             </div>
           </main>
+          <div class="fixed bottom-6 right-6 max-sm:bottom-4 max-sm:right-4">
+            <button
+              class="shadow-lg transition-transform duration-200 hover:scale-110 active:scale-95"
+              mat-mini-fab
+              color="primary"
+              (click)="toggleSettingsPanel()"
+              aria-label="Settings">
+              <mat-icon>settings</mat-icon>
+            </button>
+          </div>
         </mat-sidenav-content>
       </mat-sidenav-container>
-      <div class="fixed bottom-6 right-6 z-[1000] max-sm:bottom-4 max-sm:right-4">
-        <button
-          class="shadow-lg transition-transform duration-200 hover:scale-110 active:scale-95"
-          mat-mini-fab
-          color="primary"
-          (click)="toggleSettingsPanel()"
-          aria-label="Settings">
-          <mat-icon>settings</mat-icon>
-        </button>
-      </div>
     </div>
   `,
   styleUrl: './layout.component.scss'
