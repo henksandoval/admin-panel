@@ -27,11 +27,11 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--mat-sys-outline, #ccc);
+  background: color-mix(in srgb, var(--mat-sys-primary) 70%, transparent);
   border-radius: 3px;
 
   &:hover {
-    background: var(--mat-sys-outline-variant, #999);
+    background: var(--mat-sys-primary);
   }
 }
 
