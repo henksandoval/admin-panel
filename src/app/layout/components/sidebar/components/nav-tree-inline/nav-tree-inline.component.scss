@@ -1,8 +1,7 @@
 ﻿@use '../../../../../../themes/navigation' as nav;
 
 .nav-tree {
-  background: transparent;
-  color: var(--chrome-text);
+  background: inherit;
 
   .mat-tree-node {
     min-height: 44px;
