@@ -31,14 +31,17 @@
       <div class="flex gap-3 flex-wrap">
         @for (theme of themes; track theme.id) {
           <button
-            mat-icon-button
-            class="theme-color-button w-12 h-12"
+            class="theme-color-button relative w-12 h-12 p-0 rounded-full border-0 cursor-pointer transition-all duration-200"
             [class.active]="isThemeActive()(theme.id)"
-            [style.background-color]="theme.color"
+            [matTooltip]="theme.label"
+            matTooltipPosition="above"
             (click)="selectTheme(theme.id)"
             [attr.aria-label]="theme.label">
+            <span class="absolute inset-0 rounded-full" [style.background-color]="theme.color_primary"></span>
+            <span class="absolute bottom-0 right-0 w-5 h-5 rounded-full border-2 border-[var(--mat-sys-surface)]"
+                  [style.background-color]="theme.color_tertiary"></span>
             @if (isThemeActive()(theme.id)) {
-              <mat-icon class="text-white">check</mat-icon>
+              <mat-icon class="absolute inset-0 m-auto text-white z-10">check</mat-icon>
             }
           </button>
         }

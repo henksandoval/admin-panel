@@ -1,6 +1,6 @@
 import { Injectable, signal, effect } from '@angular/core';
 
-export type Theme = 'default' | 'brand' | 'teal' | 'rose' | 'purple' | 'amber';
+export type Theme = 'default' | 'aurora-tech' | 'deep-ocean' | 'forest-growth' | 'slate-minimal' | 'sunset-analytics' | 'royal-dashboard';
 export type Scheme = 'auto' | 'dark' | 'light';
 
 export interface SettingsConfig {
@@ -72,7 +72,7 @@ export class SettingsService {
   }
 
   private applyTheme(theme: Theme): void {
-    const themes: Theme[] = ['default', 'brand', 'teal', 'rose', 'purple', 'amber'];
+    const themes: Theme[] = ['default', 'aurora-tech', 'deep-ocean', 'forest-growth', 'slate-minimal', 'sunset-analytics', 'royal-dashboard'];
     themes.forEach(t => {
       document.body.classList.remove(`theme-${t}`);
     });

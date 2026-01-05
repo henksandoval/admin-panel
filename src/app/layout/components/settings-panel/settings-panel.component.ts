@@ -7,6 +7,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SettingsService, Theme, Scheme } from '../../services/settings.service';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-settings-panel',
@@ -18,7 +19,8 @@ import { SettingsService, Theme, Scheme } from '../../services/settings.service'
     MatButtonToggleModule,
     MatRippleModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltip
   ],
   templateUrl: './settings-panel.component.html',
   styleUrl: './settings-panel.component.scss'
@@ -28,13 +30,13 @@ export class SettingsPanelComponent {
 
   protected readonly config = this.settingsService.config;
 
-  protected readonly themes: Array<{ id: Theme; label: string; color: string }> = [
-    { id: 'default', label: 'Default', color: '#3b82f6' },
-    { id: 'brand', label: 'Brand', color: '#06b6d4' },
-    { id: 'teal', label: 'Teal', color: '#14b8a6' },
-    { id: 'rose', label: 'Rose', color: '#f43f5e' },
-    { id: 'purple', label: 'Purple', color: '#a855f7' },
-    { id: 'amber', label: 'Amber', color: '#f59e0b' }
+  protected readonly themes: Array<{ id: Theme; label: string; color_primary: string, color_tertiary: string }> = [
+    { id: 'aurora-tech', label: 'Aurora Tech', color_primary: '#4758B8', color_tertiary: '#00D69D' },
+    { id: 'deep-ocean', label: 'Deep Ocean', color_primary: '#0F4C75', color_tertiary: '#3282B8' },
+    { id: 'forest-growth', label: 'Forest Growth', color_primary: '#2E7D32', color_tertiary: '#81C784' },
+    { id: 'slate-minimal', label: 'Slate Minimal', color_primary: '#E65100', color_tertiary: '#FFB74D' },
+    { id: 'royal-dashboard', label: 'Royal Dashboard', color_primary: '#6200EA', color_tertiary: '#00BFA5' },
+    { id: 'sunset-analytics', label: 'Sunset Analytics', color_primary: '#37474F', color_tertiary: '#FF4081' }
   ];
 
   protected readonly schemes: Array<{ id: Scheme; label: string; icon: string }> = [
@@ -43,7 +45,8 @@ export class SettingsPanelComponent {
     { id: 'light', label: 'Light', icon: 'light_mode' }
   ];
 
-  protected isThemeActive = computed(() => (themeId: Theme) => this.config().theme === themeId);
+  protected isThemeActive = computed(() =>
+    (themeId: Theme) => this.config().theme === themeId);
 
   closePanel(): void {
     this.settingsService.closePanel();
@@ -58,8 +61,8 @@ export class SettingsPanelComponent {
   }
 
   resetSettings(): void {
-    this.settingsService.setTheme('default');
-    this.settingsService.setScheme('light');
+    this.settingsService.setTheme('aurora-tech');
+    this.settingsService.setScheme('dark');
   }
 }
 

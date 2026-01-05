@@ -1,7 +1,12 @@
 @use 'sass:map';
 @use './variables';
 @use './semantic-colors';
-@use './brand-palette' as brand;
+@use 'colors/aurora-tech' as aurora-tech;
+@use 'colors/deep-ocean' as deep-ocean;
+@use 'colors/forest-growth' as forest-growth;
+@use 'colors/slate-minimal' as slate-minimal;
+@use 'colors/sunset_analytics' as sunset-analytics;
+@use 'colors/royal-dashboard' as royal-dashboard;
 @use '@angular/material' as mat;
 
 $base-typography: (
@@ -10,13 +15,13 @@ $base-typography: (
 );
 
 $theme-config: (
-  'default': (primary: brand.$primary-palette, tertiary: brand.$tertiary-palette),
-  'brand':   (primary: brand.$primary-palette, tertiary: brand.$tertiary-palette),
-  'azure':   (primary: mat.$azure-palette,     tertiary: mat.$cyan-palette),
-  'teal':    (primary: mat.$cyan-palette,      tertiary: mat.$blue-palette),
-  'rose':    (primary: mat.$magenta-palette,   tertiary: mat.$cyan-palette),
-  'purple':  (primary: mat.$violet-palette,    tertiary: mat.$cyan-palette),
-  'amber':   (primary: mat.$orange-palette,    tertiary: mat.$yellow-palette),
+  'default': (primary: aurora-tech.$primary-palette, tertiary: aurora-tech.$tertiary-palette),
+  'aurora-tech':   (primary: aurora-tech.$primary-palette, tertiary: aurora-tech.$tertiary-palette),
+  'deep-ocean': (primary: deep-ocean.$primary-palette,    tertiary: deep-ocean.$tertiary-palette),
+  'forest-growth': (primary: forest-growth.$primary-palette,    tertiary: forest-growth.$tertiary-palette),
+  'slate-minimal': (primary: slate-minimal.$primary-palette,    tertiary: slate-minimal.$tertiary-palette),
+  'sunset-analytics': (primary: sunset-analytics.$primary-palette,    tertiary: sunset-analytics.$tertiary-palette),
+  'royal-dashboard': (primary: royal-dashboard.$primary-palette,    tertiary: royal-dashboard.$tertiary-palette)
 );
 
 @mixin build-themes() {
