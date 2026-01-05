@@ -6,6 +6,7 @@
   .mat-tree-node {
     min-height: 44px;
     color: inherit;
+    align-items: flex-start;
 
     &[aria-level] {
       padding-left: calc((attr(aria-level number, 1) - 1) * 0.5rem);
@@ -26,11 +27,16 @@
         border-left: 1px solid var(--overlay-on-primary-15);
       }
     }
+
+    .mat-icon-button {
+      margin-top: 2px;
+    }
   }
 
   .tree-node-content {
     mat-icon {
       transition: color var(--transition-fast);
+      flex-shrink: 0;
     }
   }
 }

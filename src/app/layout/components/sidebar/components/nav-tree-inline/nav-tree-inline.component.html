@@ -1,4 +1,4 @@
-﻿<mat-tree #tree [dataSource]="data()" [childrenAccessor]="childrenAccessor" class="nav-tree">
+﻿﻿<mat-tree #tree [dataSource]="data()" [childrenAccessor]="childrenAccessor" class="nav-tree">
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodeToggle [cdkTreeNodeTypeaheadLabel]="node.title" class="min-h-11"
      [class.parent-active]="isParentOfActive(node)">
     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.title">
@@ -10,7 +10,7 @@
       @if (node.icon) {
         <mat-icon class="text-xl w-5 h-5">{{ node.icon }}</mat-icon>
       }
-      <span class="flex-1 text-sm whitespace-nowrap overflow-hidden text-ellipsis">{{ node.title }}</span>
+      <span class="flex-1 text-sm line-clamp-2">{{ node.title }}</span>
       @if (getTotalBadgeCount(node) > 0 && !tree.isExpanded(node)) {
         <span class="app-badge normal">{{ getTotalBadgeCount(node) }}</span>
       }
@@ -22,7 +22,7 @@
       @if (node.icon) {
         <mat-icon class="text-xl w-5 h-5">{{ node.icon }}</mat-icon>
       }
-      <span class="flex-1 text-sm whitespace-nowrap overflow-hidden text-ellipsis">{{ node.title }}</span>
+      <span class="flex-1 text-sm line-clamp-2">{{ node.title }}</span>
       @if (node.badge) {
         <span class="app-badge"
               [ngClass]="[ node.badge.type, node.badge.indicator ? 'has-indicator' : '' ]">
