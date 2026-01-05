@@ -8,8 +8,7 @@
       <mat-icon>close</mat-icon>
     </button>
   </div>
-
-  <div class="settings-content flex-1 overflow-y-auto p-6">
+  <div class="main-content flex-1 overflow-y-auto p-6">
     <div class="mb-8">
       <h3 class="text-xs font-semibold tracking-wide uppercase m-0 mb-4 opacity-60">Modo</h3>
       <mat-button-toggle-group
@@ -45,12 +44,11 @@
         }
       </div>
     </div>
-
   </div>
 
   <div class="px-6 py-4 border-t">
     <button
-      mat-stroked-button
+      matButton="filled"
       class="w-full"
       (click)="resetSettings()">
       Restablecer valores

@@ -33,6 +33,17 @@ $theme-config: (
   }
 }
 
+@mixin badge-complete() {
+  .app-badge {
+    @include _badge-base();
+    @include _badge-types();
+
+    &.has-indicator {
+      @include _badge-indicator();
+    }
+  }
+}
+
 @mixin _apply-all-themes() {
   @each $color-name, $config in $theme-config {
     $primary: map.get($config, primary);
@@ -84,11 +95,22 @@ $theme-config: (
     container-text-color: var(--chrome-text)
   ));
 
+  @include mat.button-toggle-overrides((
+    background-color: var(--overlay-on-surface-08),
+    selected-state-background-color: var(--mat-sys-primary),
+    selected-state-text-color: var(--mat-sys-on-primary),
+    text-color: var(--mat-sys-on-surface)
+  ));
+
   mat-toolbar,
   mat-sidenav {
     .mat-mdc-icon-button {
       color: var(--chrome-text);
     }
+  }
+
+  .main-content {
+    background-color: var(--mat-sys-background);
   }
 }
 
@@ -169,18 +191,7 @@ $theme-config: (
   --badge-normal-bg: var(--overlay-on-primary-50);
 }
 
-@mixin badge-complete() {
-  .app-badge {
-    @include badge-base();
-    @include badge-types();
-
-    &.has-indicator {
-      @include badge-indicator();
-    }
-  }
-}
-
-@mixin badge-base() {
+@mixin _badge-base() {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -193,7 +204,7 @@ $theme-config: (
   margin-left: auto;
 }
 
-@mixin badge-indicator() {
+@mixin _badge-indicator() {
   position: relative;
 
   &::after {
@@ -218,7 +229,7 @@ $theme-config: (
   }
 }
 
-@mixin badge-types() {
+@mixin _badge-types() {
   &.normal {
     background-color: var(--badge-normal-bg);
     color: var(--badge-normal-text);
