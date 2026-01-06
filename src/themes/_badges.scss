@@ -1,0 +1,76 @@
+@mixin badge-complete() {
+  .app-badge {
+    @include _badge-base();
+    @include _badge-types();
+
+    &.has-indicator {
+      @include _badge-indicator();
+    }
+  }
+}
+
+@mixin _badge-base() {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+@mixin _badge-indicator() {
+  position: relative;
+
+  &::after {
+    content: '!';
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--badge-indicator-bg);
+    color: var(--badge-indicator-text);
+    border-radius: 50%;
+    border: var(--badge-indicator-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: var(--badge-indicator-shadow);
+    z-index: 10;
+  }
+}
+
+@mixin _badge-types() {
+  &.normal {
+    background-color: var(--badge-normal-bg);
+    color: var(--badge-normal-text);
+  }
+
+  &.info {
+    background-color: var(--badge-info-bg);
+    color: var(--badge-info-text);
+  }
+
+  &.success {
+    background-color: var(--badge-success-bg);
+    color: var(--badge-success-text);
+  }
+
+  &.warning {
+    background-color: var(--badge-warning-bg);
+    color: var(--badge-warning-text);
+  }
+
+  &.error {
+    background-color: var(--badge-error-bg);
+    color: var(--badge-error-text);
+  }
+}
+

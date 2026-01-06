@@ -1,0 +1,106 @@
+@mixin define-chrome-tokens($mode) {
+  @if $mode == light {
+    --chrome-bg: var(--mat-sys-primary);
+    --chrome-text: var(--mat-sys-on-primary);
+  } @else {
+    --chrome-bg: var(--mat-sys-on-primary);
+    --chrome-text: var(--mat-sys-on-surface-variant);
+  }
+}
+
+@mixin define-overlay-tokens() {
+  --overlay-on-primary-00: transparent;
+
+  --overlay-on-primary-05: color-mix(in srgb, var(--mat-sys-on-primary) 5%, transparent);
+  --overlay-on-primary-08: color-mix(in srgb, var(--mat-sys-on-primary) 8%, transparent);
+  --overlay-on-primary-10: color-mix(in srgb, var(--mat-sys-on-primary) 10%, transparent);
+  --overlay-on-primary-12: color-mix(in srgb, var(--mat-sys-on-primary) 12%, transparent);
+  --overlay-on-primary-15: color-mix(in srgb, var(--mat-sys-on-primary) 15%, transparent);
+  --overlay-on-primary-20: color-mix(in srgb, var(--mat-sys-on-primary) 20%, transparent);
+  --overlay-on-primary-25: color-mix(in srgb, var(--mat-sys-on-primary) 25%, transparent);
+  --overlay-on-primary-30: color-mix(in srgb, var(--mat-sys-on-primary) 30%, transparent);
+  --overlay-on-primary-40: color-mix(in srgb, var(--mat-sys-on-primary) 40%, transparent);
+  --overlay-on-primary-50: color-mix(in srgb, var(--mat-sys-on-primary) 50%, transparent);
+  --overlay-on-primary-60: color-mix(in srgb, var(--mat-sys-on-primary) 60%, transparent);
+  --overlay-on-primary-80: color-mix(in srgb, var(--mat-sys-on-primary) 80%, transparent);
+
+  --overlay-on-surface-05: color-mix(in srgb, var(--mat-sys-on-surface) 5%, transparent);
+  --overlay-on-surface-08: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+  --overlay-on-surface-10: color-mix(in srgb, var(--mat-sys-on-surface) 10%, transparent);
+  --overlay-on-surface-12: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
+  --overlay-on-surface-15: color-mix(in srgb, var(--mat-sys-on-surface) 15%, transparent);
+  --overlay-on-surface-20: color-mix(in srgb, var(--mat-sys-on-surface) 20%, transparent);
+  --overlay-on-surface-25: color-mix(in srgb, var(--mat-sys-on-surface) 25%, transparent);
+  --overlay-on-surface-30: color-mix(in srgb, var(--mat-sys-on-surface) 30%, transparent);
+  --overlay-on-surface-40: color-mix(in srgb, var(--mat-sys-on-surface) 40%, transparent);
+  --overlay-on-surface-50: color-mix(in srgb, var(--mat-sys-on-surface) 50%, transparent);
+
+  --overlay-shadow-05: color-mix(in srgb, var(--mat-sys-shadow, #000) 5%, transparent);
+  --overlay-shadow-10: color-mix(in srgb, var(--mat-sys-shadow, #000) 10%, transparent);
+  --overlay-shadow-15: color-mix(in srgb, var(--mat-sys-shadow, #000) 15%, transparent);
+  --overlay-shadow-20: color-mix(in srgb, var(--mat-sys-shadow, #000) 20%, transparent);
+  --overlay-shadow-25: color-mix(in srgb, var(--mat-sys-shadow, #000) 25%, transparent);
+  --overlay-shadow-30: color-mix(in srgb, var(--mat-sys-shadow, #000) 30%, transparent);
+  --overlay-shadow-40: color-mix(in srgb, var(--mat-sys-shadow, #000) 40%, transparent);
+}
+
+@mixin define-overlay-tokens-dark() {
+  --overlay-on-primary-05: color-mix(in srgb, var(--mat-sys-on-surface) 5%, transparent);
+  --overlay-on-primary-08: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+  --overlay-on-primary-10: color-mix(in srgb, var(--mat-sys-on-surface) 10%, transparent);
+  --overlay-on-primary-12: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
+  --overlay-on-primary-15: color-mix(in srgb, var(--mat-sys-on-surface) 15%, transparent);
+  --overlay-on-primary-20: color-mix(in srgb, var(--mat-sys-on-surface) 20%, transparent);
+  --overlay-on-primary-25: color-mix(in srgb, var(--mat-sys-on-surface) 25%, transparent);
+  --overlay-on-primary-30: color-mix(in srgb, var(--mat-sys-on-surface) 30%, transparent);
+  --overlay-on-primary-40: color-mix(in srgb, var(--mat-sys-on-surface) 40%, transparent);
+  --overlay-on-primary-50: color-mix(in srgb, var(--mat-sys-on-surface) 50%, transparent);
+  --overlay-on-primary-60: color-mix(in srgb, var(--mat-sys-on-surface) 60%, transparent);
+  --overlay-on-primary-80: color-mix(in srgb, var(--mat-sys-on-surface) 80%, transparent);
+}
+
+@mixin define-badge-tokens() {
+  --badge-normal-bg: var(--overlay-on-primary-20);
+  --badge-normal-text: var(--chrome-text);
+
+  --badge-info-bg: var(--mat-sys-tertiary-container);
+  --badge-info-text: var(--mat-sys-on-tertiary-container);
+
+  --badge-success-bg: var(--mat-sys-primary-container);
+  --badge-success-text: var(--mat-sys-on-primary-container);
+
+  --badge-warning-bg: var(--sys-caution-container);
+  --badge-warning-text: var(--sys-on-caution-container);
+
+  --badge-error-bg: var(--mat-sys-error);
+  --badge-error-text: var(--mat-sys-on-error);
+
+  --badge-indicator-bg: var(--mat-sys-error);
+  --badge-indicator-text: var(--mat-sys-on-error);
+
+  --badge-indicator-border: 0.1px outset var(--mat-sys-surface);
+}
+
+@mixin define-badge-tokens-dark() {
+  --badge-normal-bg: var(--overlay-on-primary-50);
+}
+
+@mixin define-navigation-tokens() {
+  --nav-item-hover-bg: var(--overlay-on-primary-12);
+  --nav-item-active-bg: var(--overlay-on-primary-25);
+  --nav-item-active-border: var(--overlay-on-primary-60);
+  --nav-item-active-shadow: var(--overlay-shadow-15);
+  --nav-item-parent-bg-start: var(--overlay-on-primary-15);
+  --nav-item-parent-bg-mid: var(--overlay-on-primary-10);
+  --nav-item-parent-bg-end: var(--overlay-on-primary-05);
+  --nav-item-parent-border: var(--overlay-on-primary-20);
+
+  --nav-area-bg: var(--mat-sys-surface-container-low);
+  --nav-area-text: var(--mat-sys-on-surface);
+  --nav-area-text-secondary: var(--mat-sys-on-surface-variant);
+  --nav-surface-hover-bg: var(--overlay-on-surface-08);
+  --nav-surface-active-bg: var(--mat-sys-primary-container);
+  --nav-surface-active-text: var(--mat-sys-on-primary-container);
+  --nav-surface-active-border: var(--mat-sys-primary);
+  --nav-surface-parent-bg: var(--overlay-on-surface-05);
+}

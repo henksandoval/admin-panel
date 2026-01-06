@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use './theming' as app-styles;
+@use './theming' as theming;
 @use '@angular/material' as mat;
 
 @tailwind base;
@@ -7,8 +7,7 @@
 @tailwind utilities;
 
 @include mat.core();
-@include app-styles.build-themes();
-@include app-styles.badge-complete();
+@include theming.build-themes();
 
 html,
 body {

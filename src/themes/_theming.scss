@@ -1,6 +1,9 @@
 @use 'sass:map';
 @use './variables';
 @use './semantic-colors';
+@use './tokens';
+@use './material-overrides' as overrides;
+@use './badges' as badges;
 @use 'colors/aurora-tech' as aurora-tech;
 @use 'colors/deep-ocean' as deep-ocean;
 @use 'colors/forest-growth' as forest-growth;
@@ -8,7 +11,6 @@
 @use 'colors/sunset_analytics' as sunset-analytics;
 @use 'colors/royal-dashboard' as royal-dashboard;
 @use '@angular/material' as mat;
-@use '_custom-styles' as app-styles;
 
 $base-typography: (
   brand-family: 'Poppins, Inter, sans-serif',
@@ -27,27 +29,17 @@ $theme-config: (
 
 @mixin build-themes() {
   @include _apply-all-themes();
-  @include app-styles.apply-custom-styles();
+  @include overrides.apply-material-overrides();
+  @include badges.badge-complete();
 
   body {
-    @include _define-overlay-tokens();
-    @include _define-badge-tokens();
+    @include tokens.define-overlay-tokens();
+    @include tokens.define-badge-tokens();
   }
 
   .dark-theme {
-    @include _define-overlay-tokens-dark();
-    @include _define-badge-tokens-dark();
-  }
-}
-
-@mixin badge-complete() {
-  .app-badge {
-    @include _badge-base();
-    @include _badge-types();
-
-    &.has-indicator {
-      @include _badge-indicator();
-    }
+    @include tokens.define-overlay-tokens-dark();
+    @include tokens.define-badge-tokens-dark();
   }
 }
 
@@ -58,25 +50,15 @@ $theme-config: (
 
     body.theme-#{$color-name}.light-theme {
       color-scheme: light;
-      @include _define-chrome-tokens(light);
+      @include tokens.define-chrome-tokens(light);
       @include _apply-theme($primary, $tertiary, light);
     }
 
     body.theme-#{$color-name}.dark-theme {
       color-scheme: dark;
-      @include _define-chrome-tokens(dark);
+      @include tokens.define-chrome-tokens(dark);
       @include _apply-theme($primary, $tertiary, dark);
     }
-  }
-}
-
-@mixin _define-chrome-tokens($mode) {
-  @if $mode == light {
-    --chrome-bg: var(--mat-sys-primary);
-    --chrome-text: var(--mat-sys-on-primary);
-  } @else {
-    --chrome-bg: var(--mat-sys-on-primary);
-    --chrome-text: var(--mat-sys-on-surface-variant);
   }
 }
 
@@ -91,163 +73,5 @@ $theme-config: (
   );
 
   @include mat.theme($config);
-
-  @include mat.toolbar-overrides((
-    container-background-color: var(--chrome-bg),
-    container-text-color: var(--chrome-text)
-  ));
-
-  @include mat.sidenav-overrides((
-    container-background-color: var(--chrome-bg),
-    container-text-color: var(--chrome-text)
-  ));
-
-  @include mat.button-toggle-overrides((
-    background-color: var(--overlay-on-surface-08),
-    selected-state-background-color: var(--mat-sys-primary),
-    selected-state-text-color: var(--mat-sys-on-primary),
-    text-color: var(--mat-sys-on-surface)
-  ));
-}
-
-@mixin _define-overlay-tokens() {
-  --overlay-on-primary-00: transparent;
-
-  --overlay-on-primary-05: color-mix(in srgb, var(--mat-sys-on-primary) 5%, transparent);
-  --overlay-on-primary-08: color-mix(in srgb, var(--mat-sys-on-primary) 8%, transparent);
-  --overlay-on-primary-10: color-mix(in srgb, var(--mat-sys-on-primary) 10%, transparent);
-  --overlay-on-primary-12: color-mix(in srgb, var(--mat-sys-on-primary) 12%, transparent);
-  --overlay-on-primary-15: color-mix(in srgb, var(--mat-sys-on-primary) 15%, transparent);
-  --overlay-on-primary-20: color-mix(in srgb, var(--mat-sys-on-primary) 20%, transparent);
-  --overlay-on-primary-25: color-mix(in srgb, var(--mat-sys-on-primary) 25%, transparent);
-  --overlay-on-primary-30: color-mix(in srgb, var(--mat-sys-on-primary) 30%, transparent);
-  --overlay-on-primary-40: color-mix(in srgb, var(--mat-sys-on-primary) 40%, transparent);
-  --overlay-on-primary-50: color-mix(in srgb, var(--mat-sys-on-primary) 50%, transparent);
-  --overlay-on-primary-60: color-mix(in srgb, var(--mat-sys-on-primary) 60%, transparent);
-  --overlay-on-primary-80: color-mix(in srgb, var(--mat-sys-on-primary) 80%, transparent);
-
-  --overlay-on-surface-05: color-mix(in srgb, var(--mat-sys-on-surface) 5%, transparent);
-  --overlay-on-surface-08: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
-  --overlay-on-surface-10: color-mix(in srgb, var(--mat-sys-on-surface) 10%, transparent);
-  --overlay-on-surface-12: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
-  --overlay-on-surface-15: color-mix(in srgb, var(--mat-sys-on-surface) 15%, transparent);
-  --overlay-on-surface-20: color-mix(in srgb, var(--mat-sys-on-surface) 20%, transparent);
-  --overlay-on-surface-25: color-mix(in srgb, var(--mat-sys-on-surface) 25%, transparent);
-  --overlay-on-surface-30: color-mix(in srgb, var(--mat-sys-on-surface) 30%, transparent);
-  --overlay-on-surface-40: color-mix(in srgb, var(--mat-sys-on-surface) 40%, transparent);
-  --overlay-on-surface-50: color-mix(in srgb, var(--mat-sys-on-surface) 50%, transparent);
-
-  --overlay-shadow-05: color-mix(in srgb, var(--mat-sys-shadow, #000) 5%, transparent);
-  --overlay-shadow-10: color-mix(in srgb, var(--mat-sys-shadow, #000) 10%, transparent);
-  --overlay-shadow-15: color-mix(in srgb, var(--mat-sys-shadow, #000) 15%, transparent);
-  --overlay-shadow-20: color-mix(in srgb, var(--mat-sys-shadow, #000) 20%, transparent);
-  --overlay-shadow-25: color-mix(in srgb, var(--mat-sys-shadow, #000) 25%, transparent);
-  --overlay-shadow-30: color-mix(in srgb, var(--mat-sys-shadow, #000) 30%, transparent);
-  --overlay-shadow-40: color-mix(in srgb, var(--mat-sys-shadow, #000) 40%, transparent);
-}
-
-@mixin _define-overlay-tokens-dark() {
-  --overlay-on-primary-05: color-mix(in srgb, var(--mat-sys-on-surface) 5%, transparent);
-  --overlay-on-primary-08: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
-  --overlay-on-primary-10: color-mix(in srgb, var(--mat-sys-on-surface) 10%, transparent);
-  --overlay-on-primary-12: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
-  --overlay-on-primary-15: color-mix(in srgb, var(--mat-sys-on-surface) 15%, transparent);
-  --overlay-on-primary-20: color-mix(in srgb, var(--mat-sys-on-surface) 20%, transparent);
-  --overlay-on-primary-25: color-mix(in srgb, var(--mat-sys-on-surface) 25%, transparent);
-  --overlay-on-primary-30: color-mix(in srgb, var(--mat-sys-on-surface) 30%, transparent);
-  --overlay-on-primary-40: color-mix(in srgb, var(--mat-sys-on-surface) 40%, transparent);
-  --overlay-on-primary-50: color-mix(in srgb, var(--mat-sys-on-surface) 50%, transparent);
-  --overlay-on-primary-60: color-mix(in srgb, var(--mat-sys-on-surface) 60%, transparent);
-  --overlay-on-primary-80: color-mix(in srgb, var(--mat-sys-on-surface) 80%, transparent);
-}
-
-@mixin _define-badge-tokens() {
-  --badge-normal-bg: var(--overlay-on-primary-20);
-  --badge-normal-text: var(--chrome-text);
-
-  --badge-info-bg: var(--mat-sys-tertiary-container);
-  --badge-info-text: var(--mat-sys-on-tertiary-container);
-
-  --badge-success-bg: var(--mat-sys-primary-container);
-  --badge-success-text: var(--mat-sys-on-primary-container);
-
-  --badge-warning-bg: var(--sys-caution-container);
-  --badge-warning-text: var(--sys-on-caution-container);
-
-  --badge-error-bg: var(--mat-sys-error);
-  --badge-error-text: var(--mat-sys-on-error);
-
-  --badge-indicator-bg: var(--mat-sys-error);
-  --badge-indicator-text: var(--mat-sys-on-error);
-
-  --badge-indicator-border: 0.1px outset var(--mat-sys-surface);
-}
-
-@mixin _define-badge-tokens-dark() {
-  --badge-normal-bg: var(--overlay-on-primary-50);
-}
-
-@mixin _badge-base() {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.2;
-  white-space: nowrap;
-  margin-left: auto;
-}
-
-@mixin _badge-indicator() {
-  position: relative;
-
-  &::after {
-    content: '!';
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 12px;
-    height: 12px;
-    background-color: var(--badge-indicator-bg);
-    color: var(--badge-indicator-text);
-    border-radius: 50%;
-    border: var(--badge-indicator-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    font-weight: 900;
-    line-height: 1;
-    box-shadow: var(--badge-indicator-shadow);
-    z-index: 10;
-  }
-}
-
-@mixin _badge-types() {
-  &.normal {
-    background-color: var(--badge-normal-bg);
-    color: var(--badge-normal-text);
-  }
-
-  &.info {
-    background-color: var(--badge-info-bg);
-    color: var(--badge-info-text);
-  }
-
-  &.success {
-    background-color: var(--badge-success-bg);
-    color: var(--badge-success-text);
-  }
-
-  &.warning {
-    background-color: var(--badge-warning-bg);
-    color: var(--badge-warning-text);
-  }
-
-  &.error {
-    background-color: var(--badge-error-bg);
-    color: var(--badge-error-text);
-  }
+  @include overrides.apply-component-overrides();
 }

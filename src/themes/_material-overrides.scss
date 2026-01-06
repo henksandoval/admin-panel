@@ -1,24 +1,46 @@
 @use '@angular/material' as mat;
 
-@mixin apply-custom-styles() {
-  @include _button-tertiary-styles();
-  @include _include-custom-styles();
+@mixin apply-material-overrides() {
+  @include _chrome-element-adjustments();
+  @include _button-tertiary-overrides();
+  @include _main-content-background();
 }
 
-@mixin _include-custom-styles() {
+@mixin apply-component-overrides() {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--chrome-bg),
+    container-text-color: var(--chrome-text)
+  ));
+
+  @include mat.sidenav-overrides((
+    container-background-color: var(--chrome-bg),
+    container-text-color: var(--chrome-text)
+  ));
+
+  @include mat.button-toggle-overrides((
+    background-color: var(--overlay-on-surface-08),
+    selected-state-background-color: var(--mat-sys-primary),
+    selected-state-text-color: var(--mat-sys-on-primary),
+    text-color: var(--mat-sys-on-surface)
+  ));
+}
+
+@mixin _chrome-element-adjustments() {
   mat-toolbar,
   mat-sidenav {
     .mat-mdc-icon-button {
       color: var(--chrome-text);
     }
   }
+}
 
+@mixin _main-content-background() {
   .main-content {
     background-color: var(--mat-sys-background);
   }
 }
 
-@mixin _button-tertiary-styles {
+@mixin _button-tertiary-overrides() {
   [color="tertiary"] {
     &.mat-mdc-unelevated-button {
       @include mat.button-overrides((
