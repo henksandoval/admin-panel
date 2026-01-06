@@ -18,22 +18,22 @@
 
   $gradients: (
     light: (
-      start: var(--overlay-on-primary-15),
+      start: var(--mat-sys-tertiary),
       mid: var(--overlay-on-primary-10),
       end: var(--overlay-on-primary-05),
-      border: var(--overlay-on-primary-20)
+      border: var(--mat-sys-tertiary)
     ),
     medium: (
-      start: var(--overlay-on-primary-20),
+      start: var(--mat-sys-tertiary),
       mid: var(--overlay-on-primary-15),
       end: var(--overlay-on-primary-08),
-      border: var(--overlay-on-primary-40)
+      border: var(--mat-sys-tertiary)
     ),
     strong: (
-      start: var(--overlay-on-primary-25),
+      start: var(--mat-sys-tertiary),
       mid: var(--overlay-on-primary-20),
       end: var(--overlay-on-primary-10),
-      border: var(--overlay-on-primary-60)
+      border: var(--mat-sys-tertiary)
     )
   );
 
@@ -43,7 +43,7 @@
     background: linear-gradient(
         to right,
         map.get($gradient, start) 0%,
-        map.get($gradient, mid) 50%,
+        map.get($gradient, mid) 20%,
         map.get($gradient, end) 85%,
         transparent 100%
     );
@@ -72,12 +72,12 @@
   &.active {
     background: linear-gradient(
         to right,
-        var(--overlay-on-primary-50) 0%,
+        var(--mat-sys-tertiary) 0%,
         var(--overlay-on-primary-40) 50%,
         var(--overlay-on-primary-20) 85%,
         transparent 100%
     );
-    border-left: $border-width solid var(--mat-sys-on-primary);
+    border-left: $border-width solid var(--mat-sys-tertiary);
 
     @if $has-shadow {
       box-shadow:
