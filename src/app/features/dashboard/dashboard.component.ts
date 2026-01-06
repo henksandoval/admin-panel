@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatFabButton, MatIconButton, MatMiniFabButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    MatButton
+    MatButton,
+    MatIcon,
+    MatFabButton,
+    MatIconButton,
+    MatMiniFabButton
   ],
   templateUrl: './dashboard.component.html'
 })
