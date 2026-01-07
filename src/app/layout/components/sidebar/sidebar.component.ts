@@ -1,4 +1,4 @@
-import {Component, inject, input, ChangeDetectionStrategy, signal, computed, OnInit} from '@angular/core';
+import {Component, inject, input, ChangeDetectionStrategy, signal, computed, OnInit, effect} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,7 @@ import { LayoutService } from '../../services/layout.service';
 import {Router} from '@angular/router';
 import {NavTreeInlineComponent} from './components/nav-tree-inline/nav-tree-inline.component';
 import {NavTreeFloatingComponent} from './components/nav-tree-floating/nav-tree-floating.component';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-sidebar',
@@ -40,6 +41,14 @@ export class SidebarComponent implements OnInit {
   );
   protected readonly navigation = this.navigationService.getNavigation();
   protected readonly activeRootItemId = this.navigationService.getActiveRootItemId();
+  private routerUrl = toSignal(this.router.events);
+
+  constructor() {
+    effect(() => {
+      this.routerUrl();
+      this.navigationService.updateActiveRootItem();
+    });
+  }
 
   ngOnInit(): void {
     if (this.layoutService.sidebarExpanded()) {
@@ -58,26 +67,19 @@ export class SidebarComponent implements OnInit {
   }
 
   protected isItemActive(item: NavigationItem): boolean {
-    // Solo es active si la URL del item coincide directamente
-    if (item.url && this.navigationService.isRouteActive(item.url)) {
-      return true;
-    }
-    return false;
+    return !!(item.url && this.navigationService.isRouteActive(item.url));
   }
 
   protected isItemParentActive(item: NavigationItem): boolean {
-    // Es parent-active si contiene la ruta activa pero no es la ruta directa
     if (this.isItemActive(item)) {
-      return false; // Si es active, no es parent-active
+      return false;
     }
     return this.activeRootItemId() === item.id;
   }
 
   protected onIconClick(item: NavigationItem): void {
     if (item.url) {
-      void this.router.navigate([item.url]).then(() => {
-        this.navigationService.updateActiveRootItem();
-      });
+      void this.router.navigate([item.url]);
     }
   }
 

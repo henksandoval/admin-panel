@@ -15,6 +15,21 @@
 @mixin _nav-item-parent-active-by-level($border-width: 2px) {
   @include tokens.define-navigation-tokens();
 
+  &.parent-active {
+    border-left: $border-width solid var(--mat-sys-tertiary);
+    background: linear-gradient(
+        to right,
+        var(--mat-sys-tertiary) 0%,
+        var(--overlay-on-primary-10) 20%,
+        var(--overlay-on-primary-20) 65%,
+        transparent 100%
+    );
+
+    button, .tree-node-content {
+      background: transparent !important;
+    }
+  }
+
   @for $level from 0 through 5 {
     $intensity: ($level + 1) * 10;
 

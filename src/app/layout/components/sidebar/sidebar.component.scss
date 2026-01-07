@@ -11,15 +11,7 @@
     right: 6px;
     width: 6px;
     height: 6px;
-    background-color: var(--mat-sys-primary);
+    background-color: var(--mat-sys-tertiary);
     border-radius: 50%;
-    opacity: 0.6;
-    transition: opacity var(--transition-fast);
-
-    .nav-icon-item.active &,
-    .nav-icon-item.parent-active & {
-      opacity: 1;
-      background-color: var(--mat-sys-on-primary);
-    }
   }
 }
