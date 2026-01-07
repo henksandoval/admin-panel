@@ -1,151 +1,73 @@
 @use 'tokens' as tokens;
 @use 'sass:map';
+@use 'sass:list';
 
 @mixin nav-item-all-states(
   $active-border: 3px,
   $parent-border: 2px,
-  $parent-intensity: light,
   $has-shadow: true
 ) {
   @include _nav-item-base();
   @include _nav-item-hover();
   @include _nav-item-active($active-border, $has-shadow);
-  @include nav-item-parent-active-by-level($parent-border);
+  @include _nav-item-parent-active-by-level($parent-border);
 }
 
-@mixin nav-item-parent-active-by-level($border-width: 2px) {
+@mixin _nav-item-parent-active-by-level($border-width: 2px) {
   @include tokens.define-navigation-tokens();
 
-  // Nivel 1: 10% de intensidad
-  &.parent-active[aria-level="1"] {
-    background: linear-gradient(
-        to right,
-        var(--mat-sys-tertiary) 0%,
-        var(--overlay-on-primary-10) 10%,
-        var(--overlay-on-primary-05) 85%,
-        transparent 100%
-    );
-    border-left: $border-width solid var(--mat-sys-tertiary);
-    box-shadow: inset 0 1px 0 var(--overlay-on-primary-05);
-
-    button, .tree-node-content {
-      background: transparent !important;
-    }
-  }
-
-  // Nivel 2: 20% de intensidad
-  &.parent-active[aria-level="2"] {
-    background: linear-gradient(
-        to right,
-        var(--mat-sys-tertiary) 0%,
-        var(--overlay-on-primary-20) 20%,
-        var(--overlay-on-primary-10) 85%,
-        transparent 100%
-    );
-    border-left: $border-width solid var(--mat-sys-tertiary);
-    box-shadow: inset 0 1px 0 var(--overlay-on-primary-10);
-
-    button, .tree-node-content {
-      background: transparent !important;
-    }
-  }
-
-  // Nivel 3: 30% de intensidad
-  &.parent-active[aria-level="3"] {
-    background: linear-gradient(
-        to right,
-        var(--mat-sys-tertiary) 0%,
-        var(--overlay-on-primary-30) 30%,
-        var(--overlay-on-primary-15) 85%,
-        transparent 100%
-    );
-    border-left: $border-width solid var(--mat-sys-tertiary);
-    box-shadow: inset 0 1px 0 var(--overlay-on-primary-15);
-
-    button, .tree-node-content {
-      background: transparent !important;
-    }
-  }
-
-  // Nivel 4: 40% de intensidad
-  &.parent-active[aria-level="4"] {
-    background: linear-gradient(
-        to right,
-        var(--mat-sys-tertiary) 0%,
-        var(--overlay-on-primary-40) 40%,
-        var(--overlay-on-primary-20) 85%,
-        transparent 100%
-    );
-    border-left: $border-width solid var(--mat-sys-tertiary);
-    box-shadow: inset 0 1px 0 var(--overlay-on-primary-20);
-
-    button, .tree-node-content {
-      background: transparent !important;
-    }
-  }
-
-  // Nivel 5+: 50% de intensidad (máximo)
-  &.parent-active[aria-level="5"],
-  &.parent-active[aria-level="6"],
-  &.parent-active[aria-level="7"],
-  &.parent-active[aria-level="8"],
-  &.parent-active[aria-level="9"] {
-    background: linear-gradient(
-        to right,
-        var(--mat-sys-tertiary) 0%,
-        var(--overlay-on-primary-50) 50%,
-        var(--overlay-on-primary-25) 85%,
-        transparent 100%
-    );
-    border-left: $border-width solid var(--mat-sys-tertiary);
-    box-shadow: inset 0 1px 0 var(--overlay-on-primary-25);
-
-    button, .tree-node-content {
-      background: transparent !important;
-    }
-  }
-}
-
-// Mixin original mantenido para compatibilidad
-@mixin nav-item-parent-active($border-width: 3px, $intensity: medium) {
-  @include tokens.define-navigation-tokens();
-
-  $gradients: (
-    light: (
-      start: var(--mat-sys-tertiary),
-      mid: var(--overlay-on-primary-10),
-      end: var(--overlay-on-primary-05),
-      border: var(--mat-sys-tertiary)
-    ),
-    medium: (
-      start: var(--mat-sys-tertiary),
-      mid: var(--overlay-on-primary-15),
-      end: var(--overlay-on-primary-08),
-      border: var(--mat-sys-tertiary)
-    ),
-    strong: (
-      start: var(--mat-sys-tertiary),
-      mid: var(--overlay-on-primary-20),
-      end: var(--overlay-on-primary-10),
-      border: var(--mat-sys-tertiary)
-    )
+  // Configuración por nivel: (gradient-mid, gradient-stop, gradient-end, box-shadow)
+  $levels: (
+    1: (var(--overlay-on-primary-10), 10%, var(--overlay-on-primary-05), var(--overlay-on-primary-05)),
+    2: (var(--overlay-on-primary-20), 20%, var(--overlay-on-primary-10), var(--overlay-on-primary-10)),
+    3: (var(--overlay-on-primary-30), 30%, var(--overlay-on-primary-15), var(--overlay-on-primary-15)),
+    4: (var(--overlay-on-primary-40), 40%, var(--overlay-on-primary-20), var(--overlay-on-primary-20)),
+    5: (var(--overlay-on-primary-50), 50%, var(--overlay-on-primary-25), var(--overlay-on-primary-25))
   );
 
-  $gradient: map.get($gradients, $intensity);
-
+  // Estilos base compartidos
   &.parent-active {
-    background: linear-gradient(
-        to right,
-        map.get($gradient, start) 0%,
-        map.get($gradient, mid) 20%,
-        map.get($gradient, end) 85%,
-        transparent 100%
-    );
-    border-left: $border-width solid map.get($gradient, border);
-    box-shadow: inset 0 1px 0 var(--overlay-on-primary-10);
+    border-left: $border-width solid var(--mat-sys-tertiary);
 
     button, .tree-node-content {
       background: transparent !important;
+    }
+  }
+
+  // Generar estilos por nivel
+  @each $level, $config in $levels {
+    $gradient-mid: list.nth($config, 1);
+    $gradient-stop: list.nth($config, 2);
+    $gradient-end: list.nth($config, 3);
+    $shadow-color: list.nth($config, 4);
+
+    @if $level < 5 {
+      &.parent-active[aria-level="#{$level}"] {
+        background: linear-gradient(
+            to right,
+            var(--mat-sys-tertiary) 0%,
+            #{$gradient-mid} #{$gradient-stop},
+            #{$gradient-end} 85%,
+            transparent 100%
+        );
+        box-shadow: inset 0 1px 0 #{$shadow-color};
+      }
+    } @else {
+      // Nivel 5+ usa la misma configuración
+      &.parent-active[aria-level="5"],
+      &.parent-active[aria-level="6"],
+      &.parent-active[aria-level="7"],
+      &.parent-active[aria-level="8"],
+      &.parent-active[aria-level="9"] {
+        background: linear-gradient(
+            to right,
+            var(--mat-sys-tertiary) 0%,
+            #{$gradient-mid} #{$gradient-stop},
+            #{$gradient-end} 85%,
+            transparent 100%
+        );
+        box-shadow: inset 0 1px 0 #{$shadow-color};
+      }
     }
   }
 }
