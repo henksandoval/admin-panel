@@ -2,11 +2,7 @@
 
 .nav-tree-container {
   .nav-icon-item {
-    @include nav.nav-item-all-states(
-      $active-border: 4px,
-      $parent-border: 3px,
-      $parent-intensity: medium
-    );
+    @include nav.nav-item-all-states();
   }
 
   .nav-icon-children-indicator {

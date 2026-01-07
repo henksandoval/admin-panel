@@ -12,31 +12,6 @@
       padding-left: calc((attr(aria-level number, 1) - 1) * 0.5rem);
     }
 
-    @include nav.nav-item-all-states(
-      $active-border: 3px,
-      $parent-border: 2px,
-      $parent-intensity: light,
-      $has-shadow: true
-    );
-
-    &.parent-active {
-      &[aria-level="1"] { @include nav.nav-item-parent-active(2px, medium); }
-      &[aria-level="2"] { @include nav.nav-item-parent-active(2px, light); }
-      &[aria-level="3"], &[aria-level="4"], &[aria-level="5"] {
-        background-color: var(--overlay-on-primary-08);
-        border-left: 1px solid var(--overlay-on-primary-15);
-      }
-    }
-
-    .mat-icon-button {
-      margin-top: 2px;
-    }
-  }
-
-  .tree-node-content {
-    mat-icon {
-      transition: color var(--transition-fast);
-      flex-shrink: 0;
-    }
+    @include nav.nav-item-all-states();
   }
 }

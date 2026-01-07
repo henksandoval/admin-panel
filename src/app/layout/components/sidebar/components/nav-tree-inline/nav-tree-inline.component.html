@@ -1,4 +1,4 @@
-﻿﻿<mat-tree #tree [dataSource]="data()" [childrenAccessor]="childrenAccessor" class="nav-tree">
+﻿<mat-tree #tree [dataSource]="data()" [childrenAccessor]="childrenAccessor" class="nav-tree">
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodeToggle [cdkTreeNodeTypeaheadLabel]="node.title" class="min-h-11"
      [class.parent-active]="isParentOfActive(node)">
     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.title">
