@@ -25,7 +25,7 @@ export const routes: Routes = [
               { path: 'orders', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
               { path: 'customers', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
               { path: 'reports', children: [
-                  { path: 'sales', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
+                { path: 'sales', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
                   { path: 'purchases', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) }
                 ] },
               { path: 'analytics', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) }
@@ -76,16 +76,18 @@ export const routes: Routes = [
         path: 'showcase',
         loadComponent: () => import('./features/showcase/showcase.component').then(m => m.ShowcaseComponent),
         children: [
-          {
-            path: 'index',
-            loadComponent: () => import('./features/showcase/pages/index/index.component').then(m => m.IndexComponent)
-          },
-          {
-            path: 'forms',
-            loadComponent: () => import('./features/showcase/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent)
-          }
+          { path: 'index', loadComponent: () => import('./features/showcase/pages/index/index.component').then(m => m.IndexComponent) },
+          { path: 'forms', loadComponent: () => import('./features/showcase/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent) }
         ]
-      }
+      },
+      {
+        path: 'pds',
+        loadComponent: () => import('./features/pds/showcase.component').then(m => m.ShowcaseComponent),
+        children: [
+          { path: 'index', loadComponent: () => import('./features/pds/pages/index/index.component').then(m => m.IndexComponent) },
+          { path: 'forms', loadComponent: () => import('./features/pds/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent) }
+        ]
+      },
     ]
   }
 ];

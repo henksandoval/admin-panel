@@ -356,6 +356,25 @@ export class NavigationService {
           url: '/showcase/forms'
         }
       ]
+    },
+    {
+      id: 'pds',
+      title: 'PDS',
+      icon: 'dashboard_customize',
+      children: [
+        {
+          id: 'index',
+          title: 'Index',
+          icon: 'home',
+          url: '/pds/index'
+        },
+        {
+          id: 'forms',
+          title: 'Formularios',
+          icon: 'assignment',
+          url: '/pds/forms'
+        },
+      ]
     }
   ]);
   private readonly currentNavigationChildren = signal<NavigationItem[]>([]);
