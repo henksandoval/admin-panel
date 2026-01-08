@@ -1,0 +1,112 @@
+<div class="p-6">
+  <!-- Header -->
+  <div class="mb-6">
+    <button mat-button (click)="goBack()" class="mb-4" style="color: var(--mat-sys-primary);">
+      <mat-icon class="mr-2">arrow_back</mat-icon>
+      <span>Back to Showcase</span>
+    </button>
+    <h1 class="text-3xl font-bold mb-2" style="color: var(--mat-sys-primary);">
+      📝 Basic Form Fields
+    </h1>
+    <p class="text-lg" style="color: var(--mat-sys-on-surface-variant);">
+      Input fields, textareas, and form controls with various appearances and configurations
+    </p>
+  </div>
+
+  <!-- Basic Form Fields -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold" >Basic Form Fields</mat-card-title>
+      <mat-card-subtitle>Essential input components for forms</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <form class="min-w-[150px] max-w-[500px] w-full">
+        <!-- Simple Input -->
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Favorite food</mat-label>
+          <input matInput placeholder="Ex. Pizza">
+        </mat-form-field>
+
+        <!-- Textarea -->
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Leave a comment</mat-label>
+          <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+        </mat-form-field>
+
+        <!-- Input with hint -->
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Enter your name</mat-label>
+          <input matInput placeholder="John Doe">
+          <mat-hint>First and last name</mat-hint>
+        </mat-form-field>
+
+        <!-- Input with prefix & suffix -->
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Price</mat-label>
+          <span matTextPrefix>$&nbsp;</span>
+          <input matInput placeholder="0">
+          <span matTextSuffix>.00</span>
+        </mat-form-field>
+
+        <!-- Input with icon -->
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="example@email.com">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <!-- Password field -->
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" placeholder="Enter password">
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+
+        <!-- Number input -->
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Age</mat-label>
+          <input matInput type="" placeholder="25">
+        </mat-form-field>
+
+        <!-- Different appearances -->
+        <h3 class="text-lg font-medium mb-3 mt-6">Form Field Appearances</h3>
+
+        <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label>Fill appearance</mat-label>
+          <input matInput placeholder="Placeholder">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-label>Outline appearance</mat-label>
+          <input matInput placeholder="Placeholder">
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Code Example -->
+  <mat-card class="mb-8">
+    <mat-card-header>
+      <mat-card-title class="text-lg font-semibold">Code Example</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="p-4 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+            <pre class="text-sm overflow-x-auto" style="color: var(--mat-sys-on-surface-variant);">
+<span style="color: var(--mat-sys-primary);">// Basic form field with icon</span>
+&lt;mat-form-field class="w-full"&gt;
+  &lt;mat-label&gt;Email&lt;/mat-label&gt;
+  &lt;input matInput placeholder="example&#64;email.com"&gt;
+  &lt;mat-icon matSuffix&gt;email&lt;/mat-icon&gt;
+&lt;/mat-form-field&gt;
+
+<span style="color: var(--mat-sys-primary);">// Form field with prefix and suffix</span>
+&lt;mat-form-field class="w-full"&gt;
+  &lt;mat-label&gt;Price&lt;/mat-label&gt;
+  &lt;span matTextPrefix&gt;$&amp;nbsp;&lt;/span&gt;
+  &lt;input matInput placeholder="0"&gt;
+  &lt;span matTextSuffix&gt;.00&lt;/span&gt;
+&lt;/mat-form-field&gt;</pre>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

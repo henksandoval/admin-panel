@@ -337,6 +337,25 @@ export class NavigationService {
           }
         },
       ]
+    },
+    {
+      id: 'showcase',
+      title: 'Showcase',
+      icon: 'dashboard_customize',
+      children: [
+        {
+          id: 'index',
+          title: 'Index',
+          icon: 'home',
+          url: '/showcase/index'
+        },
+        {
+          id: 'forms',
+          title: 'Formularios',
+          icon: 'edit_note',
+          url: '/showcase/forms'
+        }
+      ]
     }
   ]);
   private readonly currentNavigationChildren = signal<NavigationItem[]>([]);
