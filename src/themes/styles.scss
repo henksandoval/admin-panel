@@ -3,6 +3,13 @@
 @use '@angular/material' as mat;
 
 @tailwind base;
+
+@layer base {
+  mat-form-field * {
+    border-style: revert;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
