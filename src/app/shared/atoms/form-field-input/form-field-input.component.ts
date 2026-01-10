@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, computed, DestroyRef, forwardRef, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, DestroyRef, forwardRef, inject, input, isDevMode, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validators
@@ -15,6 +15,19 @@ interface ErrorState {
   message: string;
 }
 
+/**
+ * Wrapper component for Angular Material Form Field with automatic validator synchronization.
+ *
+ * @example
+ * // Correct usage with FormControlName
+ * <app-form-field-input
+ *   formControlName="email"
+ *   [config]="emailConfig"
+ *   appControlConnector>  <!-- ⚠️ REQUIRED for validator synchronization -->
+ * </app-form-field-input>
+ *
+ * @requires ControlConnectorDirective when used with formControlName to sync parent validators
+ */
 @Component({
   selector: 'app-form-field-input',
   standalone: true,
@@ -50,7 +63,7 @@ interface ErrorState {
     }
   ]
 })
-export class FormFieldInputComponent implements ControlValueAccessor {
+export class FormFieldInputComponent implements ControlValueAccessor, AfterViewInit {
   config = input<FormFieldInputOptions>({});
   fullConfig = computed<FormFieldInputConfig>(() => ({
     appearance: 'fill', type: 'text', label: '', placeholder: '', hint: '',
@@ -64,6 +77,7 @@ export class FormFieldInputComponent implements ControlValueAccessor {
 
   private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
+  private hasCheckedConnection = false;
 
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};
@@ -84,7 +98,23 @@ export class FormFieldInputComponent implements ControlValueAccessor {
       });
   }
 
+  ngAfterViewInit(): void {
+    // Development warning if directive is missing
+    if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
+      console.warn(
+        `⚠️ FormFieldInputComponent: No se detectó conexión con NgControl.\n\n` +
+        `Si estás usando formControlName, asegúrate de agregar la directiva appControlConnector.\n\n` +
+        `Uso correcto:\n` +
+        `<app-form-field-input formControlName="email" [config]="config" appControlConnector>\n` +
+        `</app-form-field-input>\n\n` +
+        `Sin la directiva, los validadores del FormGroup padre NO se sincronizarán con este componente.`
+      );
+      this.hasCheckedConnection = true;
+    }
+  }
+
   public connectControl(ngControl: NgControl): void {
+    this.hasCheckedConnection = true;
     this.ngControl = ngControl;
     this.ngControl.valueAccessor = this;
     const parentControl = this.ngControl.control;
