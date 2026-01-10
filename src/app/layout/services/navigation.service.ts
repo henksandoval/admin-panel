@@ -354,6 +354,12 @@ export class NavigationService {
           title: 'Formularios',
           icon: 'edit_note',
           url: '/showcase/forms'
+        },
+        {
+          id: 'buttons',
+          title: 'Botones',
+          icon: 'edit_note',
+          url: '/showcase/buttons'
         }
       ]
     },
