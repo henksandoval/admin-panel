@@ -4,7 +4,7 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
-// Note: Color palettes are generated from primary: #2E7D32, tertiary: #81C784
+// Note: Color palettes are generated from primary: #2E7D32, secondary: #FFB74D, tertiary: #6200EA
 $_palettes: (
   primary: (
     0: #000000,
@@ -26,38 +26,38 @@ $_palettes: (
   ),
   secondary: (
     0: #000000,
-    10: #052106,
-    20: #1a3719,
-    25: #254223,
-    30: #304e2e,
-    35: #3c5a39,
-    40: #476644,
-    50: #607f5b,
-    60: #799973,
-    70: #93b48c,
-    80: #add0a6,
-    90: #c9ecc1,
-    95: #d7fbce,
-    98: #ecffe4,
-    99: #f6fff0,
+    10: #291800,
+    20: #452b00,
+    25: #543500,
+    30: #633f00,
+    35: #734a00,
+    40: #835500,
+    50: #a46b00,
+    60: #c3841b,
+    70: #e29e36,
+    80: #ffb954,
+    90: #ffddb4,
+    95: #ffeedd,
+    98: #fff8f4,
+    99: #fffbff,
     100: #ffffff,
   ),
   tertiary: (
     0: #000000,
-    10: #002107,
-    20: #003911,
-    25: #004616,
-    30: #07521d,
-    35: #195f28,
-    40: #286b33,
-    50: #428549,
-    60: #5ca061,
-    70: #76bb79,
-    80: #90d792,
-    90: #abf4ac,
-    95: #c7ffc5,
-    98: #ebffe6,
-    99: #f6fff1,
+    10: #22005d,
+    20: #3a0092,
+    25: #4700ae,
+    30: #5400cc,
+    35: #6200ea,
+    40: #6e25f6,
+    50: #8652ff,
+    60: #9e79ff,
+    70: #b69bff,
+    80: #cfbcff,
+    90: #e9ddff,
+    95: #f6eeff,
+    98: #fdf7ff,
+    99: #fffbff,
     100: #ffffff,
   ),
   neutral: (
@@ -134,4 +134,5 @@ $_rest: (
 );
 
 $primary-palette: map.merge(map.get($_palettes, primary), $_rest);
+$secondary-palette: map.merge(map.get($_palettes, secondary), $_rest);
 $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);

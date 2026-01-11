@@ -18,13 +18,13 @@ $base-typography: (
 );
 
 $theme-config: (
-  'default': (primary: aurora-tech.$primary-palette, tertiary: aurora-tech.$tertiary-palette),
-  'aurora-tech':   (primary: aurora-tech.$primary-palette, tertiary: aurora-tech.$tertiary-palette),
-  'deep-ocean': (primary: deep-ocean.$primary-palette,    tertiary: deep-ocean.$tertiary-palette),
-  'forest-growth': (primary: forest-growth.$primary-palette,    tertiary: forest-growth.$tertiary-palette),
-  'slate-minimal': (primary: slate-minimal.$primary-palette,    tertiary: slate-minimal.$tertiary-palette),
-  'sunset-analytics': (primary: sunset-analytics.$primary-palette,    tertiary: sunset-analytics.$tertiary-palette),
-  'royal-dashboard': (primary: royal-dashboard.$primary-palette,    tertiary: royal-dashboard.$tertiary-palette)
+  'default': (primary: aurora-tech.$primary-palette, secondary: aurora-tech.$secondary-palette, tertiary: aurora-tech.$tertiary-palette),
+  'aurora-tech':   (primary: aurora-tech.$primary-palette, secondary: aurora-tech.$secondary-palette, tertiary: aurora-tech.$tertiary-palette),
+  'deep-ocean': (primary: deep-ocean.$primary-palette, secondary: deep-ocean.$secondary-palette, tertiary: deep-ocean.$tertiary-palette),
+  'forest-growth': (primary: forest-growth.$primary-palette, secondary: forest-growth.$secondary-palette, tertiary: forest-growth.$tertiary-palette),
+  'slate-minimal': (primary: slate-minimal.$primary-palette, secondary: slate-minimal.$secondary-palette, tertiary: slate-minimal.$tertiary-palette),
+  'sunset-analytics': (primary: sunset-analytics.$primary-palette, secondary: sunset-analytics.$secondary-palette, tertiary: sunset-analytics.$tertiary-palette),
+  'royal-dashboard': (primary: royal-dashboard.$primary-palette, secondary: royal-dashboard.$secondary-palette,tertiary: royal-dashboard.$tertiary-palette)
 );
 
 @mixin build-themes() {
@@ -47,27 +47,29 @@ $theme-config: (
 @mixin _apply-all-themes() {
   @each $color-name, $config in $theme-config {
     $primary: map.get($config, primary);
+    $secondary: map.get($config, secondary);
     $tertiary: map.get($config, tertiary);
 
     body.theme-#{$color-name}.light-theme {
       color-scheme: light;
       @include tokens.define-chrome-tokens(light);
-      @include _apply-theme($primary, $tertiary, light);
+      @include _apply-theme($primary, $secondary, $tertiary, light);
     }
 
     body.theme-#{$color-name}.dark-theme {
       color-scheme: dark;
       @include tokens.define-chrome-tokens(dark);
-      @include _apply-theme($primary, $tertiary, dark);
+      @include _apply-theme($primary, $secondary, $tertiary, dark);
     }
   }
 }
 
-@mixin _apply-theme($primary, $tertiary, $type: light) {
+@mixin _apply-theme($primary, $secondary, $tertiary, $type: light) {
   $config: (
     color: (
       theme-type: $type,
       primary: $primary,
+      secondary: $secondary,
       tertiary: $tertiary,
     ),
     typography: $base-typography,
