@@ -1,43 +1,30 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { Router } from '@angular/router';
+import {Component, inject, OnInit, signal} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {Router} from '@angular/router';
 
-/**
- * Material 3 Color Roles (Semantic Colors)
- * - primary: Primary brand color
- * - secondary: Secondary brand color (Angular Material maps to 'accent')
- * - tertiary: Tertiary accent color (Angular Material maps to 'accent')
- * - error: Error/warning state (Angular Material maps to 'warn')
- *
- * Angular Material Mapping:
- * M3 'secondary' & 'tertiary' → Angular Material 'accent'
- * M3 'error' → Angular Material 'warn'
- */
-type M3ColorRole = 'default' | 'primary' | 'secondary' | 'accent' | 'error';
-type AngularMaterialColor = undefined | 'primary' | 'accent' | 'warn';
+interface MatCardInfo {
+  readonly title: string;
+  readonly description: string;
+  readonly buttons: ButtonConfig[];
+}
 
 type ButtonShape = 'square' | 'rounded';
 type ButtonSize = 'small' | 'medium' | 'large';
 
-/**
- * Button variant type definition
- */
-type ButtonVariant = 'filled' | 'elevated' | 'outlined' | 'text';
+type ButtonVariant = 'text' | 'elevated' | 'outlined' | 'filled' | 'tonal';
+type M3ColorRole = 'primary' | 'secondary' | 'tertiary' | undefined;
 
-/**
- * Button example configuration
- */
 interface ButtonConfig {
+  readonly type: ButtonVariant;
   readonly label: string;
   readonly m3Color: M3ColorRole;
-  readonly matColor: AngularMaterialColor;
   readonly colorLabel: string;
+  readonly disabled?: boolean;
 }
-
 
 @Component({
   selector: 'app-buttons',
@@ -52,47 +39,43 @@ interface ButtonConfig {
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss'
 })
-export default class ButtonsComponent {
+export default class ButtonsComponent implements OnInit {
   private readonly router = inject(Router);
+  private readonly buttonVariants: ButtonVariant[] = ['text', 'elevated', 'outlined', 'filled', 'tonal'];
+  private readonly colorRoles: Array<{ m3Color: M3ColorRole, label: string, disabled?: boolean }> = [
+    { m3Color: 'primary', label: 'Primary' },
+    { m3Color: 'secondary', label: 'Secondary' },
+    { m3Color: 'tertiary', label: 'Tertiary' },
+    { m3Color: undefined, label: 'Disabled', disabled: true }
+  ];
 
-  // Shape and Size controls
   selectedShape = signal<ButtonShape>('rounded');
   selectedSize = signal<ButtonSize>('large');
+  matCardConfig = signal<MatCardInfo[]>([]);
 
-  /**
-   * M3 Color configurations
-   * Following the image structure: Primary, Secondary, Accent, Error
-   * Plus a default state (no color attribute)
-   */
-  readonly colorConfigs: readonly ButtonConfig[] = [
-    { label: 'Primary', m3Color: 'primary', matColor: 'primary', colorLabel: 'default' },
-    { label: 'Secondary', m3Color: 'secondary', matColor: 'accent', colorLabel: 'secondary' },
-    { label: 'Accent', m3Color: 'accent', matColor: 'accent', colorLabel: 'accent' },
-    { label: 'Error', m3Color: 'error', matColor: 'warn', colorLabel: 'error' }
-  ];
+  ngOnInit(): void {
+    this.matCardConfig.set(this.buildAllMatCardConfigs());
+  }
 
-  /**
-   * Icon button configurations
-   */
-  readonly iconButtons = [
-    { icon: 'star', color: 'primary' as AngularMaterialColor, label: 'primary' },
-    { icon: 'favorite', color: 'accent' as AngularMaterialColor, label: 'secondary' },
-    { icon: 'share', color: 'accent' as AngularMaterialColor, label: 'accent' },
-    { icon: 'delete', color: 'warn' as AngularMaterialColor, label: 'error' },
-    { icon: 'settings', color: undefined, label: 'default' },
-    { icon: 'edit', color: 'accent' as AngularMaterialColor, label: 'secondary' }
-  ];
+  private buildAllMatCardConfigs(): MatCardInfo[] {
+    const result = this.buttonVariants.map(variant => this.buildMatCardConfig(variant));
+    return result;
+  }
 
-  /**
-   * Buttons with icons and text
-   */
-  readonly buttonsWithIcons = [
-    { icon: 'star', label: 'Favorite', color: 'primary' as AngularMaterialColor, colorLabel: 'default', variant: 'flat' as const },
-    { icon: 'add', label: 'Add Item', color: 'accent' as AngularMaterialColor, colorLabel: 'accent', variant: 'flat' as const },
-    { icon: 'save', label: 'Save', color: undefined, colorLabel: 'default', variant: 'stroked' as const },
-    { icon: 'delete', label: 'Delete', color: 'warn' as AngularMaterialColor, colorLabel: 'error', variant: 'stroked' as const },
-    { icon: 'help', label: 'Help', color: 'accent' as AngularMaterialColor, colorLabel: 'secondary', variant: 'basic' as const }
-  ];
+  private buildMatCardConfig(variant: ButtonVariant): MatCardInfo {
+    const variantTitle = variant.charAt(0).toUpperCase() + variant.slice(1);
+    return {
+      title: `${variantTitle} Buttons`,
+      description: `Buttons with ${variant} appearance.`,
+      buttons: this.colorRoles.map(role => ({
+        type: variant,
+        label: role.label,
+        m3Color: role.m3Color,
+        colorLabel: role.label,
+        disabled: role.disabled || false
+      }))
+    };
+  }
 
   goBack(): void {
     this.router.navigate(['/pds/index']);
@@ -104,14 +87,5 @@ export default class ButtonsComponent {
 
   setSize(size: ButtonSize): void {
     this.selectedSize.set(size);
-  }
-
-  /**
-   * Get button class based on shape and size
-   */
-  getButtonClass(): string {
-    const shape = this.selectedShape();
-    const size = this.selectedSize();
-    return `btn-${shape} btn-${size}`;
   }
 }

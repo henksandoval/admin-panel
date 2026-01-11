@@ -1,5 +1,4 @@
 <div class="p-6">
-  <!-- Header -->
   <div class="mb-6">
     <button mat-button (click)="goBack()" class="mb-4">
       <mat-icon>arrow_back</mat-icon>
@@ -10,7 +9,6 @@
       Use normal matButton, then add the classes given below each variant to use that kind of button.
     </p>
 
-    <!-- Shape and Size Toggle -->
     <div class="flex items-center gap-6 mb-6">
       <div class="flex items-center gap-3">
         <span class="font-medium">Shape</span>
@@ -31,20 +29,19 @@
     </div>
   </div>
 
-  <!-- Grid Layout: 2 columns -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-
-    <!-- Filled Buttons Card -->
+    @for (card of matCardConfig(); track card.title) {
     <mat-card appearance="outlined" class="card-section">
       <mat-card-content class="p-6">
-        <h2 class="text-xl font-semibold mb-4">Filled Buttons</h2>
+        <h2 class="text-xl font-semibold mb-4">{{ card.title }}</h2>
+        <p class="text-base mb-4">{{ card.description }}</p>
         <div class="flex flex-wrap gap-4">
-          @for (config of colorConfigs; track config.label) {
+          @for (config of card.buttons; track config.label) {
             <div class="flex flex-col items-center gap-2">
               <button
-                mat-flat-button
-                [color]="config.matColor"
-                [class]="getButtonClass()">
+                [matButton]="config.type"
+                [attr.color]="config.m3Color"
+                [disabled]="config.disabled">
                 {{ config.label }}
               </button>
               <span class="text-xs">{{ config.colorLabel }}</span>
@@ -53,130 +50,9 @@
         </div>
       </mat-card-content>
     </mat-card>
-
-    <!-- Elevated Buttons Card -->
-    <mat-card appearance="outlined" class="card-section">
-      <mat-card-content class="p-6">
-        <h2 class="text-xl font-semibold mb-4">Elevated</h2>
-        <div class="flex flex-wrap gap-4">
-          @for (config of colorConfigs; track config.label) {
-            <div class="flex flex-col items-center gap-2">
-              <button
-                mat-raised-button
-                [color]="config.matColor"
-                [class]="getButtonClass()">
-                {{ config.label }}
-              </button>
-              <span class="text-xs">{{ config.colorLabel }}</span>
-            </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Outlined Buttons Card -->
-    <mat-card appearance="outlined" class="card-section">
-      <mat-card-content class="p-6">
-        <h2 class="text-xl font-semibold mb-4">Outlined</h2>
-        <div class="flex flex-wrap gap-4">
-          @for (config of colorConfigs; track config.label) {
-            <div class="flex flex-col items-center gap-2">
-              <button
-                mat-stroked-button
-                [color]="config.matColor"
-                [class]="getButtonClass()">
-                {{ config.label }}
-              </button>
-              <span class="text-xs">{{ config.colorLabel }}</span>
-            </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Text Buttons Card -->
-    <mat-card appearance="outlined" class="card-section">
-      <mat-card-content class="p-6">
-        <h2 class="text-xl font-semibold mb-4">Text</h2>
-        <div class="flex flex-wrap gap-4">
-          @for (config of colorConfigs; track config.label) {
-            <div class="flex flex-col items-center gap-2">
-              <button
-                mat-button
-                [color]="config.matColor"
-                [class]="getButtonClass()">
-                {{ config.label }}
-              </button>
-              <span class="text-xs">{{ config.colorLabel }}</span>
-            </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-
+    }
   </div>
 
-  <!-- Second Row: Icon Buttons and Buttons with Icons -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-
-    <!-- Icon Buttons Card -->
-    <mat-card appearance="outlined" class="card-section">
-      <mat-card-content class="p-6">
-        <h2 class="text-xl font-semibold mb-4">Icon Buttons</h2>
-        <div class="flex flex-wrap gap-4 items-center">
-          @for (btn of iconButtons; track btn.icon) {
-            <div class="flex flex-col items-center gap-2">
-              <button
-                mat-icon-button
-                [color]="btn.color"
-                [class]="getButtonClass()"
-                [attr.aria-label]="btn.label">
-                <mat-icon>{{ btn.icon }}</mat-icon>
-              </button>
-              <span class="text-xs">{{ btn.label }}</span>
-            </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Buttons with Icons Card -->
-    <mat-card appearance="outlined" class="card-section">
-      <mat-card-content class="p-6">
-        <h2 class="text-xl font-semibold mb-4">Buttons with Icons</h2>
-        <div class="flex flex-wrap gap-4">
-          @for (btn of buttonsWithIcons; track btn.label) {
-            <div class="flex flex-col items-center gap-2">
-              @switch (btn.variant) {
-                @case ('flat') {
-                  <button mat-flat-button [color]="btn.color" [class]="getButtonClass()">
-                    <mat-icon>{{ btn.icon }}</mat-icon>
-                    <span>{{ btn.label }}</span>
-                  </button>
-                }
-                @case ('stroked') {
-                  <button mat-stroked-button [color]="btn.color" [class]="getButtonClass()">
-                    <mat-icon>{{ btn.icon }}</mat-icon>
-                    <span>{{ btn.label }}</span>
-                  </button>
-                }
-                @case ('basic') {
-                  <button mat-button [color]="btn.color" [class]="getButtonClass()">
-                    <mat-icon>{{ btn.icon }}</mat-icon>
-                    <span>{{ btn.label }}</span>
-                  </button>
-                }
-              }
-              <span class="text-xs">{{ btn.colorLabel }}</span>
-            </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-  </div>
-
-  <!-- Best Practices Section -->
   <mat-card appearance="outlined" class="mb-6">
     <mat-card-header class="border-b p-4">
       <mat-card-title>Material 3 Color System</mat-card-title>
