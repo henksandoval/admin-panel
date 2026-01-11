@@ -1,150 +1,116 @@
-// Button Shape Classes
+/**
+ * Buttons Component Styles
+ * Following Style Guide: Material handles theming, SCSS only for what Material can't do
+ */
+
+/**
+ * Card sections styling
+ */
+.card-section {
+  background-color: color-mix(in srgb, var(--mat-sys-surface-variant) 5%, var(--mat-sys-surface));
+
+  .dark-theme & {
+    background-color: color-mix(in srgb, var(--mat-sys-surface-variant) 8%, var(--mat-sys-surface));
+  }
+}
+
+/**
+ * Button Shape Classes
+ * Material doesn't provide shape variants, so we add them here
+ */
 .btn-square {
-  border-radius: 4px;
+  border-radius: 4px !important;
 }
 
 .btn-rounded {
-  border-radius: 24px;
+  border-radius: 24px !important;
 }
 
-// Button Size Classes
+/**
+ * Button Size Classes
+ * Material provides density, but not explicit size classes
+ */
 .btn-small {
-  padding: 6px 12px;
-  font-size: 0.875rem;
-  min-width: 64px;
-  height: 32px;
+  font-size: 12px !important;
+  padding: 4px 12px !important;
+  min-width: 56px !important;
+  height: 32px !important;
+  line-height: 32px !important;
 
-  &.mat-mdc-icon-button {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
-
-    .mat-icon {
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
-    }
+  mat-icon {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
   }
 }
 
 .btn-medium {
-  padding: 8px 16px;
-  font-size: 1rem;
-  min-width: 80px;
-  height: 40px;
+  font-size: 14px !important;
+  padding: 6px 16px !important;
+  min-width: 64px !important;
+  height: 36px !important;
+  line-height: 36px !important;
 
-  &.mat-mdc-icon-button {
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-
-    .mat-icon {
-      font-size: 24px;
-      width: 24px;
-      height: 24px;
-    }
+  mat-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
   }
 }
 
 .btn-large {
-  padding: 12px 24px;
-  font-size: 1.125rem;
-  min-width: 96px;
-  height: 48px;
+  font-size: 15px !important;
+  padding: 8px 24px !important;
+  min-width: 80px !important;
+  height: 42px !important;
+  line-height: 42px !important;
 
-  &.mat-mdc-icon-button {
-    width: 48px;
-    height: 48px;
-    padding: 12px;
-
-    .mat-icon {
-      font-size: 28px;
-      width: 28px;
-      height: 28px;
-    }
+  mat-icon {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
   }
 }
 
-// Secondary Color (using surface-variant tokens)
-.btn-secondary {
-  &.mat-mdc-raised-button,
-  &.mat-mdc-unelevated-button {
-    background-color: var(--mat-sys-surface-variant);
-    color: var(--mat-sys-on-surface-variant);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--mat-sys-surface-variant) 90%, var(--mat-sys-on-surface));
-    }
+/**
+ * Icon button specific sizes
+ */
+button[mat-icon-button] {
+  &.btn-small {
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
   }
 
-  &.mat-mdc-outlined-button {
-    border-color: var(--mat-sys-outline);
-    color: var(--mat-sys-on-surface-variant);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--mat-sys-surface-variant) 20%, transparent);
-    }
+  &.btn-medium {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
   }
 
-  &.mat-mdc-button {
-    color: var(--mat-sys-on-surface-variant);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--mat-sys-on-surface-variant) 10%, transparent);
-    }
-  }
-
-  &.mat-mdc-icon-button {
-    color: var(--mat-sys-on-surface-variant);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--mat-sys-on-surface-variant) 10%, transparent);
-    }
+  &.btn-large {
+    width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
   }
 }
 
-// Tertiary Color
-.btn-tertiary {
-  &.mat-mdc-raised-button,
-  &.mat-mdc-unelevated-button {
-    background-color: var(--mat-sys-tertiary);
-    color: var(--mat-sys-on-tertiary);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--mat-sys-tertiary) 85%, black);
-    }
-  }
-
-  &.mat-mdc-outlined-button {
-    border-color: var(--mat-sys-tertiary);
-    color: var(--mat-sys-tertiary);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--mat-sys-tertiary) 10%, transparent);
-    }
-  }
-
-  &.mat-mdc-button {
-    color: var(--mat-sys-tertiary);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--mat-sys-tertiary) 10%, transparent);
-    }
-  }
-
-  &.mat-mdc-icon-button {
-    color: var(--mat-sys-tertiary);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--mat-sys-tertiary) 10%, transparent);
-    }
-  }
+/**
+ * Code example block styling (Material cards don't style code blocks)
+ */
+pre {
+  color: var(--mat-sys-on-surface-variant);
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
-// Icon spacing in buttons with icons
-button {
-  .mat-icon {
-    margin-right: 4px;
-  }
-}
+/**
+ * Note: All other styling is handled by:
+ * - Material components (buttons, cards, icons) for theming
+ * - Tailwind utilities (flex, gap, p-6, mb-4) for layout
+ *
+ * We only define styles here that Material cannot handle.
+ */
 
