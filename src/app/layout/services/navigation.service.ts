@@ -380,6 +380,12 @@ export class NavigationService {
           icon: 'assignment',
           url: '/pds/forms'
         },
+        {
+          id: 'buttons',
+          title: 'Botones',
+          icon: 'touch_app',
+          url: '/pds/buttons'
+        }
       ]
     }
   ]);

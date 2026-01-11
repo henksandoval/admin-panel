@@ -33,6 +33,13 @@ export class IndexComponent {
       icon: 'edit_note',
       route: '/pds/forms'
     },
+    {
+      id: 'buttons',
+      title: 'Buttons',
+      description: 'Button variants with different styles, colors, sizes and shapes for all use cases.',
+      icon: 'smart_button',
+      route: '/pds/buttons'
+    },
   ];
 
   constructor(private router: Router) {}

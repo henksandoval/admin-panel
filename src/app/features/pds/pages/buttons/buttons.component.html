@@ -1,0 +1,298 @@
+<div class="p-6">
+  <!-- Header -->
+  <div class="mb-6">
+    <button mat-button (click)="goBack()" color="primary" class="mb-4">
+      <mat-icon class="mr-2">arrow_back</mat-icon>
+      Volver al PDS
+    </button>
+    <h1 class="text-3xl font-bold mb-2 text-primary">
+      Componente: Buttons
+    </h1>
+    <p class="text-lg text-on-surface-variant mb-4">
+      Guía de uso de botones con variantes, colores y tamaños según el sistema de diseño.
+    </p>
+
+    <!-- Instructions -->
+    <div class="mb-6 p-4 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+      <p class="text-sm" style="color: var(--mat-sys-on-surface-variant);">
+        <strong>Instrucciones:</strong> Usa el botón normal de Material y agrega las clases indicadas debajo de cada variante para obtener el estilo deseado.
+      </p>
+    </div>
+
+    <!-- Shape and Size Controls -->
+    <div class="flex gap-6 items-center mb-6">
+      <div class="flex items-center gap-2">
+        <span class="font-medium">Shape:</span>
+        <mat-button-toggle-group [value]="selectedShape" (change)="onShapeChange($event.value)">
+          <mat-button-toggle value="square">Square</mat-button-toggle>
+          <mat-button-toggle value="rounded">Rounded</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="font-medium">Size:</span>
+        <mat-button-toggle-group [value]="selectedSize" (change)="onSizeChange($event.value)">
+          <mat-button-toggle value="small">Small</mat-button-toggle>
+          <mat-button-toggle value="medium">Medium</mat-button-toggle>
+          <mat-button-toggle value="large">Large</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filled Buttons -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Filled Buttons</mat-card-title>
+      <mat-card-subtitle>Botones con relleno sólido para acciones primarias</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="flex flex-wrap gap-4 mb-4">
+        <section>
+          <button matButton="filled">Default</button>
+          <button matButton="filled" color="primary">Primary</button>
+          <button matButton="filled" color="secondary">Secondary</button>
+          <button matButton="filled" color="tertiary">Tertiary</button>
+          <button matButton="filled" disabled>Disabled</button>
+        </section>
+        <button matButton="filled" color="primary" [class]="getButtonClasses()">Primary</button>
+        <button matButton="filled" class="secondary" [class]="getButtonClasses()">Secondary</button>
+        <button matButton="filled" color="accent" [class]="getButtonClasses()">Accent</button>
+        <button matButton="filled" color="warn" [class]="getButtonClasses()">Error</button>
+        <button matButton="filled" class="tertiary" [class]="getButtonClasses()">Tertiary</button>
+      </div>
+
+      <div class="mt-4 p-3 rounded" style="background-color: var(--mat-sys-surface-container-high);">
+        <p class="text-xs mb-2"><strong>Clases:</strong></p>
+        <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedShape }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedSize }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">secondary</code> (para Secondary)</div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-tertiary</code> (para Tertiary)</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Elevated Buttons -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Elevated</mat-card-title>
+      <mat-card-subtitle>Botones elevados con sombra</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="flex flex-wrap gap-4 mb-4">
+        <button mat-raised-button color="primary" [class]="getButtonClasses()">Primary</button>
+        <button mat-raised-button class="btn-secondary" [class]="getButtonClasses()">Secondary</button>
+        <button mat-raised-button color="accent" [class]="getButtonClasses()">Accent</button>
+        <button mat-raised-button color="warn" [class]="getButtonClasses()">Error</button>
+        <button mat-raised-button class="btn-tertiary" [class]="getButtonClasses()">Tertiary</button>
+      </div>
+
+      <div class="mt-4 p-3 rounded" style="background-color: var(--mat-sys-surface-container-high);">
+        <p class="text-xs mb-2"><strong>Clases:</strong></p>
+        <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedShape }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedSize }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-secondary</code> (para Secondary)</div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-tertiary</code> (para Tertiary)</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Outlined Buttons -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Outlined</mat-card-title>
+      <mat-card-subtitle>Botones con borde para acciones secundarias</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="flex flex-wrap gap-4 mb-4">
+        <button mat-stroked-button color="primary" [class]="getButtonClasses()">Primary</button>
+        <button mat-stroked-button class="btn-secondary" [class]="getButtonClasses()">Secondary</button>
+        <button mat-stroked-button color="accent" [class]="getButtonClasses()">Accent</button>
+        <button mat-stroked-button color="warn" [class]="getButtonClasses()">Error</button>
+        <button mat-stroked-button class="btn-tertiary" [class]="getButtonClasses()">Tertiary</button>
+      </div>
+
+      <div class="mt-4 p-3 rounded" style="background-color: var(--mat-sys-surface-container-high);">
+        <p class="text-xs mb-2"><strong>Clases:</strong></p>
+        <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedShape }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedSize }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-secondary</code> (para Secondary)</div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-tertiary</code> (para Tertiary)</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Text Buttons -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Text</mat-card-title>
+      <mat-card-subtitle>Botones de texto para acciones terciarias</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="flex flex-wrap gap-4 mb-4">
+        <button mat-button color="primary" [class]="getButtonClasses()">Primary</button>
+        <button mat-button class="btn-secondary" [class]="getButtonClasses()">Secondary</button>
+        <button mat-button color="accent" [class]="getButtonClasses()">Accent</button>
+        <button mat-button color="warn" [class]="getButtonClasses()">Error</button>
+        <button mat-button class="btn-tertiary" [class]="getButtonClasses()">Tertiary</button>
+      </div>
+
+      <div class="mt-4 p-3 rounded" style="background-color: var(--mat-sys-surface-container-high);">
+        <p class="text-xs mb-2"><strong>Clases:</strong></p>
+        <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedShape }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedSize }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-secondary</code> (para Secondary)</div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-tertiary</code> (para Tertiary)</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Icon Buttons -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Icon Buttons</mat-card-title>
+      <mat-card-subtitle>Botones con solo iconos</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="flex flex-wrap gap-4 items-center mb-4">
+        <button mat-icon-button color="primary" [class]="getButtonClasses()">
+          <mat-icon>star</mat-icon>
+        </button>
+        <button mat-icon-button class="btn-secondary" [class]="getButtonClasses()">
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" [class]="getButtonClasses()">
+          <mat-icon>share</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" [class]="getButtonClasses()">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button class="btn-tertiary" [class]="getButtonClasses()">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </div>
+
+      <div class="mt-4 p-3 rounded" style="background-color: var(--mat-sys-surface-container-high);">
+        <p class="text-xs mb-2"><strong>Clases:</strong></p>
+        <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedShape }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedSize }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-secondary</code> (para Secondary)</div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-tertiary</code> (para Tertiary)</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Buttons with Icons -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Buttons with Icons</mat-card-title>
+      <mat-card-subtitle>Botones con iconos y texto</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="flex flex-wrap gap-4 mb-4">
+        <button mat-raised-button color="primary" [class]="getButtonClasses()">
+          <mat-icon>star</mat-icon>
+          Favorite
+        </button>
+        <button mat-raised-button class="btn-secondary" [class]="getButtonClasses()">
+          <mat-icon>add</mat-icon>
+          Add Item
+        </button>
+        <button mat-raised-button color="accent" [class]="getButtonClasses()">
+          <mat-icon>save</mat-icon>
+          Save
+        </button>
+        <button mat-raised-button color="warn" [class]="getButtonClasses()">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+        <button mat-raised-button class="btn-tertiary" [class]="getButtonClasses()">
+          <mat-icon>help</mat-icon>
+          Help
+        </button>
+      </div>
+
+      <div class="mt-4 p-3 rounded" style="background-color: var(--mat-sys-surface-container-high);">
+        <p class="text-xs mb-2"><strong>Clases:</strong></p>
+        <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedShape }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">{{ selectedSize }}</code></div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-secondary</code> (para Secondary)</div>
+          <div><code class="bg-gray-700 text-white px-2 py-1 rounded">btn-tertiary</code> (para Tertiary)</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Usage Guide -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Guía de Uso</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-semibold mb-2">Primary</h4>
+          <p class="text-sm">Acciones principales como guardar, enviar, confirmar. Use <code>color="primary"</code></p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-2">Secondary</h4>
+          <p class="text-sm">Acciones secundarias o alternativas. Use <code>class="btn-secondary"</code></p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-2">Accent</h4>
+          <p class="text-sm">Acciones destacadas o llamados a la acción. Use <code>color="accent"</code></p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-2">Error/Warn</h4>
+          <p class="text-sm">Acciones destructivas como eliminar, cancelar. Use <code>color="warn"</code></p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-2">Tertiary</h4>
+          <p class="text-sm">Acciones terciarias o de bajo énfasis. Use <code>class="btn-tertiary"</code></p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Code Example -->
+  <mat-card class="mb-8">
+    <mat-card-header>
+      <mat-card-title class="text-lg font-semibold">Ejemplo de Código</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="p-4 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+        <pre class="text-sm overflow-x-auto" style="color: var(--mat-sys-on-surface-variant);"><span style="color: var(--mat-sys-primary);">// Botón Primary Raised con tamaño medium y forma square</span>
+&lt;button mat-raised-button color="primary" class="btn-square btn-medium"&gt;
+  Primary
+&lt;/button&gt;
+
+<span style="color: var(--mat-sys-primary);">// Botón Secondary con icono</span>
+&lt;button mat-raised-button class="btn-secondary btn-square btn-medium"&gt;
+  &lt;mat-icon&gt;add&lt;/mat-icon&gt;
+  Add Item
+&lt;/button&gt;
+
+<span style="color: var(--mat-sys-primary);">// Botón Tertiary Outlined</span>
+&lt;button mat-stroked-button class="btn-tertiary btn-rounded btn-small"&gt;
+  Tertiary
+&lt;/button&gt;</pre>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
