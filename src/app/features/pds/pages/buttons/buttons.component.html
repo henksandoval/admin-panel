@@ -6,7 +6,7 @@
     </button>
     <h1 class="text-3xl font-bold mb-2">Buttons</h1>
     <p class="text-base mb-4">
-      Use normal matButton, then add the classes given below each variant to use that kind of button.
+      Material 3 button variants with different color roles. All styling is managed by Angular Material's theming system.
     </p>
 
     <div class="flex items-center gap-6 mb-6">
@@ -31,21 +31,19 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
     @for (card of matCardConfig(); track card.title) {
-    <mat-card appearance="outlined" class="card-section">
+    <mat-card appearance="outlined">
       <mat-card-content class="p-6">
         <h2 class="text-xl font-semibold mb-4">{{ card.title }}</h2>
-        <p class="text-base mb-4">{{ card.description }}</p>
+        <p class="text-sm mb-4">{{ card.description }}</p>
         <div class="flex flex-wrap gap-4">
           @for (config of card.buttons; track config.label) {
-            <div class="flex flex-col items-center gap-2">
-              <button
-                [matButton]="config.type"
-                [attr.color]="config.m3Color"
-                [disabled]="config.disabled">
-                {{ config.label }}
-              </button>
-              <span class="text-xs">{{ config.colorLabel }}</span>
-            </div>
+            <button
+              [matButton]="config.type"
+              [attr.color]="config.m3Color"
+              [disabled]="config.disabled"
+              [class]="buttonClasses()">
+              {{ config.label }}
+            </button>
           }
         </div>
       </mat-card-content>

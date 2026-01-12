@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -6,24 +6,22 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {Router} from '@angular/router';
 
-interface MatCardInfo {
-  readonly title: string;
-  readonly description: string;
-  readonly buttons: ButtonConfig[];
-}
-
-type ButtonShape = 'square' | 'rounded';
-type ButtonSize = 'small' | 'medium' | 'large';
-
 type ButtonVariant = 'text' | 'elevated' | 'outlined' | 'filled' | 'tonal';
 type M3ColorRole = 'primary' | 'secondary' | 'tertiary' | undefined;
+type ButtonShape = 'square' | 'rounded';
+type ButtonSize = 'small' | 'medium' | 'large';
 
 interface ButtonConfig {
   readonly type: ButtonVariant;
   readonly label: string;
   readonly m3Color: M3ColorRole;
-  readonly colorLabel: string;
   readonly disabled?: boolean;
+}
+
+interface MatCardInfo {
+  readonly title: string;
+  readonly description: string;
+  readonly buttons: ButtonConfig[];
 }
 
 @Component({
@@ -53,13 +51,27 @@ export default class ButtonsComponent implements OnInit {
   selectedSize = signal<ButtonSize>('large');
   matCardConfig = signal<MatCardInfo[]>([]);
 
+  buttonClasses = computed(() => {
+    const shape = this.selectedShape();
+    const size = this.selectedSize();
+
+    const shapeClass = shape === 'square' ? 'rounded' : 'rounded-full';
+
+    const sizeClasses = {
+      small: 'text-xs px-3 py-1 min-h-[32px]',
+      medium: 'text-sm px-4 py-2 min-h-[36px]',
+      large: 'text-base px-6 py-2 min-h-[42px]'
+    };
+
+    return `${shapeClass} ${sizeClasses[size]}`;
+  });
+
   ngOnInit(): void {
     this.matCardConfig.set(this.buildAllMatCardConfigs());
   }
 
   private buildAllMatCardConfigs(): MatCardInfo[] {
-    const result = this.buttonVariants.map(variant => this.buildMatCardConfig(variant));
-    return result;
+    return this.buttonVariants.map(variant => this.buildMatCardConfig(variant));
   }
 
   private buildMatCardConfig(variant: ButtonVariant): MatCardInfo {
@@ -71,7 +83,6 @@ export default class ButtonsComponent implements OnInit {
         type: variant,
         label: role.label,
         m3Color: role.m3Color,
-        colorLabel: role.label,
         disabled: role.disabled || false
       }))
     };
