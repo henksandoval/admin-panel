@@ -55,15 +55,15 @@ export default class ButtonsComponent implements OnInit {
     const shape = this.selectedShape();
     const size = this.selectedSize();
 
-    const shapeClass = shape === 'square' ? 'rounded' : 'rounded-full';
-
-    const sizeClasses = {
-      small: 'text-xs px-3 py-1 min-h-[32px]',
-      medium: 'text-sm px-4 py-2 min-h-[36px]',
-      large: 'text-base px-6 py-2 min-h-[42px]'
+    return {
+      // Shape classes
+      'btn-shape-square': shape === 'square',
+      'btn-shape-rounded': shape === 'rounded',
+      // Size classes
+      'btn-size-small': size === 'small',
+      'btn-size-medium': size === 'medium',
+      'btn-size-large': size === 'large'
     };
-
-    return `${shapeClass} ${sizeClasses[size]}`;
   });
 
   ngOnInit(): void {
