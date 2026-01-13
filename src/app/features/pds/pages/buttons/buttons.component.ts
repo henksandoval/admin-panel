@@ -1,21 +1,16 @@
-import {Component, computed, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButtonAppearance, MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {Router} from '@angular/router';
-
-type ButtonVariant = 'text' | 'elevated' | 'outlined' | 'filled' | 'tonal';
-type M3ColorRole = 'primary' | 'secondary' | 'tertiary' | undefined;
-type ButtonShape = 'square' | 'rounded';
-type ButtonSize = 'small' | 'medium' | 'large';
+import { ButtonComponent } from '@shared/atoms/button/button.component';
+import {ButtonColor, ButtonOptions, ButtonShape, ButtonSize} from '@shared/atoms/button/button.model';
 
 interface ButtonConfig {
-  readonly type: ButtonVariant;
+  readonly buttonOptions: ButtonOptions;
   readonly label: string;
-  readonly m3Color: M3ColorRole;
-  readonly disabled?: boolean;
 }
 
 interface MatCardInfo {
@@ -32,58 +27,50 @@ interface MatCardInfo {
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    ButtonComponent
   ],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss'
 })
 export default class ButtonsComponent implements OnInit {
   private readonly router = inject(Router);
-  private readonly buttonVariants: ButtonVariant[] = ['text', 'elevated', 'outlined', 'filled', 'tonal'];
-  private readonly colorRoles: Array<{ m3Color: M3ColorRole, label: string, disabled?: boolean }> = [
-    { m3Color: 'primary', label: 'Primary' },
-    { m3Color: 'secondary', label: 'Secondary' },
-    { m3Color: 'tertiary', label: 'Tertiary' },
-    { m3Color: undefined, label: 'Disabled', disabled: true }
+  private readonly buttonVariants: MatButtonAppearance[] = ['text', 'elevated', 'outlined', 'filled', 'tonal'];
+  private readonly colorRoles: Array<{ color: ButtonColor, label: string, disabled?: boolean }> = [
+    { color: 'primary', label: 'Primary' },
+    { color: 'secondary', label: 'Secondary' },
+    { color: 'tertiary', label: 'Tertiary' },
+    { color: 'primary', label: 'Disabled', disabled: true }
   ];
 
-  selectedShape = signal<ButtonShape>('rounded');
-  selectedSize = signal<ButtonSize>('large');
+  shape = signal<ButtonShape>('rounded');
+  size = signal<ButtonSize>('large');
   matCardConfig = signal<MatCardInfo[]>([]);
-
-  buttonClasses = computed(() => {
-    const shape = this.selectedShape();
-    const size = this.selectedSize();
-
-    return {
-      // Shape classes
-      'btn-shape-square': shape === 'square',
-      'btn-shape-rounded': shape === 'rounded',
-      // Size classes
-      'btn-size-small': size === 'small',
-      'btn-size-medium': size === 'medium',
-      'btn-size-large': size === 'large'
-    };
-  });
 
   ngOnInit(): void {
     this.matCardConfig.set(this.buildAllMatCardConfigs());
   }
 
   private buildAllMatCardConfigs(): MatCardInfo[] {
-    return this.buttonVariants.map(variant => this.buildMatCardConfig(variant));
+    const buttonsData = this.buttonVariants.map(variant => this.buildMatCardConfig(variant));
+    console.log(`Buttons data: ${JSON.stringify(buttonsData, null, 2)}`);
+    return buttonsData;
   }
 
-  private buildMatCardConfig(variant: ButtonVariant): MatCardInfo {
+  private buildMatCardConfig(variant: MatButtonAppearance): MatCardInfo {
     const variantTitle = variant.charAt(0).toUpperCase() + variant.slice(1);
     return {
       title: `${variantTitle} Buttons`,
       description: `Buttons with ${variant} appearance.`,
       buttons: this.colorRoles.map(role => ({
-        type: variant,
         label: role.label,
-        m3Color: role.m3Color,
-        disabled: role.disabled || false
+        buttonOptions: {
+          variant,
+          color: role.color,
+          shape: this.shape(),
+          size: this.size(),
+          disabled: role.disabled
+        },
       }))
     };
   }
@@ -93,10 +80,12 @@ export default class ButtonsComponent implements OnInit {
   }
 
   setShape(shape: ButtonShape): void {
-    this.selectedShape.set(shape);
+    this.shape.set(shape);
+    this.matCardConfig.set(this.buildAllMatCardConfigs());
   }
 
   setSize(size: ButtonSize): void {
-    this.selectedSize.set(size);
+    this.size.set(size);
+    this.matCardConfig.set(this.buildAllMatCardConfigs());
   }
 }

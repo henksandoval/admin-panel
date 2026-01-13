@@ -12,7 +12,7 @@
     <div class="flex items-center gap-6 mb-6">
       <div class="flex items-center gap-3">
         <span class="font-medium">Shape</span>
-        <mat-button-toggle-group [value]="selectedShape()" (change)="setShape($event.value)">
+        <mat-button-toggle-group [value]="shape()" (change)="setShape($event.value)">
           <mat-button-toggle value="square">Square</mat-button-toggle>
           <mat-button-toggle value="rounded">Rounded</mat-button-toggle>
         </mat-button-toggle-group>
@@ -20,7 +20,7 @@
 
       <div class="flex items-center gap-3">
         <span class="font-medium">Size</span>
-        <mat-button-toggle-group [value]="selectedSize()" (change)="setSize($event.value)">
+        <mat-button-toggle-group [value]="size()" (change)="setSize($event.value)">
           <mat-button-toggle value="small">Small</mat-button-toggle>
           <mat-button-toggle value="medium">Medium</mat-button-toggle>
           <mat-button-toggle value="large">Large</mat-button-toggle>
@@ -36,124 +36,13 @@
         <h2 class="text-xl font-semibold mb-4">{{ card.title }}</h2>
         <p class="text-sm mb-4">{{ card.description }}</p>
         <div class="flex flex-wrap gap-4">
-          @for (config of card.buttons; track config.label) {
-            <button
-              [matButton]="config.type"
-              [attr.color]="config.m3Color"
-              [disabled]="config.disabled"
-              [class]="buttonClasses()">
-              {{ config.label }}
-            </button>
+          @for (button of card.buttons; track button.label) {
+            <app-button [config]="button.buttonOptions">{{ button.label }}</app-button>
           }
         </div>
       </mat-card-content>
     </mat-card>
     }
   </div>
-
-  <mat-card appearance="outlined" class="mb-6">
-    <mat-card-header class="border-b p-4">
-      <mat-card-title>Material 3 Color System</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="p-6">
-      <div class="space-y-4">
-        <div>
-          <h3 class="font-semibold mb-2">✅ Correct M3 Color Roles</h3>
-          <ul class="space-y-2 text-sm">
-            <li><strong>Primary:</strong> <code>color="primary"</code> - Main brand color, high emphasis actions</li>
-            <li><strong>Secondary:</strong> <code>color="accent"</code> - Supporting brand color, medium emphasis</li>
-            <li><strong>Tertiary:</strong> <code>color="accent"</code> - Additional accent, flexible use</li>
-            <li><strong>Error:</strong> <code>color="warn"</code> - Destructive/error actions</li>
-            <li><strong>Default:</strong> No color attribute - Surface-based, low emphasis</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="font-semibold mb-2">🎨 Angular Material Mapping</h3>
-          <p class="text-sm">Angular Material uses a simplified color system:</p>
-          <ul class="space-y-1 text-sm mt-2">
-            <li>• <code>color="primary"</code> → M3 Primary role</li>
-            <li>• <code>color="accent"</code> → M3 Secondary & Tertiary roles</li>
-            <li>• <code>color="warn"</code> → M3 Error role</li>
-          </ul>
-        </div>
-
-        <div class="border-t pt-4">
-          <h3 class="font-semibold mb-2">📋 Code Example</h3>
-          <pre class="text-xs p-4 rounded bg-gray-100"><code>&lt;!-- Filled button with primary color --&gt;
-&lt;button mat-flat-button color="primary"&gt;Primary Action&lt;/button&gt;
-
-&lt;!-- Outlined button with secondary/tertiary (accent) color --&gt;
-&lt;button mat-stroked-button color="accent"&gt;Secondary Action&lt;/button&gt;
-
-&lt;!-- Text button with error (warn) color --&gt;
-&lt;button mat-button color="warn"&gt;Delete&lt;/button&gt;
-
-&lt;!-- Default surface color --&gt;
-&lt;button mat-raised-button&gt;Default Action&lt;/button&gt;</code></pre>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Style Guide Principles -->
-  <mat-card appearance="outlined" class="mb-6">
-    <mat-card-header class="border-b p-4">
-      <mat-card-title>Style Guide Principles</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="p-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <h3 class="flex items-center gap-2 font-semibold mb-3">
-            <mat-icon color="primary">check_circle</mat-icon>
-            <span>Do</span>
-          </h3>
-          <ul class="space-y-2 text-sm">
-            <li class="flex gap-2">
-              <span>✅</span>
-              <span>Use Material button directives (mat-button, mat-flat-button, etc.)</span>
-            </li>
-            <li class="flex gap-2">
-              <span>✅</span>
-              <span>Use color="primary|accent|warn" for theming</span>
-            </li>
-            <li class="flex gap-2">
-              <span>✅</span>
-              <span>Use Tailwind ONLY for layout (flex, gap, p-6)</span>
-            </li>
-            <li class="flex gap-2">
-              <span>✅</span>
-              <span>Let Material handle all theming automatically</span>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="flex items-center gap-2 font-semibold mb-3">
-            <mat-icon color="warn">cancel</mat-icon>
-            <span>Don't</span>
-          </h3>
-          <ul class="space-y-2 text-sm">
-            <li class="flex gap-2">
-              <span>❌</span>
-              <span>Don't use Tailwind color classes (bg-*, text-*)</span>
-            </li>
-            <li class="flex gap-2">
-              <span>❌</span>
-              <span>Don't use dark: utilities from Tailwind</span>
-            </li>
-            <li class="flex gap-2">
-              <span>❌</span>
-              <span>Don't create custom button CSS</span>
-            </li>
-            <li class="flex gap-2">
-              <span>❌</span>
-              <span>Don't use inline styles for colors</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
 </div>
 
