@@ -69,6 +69,7 @@ export default class ButtonsComponent implements OnInit {
           color: role.color,
           shape: this.shape(),
           size: this.size(),
+          type: 'button',
           disabled: role.disabled
         },
       }))

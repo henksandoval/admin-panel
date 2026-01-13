@@ -42,28 +42,11 @@ export class ButtonComponent {
   fullConfig = computed<ButtonOptions>(() => {
     const config = this.config();
     return {
-      size: 'medium',
-      type: 'button',
-      fullWidth: false,
       iconBefore: config.iconBefore,
       iconAfter: config.iconAfter,
       ariaLabel: config.ariaLabel,
       ...config
     };
-  });
-
-  /**
-   * Maps our variant names to Angular Material 20 matButton values
-   * Angular Material 20 uses: 'elevated', 'filled', 'tonal', 'outlined', or undefined for text
-   */
-  matButtonVariant = computed(() => {
-    const variant = this.fullConfig().variant;
-    // matButton without value (undefined) = text button
-    if (variant === 'text') {
-      return undefined;
-    }
-    // Return the variant directly: 'elevated' | 'filled' | 'tonal' | 'outlined'
-    return variant;
   });
 
   buttonClasses = computed(() => {
@@ -72,10 +55,6 @@ export class ButtonComponent {
 
     classes.push(`btn-shape-${config.shape}`);
     classes.push(`btn-size-${config.size}`);
-
-    if (config.fullWidth) {
-      classes.push('btn-full-width');
-    }
 
     return classes.join(' ');
   });
