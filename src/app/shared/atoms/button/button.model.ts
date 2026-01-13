@@ -15,13 +15,13 @@ export interface ButtonOptions {
   /**
    * Material color (primary, secondary, tertiary)
    */
-  color?: ButtonColor;
+  color: ButtonColor;
 
   /**
    * Button shape (square or rounded)
    * @default 'rounded'
    */
-  shape?: ButtonShape;
+  shape: ButtonShape;
 
   /**
    * Button size (small, medium, large)
@@ -39,7 +39,7 @@ export interface ButtonOptions {
    * Disabled state
    * @default false
    */
-  disabled?: boolean;
+  disabled: boolean;
 
   /**
    * Full width button

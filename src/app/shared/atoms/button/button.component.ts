@@ -30,18 +30,20 @@ import { ButtonOptions } from './button.model';
 })
 export class ButtonComponent {
   config = input<ButtonOptions>({
-    variant: 'filled'
+    variant: 'filled',
+    color: 'primary',
+    shape: 'rounded',
+    size: 'medium',
+    type: 'button',
+    disabled: false
   });
   clicked = output<MouseEvent>();
 
   fullConfig = computed<ButtonOptions>(() => {
     const config = this.config();
     return {
-      color: config.color,
-      shape: 'rounded',
       size: 'medium',
       type: 'button',
-      disabled: false,
       fullWidth: false,
       iconBefore: config.iconBefore,
       iconAfter: config.iconAfter,

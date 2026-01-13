@@ -36,10 +36,10 @@ interface MatCardInfo {
 export default class ButtonsComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly buttonVariants: MatButtonAppearance[] = ['text', 'elevated', 'outlined', 'filled', 'tonal'];
-  private readonly colorRoles: Array<{ color: ButtonColor, label: string, disabled?: boolean }> = [
-    { color: 'primary', label: 'Primary' },
-    { color: 'secondary', label: 'Secondary' },
-    { color: 'tertiary', label: 'Tertiary' },
+  private readonly colorRoles: Array<{ color: ButtonColor, label: string, disabled: boolean }> = [
+    { color: 'primary', label: 'Primary', disabled: false },
+    { color: 'secondary', label: 'Secondary', disabled: false },
+    { color: 'tertiary', label: 'Tertiary', disabled: false },
     { color: 'primary', label: 'Disabled', disabled: true }
   ];
 
