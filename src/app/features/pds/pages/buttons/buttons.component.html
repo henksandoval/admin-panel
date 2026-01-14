@@ -79,19 +79,14 @@
 
     <div class="grid grid-cols-1 gap-4">
       @for (guide of variantGuides; track guide.variant) {
-        <mat-card appearance="outlined"
-          [class]="guide.emphasis === 'high' ? 'border-l-4 border-l-blue-500' :
-                   guide.emphasis === 'medium' ? 'border-l-4 border-l-green-500' :
-                   'border-l-4 border-l-gray-400'">
+        <mat-card appearance="outlined" [class]="getCardBorderClasses(guide.emphasis)">
           <mat-card-content class="p-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <!-- Información Principal -->
               <div class="lg:col-span-2">
                 <div class="flex items-start gap-3 mb-4">
                   <div
-                    [class]="guide.emphasis === 'high' ? 'bg-blue-100 text-blue-700' :
-                             guide.emphasis === 'medium' ? 'bg-green-100 text-green-700' :
-                             'bg-gray-100 text-gray-700'"
+                    [class]="getEmphasisBadgeClasses(guide.emphasis)"
                     class="px-3 py-1 rounded-full text-xs font-semibold uppercase">
                     {{ guide.emphasis }} emphasis
                   </div>
@@ -142,6 +137,22 @@
                     [size]="size()"
                     iconBefore="add">
                     With Icon
+                  </app-button>
+                  <app-button
+                    [variant]="guide.variant"
+                    color="tertiary"
+                    [shape]="shape()"
+                    [size]="size()"
+                    iconBefore="info">
+                    Learn More
+                  </app-button>
+                  <app-button
+                    [variant]="guide.variant"
+                    color="primary"
+                    [shape]="shape()"
+                    [size]="size()"
+                    [disabled]="true">
+                    Primary Action
                   </app-button>
                 </div>
                 <p class="text-xs text-gray-400 mt-3 text-center">variant="{{ guide.variant }}"</p>
