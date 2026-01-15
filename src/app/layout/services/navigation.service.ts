@@ -360,6 +360,12 @@ export class NavigationService {
           title: 'Botones',
           icon: 'edit_note',
           url: '/showcase/buttons'
+        },
+        {
+          id: 'checkboxes',
+          title: 'Checkbox',
+          icon: 'edit_note',
+          url: '/showcase/checkboxes'
         }
       ]
     },
