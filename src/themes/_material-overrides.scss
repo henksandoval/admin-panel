@@ -6,6 +6,7 @@ $large-size-scale: 1.5;
 @mixin apply-material-overrides() {
   @include _chrome-element-adjustments();
   @include _button-overrides();
+  @include _checkbox-overrides();
   @include _main-content-background();
 }
 
@@ -170,3 +171,72 @@ $large-size-scale: 1.5;
     ));
   }
 }
+
+// ============================================
+// CHECKBOX OVERRIDES
+// ============================================
+
+@mixin _checkbox-overrides() {
+  @include _checkbox-color-overrides();
+  @include _checkbox-size-overrides();
+}
+
+@mixin _checkbox-color-overrides() {
+  [color="secondary"] {
+    @include mat.checkbox-overrides((
+      selected-checkmark-color: var(--mat-sys-on-secondary),
+      selected-icon-color: var(--mat-sys-secondary),
+      unselected-icon-color: var(--mat-sys-on-surface-variant),
+    ));
+  }
+
+  [color="tertiary"] {
+    @include mat.checkbox-overrides((
+      selected-checkmark-color: var(--mat-sys-on-tertiary),
+      selected-icon-color: var(--mat-sys-tertiary),
+      unselected-icon-color: var(--mat-sys-on-surface-variant),
+    ));
+  }
+}
+
+@mixin _checkbox-size-overrides() {
+  .mat-mdc-checkbox.checkbox-size-small {
+    @include mat.checkbox-density(-2);
+
+    .mdc-checkbox {
+      width: 16px;
+      height: 16px;
+    }
+
+    .mdc-checkbox__background {
+      width: 16px;
+      height: 16px;
+    }
+
+    .mat-mdc-checkbox-touch-target {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .mat-mdc-checkbox.checkbox-size-large {
+    @include mat.checkbox-density(0);
+
+    .mdc-checkbox {
+      width: 24px;
+      height: 24px;
+    }
+
+    .mdc-checkbox__background {
+      width: 24px;
+      height: 24px;
+    }
+
+    .mat-mdc-checkbox-touch-target {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+

@@ -88,7 +88,8 @@ export const routes: Routes = [
         children: [
           { path: 'index', loadComponent: () => import('./features/pds/pages/index/index.component').then(m => m.IndexComponent) },
           { path: 'forms', loadComponent: () => import('./features/pds/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent) },
-          { path: 'buttons', loadComponent: () => import('./features/pds/pages/buttons/buttons.component') }
+          { path: 'buttons', loadComponent: () => import('./features/pds/pages/buttons/buttons.component') },
+          { path: 'checkboxes', loadComponent: () => import('./features/pds/pages/checkboxes/checkboxes.component') }
         ]
       },
     ]

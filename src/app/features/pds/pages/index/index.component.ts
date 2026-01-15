@@ -40,6 +40,13 @@ export class IndexComponent {
       icon: 'smart_button',
       route: '/pds/buttons'
     },
+    {
+      id: 'checkboxes',
+      title: 'Checkboxes',
+      description: 'Componente para selección múltiple y opciones binarias siguiendo Material Design 3',
+      icon: 'check_box',
+      route: '/pds/checkboxes'
+    },
   ];
 
   constructor(private router: Router) {}

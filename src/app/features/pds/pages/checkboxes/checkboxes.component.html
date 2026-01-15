@@ -1,0 +1,377 @@
+<div class="checkboxes-container p-6 max-w-7xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <app-button
+      variant="text"
+      iconBefore="arrow_back"
+      (clicked)="goBack()"
+      class="mb-4">
+      Volver al índice
+    </app-button>
+
+    <h1 class="text-4xl font-bold mb-2">Checkboxes</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400">
+      Componente para selección múltiple y opciones binarias siguiendo Material Design 3
+    </p>
+  </div>
+
+  <!-- Controls Interactivos -->
+  <mat-card class="mb-8">
+    <mat-card-content class="p-6">
+      <h2 class="text-2xl font-semibold mb-4">Controles Interactivos</h2>
+
+      <div class="space-y-4">
+        <!-- Size Control -->
+        <div>
+          <label class="block text-sm font-medium mb-2">Tamaño</label>
+          <mat-button-toggle-group
+            [value]="size()"
+            (change)="setSize($event.value)"
+            aria-label="Tamaño del checkbox">
+            <mat-button-toggle value="small">Small</mat-button-toggle>
+            <mat-button-toggle value="medium">Medium</mat-button-toggle>
+            <mat-button-toggle value="large">Large</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Preview Section -->
+  <mat-card class="mb-8">
+    <mat-card-content class="p-6">
+      <h2 class="text-2xl font-semibold mb-6">Vista Previa</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Primary -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold border-b pb-2">Primary</h3>
+          <app-checkbox
+            color="primary"
+            [size]="size()"
+            [checked]="true">
+            Primary checked
+          </app-checkbox>
+          <app-checkbox
+            color="primary"
+            [size]="size()">
+            Primary unchecked
+          </app-checkbox>
+          <app-checkbox
+            color="primary"
+            [size]="size()"
+            [indeterminate]="true">
+            Primary indeterminate
+          </app-checkbox>
+          <app-checkbox
+            color="primary"
+            [size]="size()"
+            [checked]="true"
+            [disabled]="true">
+            Primary disabled
+          </app-checkbox>
+        </div>
+
+        <!-- Secondary -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold border-b pb-2">Secondary</h3>
+          <app-checkbox
+            color="secondary"
+            [size]="size()"
+            [checked]="true">
+            Secondary checked
+          </app-checkbox>
+          <app-checkbox
+            color="secondary"
+            [size]="size()">
+            Secondary unchecked
+          </app-checkbox>
+          <app-checkbox
+            color="secondary"
+            [size]="size()"
+            [indeterminate]="true">
+            Secondary indeterminate
+          </app-checkbox>
+          <app-checkbox
+            color="secondary"
+            [size]="size()"
+            [checked]="true"
+            [disabled]="true">
+            Secondary disabled
+          </app-checkbox>
+        </div>
+
+        <!-- Tertiary -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold border-b pb-2">Tertiary</h3>
+          <app-checkbox
+            color="tertiary"
+            [size]="size()"
+            [checked]="true">
+            Tertiary checked
+          </app-checkbox>
+          <app-checkbox
+            color="tertiary"
+            [size]="size()">
+            Tertiary unchecked
+          </app-checkbox>
+          <app-checkbox
+            color="tertiary"
+            [size]="size()"
+            [indeterminate]="true">
+            Tertiary indeterminate
+          </app-checkbox>
+          <app-checkbox
+            color="tertiary"
+            [size]="size()"
+            [checked]="true"
+            [disabled]="true">
+            Tertiary disabled
+          </app-checkbox>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Common Use Cases -->
+  <mat-card class="mb-8">
+    <mat-card-content class="p-6">
+      <h2 class="text-2xl font-semibold mb-6">Casos de Uso Comunes</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @for (useCase of commonUseCases; track useCase.title) {
+          <div class="p-4 border rounded-lg">
+            <app-checkbox
+              [checked]="useCase.checked"
+              [disabled]="useCase.disabled ?? false"
+              [indeterminate]="useCase.indeterminate ?? false"
+              [size]="size()"
+              (changed)="onCheckboxChange($event, useCase.title)">
+              {{ useCase.title }}
+            </app-checkbox>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 ml-8">
+              {{ useCase.description }}
+            </p>
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Context Guides -->
+  <mat-card class="mb-8">
+    <mat-card-content class="p-6">
+      <h2 class="text-2xl font-semibold mb-6">Guía de Uso por Contexto</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @for (guide of contextGuides; track guide.context) {
+          <div class="border rounded-lg p-6 space-y-4">
+            <div>
+              <h3 class="text-xl font-semibold mb-2">{{ guide.context }}</h3>
+              <p class="text-gray-600 dark:text-gray-400">{{ guide.description }}</p>
+            </div>
+
+            <div>
+              <h4 class="font-semibold mb-2 flex items-center gap-2">
+                <mat-icon class="text-green-600">check_circle</mat-icon>
+                Recomendaciones
+              </h4>
+              <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                @for (rec of guide.recommendations; track rec) {
+                  <li>{{ rec }}</li>
+                }
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-semibold mb-2 flex items-center gap-2">
+                <mat-icon class="text-blue-600">lightbulb</mat-icon>
+                Ejemplos
+              </h4>
+              <ul class="space-y-2">
+                @for (example of guide.examples; track example) {
+                  <li class="flex items-start gap-2">
+                    <app-checkbox [size]="size()">
+                      <span class="text-sm">{{ example }}</span>
+                    </app-checkbox>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Component Comparison -->
+  <mat-card class="mb-8">
+    <mat-card-content class="p-6">
+      <h2 class="text-2xl font-semibold mb-4">¿Cuándo usar Checkbox?</h2>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-800">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Componente
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Cuándo Usar
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Ejemplo
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+            @for (comparison of componentComparisons; track comparison.component) {
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  {{ comparison.component }}
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
+                  {{ comparison.whenToUse }}
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400 italic">
+                  {{ comparison.example }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Developer Guide -->
+  <mat-card class="mb-8">
+    <mat-card-content class="p-6">
+      <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+        <mat-icon class="text-purple-600">code</mat-icon>
+        Guía para Desarrolladores
+      </h2>
+
+      <div class="space-y-8">
+        @for (example of usageExamples; track example.title) {
+          <div>
+            <div class="flex items-start gap-3 mb-3">
+              <mat-icon class="text-blue-500 mt-1">integration_instructions</mat-icon>
+              <div>
+                <h3 class="text-lg font-semibold">{{ example.title }}</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{ example.description }}</p>
+              </div>
+            </div>
+            <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto"><code>{{ example.code }}</code></pre>
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- API Reference -->
+  <mat-card class="mb-8">
+    <mat-card-content class="p-6">
+      <h2 class="text-2xl font-semibold mb-4">Referencia de API</h2>
+
+      <div class="space-y-6">
+        <!-- Inputs -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 flex items-center gap-2">
+            <mat-icon class="text-green-600">input</mat-icon>
+            Inputs
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left text-xs font-medium">Propiedad</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium">Tipo</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium">Default</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium">Descripción</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">checked</td>
+                  <td class="px-4 py-2 text-sm">boolean</td>
+                  <td class="px-4 py-2 text-sm">false</td>
+                  <td class="px-4 py-2 text-sm">Estado del checkbox (two-way binding)</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">color</td>
+                  <td class="px-4 py-2 text-sm">primary | secondary | tertiary</td>
+                  <td class="px-4 py-2 text-sm">primary</td>
+                  <td class="px-4 py-2 text-sm">Color del checkbox</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">size</td>
+                  <td class="px-4 py-2 text-sm">small | medium | large</td>
+                  <td class="px-4 py-2 text-sm">medium</td>
+                  <td class="px-4 py-2 text-sm">Tamaño del checkbox</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">labelPosition</td>
+                  <td class="px-4 py-2 text-sm">before | after</td>
+                  <td class="px-4 py-2 text-sm">after</td>
+                  <td class="px-4 py-2 text-sm">Posición del label</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">disabled</td>
+                  <td class="px-4 py-2 text-sm">boolean</td>
+                  <td class="px-4 py-2 text-sm">false</td>
+                  <td class="px-4 py-2 text-sm">Deshabilita el checkbox</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">indeterminate</td>
+                  <td class="px-4 py-2 text-sm">boolean</td>
+                  <td class="px-4 py-2 text-sm">false</td>
+                  <td class="px-4 py-2 text-sm">Estado indeterminado</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">required</td>
+                  <td class="px-4 py-2 text-sm">boolean</td>
+                  <td class="px-4 py-2 text-sm">false</td>
+                  <td class="px-4 py-2 text-sm">Marca como requerido</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">ariaLabel</td>
+                  <td class="px-4 py-2 text-sm">string</td>
+                  <td class="px-4 py-2 text-sm">-</td>
+                  <td class="px-4 py-2 text-sm">Label de accesibilidad</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Outputs -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 flex items-center gap-2">
+            <mat-icon class="text-orange-600">output</mat-icon>
+            Outputs
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left text-xs font-medium">Evento</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium">Tipo</th>
+                  <th class="px-4 py-2 text-left text-xs font-medium">Descripción</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr>
+                  <td class="px-4 py-2 font-mono text-sm">changed</td>
+                  <td class="px-4 py-2 text-sm">boolean</td>
+                  <td class="px-4 py-2 text-sm">Emite el nuevo estado cuando cambia</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+

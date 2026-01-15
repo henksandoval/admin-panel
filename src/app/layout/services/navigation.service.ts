@@ -391,6 +391,12 @@ export class NavigationService {
           title: 'Botones',
           icon: 'touch_app',
           url: '/pds/buttons'
+        },
+        {
+          id: 'checkboxes',
+          title: 'Checkboxes',
+          icon: 'check_box',
+          url: '/pds/checkboxes'
         }
       ]
     }

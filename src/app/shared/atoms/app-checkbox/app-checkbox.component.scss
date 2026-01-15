@@ -1,0 +1,13 @@
+:host {
+  display: inline-block;
+
+  &.checkbox-full-width {
+    display: block;
+    width: 100%;
+
+    mat-checkbox {
+      width: 100%;
+    }
+  }
+}
+
