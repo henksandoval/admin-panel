@@ -43,8 +43,15 @@ export class AppButtonComponent {
 
   buttonClasses = computed(() => {
     const classes: string[] = [];
-    classes.push(`btn-shape-${this.shape()}`);
-    classes.push(`btn-size-${this.size()}`);
+
+    if (this.shape() !== 'rounded') {
+      classes.push(`btn-shape-${this.shape()}`);
+    }
+
+    if (this.size() !== 'medium') {
+      classes.push(`btn-size-${this.size()}`);
+    }
+
     return classes.join(' ');
   });
 }
