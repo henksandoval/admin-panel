@@ -44,6 +44,8 @@
   @include _button-primary-overrides();
   @include _button-secondary-overrides();
   @include _button-tertiary-overrides();
+  @include _button-size-overrides();
+  @include _button-shape-overrides();
 }
 
 @mixin _button-primary-overrides() {
@@ -111,6 +113,76 @@
       tonal-label-text-color: var(--mat-sys-on-tertiary-container),
       tonal-state-layer-color: var(--mat-sys-on-tertiary-container),
       tonal-ripple-color: var(--mat-sys-on-tertiary-container),
+    ));
+  }
+}
+
+// Tamaños de botones usando CSS directo (Material no expone estos como tokens configurables)
+@mixin _button-size-overrides() {
+  // Small buttons
+  .mdc-button {
+    &.btn-size-small {
+      min-height: 32px;
+      padding: 0 12px;
+      font-size: 0.75rem;
+      line-height: 1rem;
+
+      .mat-icon {
+        font-size: 1rem;
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
+    // Medium buttons (default)
+    &.btn-size-medium {
+      min-height: 36px;
+      padding: 0 16px;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+
+      .mat-icon {
+        font-size: 1.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+
+    // Large buttons
+    &.btn-size-large {
+      min-height: 42px;
+      padding: 0 24px;
+      font-size: 1rem;
+      line-height: 1.5rem;
+
+      .mat-icon {
+        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+  }
+}
+
+// Formas de botones usando tokens válidos
+@mixin _button-shape-overrides() {
+  .mdc-button.btn-shape-square {
+    @include mat.button-overrides((
+      filled-container-shape: 4px,
+      outlined-container-shape: 4px,
+      protected-container-shape: 4px,
+      text-container-shape: 4px,
+      tonal-container-shape: 4px,
+    ));
+  }
+
+  .mdc-button.btn-shape-rounded {
+    @include mat.button-overrides((
+      filled-container-shape: 9999px,
+      outlined-container-shape: 9999px,
+      protected-container-shape: 9999px,
+      text-container-shape: 9999px,
+      tonal-container-shape: 9999px,
     ));
   }
 }
