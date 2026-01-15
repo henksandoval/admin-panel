@@ -1,0 +1,285 @@
+<div class="p-6">
+  <!-- Header -->
+  <div class="mb-6">
+    <button mat-button (click)="goBack()" class="mb-4" style="color: var(--mat-sys-primary);">
+      <mat-icon class="mr-2">arrow_back</mat-icon>
+      Back to Showcase
+    </button>
+    <h1 class="text-3xl font-bold mb-2" style="color: var(--mat-sys-primary);">
+      🏷️ Indicators & Utilities
+    </h1>
+    <p class="text-lg" style="color: var(--mat-sys-on-surface-variant);">
+      Badges, dividers, advanced tooltips, and utility components for enhanced UX
+    </p>
+  </div>
+
+  <!-- Badges -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Badges</mat-card-title>
+      <mat-card-subtitle>Notification counters and status indicators</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="space-y-6">
+        <!-- Basic badges -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Basic Badges</h3>
+          <div class="badge-demo-section flex flex-wrap gap-4">
+            <div class="demo-badge-item">
+              <button mat-icon-button matBadge="{{notificationCount}}" matBadgeColor="warn">
+                <mat-icon>notifications</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Notifications</p>
+            </div>
+            <div class="demo-badge-item">
+              <button mat-icon-button matBadge="{{messageCount}}" matBadgeColor="accent">
+                <mat-icon>mail</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Messages</p>
+            </div>
+            <div class="demo-badge-item">
+              <button mat-icon-button matBadge="{{cartItems}}" matBadgeColor="primary">
+                <mat-icon>shopping_cart</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Cart Items</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge positions -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Badge Positions</h3>
+          <div class="badge-demo-section flex flex-wrap gap-4">
+            <div class="demo-badge-item">
+              <button mat-icon-button matBadge="1" matBadgePosition="above before" matBadgeColor="warn">
+                <mat-icon>star</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Above Before</p>
+            </div>
+            <div class="demo-badge-item">
+              <button mat-icon-button matBadge="2" matBadgePosition="above after" matBadgeColor="warn">
+                <mat-icon>star</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Above After</p>
+            </div>
+            <div class="demo-badge-item">
+              <button mat-icon-button matBadge="3" matBadgePosition="below before" matBadgeColor="warn">
+                <mat-icon>star</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Below Before</p>
+            </div>
+            <div class="demo-badge-item">
+              <button mat-icon-button matBadge="4" matBadgePosition="below after" matBadgeColor="warn">
+                <mat-icon>star</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Below After</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge variants -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Badge Variants</h3>
+          <div class="badge-demo-section flex flex-wrap gap-6">
+            <div class="demo-badge-item">
+              <span matBadge="NEW" matBadgeOverlap="false" matBadgeColor="primary" class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                New Feature Available
+              </span>
+            </div>
+            <div class="demo-badge-item">
+              <span matBadge="HOT" matBadgeOverlap="false" matBadgeColor="warn" class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                Popular Item
+              </span>
+            </div>
+            <div class="demo-badge-item">
+              <span matBadge="99+" matBadgeOverlap="false" matBadgeColor="accent" class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                Inbox
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden badges -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Conditional Badges</h3>
+          <div class="badge-demo-section flex flex-wrap gap-4">
+            <div class="demo-badge-item">
+              <button mat-icon-button [matBadge]="notificationCount > 0 ? notificationCount : null" matBadgeColor="warn">
+                <mat-icon>notifications</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Shows when > 0</p>
+            </div>
+            <div class="demo-badge-item">
+              <button mat-icon-button [matBadge]="0 > 0 ? 0 : null" matBadgeColor="warn">
+                <mat-icon>notifications_off</mat-icon>
+              </button>
+              <p class="text-xs mt-1 text-center">Hidden when 0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Dividers -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Dividers</mat-card-title>
+      <mat-card-subtitle>Content separation and visual organization</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="space-y-6">
+        <!-- Basic divider -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Horizontal Dividers</h3>
+          <div class="space-y-4">
+            <p>Content above the divider</p>
+            <mat-divider></mat-divider>
+            <p>Content below the divider</p>
+            
+            <mat-divider [inset]="true"></mat-divider>
+            <p>Content after inset divider (with margin)</p>
+          </div>
+        </div>
+
+        <!-- Vertical divider -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Vertical Dividers</h3>
+          <div class="divider-demo">
+            <div class="vertical-divider-container">
+              <span>Left content</span>
+              <mat-divider [vertical]="true"></mat-divider>
+              <span>Middle content</span>
+              <mat-divider [vertical]="true"></mat-divider>
+              <span>Right content</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dividers in lists -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Dividers in Lists</h3>
+          <mat-list>
+            <mat-list-item>
+              <mat-icon matListItemIcon>person</mat-icon>
+              <div matListItemTitle>John Doe</div>
+              <div matListItemLine>Software Engineer</div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <mat-icon matListItemIcon>person</mat-icon>
+              <div matListItemTitle>Jane Smith</div>
+              <div matListItemLine>Product Manager</div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <mat-icon matListItemIcon>person</mat-icon>
+              <div matListItemTitle>Mike Johnson</div>
+              <div matListItemLine>UX Designer</div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Advanced Tooltips -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Advanced Tooltips</mat-card-title>
+      <mat-card-subtitle>Enhanced tooltip configurations and positioning</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="space-y-6">
+        <!-- Tooltip positions -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Tooltip Positions</h3>
+          <div class="flex flex-wrap gap-4">
+            <button mat-raised-button matTooltip="Appears above the button" matTooltipPosition="above">Above</button>
+            <button mat-raised-button matTooltip="Appears below the button" matTooltipPosition="below">Below</button>
+            <button mat-raised-button matTooltip="Appears to the left" matTooltipPosition="left">Left</button>
+            <button mat-raised-button matTooltip="Appears to the right" matTooltipPosition="right">Right</button>
+          </div>
+        </div>
+
+        <!-- Custom delays -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Custom Delays</h3>
+          <div class="flex flex-wrap gap-4">
+            <button mat-raised-button 
+                    matTooltip="Shows immediately" 
+                    matTooltipShowDelay="0"
+                    color="primary">
+              No Delay
+            </button>
+            <button mat-raised-button 
+                    matTooltip="Shows after 1 second" 
+                    matTooltipShowDelay="1000"
+                    color="accent">
+              1s Delay
+            </button>
+            <button mat-raised-button 
+                    matTooltip="Stays visible for 3 seconds" 
+                    matTooltipHideDelay="3000"
+                    color="warn">
+              Long Hide
+            </button>
+          </div>
+        </div>
+
+        <!-- Multiline tooltips -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Multiline Tooltips</h3>
+          <div class="flex flex-wrap gap-4">
+            <button mat-raised-button 
+                    matTooltip="This is a multiline tooltip&#10;It spans multiple lines&#10;And provides detailed information">
+              Multiline Info
+            </button>
+            <button mat-icon-button 
+                    matTooltip="Settings Menu&#10;Click to open configuration options&#10;Keyboard shortcut: Ctrl+," 
+                    matTooltipClass="custom-tooltip text-sm">
+              <mat-icon>settings</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tooltips with different triggers -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Rich Content Areas</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
+              <div matTooltip="This entire card has tooltip information about the content within" 
+                   matTooltipPosition="above"
+                   class="cursor-help">
+                <h4 class="font-medium mb-2">Hover Card</h4>
+                <p class="text-sm" style="color: var(--mat-sys-on-surface-variant);">
+                  This card shows a tooltip when you hover anywhere on it.
+                </p>
+              </div>
+            </div>
+            <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
+              <h4 class="font-medium mb-2">Interactive Elements</h4>
+              <div class="space-y-2">
+                <mat-icon matTooltip="User profile icon - click to view details" class="cursor-help">person</mat-icon>
+                <mat-icon matTooltip="Security settings - manage your account security" class="cursor-help ml-3">security</mat-icon>
+                <mat-icon matTooltip="Notification preferences - customize alerts" class="cursor-help ml-3">notifications</mat-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Code Example -->
+  <mat-card class="mb-8">
+    <mat-card-header>
+      <mat-card-title class="text-lg font-semibold">Code Examples</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="p-4 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+        <pre class="text-sm overflow-x-auto whitespace-pre-wrap" style="color: var(--mat-sys-on-surface-variant);">{{ codeExample }}</pre>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

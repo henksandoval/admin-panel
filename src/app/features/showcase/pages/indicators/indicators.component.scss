@@ -1,0 +1,23 @@
+.badge-demo-section {
+  .demo-badge-item {
+    margin: 8px;
+    display: inline-block;
+  }
+}
+
+.divider-demo {
+  .vertical-divider-container {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    
+    mat-divider {
+      margin: 0 16px;
+    }
+  }
+}
+
+.custom-tooltip {
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-on-primary) !important;
+}
