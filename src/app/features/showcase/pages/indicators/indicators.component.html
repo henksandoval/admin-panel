@@ -13,11 +13,71 @@
     </p>
   </div>
 
-  <!-- Badges -->
+  <!-- Badge Comparison -->
+  <mat-card class="mb-8 shadow-lg" style="background-color: var(--mat-sys-secondary-container);">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">🆚 Badge Types: matBadge vs app-badge</mat-card-title>
+      <mat-card-subtitle>Understanding when to use each badge system</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- matBadge -->
+        <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
+          <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
+            <mat-icon color="primary">push_pin</mat-icon>
+            matBadge (Material)
+          </h3>
+          <p class="text-sm mb-4" style="color: var(--mat-sys-on-surface-variant);">
+            <strong>Overlays</strong> sobre elementos. Perfecto para notificaciones en iconos.
+          </p>
+          <div class="flex gap-4 mb-3">
+            <button mat-icon-button matBadge="3" matBadgeColor="warn">
+              <mat-icon>notifications</mat-icon>
+            </button>
+            <button mat-icon-button matBadge="12" matBadgeColor="accent">
+              <mat-icon>mail</mat-icon>
+            </button>
+          </div>
+          <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
+            <div>✅ Notificaciones en toolbar</div>
+            <div>✅ Contadores sobre iconos</div>
+            <div>✅ Posicionamiento absoluto</div>
+            <div>❌ Solo 3 colores (primary/accent/warn)</div>
+          </div>
+        </div>
+
+        <!-- app-badge -->
+        <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
+          <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
+            <mat-icon color="accent">label</mat-icon>
+            app-badge (Custom)
+          </h3>
+          <p class="text-sm mb-4" style="color: var(--mat-sys-on-surface-variant);">
+            <strong>Inline badges</strong>. Ideal para etiquetas, estados y categorías.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="app-badge normal">Normal</span>
+            <span class="app-badge info">Info</span>
+            <span class="app-badge success">Success</span>
+            <span class="app-badge warning">Warning</span>
+            <span class="app-badge error">Error</span>
+          </div>
+          <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
+            <div>✅ Etiquetas de estado (NEW, HOT)</div>
+            <div>✅ Badges en navegación</div>
+            <div>✅ 5 variantes semánticas</div>
+            <div>✅ Soporte para indicadores (!)</div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- matBadge Examples -->
   <mat-card class="mb-8 shadow-lg">
     <mat-card-header>
-      <mat-card-title class="text-xl font-semibold">Badges</mat-card-title>
-      <mat-card-subtitle>Notification counters and status indicators</mat-card-subtitle>
+      <mat-card-title class="text-xl font-semibold">matBadge (Angular Material)</mat-card-title>
+      <mat-card-subtitle>Overlays for notifications and counters on icons</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="p-6">
       <div class="space-y-6">
@@ -121,6 +181,83 @@
     </mat-card-content>
   </mat-card>
 
+  <!-- Custom app-badge -->
+  <mat-card class="mb-8 shadow-lg">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">app-badge (Custom System)</mat-card-title>
+      <mat-card-subtitle>Inline badges for labels, status, and categories</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-6">
+      <div class="space-y-6">
+        <!-- Basic app-badges -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Semantic Variants</h3>
+          <div class="flex flex-wrap gap-3">
+            <span class="app-badge normal">Normal</span>
+            <span class="app-badge info">Info</span>
+            <span class="app-badge success">Success</span>
+            <span class="app-badge warning">Warning</span>
+            <span class="app-badge error">Error</span>
+          </div>
+        </div>
+
+        <!-- app-badge with indicators -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">With Alert Indicators</h3>
+          <div class="flex flex-wrap gap-3">
+            <span class="app-badge info has-indicator">Action Required</span>
+            <span class="app-badge warning has-indicator">Pending</span>
+            <span class="app-badge error has-indicator">Critical</span>
+          </div>
+          <p class="text-sm mt-2" style="color: var(--mat-sys-on-surface-variant);">
+            El indicador "!" aparece cuando se añade la clase <code>has-indicator</code>
+          </p>
+        </div>
+
+        <!-- Usage in navigation context -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Navigation Context (like sidebar)</h3>
+          <div class="space-y-3 max-w-md">
+            <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+              <mat-icon>dashboard</mat-icon>
+              <span class="flex-1">Dashboard</span>
+              <span class="app-badge normal">3</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+              <mat-icon>shopping_cart</mat-icon>
+              <span class="flex-1">Orders</span>
+              <span class="app-badge warning has-indicator">5</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+              <mat-icon>notifications</mat-icon>
+              <span class="flex-1">Alerts</span>
+              <span class="app-badge error">12</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status labels -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Status Labels & Tags</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="app-badge success">NEW</span>
+              <span>Feature: Dark mode support</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="app-badge warning">BETA</span>
+              <span>Experimental AI assistant</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="app-badge info">HOT</span>
+              <span>Most popular dashboard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
   <!-- Dividers -->
   <mat-card class="mb-8 shadow-lg">
     <mat-card-header>
@@ -136,7 +273,7 @@
             <p>Content above the divider</p>
             <mat-divider></mat-divider>
             <p>Content below the divider</p>
-            
+
             <mat-divider [inset]="true"></mat-divider>
             <p>Content after inset divider (with margin)</p>
           </div>
@@ -206,20 +343,20 @@
         <div>
           <h3 class="text-lg font-medium mb-3">Custom Delays</h3>
           <div class="flex flex-wrap gap-4">
-            <button mat-raised-button 
-                    matTooltip="Shows immediately" 
+            <button mat-raised-button
+                    matTooltip="Shows immediately"
                     matTooltipShowDelay="0"
                     color="primary">
               No Delay
             </button>
-            <button mat-raised-button 
-                    matTooltip="Shows after 1 second" 
+            <button mat-raised-button
+                    matTooltip="Shows after 1 second"
                     matTooltipShowDelay="1000"
                     color="accent">
               1s Delay
             </button>
-            <button mat-raised-button 
-                    matTooltip="Stays visible for 3 seconds" 
+            <button mat-raised-button
+                    matTooltip="Stays visible for 3 seconds"
                     matTooltipHideDelay="3000"
                     color="warn">
               Long Hide
@@ -231,12 +368,12 @@
         <div>
           <h3 class="text-lg font-medium mb-3">Multiline Tooltips</h3>
           <div class="flex flex-wrap gap-4">
-            <button mat-raised-button 
+            <button mat-raised-button
                     matTooltip="This is a multiline tooltip&#10;It spans multiple lines&#10;And provides detailed information">
               Multiline Info
             </button>
-            <button mat-icon-button 
-                    matTooltip="Settings Menu&#10;Click to open configuration options&#10;Keyboard shortcut: Ctrl+," 
+            <button mat-icon-button
+                    matTooltip="Settings Menu&#10;Click to open configuration options&#10;Keyboard shortcut: Ctrl+,"
                     matTooltipClass="custom-tooltip text-sm">
               <mat-icon>settings</mat-icon>
             </button>
@@ -248,7 +385,7 @@
           <h3 class="text-lg font-medium mb-3">Rich Content Areas</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
-              <div matTooltip="This entire card has tooltip information about the content within" 
+              <div matTooltip="This entire card has tooltip information about the content within"
                    matTooltipPosition="above"
                    class="cursor-help">
                 <h4 class="font-medium mb-2">Hover Card</h4>

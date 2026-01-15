@@ -36,7 +36,10 @@ export class IndicatorsComponent {
   }
 
   get codeExample(): string {
-    return `// Badge with notification count
+    return `// ===== matBadge (Angular Material - Overlays) =====
+// Use for: notifications, counters on icons
+
+// Badge with notification count
 <button mat-icon-button matBadge="8" matBadgeColor="warn">
   <mat-icon>notifications</mat-icon>
 </button>
@@ -46,10 +49,38 @@ export class IndicatorsComponent {
   <mat-icon>mail</mat-icon>
 </button>
 
-// Badge with text content
+// Badge with text content (not recommended for labels)
 <span matBadge="NEW" matBadgeOverlap="false" matBadgeColor="primary">
   New Feature Available
 </span>
+
+
+// ===== app-badge (Custom - Inline) =====
+// Use for: status labels, tags, navigation badges
+
+// Basic semantic variants
+<span class="app-badge normal">Count: 3</span>
+<span class="app-badge info">Info</span>
+<span class="app-badge success">Active</span>
+<span class="app-badge warning">Pending</span>
+<span class="app-badge error">Critical</span>
+
+// With alert indicator (!)
+<span class="app-badge warning has-indicator">Action Required</span>
+<span class="app-badge error has-indicator">Urgent</span>
+
+// In navigation (sidebar)
+<div class="flex items-center gap-3">
+  <mat-icon>dashboard</mat-icon>
+  <span class="flex-1">Dashboard</span>
+  <span class="app-badge normal">5</span>
+</div>
+
+// As status labels
+<span class="app-badge info">NEW</span> Feature announcement
+
+
+// ===== Other Components =====
 
 // Divider variations
 <mat-divider></mat-divider>
@@ -57,8 +88,8 @@ export class IndicatorsComponent {
 <mat-divider [inset]="true"></mat-divider>
 
 // Advanced tooltips
-<button mat-raised-button 
-        matTooltip="This tooltip appears after 1 second" 
+<button mat-raised-button
+        matTooltip="This tooltip appears after 1 second"
         matTooltipShowDelay="1000"
         matTooltipHideDelay="500"
         matTooltipPosition="above">
