@@ -11,6 +11,8 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
 import { VARIANT_GUIDES, type VariantGuide } from './buttons.data';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-buttons',
@@ -23,13 +25,15 @@ import { VARIANT_GUIDES, type VariantGuide } from './buttons.data';
     MatIconModule,
     MatButtonToggleModule,
     MatCheckboxModule,
-    AppButtonComponent
+    AppButtonComponent,
+    MatTooltip
   ],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss'
 })
 export default class ButtonsComponent {
   private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
 
   selectedVariant = signal<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
   selectedColor = signal<ButtonColor>(BUTTON_DEFAULTS.color);
@@ -115,5 +119,11 @@ export default class ButtonsComponent {
 
   goBack(): void {
     this.router.navigate(['/pds/index']);
+  }
+
+  copyToClipboard(): void {
+    navigator.clipboard.writeText(this.generatedCode()).then(() => {
+      this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
+    });
   }
 }
