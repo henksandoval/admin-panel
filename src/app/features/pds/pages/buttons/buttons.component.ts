@@ -101,18 +101,18 @@ export default class ButtonsComponent {
 
   getEmphasisBadgeClasses(emphasis: VariantGuide['emphasis']): string {
     const classMap = {
-      high: 'bg-blue-100 text-blue-700',
-      medium: 'bg-green-100 text-green-700',
-      low: 'bg-gray-100 text-gray-700'
+      high: 'emphasis-badge high',
+      medium: 'emphasis-badge medium',
+      low: 'emphasis-badge low'
     };
     return classMap[emphasis];
   }
 
   getCardBorderClasses(emphasis: VariantGuide['emphasis']): string {
     const classMap = {
-      high: 'border-l-4 border-l-blue-500',
-      medium: 'border-l-4 border-l-green-500',
-      low: 'border-l-4 border-l-gray-400'
+      high: 'card-border high',
+      medium: 'card-border medium',
+      low: 'card-border low'
     };
     return classMap[emphasis];
   }

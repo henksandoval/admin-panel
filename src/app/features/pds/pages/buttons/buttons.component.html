@@ -1,16 +1,16 @@
 <div class="p-6 max-w-[1600px] mx-auto">
   <header class="mb-8">
-    <button mat-button (click)="goBack()" class="mb-4 text-gray-600 hover:text-gray-900">
+    <button mat-button (click)="goBack()" class="back-button mb-4">
       <mat-icon class="mr-1">arrow_back</mat-icon>
       Back to PDS Index
     </button>
     <div class="max-w-3xl">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight">
+      <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
         Button Component Playground
       </h1>
-      <p class="text-lg text-gray-600 leading-relaxed">
+      <p class="page-description text-lg leading-relaxed">
         Experimenta con diferentes configuraciones del componente
-        <code class="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono border border-gray-200">&lt;app-button&gt;</code>
+        <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-button&gt;</code>
         y observa cómo cambia la documentación en tiempo real.
       </p>
     </div>
@@ -18,13 +18,13 @@
   <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
     <section class="xl:col-span-5 space-y-6 xl:sticky xl:top-6">
       <mat-card appearance="outlined" class="overflow-hidden">
-        <div class="bg-gray-50 border-b border-gray-200 px-6 py-4">
-          <h3 class="font-semibold text-gray-700 flex items-center gap-2">
+        <div class="card-header border-b px-6 py-4">
+          <h3 class="card-title font-semibold flex items-center gap-2">
             <span>🎨</span> Live Preview
           </h3>
         </div>
-        <mat-card-content class="p-8 bg-white">
-          <div class="flex items-center justify-center min-h-[160px] bg-[url('https://bg.ibelick.com/dot-grid.svg')] bg-center rounded-lg border border-gray-200 shadow-sm">
+        <mat-card-content class="p-8">
+          <div class="preview-container flex items-center justify-center min-h-[160px] bg-center rounded-lg border shadow-sm">
             <app-button
               [variant]="selectedVariant()"
               [color]="selectedColor()"
@@ -39,14 +39,14 @@
         </mat-card-content>
       </mat-card>
       <mat-card appearance="outlined">
-        <div class="px-6 py-4 border-b border-gray-100">
-          <h3 class="font-semibold text-gray-700 flex items-center gap-2">
+        <div class="card-header px-6 py-4 border-b">
+          <h3 class="card-title font-semibold flex items-center gap-2">
             <span>🎮</span> Controls
           </h3>
         </div>
         <mat-card-content class="p-6 space-y-6">
             <div class="space-y-2">
-              <label class="text-sm font-medium text-gray-500 flex items-center gap-1.5">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
                 Variant
               </label>
@@ -59,7 +59,7 @@
               </mat-button-toggle-group>
             </div>
             <div class="space-y-2">
-              <label class="text-sm font-medium text-gray-500 flex items-center gap-1.5">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
                 Color
               </label>
@@ -71,7 +71,7 @@
             </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-2">
-              <label class="text-sm font-medium text-gray-500 flex items-center gap-1.5">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">crop_square</mat-icon>
                 Shape
               </label>
@@ -81,7 +81,7 @@
               </mat-button-toggle-group>
             </div>
             <div class="space-y-2">
-              <label class="text-sm font-medium text-gray-500 flex items-center gap-1.5">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
                 Size
               </label>
@@ -99,19 +99,19 @@
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-card appearance="outlined" class="bg-gray-900 border-gray-800 text-white overflow-hidden">
-        <div class="px-4 py-3 border-b border-gray-800 flex justify-between items-center">
-          <h3 class="text-sm font-medium text-gray-300 flex items-center gap-2">
+      <mat-card appearance="outlined" class="code-card overflow-hidden">
+        <div class="code-header px-4 py-3 border-b flex justify-between items-center">
+          <h3 class="text-sm font-medium flex items-center gap-2">
             <mat-icon class="text-base">code</mat-icon> Generated Code
           </h3>
-          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75 text-gray-400 hover:text-white">
+          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75">
             <mat-icon>content_copy</mat-icon>
           </button>
         </div>
         <div class="p-4 relative group">
-          <pre class="font-mono text-sm text-blue-100 overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
+          <pre class="font-mono text-sm overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
         </div>
-        <div class="px-4 py-2 bg-gray-800/50 text-xs text-gray-400 border-t border-gray-800">
+        <div class="code-footer px-4 py-2 text-xs border-t">
           💡 Solo incluye las propiedades que difieren de los defaults.
         </div>
       </mat-card>
@@ -127,32 +127,32 @@
                   {{ guide.emphasis }} emphasis
                 </span>
               </div>
-              <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ guide.title }}</h2>
-              <p class="text-lg text-gray-600 leading-relaxed">{{ guide.description }}</p>
+              <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
+              <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
-              <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                <h4 class="font-bold text-sm uppercase text-gray-500 mb-4 flex items-center gap-2">
-                  <mat-icon class="text-green-600 text-lg">check_circle</mat-icon>
+              <div class="info-box rounded-xl p-5 border">
+                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                  <mat-icon class="success text-lg">check_circle</mat-icon>
                   When to Use
                 </h4>
                 <ul class="space-y-3">
                   @for (use of guide.whenToUse; track use) {
-                    <li class="flex items-start gap-2.5 text-sm text-gray-700">
-                      <mat-icon class="text-green-500 text-base mt-0.5 shrink-0">arrow_right</mat-icon>
+                    <li class="info-box-content flex items-start gap-2.5 text-sm">
+                      <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
                       <span>{{ use }}</span>
                     </li>
                   }
                 </ul>
               </div>
-              <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                <h4 class="font-bold text-sm uppercase text-gray-500 mb-4 flex items-center gap-2">
-                  <mat-icon class="text-blue-600 text-lg">lightbulb</mat-icon>
+              <div class="info-box rounded-xl p-5 border">
+                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                  <mat-icon class="info text-lg">lightbulb</mat-icon>
                   Common Examples
                 </h4>
                 <div class="flex flex-wrap gap-2">
                   @for (example of guide.examples; track example) {
-                    <span class="bg-white text-gray-700 px-3 py-1.5 rounded border border-gray-200 text-sm font-medium shadow-sm">
+                    <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
                       {{ example }}
                     </span>
                   }
@@ -162,39 +162,39 @@
           </mat-card-content>
         </mat-card>
         <section>
-          <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <mat-icon class="text-purple-500">palette</mat-icon> Color Variations
+          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+            <mat-icon color="primary">palette</mat-icon> Color Variations
           </h3>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="p-4 rounded-lg border border-gray-200 bg-white flex flex-col items-center gap-3 hover:border-purple-200 transition-colors">
+            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
               <app-button [variant]="selectedVariant()" color="primary" [shape]="shape()" [size]="size()">Primary</app-button>
-              <code class="text-xs text-gray-400">color="primary"</code>
+              <code class="text-xs">color="primary"</code>
             </div>
-            <div class="p-4 rounded-lg border border-gray-200 bg-white flex flex-col items-center gap-3 hover:border-purple-200 transition-colors">
+            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
               <app-button [variant]="selectedVariant()" color="secondary" [shape]="shape()" [size]="size()">Secondary</app-button>
-              <code class="text-xs text-gray-400">color="secondary"</code>
+              <code class="text-xs">color="secondary"</code>
             </div>
-            <div class="p-4 rounded-lg border border-gray-200 bg-white flex flex-col items-center gap-3 hover:border-purple-200 transition-colors">
+            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
               <app-button [variant]="selectedVariant()" color="tertiary" [shape]="shape()" [size]="size()">Tertiary</app-button>
-              <code class="text-xs text-gray-400">color="tertiary"</code>
+              <code class="text-xs">color="tertiary"</code>
             </div>
           </div>
         </section>
-        <div class="bg-amber-50 border border-amber-100 rounded-xl p-6 flex gap-4">
-          <mat-icon class="text-amber-600 shrink-0">tips_and_updates</mat-icon>
+        <div class="alert-tip border rounded-xl p-6 flex gap-4">
+          <mat-icon class="shrink-0">tips_and_updates</mat-icon>
           <div>
-            <h3 class="font-bold text-amber-900 mb-2">Best Practices</h3>
-            <ul class="space-y-2 text-sm text-amber-800/90">
+            <h3 class="alert-title font-bold mb-2">Best Practices</h3>
+            <ul class="alert-content space-y-2 text-sm">
               <li class="flex gap-2">
-                <span class="font-bold text-amber-700">Jerarquía:</span>
+                <span class="alert-label">Jerarquía:</span>
                 Usa solo un botón de alto énfasis por sección.
               </li>
               <li class="flex gap-2">
-                <span class="font-bold text-amber-700">Consistencia:</span>
+                <span class="alert-label">Consistencia:</span>
                 Mantén el mismo variant para acciones similares.
               </li>
               <li class="flex gap-2">
-                <span class="font-bold text-amber-700">Diálogos:</span>
+                <span class="alert-label">Diálogos:</span>
                 Filled para confirmar, Outlined para cancelar.
               </li>
             </ul>
@@ -203,82 +203,82 @@
       }
     </aside>
   </div>
-  <section class="mt-12 pt-12 border-t-2 border-gray-200">
-    <div class="flex items-center gap-3 mb-8">
-      <div class="p-3 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-        <mat-icon class="text-blue-600 block">settings</mat-icon>
+  <section class="mt-12 pt-12 section-divider border-t-2">
+    <div class="api-section-header flex items-center gap-3 mb-8">
+      <div class="api-icon-container p-3 rounded-xl border">
+        <mat-icon class="block">settings</mat-icon>
       </div>
       <div>
-        <h2 class="text-3xl font-bold text-gray-900">API Reference</h2>
-        <p class="text-gray-500">Documentación completa de propiedades disponibles en <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono border border-gray-200">&lt;app-button&gt;</code></p>
+        <h2 class="api-title text-3xl font-bold">API Reference</h2>
+        <p class="api-description">Documentación completa de propiedades disponibles en <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-button&gt;</code></p>
       </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="p-5 rounded-xl border-2 border-gray-200 bg-white hover:shadow-lg hover:border-blue-300 transition-all">
+      <div class="api-card p-5 rounded-xl border-2">
         <div class="flex justify-between items-start mb-3">
-          <code class="text-blue-700 font-bold bg-blue-50 px-2.5 py-1.5 rounded-lg text-sm">variant</code>
-          <span class="text-xs font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded">{{ '@Input()' }}</span>
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">variant</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
         </div>
-        <p class="text-sm text-gray-600 mb-3 leading-relaxed">Controla el estilo visual del botón.</p>
-        <div class="text-xs font-mono text-gray-500 bg-gray-50 p-2.5 rounded-lg break-words border border-gray-100">
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Controla el estilo visual del botón.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg break-words border">
           'filled' | 'elevated' | 'outlined' | 'text' | 'tonal'
         </div>
-        <div class="mt-3 inline-block text-xs bg-green-50 text-green-700 font-semibold px-2.5 py-1 rounded-full border border-green-200">Default: 'filled'</div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'filled'</div>
       </div>
-      <div class="p-5 rounded-xl border-2 border-gray-200 bg-white hover:shadow-lg hover:border-blue-300 transition-all">
+      <div class="api-card p-5 rounded-xl border-2">
         <div class="flex justify-between items-start mb-3">
-          <code class="text-blue-700 font-bold bg-blue-50 px-2.5 py-1.5 rounded-lg text-sm">color</code>
-          <span class="text-xs font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded">{{ '@Input()' }}</span>
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">color</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
         </div>
-        <p class="text-sm text-gray-600 mb-3 leading-relaxed">Color semántico del tema.</p>
-        <div class="text-xs font-mono text-gray-500 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Color semántico del tema.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
           'primary' | 'secondary' | 'tertiary'
         </div>
-        <div class="mt-3 inline-block text-xs bg-green-50 text-green-700 font-semibold px-2.5 py-1 rounded-full border border-green-200">Default: 'primary'</div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'primary'</div>
       </div>
-      <div class="p-5 rounded-xl border-2 border-gray-200 bg-white hover:shadow-lg hover:border-blue-300 transition-all">
+      <div class="api-card p-5 rounded-xl border-2">
         <div class="flex justify-between items-start mb-3">
-          <code class="text-blue-700 font-bold bg-blue-50 px-2.5 py-1.5 rounded-lg text-sm">shape</code>
-          <span class="text-xs font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded">{{ '@Input()' }}</span>
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">shape</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
         </div>
-        <p class="text-sm text-gray-600 mb-3 leading-relaxed">Forma de las esquinas.</p>
-        <div class="text-xs font-mono text-gray-500 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Forma de las esquinas.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
           'rounded' | 'square'
         </div>
-        <div class="mt-3 inline-block text-xs bg-green-50 text-green-700 font-semibold px-2.5 py-1 rounded-full border border-green-200">Default: 'rounded'</div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'rounded'</div>
       </div>
-      <div class="p-5 rounded-xl border-2 border-gray-200 bg-white hover:shadow-lg hover:border-blue-300 transition-all">
+      <div class="api-card p-5 rounded-xl border-2">
         <div class="flex justify-between items-start mb-3">
-          <code class="text-blue-700 font-bold bg-blue-50 px-2.5 py-1.5 rounded-lg text-sm">size</code>
-          <span class="text-xs font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded">{{ '@Input()' }}</span>
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">size</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
         </div>
-        <p class="text-sm text-gray-600 mb-3 leading-relaxed">Tamaño del botón.</p>
-        <div class="text-xs font-mono text-gray-500 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Tamaño del botón.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
           'small' | 'medium' | 'large'
         </div>
-        <div class="mt-3 inline-block text-xs bg-green-50 text-green-700 font-semibold px-2.5 py-1 rounded-full border border-green-200">Default: 'medium'</div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'medium'</div>
       </div>
-      <div class="p-5 rounded-xl border-2 border-gray-200 bg-white hover:shadow-lg hover:border-blue-300 transition-all">
+      <div class="api-card p-5 rounded-xl border-2">
         <div class="flex justify-between items-start mb-3">
-          <code class="text-blue-700 font-bold bg-blue-50 px-2.5 py-1.5 rounded-lg text-sm">disabled</code>
-          <span class="text-xs font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded">{{ '@Input()' }}</span>
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">disabled</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
         </div>
-        <p class="text-sm text-gray-600 mb-3 leading-relaxed">Deshabilita la interacción.</p>
-        <div class="text-xs font-mono text-gray-500 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Deshabilita la interacción.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
           boolean
         </div>
-        <div class="mt-3 inline-block text-xs bg-green-50 text-green-700 font-semibold px-2.5 py-1 rounded-full border border-green-200">Default: false</div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
       </div>
-      <div class="p-5 rounded-xl border-2 border-gray-200 bg-white hover:shadow-lg hover:border-blue-300 transition-all">
+      <div class="api-card p-5 rounded-xl border-2">
         <div class="flex justify-between items-start mb-3">
-          <code class="text-blue-700 font-bold bg-blue-50 px-2.5 py-1.5 rounded-lg text-sm">iconBefore / iconAfter</code>
-          <span class="text-xs font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded">{{ '@Input()' }}</span>
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">iconBefore / iconAfter</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
         </div>
-        <p class="text-sm text-gray-600 mb-3 leading-relaxed">Nombre del icono Material Design.</p>
-        <div class="text-xs font-mono text-gray-500 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Nombre del icono Material Design.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
           string (ej: 'star', 'home')
         </div>
-        <div class="mt-3 inline-block text-xs bg-gray-100 text-gray-600 font-semibold px-2.5 py-1 rounded-full border border-gray-200">Optional</div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
       </div>
     </div>
   </section>
