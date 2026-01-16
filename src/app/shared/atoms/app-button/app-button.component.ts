@@ -22,7 +22,7 @@ import { ButtonColor, ButtonShape, ButtonSize, ButtonType } from './app-button.m
       }
       <ng-content />
       @if (iconAfter()) {
-        <mat-icon>{{ iconAfter() }}</mat-icon>
+        <mat-icon iconPositionEnd>{{ iconAfter() }}</mat-icon>
       }
     </button>
   `,

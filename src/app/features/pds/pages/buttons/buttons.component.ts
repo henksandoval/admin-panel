@@ -32,7 +32,6 @@ import {
 export default class ButtonsComponent {
   private readonly router = inject(Router);
 
-  // Playground signals
   selectedVariant = signal<MatButtonAppearance>('filled');
   selectedColor = signal<ButtonColor>('primary');
   shape = signal<ButtonShape>('rounded');
@@ -42,12 +41,10 @@ export default class ButtonsComponent {
   isDisabled = signal<boolean>(false);
   buttonLabel = signal<string>('Button Text');
 
-  // Computed: Guía de la variante seleccionada
   currentVariantGuide = computed(() => {
     return VARIANT_GUIDES.find(guide => guide.variant === this.selectedVariant());
   });
 
-  // Computed: Código HTML dinámico
   generatedCode = computed(() => {
     const variant = this.selectedVariant();
     const color = this.selectedColor();
@@ -57,9 +54,17 @@ export default class ButtonsComponent {
     const iconAfter = this.showIconAfter() ? 'arrow_forward' : undefined;
     const disabled = this.isDisabled();
 
+    const hasNonDefaultProps =
+      variant !== 'filled' ||
+      color !== 'primary' ||
+      shape !== 'rounded' ||
+      size !== 'medium' ||
+      iconBefore ||
+      iconAfter ||
+      disabled;
+
     let code = '<app-button';
 
-    // Solo agregar atributos si no son los valores por defecto
     if (variant !== 'filled') {
       code += `\n  variant="${variant}"`;
     }
@@ -82,14 +87,15 @@ export default class ButtonsComponent {
       code += `\n  [disabled]="true"`;
     }
 
-    code += `>\n  ${this.buttonLabel()}\n</app-button>`;
+    if (!hasNonDefaultProps) {
+      code += `>${this.buttonLabel()}</app-button>`;
+    } else {
+      code += `>\n  ${this.buttonLabel()}\n</app-button>`;
+    }
 
     return code;
   });
 
-  /**
-   * Retorna las clases CSS de Tailwind para el badge de énfasis
-   */
   getEmphasisBadgeClasses(emphasis: VariantGuide['emphasis']): string {
     const classMap = {
       high: 'bg-blue-100 text-blue-700',
@@ -99,9 +105,6 @@ export default class ButtonsComponent {
     return classMap[emphasis];
   }
 
-  /**
-   * Retorna las clases CSS de Tailwind para el borde lateral de la card
-   */
   getCardBorderClasses(emphasis: VariantGuide['emphasis']): string {
     const classMap = {
       high: 'border-l-4 border-l-blue-500',
@@ -111,58 +114,34 @@ export default class ButtonsComponent {
     return classMap[emphasis];
   }
 
-  /**
-   * Navega de regreso al índice del PDS
-   */
   goBack(): void {
     this.router.navigate(['/pds/index']);
   }
 
-  /**
-   * Actualiza la variante del botón
-   */
   setVariant(variant: MatButtonAppearance): void {
     this.selectedVariant.set(variant);
   }
 
-  /**
-   * Actualiza el color del botón
-   */
   setColor(color: ButtonColor): void {
     this.selectedColor.set(color);
   }
 
-  /**
-   * Actualiza la forma de todos los botones
-   */
   setShape(shape: ButtonShape): void {
     this.shape.set(shape);
   }
 
-  /**
-   * Actualiza el tamaño de todos los botones
-   */
   setSize(size: ButtonSize): void {
     this.size.set(size);
   }
 
-  /**
-   * Toggle icono antes del texto
-   */
   toggleIconBefore(): void {
     this.showIconBefore.update(value => !value);
   }
 
-  /**
-   * Toggle icono después del texto
-   */
   toggleIconAfter(): void {
     this.showIconAfter.update(value => !value);
   }
 
-  /**
-   * Toggle estado deshabilitado
-   */
   toggleDisabled(): void {
     this.isDisabled.update(value => !value);
   }

@@ -1,9 +1,6 @@
 import { MatButtonAppearance } from '@angular/material/button';
 import { ButtonColor } from '@shared/atoms/app-button/app-button.model';
 
-/**
- * Configuración de un botón de ejemplo
- */
 export interface ButtonConfig {
   readonly variant: MatButtonAppearance;
   readonly color: ButtonColor;
@@ -13,9 +10,6 @@ export interface ButtonConfig {
   readonly iconAfter?: string;
 }
 
-/**
- * Ejemplo de uso con código y demostración
- */
 export interface UsageExample {
   readonly title: string;
   readonly description: string;
@@ -23,9 +17,6 @@ export interface UsageExample {
   readonly demo?: ButtonConfig;
 }
 
-/**
- * Guía completa de una variante de botón
- */
 export interface VariantGuide {
   readonly variant: MatButtonAppearance;
   readonly title: string;
@@ -34,88 +25,6 @@ export interface VariantGuide {
   readonly examples: string[];
   readonly emphasis: 'high' | 'medium' | 'low';
 }
-
-/**
- * Ejemplos de botones con iconos
- */
-export const ICON_EXAMPLES: ButtonConfig[] = [
-  { variant: 'filled', color: 'primary', label: 'Save', disabled: false, iconBefore: 'save' },
-  { variant: 'filled', color: 'primary', label: 'Next', disabled: false, iconAfter: 'arrow_forward' },
-  { variant: 'outlined', color: 'secondary', label: 'Download', disabled: false, iconBefore: 'download' },
-  { variant: 'text', color: 'primary', label: 'Learn More', disabled: false, iconAfter: 'open_in_new' },
-  { variant: 'elevated', color: 'tertiary', label: 'Delete', disabled: false, iconBefore: 'delete' },
-  { variant: 'tonal', color: 'secondary', label: 'Edit', disabled: false, iconBefore: 'edit' },
-];
-
-/**
- * Casos de uso comunes en aplicaciones empresariales
- */
-export const COMMON_USE_CASES: ButtonConfig[] = [
-  { variant: 'filled', color: 'primary', label: 'Save Changes', disabled: false, iconBefore: 'save' },
-  { variant: 'outlined', color: 'secondary', label: 'Cancel', disabled: false },
-  { variant: 'text', color: 'primary', label: 'Back', disabled: false, iconBefore: 'arrow_back' },
-  { variant: 'tonal', color: 'tertiary', label: 'Delete Item', disabled: false, iconBefore: 'delete' },
-  { variant: 'elevated', color: 'primary', label: 'Upload File', disabled: false, iconBefore: 'upload' },
-  { variant: 'filled', color: 'secondary', label: 'Submit Form', disabled: false, iconAfter: 'send' },
-];
-
-/**
- * Ejemplos de código para desarrolladores
- */
-export const USAGE_EXAMPLES: UsageExample[] = [
-  {
-    title: 'Uso Básico',
-    description: 'El uso más simple con todos los valores por defecto',
-    code: '<app-button>Click me</app-button>',
-    demo: { variant: 'filled', color: 'primary', label: 'Click me', disabled: false }
-  },
-  {
-    title: 'Cambiar Variante',
-    description: 'Personaliza solo la apariencia del botón',
-    code: '<app-button variant="outlined">Outlined Button</app-button>',
-    demo: { variant: 'outlined', color: 'primary', label: 'Outlined Button', disabled: false }
-  },
-  {
-    title: 'Cambiar Color',
-    description: 'Usa diferentes colores del sistema de diseño',
-    code: '<app-button color="secondary">Secondary</app-button>',
-    demo: { variant: 'filled', color: 'secondary', label: 'Secondary', disabled: false }
-  },
-  {
-    title: 'Con Icono Antes',
-    description: 'Agrega un icono antes del texto',
-    code: '<app-button iconBefore="save">Save</app-button>',
-    demo: { variant: 'filled', color: 'primary', label: 'Save', disabled: false, iconBefore: 'save' }
-  },
-  {
-    title: 'Con Icono Después',
-    description: 'Agrega un icono después del texto',
-    code: '<app-button iconAfter="arrow_forward">Next</app-button>',
-    demo: { variant: 'filled', color: 'primary', label: 'Next', disabled: false, iconAfter: 'arrow_forward' }
-  },
-  {
-    title: 'Botón Deshabilitado',
-    description: 'Deshabilita la interacción del botón',
-    code: '<app-button [disabled]="true">Disabled</app-button>',
-    demo: { variant: 'filled', color: 'primary', label: 'Disabled', disabled: true }
-  },
-  {
-    title: 'Personalización Completa',
-    description: 'Combina múltiples propiedades',
-    code: '<app-button\n  variant="elevated"\n  color="tertiary"\n  iconBefore="delete">\n  Delete\n</app-button>',
-    demo: { variant: 'elevated', color: 'tertiary', label: 'Delete', disabled: false, iconBefore: 'delete' }
-  },
-  {
-    title: 'Formulario Submit',
-    description: 'Botón para enviar formularios',
-    code: '<app-button type="submit" iconAfter="send">Submit</app-button>',
-    demo: { variant: 'filled', color: 'primary', label: 'Submit', disabled: false, iconAfter: 'send' }
-  }
-];
-
-/**
- * Guías detalladas de cuándo usar cada variante de botón
- */
 export const VARIANT_GUIDES: VariantGuide[] = [
   {
     variant: 'filled',
@@ -208,4 +117,3 @@ export const VARIANT_GUIDES: VariantGuide[] = [
     ]
   }
 ];
-
