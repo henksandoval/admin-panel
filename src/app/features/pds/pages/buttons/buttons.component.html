@@ -26,8 +26,8 @@
               [shape]="shape()"
               [size]="size()"
               [disabled]="isDisabled()"
-              [iconBefore]="showIconBefore() ? 'star' : undefined"
-              [iconAfter]="showIconAfter() ? 'arrow_forward' : undefined">
+              [iconBefore]="showIconBefore() ? 'star' : ''"
+              [iconAfter]="showIconAfter() ? 'arrow_forward' : ''">
               {{ buttonLabel() }}
             </app-button>
           </div>
@@ -45,8 +45,7 @@
             </label>
             <mat-button-toggle-group
               [value]="selectedVariant()"
-              (change)="setVariant($event.value)"
-              class="w-full flex flex-wrap">
+              (change)="setVariant($event.value)">
               <mat-button-toggle value="filled">Filled</mat-button-toggle>
               <mat-button-toggle value="elevated">Elevated</mat-button-toggle>
               <mat-button-toggle value="tonal">Tonal</mat-button-toggle>
@@ -77,8 +76,7 @@
               </label>
               <mat-button-toggle-group
                 [value]="shape()"
-                (change)="setShape($event.value)"
-                class="w-full">
+                (change)="setShape($event.value)">
                 <mat-button-toggle value="rounded">Rounded</mat-button-toggle>
                 <mat-button-toggle value="square">Square</mat-button-toggle>
               </mat-button-toggle-group>
@@ -91,8 +89,7 @@
               </label>
               <mat-button-toggle-group
                 [value]="size()"
-                (change)="setSize($event.value)"
-                class="w-full">
+                (change)="setSize($event.value)">
                 <mat-button-toggle value="small">Small</mat-button-toggle>
                 <mat-button-toggle value="medium">Medium</mat-button-toggle>
                 <mat-button-toggle value="large">Large</mat-button-toggle>
