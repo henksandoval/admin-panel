@@ -2,7 +2,7 @@ import { Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatButtonAppearance } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ButtonColor, ButtonShape, ButtonSize, ButtonType } from './app-button.model';
+import {BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize, ButtonType} from './app-button.model';
 
 @Component({
   selector: 'app-button',
@@ -29,12 +29,12 @@ import { ButtonColor, ButtonShape, ButtonSize, ButtonType } from './app-button.m
   styleUrls: ['./app-button.component.scss']
 })
 export class AppButtonComponent {
-  variant = input<MatButtonAppearance>('filled');
-  color = input<ButtonColor>('primary');
-  shape = input<ButtonShape>('rounded');
-  size = input<ButtonSize>('medium');
-  type = input<ButtonType>('button');
-  disabled = input<boolean>(false);
+  variant = input<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
+  color = input<ButtonColor>(BUTTON_DEFAULTS.color);
+  shape = input<ButtonShape>(BUTTON_DEFAULTS.shape);
+  size = input<ButtonSize>(BUTTON_DEFAULTS.size);
+  type = input<ButtonType>(BUTTON_DEFAULTS.type);
+  disabled = input<boolean>(BUTTON_DEFAULTS.disabled);
   iconBefore = input<string>();
   iconAfter = input<string>();
   ariaLabel = input<string>();
@@ -44,11 +44,11 @@ export class AppButtonComponent {
   buttonClasses = computed(() => {
     const classes: string[] = [];
 
-    if (this.shape() !== 'rounded') {
+    if (this.shape() !== BUTTON_DEFAULTS.shape) {
       classes.push(`btn-shape-${this.shape()}`);
     }
 
-    if (this.size() !== 'medium') {
+    if (this.size() !== BUTTON_DEFAULTS.size) {
       classes.push(`btn-size-${this.size()}`);
     }
 

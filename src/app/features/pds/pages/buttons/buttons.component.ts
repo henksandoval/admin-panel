@@ -1,5 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,18 +8,16 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
-import { ButtonShape, ButtonSize, ButtonColor } from '@shared/atoms/app-button/app-button.model';
+import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
-import {
-  VARIANT_GUIDES,
-  type VariantGuide
-} from './buttons.data';
+import { VARIANT_GUIDES, type VariantGuide } from './buttons.data';
 
 @Component({
   selector: 'app-buttons',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -32,13 +31,13 @@ import {
 export default class ButtonsComponent {
   private readonly router = inject(Router);
 
-  selectedVariant = signal<MatButtonAppearance>('filled');
-  selectedColor = signal<ButtonColor>('primary');
-  shape = signal<ButtonShape>('rounded');
-  size = signal<ButtonSize>('medium');
+  selectedVariant = signal<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
+  selectedColor = signal<ButtonColor>(BUTTON_DEFAULTS.color);
+  shape = signal<ButtonShape>(BUTTON_DEFAULTS.shape);
+  size = signal<ButtonSize>(BUTTON_DEFAULTS.size);
   showIconBefore = signal<boolean>(false);
   showIconAfter = signal<boolean>(false);
-  isDisabled = signal<boolean>(false);
+  isDisabled = signal<boolean>(BUTTON_DEFAULTS.disabled);
   buttonLabel = signal<string>('Button Text');
 
   currentVariantGuide = computed(() => {
@@ -55,26 +54,26 @@ export default class ButtonsComponent {
     const disabled = this.isDisabled();
 
     const hasNonDefaultProps =
-      variant !== 'filled' ||
-      color !== 'primary' ||
-      shape !== 'rounded' ||
-      size !== 'medium' ||
+      variant !== BUTTON_DEFAULTS.variant ||
+      color !== BUTTON_DEFAULTS.color ||
+      shape !== BUTTON_DEFAULTS.shape ||
+      size !== BUTTON_DEFAULTS.size ||
       iconBefore ||
       iconAfter ||
-      disabled;
+      disabled !== BUTTON_DEFAULTS.disabled;
 
     let code = '<app-button';
 
-    if (variant !== 'filled') {
+    if (variant !== BUTTON_DEFAULTS.variant) {
       code += `\n  variant="${variant}"`;
     }
-    if (color !== 'primary') {
+    if (color !== BUTTON_DEFAULTS.color) {
       code += `\n  color="${color}"`;
     }
-    if (shape !== 'rounded') {
+    if (shape !== BUTTON_DEFAULTS.shape) {
       code += `\n  shape="${shape}"`;
     }
-    if (size !== 'medium') {
+    if (size !== BUTTON_DEFAULTS.size) {
       code += `\n  size="${size}"`;
     }
     if (iconBefore) {
@@ -83,7 +82,7 @@ export default class ButtonsComponent {
     if (iconAfter) {
       code += `\n  iconAfter="${iconAfter}"`;
     }
-    if (disabled) {
+    if (disabled !== BUTTON_DEFAULTS.disabled) {
       code += `\n  [disabled]="true"`;
     }
 
@@ -116,33 +115,5 @@ export default class ButtonsComponent {
 
   goBack(): void {
     this.router.navigate(['/pds/index']);
-  }
-
-  setVariant(variant: MatButtonAppearance): void {
-    this.selectedVariant.set(variant);
-  }
-
-  setColor(color: ButtonColor): void {
-    this.selectedColor.set(color);
-  }
-
-  setShape(shape: ButtonShape): void {
-    this.shape.set(shape);
-  }
-
-  setSize(size: ButtonSize): void {
-    this.size.set(size);
-  }
-
-  toggleIconBefore(): void {
-    this.showIconBefore.update(value => !value);
-  }
-
-  toggleIconAfter(): void {
-    this.showIconAfter.update(value => !value);
-  }
-
-  toggleDisabled(): void {
-    this.isDisabled.update(value => !value);
   }
 }
