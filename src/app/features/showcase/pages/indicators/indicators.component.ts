@@ -38,63 +38,70 @@ export class IndicatorsComponent {
   }
 
   get codeExample(): string {
-    return `// ===== matBadge (Angular Material - Overlays) =====
-// Use for: notifications, counters on icons
+    return `// ===== app-badge Component (Sistema Unificado) =====
+// Los desarrolladores SIEMPRE deben usar app-badge, no matBadge directo
 
-// Badge with notification count
-<button mat-icon-button matBadge="8" matBadgeColor="warn">
-  <mat-icon>notifications</mat-icon>
-</button>
+// ===== Overlay Badges (Notificaciones sobre iconos) =====
+// El componente gestiona internamente el matBadge de Angular Material
 
-// Badge with custom positioning
-<button mat-icon-button matBadge="3" matBadgePosition="below after" matBadgeColor="accent">
-  <mat-icon>mail</mat-icon>
-</button>
+// Badge básico con contador
+<app-badge variant="overlay" [content]="8" color="warn">
+  <button mat-icon-button>
+    <mat-icon>notifications</mat-icon>
+  </button>
+</app-badge>
 
-// Badge with text content (not recommended for labels)
-<span matBadge="NEW" matBadgeOverlap="false" matBadgeColor="primary">
-  New Feature Available
-</span>
+// Badge con posicionamiento personalizado
+<app-badge variant="overlay" content="3" position="below after" color="accent">
+  <button mat-icon-button>
+    <mat-icon>mail</mat-icon>
+  </button>
+</app-badge>
+
+// Badge con texto (no recomendado para etiquetas)
+<app-badge variant="overlay" content="NEW" [overlap]="false" color="primary">
+  <span>New Feature Available</span>
+</app-badge>
+
+// Badge condicional (oculto cuando es 0)
+<app-badge variant="overlay" [content]="count" [hidden]="count === 0" color="warn">
+  <button mat-icon-button><mat-icon>notifications</mat-icon></button>
+</app-badge>
 
 
-// ===== app-badge Component (Unified System) =====
-// Use for: status labels, tags, navigation badges
+// ===== Inline Badges (Etiquetas y estados) =====
+// Para etiquetas, estados y navegación
 
-// Inline badges - Basic semantic variants
+// Variantes semánticas básicas
 <app-badge variant="inline" color="normal">Count: 3</app-badge>
 <app-badge variant="inline" color="info">Info</app-badge>
 <app-badge variant="inline" color="success">Active</app-badge>
 <app-badge variant="inline" color="warning">Pending</app-badge>
 <app-badge variant="inline" color="error">Critical</app-badge>
 
-// Inline badges with alert indicator (!)
+// Con indicador de alerta (!)
 <app-badge variant="inline" color="warning" [hasIndicator]="true">Action Required</app-badge>
 <app-badge variant="inline" color="error" [hasIndicator]="true">Urgent</app-badge>
 
-// In navigation (sidebar)
+// En navegación (sidebar)
 <div class="flex items-center gap-3">
   <mat-icon>dashboard</mat-icon>
   <span class="flex-1">Dashboard</span>
   <app-badge variant="inline" color="normal">5</app-badge>
 </div>
 
-// As status labels
+// Como etiquetas de estado
 <app-badge variant="inline" color="info">NEW</app-badge> Feature announcement
 
-// Overlay badges (wraps content with matBadge)
-<app-badge variant="overlay" [content]="8" color="warn">
-  <button mat-icon-button><mat-icon>notifications</mat-icon></button>
-</app-badge>
 
+// ===== Otros Componentes =====
 
-// ===== Other Components =====
-
-// Divider variations
+// Variaciones de dividers
 <mat-divider></mat-divider>
 <mat-divider [vertical]="true"></mat-divider>
 <mat-divider [inset]="true"></mat-divider>
 
-// Advanced tooltips
+// Tooltips avanzados
 <button mat-raised-button
         matTooltip="This tooltip appears after 1 second"
         matTooltipShowDelay="1000"

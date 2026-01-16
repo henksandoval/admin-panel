@@ -37,12 +37,16 @@
             <strong>Overlays</strong> sobre elementos. Perfecto para notificaciones en iconos.
           </p>
           <div class="flex gap-4 mb-3">
-            <button mat-icon-button matBadge="3" matBadgeColor="warn">
-              <mat-icon>notifications</mat-icon>
-            </button>
-            <button mat-icon-button matBadge="12" matBadgeColor="accent">
-              <mat-icon>mail</mat-icon>
-            </button>
+            <app-badge variant="overlay" content="3" color="warn">
+              <button mat-icon-button>
+                <mat-icon>notifications</mat-icon>
+              </button>
+            </app-badge>
+            <app-badge variant="overlay" content="12" color="accent">
+              <button mat-icon-button>
+                <mat-icon>mail</mat-icon>
+              </button>
+            </app-badge>
           </div>
           <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
             <div>✅ Notificaciones en toolbar</div>
@@ -82,8 +86,8 @@
   <!-- matBadge Examples -->
   <mat-card class="mb-8 shadow-lg">
     <mat-card-header>
-      <mat-card-title class="text-xl font-semibold">matBadge (Angular Material)</mat-card-title>
-      <mat-card-subtitle>Overlays for notifications and counters on icons</mat-card-subtitle>
+      <mat-card-title class="text-xl font-semibold">app-badge variant="overlay" (Wraps matBadge)</mat-card-title>
+      <mat-card-subtitle>Overlay badges for notifications and counters on icons - Always use app-badge component</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="p-6">
       <div class="space-y-6">
@@ -92,21 +96,27 @@
           <h3 class="text-lg font-medium mb-3">Basic Badges</h3>
           <div class="badge-demo-section flex flex-wrap gap-4">
             <div class="demo-badge-item">
-              <button mat-icon-button matBadge="{{notificationCount}}" matBadgeColor="warn">
-                <mat-icon>notifications</mat-icon>
-              </button>
+              <app-badge variant="overlay" [content]="notificationCount" color="warn">
+                <button mat-icon-button>
+                  <mat-icon>notifications</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Notifications</p>
             </div>
             <div class="demo-badge-item">
-              <button mat-icon-button matBadge="{{messageCount}}" matBadgeColor="accent">
-                <mat-icon>mail</mat-icon>
-              </button>
+              <app-badge variant="overlay" [content]="messageCount" color="accent">
+                <button mat-icon-button>
+                  <mat-icon>mail</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Messages</p>
             </div>
             <div class="demo-badge-item">
-              <button mat-icon-button matBadge="{{cartItems}}" matBadgeColor="primary">
-                <mat-icon>shopping_cart</mat-icon>
-              </button>
+              <app-badge variant="overlay" [content]="cartItems" color="primary">
+                <button mat-icon-button>
+                  <mat-icon>shopping_cart</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Cart Items</p>
             </div>
           </div>
@@ -117,27 +127,35 @@
           <h3 class="text-lg font-medium mb-3">Badge Positions</h3>
           <div class="badge-demo-section flex flex-wrap gap-4">
             <div class="demo-badge-item">
-              <button mat-icon-button matBadge="1" matBadgePosition="above before" matBadgeColor="warn">
-                <mat-icon>star</mat-icon>
-              </button>
+              <app-badge variant="overlay" content="1" position="above before" color="warn">
+                <button mat-icon-button>
+                  <mat-icon>star</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Above Before</p>
             </div>
             <div class="demo-badge-item">
-              <button mat-icon-button matBadge="2" matBadgePosition="above after" matBadgeColor="warn">
-                <mat-icon>star</mat-icon>
-              </button>
+              <app-badge variant="overlay" content="2" position="above after" color="warn">
+                <button mat-icon-button>
+                  <mat-icon>star</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Above After</p>
             </div>
             <div class="demo-badge-item">
-              <button mat-icon-button matBadge="3" matBadgePosition="below before" matBadgeColor="warn">
-                <mat-icon>star</mat-icon>
-              </button>
+              <app-badge variant="overlay" content="3" position="below before" color="warn">
+                <button mat-icon-button>
+                  <mat-icon>star</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Below Before</p>
             </div>
             <div class="demo-badge-item">
-              <button mat-icon-button matBadge="4" matBadgePosition="below after" matBadgeColor="warn">
-                <mat-icon>star</mat-icon>
-              </button>
+              <app-badge variant="overlay" content="4" position="below after" color="warn">
+                <button mat-icon-button>
+                  <mat-icon>star</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Below After</p>
             </div>
           </div>
@@ -148,19 +166,25 @@
           <h3 class="text-lg font-medium mb-3">Badge Variants</h3>
           <div class="badge-demo-section flex flex-wrap gap-6">
             <div class="demo-badge-item">
-              <span matBadge="NEW" matBadgeOverlap="false" matBadgeColor="primary" class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                New Feature Available
-              </span>
+              <app-badge variant="overlay" content="NEW" [overlap]="false" color="primary">
+                <span class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                  New Feature Available
+                </span>
+              </app-badge>
             </div>
             <div class="demo-badge-item">
-              <span matBadge="HOT" matBadgeOverlap="false" matBadgeColor="warn" class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                Popular Item
-              </span>
+              <app-badge variant="overlay" content="HOT" [overlap]="false" color="warn">
+                <span class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                  Popular Item
+                </span>
+              </app-badge>
             </div>
             <div class="demo-badge-item">
-              <span matBadge="99+" matBadgeOverlap="false" matBadgeColor="accent" class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                Inbox
-              </span>
+              <app-badge variant="overlay" content="99+" [overlap]="false" color="accent">
+                <span class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                  Inbox
+                </span>
+              </app-badge>
             </div>
           </div>
         </div>
@@ -170,15 +194,19 @@
           <h3 class="text-lg font-medium mb-3">Conditional Badges</h3>
           <div class="badge-demo-section flex flex-wrap gap-4">
             <div class="demo-badge-item">
-              <button mat-icon-button [matBadge]="notificationCount > 0 ? notificationCount : null" matBadgeColor="warn">
-                <mat-icon>notifications</mat-icon>
-              </button>
+              <app-badge variant="overlay" [content]="notificationCount" [hidden]="notificationCount === 0" color="warn">
+                <button mat-icon-button>
+                  <mat-icon>notifications</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Shows when > 0</p>
             </div>
             <div class="demo-badge-item">
-              <button mat-icon-button [matBadge]="0 > 0 ? 0 : null" matBadgeColor="warn">
-                <mat-icon>notifications_off</mat-icon>
-              </button>
+              <app-badge variant="overlay" content="0" [hidden]="true" color="warn">
+                <button mat-icon-button>
+                  <mat-icon>notifications_off</mat-icon>
+                </button>
+              </app-badge>
               <p class="text-xs mt-1 text-center">Hidden when 0</p>
             </div>
           </div>
@@ -190,7 +218,7 @@
   <!-- Custom app-badge -->
   <mat-card class="mb-8 shadow-lg">
     <mat-card-header>
-      <mat-card-title class="text-xl font-semibold">app-badge (Custom System)</mat-card-title>
+      <mat-card-title class="text-xl font-semibold">app-badge variant="inline" (Custom CSS)</mat-card-title>
       <mat-card-subtitle>Inline badges for labels, status, and categories</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="p-6">
