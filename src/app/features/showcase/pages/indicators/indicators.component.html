@@ -211,6 +211,43 @@
             </div>
           </div>
         </div>
+
+        <!-- Real-time badges -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">🔴 Real-time Badges (Live Updates Every 2s)</h3>
+          <div class="mb-3 p-3 rounded-lg" style="background-color: var(--mat-sys-tertiary-container);">
+            <p class="text-sm" style="color: var(--mat-sys-on-tertiary-container);">
+              💡 Los badges se actualizan automáticamente cuando cambian los valores del componente.
+              Estos contadores se incrementan cada 2 segundos usando un <code>setInterval</code>.
+            </p>
+          </div>
+          <div class="badge-demo-section flex flex-wrap gap-4">
+            <div class="demo-badge-item">
+              <app-badge variant="overlay" [content]="realtimeCounter" color="primary">
+                <button mat-icon-button>
+                  <mat-icon>timer</mat-icon>
+                </button>
+              </app-badge>
+              <p class="text-xs mt-1 text-center">Counter: {{ realtimeCounter }}</p>
+            </div>
+            <div class="demo-badge-item">
+              <app-badge variant="overlay" [content]="simulatedOrders" color="accent">
+                <button mat-icon-button>
+                  <mat-icon>shopping_bag</mat-icon>
+                </button>
+              </app-badge>
+              <p class="text-xs mt-1 text-center">Orders: {{ simulatedOrders }}</p>
+            </div>
+            <div class="demo-badge-item">
+              <app-badge variant="overlay" [content]="liveNotifications" [hidden]="liveNotifications === 0" color="warn">
+                <button mat-icon-button>
+                  <mat-icon>notifications_active</mat-icon>
+                </button>
+              </app-badge>
+              <p class="text-xs mt-1 text-center">Live: {{ liveNotifications }}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
@@ -285,6 +322,59 @@
             <div class="flex items-center gap-2">
               <app-badge variant="inline" color="info">HOT</app-badge>
               <span>Most popular dashboard</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-time inline badges -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">🔴 Real-time Inline Badges (Custom CSS)</h3>
+          <div class="mb-3 p-3 rounded-lg" style="background-color: var(--mat-sys-tertiary-container);">
+            <p class="text-sm" style="color: var(--mat-sys-on-tertiary-container);">
+              💡 Los badges inline también soportan actualizaciones en tiempo real.
+              Perfectos para contadores en navegación, dashboards y paneles de control.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <!-- Counters -->
+            <div class="flex flex-wrap gap-3 items-center">
+              <span class="text-sm font-medium">Contadores dinámicos:</span>
+              <app-badge variant="inline" color="info">{{ realtimeCounter }}</app-badge>
+              <app-badge variant="inline" color="success">Orders: {{ simulatedOrders }}</app-badge>
+              <app-badge variant="inline" color="warning">Pending: {{ liveNotifications }}</app-badge>
+            </div>
+
+            <!-- Conditional with indicator -->
+            <div class="flex flex-wrap gap-3 items-center">
+              <span class="text-sm font-medium">Con indicador (!) cuando > 5:</span>
+              <app-badge variant="inline" color="error" [hasIndicator]="simulatedOrders > 5">
+                Critical: {{ simulatedOrders }}
+              </app-badge>
+              <app-badge variant="inline" color="warning" [hasIndicator]="liveNotifications > 10">
+                Alerts: {{ liveNotifications }}
+              </app-badge>
+            </div>
+
+            <!-- Navigation-style with live data -->
+            <div>
+              <p class="text-sm font-medium mb-2">En contexto de navegación:</p>
+              <div class="space-y-2 max-w-md">
+                <div class="flex items-center gap-3 p-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                  <mat-icon class="text-sm">timeline</mat-icon>
+                  <span class="flex-1 text-sm">Activity Monitor</span>
+                  <app-badge variant="inline" color="normal">{{ realtimeCounter }}</app-badge>
+                </div>
+                <div class="flex items-center gap-3 p-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                  <mat-icon class="text-sm">inventory_2</mat-icon>
+                  <span class="flex-1 text-sm">Pending Orders</span>
+                  <app-badge variant="inline" color="info" [hasIndicator]="simulatedOrders > 5">{{ simulatedOrders }}</app-badge>
+                </div>
+                <div class="flex items-center gap-3 p-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
+                  <mat-icon class="text-sm">notifications_active</mat-icon>
+                  <span class="flex-1 text-sm">Live Notifications</span>
+                  <app-badge variant="inline" color="warning" [hasIndicator]="liveNotifications > 0">{{ liveNotifications }}</app-badge>
+                </div>
+              </div>
             </div>
           </div>
         </div>
