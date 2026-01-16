@@ -7,12 +7,13 @@
     </button>
 
     <div class="mb-6">
-      <h1 class="text-4xl font-bold mb-3">Button Component</h1>
+      <h1 class="text-4xl font-bold mb-3">Button Component Playground</h1>
       <p class="text-lg text-gray-600 mb-4">
-        Componente wrapper de Angular Material que simplifica la creación de botones con valores por defecto inteligentes.
+        Experimenta con diferentes configuraciones del componente <code class="bg-gray-100 px-2 py-1 rounded text-sm">&lt;app-button&gt;</code>
+        y observa cómo cambia la documentación en tiempo real.
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
           <div class="flex items-center gap-2 mb-2">
             <mat-icon class="text-blue-600">check_circle</mat-icon>
@@ -38,290 +39,309 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Interactive Controls -->
-    <mat-card appearance="outlined" class="mb-6">
-      <mat-card-content class="p-6">
-        <h3 class="text-lg font-semibold mb-4">🎮 Controles Interactivos</h3>
-        <p class="text-sm text-gray-600 mb-4">
-          Modifica estos controles para ver cómo cambian todos los botones en esta página en tiempo real.
-        </p>
-        <div class="flex flex-wrap items-center gap-6">
-          <div class="flex items-center gap-3">
-            <mat-icon class="text-gray-500">category</mat-icon>
-            <span class="font-medium">Shape:</span>
-            <mat-button-toggle-group [value]="shape()" (change)="setShape($event.value)">
-              <mat-button-toggle value="square">Square</mat-button-toggle>
-              <mat-button-toggle value="rounded">Rounded</mat-button-toggle>
+  <!-- Main Playground Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+    <!-- LEFT COLUMN: Interactive Playground -->
+    <div class="space-y-6">
+      <!-- Preview Area -->
+      <mat-card appearance="outlined" class="bg-gradient-to-br from-gray-50 to-gray-100">
+        <mat-card-content class="p-8">
+          <h3 class="text-lg font-semibold mb-6 text-center">🎨 Live Preview</h3>
+          <div class="flex items-center justify-center min-h-[120px] bg-white rounded-lg border-2 border-dashed border-gray-300 p-8">
+            <app-button
+              [variant]="selectedVariant()"
+              [color]="selectedColor()"
+              [shape]="shape()"
+              [size]="size()"
+              [disabled]="isDisabled()"
+              [iconBefore]="showIconBefore() ? 'star' : undefined"
+              [iconAfter]="showIconAfter() ? 'arrow_forward' : undefined">
+              {{ buttonLabel() }}
+            </app-button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Controls Panel -->
+      <mat-card appearance="outlined">
+        <mat-card-content class="p-6">
+          <h3 class="text-lg font-semibold mb-4">🎮 Controls</h3>
+
+          <!-- Variant Selector -->
+          <div class="mb-6">
+            <label class="flex items-center gap-2 font-medium mb-2">
+              <mat-icon class="text-gray-500 text-lg">category</mat-icon>
+              <span>Variant</span>
+            </label>
+            <mat-button-toggle-group
+              [value]="selectedVariant()"
+              (change)="setVariant($event.value)"
+              class="w-full flex flex-wrap">
+              <mat-button-toggle value="filled">Filled</mat-button-toggle>
+              <mat-button-toggle value="elevated">Elevated</mat-button-toggle>
+              <mat-button-toggle value="tonal">Tonal</mat-button-toggle>
+              <mat-button-toggle value="outlined">Outlined</mat-button-toggle>
+              <mat-button-toggle value="text">Text</mat-button-toggle>
             </mat-button-toggle-group>
           </div>
 
-          <div class="flex items-center gap-3">
-            <mat-icon class="text-gray-500">straighten</mat-icon>
-            <span class="font-medium">Size:</span>
-            <mat-button-toggle-group [value]="size()" (change)="setSize($event.value)">
+          <!-- Color Selector -->
+          <div class="mb-6">
+            <label class="flex items-center gap-2 font-medium mb-2">
+              <mat-icon class="text-gray-500 text-lg">palette</mat-icon>
+              <span>Color</span>
+            </label>
+            <mat-button-toggle-group
+              [value]="selectedColor()"
+              (change)="setColor($event.value)">
+              <mat-button-toggle value="primary">Primary</mat-button-toggle>
+              <mat-button-toggle value="secondary">Secondary</mat-button-toggle>
+              <mat-button-toggle value="tertiary">Tertiary</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <!-- Shape Selector -->
+          <div class="mb-6">
+            <label class="flex items-center gap-2 font-medium mb-2">
+              <mat-icon class="text-gray-500 text-lg">crop_square</mat-icon>
+              <span>Shape</span>
+            </label>
+            <mat-button-toggle-group
+              [value]="shape()"
+              (change)="setShape($event.value)">
+              <mat-button-toggle value="rounded">Rounded</mat-button-toggle>
+              <mat-button-toggle value="square">Square</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <!-- Size Selector -->
+          <div class="mb-6">
+            <label class="flex items-center gap-2 font-medium mb-2">
+              <mat-icon class="text-gray-500 text-lg">straighten</mat-icon>
+              <span>Size</span>
+            </label>
+            <mat-button-toggle-group
+              [value]="size()"
+              (change)="setSize($event.value)">
               <mat-button-toggle value="small">Small</mat-button-toggle>
               <mat-button-toggle value="medium">Medium</mat-button-toggle>
               <mat-button-toggle value="large">Large</mat-button-toggle>
             </mat-button-toggle-group>
           </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
 
-  <!-- Guía de Variantes - MOVED UP -->
-  <div class="mb-8">
-    <h2 class="text-2xl font-bold mb-4">📘 When to Use Each Variant</h2>
-    <p class="text-base text-gray-600 mb-6">
-      Cada variante de botón tiene un propósito específico basado en jerarquía visual y contexto. Sigue estas guías para crear interfaces consistentes y claras.
-    </p>
+          <!-- Checkboxes -->
+          <div class="space-y-3 pt-4 border-t border-gray-200">
+            <div class="flex items-center">
+              <mat-checkbox
+                [checked]="showIconBefore()"
+                (change)="toggleIconBefore()">
+                Show Icon Before (star)
+              </mat-checkbox>
+            </div>
+            <div class="flex items-center">
+              <mat-checkbox
+                [checked]="showIconAfter()"
+                (change)="toggleIconAfter()">
+                Show Icon After (arrow_forward)
+              </mat-checkbox>
+            </div>
+            <div class="flex items-center">
+              <mat-checkbox
+                [checked]="isDisabled()"
+                (change)="toggleDisabled()">
+                Disabled State
+              </mat-checkbox>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
 
-    <div class="grid grid-cols-1 gap-4">
-      @for (guide of variantGuides; track guide.variant) {
+      <!-- Generated Code -->
+      <mat-card appearance="outlined" class="bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200">
+        <mat-card-content class="p-6">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold flex items-center gap-2">
+              <mat-icon class="text-indigo-600">code</mat-icon>
+              Generated Code
+            </h3>
+          </div>
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>{{ generatedCode() }}</code></pre>
+          <p class="text-xs text-gray-600 mt-3">
+            💡 Copia este código y úsalo directamente en tu aplicación. Solo incluye las propiedades que difieren de los defaults.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- RIGHT COLUMN: Dynamic Documentation -->
+    <div class="space-y-6">
+      @if (currentVariantGuide(); as guide) {
+        <!-- Variant Information Card -->
         <mat-card appearance="outlined" [class]="getCardBorderClasses(guide.emphasis)">
           <mat-card-content class="p-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <!-- Información Principal -->
-              <div class="lg:col-span-2">
-                <div class="flex items-start gap-3 mb-4">
-                  <div
-                    [class]="getEmphasisBadgeClasses(guide.emphasis)"
-                    class="px-3 py-1 rounded-full text-xs font-semibold uppercase">
-                    {{ guide.emphasis }} emphasis
-                  </div>
-                  <h3 class="text-xl font-bold flex-1">{{ guide.title }}</h3>
-                </div>
-
-                <p class="text-gray-700 mb-4">{{ guide.description }}</p>
-
-                <!-- Cuándo Usar -->
-                <div class="mb-4">
-                  <h4 class="font-semibold text-sm uppercase text-gray-500 mb-2">✓ When to Use</h4>
-                  <ul class="space-y-1">
-                    @for (use of guide.whenToUse; track use) {
-                      <li class="flex items-start gap-2 text-sm">
-                        <mat-icon class="text-green-600 text-base mt-0.5">check_circle</mat-icon>
-                        <span>{{ use }}</span>
-                      </li>
-                    }
-                  </ul>
-                </div>
-
-                <!-- Ejemplos de Uso -->
-                <div>
-                  <h4 class="font-semibold text-sm uppercase text-gray-500 mb-2">💡 Examples</h4>
-                  <div class="flex flex-wrap gap-2">
-                    @for (example of guide.examples; track example) {
-                      <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-xs">{{ example }}</span>
-                    }
-                  </div>
-                </div>
+            <div class="flex items-start gap-3 mb-4">
+              <div
+                [class]="getEmphasisBadgeClasses(guide.emphasis)"
+                class="px-3 py-1 rounded-full text-xs font-semibold uppercase">
+                {{ guide.emphasis }} emphasis
               </div>
+            </div>
 
-              <!-- Preview -->
-              <div class="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-6 border-2 border-dashed border-gray-200">
-                <p class="text-xs text-gray-500 mb-3 uppercase font-semibold">Preview</p>
-                <div class="space-y-3 w-full flex flex-col items-center">
-                  <app-button
-                    [variant]="guide.variant"
-                    color="primary"
-                    [shape]="shape()"
-                    [size]="size()">
-                    Primary Action
-                  </app-button>
-                  <app-button
-                    [variant]="guide.variant"
-                    color="secondary"
-                    [shape]="shape()"
-                    [size]="size()"
-                    iconBefore="add">
-                    With Icon
-                  </app-button>
-                  <app-button
-                    [variant]="guide.variant"
-                    color="tertiary"
-                    [shape]="shape()"
-                    [size]="size()"
-                    iconBefore="info">
-                    Learn More
-                  </app-button>
-                  <app-button
-                    [variant]="guide.variant"
-                    color="primary"
-                    [shape]="shape()"
-                    [size]="size()"
-                    [disabled]="true">
-                    Primary Action
-                  </app-button>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">variant="{{ guide.variant }}"</p>
+            <h2 class="text-2xl font-bold mb-3">{{ guide.title }}</h2>
+            <p class="text-gray-700 mb-6 text-base leading-relaxed">{{ guide.description }}</p>
+
+            <!-- When to Use -->
+            <div class="mb-6">
+              <h4 class="font-semibold text-sm uppercase text-gray-500 mb-3 flex items-center gap-2">
+                <mat-icon class="text-green-600 text-lg">check_circle</mat-icon>
+                When to Use
+              </h4>
+              <ul class="space-y-2">
+                @for (use of guide.whenToUse; track use) {
+                  <li class="flex items-start gap-2 text-sm bg-green-50 p-3 rounded-lg border border-green-100">
+                    <mat-icon class="text-green-600 text-base mt-0.5">arrow_right</mat-icon>
+                    <span class="text-gray-800">{{ use }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <!-- Examples -->
+            <div>
+              <h4 class="font-semibold text-sm uppercase text-gray-500 mb-3 flex items-center gap-2">
+                <mat-icon class="text-blue-600 text-lg">lightbulb</mat-icon>
+                Common Examples
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                @for (example of guide.examples; track example) {
+                  <span class="bg-blue-50 text-blue-800 px-3 py-2 rounded-lg text-sm font-medium border border-blue-200">
+                    {{ example }}
+                  </span>
+                }
               </div>
             </div>
           </mat-card-content>
         </mat-card>
-      }
-    </div>
 
-    <!-- Best Practices Box -->
-    <mat-card appearance="outlined" class="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
-      <mat-card-content class="p-6">
-        <div class="flex items-start gap-3">
-          <mat-icon class="text-amber-600 text-3xl">lightbulb</mat-icon>
-          <div class="flex-1">
-            <h3 class="text-lg font-bold text-amber-900 mb-3">Best Practices</h3>
-            <ul class="space-y-2 text-sm text-amber-800">
-              <li class="flex items-start gap-2">
-                <mat-icon class="text-amber-600 text-base mt-0.5">arrow_right</mat-icon>
-                <span><strong>Jerarquía Visual:</strong> Usa solo un botón de alto énfasis (filled/elevated) por sección para guiar la atención.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <mat-icon class="text-amber-600 text-base mt-0.5">arrow_right</mat-icon>
-                <span><strong>Consistencia:</strong> Mantén el mismo variant para acciones similares en toda la aplicación.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <mat-icon class="text-amber-600 text-base mt-0.5">arrow_right</mat-icon>
-                <span><strong>Diálogos:</strong> Usa filled para confirmar y outlined para cancelar.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <mat-icon class="text-amber-600 text-base mt-0.5">arrow_right</mat-icon>
-                <span><strong>Iconos:</strong> Usa iconBefore para acciones (save, delete) e iconAfter para navegación (arrow_forward).</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <!-- Ejemplos con Iconos -->
-  <div class="mb-6">
-    <h2 class="text-2xl font-bold mb-4">Buttons with Icons</h2>
-    <mat-card appearance="outlined">
-      <mat-card-content class="p-6">
-        <p class="text-sm mb-4">
-          Los botones pueden incluir iconos antes o después del texto para mejorar la comunicación visual.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          @for (button of iconExamples; track button.label) {
-            <app-button
-              [variant]="button.variant"
-              [color]="button.color"
-              [shape]="shape()"
-              [size]="size()"
-              [disabled]="button.disabled"
-              [iconBefore]="button.iconBefore"
-              [iconAfter]="button.iconAfter">
-              {{ button.label }}
-            </app-button>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <!-- Casos de Uso Comunes -->
-  <div class="mb-6">
-    <h2 class="text-2xl font-bold mb-4">Common Use Cases</h2>
-    <mat-card appearance="outlined">
-      <mat-card-content class="p-6">
-        <p class="text-sm mb-4">
-          Ejemplos de patrones comunes en aplicaciones empresariales.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          @for (button of commonUseCases; track button.label) {
-            <app-button
-              [variant]="button.variant"
-              [color]="button.color"
-              [shape]="shape()"
-              [size]="size()"
-              [disabled]="button.disabled"
-              [iconBefore]="button.iconBefore"
-              [iconAfter]="button.iconAfter">
-              {{ button.label }}
-            </app-button>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <!-- Developer Guide - SIMPLIFIED -->
-  <div class="mb-6">
-    <h2 class="text-2xl font-bold mb-4">💻 Code Examples</h2>
-    <p class="text-base text-gray-600 mb-6">
-      El componente <code class="bg-gray-100 px-2 py-1 rounded text-sm">&lt;app-button&gt;</code> usa inputs individuales con valores por defecto.
-      Solo especifica las propiedades que quieres cambiar.
-    </p>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      @for (example of usageExamples; track example.title) {
+        <!-- Visual Variations -->
         <mat-card appearance="outlined">
-          <mat-card-content class="p-4">
-            <div class="mb-3">
-              <h3 class="font-semibold mb-1">{{ example.title }}</h3>
-              <p class="text-xs text-gray-600">{{ example.description }}</p>
-            </div>
-            <pre class="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto text-xs mb-3"><code>{{ example.code }}</code></pre>
-            @if (example.demo) {
-              <div class="flex justify-center pt-2 border-t border-gray-200">
+          <mat-card-content class="p-6">
+            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+              <mat-icon class="text-purple-600">palette</mat-icon>
+              Color Variations
+            </h3>
+            <p class="text-sm text-gray-600 mb-4">
+              Todas las variantes están disponibles en tres colores del sistema de diseño.
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
                 <app-button
-                  [variant]="example.demo.variant"
-                  [color]="example.demo.color"
+                  [variant]="selectedVariant()"
+                  color="primary"
                   [shape]="shape()"
-                  [size]="size()"
-                  [disabled]="example.demo.disabled"
-                  [iconBefore]="example.demo.iconBefore"
-                  [iconAfter]="example.demo.iconAfter">
-                  {{ example.demo.label }}
+                  [size]="size()">
+                  Primary Color
                 </app-button>
+                <span class="text-xs text-gray-500">color="primary"</span>
               </div>
-            }
+              <div class="flex items-center gap-3">
+                <app-button
+                  [variant]="selectedVariant()"
+                  color="secondary"
+                  [shape]="shape()"
+                  [size]="size()">
+                  Secondary Color
+                </app-button>
+                <span class="text-xs text-gray-500">color="secondary"</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <app-button
+                  [variant]="selectedVariant()"
+                  color="tertiary"
+                  [shape]="shape()"
+                  [size]="size()">
+                  Tertiary Color
+                </app-button>
+                <span class="text-xs text-gray-500">color="tertiary"</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Best Practices -->
+        <mat-card appearance="outlined" class="bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
+          <mat-card-content class="p-6">
+            <div class="flex items-start gap-3">
+              <mat-icon class="text-amber-600 text-3xl">tips_and_updates</mat-icon>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-amber-900 mb-3">Best Practices</h3>
+                <ul class="space-y-2 text-sm text-amber-800">
+                  <li class="flex items-start gap-2">
+                    <mat-icon class="text-amber-600 text-base mt-0.5">arrow_right</mat-icon>
+                    <span><strong>Jerarquía Visual:</strong> Usa solo un botón de alto énfasis (filled/elevated) por sección para guiar la atención.</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <mat-icon class="text-amber-600 text-base mt-0.5">arrow_right</mat-icon>
+                    <span><strong>Consistencia:</strong> Mantén el mismo variant para acciones similares en toda la aplicación.</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <mat-icon class="text-amber-600 text-base mt-0.5">arrow_right</mat-icon>
+                    <span><strong>Diálogos:</strong> Usa filled para confirmar y outlined para cancelar.</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <mat-icon class="text-amber-600 text-base mt-0.5">arrow_right</mat-icon>
+                    <span><strong>Iconos:</strong> Usa iconBefore para acciones (save, delete) e iconAfter para navegación (arrow_forward).</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </mat-card-content>
         </mat-card>
       }
-    </div>
 
-    <!-- API Reference - COMPACT -->
-    <mat-card appearance="outlined" class="mt-6">
-      <mat-card-content class="p-6">
-        <h3 class="text-lg font-semibold mb-4">⚡ API Reference</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-          <div>
-            <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">variant</code>
-            <span class="text-gray-600 ml-2">'filled' (default) | 'elevated' | 'outlined' | 'text' | 'tonal'</span>
+      <!-- API Reference -->
+      <mat-card appearance="outlined" class="bg-gradient-to-br from-slate-50 to-gray-100">
+        <mat-card-content class="p-6">
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <mat-icon class="text-gray-600">settings</mat-icon>
+            API Reference
+          </h3>
+          <div class="grid grid-cols-1 gap-3 text-sm">
+            <div class="bg-white p-3 rounded-lg border border-gray-200">
+              <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">variant</code>
+              <p class="text-gray-600 mt-1 text-xs">'filled' (default) | 'elevated' | 'outlined' | 'text' | 'tonal'</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200">
+              <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">color</code>
+              <p class="text-gray-600 mt-1 text-xs">'primary' (default) | 'secondary' | 'tertiary'</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200">
+              <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">shape</code>
+              <p class="text-gray-600 mt-1 text-xs">'rounded' (default) | 'square'</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200">
+              <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">size</code>
+              <p class="text-gray-600 mt-1 text-xs">'medium' (default) | 'small' | 'large'</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200">
+              <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">disabled</code>
+              <p class="text-gray-600 mt-1 text-xs">boolean (default: false)</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200">
+              <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">iconBefore</code>
+              <p class="text-gray-600 mt-1 text-xs">string (Material Icon name)</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200">
+              <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">iconAfter</code>
+              <p class="text-gray-600 mt-1 text-xs">string (Material Icon name)</p>
+            </div>
           </div>
-          <div>
-            <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">color</code>
-            <span class="text-gray-600 ml-2">'primary' (default) | 'secondary' | 'tertiary'</span>
-          </div>
-          <div>
-            <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">shape</code>
-            <span class="text-gray-600 ml-2">'rounded' (default) | 'square'</span>
-          </div>
-          <div>
-            <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">size</code>
-            <span class="text-gray-600 ml-2">'medium' (default) | 'small' | 'large'</span>
-          </div>
-          <div>
-            <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">disabled</code>
-            <span class="text-gray-600 ml-2">boolean (default: false)</span>
-          </div>
-          <div>
-            <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">type</code>
-            <span class="text-gray-600 ml-2">'button' (default) | 'submit' | 'reset'</span>
-          </div>
-          <div>
-            <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">iconBefore</code>
-            <span class="text-gray-600 ml-2">string (Material Icon name)</span>
-          </div>
-          <div>
-            <code class="bg-blue-50 text-blue-700 px-2 py-1 rounded font-mono text-xs">iconAfter</code>
-            <span class="text-gray-600 ml-2">string (Material Icon name)</span>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>
 
