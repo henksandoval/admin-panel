@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
+import { AppBadgeComponent } from '@shared/atoms/app-badge/app-badge.component';
 
 @Component({
   selector: 'app-indicators',
@@ -19,7 +20,8 @@ import { Router } from '@angular/router';
     MatBadgeModule,
     MatDividerModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    AppBadgeComponent
   ],
   templateUrl: './indicators.component.html',
   styleUrl: './indicators.component.scss'
@@ -55,29 +57,34 @@ export class IndicatorsComponent {
 </span>
 
 
-// ===== app-badge (Custom - Inline) =====
+// ===== app-badge Component (Unified System) =====
 // Use for: status labels, tags, navigation badges
 
-// Basic semantic variants
-<span class="app-badge normal">Count: 3</span>
-<span class="app-badge info">Info</span>
-<span class="app-badge success">Active</span>
-<span class="app-badge warning">Pending</span>
-<span class="app-badge error">Critical</span>
+// Inline badges - Basic semantic variants
+<app-badge variant="inline" color="normal">Count: 3</app-badge>
+<app-badge variant="inline" color="info">Info</app-badge>
+<app-badge variant="inline" color="success">Active</app-badge>
+<app-badge variant="inline" color="warning">Pending</app-badge>
+<app-badge variant="inline" color="error">Critical</app-badge>
 
-// With alert indicator (!)
-<span class="app-badge warning has-indicator">Action Required</span>
-<span class="app-badge error has-indicator">Urgent</span>
+// Inline badges with alert indicator (!)
+<app-badge variant="inline" color="warning" [hasIndicator]="true">Action Required</app-badge>
+<app-badge variant="inline" color="error" [hasIndicator]="true">Urgent</app-badge>
 
 // In navigation (sidebar)
 <div class="flex items-center gap-3">
   <mat-icon>dashboard</mat-icon>
   <span class="flex-1">Dashboard</span>
-  <span class="app-badge normal">5</span>
+  <app-badge variant="inline" color="normal">5</app-badge>
 </div>
 
 // As status labels
-<span class="app-badge info">NEW</span> Feature announcement
+<app-badge variant="inline" color="info">NEW</app-badge> Feature announcement
+
+// Overlay badges (wraps content with matBadge)
+<app-badge variant="overlay" [content]="8" color="warn">
+  <button mat-icon-button><mat-icon>notifications</mat-icon></button>
+</app-badge>
 
 
 // ===== Other Components =====

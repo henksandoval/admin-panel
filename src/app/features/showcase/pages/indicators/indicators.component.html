@@ -20,6 +20,12 @@
       <mat-card-subtitle>Understanding when to use each badge system</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="p-6">
+      <div class="mb-4 p-3 rounded-lg" style="background-color: var(--mat-sys-tertiary-container);">
+        <p class="text-sm" style="color: var(--mat-sys-on-tertiary-container);">
+          ℹ️ <strong>Nuevo:</strong> Ahora tenemos un componente unificado <code>&lt;app-badge&gt;</code> que maneja ambos escenarios.
+          Visita <strong>/pds/badges</strong> para ver la implementación moderna.
+        </p>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- matBadge -->
         <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
@@ -56,11 +62,11 @@
             <strong>Inline badges</strong>. Ideal para etiquetas, estados y categorías.
           </p>
           <div class="flex flex-wrap gap-2 mb-3">
-            <span class="app-badge normal">Normal</span>
-            <span class="app-badge info">Info</span>
-            <span class="app-badge success">Success</span>
-            <span class="app-badge warning">Warning</span>
-            <span class="app-badge error">Error</span>
+            <app-badge variant="inline" color="normal">Normal</app-badge>
+            <app-badge variant="inline" color="info">Info</app-badge>
+            <app-badge variant="inline" color="success">Success</app-badge>
+            <app-badge variant="inline" color="warning">Warning</app-badge>
+            <app-badge variant="inline" color="error">Error</app-badge>
           </div>
           <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
             <div>✅ Etiquetas de estado (NEW, HOT)</div>
@@ -193,11 +199,11 @@
         <div>
           <h3 class="text-lg font-medium mb-3">Semantic Variants</h3>
           <div class="flex flex-wrap gap-3">
-            <span class="app-badge normal">Normal</span>
-            <span class="app-badge info">Info</span>
-            <span class="app-badge success">Success</span>
-            <span class="app-badge warning">Warning</span>
-            <span class="app-badge error">Error</span>
+            <app-badge variant="inline" color="normal">Normal</app-badge>
+            <app-badge variant="inline" color="info">Info</app-badge>
+            <app-badge variant="inline" color="success">Success</app-badge>
+            <app-badge variant="inline" color="warning">Warning</app-badge>
+            <app-badge variant="inline" color="error">Error</app-badge>
           </div>
         </div>
 
@@ -205,12 +211,12 @@
         <div>
           <h3 class="text-lg font-medium mb-3">With Alert Indicators</h3>
           <div class="flex flex-wrap gap-3">
-            <span class="app-badge info has-indicator">Action Required</span>
-            <span class="app-badge warning has-indicator">Pending</span>
-            <span class="app-badge error has-indicator">Critical</span>
+            <app-badge variant="inline" color="info" [hasIndicator]="true">Action Required</app-badge>
+            <app-badge variant="inline" color="warning" [hasIndicator]="true">Pending</app-badge>
+            <app-badge variant="inline" color="error" [hasIndicator]="true">Critical</app-badge>
           </div>
           <p class="text-sm mt-2" style="color: var(--mat-sys-on-surface-variant);">
-            El indicador "!" aparece cuando se añade la clase <code>has-indicator</code>
+            El indicador "!" aparece cuando se activa la propiedad <code>[hasIndicator]="true"</code>
           </p>
         </div>
 
@@ -221,17 +227,17 @@
             <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
               <mat-icon>dashboard</mat-icon>
               <span class="flex-1">Dashboard</span>
-              <span class="app-badge normal">3</span>
+              <app-badge variant="inline" color="normal">3</app-badge>
             </div>
             <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
               <mat-icon>shopping_cart</mat-icon>
               <span class="flex-1">Orders</span>
-              <span class="app-badge warning has-indicator">5</span>
+              <app-badge variant="inline" color="warning" [hasIndicator]="true">5</app-badge>
             </div>
             <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
               <mat-icon>notifications</mat-icon>
               <span class="flex-1">Alerts</span>
-              <span class="app-badge error">12</span>
+              <app-badge variant="inline" color="error">12</app-badge>
             </div>
           </div>
         </div>
@@ -241,15 +247,15 @@
           <h3 class="text-lg font-medium mb-3">Status Labels & Tags</h3>
           <div class="space-y-3">
             <div class="flex items-center gap-2">
-              <span class="app-badge success">NEW</span>
+              <app-badge variant="inline" color="success">NEW</app-badge>
               <span>Feature: Dark mode support</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="app-badge warning">BETA</span>
+              <app-badge variant="inline" color="warning">BETA</app-badge>
               <span>Experimental AI assistant</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="app-badge info">HOT</span>
+              <app-badge variant="inline" color="info">HOT</app-badge>
               <span>Most popular dashboard</span>
             </div>
           </div>

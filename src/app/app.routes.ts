@@ -90,7 +90,8 @@ export const routes: Routes = [
           { path: 'index', loadComponent: () => import('./features/pds/pages/index/index.component').then(m => m.IndexComponent) },
           { path: 'forms', loadComponent: () => import('./features/pds/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent) },
           { path: 'buttons', loadComponent: () => import('./features/pds/pages/buttons/buttons.component') },
-          { path: 'checkboxes', loadComponent: () => import('./features/pds/pages/checkboxes/checkboxes.component') }
+          { path: 'checkboxes', loadComponent: () => import('./features/pds/pages/checkboxes/checkboxes.component') },
+          { path: 'badges', loadComponent: () => import('./features/pds/pages/badges/badges.component') }
         ]
       },
     ]

@@ -47,6 +47,13 @@ export class IndexComponent {
       icon: 'check_box',
       route: '/pds/checkboxes'
     },
+    {
+      id: 'badges',
+      title: 'Badges',
+      description: 'Componente unificado para badges inline (etiquetas) y overlay (notificaciones)',
+      icon: 'label',
+      route: '/pds/badges'
+    },
   ];
 
   constructor(private router: Router) {}
