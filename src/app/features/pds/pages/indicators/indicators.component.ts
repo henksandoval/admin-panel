@@ -65,7 +65,7 @@ export class IndicatorsComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.router.navigate(['/showcase']);
+    this.router.navigate(['/pds']);
   }
 
   get codeExample(): string {

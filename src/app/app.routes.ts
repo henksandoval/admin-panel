@@ -80,7 +80,6 @@ export const routes: Routes = [
           { path: 'forms', loadComponent: () => import('./features/showcase/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent) },
           { path: 'buttons', loadComponent: () => import('./features/showcase/pages/buttons/buttons.component').then(m => m.ButtonsComponent) },
           { path: 'checkboxes', loadComponent: () => import('./features/showcase/pages/checkboxes/checkboxes.component').then(m => m.CheckboxesComponent) },
-          { path: 'indicators', loadComponent: () => import('./features/showcase/pages/indicators/indicators.component').then(m => m.IndicatorsComponent) }
         ]
       },
       {
@@ -91,7 +90,8 @@ export const routes: Routes = [
           { path: 'forms', loadComponent: () => import('./features/pds/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent) },
           { path: 'buttons', loadComponent: () => import('./features/pds/pages/buttons/buttons.component') },
           { path: 'checkboxes', loadComponent: () => import('./features/pds/pages/checkboxes/checkboxes.component') },
-          { path: 'badges', loadComponent: () => import('./features/pds/pages/badges/badges.component') }
+          { path: 'badges', loadComponent: () => import('./features/pds/pages/badges/badges.component') },
+          { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component').then(m => m.IndicatorsComponent) }
         ]
       },
     ]

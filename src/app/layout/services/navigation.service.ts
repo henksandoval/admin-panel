@@ -367,12 +367,6 @@ export class NavigationService {
           icon: 'edit_note',
           url: '/showcase/checkboxes'
         },
-        {
-          id: 'indicators',
-          title: 'Indicadores',
-          icon: 'edit_note',
-          url: '/showcase/indicators'
-        }
       ]
     },
     {
@@ -403,6 +397,12 @@ export class NavigationService {
           title: 'Checkboxes',
           icon: 'check_box',
           url: '/pds/checkboxes'
+        },
+        {
+          id: 'indicators',
+          title: 'Indicadores',
+          icon: 'edit_note',
+          url: '/pds/indicators'
         }
       ]
     }

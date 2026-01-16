@@ -54,6 +54,13 @@ export class IndexComponent {
       icon: 'label',
       route: '/pds/badges'
     },
+    {
+      id: 'indicators',
+      title: 'Indicadores',
+      description: 'Componente para mostrar información de estado o progreso',
+      icon: 'edit_note',
+      route: '/pds/indicators'
+    }
   ];
 
   constructor(private router: Router) {}
