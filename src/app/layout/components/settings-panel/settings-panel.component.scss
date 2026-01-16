@@ -7,16 +7,24 @@
     box-shadow:
       0 0 0 3px var(--mat-sys-surface),
       0 0 0 5px var(--mat-sys-primary),
-      0 4px 12px rgba(0, 0, 0, 0.25);
+      0 4px 12px var(--overlay-shadow-25);
   }
 
   &:hover:not(.active) {
     transform: scale(1.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px var(--overlay-shadow-20);
   }
 
   &:focus-visible {
     outline: 2px solid var(--mat-sys-primary);
     outline-offset: 2px;
+  }
+
+  .theme-check-icon {
+    color: var(--color-full-white);
+  }
+
+  .theme-accent-preview {
+    border: 2px solid var(--mat-sys-surface);
   }
 }

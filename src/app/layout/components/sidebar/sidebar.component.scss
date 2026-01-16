@@ -1,5 +1,9 @@
 @use '../../../../themes/navigation' as nav;
 
+.app-logo {
+  box-shadow: 0 4px 12px var(--overlay-shadow-15);
+}
+
 .nav-tree-container {
   .nav-icon-item {
     @include nav.nav-item-all-states();

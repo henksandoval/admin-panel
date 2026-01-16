@@ -38,10 +38,10 @@
             (click)="selectTheme(theme.id)"
             [attr.aria-label]="theme.label">
             <span class="absolute inset-0 rounded-full" [style.background-color]="theme.color_primary"></span>
-            <span class="absolute bottom-0 right-0 w-5 h-5 rounded-full border-2 border-[var(--mat-sys-surface)]"
+            <span class="theme-accent-preview absolute bottom-0 right-0 w-5 h-5 rounded-full"
                   [style.background-color]="theme.color_tertiary"></span>
             @if (isThemeActive()(theme.id)) {
-              <mat-icon class="absolute inset-0 m-auto text-white z-10">check</mat-icon>
+              <mat-icon class="theme-check-icon absolute inset-0 m-auto z-10">check</mat-icon>
             }
           </button>
         }
