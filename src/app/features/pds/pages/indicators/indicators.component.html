@@ -67,15 +67,14 @@
 
           @if (selectedVariant() === 'overlay') {
             <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">numbers</mat-icon>
-                Content
-              </label>
-              <input
-                type="text"
+              <app-form-field-input
                 [(ngModel)]="badgeContent"
-                class="w-full px-3 py-2 border rounded-lg"
-                placeholder="Badge content">
+                [config]="{
+                  label: 'Content',
+                  placeholder: 'Badge content',
+                  icon: 'numbers'
+                }">
+              </app-form-field-input>
             </div>
 
             <div class="space-y-2">
@@ -86,7 +85,6 @@
               <app-toggle-group
                 [options]="positionOptions"
                 [(value)]="position"
-                [vertical]="true"
                 class="w-full" />
             </div>
 
@@ -96,15 +94,14 @@
             </div>
           } @else {
             <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">text_fields</mat-icon>
-                Label
-              </label>
-              <input
-                type="text"
+              <app-form-field-input
                 [(ngModel)]="badgeLabel"
-                class="w-full px-3 py-2 border rounded-lg"
-                placeholder="Badge label">
+                [config]="{
+                  label: 'Label',
+                  placeholder: 'Badge label',
+                  icon: 'text_fields'
+                }">
+              </app-form-field-input>
             </div>
 
             <div class="space-y-2">

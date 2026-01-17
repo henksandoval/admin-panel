@@ -11,6 +11,7 @@ import { AppBadgeComponent } from '@shared/atoms/app-badge/app-badge.component';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
+import { FormFieldInputComponent } from '@shared/atoms/form-field-input/form-field-input.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { BADGE_DEFAULTS, BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
 import {
@@ -40,6 +41,7 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
+    FormFieldInputComponent,
     PdsCodeBlockComponent,
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
