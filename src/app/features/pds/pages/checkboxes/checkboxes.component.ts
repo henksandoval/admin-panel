@@ -42,8 +42,7 @@ import {
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
   ],
-  templateUrl: './checkboxes.component.html',
-  styleUrl: './checkboxes.component.scss'
+  templateUrl: './checkboxes.component.html'
 })
 export default class CheckboxesComponent {
   private readonly router = inject(Router);
