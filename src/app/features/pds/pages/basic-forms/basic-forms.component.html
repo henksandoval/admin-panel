@@ -39,7 +39,7 @@
             <span>🎮</span> Controls
           </h3>
         </div>
-        <mat-card-content class="p-6 space-y-6">
+        <mat-card-content class="p-6 space-y-8">
           <div class="space-y-2">
             <label class="section-label text-sm font-medium flex items-center gap-1.5">
               <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
@@ -48,14 +48,13 @@
             <app-toggle-group [options]="configOptions" [value]="selectedConfig()" (changed)="onConfigChange($event)" class="w-full" />
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">text_fields</mat-icon>
-                Input Type
-              </label>
-              <app-toggle-group [options]="typeOptions" [(value)]="fieldType" class="w-full" />
-            </div>
+          <div class="space-y-2">
+            <label class="section-label text-sm font-medium flex items-center gap-1.5">
+              <mat-icon class="text-base !w-4 !h-4 leading-4">text_fields</mat-icon>
+              Input Type
+            </label>
+            <app-toggle-group [options]="typeOptions" [(value)]="fieldType" class="w-full" />
+          </div>
 
             <div class="space-y-2">
               <label class="section-label text-sm font-medium flex items-center gap-1.5">
@@ -64,7 +63,6 @@
               </label>
               <app-toggle-group [options]="appearanceOptions" [(value)]="appearance" class="w-full" />
             </div>
-          </div>
 
           <div class="space-y-3">
             <app-form-field-input

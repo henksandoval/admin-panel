@@ -403,6 +403,12 @@ export class NavigationService {
           title: 'Indicadores',
           icon: 'edit_note',
           url: '/pds/indicators'
+        },
+        {
+          id: 'selects',
+          title: 'Selects',
+          icon: 'arrow_drop_down_circle',
+          url: '/pds/selects'
         }
       ]
     }

@@ -48,6 +48,13 @@ export class IndexComponent {
       route: '/pds/checkboxes'
     },
     {
+      id: 'selects',
+      title: 'Selects',
+      description: 'Dropdown select fields for single and multiple selection with grouped options support',
+      icon: 'arrow_drop_down_circle',
+      route: '/pds/selects'
+    },
+    {
       id: 'badges',
       title: 'Badges',
       description: 'Componente unificado para badges inline (etiquetas) y overlay (notificaciones)',
