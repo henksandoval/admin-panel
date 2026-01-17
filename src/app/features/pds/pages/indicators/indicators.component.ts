@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AppBadgeComponent } from '@shared/atoms/app-badge/app-badge.component';
 import { BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
@@ -17,14 +16,14 @@ import {
   OVERLAY_COLORS,
   INLINE_COLORS,
   BADGE_DEFAULTS,
+  API_PROPERTIES,
+  BEST_PRACTICES,
   type BadgeVariantGuide
 } from './indicators.data';
 import {
   PdsCodeBlockComponent,
   PdsBestPracticesComponent,
   PdsApiReferenceComponent,
-  type ApiProperty,
-  type BestPracticeItem
 } from '@shared/molecules';
 
 @Component({
@@ -44,12 +43,10 @@ import {
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
   ],
-  templateUrl: './indicators.component.html',
-  styleUrl: './indicators.component.scss'
+  templateUrl: './indicators.component.html'
 })
 export default class IndicatorsComponent {
   private readonly router = inject(Router);
-  private readonly snackBar = inject(MatSnackBar);
 
   selectedVariant = signal<BadgeVariant>(BADGE_DEFAULTS.variant);
   badgeContent = signal<string>('8');
@@ -66,6 +63,8 @@ export default class IndicatorsComponent {
   readonly BADGE_POSITIONS = BADGE_POSITIONS;
   readonly OVERLAY_COLORS = OVERLAY_COLORS;
   readonly INLINE_COLORS = INLINE_COLORS;
+  readonly BEST_PRACTICES = BEST_PRACTICES;
+  readonly API_PROPERTIES = API_PROPERTIES
 
   currentVariantGuide = computed(() => {
     return BADGE_VARIANT_GUIDES.find(guide => guide.variant === this.selectedVariant());
@@ -154,77 +153,4 @@ export default class IndicatorsComponent {
   goBack(): void {
     this.router.navigate(['/pds/index']);
   }
-
-  copyToClipboard(): void {
-    navigator.clipboard.writeText(this.generatedCode()).then(() => {
-      this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
-    });
-  }
-
-  // API Reference Data
-  apiProperties: ApiProperty[] = [
-    {
-      name: 'variant',
-      decorator: '@Input()',
-      description: 'Tipo de badge a renderizar.',
-      type: "'overlay' | 'inline'",
-      defaultValue: 'overlay'
-    },
-    {
-      name: 'content',
-      decorator: '@Input()',
-      description: 'Contenido del badge overlay (texto o número).',
-      type: 'string',
-      defaultValue: ''
-    },
-    {
-      name: 'color (overlay)',
-      decorator: '@Input()',
-      description: 'Color del badge cuando variant="overlay".',
-      type: "'primary' | 'accent' | 'warn'",
-      defaultValue: 'primary'
-    },
-    {
-      name: 'color (inline)',
-      decorator: '@Input()',
-      description: 'Color del badge cuando variant="inline".',
-      type: "'normal' | 'info' | 'success' | 'warning' | 'error'",
-      defaultValue: 'normal'
-    },
-    {
-      name: 'position',
-      decorator: '@Input()',
-      description: 'Posición del badge overlay respecto al elemento.',
-      type: "'above before' | 'above after' | 'below before' | 'below after'",
-      defaultValue: 'above after'
-    },
-    {
-      name: 'overlap',
-      decorator: '@Input()',
-      description: 'Si el badge debe superponerse al elemento.',
-      type: 'boolean',
-      defaultValue: 'false'
-    },
-    {
-      name: 'hidden',
-      decorator: '@Input()',
-      description: 'Oculta el badge manteniendo el espacio.',
-      type: 'boolean',
-      defaultValue: 'false'
-    },
-    {
-      name: 'hasIndicator',
-      decorator: '@Input()',
-      description: 'Muestra un indicador (!) en badges inline.',
-      type: 'boolean',
-      defaultValue: 'false'
-    }
-  ];
-
-  bestPractices: BestPracticeItem[] = [
-    { label: 'Overlay', text: 'Usa badges overlay para notificaciones y contadores en iconos.' },
-    { label: 'Inline', text: 'Usa badges inline para estados, etiquetas y categorías en el contenido.' },
-    { label: 'Números', text: 'Para cantidades mayores a 99, muestra "99+".' },
-    { label: 'Colores', text: 'Usa colores semánticos: error para urgente, success para completado, warning para atención.' }
-  ];
 }
