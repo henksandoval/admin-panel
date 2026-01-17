@@ -1,11 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-
-export interface BestPracticeItem {
-  label: string;
-  text: string;
-}
+import {Component, Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {PdsBestPracticeItemModel} from '@shared/molecules/pds-best-practices/pds-best-practice-item.model';
 
 @Component({
   selector: 'app-pds-best-practices',
@@ -30,5 +26,5 @@ export interface BestPracticeItem {
 })
 export class PdsBestPracticesComponent {
   @Input() title = 'Best Practices';
-  @Input({ required: true }) practices!: BestPracticeItem[];
+  @Input({ required: true }) practices!: PdsBestPracticeItemModel[];
 }

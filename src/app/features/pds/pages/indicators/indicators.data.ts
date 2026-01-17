@@ -1,5 +1,5 @@
 import { BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
-import type {PdsApiReferencePropertyModel, BestPracticeItem} from '@shared/molecules';
+import type {PdsApiReferencePropertyModel, PdsBestPracticeItemModel} from '@shared/molecules';
 
 export interface BadgeVariantGuide {
   variant: BadgeVariant;
@@ -130,7 +130,7 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   }
 ];
 
-export const BEST_PRACTICES: BestPracticeItem[] = [
+export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   { label: 'Overlay', text: 'Usa badges overlay para notificaciones y contadores en iconos.' },
   { label: 'Inline', text: 'Usa badges inline para estados, etiquetas y categorías en el contenido.' },
   { label: 'Números', text: 'Para cantidades mayores a 99, muestra "99+".' },

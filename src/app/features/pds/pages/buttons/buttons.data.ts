@@ -1,6 +1,6 @@
 import { MatButtonAppearance } from '@angular/material/button';
 import { ButtonColor } from '@shared/atoms/app-button/app-button.model';
-import type {PdsApiReferencePropertyModel, BestPracticeItem} from '@shared/molecules';
+import type {PdsApiReferencePropertyModel, PdsBestPracticeItemModel} from '@shared/molecules';
 
 export interface VariantGuide {
   readonly variant: MatButtonAppearance;
@@ -149,7 +149,7 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   }
 ];
 
-export const BEST_PRACTICES: BestPracticeItem[] = [
+export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   { label: 'Jerarquía', text: 'Usa solo un botón de alto énfasis por sección.' },
   { label: 'Consistencia', text: 'Mantén el mismo variant para acciones similares.' },
   { label: 'Diálogos', text: 'Filled para confirmar, Outlined para cancelar.' }

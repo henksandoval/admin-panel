@@ -1,6 +1,6 @@
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { InputFieldType, FormFieldInputOptions } from '@shared/atoms/form-field-input/form-field-input.model';
-import type {PdsApiReferencePropertyModel, BestPracticeItem} from '@shared/molecules';
+import type {PdsApiReferencePropertyModel, PdsBestPracticeItemModel} from '@shared/molecules';
 
 export type FieldEmphasis = 'high' | 'medium' | 'low';
 
@@ -180,7 +180,7 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   }
 ];
 
-export const BEST_PRACTICES: BestPracticeItem[] = [
+export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   { label: 'Labels', text: 'Usa labels descriptivos que indiquen claramente qué se espera del usuario.' },
   { label: 'Placeholders', text: 'Los placeholders deben ser ejemplos, no instrucciones. Usa hints para instrucciones.' },
   { label: 'Validación', text: 'Muestra errores de validación en tiempo real después del primer intento o blur.' },

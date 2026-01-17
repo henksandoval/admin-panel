@@ -1,5 +1,5 @@
 import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
-import type {PdsApiReferencePropertyModel, BestPracticeItem} from '@shared/molecules';
+import type {PdsApiReferencePropertyModel, PdsBestPracticeItemModel} from '@shared/molecules';
 
 export interface StateGuide {
   state: 'checked' | 'unchecked' | 'indeterminate';
@@ -88,7 +88,7 @@ export const CHECKBOX_SIZES: Array<{ value: CheckboxSize; label: string }> = [
   { value: 'large', label: 'Large' }
 ];
 
-export const BEST_PRACTICES: BestPracticeItem[] = [
+export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   { label: 'Labels', text: 'Usa textos claros y descriptivos que indiquen qué representa la selección.' },
   { label: 'Agrupación', text: 'Agrupa checkboxes relacionados bajo un título común.' },
   { label: 'Indeterminate', text: 'Usa para "Seleccionar todos" cuando hay selección parcial de elementos hijos.' },
