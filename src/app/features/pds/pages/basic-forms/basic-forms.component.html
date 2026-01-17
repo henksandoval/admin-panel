@@ -113,26 +113,10 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">insert_emoticon</mat-icon>
               Icon (Optional)
             </label>
-            <div class="flex flex-wrap gap-2">
-              <app-button
-                variant="outlined"
-                size="small"
-                [class.!border-2]="selectedIcon() === ''"
-                (clicked)="selectedIcon.set('')"
-                iconBefore="close"
-                class="!min-w-[40px]">
-              </app-button>
-              @for (icon of COMMON_ICONS.slice(0, 11); track icon) {
-                <app-button
-                  variant="outlined"
-                  size="small"
-                  [class.!border-2]="selectedIcon() === icon"
-                  (clicked)="selectedIcon.set(icon)"
-                  [iconBefore]="icon"
-                  class="!min-w-[40px]">
-                </app-button>
-              }
-            </div>
+            <app-toggle-group
+              [options]="iconOptions"
+              [(value)]="selectedIcon"
+              class="w-full" />
           </div>
 
           <div class="grid grid-cols-2 gap-4">

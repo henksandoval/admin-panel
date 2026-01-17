@@ -100,8 +100,13 @@ export class BasicFormsComponent implements OnInit {
   ];
 
   readonly iconOptions: ToggleOption[] = [
-    { value: '', label: '×' },
-    ...COMMON_ICONS.slice(0, 11).map(icon => ({ value: icon, label: icon }))
+    { value: '', label: 'None', icon: 'close', ariaLabel: 'No icon' },
+    ...COMMON_ICONS.slice(0, 11).map(icon => ({
+      value: icon,
+      label: icon,
+      icon: icon,
+      ariaLabel: icon
+    }))
   ];
 
   currentConfigGuide = computed(() => {

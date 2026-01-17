@@ -5,6 +5,7 @@ export type ToggleGroupAppearance = 'standard' | 'legacy';
 export interface ToggleOption {
   value: string;
   label: string;
+  icon?: string;
   disabled?: boolean;
   ariaLabel?: string;
 }

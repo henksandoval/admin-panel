@@ -2,6 +2,7 @@ import { Component, computed, forwardRef, input, model, output } from '@angular/
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
 import {
   TOGGLE_GROUP_DEFAULTS,
   ToggleGroupAppearance,
@@ -13,7 +14,7 @@ import {
 @Component({
   selector: 'app-toggle-group',
   standalone: true,
-  imports: [CommonModule, MatButtonToggleModule, FormsModule],
+  imports: [CommonModule, MatButtonToggleModule, MatIconModule, FormsModule],
   template: `
     <mat-button-toggle-group
       [value]="value()"
@@ -31,7 +32,11 @@ import {
           [value]="option.value"
           [disabled]="option.disabled || false"
           [attr.aria-label]="option.ariaLabel || option.label">
-          {{ option.label }}
+          @if (option.icon) {
+            <mat-icon class="toggle-icon">{{ option.icon }}</mat-icon>
+          } @else {
+            {{ option.label }}
+          }
         </mat-button-toggle>
       }
     </mat-button-toggle-group>
