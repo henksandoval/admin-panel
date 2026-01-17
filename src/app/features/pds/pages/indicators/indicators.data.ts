@@ -71,17 +71,6 @@ export const INLINE_COLORS: { value: Extract<BadgeColor, 'normal' | 'info' | 'su
   { value: 'error', label: 'Error', description: 'Critical issues or errors' }
 ];
 
-export const BADGE_DEFAULTS = {
-  variant: 'inline' as const,
-  overlayColor: 'primary' as const,
-  inlineColor: 'normal' as const,
-  position: 'above after' as const,
-  overlap: true,
-  hidden: false,
-  hasIndicator: false,
-  content: '0'
-};
-
 export const API_PROPERTIES: ApiProperty[] = [
   {
     name: 'variant',

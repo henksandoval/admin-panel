@@ -9,13 +9,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppBadgeComponent } from '@shared/atoms/app-badge/app-badge.component';
-import { BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
+import { BADGE_DEFAULTS, BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
 import {
   BADGE_VARIANT_GUIDES,
   BADGE_POSITIONS,
   OVERLAY_COLORS,
   INLINE_COLORS,
-  BADGE_DEFAULTS,
   API_PROPERTIES,
   BEST_PRACTICES,
   type BadgeVariantGuide
