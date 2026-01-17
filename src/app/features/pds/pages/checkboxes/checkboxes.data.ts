@@ -1,8 +1,17 @@
 import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
+import type {ApiProperty, BestPracticeItem} from '@shared/molecules';
 
-/**
- * Valores por defecto del componente Checkbox
- */
+export interface StateGuide {
+  state: 'checked' | 'unchecked' | 'indeterminate';
+  title: string;
+  description: string;
+  whenToUse: string[];
+  examples: string[];
+  emphasis: StateEmphasis;
+}
+
+export type StateEmphasis = 'high' | 'medium' | 'low';
+
 export const CHECKBOX_DEFAULTS = {
   checked: false,
   color: 'primary' as CheckboxColor,
@@ -12,23 +21,6 @@ export const CHECKBOX_DEFAULTS = {
   indeterminate: false,
   required: false
 };
-
-/**
- * Tipo de énfasis para estados del checkbox
- */
-export type StateEmphasis = 'high' | 'medium' | 'low';
-
-/**
- * Guía de estados del checkbox
- */
-export interface StateGuide {
-  state: 'checked' | 'unchecked' | 'indeterminate';
-  title: string;
-  description: string;
-  whenToUse: string[];
-  examples: string[];
-  emphasis: StateEmphasis;
-}
 
 export const STATE_GUIDES: StateGuide[] = [
   {
@@ -84,29 +76,73 @@ export const STATE_GUIDES: StateGuide[] = [
   }
 ];
 
-/**
- * Colores disponibles para el checkbox
- */
 export const CHECKBOX_COLORS: Array<{ value: CheckboxColor; label: string }> = [
   { value: 'primary', label: 'Primary' },
   { value: 'secondary', label: 'Secondary' },
   { value: 'tertiary', label: 'Tertiary' }
 ];
 
-/**
- * Tamaños disponibles para el checkbox
- */
 export const CHECKBOX_SIZES: Array<{ value: CheckboxSize; label: string }> = [
   { value: 'small', label: 'Small' },
   { value: 'medium', label: 'Medium' },
   { value: 'large', label: 'Large' }
 ];
 
-/**
- * Posiciones del label
- */
-export const LABEL_POSITIONS: Array<{ value: CheckboxLabelPosition; label: string }> = [
-  { value: 'after', label: 'After (Default)' },
-  { value: 'before', label: 'Before' }
+export const BEST_PRACTICES: BestPracticeItem[] = [
+  { label: 'Labels', text: 'Usa textos claros y descriptivos que indiquen qué representa la selección.' },
+  { label: 'Agrupación', text: 'Agrupa checkboxes relacionados bajo un título común.' },
+  { label: 'Indeterminate', text: 'Usa para "Seleccionar todos" cuando hay selección parcial de elementos hijos.' },
+  { label: 'Accesibilidad', text: 'Marca como required los campos obligatorios y usa ariaLabel cuando no hay texto visible.' }
 ];
 
+export const API_PROPERTIES: ApiProperty[] = [
+  {
+    name: 'checked',
+    decorator: '@Input()',
+    description: 'Estado marcado del checkbox.',
+    type: 'boolean',
+    defaultValue: 'false'
+  },
+  {
+    name: 'indeterminate',
+    decorator: '@Input()',
+    description: 'Estado indeterminado (para selección parcial).',
+    type: 'boolean',
+    defaultValue: 'false'
+  },
+  {
+    name: 'color',
+    decorator: '@Input()',
+    description: 'Color semántico del checkbox.',
+    type: "'primary' | 'accent' | 'warn'",
+    defaultValue: 'primary'
+  },
+  {
+    name: 'size',
+    decorator: '@Input()',
+    description: 'Tamaño del checkbox.',
+    type: "'small' | 'medium' | 'large'",
+    defaultValue: 'medium'
+  },
+  {
+    name: 'labelPosition',
+    decorator: '@Input()',
+    description: 'Posición del label respecto al checkbox.',
+    type: "'before' | 'after'",
+    defaultValue: 'after'
+  },
+  {
+    name: 'disabled',
+    decorator: '@Input()',
+    description: 'Deshabilita el checkbox.',
+    type: 'boolean',
+    defaultValue: 'false'
+  },
+  {
+    name: 'required',
+    decorator: '@Input()',
+    description: 'Marca el campo como requerido.',
+    type: 'boolean',
+    defaultValue: 'false'
+  }
+];
