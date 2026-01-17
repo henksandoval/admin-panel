@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormFieldInputComponent } from '@shared/atoms/form-field-input/form-field-input.component';
@@ -15,19 +14,19 @@ import { FormFieldInputOptions, InputFieldType } from '@shared/atoms/form-field-
 import { ControlConnectorDirective } from '@shared/atoms/form-field-input/control-connector.directive';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import {
+  API_PROPERTIES,
+  BEST_PRACTICES,
   FIELD_CONFIG_GUIDES,
   FORM_FIELD_DEFAULTS,
   INPUT_TYPES,
   FIELD_APPEARANCES,
   COMMON_ICONS,
-  type FieldConfigGuide
+  type FieldConfigGuide,
 } from './basic-forms.data';
 import {
   PdsCodeBlockComponent,
   PdsBestPracticesComponent,
-  PdsApiReferenceComponent,
-  type ApiProperty,
-  type BestPracticeItem
+  PdsApiReferenceComponent
 } from '@shared/molecules';
 
 @Component({
@@ -49,13 +48,11 @@ import {
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
   ],
-  templateUrl: './basic-forms.component.html',
-  styleUrl: './basic-forms.component.scss'
+  templateUrl: './basic-forms.component.html'
 })
 export class BasicFormsComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
-  private readonly snackBar = inject(MatSnackBar);
 
   public form!: FormGroup;
 
@@ -75,6 +72,8 @@ export class BasicFormsComponent implements OnInit {
   readonly INPUT_TYPES = INPUT_TYPES;
   readonly FIELD_APPEARANCES = FIELD_APPEARANCES;
   readonly COMMON_ICONS = COMMON_ICONS;
+  readonly apiProperties = API_PROPERTIES;
+  readonly bestPractices = BEST_PRACTICES;
 
   currentConfigGuide = computed(() => {
     return FIELD_CONFIG_GUIDES.find(guide => guide.config === this.selectedConfig());
@@ -235,90 +234,4 @@ export class BasicFormsComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/pds/index']);
   }
-
-  copyToClipboard(): void {
-    navigator.clipboard.writeText(this.generatedCode()).then(() => {
-      this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
-    });
-  }
-
-  apiProperties: ApiProperty[] = [
-    {
-      name: 'config',
-      decorator: '@Input()',
-      description: 'Objeto de configuración completo del campo.',
-      type: 'FormFieldInputOptions',
-      defaultValue: '{}'
-    },
-    {
-      name: 'type',
-      decorator: '@Input()',
-      description: 'Tipo de input HTML.',
-      type: "'text' | 'email' | 'password' | 'number' | 'tel'",
-      defaultValue: 'text'
-    },
-    {
-      name: 'label',
-      decorator: '@Input()',
-      description: 'Etiqueta del campo.',
-      type: 'string',
-      optional: true
-    },
-    {
-      name: 'placeholder',
-      decorator: '@Input()',
-      description: 'Texto placeholder del input.',
-      type: 'string',
-      optional: true
-    },
-    {
-      name: 'appearance',
-      decorator: '@Input()',
-      description: 'Estilo visual del campo.',
-      type: "'fill' | 'outline'",
-      defaultValue: 'fill'
-    },
-    {
-      name: 'hint',
-      decorator: '@Input()',
-      description: 'Texto de ayuda debajo del campo.',
-      type: 'string',
-      optional: true
-    },
-    {
-      name: 'icon',
-      decorator: '@Input()',
-      description: 'Icono Material al inicio del campo.',
-      type: 'string',
-      optional: true
-    },
-    {
-      name: 'prefix',
-      decorator: '@Input()',
-      description: 'Prefijo de texto (ej: "$", "@").',
-      type: 'string',
-      optional: true
-    },
-    {
-      name: 'suffix',
-      decorator: '@Input()',
-      description: 'Sufijo de texto (ej: ".00", "km").',
-      type: 'string',
-      optional: true
-    },
-    {
-      name: 'errorMessages',
-      decorator: '@Input()',
-      description: 'Mapeo de mensajes de error personalizados.',
-      type: 'Record<string, string>',
-      optional: true
-    }
-  ];
-
-  bestPractices: BestPracticeItem[] = [
-    { label: 'Labels', text: 'Usa labels descriptivos que indiquen claramente qué se espera del usuario.' },
-    { label: 'Placeholders', text: 'Los placeholders deben ser ejemplos, no instrucciones. Usa hints para instrucciones.' },
-    { label: 'Validación', text: 'Muestra errores de validación en tiempo real después del primer intento o blur.' },
-    { label: 'Accesibilidad', text: 'Siempre incluye labels, marca campos requeridos y proporciona mensajes de error claros.' }
-  ];
 }
