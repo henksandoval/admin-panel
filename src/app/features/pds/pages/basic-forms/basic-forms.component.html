@@ -159,23 +159,9 @@
           </div>
         </mat-card-content>
       </mat-card>
-
-      <mat-card appearance="outlined" class="code-card overflow-hidden">
-        <div class="code-header px-4 py-3 border-b flex justify-between items-center">
-          <h3 class="text-sm font-medium flex items-center gap-2">
-            <mat-icon class="text-base">code</mat-icon> Generated Code
-          </h3>
-          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-        </div>
-        <div class="p-4 relative group">
-          <pre class="font-mono text-sm overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
-        </div>
-        <div class="code-footer px-4 py-2 text-xs border-t">
-          💡 TypeScript config + HTML template usage example.
-        </div>
-      </mat-card>
+      <app-pds-code-block
+        [code]="generatedCode()"
+        footer="💡 TypeScript config + HTML template usage example." />
     </section>
 
     <aside class="xl:col-span-7 space-y-8">
@@ -274,193 +260,12 @@
           </div>
         </section>
 
-        <div class="alert-tip border rounded-xl p-6 flex gap-4">
-          <mat-icon class="shrink-0">tips_and_updates</mat-icon>
-          <div>
-            <h3 class="alert-title font-bold mb-2">Best Practices</h3>
-            <ul class="alert-content space-y-2 text-sm">
-              <li class="flex gap-2">
-                <span class="alert-label">Labels:</span>
-                Siempre usa labels descriptivos. Evita placeholders como único indicador.
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Validación:</span>
-                Muestra mensajes de error claros y específicos (no genéricos).
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Hints:</span>
-                Usa hints para explicar requisitos antes del error (ej: "Min 8 characters").
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Iconos:</span>
-                Los iconos deben reforzar el significado, no ser decorativos.
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Apariencia:</span>
-                'outline' es mejor para formularios densos, 'fill' para minimalistas.
-              </li>
-            </ul>
-          </div>
-        </div>
+        <app-pds-best-practices [practices]="bestPractices" />
       }
     </aside>
   </div>
 
-  <section class="mt-12 pt-12 section-divider border-t-2">
-    <div class="api-section-header flex items-center gap-3 mb-8">
-      <div class="api-icon-container p-3 rounded-xl border">
-        <mat-icon class="block">settings</mat-icon>
-      </div>
-      <div>
-        <h2 class="api-title text-3xl font-bold">API Reference</h2>
-        <p class="api-description">Documentación completa de propiedades disponibles en <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-form-field-input&gt;</code></p>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">config</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Objeto de configuración completo del campo.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg break-words border">
-          FormFieldInputOptions
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Required</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">label</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Etiqueta descriptiva del campo (obligatoria).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Required in config</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">placeholder</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Texto de ayuda dentro del campo.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">type</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Tipo de input HTML.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'text' | 'email' | 'password' | 'number' | 'tel'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'text'</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">appearance</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Estilo visual del mat-form-field.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'fill' | 'outline'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'fill'</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">hint</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Texto de ayuda debajo del campo.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">icon</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Nombre del icono Material (matPrefix).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string (Material icon name)
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">prefix / suffix</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Texto antes/después del input.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">errorMessages</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Mensajes de error personalizados por tipo de validación.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          Record&lt;string, string&gt;
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">required</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Marca el campo como obligatorio (muestra *).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">disabled</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Deshabilita el campo (no editable).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">formControlName</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">Directive</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Enlace con FormControl de Angular Reactive Forms.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Required for forms</div>
-      </div>
-    </div>
-  </section>
+  <app-pds-api-reference
+    componentTag="<app-form-field-input>"
+    [properties]="apiProperties" />
 </div>

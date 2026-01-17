@@ -99,22 +99,7 @@
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-card appearance="outlined" class="code-card overflow-hidden">
-        <div class="code-header px-4 py-3 border-b flex justify-between items-center">
-          <h3 class="text-sm font-medium flex items-center gap-2">
-            <mat-icon class="text-base">code</mat-icon> Generated Code
-          </h3>
-          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-        </div>
-        <div class="p-4 relative group">
-          <pre class="font-mono text-sm overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
-        </div>
-        <div class="code-footer px-4 py-2 text-xs border-t">
-          💡 Solo incluye las propiedades que difieren de los defaults.
-        </div>
-      </mat-card>
+      <app-pds-code-block [code]="generatedCode()" />
     </section>
     <aside class="xl:col-span-7 space-y-8">
       @if (currentVariantGuide(); as guide) {
@@ -180,106 +165,11 @@
             </div>
           </div>
         </section>
-        <div class="alert-tip border rounded-xl p-6 flex gap-4">
-          <mat-icon class="shrink-0">tips_and_updates</mat-icon>
-          <div>
-            <h3 class="alert-title font-bold mb-2">Best Practices</h3>
-            <ul class="alert-content space-y-2 text-sm">
-              <li class="flex gap-2">
-                <span class="alert-label">Jerarquía:</span>
-                Usa solo un botón de alto énfasis por sección.
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Consistencia:</span>
-                Mantén el mismo variant para acciones similares.
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Diálogos:</span>
-                Filled para confirmar, Outlined para cancelar.
-              </li>
-            </ul>
-          </div>
-        </div>
+        <app-pds-best-practices [practices]="bestPractices" />
       }
     </aside>
   </div>
-  <section class="mt-12 pt-12 section-divider border-t-2">
-    <div class="api-section-header flex items-center gap-3 mb-8">
-      <div class="api-icon-container p-3 rounded-xl border">
-        <mat-icon class="block">settings</mat-icon>
-      </div>
-      <div>
-        <h2 class="api-title text-3xl font-bold">API Reference</h2>
-        <p class="api-description">Documentación completa de propiedades disponibles en <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-button&gt;</code></p>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">variant</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Controla el estilo visual del botón.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg break-words border">
-          'filled' | 'elevated' | 'outlined' | 'text' | 'tonal'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'filled'</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">color</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Color semántico del tema.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'primary' | 'secondary' | 'tertiary'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'primary'</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">shape</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Forma de las esquinas.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'rounded' | 'square'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'rounded'</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">size</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Tamaño del botón.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'small' | 'medium' | 'large'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'medium'</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">disabled</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Deshabilita la interacción.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">iconBefore / iconAfter</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Nombre del icono Material Design.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string (ej: 'star', 'home')
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
-      </div>
-    </div>
-  </section>
+  <app-pds-api-reference
+    componentTag="<app-button>"
+    [properties]="apiProperties" />
 </div>

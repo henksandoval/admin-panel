@@ -22,6 +22,13 @@ import {
   COMMON_ICONS,
   type FieldConfigGuide
 } from './basic-forms.data';
+import {
+  PdsCodeBlockComponent,
+  PdsBestPracticesComponent,
+  PdsApiReferenceComponent,
+  type ApiProperty,
+  type BestPracticeItem
+} from '@shared/molecules';
 
 @Component({
   selector: 'app-basic-forms',
@@ -37,7 +44,10 @@ import {
     MatCheckboxModule,
     MatTooltipModule,
     FormFieldInputComponent,
-    ControlConnectorDirective
+    ControlConnectorDirective,
+    PdsCodeBlockComponent,
+    PdsBestPracticesComponent,
+    PdsApiReferenceComponent
   ],
   templateUrl: './basic-forms.component.html',
   styleUrl: './basic-forms.component.scss'
@@ -231,4 +241,84 @@ export class BasicFormsComponent implements OnInit {
       this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
     });
   }
+
+  apiProperties: ApiProperty[] = [
+    {
+      name: 'config',
+      decorator: '@Input()',
+      description: 'Objeto de configuración completo del campo.',
+      type: 'FormFieldInputOptions',
+      defaultValue: '{}'
+    },
+    {
+      name: 'type',
+      decorator: '@Input()',
+      description: 'Tipo de input HTML.',
+      type: "'text' | 'email' | 'password' | 'number' | 'tel'",
+      defaultValue: 'text'
+    },
+    {
+      name: 'label',
+      decorator: '@Input()',
+      description: 'Etiqueta del campo.',
+      type: 'string',
+      optional: true
+    },
+    {
+      name: 'placeholder',
+      decorator: '@Input()',
+      description: 'Texto placeholder del input.',
+      type: 'string',
+      optional: true
+    },
+    {
+      name: 'appearance',
+      decorator: '@Input()',
+      description: 'Estilo visual del campo.',
+      type: "'fill' | 'outline'",
+      defaultValue: 'fill'
+    },
+    {
+      name: 'hint',
+      decorator: '@Input()',
+      description: 'Texto de ayuda debajo del campo.',
+      type: 'string',
+      optional: true
+    },
+    {
+      name: 'icon',
+      decorator: '@Input()',
+      description: 'Icono Material al inicio del campo.',
+      type: 'string',
+      optional: true
+    },
+    {
+      name: 'prefix',
+      decorator: '@Input()',
+      description: 'Prefijo de texto (ej: "$", "@").',
+      type: 'string',
+      optional: true
+    },
+    {
+      name: 'suffix',
+      decorator: '@Input()',
+      description: 'Sufijo de texto (ej: ".00", "km").',
+      type: 'string',
+      optional: true
+    },
+    {
+      name: 'errorMessages',
+      decorator: '@Input()',
+      description: 'Mapeo de mensajes de error personalizados.',
+      type: 'Record<string, string>',
+      optional: true
+    }
+  ];
+
+  bestPractices: BestPracticeItem[] = [
+    { label: 'Labels', text: 'Usa labels descriptivos que indiquen claramente qué se espera del usuario.' },
+    { label: 'Placeholders', text: 'Los placeholders deben ser ejemplos, no instrucciones. Usa hints para instrucciones.' },
+    { label: 'Validación', text: 'Muestra errores de validación en tiempo real después del primer intento o blur.' },
+    { label: 'Accesibilidad', text: 'Siempre incluye labels, marca campos requeridos y proporciona mensajes de error claros.' }
+  ];
 }

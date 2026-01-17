@@ -15,6 +15,7 @@
 
 @include mat.core();
 @include theming.build-themes();
+@import 'pds-playground';
 
 html,
 body {

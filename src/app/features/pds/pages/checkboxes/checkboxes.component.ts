@@ -19,6 +19,13 @@ import {
   LABEL_POSITIONS,
   type StateGuide
 } from './checkboxes.data';
+import {
+  PdsCodeBlockComponent,
+  PdsBestPracticesComponent,
+  PdsApiReferenceComponent,
+  type ApiProperty,
+  type BestPracticeItem
+} from '@shared/molecules';
 
 @Component({
   selector: 'app-checkboxes',
@@ -32,7 +39,10 @@ import {
     MatButtonToggleModule,
     MatCheckboxModule,
     MatTooltipModule,
-    AppCheckboxComponent
+    AppCheckboxComponent,
+    PdsCodeBlockComponent,
+    PdsBestPracticesComponent,
+    PdsApiReferenceComponent
   ],
   templateUrl: './checkboxes.component.html',
   styleUrl: './checkboxes.component.scss'
@@ -138,5 +148,64 @@ export default class CheckboxesComponent {
       this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
     });
   }
+
+  apiProperties: ApiProperty[] = [
+    {
+      name: 'checked',
+      decorator: '@Input()',
+      description: 'Estado marcado del checkbox.',
+      type: 'boolean',
+      defaultValue: 'false'
+    },
+    {
+      name: 'indeterminate',
+      decorator: '@Input()',
+      description: 'Estado indeterminado (para selección parcial).',
+      type: 'boolean',
+      defaultValue: 'false'
+    },
+    {
+      name: 'color',
+      decorator: '@Input()',
+      description: 'Color semántico del checkbox.',
+      type: "'primary' | 'accent' | 'warn'",
+      defaultValue: 'primary'
+    },
+    {
+      name: 'size',
+      decorator: '@Input()',
+      description: 'Tamaño del checkbox.',
+      type: "'small' | 'medium' | 'large'",
+      defaultValue: 'medium'
+    },
+    {
+      name: 'labelPosition',
+      decorator: '@Input()',
+      description: 'Posición del label respecto al checkbox.',
+      type: "'before' | 'after'",
+      defaultValue: 'after'
+    },
+    {
+      name: 'disabled',
+      decorator: '@Input()',
+      description: 'Deshabilita el checkbox.',
+      type: 'boolean',
+      defaultValue: 'false'
+    },
+    {
+      name: 'required',
+      decorator: '@Input()',
+      description: 'Marca el campo como requerido.',
+      type: 'boolean',
+      defaultValue: 'false'
+    }
+  ];
+
+  bestPractices: BestPracticeItem[] = [
+    { label: 'Labels', text: 'Usa textos claros y descriptivos que indiquen qué representa la selección.' },
+    { label: 'Agrupación', text: 'Agrupa checkboxes relacionados bajo un título común.' },
+    { label: 'Indeterminate', text: 'Usa para "Seleccionar todos" cuando hay selección parcial de elementos hijos.' },
+    { label: 'Accesibilidad', text: 'Marca como required los campos obligatorios y usa ariaLabel cuando no hay texto visible.' }
+  ];
 }
 

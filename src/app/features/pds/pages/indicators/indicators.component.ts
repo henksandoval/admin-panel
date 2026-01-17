@@ -19,6 +19,13 @@ import {
   BADGE_DEFAULTS,
   type BadgeVariantGuide
 } from './indicators.data';
+import {
+  PdsCodeBlockComponent,
+  PdsBestPracticesComponent,
+  PdsApiReferenceComponent,
+  type ApiProperty,
+  type BestPracticeItem
+} from '@shared/molecules';
 
 @Component({
   selector: 'app-indicators',
@@ -32,7 +39,10 @@ import {
     MatButtonToggleModule,
     MatCheckboxModule,
     MatTooltipModule,
-    AppBadgeComponent
+    AppBadgeComponent,
+    PdsCodeBlockComponent,
+    PdsBestPracticesComponent,
+    PdsApiReferenceComponent
   ],
   templateUrl: './indicators.component.html',
   styleUrl: './indicators.component.scss'
@@ -150,4 +160,71 @@ export default class IndicatorsComponent {
       this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
     });
   }
+
+  // API Reference Data
+  apiProperties: ApiProperty[] = [
+    {
+      name: 'variant',
+      decorator: '@Input()',
+      description: 'Tipo de badge a renderizar.',
+      type: "'overlay' | 'inline'",
+      defaultValue: 'overlay'
+    },
+    {
+      name: 'content',
+      decorator: '@Input()',
+      description: 'Contenido del badge overlay (texto o número).',
+      type: 'string',
+      defaultValue: ''
+    },
+    {
+      name: 'color (overlay)',
+      decorator: '@Input()',
+      description: 'Color del badge cuando variant="overlay".',
+      type: "'primary' | 'accent' | 'warn'",
+      defaultValue: 'primary'
+    },
+    {
+      name: 'color (inline)',
+      decorator: '@Input()',
+      description: 'Color del badge cuando variant="inline".',
+      type: "'normal' | 'info' | 'success' | 'warning' | 'error'",
+      defaultValue: 'normal'
+    },
+    {
+      name: 'position',
+      decorator: '@Input()',
+      description: 'Posición del badge overlay respecto al elemento.',
+      type: "'above before' | 'above after' | 'below before' | 'below after'",
+      defaultValue: 'above after'
+    },
+    {
+      name: 'overlap',
+      decorator: '@Input()',
+      description: 'Si el badge debe superponerse al elemento.',
+      type: 'boolean',
+      defaultValue: 'false'
+    },
+    {
+      name: 'hidden',
+      decorator: '@Input()',
+      description: 'Oculta el badge manteniendo el espacio.',
+      type: 'boolean',
+      defaultValue: 'false'
+    },
+    {
+      name: 'hasIndicator',
+      decorator: '@Input()',
+      description: 'Muestra un indicador (!) en badges inline.',
+      type: 'boolean',
+      defaultValue: 'false'
+    }
+  ];
+
+  bestPractices: BestPracticeItem[] = [
+    { label: 'Overlay', text: 'Usa badges overlay para notificaciones y contadores en iconos.' },
+    { label: 'Inline', text: 'Usa badges inline para estados, etiquetas y categorías en el contenido.' },
+    { label: 'Números', text: 'Para cantidades mayores a 99, muestra "99+".' },
+    { label: 'Colores', text: 'Usa colores semánticos: error para urgente, success para completado, warning para atención.' }
+  ];
 }

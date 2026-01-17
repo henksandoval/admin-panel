@@ -11,8 +11,14 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
 import { VARIANT_GUIDES, type VariantGuide } from './buttons.data';
-import {MatTooltip} from '@angular/material/tooltip';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {
+  PdsCodeBlockComponent,
+  PdsBestPracticesComponent,
+  PdsApiReferenceComponent,
+  type ApiProperty,
+  type BestPracticeItem
+} from '@shared/molecules';
 
 @Component({
   selector: 'app-buttons',
@@ -26,7 +32,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     MatButtonToggleModule,
     MatCheckboxModule,
     AppButtonComponent,
-    MatTooltip
+    PdsCodeBlockComponent,
+    PdsBestPracticesComponent,
+    PdsApiReferenceComponent
   ],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss'
@@ -126,4 +134,55 @@ export default class ButtonsComponent {
       this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
     });
   }
+
+  apiProperties: ApiProperty[] = [
+    {
+      name: 'variant',
+      decorator: '@Input()',
+      description: 'Controla el estilo visual del botón.',
+      type: "'filled' | 'elevated' | 'outlined' | 'text' | 'tonal'",
+      defaultValue: 'filled'
+    },
+    {
+      name: 'color',
+      decorator: '@Input()',
+      description: 'Color semántico del tema.',
+      type: "'primary' | 'secondary' | 'tertiary'",
+      defaultValue: 'primary'
+    },
+    {
+      name: 'shape',
+      decorator: '@Input()',
+      description: 'Forma de las esquinas.',
+      type: "'rounded' | 'square'",
+      defaultValue: 'rounded'
+    },
+    {
+      name: 'size',
+      decorator: '@Input()',
+      description: 'Tamaño del botón.',
+      type: "'small' | 'medium' | 'large'",
+      defaultValue: 'medium'
+    },
+    {
+      name: 'disabled',
+      decorator: '@Input()',
+      description: 'Deshabilita la interacción.',
+      type: 'boolean',
+      defaultValue: 'false'
+    },
+    {
+      name: 'iconBefore / iconAfter',
+      decorator: '@Input()',
+      description: 'Nombre del icono Material Design.',
+      type: "string (ej: 'star', 'home')",
+      optional: true
+    }
+  ];
+
+  bestPractices: BestPracticeItem[] = [
+    { label: 'Jerarquía', text: 'Usa solo un botón de alto énfasis por sección.' },
+    { label: 'Consistencia', text: 'Mantén el mismo variant para acciones similares.' },
+    { label: 'Diálogos', text: 'Filled para confirmar, Outlined para cancelar.' }
+  ];
 }

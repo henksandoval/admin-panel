@@ -147,22 +147,7 @@
           }
         </mat-card-content>
       </mat-card>
-      <mat-card appearance="outlined" class="code-card overflow-hidden">
-        <div class="code-header px-4 py-3 border-b flex justify-between items-center">
-          <h3 class="text-sm font-medium flex items-center gap-2">
-            <mat-icon class="text-base">code</mat-icon> Generated Code
-          </h3>
-          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-        </div>
-        <div class="p-4 relative group">
-          <pre class="font-mono text-sm overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
-        </div>
-        <div class="code-footer px-4 py-2 text-xs border-t">
-          💡 Solo incluye las propiedades que difieren de los defaults.
-        </div>
-      </mat-card>
+      <app-pds-code-block [code]="generatedCode()" />
     </section>
     <aside class="xl:col-span-7 space-y-8">
       @if (currentVariantGuide(); as guide) {
@@ -288,154 +273,11 @@
           </section>
         }
 
-        <div class="alert-tip border rounded-xl p-6 flex gap-4">
-          <mat-icon class="shrink-0">tips_and_updates</mat-icon>
-          <div>
-            <h3 class="alert-title font-bold mb-2">Best Practices</h3>
-            <ul class="alert-content space-y-2 text-sm">
-              @if (selectedVariant() === 'overlay') {
-                <li class="flex gap-2">
-                  <span class="alert-label">Visibilidad:</span>
-                  Usa 'warn' para notificaciones críticas que requieren atención inmediata.
-                </li>
-                <li class="flex gap-2">
-                  <span class="alert-label">Posicionamiento:</span>
-                  'above after' es el estándar, pero ajusta según el contexto.
-                </li>
-                <li class="flex gap-2">
-                  <span class="alert-label">Números grandes:</span>
-                  Considera usar "99+" para contadores mayores a 99.
-                </li>
-              } @else {
-                <li class="flex gap-2">
-                  <span class="alert-label">Semántica:</span>
-                  Usa colores que coincidan con el significado (success=positivo, error=crítico).
-                </li>
-                <li class="flex gap-2">
-                  <span class="alert-label">Indicadores:</span>
-                  El símbolo "!" debe usarse solo para estados que requieren acción.
-                </li>
-                <li class="flex gap-2">
-                  <span class="alert-label">Navegación:</span>
-                  Perfecto para contadores en sidebars y menús contextuales.
-                </li>
-              }
-            </ul>
-          </div>
-        </div>
+        <app-pds-best-practices [practices]="bestPractices" />
       }
     </aside>
   </div>
-  <section class="mt-12 pt-12 section-divider border-t-2">
-    <div class="api-section-header flex items-center gap-3 mb-8">
-      <div class="api-icon-container p-3 rounded-xl border">
-        <mat-icon class="block">settings</mat-icon>
-      </div>
-      <div>
-        <h2 class="api-title text-3xl font-bold">API Reference</h2>
-        <p class="api-description">Documentación completa de propiedades disponibles en <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-badge&gt;</code></p>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">variant</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Define si el badge es overlay (sobre elemento) o inline (en flujo).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg break-words border">
-          'overlay' | 'inline'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'inline'</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">color (overlay)</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Color del badge overlay (matBadge).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'primary' | 'accent' | 'warn'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'primary'</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">color (inline)</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Color semántico del badge inline.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'normal' | 'info' | 'success' | 'warning' | 'error'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'normal'</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">content</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Contenido del badge overlay (número o texto).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string | number
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Only for overlay</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">position</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Posición del badge overlay relativa al elemento.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'above after' | 'above before' | 'below after' | 'below before'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'above after'</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">overlap</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Si el badge overlay se superpone al contenido.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: true</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">hidden</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Oculta el badge overlay condicionalmente.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">hasIndicator</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Muestra un indicador "!" en badges inline.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">size</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Tamaño del badge.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'small' | 'medium' | 'large'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'medium'</div>
-      </div>
-    </div>
-  </section>
+  <app-pds-api-reference
+    componentTag="<app-badge>"
+    [properties]="apiProperties" />
 </div>

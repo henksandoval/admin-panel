@@ -106,23 +106,7 @@
           </div>
         </mat-card-content>
       </mat-card>
-
-      <mat-card appearance="outlined" class="code-card overflow-hidden">
-        <div class="code-header px-4 py-3 border-b flex justify-between items-center">
-          <h3 class="text-sm font-medium flex items-center gap-2">
-            <mat-icon class="text-base">code</mat-icon> Generated Code
-          </h3>
-          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-        </div>
-        <div class="p-4 relative group">
-          <pre class="font-mono text-sm overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
-        </div>
-        <div class="code-footer px-4 py-2 text-xs border-t">
-          💡 Solo incluye las propiedades que difieren de los defaults.
-        </div>
-      </mat-card>
+      <app-pds-code-block [code]="generatedCode()" />
     </section>
 
     <aside class="xl:col-span-7 space-y-8">
@@ -215,153 +199,12 @@
           </div>
         </section>
 
-        <div class="alert-tip border rounded-xl p-6 flex gap-4">
-          <mat-icon class="shrink-0">tips_and_updates</mat-icon>
-          <div>
-            <h3 class="alert-title font-bold mb-2">Best Practices</h3>
-            <ul class="alert-content space-y-2 text-sm">
-              <li class="flex gap-2">
-                <span class="alert-label">Labels:</span>
-                Usa textos claros y descriptivos que indiquen qué representa la selección.
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Agrupación:</span>
-                Agrupa checkboxes relacionados bajo un título común.
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Indeterminate:</span>
-                Usa para "Seleccionar todos" cuando hay selección parcial de elementos hijos.
-              </li>
-              <li class="flex gap-2">
-                <span class="alert-label">Accesibilidad:</span>
-                Marca como required los campos obligatorios y usa ariaLabel cuando no hay texto visible.
-              </li>
-            </ul>
-          </div>
-        </div>
+        <app-pds-best-practices [practices]="bestPractices" />
       }
     </aside>
   </div>
 
-  <section class="mt-12 pt-12 section-divider border-t-2">
-    <div class="api-section-header flex items-center gap-3 mb-8">
-      <div class="api-icon-container p-3 rounded-xl border">
-        <mat-icon class="block">settings</mat-icon>
-      </div>
-      <div>
-        <h2 class="api-title text-3xl font-bold">API Reference</h2>
-        <p class="api-description">Documentación completa de propiedades disponibles en <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-checkbox&gt;</code></p>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">checked</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Estado del checkbox (soporta two-way binding con [(checked)]).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg break-words border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">color</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Color semántico del tema.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'primary' | 'secondary' | 'tertiary'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'primary'</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">size</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Tamaño del checkbox.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'small' | 'medium' | 'large'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'medium'</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">labelPosition</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Posición del label respecto al checkbox.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          'before' | 'after'
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'after'</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">disabled</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Deshabilita la interacción con el checkbox.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">indeterminate</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Estado intermedio (parcialmente seleccionado).</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">required</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Marca el checkbox como campo obligatorio.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          boolean
-        </div>
-        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">ariaLabel</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Label de accesibilidad para lectores de pantalla.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          string
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
-      </div>
-
-      <div class="api-card p-5 rounded-xl border-2">
-        <div class="flex justify-between items-start mb-3">
-          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">changed</code>
-          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Output()' }}</span>
-        </div>
-        <p class="api-description-text text-sm mb-3 leading-relaxed">Emite el nuevo estado cuando el checkbox cambia.</p>
-        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
-          EventEmitter&lt;boolean&gt;
-        </div>
-        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Event</div>
-      </div>
-    </div>
-  </section>
+  <app-pds-api-reference
+    componentTag="<app-checkbox>"
+    [properties]="apiProperties" />
 </div>
