@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +28,6 @@ import {
   standalone: true,
   imports: [
     CommonModule,
-    JsonPipe,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
