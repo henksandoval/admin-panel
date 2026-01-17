@@ -1,224 +1,112 @@
 import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
 
 /**
- * Ejemplos de casos de uso comunes para checkboxes
+ * Valores por defecto del componente Checkbox
  */
-export interface CheckboxUseCase {
-  title: string;
-  description: string;
-  checked: boolean;
-  disabled?: boolean;
-  indeterminate?: boolean;
-}
-
-export const COMMON_USE_CASES: CheckboxUseCase[] = [
-  {
-    title: 'Acepto términos y condiciones',
-    description: 'Checkbox requerido en formularios de registro',
-    checked: false
-  },
-  {
-    title: 'Recordar sesión',
-    description: 'Mantener la sesión activa',
-    checked: true
-  },
-  {
-    title: 'Recibir notificaciones',
-    description: 'Opción deshabilitada temporalmente',
-    checked: false,
-    disabled: true
-  },
-  {
-    title: 'Seleccionar todos',
-    description: 'Estado indeterminado cuando hay selección parcial',
-    checked: false,
-    indeterminate: true
-  }
-];
+export const CHECKBOX_DEFAULTS = {
+  checked: false,
+  color: 'primary' as CheckboxColor,
+  size: 'medium' as CheckboxSize,
+  labelPosition: 'after' as CheckboxLabelPosition,
+  disabled: false,
+  indeterminate: false,
+  required: false
+};
 
 /**
- * Ejemplos de uso con diferentes configuraciones
+ * Tipo de énfasis para estados del checkbox
  */
-export interface UsageExample {
-  title: string;
-  code: string;
-  description: string;
-}
-
-export const USAGE_EXAMPLES: UsageExample[] = [
-  {
-    title: 'Básico',
-    code: `<app-checkbox>
-  Acepto los términos
-</app-checkbox>`,
-    description: 'Checkbox simple con label'
-  },
-  {
-    title: 'Con two-way binding',
-    code: `<app-checkbox [(checked)]="isAccepted">
-  Acepto términos
-</app-checkbox>`,
-    description: 'Sincronización bidireccional del estado'
-  },
-  {
-    title: 'Con evento change',
-    code: `<app-checkbox
-  (changed)="onCheckboxChange($event)">
-  Notificaciones
-</app-checkbox>`,
-    description: 'Escucha cambios de estado'
-  },
-  {
-    title: 'Deshabilitado',
-    code: `<app-checkbox
-  [disabled]="true"
-  [checked]="true">
-  Opción no disponible
-</app-checkbox>`,
-    description: 'Checkbox deshabilitado'
-  },
-  {
-    title: 'Indeterminado',
-    code: `<app-checkbox
-  [indeterminate]="true">
-  Seleccionar todos
-</app-checkbox>`,
-    description: 'Estado parcialmente seleccionado'
-  },
-  {
-    title: 'Requerido',
-    code: `<app-checkbox
-  [required]="true">
-  Acepto términos *
-</app-checkbox>`,
-    description: 'Campo obligatorio en formularios'
-  },
-  {
-    title: 'Label antes',
-    code: `<app-checkbox
-  labelPosition="before">
-  Label a la izquierda
-</app-checkbox>`,
-    description: 'Posición del label invertida'
-  },
-  {
-    title: 'Tamaño personalizado',
-    code: `<app-checkbox size="large">
-  Checkbox grande
-</app-checkbox>`,
-    description: 'Cambia el tamaño del checkbox'
-  },
-  {
-    title: 'Color secundario',
-    code: `<app-checkbox color="secondary">
-  Color secundario
-</app-checkbox>`,
-    description: 'Usa color secundario del tema'
-  }
-];
+export type StateEmphasis = 'high' | 'medium' | 'low';
 
 /**
- * Guías de uso por contexto
+ * Guía de estados del checkbox
  */
-export interface ContextGuide {
-  context: string;
+export interface StateGuide {
+  state: 'checked' | 'unchecked' | 'indeterminate';
+  title: string;
   description: string;
-  recommendations: string[];
+  whenToUse: string[];
   examples: string[];
+  emphasis: StateEmphasis;
 }
 
-export const CONTEXT_GUIDES: ContextGuide[] = [
+export const STATE_GUIDES: StateGuide[] = [
   {
-    context: 'Formularios',
-    description: 'Acepta términos, permisos y opciones binarias',
-    recommendations: [
-      'Usa labels claros y concisos',
-      'Marca como required los campos obligatorios',
-      'Agrupa checkboxes relacionados',
-      'Usa labelPosition="after" (default) para alineación consistente'
+    state: 'checked',
+    title: 'Checked State',
+    description: 'Estado activo cuando la opción está seleccionada. Indica que el usuario ha elegido esta opción de manera explícita.',
+    whenToUse: [
+      'El usuario ha confirmado una elección',
+      'Una opción binaria está activada',
+      'Un elemento de lista está seleccionado',
+      'Se han aceptado términos o condiciones'
     ],
     examples: [
-      'Aceptar términos y condiciones',
-      'Suscribirse al newsletter',
-      'Recordar contraseña'
-    ]
+      'Acepto términos y condiciones',
+      'Recordar sesión',
+      'Suscribirse al newsletter'
+    ],
+    emphasis: 'high'
   },
   {
-    context: 'Tablas y Listas',
-    description: 'Selección múltiple de elementos',
-    recommendations: [
-      'Usa checkbox en la primera columna',
-      'Implementa "Seleccionar todos" con indeterminate',
-      'Usa size="small" para compactar',
-      'Sin label para checkboxes de selección'
+    state: 'unchecked',
+    title: 'Unchecked State',
+    description: 'Estado por defecto cuando ninguna selección ha sido hecha. Representa una opción disponible pero no elegida.',
+    whenToUse: [
+      'Estado inicial de opciones',
+      'Opción desactivada por el usuario',
+      'Elemento no seleccionado en lista',
+      'Configuración deshabilitada'
     ],
     examples: [
-      'Seleccionar filas de tabla',
-      'Marcar tareas completadas',
-      'Selección masiva de items'
-    ]
+      'Opción disponible sin seleccionar',
+      'Filtro no aplicado',
+      'Configuración desactivada'
+    ],
+    emphasis: 'medium'
   },
   {
-    context: 'Configuraciones',
-    description: 'Activar/desactivar funcionalidades',
-    recommendations: [
-      'Usa labels descriptivos',
-      'Agrupa por categoría',
-      'Muestra el estado actual claramente',
-      'Considera disabled para opciones no disponibles'
+    state: 'indeterminate',
+    title: 'Indeterminate State',
+    description: 'Estado intermedio que indica una selección parcial. Comúnmente usado en checkboxes "Seleccionar todos" cuando solo algunos elementos están marcados.',
+    whenToUse: [
+      'Selección parcial de elementos hijos',
+      'Estado ambiguo entre checked/unchecked',
+      'Checkbox padre con hijos parcialmente seleccionados',
+      'Indicar que hay subelementos con estados mixtos'
     ],
     examples: [
-      'Habilitar notificaciones push',
-      'Modo oscuro',
-      'Sincronización automática'
-    ]
-  },
-  {
-    context: 'Filtros',
-    description: 'Filtrado múltiple de contenido',
-    recommendations: [
-      'Agrupa filtros por categoría',
-      'Permite múltiple selección',
-      'Muestra cantidad de resultados',
-      'Usa "Limpiar filtros" para resetear'
+      'Seleccionar todos (algunos seleccionados)',
+      'Categoría con ítems parcialmente marcados',
+      'Grupo con opciones mixtas'
     ],
-    examples: [
-      'Filtrar por categoría',
-      'Filtrar por estado',
-      'Filtrar por rango de precio'
-    ]
+    emphasis: 'medium'
   }
 ];
 
 /**
- * Comparación entre Checkbox y otros componentes
+ * Colores disponibles para el checkbox
  */
-export interface ComponentComparison {
-  component: string;
-  whenToUse: string;
-  example: string;
-}
+export const CHECKBOX_COLORS: Array<{ value: CheckboxColor; label: string }> = [
+  { value: 'primary', label: 'Primary' },
+  { value: 'secondary', label: 'Secondary' },
+  { value: 'tertiary', label: 'Tertiary' }
+];
 
-export const COMPONENT_COMPARISONS: ComponentComparison[] = [
-  {
-    component: 'Checkbox',
-    whenToUse: 'Opciones múltiples independientes',
-    example: 'Seleccionar toppings de pizza (múltiples)'
-  },
-  {
-    component: 'Radio Button',
-    whenToUse: 'Una sola opción de un grupo',
-    example: 'Seleccionar tamaño de pizza (única)'
-  },
-  {
-    component: 'Toggle/Switch',
-    whenToUse: 'Activar/desactivar con efecto inmediato',
-    example: 'Activar modo oscuro (cambio inmediato)'
-  },
-  {
-    component: 'Select/Dropdown',
-    whenToUse: 'Muchas opciones en poco espacio',
-    example: 'Seleccionar país (muchas opciones)'
-  }
+/**
+ * Tamaños disponibles para el checkbox
+ */
+export const CHECKBOX_SIZES: Array<{ value: CheckboxSize; label: string }> = [
+  { value: 'small', label: 'Small' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'large', label: 'Large' }
+];
+
+/**
+ * Posiciones del label
+ */
+export const LABEL_POSITIONS: Array<{ value: CheckboxLabelPosition; label: string }> = [
+  { value: 'after', label: 'After (Default)' },
+  { value: 'before', label: 'Before' }
 ];
 

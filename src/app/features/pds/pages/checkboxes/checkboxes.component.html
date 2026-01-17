@@ -1,377 +1,367 @@
-<div class="checkboxes-container p-6 max-w-7xl mx-auto">
-  <!-- Header -->
-  <div class="mb-8">
-    <app-button
-      variant="text"
-      iconBefore="arrow_back"
-      (clicked)="goBack()"
-      class="mb-4">
-      Volver al índice
-    </app-button>
+<div class="p-6 max-w-[1600px] mx-auto">
+  <header class="mb-8">
+    <button mat-button (click)="goBack()" class="back-button mb-4">
+      <mat-icon class="mr-1">arrow_back</mat-icon>
+      Back to PDS Index
+    </button>
+    <div class="max-w-3xl">
+      <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
+        Checkbox Component Playground
+      </h1>
+      <p class="page-description text-lg leading-relaxed">
+        Experimenta con diferentes configuraciones del componente
+        <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-checkbox&gt;</code>
+        y observa cómo cambia la documentación en tiempo real.
+      </p>
+    </div>
+  </header>
 
-    <h1 class="text-4xl font-bold mb-2">Checkboxes</h1>
-    <p class="text-lg text-gray-600 dark:text-gray-400">
-      Componente para selección múltiple y opciones binarias siguiendo Material Design 3
-    </p>
-  </div>
-
-  <!-- Controls Interactivos -->
-  <mat-card class="mb-8">
-    <mat-card-content class="p-6">
-      <h2 class="text-2xl font-semibold mb-4">Controles Interactivos</h2>
-
-      <div class="space-y-4">
-        <!-- Size Control -->
-        <div>
-          <label class="block text-sm font-medium mb-2">Tamaño</label>
-          <mat-button-toggle-group
-            [value]="size()"
-            (change)="setSize($event.value)"
-            aria-label="Tamaño del checkbox">
-            <mat-button-toggle value="small">Small</mat-button-toggle>
-            <mat-button-toggle value="medium">Medium</mat-button-toggle>
-            <mat-button-toggle value="large">Large</mat-button-toggle>
-          </mat-button-toggle-group>
+  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+    <section class="xl:col-span-5 space-y-6 xl:sticky xl:top-6">
+      <mat-card appearance="outlined" class="overflow-hidden">
+        <div class="card-header border-b px-6 py-4">
+          <h3 class="card-title font-semibold flex items-center gap-2">
+            <span>🎨</span> Live Preview
+          </h3>
         </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Preview Section -->
-  <mat-card class="mb-8">
-    <mat-card-content class="p-6">
-      <h2 class="text-2xl font-semibold mb-6">Vista Previa</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Primary -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold border-b pb-2">Primary</h3>
-          <app-checkbox
-            color="primary"
-            [size]="size()"
-            [checked]="true">
-            Primary checked
-          </app-checkbox>
-          <app-checkbox
-            color="primary"
-            [size]="size()">
-            Primary unchecked
-          </app-checkbox>
-          <app-checkbox
-            color="primary"
-            [size]="size()"
-            [indeterminate]="true">
-            Primary indeterminate
-          </app-checkbox>
-          <app-checkbox
-            color="primary"
-            [size]="size()"
-            [checked]="true"
-            [disabled]="true">
-            Primary disabled
-          </app-checkbox>
-        </div>
-
-        <!-- Secondary -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold border-b pb-2">Secondary</h3>
-          <app-checkbox
-            color="secondary"
-            [size]="size()"
-            [checked]="true">
-            Secondary checked
-          </app-checkbox>
-          <app-checkbox
-            color="secondary"
-            [size]="size()">
-            Secondary unchecked
-          </app-checkbox>
-          <app-checkbox
-            color="secondary"
-            [size]="size()"
-            [indeterminate]="true">
-            Secondary indeterminate
-          </app-checkbox>
-          <app-checkbox
-            color="secondary"
-            [size]="size()"
-            [checked]="true"
-            [disabled]="true">
-            Secondary disabled
-          </app-checkbox>
-        </div>
-
-        <!-- Tertiary -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold border-b pb-2">Tertiary</h3>
-          <app-checkbox
-            color="tertiary"
-            [size]="size()"
-            [checked]="true">
-            Tertiary checked
-          </app-checkbox>
-          <app-checkbox
-            color="tertiary"
-            [size]="size()">
-            Tertiary unchecked
-          </app-checkbox>
-          <app-checkbox
-            color="tertiary"
-            [size]="size()"
-            [indeterminate]="true">
-            Tertiary indeterminate
-          </app-checkbox>
-          <app-checkbox
-            color="tertiary"
-            [size]="size()"
-            [checked]="true"
-            [disabled]="true">
-            Tertiary disabled
-          </app-checkbox>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Common Use Cases -->
-  <mat-card class="mb-8">
-    <mat-card-content class="p-6">
-      <h2 class="text-2xl font-semibold mb-6">Casos de Uso Comunes</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        @for (useCase of commonUseCases; track useCase.title) {
-          <div class="p-4 border rounded-lg">
+        <mat-card-content class="p-8">
+          <div class="preview-container flex items-center justify-center min-h-[160px] bg-center rounded-lg border shadow-sm">
             <app-checkbox
-              [checked]="useCase.checked"
-              [disabled]="useCase.disabled ?? false"
-              [indeterminate]="useCase.indeterminate ?? false"
+              [checked]="isChecked()"
+              [color]="selectedColor()"
               [size]="size()"
-              (changed)="onCheckboxChange($event, useCase.title)">
-              {{ useCase.title }}
+              [labelPosition]="labelPosition()"
+              [disabled]="isDisabled()"
+              [indeterminate]="isIndeterminate()"
+              [required]="isRequired()">
+              {{ checkboxLabel() }}
             </app-checkbox>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 ml-8">
-              {{ useCase.description }}
-            </p>
           </div>
-        }
-      </div>
-    </mat-card-content>
-  </mat-card>
+        </mat-card-content>
+      </mat-card>
 
-  <!-- Context Guides -->
-  <mat-card class="mb-8">
-    <mat-card-content class="p-6">
-      <h2 class="text-2xl font-semibold mb-6">Guía de Uso por Contexto</h2>
+      <mat-card appearance="outlined">
+        <div class="card-header px-6 py-4 border-b">
+          <h3 class="card-title font-semibold flex items-center gap-2">
+            <span>🎮</span> Controls
+          </h3>
+        </div>
+        <mat-card-content class="p-6 space-y-6">
+          <div class="space-y-2">
+            <label class="section-label text-sm font-medium flex items-center gap-1.5">
+              <mat-icon class="text-base !w-4 !h-4 leading-4">toggle_on</mat-icon>
+              State
+            </label>
+            <mat-button-toggle-group [(ngModel)]="selectedState" class="w-full flex flex-col gap-1">
+              <mat-button-toggle value="checked" class="w-full">Checked</mat-button-toggle>
+              <mat-button-toggle value="unchecked" class="w-full">Unchecked</mat-button-toggle>
+              <mat-button-toggle value="indeterminate" class="w-full">Indeterminate</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        @for (guide of contextGuides; track guide.context) {
-          <div class="border rounded-lg p-6 space-y-4">
-            <div>
-              <h3 class="text-xl font-semibold mb-2">{{ guide.context }}</h3>
-              <p class="text-gray-600 dark:text-gray-400">{{ guide.description }}</p>
+          <div class="space-y-2">
+            <label class="section-label text-sm font-medium flex items-center gap-1.5">
+              <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
+              Color
+            </label>
+            <mat-button-toggle-group [(ngModel)]="selectedColor" class="w-full">
+              @for (color of CHECKBOX_COLORS; track color.value) {
+                <mat-button-toggle [value]="color.value" class="flex-1">
+                  {{ color.label }}
+                </mat-button-toggle>
+              }
+            </mat-button-toggle-group>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
+                Size
+              </label>
+              <mat-button-toggle-group [(ngModel)]="size" class="w-full">
+                @for (sizeOption of CHECKBOX_SIZES; track sizeOption.value) {
+                  <mat-button-toggle [value]="sizeOption.value" class="flex-1">
+                    {{ sizeOption.value === 'small' ? 'S' : sizeOption.value === 'medium' ? 'M' : 'L' }}
+                  </mat-button-toggle>
+                }
+              </mat-button-toggle-group>
             </div>
 
-            <div>
-              <h4 class="font-semibold mb-2 flex items-center gap-2">
-                <mat-icon class="text-green-600">check_circle</mat-icon>
-                Recomendaciones
-              </h4>
-              <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
-                @for (rec of guide.recommendations; track rec) {
-                  <li>{{ rec }}</li>
-                }
-              </ul>
-            </div>
-
-            <div>
-              <h4 class="font-semibold mb-2 flex items-center gap-2">
-                <mat-icon class="text-blue-600">lightbulb</mat-icon>
-                Ejemplos
-              </h4>
-              <ul class="space-y-2">
-                @for (example of guide.examples; track example) {
-                  <li class="flex items-start gap-2">
-                    <app-checkbox [size]="size()">
-                      <span class="text-sm">{{ example }}</span>
-                    </app-checkbox>
-                  </li>
-                }
-              </ul>
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">format_align_left</mat-icon>
+                Label Position
+              </label>
+              <mat-button-toggle-group [(ngModel)]="labelPosition" class="w-full">
+                <mat-button-toggle value="after" class="flex-1">After</mat-button-toggle>
+                <mat-button-toggle value="before" class="flex-1">Before</mat-button-toggle>
+              </mat-button-toggle-group>
             </div>
           </div>
-        }
-      </div>
-    </mat-card-content>
-  </mat-card>
 
-  <!-- Component Comparison -->
-  <mat-card class="mb-8">
-    <mat-card-content class="p-6">
-      <h2 class="text-2xl font-semibold mb-4">¿Cuándo usar Checkbox?</h2>
-
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-800">
-            <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Componente
-              </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Cuándo Usar
-              </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Ejemplo
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-            @for (comparison of componentComparisons; track comparison.component) {
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  {{ comparison.component }}
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
-                  {{ comparison.whenToUse }}
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400 italic">
-                  {{ comparison.example }}
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Developer Guide -->
-  <mat-card class="mb-8">
-    <mat-card-content class="p-6">
-      <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
-        <mat-icon class="text-purple-600">code</mat-icon>
-        Guía para Desarrolladores
-      </h2>
-
-      <div class="space-y-8">
-        @for (example of usageExamples; track example.title) {
           <div>
-            <div class="flex items-start gap-3 mb-3">
-              <mat-icon class="text-blue-500 mt-1">integration_instructions</mat-icon>
-              <div>
-                <h3 class="text-lg font-semibold">{{ example.title }}</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">{{ example.description }}</p>
+            <mat-checkbox [(ngModel)]="isDisabled" color="warn">Disabled State</mat-checkbox>
+            <mat-checkbox [(ngModel)]="isRequired" color="primary">Required Field</mat-checkbox>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card appearance="outlined" class="code-card overflow-hidden">
+        <div class="code-header px-4 py-3 border-b flex justify-between items-center">
+          <h3 class="text-sm font-medium flex items-center gap-2">
+            <mat-icon class="text-base">code</mat-icon> Generated Code
+          </h3>
+          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+        <div class="p-4 relative group">
+          <pre class="font-mono text-sm overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
+        </div>
+        <div class="code-footer px-4 py-2 text-xs border-t">
+          💡 Solo incluye las propiedades que difieren de los defaults.
+        </div>
+      </mat-card>
+    </section>
+
+    <aside class="xl:col-span-7 space-y-8">
+      @if (currentStateGuide(); as guide) {
+        <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
+          <mat-card-content class="p-0">
+            <div class="p-6 md:p-8 pb-4">
+              <div class="flex items-center gap-3 mb-4">
+                <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
+                      class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                  {{ guide.emphasis }} emphasis
+                </span>
+              </div>
+              <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
+              <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
+              <div class="info-box rounded-xl p-5 border">
+                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                  <mat-icon class="success text-lg">check_circle</mat-icon>
+                  When to Use
+                </h4>
+                <ul class="space-y-3">
+                  @for (use of guide.whenToUse; track use) {
+                    <li class="info-box-content flex items-start gap-2.5 text-sm">
+                      <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
+                      <span>{{ use }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+
+              <div class="info-box rounded-xl p-5 border">
+                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                  <mat-icon class="info text-lg">lightbulb</mat-icon>
+                  Common Examples
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  @for (example of guide.examples; track example) {
+                    <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
+                      {{ example }}
+                    </span>
+                  }
+                </div>
               </div>
             </div>
-            <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto"><code>{{ example.code }}</code></pre>
-          </div>
-        }
-      </div>
-    </mat-card-content>
-  </mat-card>
+          </mat-card-content>
+        </mat-card>
 
-  <!-- API Reference -->
-  <mat-card class="mb-8">
-    <mat-card-content class="p-6">
-      <h2 class="text-2xl font-semibold mb-4">Referencia de API</h2>
-
-      <div class="space-y-6">
-        <!-- Inputs -->
-        <div>
-          <h3 class="text-lg font-semibold mb-3 flex items-center gap-2">
-            <mat-icon class="text-green-600">input</mat-icon>
-            Inputs
+        <section>
+          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+            <mat-icon color="primary">palette</mat-icon> Color Variations
           </h3>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead class="bg-gray-50 dark:bg-gray-800">
-                <tr>
-                  <th class="px-4 py-2 text-left text-xs font-medium">Propiedad</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium">Tipo</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium">Default</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium">Descripción</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">checked</td>
-                  <td class="px-4 py-2 text-sm">boolean</td>
-                  <td class="px-4 py-2 text-sm">false</td>
-                  <td class="px-4 py-2 text-sm">Estado del checkbox (two-way binding)</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">color</td>
-                  <td class="px-4 py-2 text-sm">primary | secondary | tertiary</td>
-                  <td class="px-4 py-2 text-sm">primary</td>
-                  <td class="px-4 py-2 text-sm">Color del checkbox</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">size</td>
-                  <td class="px-4 py-2 text-sm">small | medium | large</td>
-                  <td class="px-4 py-2 text-sm">medium</td>
-                  <td class="px-4 py-2 text-sm">Tamaño del checkbox</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">labelPosition</td>
-                  <td class="px-4 py-2 text-sm">before | after</td>
-                  <td class="px-4 py-2 text-sm">after</td>
-                  <td class="px-4 py-2 text-sm">Posición del label</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">disabled</td>
-                  <td class="px-4 py-2 text-sm">boolean</td>
-                  <td class="px-4 py-2 text-sm">false</td>
-                  <td class="px-4 py-2 text-sm">Deshabilita el checkbox</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">indeterminate</td>
-                  <td class="px-4 py-2 text-sm">boolean</td>
-                  <td class="px-4 py-2 text-sm">false</td>
-                  <td class="px-4 py-2 text-sm">Estado indeterminado</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">required</td>
-                  <td class="px-4 py-2 text-sm">boolean</td>
-                  <td class="px-4 py-2 text-sm">false</td>
-                  <td class="px-4 py-2 text-sm">Marca como requerido</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">ariaLabel</td>
-                  <td class="px-4 py-2 text-sm">string</td>
-                  <td class="px-4 py-2 text-sm">-</td>
-                  <td class="px-4 py-2 text-sm">Label de accesibilidad</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            @for (color of CHECKBOX_COLORS; track color.value) {
+              <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                <app-checkbox
+                  [checked]="isChecked()"
+                  [indeterminate]="isIndeterminate()"
+                  [color]="color.value"
+                  [size]="size()"
+                  [labelPosition]="labelPosition()">
+                  {{ color.label }}
+                </app-checkbox>
+                <code class="text-xs">color="{{ color.value }}"</code>
+              </div>
+            }
+          </div>
+        </section>
+
+        <section>
+          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+            <mat-icon color="primary">straighten</mat-icon> Size Variations
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            @for (sizeOption of CHECKBOX_SIZES; track sizeOption.value) {
+              <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                <app-checkbox
+                  [checked]="isChecked()"
+                  [indeterminate]="isIndeterminate()"
+                  [color]="selectedColor()"
+                  [size]="sizeOption.value"
+                  [labelPosition]="labelPosition()">
+                  {{ sizeOption.label }}
+                </app-checkbox>
+                <code class="text-xs">size="{{ sizeOption.value }}"</code>
+              </div>
+            }
+          </div>
+        </section>
+
+        <div class="alert-tip border rounded-xl p-6 flex gap-4">
+          <mat-icon class="shrink-0">tips_and_updates</mat-icon>
+          <div>
+            <h3 class="alert-title font-bold mb-2">Best Practices</h3>
+            <ul class="alert-content space-y-2 text-sm">
+              <li class="flex gap-2">
+                <span class="alert-label">Labels:</span>
+                Usa textos claros y descriptivos que indiquen qué representa la selección.
+              </li>
+              <li class="flex gap-2">
+                <span class="alert-label">Agrupación:</span>
+                Agrupa checkboxes relacionados bajo un título común.
+              </li>
+              <li class="flex gap-2">
+                <span class="alert-label">Indeterminate:</span>
+                Usa para "Seleccionar todos" cuando hay selección parcial de elementos hijos.
+              </li>
+              <li class="flex gap-2">
+                <span class="alert-label">Accesibilidad:</span>
+                Marca como required los campos obligatorios y usa ariaLabel cuando no hay texto visible.
+              </li>
+            </ul>
           </div>
         </div>
+      }
+    </aside>
+  </div>
 
-        <!-- Outputs -->
-        <div>
-          <h3 class="text-lg font-semibold mb-3 flex items-center gap-2">
-            <mat-icon class="text-orange-600">output</mat-icon>
-            Outputs
-          </h3>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead class="bg-gray-50 dark:bg-gray-800">
-                <tr>
-                  <th class="px-4 py-2 text-left text-xs font-medium">Evento</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium">Tipo</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium">Descripción</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm">changed</td>
-                  <td class="px-4 py-2 text-sm">boolean</td>
-                  <td class="px-4 py-2 text-sm">Emite el nuevo estado cuando cambia</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <section class="mt-12 pt-12 section-divider border-t-2">
+    <div class="api-section-header flex items-center gap-3 mb-8">
+      <div class="api-icon-container p-3 rounded-xl border">
+        <mat-icon class="block">settings</mat-icon>
       </div>
-    </mat-card-content>
-  </mat-card>
+      <div>
+        <h2 class="api-title text-3xl font-bold">API Reference</h2>
+        <p class="api-description">Documentación completa de propiedades disponibles en <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-checkbox&gt;</code></p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">checked</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Estado del checkbox (soporta two-way binding con [(checked)]).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg break-words border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">color</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Color semántico del tema.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'primary' | 'secondary' | 'tertiary'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'primary'</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">size</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Tamaño del checkbox.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'small' | 'medium' | 'large'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'medium'</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">labelPosition</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Posición del label respecto al checkbox.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'before' | 'after'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'after'</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">disabled</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Deshabilita la interacción con el checkbox.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">indeterminate</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Estado intermedio (parcialmente seleccionado).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">required</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Marca el checkbox como campo obligatorio.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">ariaLabel</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Label de accesibilidad para lectores de pantalla.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          string
+        </div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">changed</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Output()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Emite el nuevo estado cuando el checkbox cambia.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          EventEmitter&lt;boolean&gt;
+        </div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Event</div>
+      </div>
+    </div>
+  </section>
 </div>
-
