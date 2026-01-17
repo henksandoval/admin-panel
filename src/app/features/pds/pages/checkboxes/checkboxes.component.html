@@ -51,10 +51,7 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">toggle_on</mat-icon>
               State
             </label>
-            <app-toggle-group
-              [options]="stateOptions"
-              [(value)]="selectedState"
-              class="w-full" />
+            <app-toggle-group [options]="stateOptions" [(value)]="selectedState" class="w-full" />
           </div>
 
           <div class="space-y-2">
@@ -62,10 +59,7 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
               Color
             </label>
-            <app-toggle-group
-              [options]="colorOptions"
-              [(value)]="selectedColor"
-              class="w-full" />
+            <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -74,10 +68,7 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
                 Size
               </label>
-              <app-toggle-group
-                [options]="sizeOptions"
-                [(value)]="size"
-                class="w-full" />
+              <app-toggle-group [options]="sizeOptions" [(value)]="size" class="w-full" />
             </div>
 
             <div class="space-y-2">
@@ -85,10 +76,7 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">format_align_left</mat-icon>
                 Label Position
               </label>
-              <app-toggle-group
-                [options]="labelPositionOptions"
-                [(value)]="labelPosition"
-                class="w-full" />
+              <app-toggle-group [options]="labelPositionOptions" [(value)]="labelPosition" class="w-full" />
             </div>
           </div>
 
@@ -196,7 +184,5 @@
     </aside>
   </div>
 
-  <app-pds-api-reference
-    componentTag="<app-checkbox>"
-    [properties]="apiProperties" />
+  <app-pds-api-reference componentTag="<app-checkbox>" [properties]="apiProperties" />
 </div>

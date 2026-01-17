@@ -49,19 +49,14 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
                 Variant
               </label>
-              <app-toggle-group
-                [options]="variantOptions"
-                [(value)]="selectedVariant" />
+              <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" />
             </div>
             <div class="space-y-2">
               <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
                 Color
               </label>
-              <app-toggle-group
-                [options]="colorOptions"
-                [(value)]="selectedColor"
-                class="w-full" />
+              <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
             </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-2">
@@ -69,19 +64,14 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">crop_square</mat-icon>
                 Shape
               </label>
-              <app-toggle-group
-                [options]="shapeOptions"
-                [(value)]="shape" />
+              <app-toggle-group [options]="shapeOptions" [(value)]="shape" />
             </div>
             <div class="space-y-2">
               <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
                 Size
               </label>
-              <app-toggle-group
-                [options]="sizeOptions"
-                [(value)]="size"
-                class="w-full" />
+              <app-toggle-group [options]="sizeOptions" [(value)]="size" class="w-full" />
             </div>
           </div>
           <div>
@@ -161,7 +151,5 @@
       }
     </aside>
   </div>
-  <app-pds-api-reference
-    componentTag="<app-button>"
-    [properties]="API_PROPERTIES" />
+  <app-pds-api-reference componentTag="<app-button>" [properties]="API_PROPERTIES" />
 </div>

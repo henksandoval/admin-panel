@@ -37,10 +37,7 @@
                 </button>
               </app-badge>
             } @else {
-              <app-badge
-                variant="inline"
-                [color]="inlineColor()"
-                [hasIndicator]="hasIndicator()">
+              <app-badge variant="inline" [color]="inlineColor()" [hasIndicator]="hasIndicator()">
                 {{ badgeLabel() }}
               </app-badge>
             }
@@ -59,10 +56,7 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
               Variant
             </label>
-            <app-toggle-group
-              [options]="variantOptions"
-              [(value)]="selectedVariant"
-              class="w-full" />
+            <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" class="w-full" />
           </div>
 
           @if (selectedVariant() === 'overlay') {
@@ -82,10 +76,7 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">place</mat-icon>
                 Position
               </label>
-              <app-toggle-group
-                [options]="positionOptions"
-                [(value)]="position"
-                class="w-full" />
+              <app-toggle-group [options]="positionOptions" [(value)]="position" class="w-full" />
             </div>
 
             <div>
@@ -109,12 +100,8 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
                 Color
               </label>
-              <app-toggle-group
-                [options]="inlineColorOptions"
-                [(value)]="inlineColor"
-                class="w-full" />
+              <app-toggle-group [options]="inlineColorOptions" [(value)]="inlineColor" class="w-full" />
             </div>
-
             <div>
               <app-checkbox [(checked)]="hasIndicator" color="primary">Show Indicator (!)</app-checkbox>
             </div>
@@ -227,7 +214,5 @@
       }
     </aside>
   </div>
-  <app-pds-api-reference
-    componentTag="<app-badge>"
-    [properties]="API_PROPERTIES" />
+  <app-pds-api-reference componentTag="<app-badge>" [properties]="API_PROPERTIES" />
 </div>
