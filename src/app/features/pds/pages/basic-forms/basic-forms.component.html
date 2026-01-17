@@ -157,9 +157,9 @@
           </div>
 
           <div>
-            <mat-checkbox [(ngModel)]="hasValidation" color="primary">Show Validation Errors</mat-checkbox>
-            <mat-checkbox [(ngModel)]="isRequired" color="warn">Required Field</mat-checkbox>
-            <mat-checkbox [(ngModel)]="isDisabled" color="accent">Disabled State</mat-checkbox>
+            <app-checkbox [(checked)]="hasValidation" color="primary">Show Validation Errors</app-checkbox>
+            <app-checkbox [(checked)]="isRequired" color="tertiary">Required Field</app-checkbox>
+            <app-checkbox [(checked)]="isDisabled" color="secondary">Disabled State</app-checkbox>
           </div>
         </mat-card-content>
       </mat-card>

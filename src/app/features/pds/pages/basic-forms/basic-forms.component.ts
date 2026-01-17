@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FormFieldInputComponent } from '@shared/atoms/form-field-input/form-field-input.component';
 import { FormFieldInputOptions, InputFieldType } from '@shared/atoms/form-field-input/form-field-input.model';
 import { ControlConnectorDirective } from '@shared/atoms/form-field-input/control-connector.directive';
+import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -42,6 +43,7 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
     MatTooltipModule,
     FormFieldInputComponent,
     ControlConnectorDirective,
+    AppCheckboxComponent,
     AppToggleGroupComponent,
     PdsCodeBlockComponent,
     PdsBestPracticesComponent,

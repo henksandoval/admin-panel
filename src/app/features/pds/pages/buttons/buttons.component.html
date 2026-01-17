@@ -86,9 +86,9 @@
             </div>
           </div>
           <div>
-            <mat-checkbox [(ngModel)]="showIconBefore" color="primary">Icon Before</mat-checkbox>
-            <mat-checkbox [(ngModel)]="showIconAfter" color="primary">Icon After</mat-checkbox>
-            <mat-checkbox [(ngModel)]="isDisabled" color="warn">Disabled State</mat-checkbox>
+            <app-checkbox [(checked)]="showIconBefore" color="primary">Icon Before</app-checkbox>
+            <app-checkbox [(checked)]="showIconAfter" color="primary">Icon After</app-checkbox>
+            <app-checkbox [(checked)]="isDisabled" color="tertiary">Disabled State</app-checkbox>
           </div>
         </mat-card-content>
       </mat-card>
