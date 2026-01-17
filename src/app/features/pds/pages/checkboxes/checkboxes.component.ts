@@ -61,7 +61,6 @@ export default class CheckboxesComponent {
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly apiProperties = API_PROPERTIES;
 
-  // Toggle options configuration
   readonly stateOptions: ToggleOption[] = [
     { value: 'checked', label: 'Checked' },
     { value: 'unchecked', label: 'Unchecked' },

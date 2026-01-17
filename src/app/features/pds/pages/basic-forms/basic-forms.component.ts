@@ -74,11 +74,9 @@ export class BasicFormsComponent implements OnInit {
 
   readonly INPUT_TYPES = INPUT_TYPES;
   readonly FIELD_APPEARANCES = FIELD_APPEARANCES;
-  readonly COMMON_ICONS = COMMON_ICONS;
   readonly apiProperties = API_PROPERTIES;
   readonly bestPractices = BEST_PRACTICES;
 
-  // Toggle options configuration
   readonly configOptions: ToggleOption[] = [
     { value: 'basic', label: 'Basic' },
     { value: 'with-validation', label: 'With Validation' },

@@ -51,7 +51,6 @@ export default class ButtonsComponent {
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
 
-  // Toggle options configuration
   readonly variantOptions: ToggleOption[] = [
     { value: 'filled', label: 'Filled' },
     { value: 'elevated', label: 'Elevated' },

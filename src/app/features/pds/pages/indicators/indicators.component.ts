@@ -63,16 +63,9 @@ export default class IndicatorsComponent {
   hasIndicator = signal<boolean>(BADGE_DEFAULTS.hasIndicator);
   badgeLabel = signal<string>('Badge Text');
 
-  // Toggle options configuration
   readonly variantOptions: ToggleOption[] = [
     { value: 'overlay', label: 'Overlay' },
     { value: 'inline', label: 'Inline' }
-  ];
-
-  readonly overlayColorOptions: ToggleOption[] = [
-    { value: 'primary', label: 'Primary' },
-    { value: 'accent', label: 'Accent' },
-    { value: 'warn', label: 'Warn' }
   ];
 
   readonly positionOptions: ToggleOption[] = [
