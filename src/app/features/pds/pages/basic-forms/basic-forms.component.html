@@ -1,9 +1,8 @@
 <div class="p-6 max-w-[1600px] mx-auto">
   <header class="mb-8">
-    <button mat-button (click)="goBack()" class="back-button mb-4">
-      <mat-icon class="mr-1">arrow_back</mat-icon>
+    <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
       Back to PDS Index
-    </button>
+    </app-button>
     <div class="max-w-3xl">
       <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
         Form Field Input Playground
@@ -115,23 +114,23 @@
               Icon (Optional)
             </label>
             <div class="flex flex-wrap gap-2">
-              <button
-                type="button"
-                mat-stroked-button
+              <app-button
+                variant="outlined"
+                size="small"
                 [class.!border-2]="selectedIcon() === ''"
-                (click)="selectedIcon.set('')"
-                class="!min-w-[40px] !px-2">
-                <mat-icon class="text-sm">close</mat-icon>
-              </button>
+                (clicked)="selectedIcon.set('')"
+                iconBefore="close"
+                class="!min-w-[40px]">
+              </app-button>
               @for (icon of COMMON_ICONS.slice(0, 11); track icon) {
-                <button
-                  type="button"
-                  mat-stroked-button
+                <app-button
+                  variant="outlined"
+                  size="small"
                   [class.!border-2]="selectedIcon() === icon"
-                  (click)="selectedIcon.set(icon)"
-                  class="!min-w-[40px] !px-2">
-                  <mat-icon class="text-sm">{{ icon }}</mat-icon>
-                </button>
+                  (clicked)="selectedIcon.set(icon)"
+                  [iconBefore]="icon"
+                  class="!min-w-[40px]">
+                </app-button>
               }
             </div>
           </div>

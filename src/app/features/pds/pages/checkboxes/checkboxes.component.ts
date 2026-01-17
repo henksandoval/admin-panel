@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
@@ -35,6 +36,7 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
     MatIconModule,
     MatCheckboxModule,
     MatTooltipModule,
+    AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
     PdsCodeBlockComponent,

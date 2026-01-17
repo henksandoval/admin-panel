@@ -1,9 +1,8 @@
 <div class="p-6 max-w-[1600px] mx-auto">
   <header class="mb-8">
-    <button mat-button (click)="goBack()" class="back-button mb-4">
-      <mat-icon class="mr-1">arrow_back</mat-icon>
+    <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
       Back to PDS Index
-    </button>
+    </app-button>
     <div class="max-w-3xl">
       <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
         Checkbox Component Playground
