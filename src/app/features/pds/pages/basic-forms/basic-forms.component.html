@@ -49,14 +49,11 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
               Configuration Preset
             </label>
-            <mat-button-toggle-group
+            <app-toggle-group
+              [options]="configOptions"
               [value]="selectedConfig()"
-              (change)="onConfigChange($event.value)"
-              class="w-full">
-              <mat-button-toggle value="basic" class="w-full">Basic</mat-button-toggle>
-              <mat-button-toggle value="with-validation" class="w-full">With Validation</mat-button-toggle>
-              <mat-button-toggle value="with-extras" class="w-full">With Visual Extras</mat-button-toggle>
-            </mat-button-toggle-group>
+              (changed)="onConfigChange($event)"
+              class="w-full" />
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -65,13 +62,10 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">text_fields</mat-icon>
                 Input Type
               </label>
-              <mat-button-toggle-group [(ngModel)]="fieldType" class="w-full">
-                @for (type of INPUT_TYPES; track type.value) {
-                  <mat-button-toggle [value]="type.value" class="flex-1">
-                    {{ type.value === 'text' ? 'T' : type.value === 'email' ? 'E' : type.value === 'password' ? 'P' : type.value === 'number' ? 'N' : 'Tel' }}
-                  </mat-button-toggle>
-                }
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="typeOptions"
+                [(value)]="fieldType"
+                class="w-full" />
             </div>
 
             <div class="space-y-2">
@@ -79,10 +73,10 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">style</mat-icon>
                 Appearance
               </label>
-              <mat-button-toggle-group [(ngModel)]="appearance" class="w-full">
-                <mat-button-toggle value="fill" class="flex-1">Fill</mat-button-toggle>
-                <mat-button-toggle value="outline" class="flex-1">Outline</mat-button-toggle>
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="appearanceOptions"
+                [(value)]="appearance"
+                class="w-full" />
             </div>
           </div>
 
@@ -120,16 +114,26 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">insert_emoticon</mat-icon>
               Icon (Optional)
             </label>
-            <mat-button-toggle-group [(ngModel)]="selectedIcon">
-              <mat-button-toggle value="">
+            <div class="flex flex-wrap gap-2">
+              <button
+                type="button"
+                mat-stroked-button
+                [class.!border-2]="selectedIcon() === ''"
+                (click)="selectedIcon.set('')"
+                class="!min-w-[40px] !px-2">
                 <mat-icon class="text-sm">close</mat-icon>
-              </mat-button-toggle>
+              </button>
               @for (icon of COMMON_ICONS.slice(0, 11); track icon) {
-                <mat-button-toggle [value]="icon">
+                <button
+                  type="button"
+                  mat-stroked-button
+                  [class.!border-2]="selectedIcon() === icon"
+                  (click)="selectedIcon.set(icon)"
+                  class="!min-w-[40px] !px-2">
                   <mat-icon class="text-sm">{{ icon }}</mat-icon>
-                </mat-button-toggle>
+                </button>
               }
-            </mat-button-toggle-group>
+            </div>
           </div>
 
           <div class="grid grid-cols-2 gap-4">

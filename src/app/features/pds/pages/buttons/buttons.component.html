@@ -50,24 +50,19 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
                 Variant
               </label>
-              <mat-button-toggle-group [(ngModel)]="selectedVariant">
-                <mat-button-toggle value="filled">Filled</mat-button-toggle>
-                <mat-button-toggle value="elevated">Elevated</mat-button-toggle>
-                <mat-button-toggle value="outlined">Outlined</mat-button-toggle>
-                <mat-button-toggle value="text">Text</mat-button-toggle>
-                <mat-button-toggle value="tonal">Tonal</mat-button-toggle>
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="variantOptions"
+                [(value)]="selectedVariant" />
             </div>
             <div class="space-y-2">
               <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
                 Color
               </label>
-              <mat-button-toggle-group [(ngModel)]="selectedColor" class="w-full">
-                <mat-button-toggle value="primary" class="flex-1">Primary</mat-button-toggle>
-                <mat-button-toggle value="secondary" class="flex-1">Secondary</mat-button-toggle>
-                <mat-button-toggle value="tertiary" class="flex-1">Tertiary</mat-button-toggle>
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="colorOptions"
+                [(value)]="selectedColor"
+                class="w-full" />
             </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-2">
@@ -75,21 +70,19 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">crop_square</mat-icon>
                 Shape
               </label>
-              <mat-button-toggle-group [(ngModel)]="shape">
-                <mat-button-toggle value="rounded" class="flex-1">Rounded</mat-button-toggle>
-                <mat-button-toggle value="square" class="flex-1">Square</mat-button-toggle>
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="shapeOptions"
+                [(value)]="shape" />
             </div>
             <div class="space-y-2">
               <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
                 Size
               </label>
-              <mat-button-toggle-group [(ngModel)]="size" class="w-full">
-                <mat-button-toggle value="small" class="flex-1">S</mat-button-toggle>
-                <mat-button-toggle value="medium" class="flex-1">M</mat-button-toggle>
-                <mat-button-toggle value="large" class="flex-1">L</mat-button-toggle>
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="sizeOptions"
+                [(value)]="size"
+                class="w-full" />
             </div>
           </div>
           <div>

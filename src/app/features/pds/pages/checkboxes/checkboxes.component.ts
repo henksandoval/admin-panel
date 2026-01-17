@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
+import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
 import {
   STATE_GUIDES,
@@ -32,10 +33,10 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatButtonToggleModule,
     MatCheckboxModule,
     MatTooltipModule,
     AppCheckboxComponent,
+    AppToggleGroupComponent,
     PdsCodeBlockComponent,
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
@@ -56,7 +57,31 @@ export default class CheckboxesComponent {
   readonly CHECKBOX_COLORS = CHECKBOX_COLORS;
   readonly CHECKBOX_SIZES = CHECKBOX_SIZES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
-  readonly apiProperties = API_PROPERTIES
+  readonly apiProperties = API_PROPERTIES;
+
+  // Toggle options configuration
+  readonly stateOptions: ToggleOption[] = [
+    { value: 'checked', label: 'Checked' },
+    { value: 'unchecked', label: 'Unchecked' },
+    { value: 'indeterminate', label: 'Indeterminate' }
+  ];
+
+  readonly colorOptions: ToggleOption[] = [
+    { value: 'primary', label: 'Primary' },
+    { value: 'secondary', label: 'Secondary' },
+    { value: 'tertiary', label: 'Tertiary' }
+  ];
+
+  readonly sizeOptions: ToggleOption[] = [
+    { value: 'small', label: 'S' },
+    { value: 'medium', label: 'M' },
+    { value: 'large', label: 'L' }
+  ];
+
+  readonly labelPositionOptions: ToggleOption[] = [
+    { value: 'before', label: 'Before' },
+    { value: 'after', label: 'After' }
+  ];
 
   isChecked = computed(() => this.selectedState() === 'checked');
   isIndeterminate = computed(() => this.selectedState() === 'indeterminate');

@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
+import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
+import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
 import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES, type VariantGuide } from './buttons.data';
@@ -24,9 +25,9 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatButtonToggleModule,
     MatCheckboxModule,
     AppButtonComponent,
+    AppToggleGroupComponent,
     PdsCodeBlockComponent,
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
@@ -47,6 +48,32 @@ export default class ButtonsComponent {
 
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
+
+  // Toggle options configuration
+  readonly variantOptions: ToggleOption[] = [
+    { value: 'filled', label: 'Filled' },
+    { value: 'elevated', label: 'Elevated' },
+    { value: 'outlined', label: 'Outlined' },
+    { value: 'text', label: 'Text' },
+    { value: 'tonal', label: 'Tonal' }
+  ];
+
+  readonly colorOptions: ToggleOption[] = [
+    { value: 'primary', label: 'Primary' },
+    { value: 'secondary', label: 'Secondary' },
+    { value: 'tertiary', label: 'Tertiary' }
+  ];
+
+  readonly shapeOptions: ToggleOption[] = [
+    { value: 'rounded', label: 'Rounded' },
+    { value: 'square', label: 'Square' }
+  ];
+
+  readonly sizeOptions: ToggleOption[] = [
+    { value: 'small', label: 'S' },
+    { value: 'medium', label: 'M' },
+    { value: 'large', label: 'L' }
+  ];
 
   currentVariantGuide = computed(() => {
     return VARIANT_GUIDES.find(guide => guide.variant === this.selectedVariant());

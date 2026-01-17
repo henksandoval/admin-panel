@@ -1,0 +1,42 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+}
+
+// Size variations
+::ng-deep .toggle-size-small {
+  mat-button-toggle {
+    font-size: 0.813rem;
+    min-height: 32px;
+    padding: 0 12px;
+  }
+}
+
+::ng-deep .toggle-size-large {
+  mat-button-toggle {
+    font-size: 1rem;
+    min-height: 48px;
+    padding: 0 24px;
+  }
+}
+
+// Appearance variations
+::ng-deep .toggle-appearance-legacy {
+  mat-button-toggle {
+    border-radius: 0;
+  }
+}
+
+// Ensure proper spacing for toggle groups
+::ng-deep mat-button-toggle-group {
+  box-shadow: none;
+
+  &:not(.mat-button-toggle-vertical) {
+    mat-button-toggle {
+      &:not(:first-child) {
+        border-left: none;
+      }
+    }
+  }
+}

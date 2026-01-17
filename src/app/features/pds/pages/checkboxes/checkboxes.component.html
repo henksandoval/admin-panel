@@ -52,11 +52,10 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">toggle_on</mat-icon>
               State
             </label>
-            <mat-button-toggle-group [(ngModel)]="selectedState" class="w-full">
-              <mat-button-toggle value="checked" class="w-full">Checked</mat-button-toggle>
-              <mat-button-toggle value="unchecked" class="w-full">Unchecked</mat-button-toggle>
-              <mat-button-toggle value="indeterminate" class="w-full">Indeterminate</mat-button-toggle>
-            </mat-button-toggle-group>
+            <app-toggle-group
+              [options]="stateOptions"
+              [(value)]="selectedState"
+              class="w-full" />
           </div>
 
           <div class="space-y-2">
@@ -64,13 +63,10 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
               Color
             </label>
-            <mat-button-toggle-group [(ngModel)]="selectedColor" class="w-full">
-              @for (color of CHECKBOX_COLORS; track color.value) {
-                <mat-button-toggle [value]="color.value" class="flex-1">
-                  {{ color.label }}
-                </mat-button-toggle>
-              }
-            </mat-button-toggle-group>
+            <app-toggle-group
+              [options]="colorOptions"
+              [(value)]="selectedColor"
+              class="w-full" />
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -79,13 +75,10 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
                 Size
               </label>
-              <mat-button-toggle-group [(ngModel)]="size" class="w-full">
-                @for (sizeOption of CHECKBOX_SIZES; track sizeOption.value) {
-                  <mat-button-toggle [value]="sizeOption.value" class="flex-1">
-                    {{ sizeOption.value === 'small' ? 'S' : sizeOption.value === 'medium' ? 'M' : 'L' }}
-                  </mat-button-toggle>
-                }
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="sizeOptions"
+                [(value)]="size"
+                class="w-full" />
             </div>
 
             <div class="space-y-2">
@@ -93,10 +86,10 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">format_align_left</mat-icon>
                 Label Position
               </label>
-              <mat-button-toggle-group [(ngModel)]="labelPosition" class="w-full">
-                <mat-button-toggle value="after" class="flex-1">After</mat-button-toggle>
-                <mat-button-toggle value="before" class="flex-1">Before</mat-button-toggle>
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="labelPositionOptions"
+                [(value)]="labelPosition"
+                class="w-full" />
             </div>
           </div>
 

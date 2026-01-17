@@ -60,10 +60,10 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
               Variant
             </label>
-            <mat-button-toggle-group [(ngModel)]="selectedVariant" class="w-full">
-              <mat-button-toggle value="overlay" class="flex-1">Overlay</mat-button-toggle>
-              <mat-button-toggle value="inline" class="flex-1">Inline</mat-button-toggle>
-            </mat-button-toggle-group>
+            <app-toggle-group
+              [options]="variantOptions"
+              [(value)]="selectedVariant"
+              class="w-full" />
           </div>
 
           @if (selectedVariant() === 'overlay') {
@@ -84,13 +84,11 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">place</mat-icon>
                 Position
               </label>
-              <mat-button-toggle-group [(ngModel)]="position" class="w-full flex flex-col">
-                @for (pos of BADGE_POSITIONS; track pos.value) {
-                  <mat-button-toggle [value]="pos.value" class="w-full">
-                    {{ pos.label }}
-                  </mat-button-toggle>
-                }
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="positionOptions"
+                [(value)]="position"
+                [vertical]="true"
+                class="w-full" />
             </div>
 
             <div>
@@ -115,15 +113,11 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
                 Color
               </label>
-              <mat-button-toggle-group [(ngModel)]="inlineColor" class="w-full">
-                @for (color of INLINE_COLORS; track color.value) {
-                  <mat-button-toggle [value]="color.value" class="w-full">
-                    <div class="flex items-center gap-2 justify-between w-full">
-                      <span>{{ color.label }}</span>
-                    </div>
-                  </mat-button-toggle>
-                }
-              </mat-button-toggle-group>
+              <app-toggle-group
+                [options]="inlineColorOptions"
+                [(value)]="inlineColor"
+                [vertical]="true"
+                class="w-full" />
             </div>
 
             <div>

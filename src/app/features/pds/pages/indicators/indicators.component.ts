@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppBadgeComponent } from '@shared/atoms/app-badge/app-badge.component';
+import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
+import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { BADGE_DEFAULTS, BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
 import {
   BADGE_VARIANT_GUIDES,
@@ -31,10 +32,10 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatButtonToggleModule,
     MatCheckboxModule,
     MatTooltipModule,
     AppBadgeComponent,
+    AppToggleGroupComponent,
     PdsCodeBlockComponent,
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
@@ -56,10 +57,37 @@ export default class IndicatorsComponent {
   hasIndicator = signal<boolean>(BADGE_DEFAULTS.hasIndicator);
   badgeLabel = signal<string>('Badge Text');
 
+  // Toggle options configuration
+  readonly variantOptions: ToggleOption[] = [
+    { value: 'overlay', label: 'Overlay' },
+    { value: 'inline', label: 'Inline' }
+  ];
+
+  readonly overlayColorOptions: ToggleOption[] = [
+    { value: 'primary', label: 'Primary' },
+    { value: 'accent', label: 'Accent' },
+    { value: 'warn', label: 'Warn' }
+  ];
+
+  readonly positionOptions: ToggleOption[] = [
+    { value: 'above after', label: 'Above After' },
+    { value: 'above before', label: 'Above Before' },
+    { value: 'below after', label: 'Below After' },
+    { value: 'below before', label: 'Below Before' }
+  ];
+
+  readonly inlineColorOptions: ToggleOption[] = [
+    { value: 'normal', label: 'Normal' },
+    { value: 'info', label: 'Info' },
+    { value: 'success', label: 'Success' },
+    { value: 'warning', label: 'Warning' },
+    { value: 'error', label: 'Error' }
+  ];
+
   readonly BADGE_POSITIONS = BADGE_POSITIONS;
   readonly INLINE_COLORS = INLINE_COLORS;
   readonly BEST_PRACTICES = BEST_PRACTICES;
-  readonly API_PROPERTIES = API_PROPERTIES
+  readonly API_PROPERTIES = API_PROPERTIES;
 
   currentVariantGuide = computed(() => {
     return BADGE_VARIANT_GUIDES.find(guide => guide.variant === this.selectedVariant());

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
@@ -12,6 +11,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FormFieldInputComponent } from '@shared/atoms/form-field-input/form-field-input.component';
 import { FormFieldInputOptions, InputFieldType } from '@shared/atoms/form-field-input/form-field-input.model';
 import { ControlConnectorDirective } from '@shared/atoms/form-field-input/control-connector.directive';
+import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
+import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import {
   API_PROPERTIES,
@@ -37,11 +38,11 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatButtonToggleModule,
     MatCheckboxModule,
     MatTooltipModule,
     FormFieldInputComponent,
     ControlConnectorDirective,
+    AppToggleGroupComponent,
     PdsCodeBlockComponent,
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
@@ -72,6 +73,32 @@ export class BasicFormsComponent implements OnInit {
   readonly COMMON_ICONS = COMMON_ICONS;
   readonly apiProperties = API_PROPERTIES;
   readonly bestPractices = BEST_PRACTICES;
+
+  // Toggle options configuration
+  readonly configOptions: ToggleOption[] = [
+    { value: 'basic', label: 'Basic' },
+    { value: 'with-validation', label: 'With Validation' },
+    { value: 'with-extras', label: 'With Extras' }
+  ];
+
+  readonly typeOptions: ToggleOption[] = [
+    { value: 'text', label: 'Text' },
+    { value: 'email', label: 'Email' },
+    { value: 'password', label: 'Password' },
+    { value: 'number', label: 'Number' },
+    { value: 'tel', label: 'Tel' },
+    { value: 'url', label: 'URL' }
+  ];
+
+  readonly appearanceOptions: ToggleOption[] = [
+    { value: 'fill', label: 'Fill' },
+    { value: 'outline', label: 'Outline' }
+  ];
+
+  readonly iconOptions: ToggleOption[] = [
+    { value: '', label: '×' },
+    ...COMMON_ICONS.slice(0, 11).map(icon => ({ value: icon, label: icon }))
+  ];
 
   currentConfigGuide = computed(() => {
     return FIELD_CONFIG_GUIDES.find(guide => guide.config === this.selectedConfig());
@@ -199,7 +226,10 @@ export class BasicFormsComponent implements OnInit {
     return classMap[emphasis];
   }
 
-  onConfigChange(config: 'basic' | 'with-validation' | 'with-extras'): void {
+  onConfigChange(value: string | string[]): void {
+    // app-toggle-group emits string | string[], but we only use single selection
+    const config = (typeof value === 'string' ? value : value[0]) as 'basic' | 'with-validation' | 'with-extras';
+
     this.selectedConfig.set(config);
 
     if (config === 'basic') {
