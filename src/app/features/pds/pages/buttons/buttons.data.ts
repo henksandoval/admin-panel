@@ -1,21 +1,6 @@
 import { MatButtonAppearance } from '@angular/material/button';
 import { ButtonColor } from '@shared/atoms/app-button/app-button.model';
-
-export interface ButtonConfig {
-  readonly variant: MatButtonAppearance;
-  readonly color: ButtonColor;
-  readonly label: string;
-  readonly disabled: boolean;
-  readonly iconBefore?: string;
-  readonly iconAfter?: string;
-}
-
-export interface UsageExample {
-  readonly title: string;
-  readonly description: string;
-  readonly code: string;
-  readonly demo?: ButtonConfig;
-}
+import type {ApiProperty, BestPracticeItem} from '@shared/molecules';
 
 export interface VariantGuide {
   readonly variant: MatButtonAppearance;
@@ -25,6 +10,7 @@ export interface VariantGuide {
   readonly examples: string[];
   readonly emphasis: 'high' | 'medium' | 'low';
 }
+
 export const VARIANT_GUIDES: VariantGuide[] = [
   {
     variant: 'filled',
@@ -116,4 +102,55 @@ export const VARIANT_GUIDES: VariantGuide[] = [
       'Ayuda'
     ]
   }
+];
+
+export const API_PROPERTIES: ApiProperty[] = [
+  {
+    name: 'variant',
+    decorator: '@Input()',
+    description: 'Controla el estilo visual del botón.',
+    type: "'filled' | 'elevated' | 'outlined' | 'text' | 'tonal'",
+    defaultValue: 'filled'
+  },
+  {
+    name: 'color',
+    decorator: '@Input()',
+    description: 'Color semántico del tema.',
+    type: "'primary' | 'secondary' | 'tertiary'",
+    defaultValue: 'primary'
+  },
+  {
+    name: 'shape',
+    decorator: '@Input()',
+    description: 'Forma de las esquinas.',
+    type: "'rounded' | 'square'",
+    defaultValue: 'rounded'
+  },
+  {
+    name: 'size',
+    decorator: '@Input()',
+    description: 'Tamaño del botón.',
+    type: "'small' | 'medium' | 'large'",
+    defaultValue: 'medium'
+  },
+  {
+    name: 'disabled',
+    decorator: '@Input()',
+    description: 'Deshabilita la interacción.',
+    type: 'boolean',
+    defaultValue: 'false'
+  },
+  {
+    name: 'iconBefore / iconAfter',
+    decorator: '@Input()',
+    description: 'Nombre del icono Material Design.',
+    type: "string (ej: 'star', 'home')",
+    optional: true
+  }
+];
+
+export const BEST_PRACTICES: BestPracticeItem[] = [
+  { label: 'Jerarquía', text: 'Usa solo un botón de alto énfasis por sección.' },
+  { label: 'Consistencia', text: 'Mantén el mismo variant para acciones similares.' },
+  { label: 'Diálogos', text: 'Filled para confirmar, Outlined para cancelar.' }
 ];

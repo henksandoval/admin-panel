@@ -10,14 +10,11 @@ import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
-import { VARIANT_GUIDES, type VariantGuide } from './buttons.data';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES, type VariantGuide } from './buttons.data';
 import {
   PdsCodeBlockComponent,
   PdsBestPracticesComponent,
-  PdsApiReferenceComponent,
-  type ApiProperty,
-  type BestPracticeItem
+  PdsApiReferenceComponent
 } from '@shared/molecules';
 
 @Component({
@@ -36,12 +33,10 @@ import {
     PdsBestPracticesComponent,
     PdsApiReferenceComponent
   ],
-  templateUrl: './buttons.component.html',
-  styleUrl: './buttons.component.scss'
+  templateUrl: './buttons.component.html'
 })
 export default class ButtonsComponent {
   private readonly router = inject(Router);
-  private readonly snackBar = inject(MatSnackBar);
 
   selectedVariant = signal<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
   selectedColor = signal<ButtonColor>(BUTTON_DEFAULTS.color);
@@ -51,6 +46,9 @@ export default class ButtonsComponent {
   showIconAfter = signal<boolean>(false);
   isDisabled = signal<boolean>(BUTTON_DEFAULTS.disabled);
   buttonLabel = signal<string>('Button Text');
+
+  readonly API_PROPERTIES = API_PROPERTIES;
+  readonly BEST_PRACTICES = BEST_PRACTICES;
 
   currentVariantGuide = computed(() => {
     return VARIANT_GUIDES.find(guide => guide.variant === this.selectedVariant());
@@ -128,61 +126,4 @@ export default class ButtonsComponent {
   goBack(): void {
     this.router.navigate(['/pds/index']);
   }
-
-  copyToClipboard(): void {
-    navigator.clipboard.writeText(this.generatedCode()).then(() => {
-      this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
-    });
-  }
-
-  apiProperties: ApiProperty[] = [
-    {
-      name: 'variant',
-      decorator: '@Input()',
-      description: 'Controla el estilo visual del botón.',
-      type: "'filled' | 'elevated' | 'outlined' | 'text' | 'tonal'",
-      defaultValue: 'filled'
-    },
-    {
-      name: 'color',
-      decorator: '@Input()',
-      description: 'Color semántico del tema.',
-      type: "'primary' | 'secondary' | 'tertiary'",
-      defaultValue: 'primary'
-    },
-    {
-      name: 'shape',
-      decorator: '@Input()',
-      description: 'Forma de las esquinas.',
-      type: "'rounded' | 'square'",
-      defaultValue: 'rounded'
-    },
-    {
-      name: 'size',
-      decorator: '@Input()',
-      description: 'Tamaño del botón.',
-      type: "'small' | 'medium' | 'large'",
-      defaultValue: 'medium'
-    },
-    {
-      name: 'disabled',
-      decorator: '@Input()',
-      description: 'Deshabilita la interacción.',
-      type: 'boolean',
-      defaultValue: 'false'
-    },
-    {
-      name: 'iconBefore / iconAfter',
-      decorator: '@Input()',
-      description: 'Nombre del icono Material Design.',
-      type: "string (ej: 'star', 'home')",
-      optional: true
-    }
-  ];
-
-  bestPractices: BestPracticeItem[] = [
-    { label: 'Jerarquía', text: 'Usa solo un botón de alto énfasis por sección.' },
-    { label: 'Consistencia', text: 'Mantén el mismo variant para acciones similares.' },
-    { label: 'Diálogos', text: 'Filled para confirmar, Outlined para cancelar.' }
-  ];
 }
