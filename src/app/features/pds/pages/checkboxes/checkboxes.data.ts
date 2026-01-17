@@ -1,5 +1,5 @@
 import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
-import type {ApiProperty, BestPracticeItem} from '@shared/molecules';
+import type {PdsApiReferencePropertyModel, BestPracticeItem} from '@shared/molecules';
 
 export interface StateGuide {
   state: 'checked' | 'unchecked' | 'indeterminate';
@@ -95,7 +95,7 @@ export const BEST_PRACTICES: BestPracticeItem[] = [
   { label: 'Accesibilidad', text: 'Marca como required los campos obligatorios y usa ariaLabel cuando no hay texto visible.' }
 ];
 
-export const API_PROPERTIES: ApiProperty[] = [
+export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   {
     name: 'checked',
     decorator: '@Input()',

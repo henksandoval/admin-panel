@@ -1,5 +1,5 @@
 import { BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
-import type {ApiProperty, BestPracticeItem} from '@shared/molecules';
+import type {PdsApiReferencePropertyModel, BestPracticeItem} from '@shared/molecules';
 
 export interface BadgeVariantGuide {
   variant: BadgeVariant;
@@ -71,7 +71,7 @@ export const INLINE_COLORS: { value: Extract<BadgeColor, 'normal' | 'info' | 'su
   { value: 'error', label: 'Error', description: 'Critical issues or errors' }
 ];
 
-export const API_PROPERTIES: ApiProperty[] = [
+export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   {
     name: 'variant',
     decorator: '@Input()',

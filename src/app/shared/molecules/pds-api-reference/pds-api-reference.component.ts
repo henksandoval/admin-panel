@@ -1,15 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-
-export interface ApiProperty {
-  name: string;
-  decorator: string;
-  description: string;
-  type: string;
-  defaultValue?: string;
-  optional?: boolean;
-}
+import {Component, Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {PdsApiReferencePropertyModel} from '@shared/molecules/pds-api-reference/pds-api-reference-property.model';
 
 @Component({
   selector: 'app-pds-api-reference',
@@ -57,5 +49,5 @@ export class PdsApiReferenceComponent {
   @Input() title = 'API Reference';
   @Input() description = 'Documentación completa de propiedades disponibles en';
   @Input({ required: true }) componentTag!: string;
-  @Input({ required: true }) properties!: ApiProperty[];
+  @Input({ required: true }) properties!: PdsApiReferencePropertyModel[];
 }

@@ -1,6 +1,6 @@
 import { MatButtonAppearance } from '@angular/material/button';
 import { ButtonColor } from '@shared/atoms/app-button/app-button.model';
-import type {ApiProperty, BestPracticeItem} from '@shared/molecules';
+import type {PdsApiReferencePropertyModel, BestPracticeItem} from '@shared/molecules';
 
 export interface VariantGuide {
   readonly variant: MatButtonAppearance;
@@ -104,7 +104,7 @@ export const VARIANT_GUIDES: VariantGuide[] = [
   }
 ];
 
-export const API_PROPERTIES: ApiProperty[] = [
+export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   {
     name: 'variant',
     decorator: '@Input()',

@@ -1,6 +1,6 @@
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { InputFieldType, FormFieldInputOptions } from '@shared/atoms/form-field-input/form-field-input.model';
-import type {ApiProperty, BestPracticeItem} from '@shared/molecules';
+import type {PdsApiReferencePropertyModel, BestPracticeItem} from '@shared/molecules';
 
 export type FieldEmphasis = 'high' | 'medium' | 'low';
 
@@ -107,7 +107,7 @@ export const COMMON_ICONS = [
   'location_on'
 ];
 
-export const API_PROPERTIES: ApiProperty[] = [
+export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   {
     name: 'config',
     decorator: '@Input()',
