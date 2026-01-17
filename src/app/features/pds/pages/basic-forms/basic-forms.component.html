@@ -52,7 +52,7 @@
             <mat-button-toggle-group
               [value]="selectedConfig()"
               (change)="onConfigChange($event.value)"
-              class="w-full flex flex-col gap-1">
+              class="w-full">
               <mat-button-toggle value="basic" class="w-full">Basic</mat-button-toggle>
               <mat-button-toggle value="with-validation" class="w-full">With Validation</mat-button-toggle>
               <mat-button-toggle value="with-extras" class="w-full">With Visual Extras</mat-button-toggle>
@@ -120,7 +120,7 @@
               <mat-icon class="text-base !w-4 !h-4 leading-4">insert_emoticon</mat-icon>
               Icon (Optional)
             </label>
-            <mat-button-toggle-group [(ngModel)]="selectedIcon" class="w-full grid grid-cols-4 gap-1">
+            <mat-button-toggle-group [(ngModel)]="selectedIcon">
               <mat-button-toggle value="">
                 <mat-icon class="text-sm">close</mat-icon>
               </mat-button-toggle>

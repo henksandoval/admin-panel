@@ -13,7 +13,6 @@ import { BADGE_DEFAULTS, BadgeVariant, BadgeColor, BadgePosition } from '@shared
 import {
   BADGE_VARIANT_GUIDES,
   BADGE_POSITIONS,
-  OVERLAY_COLORS,
   INLINE_COLORS,
   API_PROPERTIES,
   BEST_PRACTICES,
@@ -58,7 +57,6 @@ export default class IndicatorsComponent {
   badgeLabel = signal<string>('Badge Text');
 
   readonly BADGE_POSITIONS = BADGE_POSITIONS;
-  readonly OVERLAY_COLORS = OVERLAY_COLORS;
   readonly INLINE_COLORS = INLINE_COLORS;
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES

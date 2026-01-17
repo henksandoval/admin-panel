@@ -101,11 +101,7 @@ export const COMMON_ICONS = [
   'phone',
   'search',
   'edit',
-  'star',
-  'attach_money',
-  'link',
-  'calendar_today',
-  'location_on'
+  'attach_money'
 ];
 
 export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [

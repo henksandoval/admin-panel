@@ -81,20 +81,6 @@
 
             <div class="space-y-2">
               <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
-                Color
-              </label>
-              <mat-button-toggle-group [(ngModel)]="overlayColor" class="w-full">
-                @for (color of OVERLAY_COLORS; track color.value) {
-                  <mat-button-toggle [value]="color.value" class="flex-1">
-                    {{ color.label }}
-                  </mat-button-toggle>
-                }
-              </mat-button-toggle-group>
-            </div>
-
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
                 <mat-icon class="text-base !w-4 !h-4 leading-4">place</mat-icon>
                 Position
               </label>
@@ -129,12 +115,11 @@
                 <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
                 Color
               </label>
-              <mat-button-toggle-group [(ngModel)]="inlineColor" class="w-full flex flex-col gap-1">
+              <mat-button-toggle-group [(ngModel)]="inlineColor" class="w-full">
                 @for (color of INLINE_COLORS; track color.value) {
                   <mat-button-toggle [value]="color.value" class="w-full">
                     <div class="flex items-center gap-2 justify-between w-full">
                       <span>{{ color.label }}</span>
-                      <span class="text-xs opacity-70">{{ color.description }}</span>
                     </div>
                   </mat-button-toggle>
                 }
@@ -218,29 +203,6 @@
               }
             </div>
           </section>
-
-          <section>
-            <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-              <mat-icon color="primary">palette</mat-icon> Color Variations
-            </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              @for (color of OVERLAY_COLORS; track color.value) {
-                <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-                  <app-badge
-                    variant="overlay"
-                    [content]="badgeContent()"
-                    [color]="color.value"
-                    [position]="position()"
-                    [overlap]="overlap()">
-                    <button mat-icon-button>
-                      <mat-icon>notifications</mat-icon>
-                    </button>
-                  </app-badge>
-                  <code class="text-xs">color="{{ color.value }}"</code>
-                </div>
-              }
-            </div>
-          </section>
         } @else {
           <section>
             <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
@@ -252,7 +214,6 @@
                   <app-badge variant="inline" [color]="color.value">{{ badgeLabel() }}</app-badge>
                   <div class="text-center">
                     <code class="text-xs block">color="{{ color.value }}"</code>
-                    <span class="text-xs opacity-70">{{ color.description }}</span>
                   </div>
                 </div>
               }

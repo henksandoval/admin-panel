@@ -58,18 +58,12 @@ export const BADGE_POSITIONS: { value: BadgePosition; label: string }[] = [
   { value: 'below before', label: 'Below Before' }
 ];
 
-export const OVERLAY_COLORS: { value: Extract<BadgeColor, 'primary' | 'accent' | 'warn'>; label: string }[] = [
-  { value: 'primary', label: 'Primary' },
-  { value: 'accent', label: 'Accent' },
-  { value: 'warn', label: 'Warn' }
-];
-
-export const INLINE_COLORS: { value: Extract<BadgeColor, 'normal' | 'info' | 'success' | 'warning' | 'error'>; label: string; description: string }[] = [
-  { value: 'normal', label: 'Normal', description: 'Neutral, default state' },
-  { value: 'info', label: 'Info', description: 'Informational messages' },
-  { value: 'success', label: 'Success', description: 'Positive states or confirmations' },
-  { value: 'warning', label: 'Warning', description: 'Attention needed, caution' },
-  { value: 'error', label: 'Error', description: 'Critical issues or errors' }
+export const INLINE_COLORS: { value: Extract<BadgeColor, 'normal' | 'info' | 'success' | 'warning' | 'error'>; label: string; }[] = [
+  { value: 'normal', label: 'Normal' },
+  { value: 'info', label: 'Info' },
+  { value: 'success', label: 'Success' },
+  { value: 'warning', label: 'Warning' },
+  { value: 'error', label: 'Error' }
 ];
 
 export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
