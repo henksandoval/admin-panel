@@ -91,7 +91,7 @@ export const routes: Routes = [
           { path: 'buttons', loadComponent: () => import('./features/pds/pages/buttons/buttons.component') },
           { path: 'checkboxes', loadComponent: () => import('./features/pds/pages/checkboxes/checkboxes.component') },
           { path: 'badges', loadComponent: () => import('./features/pds/pages/badges/badges.component') },
-          { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component').then(m => m.IndicatorsComponent) }
+          { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component') }
         ]
       },
     ]

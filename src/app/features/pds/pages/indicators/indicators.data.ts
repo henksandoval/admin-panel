@@ -1,0 +1,82 @@
+import { BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
+
+export interface BadgeVariantGuide {
+  variant: BadgeVariant;
+  title: string;
+  description: string;
+  whenToUse: string[];
+  examples: string[];
+  emphasis: 'high' | 'medium' | 'low';
+}
+
+export const BADGE_VARIANT_GUIDES: BadgeVariantGuide[] = [
+  {
+    variant: 'overlay',
+    title: 'Overlay Badge (matBadge Wrapper)',
+    description: 'Badges superpuestos sobre elementos como iconos o botones. Ideal para notificaciones, contadores y alertas visuales que necesitan destacar sobre otro elemento.',
+    whenToUse: [
+      'Mostrar contadores de notificaciones en iconos del toolbar',
+      'Indicar nuevos mensajes o elementos no leídos',
+      'Señalar actualizaciones pendientes en items del carrito',
+      'Alertas numéricas que requieren atención inmediata'
+    ],
+    examples: [
+      'Notificaciones en header',
+      'Contador de mensajes',
+      'Items en carrito',
+      'Actualizaciones disponibles'
+    ],
+    emphasis: 'high'
+  },
+  {
+    variant: 'inline',
+    title: 'Inline Badge (Custom CSS)',
+    description: 'Badges que fluyen con el contenido. Perfectos para etiquetas de estado, categorías, tags y badges en navegación. Soportan 5 variantes semánticas con indicadores opcionales.',
+    whenToUse: [
+      'Etiquetas de estado (NEW, BETA, HOT)',
+      'Contadores en navegación lateral',
+      'Tags de categorías o filtros',
+      'Indicadores de prioridad o urgencia',
+      'Badges informativos en listas o cards'
+    ],
+    examples: [
+      'Estado "NEW" en features',
+      'Contador en sidebar',
+      'Tags de categoría',
+      'Badge de prioridad'
+    ],
+    emphasis: 'medium'
+  }
+];
+
+export const BADGE_POSITIONS: { value: BadgePosition; label: string }[] = [
+  { value: 'above after', label: 'Above After (default)' },
+  { value: 'above before', label: 'Above Before' },
+  { value: 'below after', label: 'Below After' },
+  { value: 'below before', label: 'Below Before' }
+];
+
+export const OVERLAY_COLORS: { value: Extract<BadgeColor, 'primary' | 'accent' | 'warn'>; label: string }[] = [
+  { value: 'primary', label: 'Primary' },
+  { value: 'accent', label: 'Accent' },
+  { value: 'warn', label: 'Warn' }
+];
+
+export const INLINE_COLORS: { value: Extract<BadgeColor, 'normal' | 'info' | 'success' | 'warning' | 'error'>; label: string; description: string }[] = [
+  { value: 'normal', label: 'Normal', description: 'Neutral, default state' },
+  { value: 'info', label: 'Info', description: 'Informational messages' },
+  { value: 'success', label: 'Success', description: 'Positive states or confirmations' },
+  { value: 'warning', label: 'Warning', description: 'Attention needed, caution' },
+  { value: 'error', label: 'Error', description: 'Critical issues or errors' }
+];
+
+export const BADGE_DEFAULTS = {
+  variant: 'inline' as const,
+  overlayColor: 'primary' as const,
+  inlineColor: 'normal' as const,
+  position: 'above after' as const,
+  overlap: true,
+  hidden: false,
+  hasIndicator: false,
+  content: '0'
+};

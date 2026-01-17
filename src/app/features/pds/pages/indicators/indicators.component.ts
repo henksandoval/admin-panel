@@ -1,176 +1,153 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatListModule } from '@angular/material/list';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AppBadgeComponent } from '@shared/atoms/app-badge/app-badge.component';
+import { BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
+import {
+  BADGE_VARIANT_GUIDES,
+  BADGE_POSITIONS,
+  OVERLAY_COLORS,
+  INLINE_COLORS,
+  BADGE_DEFAULTS,
+  type BadgeVariantGuide
+} from './indicators.data';
 
 @Component({
   selector: 'app-indicators',
+  standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatBadgeModule,
-    MatDividerModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
     MatTooltipModule,
-    MatListModule,
     AppBadgeComponent
   ],
   templateUrl: './indicators.component.html',
   styleUrl: './indicators.component.scss'
 })
-export class IndicatorsComponent implements OnInit, OnDestroy {
-  private router = inject(Router);
-  private intervalId?: number;
+export default class IndicatorsComponent {
+  private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
 
-  notificationCount = 8;
-  messageCount = 3;
-  cartItems = 12;
+  selectedVariant = signal<BadgeVariant>(BADGE_DEFAULTS.variant);
+  badgeContent = signal<string>('8');
 
-  // Contadores en tiempo real
-  realtimeCounter = 0;
-  simulatedOrders = 5;
-  liveNotifications = 1;
+  overlayColor = signal<Extract<BadgeColor, 'primary' | 'accent' | 'warn'>>(BADGE_DEFAULTS.overlayColor);
+  position = signal<BadgePosition>(BADGE_DEFAULTS.position);
+  overlap = signal<boolean>(BADGE_DEFAULTS.overlap);
+  hidden = signal<boolean>(BADGE_DEFAULTS.hidden);
 
-  ngOnInit() {
-    // Simular actualizaciones en tiempo real cada 2 segundos
-    this.intervalId = window.setInterval(() => {
-      // Incrementar contador simple
-      this.realtimeCounter++;
+  inlineColor = signal<Extract<BadgeColor, 'normal' | 'info' | 'success' | 'warning' | 'error'>>(BADGE_DEFAULTS.inlineColor);
+  hasIndicator = signal<boolean>(BADGE_DEFAULTS.hasIndicator);
+  badgeLabel = signal<string>('Badge Text');
 
-      // Simular nuevas órdenes (máximo 99)
-      if (this.simulatedOrders < 99) {
-        this.simulatedOrders++;
-      } else {
-        this.simulatedOrders = 0;
-      }
+  readonly BADGE_POSITIONS = BADGE_POSITIONS;
+  readonly OVERLAY_COLORS = OVERLAY_COLORS;
+  readonly INLINE_COLORS = INLINE_COLORS;
 
-      // Simular notificaciones aleatorias (entre 0 y 15)
-      this.liveNotifications = Math.floor(Math.random() * 16);
-    }, 2000);
-  }
+  currentVariantGuide = computed(() => {
+    return BADGE_VARIANT_GUIDES.find(guide => guide.variant === this.selectedVariant());
+  });
 
-  ngOnDestroy() {
-    // Limpiar el intervalo cuando se destruye el componente
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
+  generatedCode = computed(() => {
+    const variant = this.selectedVariant();
+
+    if (variant === 'overlay') {
+      return this.generateOverlayCode();
+    } else {
+      return this.generateInlineCode();
     }
-  }
+  });
 
-  goBack() {
-    this.router.navigate(['/pds']);
-  }
+  private generateOverlayCode(): string {
+    const color = this.overlayColor();
+    const position = this.position();
+    const overlap = this.overlap();
+    const hidden = this.hidden();
+    const content = this.badgeContent();
 
-  get codeExample(): string {
-    return `// ===== app-badge Component (Sistema Unificado) =====
-// Los desarrolladores SIEMPRE deben usar app-badge, no matBadge directo
+    let code = '<app-badge\n  variant="overlay"';
 
-// ===== Overlay Badges (Notificaciones sobre iconos) =====
-// El componente gestiona internamente el matBadge de Angular Material
-
-// Badge básico con contador
-<app-badge variant="overlay" [content]="8" color="warn">
-  <button mat-icon-button>
-    <mat-icon>notifications</mat-icon>
-  </button>
-</app-badge>
-
-// Badge con posicionamiento personalizado
-<app-badge variant="overlay" content="3" position="below after" color="accent">
-  <button mat-icon-button>
-    <mat-icon>mail</mat-icon>
-  </button>
-</app-badge>
-
-// Badge condicional (oculto cuando es 0)
-<app-badge variant="overlay" [content]="count" [hidden]="count === 0" color="warn">
-  <button mat-icon-button><mat-icon>notifications</mat-icon></button>
-</app-badge>
-
-// ===== Badges en Tiempo Real =====
-// Los badges se actualizan automáticamente cuando cambia la propiedad del componente
-
-// En el componente TypeScript:
-export class MyComponent implements OnInit, OnDestroy {
-  realtimeCounter = 0;
-  private intervalId?: number;
-
-  ngOnInit() {
-    // Actualizar cada 2 segundos
-    this.intervalId = window.setInterval(() => {
-      this.realtimeCounter++;
-    }, 2000);
-  }
-
-  ngOnDestroy() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
+    if (content !== BADGE_DEFAULTS.content) {
+      code += `\n  content="${content}"`;
     }
+    if (color !== BADGE_DEFAULTS.overlayColor) {
+      code += `\n  color="${color}"`;
+    }
+    if (position !== BADGE_DEFAULTS.position) {
+      code += `\n  position="${position}"`;
+    }
+    if (overlap !== BADGE_DEFAULTS.overlap) {
+      code += `\n  [overlap]="${overlap}"`;
+    }
+    if (hidden !== BADGE_DEFAULTS.hidden) {
+      code += `\n  [hidden]="${hidden}"`;
+    }
+
+    code += '>\n  <button mat-icon-button>\n    <mat-icon>notifications</mat-icon>\n  </button>\n</app-badge>';
+
+    return code;
   }
-}
 
-// En el template:
-<app-badge variant="overlay" [content]="realtimeCounter" color="primary">
-  <button mat-icon-button>
-    <mat-icon>timer</mat-icon>
-  </button>
-</app-badge>
+  private generateInlineCode(): string {
+    const color = this.inlineColor();
+    const hasIndicator = this.hasIndicator();
+    const label = this.badgeLabel();
 
+    let code = '<app-badge';
 
-// ===== Inline Badges (Etiquetas y estados) =====
-// Para etiquetas, estados y navegación
+    if (color !== BADGE_DEFAULTS.inlineColor) {
+      code += `\n  variant="inline"\n  color="${color}"`;
+    } else {
+      code += '\n  variant="inline"';
+    }
 
-// Variantes semánticas básicas
-<app-badge variant="inline" color="normal">Count: 3</app-badge>
-<app-badge variant="inline" color="info">Info</app-badge>
-<app-badge variant="inline" color="success">Active</app-badge>
-<app-badge variant="inline" color="warning">Pending</app-badge>
-<app-badge variant="inline" color="error">Critical</app-badge>
+    if (hasIndicator !== BADGE_DEFAULTS.hasIndicator) {
+      code += `\n  [hasIndicator]="true"`;
+    }
 
-// Con indicador de alerta (!)
-<app-badge variant="inline" color="warning" [hasIndicator]="true">Action Required</app-badge>
+    code += `>\n  ${label}\n</app-badge>`;
 
-// Badge inline con valor dinámico (tiempo real)
-<app-badge variant="inline" color="info">{{ realtimeCounter }}</app-badge>
-<app-badge variant="inline" color="success">Orders: {{ simulatedOrders }}</app-badge>
+    return code;
+  }
 
-// Badge inline condicional con indicador
-<app-badge variant="inline" color="error" [hasIndicator]="count > 5">
-  Critical: {{ count }}
-</app-badge>
+  getEmphasisBadgeClasses(emphasis: BadgeVariantGuide['emphasis']): string {
+    const classMap = {
+      high: 'emphasis-badge high',
+      medium: 'emphasis-badge medium',
+      low: 'emphasis-badge low'
+    };
+    return classMap[emphasis];
+  }
 
-// En navegación con valores dinámicos
-<div class="flex items-center gap-3">
-  <mat-icon>shopping_bag</mat-icon>
-  <span class="flex-1">Pending Orders</span>
-  <app-badge variant="inline" color="info" [hasIndicator]="orders > 5">
-    {{ orders }}
-  </app-badge>
-</div>
+  getCardBorderClasses(emphasis: BadgeVariantGuide['emphasis']): string {
+    const classMap = {
+      high: 'card-border high',
+      medium: 'card-border medium',
+      low: 'card-border low'
+    };
+    return classMap[emphasis];
+  }
 
+  goBack(): void {
+    this.router.navigate(['/pds/index']);
+  }
 
-
-// ===== Otros Componentes =====
-
-// Variaciones de dividers
-<mat-divider></mat-divider>
-<mat-divider [vertical]="true"></mat-divider>
-<mat-divider [inset]="true"></mat-divider>
-
-// Tooltips avanzados
-<button mat-raised-button
-        matTooltip="This tooltip appears after 1 second"
-        matTooltipShowDelay="1000"
-        matTooltipHideDelay="500"
-        matTooltipPosition="above">
-  Custom Delay
-</button>`;
+  copyToClipboard(): void {
+    navigator.clipboard.writeText(this.generatedCode()).then(() => {
+      this.snackBar.open('Copiado al portapapeles', 'OK', { duration: 2000 });
+    });
   }
 }

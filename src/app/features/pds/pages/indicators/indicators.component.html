@@ -1,484 +1,441 @@
-<div class="p-6">
-  <!-- Header -->
-  <div class="mb-6">
-    <button mat-button (click)="goBack()" class="mb-4" style="color: var(--mat-sys-primary);">
-      <mat-icon class="mr-2">arrow_back</mat-icon>
-      Back to Showcase
+<div class="p-6 max-w-[1600px] mx-auto">
+  <header class="mb-8">
+    <button mat-button (click)="goBack()" class="back-button mb-4">
+      <mat-icon class="mr-1">arrow_back</mat-icon>
+      Back to PDS Index
     </button>
-    <h1 class="text-3xl font-bold mb-2" style="color: var(--mat-sys-primary);">
-      🏷️ Indicators & Utilities
-    </h1>
-    <p class="text-lg" style="color: var(--mat-sys-on-surface-variant);">
-      Badges, dividers, advanced tooltips, and utility components for enhanced UX
-    </p>
-  </div>
-
-  <!-- Badge Comparison -->
-  <mat-card class="mb-8 shadow-lg" style="background-color: var(--mat-sys-secondary-container);">
-    <mat-card-header>
-      <mat-card-title class="text-xl font-semibold">🆚 Badge Types: matBadge vs app-badge</mat-card-title>
-      <mat-card-subtitle>Understanding when to use each badge system</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="p-6">
-      <div class="mb-4 p-3 rounded-lg" style="background-color: var(--mat-sys-tertiary-container);">
-        <p class="text-sm" style="color: var(--mat-sys-on-tertiary-container);">
-          ℹ️ <strong>Nuevo:</strong> Ahora tenemos un componente unificado <code>&lt;app-badge&gt;</code> que maneja ambos escenarios.
-          Visita <strong>/pds/badges</strong> para ver la implementación moderna.
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- matBadge -->
-        <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
-          <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
-            <mat-icon color="primary">push_pin</mat-icon>
-            matBadge (Material)
+    <div class="max-w-3xl">
+      <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
+        Badge Component Playground
+      </h1>
+      <p class="page-description text-lg leading-relaxed">
+        Experimenta con diferentes configuraciones del componente
+        <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-badge&gt;</code>
+        y observa cómo cambia la documentación en tiempo real.
+      </p>
+    </div>
+  </header>
+  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+    <section class="xl:col-span-5 space-y-6 xl:sticky xl:top-6">
+      <mat-card appearance="outlined" class="overflow-hidden">
+        <div class="card-header border-b px-6 py-4">
+          <h3 class="card-title font-semibold flex items-center gap-2">
+            <span>🎨</span> Live Preview
           </h3>
-          <p class="text-sm mb-4" style="color: var(--mat-sys-on-surface-variant);">
-            <strong>Overlays</strong> sobre elementos. Perfecto para notificaciones en iconos.
-          </p>
-          <div class="flex gap-4 mb-3">
-            <app-badge variant="overlay" content="3" color="warn">
-              <button mat-icon-button>
-                <mat-icon>notifications</mat-icon>
-              </button>
-            </app-badge>
-            <app-badge variant="overlay" content="12" color="accent">
-              <button mat-icon-button>
-                <mat-icon>mail</mat-icon>
-              </button>
-            </app-badge>
-          </div>
-          <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
-            <div>✅ Notificaciones en toolbar</div>
-            <div>✅ Contadores sobre iconos</div>
-            <div>✅ Posicionamiento absoluto</div>
-            <div>❌ Solo 3 colores (primary/accent/warn)</div>
-          </div>
         </div>
-
-        <!-- app-badge -->
-        <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
-          <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
-            <mat-icon color="accent">label</mat-icon>
-            app-badge (Custom)
-          </h3>
-          <p class="text-sm mb-4" style="color: var(--mat-sys-on-surface-variant);">
-            <strong>Inline badges</strong>. Ideal para etiquetas, estados y categorías.
-          </p>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <app-badge variant="inline" color="normal">Normal</app-badge>
-            <app-badge variant="inline" color="info">Info</app-badge>
-            <app-badge variant="inline" color="success">Success</app-badge>
-            <app-badge variant="inline" color="warning">Warning</app-badge>
-            <app-badge variant="inline" color="error">Error</app-badge>
-          </div>
-          <div class="text-xs space-y-1" style="color: var(--mat-sys-on-surface-variant);">
-            <div>✅ Etiquetas de estado (NEW, HOT)</div>
-            <div>✅ Badges en navegación</div>
-            <div>✅ 5 variantes semánticas</div>
-            <div>✅ Soporte para indicadores (!)</div>
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- matBadge Examples -->
-  <mat-card class="mb-8 shadow-lg">
-    <mat-card-header>
-      <mat-card-title class="text-xl font-semibold">app-badge variant="overlay" (Wraps matBadge)</mat-card-title>
-      <mat-card-subtitle>Overlay badges for notifications and counters on icons - Always use app-badge component</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="p-6">
-      <div class="space-y-6">
-        <!-- Basic badges -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Basic Badges</h3>
-          <div class="badge-demo-section flex flex-wrap gap-4">
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" [content]="notificationCount" color="warn">
+        <mat-card-content class="p-8">
+          <div class="preview-container flex items-center justify-center min-h-[160px] bg-center rounded-lg border shadow-sm">
+            @if (selectedVariant() === 'overlay') {
+              <app-badge
+                variant="overlay"
+                [content]="badgeContent()"
+                [color]="overlayColor()"
+                [position]="position()"
+                [overlap]="overlap()"
+                [hidden]="hidden()">
                 <button mat-icon-button>
                   <mat-icon>notifications</mat-icon>
                 </button>
               </app-badge>
-              <p class="text-xs mt-1 text-center">Notifications</p>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" [content]="messageCount" color="accent">
-                <button mat-icon-button>
-                  <mat-icon>mail</mat-icon>
-                </button>
+            } @else {
+              <app-badge
+                variant="inline"
+                [color]="inlineColor()"
+                [hasIndicator]="hasIndicator()">
+                {{ badgeLabel() }}
               </app-badge>
-              <p class="text-xs mt-1 text-center">Messages</p>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" [content]="cartItems" color="primary">
-                <button mat-icon-button>
-                  <mat-icon>shopping_cart</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Cart Items</p>
-            </div>
+            }
           </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card appearance="outlined">
+        <div class="card-header px-6 py-4 border-b">
+          <h3 class="card-title font-semibold flex items-center gap-2">
+            <span>🎮</span> Controls
+          </h3>
         </div>
-
-        <!-- Badge positions -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Badge Positions</h3>
-          <div class="badge-demo-section flex flex-wrap gap-4">
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" content="1" position="above before" color="warn">
-                <button mat-icon-button>
-                  <mat-icon>star</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Above Before</p>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" content="2" position="above after" color="warn">
-                <button mat-icon-button>
-                  <mat-icon>star</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Above After</p>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" content="3" position="below before" color="warn">
-                <button mat-icon-button>
-                  <mat-icon>star</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Below Before</p>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" content="4" position="below after" color="warn">
-                <button mat-icon-button>
-                  <mat-icon>star</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Below After</p>
-            </div>
+        <mat-card-content class="p-6 space-y-6">
+          <div class="space-y-2">
+            <label class="section-label text-sm font-medium flex items-center gap-1.5">
+              <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
+              Variant
+            </label>
+            <mat-button-toggle-group [(ngModel)]="selectedVariant" class="w-full">
+              <mat-button-toggle value="overlay" class="flex-1">Overlay</mat-button-toggle>
+              <mat-button-toggle value="inline" class="flex-1">Inline</mat-button-toggle>
+            </mat-button-toggle-group>
           </div>
-        </div>
 
-        <!-- Badge variants -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Badge Variants</h3>
-          <div class="badge-demo-section flex flex-wrap gap-6">
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" content="NEW" [overlap]="false" color="primary">
-                <span class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                  New Feature Available
-                </span>
-              </app-badge>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" content="HOT" [overlap]="false" color="warn">
-                <span class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                  Popular Item
-                </span>
-              </app-badge>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" content="99+" [overlap]="false" color="accent">
-                <span class="px-3 py-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                  Inbox
-                </span>
-              </app-badge>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hidden badges -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Conditional Badges</h3>
-          <div class="badge-demo-section flex flex-wrap gap-4">
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" [content]="notificationCount" [hidden]="notificationCount === 0" color="warn">
-                <button mat-icon-button>
-                  <mat-icon>notifications</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Shows when > 0</p>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" content="0" [hidden]="true" color="warn">
-                <button mat-icon-button>
-                  <mat-icon>notifications_off</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Hidden when 0</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Real-time badges -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">🔴 Real-time Badges (Live Updates Every 2s)</h3>
-          <div class="mb-3 p-3 rounded-lg" style="background-color: var(--mat-sys-tertiary-container);">
-            <p class="text-sm" style="color: var(--mat-sys-on-tertiary-container);">
-              💡 Los badges se actualizan automáticamente cuando cambian los valores del componente.
-              Estos contadores se incrementan cada 2 segundos usando un <code>setInterval</code>.
-            </p>
-          </div>
-          <div class="badge-demo-section flex flex-wrap gap-4">
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" [content]="realtimeCounter" color="primary">
-                <button mat-icon-button>
-                  <mat-icon>timer</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Counter: {{ realtimeCounter }}</p>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" [content]="simulatedOrders" color="accent">
-                <button mat-icon-button>
-                  <mat-icon>shopping_bag</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Orders: {{ simulatedOrders }}</p>
-            </div>
-            <div class="demo-badge-item">
-              <app-badge variant="overlay" [content]="liveNotifications" [hidden]="liveNotifications === 0" color="warn">
-                <button mat-icon-button>
-                  <mat-icon>notifications_active</mat-icon>
-                </button>
-              </app-badge>
-              <p class="text-xs mt-1 text-center">Live: {{ liveNotifications }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Custom app-badge -->
-  <mat-card class="mb-8 shadow-lg">
-    <mat-card-header>
-      <mat-card-title class="text-xl font-semibold">app-badge variant="inline" (Custom CSS)</mat-card-title>
-      <mat-card-subtitle>Inline badges for labels, status, and categories</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="p-6">
-      <div class="space-y-6">
-        <!-- Basic app-badges -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Semantic Variants</h3>
-          <div class="flex flex-wrap gap-3">
-            <app-badge variant="inline" color="normal">Normal</app-badge>
-            <app-badge variant="inline" color="info">Info</app-badge>
-            <app-badge variant="inline" color="success">Success</app-badge>
-            <app-badge variant="inline" color="warning">Warning</app-badge>
-            <app-badge variant="inline" color="error">Error</app-badge>
-          </div>
-        </div>
-
-        <!-- app-badge with indicators -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">With Alert Indicators</h3>
-          <div class="flex flex-wrap gap-3">
-            <app-badge variant="inline" color="info" [hasIndicator]="true">Action Required</app-badge>
-            <app-badge variant="inline" color="warning" [hasIndicator]="true">Pending</app-badge>
-            <app-badge variant="inline" color="error" [hasIndicator]="true">Critical</app-badge>
-          </div>
-          <p class="text-sm mt-2" style="color: var(--mat-sys-on-surface-variant);">
-            El indicador "!" aparece cuando se activa la propiedad <code>[hasIndicator]="true"</code>
-          </p>
-        </div>
-
-        <!-- Usage in navigation context -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Navigation Context (like sidebar)</h3>
-          <div class="space-y-3 max-w-md">
-            <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-              <mat-icon>dashboard</mat-icon>
-              <span class="flex-1">Dashboard</span>
-              <app-badge variant="inline" color="normal">3</app-badge>
-            </div>
-            <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-              <mat-icon>shopping_cart</mat-icon>
-              <span class="flex-1">Orders</span>
-              <app-badge variant="inline" color="warning" [hasIndicator]="true">5</app-badge>
-            </div>
-            <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-              <mat-icon>notifications</mat-icon>
-              <span class="flex-1">Alerts</span>
-              <app-badge variant="inline" color="error">12</app-badge>
-            </div>
-          </div>
-        </div>
-
-        <!-- Status labels -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Status Labels & Tags</h3>
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
-              <app-badge variant="inline" color="success">NEW</app-badge>
-              <span>Feature: Dark mode support</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <app-badge variant="inline" color="warning">BETA</app-badge>
-              <span>Experimental AI assistant</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <app-badge variant="inline" color="info">HOT</app-badge>
-              <span>Most popular dashboard</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Real-time inline badges -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">🔴 Real-time Inline Badges (Custom CSS)</h3>
-          <div class="mb-3 p-3 rounded-lg" style="background-color: var(--mat-sys-tertiary-container);">
-            <p class="text-sm" style="color: var(--mat-sys-on-tertiary-container);">
-              💡 Los badges inline también soportan actualizaciones en tiempo real.
-              Perfectos para contadores en navegación, dashboards y paneles de control.
-            </p>
-          </div>
-          <div class="space-y-4">
-            <!-- Counters -->
-            <div class="flex flex-wrap gap-3 items-center">
-              <span class="text-sm font-medium">Contadores dinámicos:</span>
-              <app-badge variant="inline" color="info">{{ realtimeCounter }}</app-badge>
-              <app-badge variant="inline" color="success">Orders: {{ simulatedOrders }}</app-badge>
-              <app-badge variant="inline" color="warning">Pending: {{ liveNotifications }}</app-badge>
+          @if (selectedVariant() === 'overlay') {
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">numbers</mat-icon>
+                Content
+              </label>
+              <input
+                type="text"
+                [(ngModel)]="badgeContent"
+                class="w-full px-3 py-2 border rounded-lg"
+                placeholder="Badge content">
             </div>
 
-            <!-- Conditional with indicator -->
-            <div class="flex flex-wrap gap-3 items-center">
-              <span class="text-sm font-medium">Con indicador (!) cuando > 5:</span>
-              <app-badge variant="inline" color="error" [hasIndicator]="simulatedOrders > 5">
-                Critical: {{ simulatedOrders }}
-              </app-badge>
-              <app-badge variant="inline" color="warning" [hasIndicator]="liveNotifications > 10">
-                Alerts: {{ liveNotifications }}
-              </app-badge>
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
+                Color
+              </label>
+              <mat-button-toggle-group [(ngModel)]="overlayColor" class="w-full">
+                @for (color of OVERLAY_COLORS; track color.value) {
+                  <mat-button-toggle [value]="color.value" class="flex-1">
+                    {{ color.label }}
+                  </mat-button-toggle>
+                }
+              </mat-button-toggle-group>
             </div>
 
-            <!-- Navigation-style with live data -->
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">place</mat-icon>
+                Position
+              </label>
+              <mat-button-toggle-group [(ngModel)]="position" class="w-full flex flex-col">
+                @for (pos of BADGE_POSITIONS; track pos.value) {
+                  <mat-button-toggle [value]="pos.value" class="w-full">
+                    {{ pos.label }}
+                  </mat-button-toggle>
+                }
+              </mat-button-toggle-group>
+            </div>
+
             <div>
-              <p class="text-sm font-medium mb-2">En contexto de navegación:</p>
-              <div class="space-y-2 max-w-md">
-                <div class="flex items-center gap-3 p-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                  <mat-icon class="text-sm">timeline</mat-icon>
-                  <span class="flex-1 text-sm">Activity Monitor</span>
-                  <app-badge variant="inline" color="normal">{{ realtimeCounter }}</app-badge>
-                </div>
-                <div class="flex items-center gap-3 p-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                  <mat-icon class="text-sm">inventory_2</mat-icon>
-                  <span class="flex-1 text-sm">Pending Orders</span>
-                  <app-badge variant="inline" color="info" [hasIndicator]="simulatedOrders > 5">{{ simulatedOrders }}</app-badge>
-                </div>
-                <div class="flex items-center gap-3 p-2 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-                  <mat-icon class="text-sm">notifications_active</mat-icon>
-                  <span class="flex-1 text-sm">Live Notifications</span>
-                  <app-badge variant="inline" color="warning" [hasIndicator]="liveNotifications > 0">{{ liveNotifications }}</app-badge>
+              <mat-checkbox [(ngModel)]="overlap" color="primary">Overlap</mat-checkbox>
+              <mat-checkbox [(ngModel)]="hidden" color="warn">Hidden</mat-checkbox>
+            </div>
+          } @else {
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">text_fields</mat-icon>
+                Label
+              </label>
+              <input
+                type="text"
+                [(ngModel)]="badgeLabel"
+                class="w-full px-3 py-2 border rounded-lg"
+                placeholder="Badge label">
+            </div>
+
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
+                Color
+              </label>
+              <mat-button-toggle-group [(ngModel)]="inlineColor" class="w-full flex flex-col gap-1">
+                @for (color of INLINE_COLORS; track color.value) {
+                  <mat-button-toggle [value]="color.value" class="w-full">
+                    <div class="flex items-center gap-2 justify-between w-full">
+                      <span>{{ color.label }}</span>
+                      <span class="text-xs opacity-70">{{ color.description }}</span>
+                    </div>
+                  </mat-button-toggle>
+                }
+              </mat-button-toggle-group>
+            </div>
+
+            <div>
+              <mat-checkbox [(ngModel)]="hasIndicator" color="primary">Show Indicator (!)</mat-checkbox>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+      <mat-card appearance="outlined" class="code-card overflow-hidden">
+        <div class="code-header px-4 py-3 border-b flex justify-between items-center">
+          <h3 class="text-sm font-medium flex items-center gap-2">
+            <mat-icon class="text-base">code</mat-icon> Generated Code
+          </h3>
+          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+        <div class="p-4 relative group">
+          <pre class="font-mono text-sm overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
+        </div>
+        <div class="code-footer px-4 py-2 text-xs border-t">
+          💡 Solo incluye las propiedades que difieren de los defaults.
+        </div>
+      </mat-card>
+    </section>
+    <aside class="xl:col-span-7 space-y-8">
+      @if (currentVariantGuide(); as guide) {
+        <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
+          <mat-card-content class="p-0">
+            <div class="p-6 md:p-8 pb-4">
+              <div class="flex items-center gap-3 mb-4">
+                <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
+                      class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                  {{ guide.emphasis }} emphasis
+                </span>
+              </div>
+              <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
+              <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
+              <div class="info-box rounded-xl p-5 border">
+                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                  <mat-icon class="success text-lg">check_circle</mat-icon>
+                  When to Use
+                </h4>
+                <ul class="space-y-3">
+                  @for (use of guide.whenToUse; track use) {
+                    <li class="info-box-content flex items-start gap-2.5 text-sm">
+                      <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
+                      <span>{{ use }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+              <div class="info-box rounded-xl p-5 border">
+                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                  <mat-icon class="info text-lg">lightbulb</mat-icon>
+                  Common Examples
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  @for (example of guide.examples; track example) {
+                    <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
+                      {{ example }}
+                    </span>
+                  }
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+          </mat-card-content>
+        </mat-card>
 
-  <!-- Advanced Tooltips -->
-  <mat-card class="mb-8 shadow-lg">
-    <mat-card-header>
-      <mat-card-title class="text-xl font-semibold">Advanced Tooltips</mat-card-title>
-      <mat-card-subtitle>Enhanced tooltip configurations and positioning</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="p-6">
-      <div class="space-y-6">
-        <!-- Tooltip positions -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Tooltip Positions</h3>
-          <div class="flex flex-wrap gap-4">
-            <button mat-raised-button matTooltip="Appears above the button" matTooltipPosition="above">Above</button>
-            <button mat-raised-button matTooltip="Appears below the button" matTooltipPosition="below">Below</button>
-            <button mat-raised-button matTooltip="Appears to the left" matTooltipPosition="left">Left</button>
-            <button mat-raised-button matTooltip="Appears to the right" matTooltipPosition="right">Right</button>
-          </div>
-        </div>
-
-        <!-- Custom delays -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Custom Delays</h3>
-          <div class="flex flex-wrap gap-4">
-            <button mat-raised-button
-                    matTooltip="Shows immediately"
-                    matTooltipShowDelay="0"
-                    color="primary">
-              No Delay
-            </button>
-            <button mat-raised-button
-                    matTooltip="Shows after 1 second"
-                    matTooltipShowDelay="1000"
-                    color="accent">
-              1s Delay
-            </button>
-            <button mat-raised-button
-                    matTooltip="Stays visible for 3 seconds"
-                    matTooltipHideDelay="3000"
-                    color="warn">
-              Long Hide
-            </button>
-          </div>
-        </div>
-
-        <!-- Multiline tooltips -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Multiline Tooltips</h3>
-          <div class="flex flex-wrap gap-4">
-            <button mat-raised-button
-                    matTooltip="This is a multiline tooltip&#10;It spans multiple lines&#10;And provides detailed information">
-              Multiline Info
-            </button>
-            <button mat-icon-button
-                    matTooltip="Settings Menu&#10;Click to open configuration options&#10;Keyboard shortcut: Ctrl+,"
-                    matTooltipClass="custom-tooltip text-sm">
-              <mat-icon>settings</mat-icon>
-            </button>
-          </div>
-        </div>
-
-        <!-- Tooltips with different triggers -->
-        <div>
-          <h3 class="text-lg font-medium mb-3">Rich Content Areas</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
-              <div matTooltip="This entire card has tooltip information about the content within"
-                   matTooltipPosition="above"
-                   class="cursor-help">
-                <h4 class="font-medium mb-2">Hover Card</h4>
-                <p class="text-sm" style="color: var(--mat-sys-on-surface-variant);">
-                  This card shows a tooltip when you hover anywhere on it.
-                </p>
-              </div>
+        @if (selectedVariant() === 'overlay') {
+          <section>
+            <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+              <mat-icon color="primary">explore</mat-icon> Position Variations
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              @for (pos of BADGE_POSITIONS; track pos.value) {
+                <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                  <app-badge
+                    variant="overlay"
+                    [content]="badgeContent()"
+                    [color]="overlayColor()"
+                    [position]="pos.value"
+                    [overlap]="overlap()">
+                    <button mat-icon-button>
+                      <mat-icon>star</mat-icon>
+                    </button>
+                  </app-badge>
+                  <code class="text-xs text-center">{{ pos.label }}</code>
+                </div>
+              }
             </div>
-            <div class="p-4 border rounded-lg" style="border-color: var(--mat-sys-outline);">
-              <h4 class="font-medium mb-2">Interactive Elements</h4>
-              <div class="space-y-2">
-                <mat-icon matTooltip="User profile icon - click to view details" class="cursor-help">person</mat-icon>
-                <mat-icon matTooltip="Security settings - manage your account security" class="cursor-help ml-3">security</mat-icon>
-                <mat-icon matTooltip="Notification preferences - customize alerts" class="cursor-help ml-3">notifications</mat-icon>
-              </div>
+          </section>
+
+          <section>
+            <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+              <mat-icon color="primary">palette</mat-icon> Color Variations
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              @for (color of OVERLAY_COLORS; track color.value) {
+                <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                  <app-badge
+                    variant="overlay"
+                    [content]="badgeContent()"
+                    [color]="color.value"
+                    [position]="position()"
+                    [overlap]="overlap()">
+                    <button mat-icon-button>
+                      <mat-icon>notifications</mat-icon>
+                    </button>
+                  </app-badge>
+                  <code class="text-xs">color="{{ color.value }}"</code>
+                </div>
+              }
             </div>
+          </section>
+        } @else {
+          <section>
+            <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+              <mat-icon color="primary">palette</mat-icon> Color Variations
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              @for (color of INLINE_COLORS; track color.value) {
+                <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                  <app-badge variant="inline" [color]="color.value">{{ badgeLabel() }}</app-badge>
+                  <div class="text-center">
+                    <code class="text-xs block">color="{{ color.value }}"</code>
+                    <span class="text-xs opacity-70">{{ color.description }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+          <section>
+            <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+              <mat-icon color="primary">info</mat-icon> With Indicator
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              @for (color of INLINE_COLORS; track color.value) {
+                <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                  <app-badge variant="inline" [color]="color.value" [hasIndicator]="true">{{ badgeLabel() }}</app-badge>
+                  <code class="text-xs">[hasIndicator]="true"</code>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        <div class="alert-tip border rounded-xl p-6 flex gap-4">
+          <mat-icon class="shrink-0">tips_and_updates</mat-icon>
+          <div>
+            <h3 class="alert-title font-bold mb-2">Best Practices</h3>
+            <ul class="alert-content space-y-2 text-sm">
+              @if (selectedVariant() === 'overlay') {
+                <li class="flex gap-2">
+                  <span class="alert-label">Visibilidad:</span>
+                  Usa 'warn' para notificaciones críticas que requieren atención inmediata.
+                </li>
+                <li class="flex gap-2">
+                  <span class="alert-label">Posicionamiento:</span>
+                  'above after' es el estándar, pero ajusta según el contexto.
+                </li>
+                <li class="flex gap-2">
+                  <span class="alert-label">Números grandes:</span>
+                  Considera usar "99+" para contadores mayores a 99.
+                </li>
+              } @else {
+                <li class="flex gap-2">
+                  <span class="alert-label">Semántica:</span>
+                  Usa colores que coincidan con el significado (success=positivo, error=crítico).
+                </li>
+                <li class="flex gap-2">
+                  <span class="alert-label">Indicadores:</span>
+                  El símbolo "!" debe usarse solo para estados que requieren acción.
+                </li>
+                <li class="flex gap-2">
+                  <span class="alert-label">Navegación:</span>
+                  Perfecto para contadores en sidebars y menús contextuales.
+                </li>
+              }
+            </ul>
           </div>
         </div>
+      }
+    </aside>
+  </div>
+  <section class="mt-12 pt-12 section-divider border-t-2">
+    <div class="api-section-header flex items-center gap-3 mb-8">
+      <div class="api-icon-container p-3 rounded-xl border">
+        <mat-icon class="block">settings</mat-icon>
       </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Code Example -->
-  <mat-card class="mb-8">
-    <mat-card-header>
-      <mat-card-title class="text-lg font-semibold">Code Examples</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="p-4 rounded-lg" style="background-color: var(--mat-sys-surface-variant);">
-        <pre class="text-sm overflow-x-auto whitespace-pre-wrap" style="color: var(--mat-sys-on-surface-variant);">{{ codeExample }}</pre>
+      <div>
+        <h2 class="api-title text-3xl font-bold">API Reference</h2>
+        <p class="api-description">Documentación completa de propiedades disponibles en <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-badge&gt;</code></p>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">variant</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Define si el badge es overlay (sobre elemento) o inline (en flujo).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg break-words border">
+          'overlay' | 'inline'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'inline'</div>
+      </div>
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">color (overlay)</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Color del badge overlay (matBadge).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'primary' | 'accent' | 'warn'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'primary'</div>
+      </div>
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">color (inline)</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Color semántico del badge inline.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'normal' | 'info' | 'success' | 'warning' | 'error'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'normal'</div>
+      </div>
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">content</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Contenido del badge overlay (número o texto).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          string | number
+        </div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Only for overlay</div>
+      </div>
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">position</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Posición del badge overlay relativa al elemento.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'above after' | 'above before' | 'below after' | 'below before'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'above after'</div>
+      </div>
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">overlap</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Si el badge overlay se superpone al contenido.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: true</div>
+      </div>
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">hidden</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Oculta el badge overlay condicionalmente.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
+      </div>
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">hasIndicator</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Muestra un indicador "!" en badges inline.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
+      </div>
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">size</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Tamaño del badge.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'small' | 'medium' | 'large'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'medium'</div>
+      </div>
+    </div>
+  </section>
 </div>
