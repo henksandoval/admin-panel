@@ -11,11 +11,9 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
 import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES, type VariantGuide } from './buttons.data';
-import {
-  PdsCodeBlockComponent,
-  PdsBestPracticesComponent,
-  PdsApiReferenceComponent
-} from '@shared/molecules';
+import {PdsCodeBlockComponent} from '@shared/molecules/pds-code-block/pds-code-block.component';
+import {PdsBestPracticesComponent} from '@shared/molecules/pds-best-practices/pds-best-practices.component';
+import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-api-reference.component';
 
 @Component({
   selector: 'app-buttons',

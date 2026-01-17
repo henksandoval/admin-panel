@@ -19,11 +19,9 @@ import {
   BEST_PRACTICES,
   type BadgeVariantGuide
 } from './indicators.data';
-import {
-  PdsCodeBlockComponent,
-  PdsBestPracticesComponent,
-  PdsApiReferenceComponent,
-} from '@shared/molecules';
+import {PdsBestPracticesComponent} from '@shared/molecules/pds-best-practices/pds-best-practices.component';
+import {PdsCodeBlockComponent} from '@shared/molecules/pds-code-block/pds-code-block.component';
+import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-api-reference.component';
 
 @Component({
   selector: 'app-indicators',

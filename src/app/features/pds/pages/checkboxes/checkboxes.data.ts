@@ -1,5 +1,6 @@
 import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
-import type {PdsApiReferencePropertyModel, PdsBestPracticeItemModel} from '@shared/molecules';
+import {PdsApiReferencePropertyModel} from '@shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import {PdsBestPracticeItemModel} from '@shared/molecules/pds-best-practices/pds-best-practice-item.model';
 
 export interface StateGuide {
   state: 'checked' | 'unchecked' | 'indeterminate';

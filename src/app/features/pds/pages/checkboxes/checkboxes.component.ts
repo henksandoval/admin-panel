@@ -19,11 +19,9 @@ import {
   API_PROPERTIES,
   type StateGuide
 } from './checkboxes.data';
-import {
-  PdsCodeBlockComponent,
-  PdsBestPracticesComponent,
-  PdsApiReferenceComponent,
-} from '@shared/molecules';
+import {PdsCodeBlockComponent} from '@shared/molecules/pds-code-block/pds-code-block.component';
+import {PdsBestPracticesComponent} from '@shared/molecules/pds-best-practices/pds-best-practices.component';
+import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-api-reference.component';
 
 @Component({
   selector: 'app-checkboxes',
