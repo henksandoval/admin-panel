@@ -1,110 +1,466 @@
-<div class="p-6">
-  <!-- Header -->
-  <div class="mb-6">
-    <button mat-button (click)="goBack()" color="primary">
-      <mat-icon class="mr-2">arrow_back</mat-icon>
-      Volver al Showcase
+<div class="p-6 max-w-[1600px] mx-auto">
+  <header class="mb-8">
+    <button mat-button (click)="goBack()" class="back-button mb-4">
+      <mat-icon class="mr-1">arrow_back</mat-icon>
+      Back to PDS Index
     </button>
-    <h1 class="text-3xl font-bold mb-2 text-primary">
-      Componente: Form Field Input
-    </h1>
-    <p class="text-lg text-on-surface-variant">
-      Ejemplos de uso del componente wrapper <code class="bg-gray-200 p-1 rounded">app-form-field-input</code>.
-    </p>
+    <div class="max-w-3xl">
+      <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
+        Form Field Input Playground
+      </h1>
+      <p class="page-description text-lg leading-relaxed">
+        Experimenta con diferentes configuraciones del componente
+        <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-form-field-input&gt;</code>
+        y observa cómo cambia la documentación en tiempo real.
+      </p>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+    <section class="xl:col-span-5 space-y-6 xl:sticky xl:top-6">
+      <mat-card appearance="outlined" class="overflow-hidden">
+        <div class="card-header border-b px-6 py-4">
+          <h3 class="card-title font-semibold flex items-center gap-2">
+            <span>🎨</span> Live Preview
+          </h3>
+        </div>
+        <mat-card-content class="p-8">
+          <div class="preview-container flex items-center justify-center min-h-[160px] bg-center rounded-lg border shadow-sm">
+            <form [formGroup]="form" class="w-full max-w-md">
+              <app-form-field-input
+                formControlName="playgroundField"
+                [config]="currentFieldConfig()"
+                appControlConnector>
+              </app-form-field-input>
+            </form>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card appearance="outlined">
+        <div class="card-header px-6 py-4 border-b">
+          <h3 class="card-title font-semibold flex items-center gap-2">
+            <span>🎮</span> Controls
+          </h3>
+        </div>
+        <mat-card-content class="p-6 space-y-6">
+          <div class="space-y-2">
+            <label class="section-label text-sm font-medium flex items-center gap-1.5">
+              <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
+              Configuration Preset
+            </label>
+            <mat-button-toggle-group
+              [value]="selectedConfig()"
+              (change)="onConfigChange($event.value)"
+              class="w-full flex flex-col gap-1">
+              <mat-button-toggle value="basic" class="w-full">Basic</mat-button-toggle>
+              <mat-button-toggle value="with-validation" class="w-full">With Validation</mat-button-toggle>
+              <mat-button-toggle value="with-extras" class="w-full">With Visual Extras</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">text_fields</mat-icon>
+                Input Type
+              </label>
+              <mat-button-toggle-group [(ngModel)]="fieldType" class="w-full">
+                @for (type of INPUT_TYPES; track type.value) {
+                  <mat-button-toggle [value]="type.value" class="flex-1">
+                    {{ type.value === 'text' ? 'T' : type.value === 'email' ? 'E' : type.value === 'password' ? 'P' : type.value === 'number' ? 'N' : 'Tel' }}
+                  </mat-button-toggle>
+                }
+              </mat-button-toggle-group>
+            </div>
+
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium flex items-center gap-1.5">
+                <mat-icon class="text-base !w-4 !h-4 leading-4">style</mat-icon>
+                Appearance
+              </label>
+              <mat-button-toggle-group [(ngModel)]="appearance" class="w-full">
+                <mat-button-toggle value="fill" class="flex-1">Fill</mat-button-toggle>
+                <mat-button-toggle value="outline" class="flex-1">Outline</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium">Label</label>
+              <input
+                type="text"
+                [(ngModel)]="fieldLabel"
+                class="w-full px-3 py-2 border rounded-lg"
+                placeholder="Field label">
+            </div>
+
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium">Placeholder</label>
+              <input
+                type="text"
+                [(ngModel)]="fieldPlaceholder"
+                class="w-full px-3 py-2 border rounded-lg"
+                placeholder="Placeholder text">
+            </div>
+
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium">Hint (Optional)</label>
+              <input
+                type="text"
+                [(ngModel)]="fieldHint"
+                class="w-full px-3 py-2 border rounded-lg"
+                placeholder="Hint text">
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="section-label text-sm font-medium flex items-center gap-1.5">
+              <mat-icon class="text-base !w-4 !h-4 leading-4">insert_emoticon</mat-icon>
+              Icon (Optional)
+            </label>
+            <mat-button-toggle-group [(ngModel)]="selectedIcon" class="w-full grid grid-cols-4 gap-1">
+              <mat-button-toggle value="">
+                <mat-icon class="text-sm">close</mat-icon>
+              </mat-button-toggle>
+              @for (icon of COMMON_ICONS.slice(0, 11); track icon) {
+                <mat-button-toggle [value]="icon">
+                  <mat-icon class="text-sm">{{ icon }}</mat-icon>
+                </mat-button-toggle>
+              }
+            </mat-button-toggle-group>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium">Prefix</label>
+              <input
+                type="text"
+                [(ngModel)]="fieldPrefix"
+                class="w-full px-3 py-2 border rounded-lg"
+                placeholder="$">
+            </div>
+
+            <div class="space-y-2">
+              <label class="section-label text-sm font-medium">Suffix</label>
+              <input
+                type="text"
+                [(ngModel)]="fieldSuffix"
+                class="w-full px-3 py-2 border rounded-lg"
+                placeholder=".00">
+            </div>
+          </div>
+
+          <div>
+            <mat-checkbox [(ngModel)]="hasValidation" color="primary">Show Validation Errors</mat-checkbox>
+            <mat-checkbox [(ngModel)]="isRequired" color="warn">Required Field</mat-checkbox>
+            <mat-checkbox [(ngModel)]="isDisabled" color="accent">Disabled State</mat-checkbox>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card appearance="outlined" class="code-card overflow-hidden">
+        <div class="code-header px-4 py-3 border-b flex justify-between items-center">
+          <h3 class="text-sm font-medium flex items-center gap-2">
+            <mat-icon class="text-base">code</mat-icon> Generated Code
+          </h3>
+          <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código" class="scale-75">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+        <div class="p-4 relative group">
+          <pre class="font-mono text-sm overflow-x-auto"><code>{{ generatedCode() }}</code></pre>
+        </div>
+        <div class="code-footer px-4 py-2 text-xs border-t">
+          💡 TypeScript config + HTML template usage example.
+        </div>
+      </mat-card>
+    </section>
+
+    <aside class="xl:col-span-7 space-y-8">
+      @if (currentConfigGuide(); as guide) {
+        <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
+          <mat-card-content class="p-0">
+            <div class="p-6 md:p-8 pb-4">
+              <div class="flex items-center gap-3 mb-4">
+                <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
+                      class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                  {{ guide.emphasis }} emphasis
+                </span>
+              </div>
+              <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
+              <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
+              <div class="info-box rounded-xl p-5 border">
+                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                  <mat-icon class="success text-lg">check_circle</mat-icon>
+                  When to Use
+                </h4>
+                <ul class="space-y-3">
+                  @for (use of guide.whenToUse; track use) {
+                    <li class="info-box-content flex items-start gap-2.5 text-sm">
+                      <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
+                      <span>{{ use }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+
+              <div class="info-box rounded-xl p-5 border">
+                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                  <mat-icon class="info text-lg">lightbulb</mat-icon>
+                  Common Examples
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  @for (example of guide.examples; track example) {
+                    <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
+                      {{ example }}
+                    </span>
+                  }
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <section>
+          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+            <mat-icon color="primary">text_fields</mat-icon> Input Type Variations
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @for (type of INPUT_TYPES; track type.value) {
+              <div class="color-variation-card p-4 rounded-lg border">
+                <code class="text-xs block mb-3">type="{{ type.value }}"</code>
+                <form [formGroup]="form">
+                  <app-form-field-input
+                    formControlName="playgroundField"
+                    [config]="{
+                      label: type.label + ' Field',
+                      placeholder: 'Enter ' + type.label.toLowerCase(),
+                      type: type.value
+                    }"
+                    appControlConnector>
+                  </app-form-field-input>
+                </form>
+              </div>
+            }
+          </div>
+        </section>
+
+        <section>
+          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+            <mat-icon color="primary">style</mat-icon> Appearance Variations
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @for (app of FIELD_APPEARANCES; track app.value) {
+              <div class="color-variation-card p-4 rounded-lg border">
+                <code class="text-xs block mb-3">appearance="{{ app.value }}"</code>
+                <form [formGroup]="form">
+                  <app-form-field-input
+                    formControlName="playgroundField"
+                    [config]="{
+                      label: app.label,
+                      placeholder: 'Placeholder text',
+                      appearance: app.value
+                    }"
+                    appControlConnector>
+                  </app-form-field-input>
+                </form>
+              </div>
+            }
+          </div>
+        </section>
+
+        <div class="alert-tip border rounded-xl p-6 flex gap-4">
+          <mat-icon class="shrink-0">tips_and_updates</mat-icon>
+          <div>
+            <h3 class="alert-title font-bold mb-2">Best Practices</h3>
+            <ul class="alert-content space-y-2 text-sm">
+              <li class="flex gap-2">
+                <span class="alert-label">Labels:</span>
+                Siempre usa labels descriptivos. Evita placeholders como único indicador.
+              </li>
+              <li class="flex gap-2">
+                <span class="alert-label">Validación:</span>
+                Muestra mensajes de error claros y específicos (no genéricos).
+              </li>
+              <li class="flex gap-2">
+                <span class="alert-label">Hints:</span>
+                Usa hints para explicar requisitos antes del error (ej: "Min 8 characters").
+              </li>
+              <li class="flex gap-2">
+                <span class="alert-label">Iconos:</span>
+                Los iconos deben reforzar el significado, no ser decorativos.
+              </li>
+              <li class="flex gap-2">
+                <span class="alert-label">Apariencia:</span>
+                'outline' es mejor para formularios densos, 'fill' para minimalistas.
+              </li>
+            </ul>
+          </div>
+        </div>
+      }
+    </aside>
   </div>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div>
-        <mat-card class="mb-8 shadow-lg">
-          <mat-card-header>
-            <mat-card-title class="text-xl font-semibold">Uso Básico</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="p-6">
-            <app-form-field-input
-              formControlName="basicField"
-              [config]="basicFieldConfig"
-              appControlConnector>
-            </app-form-field-input>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="mb-8 shadow-lg">
-          <mat-card-header>
-            <mat-card-title class="text-xl font-semibold">Características Visuales</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="p-6">
-            <app-form-field-input
-              formControlName="fullFeatureField"
-              [config]="fullFeatureConfig"
-              appControlConnector>
-            </app-form-field-input>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="mb-8 shadow-lg">
-          <mat-card-header>
-            <mat-card-title class="text-xl font-semibold">Validación y Errores</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="p-6">
-            <app-form-field-input
-              formControlName="email"
-              [config]="emailConfig"
-              appControlConnector>
-            </app-form-field-input>
-
-            <app-form-field-input
-              formControlName="password"
-              [config]="passwordConfig"
-              appControlConnector>
-            </app-form-field-input>
-
-            <app-form-field-input
-              formControlName="age"
-              [config]="ageConfig"
-              appControlConnector>
-            </app-form-field-input>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="mb-8 shadow-lg">
-          <mat-card-header>
-            <mat-card-title class="text-xl font-semibold">Estados del Campo</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="p-6">
-            <app-form-field-input
-              formControlName="disabledField"
-              [config]="disabledConfig"
-              appControlConnector>
-            </app-form-field-input>
-          </mat-card-content>
-        </mat-card>
-
-        <button mat-raised-button color="primary" type="submit">
-          Enviar Formulario
-        </button>
+  <section class="mt-12 pt-12 section-divider border-t-2">
+    <div class="api-section-header flex items-center gap-3 mb-8">
+      <div class="api-icon-container p-3 rounded-xl border">
+        <mat-icon class="block">settings</mat-icon>
       </div>
-
       <div>
-        <mat-card class="shadow-lg form-state-card sticky top-6">
-          <mat-card-header>
-            <mat-card-title class="text-xl font-semibold">Estado del Formulario en Vivo</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="p-6 text-sm">
-            <h3 class="font-bold">Form Status:</h3>
-            <pre>{{ form.status | json }}</pre>
-
-            <h3 class="font-bold mt-4">Form Touched:</h3>
-            <pre>{{ form.touched | json }}</pre>
-
-            <h3 class="font-bold mt-4">Form Dirty:</h3>
-            <pre>{{ form.dirty | json }}</pre>
-
-            <h3 class="font-bold mt-4">Form Value:</h3>
-            <pre class="whitespace-pre-wrap break-words">{{ form.value | json }}</pre>
-          </mat-card-content>
-        </mat-card>
+        <h2 class="api-title text-3xl font-bold">API Reference</h2>
+        <p class="api-description">Documentación completa de propiedades disponibles en <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-form-field-input&gt;</code></p>
       </div>
     </div>
-  </form>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">config</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Objeto de configuración completo del campo.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg break-words border">
+          FormFieldInputOptions
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Required</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">label</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Etiqueta descriptiva del campo (obligatoria).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          string
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Required in config</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">placeholder</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Texto de ayuda dentro del campo.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          string
+        </div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">type</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Tipo de input HTML.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'text' | 'email' | 'password' | 'number' | 'tel'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'text'</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">appearance</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Estilo visual del mat-form-field.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          'fill' | 'outline'
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: 'fill'</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">hint</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Texto de ayuda debajo del campo.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          string
+        </div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">icon</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Nombre del icono Material (matPrefix).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          string (Material icon name)
+        </div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">prefix / suffix</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Texto antes/después del input.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          string
+        </div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">errorMessages</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">config.*</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Mensajes de error personalizados por tipo de validación.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          Record&lt;string, string&gt;
+        </div>
+        <div class="mt-3 inline-block api-default optional text-xs font-semibold px-2.5 py-1 rounded-full border">Optional</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">required</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Marca el campo como obligatorio (muestra *).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">disabled</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ '@Input()' }}</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Deshabilita el campo (no editable).</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          boolean
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Default: false</div>
+      </div>
+
+      <div class="api-card p-5 rounded-xl border-2">
+        <div class="flex justify-between items-start mb-3">
+          <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">formControlName</code>
+          <span class="api-decorator text-xs font-mono px-2 py-1 rounded">Directive</span>
+        </div>
+        <p class="api-description-text text-sm mb-3 leading-relaxed">Enlace con FormControl de Angular Reactive Forms.</p>
+        <div class="api-type text-xs font-mono p-2.5 rounded-lg border">
+          string
+        </div>
+        <div class="mt-3 inline-block api-default text-xs font-semibold px-2.5 py-1 rounded-full border">Required for forms</div>
+      </div>
+    </div>
+  </section>
 </div>
