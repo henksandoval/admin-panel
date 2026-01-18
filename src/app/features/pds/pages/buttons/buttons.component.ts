@@ -1,10 +1,8 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
@@ -13,9 +11,7 @@ import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.mo
 import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
 import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES, type VariantGuide } from './buttons.data';
-import {PdsCodeBlockComponent} from '@shared/molecules/pds-code-block/pds-code-block.component';
-import {PdsBestPracticesComponent} from '@shared/molecules/pds-best-practices/pds-best-practices.component';
-import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-api-reference.component';
+import { PdsPlaygroundTemplateComponent } from '@shared/templates/pds-playground-template/pds-playground-template.component';
 
 @Component({
   selector: 'app-buttons',
@@ -23,16 +19,12 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
   imports: [
     CommonModule,
     FormsModule,
-    MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatCheckboxModule,
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
-    PdsCodeBlockComponent,
-    PdsBestPracticesComponent,
-    PdsApiReferenceComponent
+    PdsPlaygroundTemplateComponent
   ],
   templateUrl: './buttons.component.html'
 })

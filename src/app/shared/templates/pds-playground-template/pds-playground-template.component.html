@@ -1,0 +1,64 @@
+<div class="p-6 max-w-[1600px] mx-auto">
+  <!-- Header Section (Content Projection) -->
+  <header class="mb-8">
+    <ng-content select="[header]"></ng-content>
+  </header>
+
+  <!-- Main Grid: Playground (Left) + Documentation (Right) -->
+  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+
+    <!-- Left Column: Playground (Sticky) -->
+    <section class="xl:col-span-5 space-y-6 xl:sticky xl:top-6">
+
+      <!-- Live Preview Card -->
+      <mat-card appearance="outlined" class="overflow-hidden">
+        <div class="card-header border-b px-6 py-4">
+          <h3 class="card-title font-semibold flex items-center gap-2">
+            <span>🎨</span> Live Preview
+          </h3>
+        </div>
+        <mat-card-content class="p-8">
+          <div class="preview-container flex items-center justify-center min-h-[160px] bg-center rounded-lg border shadow-sm">
+            <ng-content select="[preview]"></ng-content>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Controls Card -->
+      <mat-card appearance="outlined">
+        <div class="card-header px-6 py-4 border-b">
+          <h3 class="card-title font-semibold flex items-center gap-2">
+            <span>🎮</span> Controls
+          </h3>
+        </div>
+        <mat-card-content class="p-6 space-y-6">
+          <ng-content select="[controls]"></ng-content>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Generated Code Block -->
+      <app-pds-code-block [code]="generatedCode()" />
+
+    </section>
+
+    <!-- Right Column: Documentation -->
+    <aside class="xl:col-span-7 space-y-8">
+      <ng-content select="[documentation]"></ng-content>
+    </aside>
+
+  </div>
+
+  <!-- Full Width Sections Below -->
+  <div class="mt-12 space-y-8">
+    <!-- API Reference -->
+    <app-pds-api-reference
+      [componentTag]="componentTag()"
+      [properties]="apiProperties()">
+    </app-pds-api-reference>
+
+    <!-- Best Practices -->
+    <app-pds-best-practices
+      [practices]="bestPractices()">
+    </app-pds-best-practices>
+  </div>
+</div>

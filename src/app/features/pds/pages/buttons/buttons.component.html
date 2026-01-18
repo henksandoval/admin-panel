@@ -1,5 +1,11 @@
-<div class="p-6 max-w-[1600px] mx-auto">
-  <header class="mb-8">
+<pds-playground-template
+  [generatedCode]="generatedCode()"
+  [apiProperties]="API_PROPERTIES"
+  [bestPractices]="BEST_PRACTICES"
+  [componentTag]="'<app-button>'">
+
+  <!-- Header -->
+  <div header>
     <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
       Back to PDS Index
     </app-button>
@@ -13,143 +19,133 @@
         y observa cómo cambia la documentación en tiempo real.
       </p>
     </div>
-  </header>
-  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-    <section class="xl:col-span-5 space-y-6 xl:sticky xl:top-6">
-      <mat-card appearance="outlined" class="overflow-hidden">
-        <div class="card-header border-b px-6 py-4">
-          <h3 class="card-title font-semibold flex items-center gap-2">
-            <span>🎨</span> Live Preview
-          </h3>
-        </div>
-        <mat-card-content class="p-8">
-          <div class="preview-container flex items-center justify-center min-h-[160px] bg-center rounded-lg border shadow-sm">
-            <app-button
-              [variant]="selectedVariant()"
-              [color]="selectedColor()"
-              [shape]="shape()"
-              [size]="size()"
-              [disabled]="isDisabled()"
-              [iconBefore]="showIconBefore() ? 'star' : ''"
-              [iconAfter]="showIconAfter() ? 'arrow_forward' : ''">
-              {{ buttonLabel() }}
-            </app-button>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <mat-card appearance="outlined">
-        <div class="card-header px-6 py-4 border-b">
-          <h3 class="card-title font-semibold flex items-center gap-2">
-            <span>🎮</span> Controls
-          </h3>
-        </div>
-        <mat-card-content class="p-6 space-y-6">
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
-                Variant
-              </label>
-              <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" />
-            </div>
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
-                Color
-              </label>
-              <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
-            </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">crop_square</mat-icon>
-                Shape
-              </label>
-              <app-toggle-group [options]="shapeOptions" [(value)]="shape" />
-            </div>
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
-                Size
-              </label>
-              <app-toggle-group [options]="sizeOptions" [(value)]="size" class="w-full" />
-            </div>
-          </div>
-          <div>
-            <app-checkbox [(checked)]="showIconBefore" color="primary">Icon Before</app-checkbox>
-            <app-checkbox [(checked)]="showIconAfter" color="primary">Icon After</app-checkbox>
-            <app-checkbox [(checked)]="isDisabled" color="tertiary">Disabled State</app-checkbox>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <app-pds-code-block [code]="generatedCode()" />
-    </section>
-    <aside class="xl:col-span-7 space-y-8">
-      @if (currentVariantGuide(); as guide) {
-        <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
-          <mat-card-content class="p-0">
-            <div class="p-6 md:p-8 pb-4">
-              <div class="flex items-center gap-3 mb-4">
-                <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
-                      class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
-                  {{ guide.emphasis }} emphasis
-                </span>
-              </div>
-              <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
-              <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
-              <div class="info-box rounded-xl p-5 border">
-                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
-                  <mat-icon class="success text-lg">check_circle</mat-icon>
-                  When to Use
-                </h4>
-                <ul class="space-y-3">
-                  @for (use of guide.whenToUse; track use) {
-                    <li class="info-box-content flex items-start gap-2.5 text-sm">
-                      <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
-                      <span>{{ use }}</span>
-                    </li>
-                  }
-                </ul>
-              </div>
-              <div class="info-box rounded-xl p-5 border">
-                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
-                  <mat-icon class="info text-lg">lightbulb</mat-icon>
-                  Common Examples
-                </h4>
-                <div class="flex flex-wrap gap-2">
-                  @for (example of guide.examples; track example) {
-                    <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
-                      {{ example }}
-                    </span>
-                  }
-                </div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-        <section>
-          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-            <mat-icon color="primary">palette</mat-icon> Color Variations
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-              <app-button [variant]="selectedVariant()" color="primary" [shape]="shape()" [size]="size()">Primary</app-button>
-              <code class="text-xs">color="primary"</code>
-            </div>
-            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-              <app-button [variant]="selectedVariant()" color="secondary" [shape]="shape()" [size]="size()">Secondary</app-button>
-              <code class="text-xs">color="secondary"</code>
-            </div>
-            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-              <app-button [variant]="selectedVariant()" color="tertiary" [shape]="shape()" [size]="size()">Tertiary</app-button>
-              <code class="text-xs">color="tertiary"</code>
-            </div>
-          </div>
-        </section>
-        <app-pds-best-practices [practices]="BEST_PRACTICES" />
-      }
-    </aside>
   </div>
-  <app-pds-api-reference componentTag="<app-button>" [properties]="API_PROPERTIES" />
-</div>
+
+  <!-- Live Preview -->
+  <div preview>
+    <app-button
+      [variant]="selectedVariant()"
+      [color]="selectedColor()"
+      [shape]="shape()"
+      [size]="size()"
+      [disabled]="isDisabled()"
+      [iconBefore]="showIconBefore() ? 'star' : ''"
+      [iconAfter]="showIconAfter() ? 'arrow_forward' : ''">
+      {{ buttonLabel() }}
+    </app-button>
+  </div>
+
+  <!-- Controls -->
+  <div controls>
+    <div class="space-y-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5">
+        <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
+        Variant
+      </label>
+      <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" />
+    </div>
+
+    <div class="space-y-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5">
+        <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
+        Color
+      </label>
+      <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-2">
+        <label class="section-label text-sm font-medium flex items-center gap-1.5">
+          <mat-icon class="text-base !w-4 !h-4 leading-4">crop_square</mat-icon>
+          Shape
+        </label>
+        <app-toggle-group [options]="shapeOptions" [(value)]="shape" />
+      </div>
+      <div class="space-y-2">
+        <label class="section-label text-sm font-medium flex items-center gap-1.5">
+          <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
+          Size
+        </label>
+        <app-toggle-group [options]="sizeOptions" [(value)]="size" class="w-full" />
+      </div>
+    </div>
+
+    <div>
+      <app-checkbox [(checked)]="showIconBefore" color="primary">Icon Before</app-checkbox>
+      <app-checkbox [(checked)]="showIconAfter" color="primary">Icon After</app-checkbox>
+      <app-checkbox [(checked)]="isDisabled" color="tertiary">Disabled State</app-checkbox>
+    </div>
+  </div>
+
+  <!-- Documentation -->
+  <div documentation>
+    @if (currentVariantGuide(); as guide) {
+      <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
+        <mat-card-content class="p-0">
+          <div class="p-6 md:p-8 pb-4">
+            <div class="flex items-center gap-3 mb-4">
+              <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
+                    class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                {{ guide.emphasis }} emphasis
+              </span>
+            </div>
+            <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
+            <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
+            <div class="info-box rounded-xl p-5 border">
+              <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                <mat-icon class="success text-lg">check_circle</mat-icon>
+                When to Use
+              </h4>
+              <ul class="space-y-3">
+                @for (use of guide.whenToUse; track use) {
+                  <li class="info-box-content flex items-start gap-2.5 text-sm">
+                    <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
+                    <span>{{ use }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div class="info-box rounded-xl p-5 border">
+              <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                <mat-icon class="info text-lg">lightbulb</mat-icon>
+                Common Examples
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                @for (example of guide.examples; track example) {
+                  <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
+                    {{ example }}
+                  </span>
+                }
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <section>
+        <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+          <mat-icon color="primary">palette</mat-icon> Color Variations
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+            <app-button [variant]="selectedVariant()" color="primary" [shape]="shape()" [size]="size()">Primary</app-button>
+            <code class="text-xs">color="primary"</code>
+          </div>
+          <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+            <app-button [variant]="selectedVariant()" color="secondary" [shape]="shape()" [size]="size()">Secondary</app-button>
+            <code class="text-xs">color="secondary"</code>
+          </div>
+          <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+            <app-button [variant]="selectedVariant()" color="tertiary" [shape]="shape()" [size]="size()">Tertiary</app-button>
+            <code class="text-xs">color="tertiary"</code>
+          </div>
+        </div>
+      </section>
+    }
+  </div>
+
+</pds-playground-template>
