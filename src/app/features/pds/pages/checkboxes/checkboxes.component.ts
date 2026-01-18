@@ -1,11 +1,8 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
@@ -21,9 +18,9 @@ import {
   API_PROPERTIES,
   type StateGuide
 } from './checkboxes.data';
-import {PdsCodeBlockComponent} from '@shared/molecules/pds-code-block/pds-code-block.component';
-import {PdsBestPracticesComponent} from '@shared/molecules/pds-best-practices/pds-best-practices.component';
-import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-api-reference.component';
+import {
+  PdsPlaygroundTemplateComponent
+} from '@shared/templates/pds-playground-template/pds-playground-template.component';
 
 @Component({
   selector: 'app-checkboxes',
@@ -31,17 +28,12 @@ import {PdsApiReferenceComponent} from '@shared/molecules/pds-api-reference/pds-
   imports: [
     CommonModule,
     FormsModule,
-    MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatCheckboxModule,
-    MatTooltipModule,
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
-    PdsCodeBlockComponent,
-    PdsBestPracticesComponent,
-    PdsApiReferenceComponent
+    PdsPlaygroundTemplateComponent
   ],
   templateUrl: './checkboxes.component.html'
 })
@@ -154,4 +146,6 @@ export default class CheckboxesComponent {
   goBack(): void {
     this.router.navigate(['/pds/index']);
   }
+
+  protected readonly API_PROPERTIES = API_PROPERTIES;
 }

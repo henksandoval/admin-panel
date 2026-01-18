@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
@@ -20,9 +18,9 @@ import {
   BEST_PRACTICES,
   type ToggleGroupStateGuide
 } from './toggle-groups.data';
-import { PdsCodeBlockComponent } from '@shared/molecules/pds-code-block/pds-code-block.component';
-import { PdsBestPracticesComponent } from '@shared/molecules/pds-best-practices/pds-best-practices.component';
-import { PdsApiReferenceComponent } from '@shared/molecules/pds-api-reference/pds-api-reference.component';
+import {
+  PdsPlaygroundTemplateComponent
+} from '@shared/templates/pds-playground-template/pds-playground-template.component';
 
 @Component({
   selector: 'app-toggle-groups',
@@ -32,14 +30,10 @@ import { PdsApiReferenceComponent } from '@shared/molecules/pds-api-reference/pd
     FormsModule,
     MatCardModule,
     MatIconModule,
-    MatButtonModule,
-    MatTooltipModule,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
-    PdsCodeBlockComponent,
-    PdsBestPracticesComponent,
-    PdsApiReferenceComponent
+    PdsPlaygroundTemplateComponent
   ],
   templateUrl: './toggle-groups.component.html'
 })
@@ -185,4 +179,6 @@ export default class ToggleGroupsComponent {
   goBack(): void {
     this.router.navigate(['/pds/index']);
   }
+
+  protected readonly API_PROPERTIES = API_PROPERTIES;
 }
