@@ -1,5 +1,11 @@
-<div class="p-6 max-w-[1600px] mx-auto">
-  <header class="mb-8">
+<pds-playground-template
+  [generatedCode]="generatedCode()"
+  [apiProperties]="API_PROPERTIES"
+  [bestPractices]="BEST_PRACTICES"
+  [componentTag]="'<app-badge>'">
+
+  <!-- Header -->
+  <div header>
     <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
       Back to PDS Index
     </app-button>
@@ -13,206 +19,189 @@
         y observa cómo cambia la documentación en tiempo real.
       </p>
     </div>
-  </header>
-  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-    <section class="xl:col-span-5 space-y-6 xl:sticky xl:top-6">
-      <mat-card appearance="outlined" class="overflow-hidden">
-        <div class="card-header border-b px-6 py-4">
-          <h3 class="card-title font-semibold flex items-center gap-2">
-            <span>🎨</span> Live Preview
+  </div>
+
+  <!-- Preview -->
+  <div preview>
+    @if (selectedVariant() === 'overlay') {
+      <app-badge
+        variant="overlay"
+        [content]="badgeContent()"
+        [color]="overlayColor()"
+        [position]="position()"
+        [overlap]="overlap()"
+        [hidden]="hidden()">
+        <button mat-icon-button>
+          <mat-icon>notifications</mat-icon>
+        </button>
+      </app-badge>
+    } @else {
+      <app-badge variant="inline" [color]="inlineColor()" [hasIndicator]="hasIndicator()">
+        {{ badgeLabel() }}
+      </app-badge>
+    }
+  </div>
+
+  <!-- Controls -->
+  <div controls>
+    <div class="space-y-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5">
+        <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
+        Variant
+      </label>
+      <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" class="w-full" />
+    </div>
+
+    @if (selectedVariant() === 'overlay') {
+      <div class="space-y-2">
+        <app-form-field-input
+          [(ngModel)]="badgeContent"
+          [config]="{
+            label: 'Content',
+            placeholder: 'Badge content',
+            icon: 'numbers'
+          }">
+        </app-form-field-input>
+      </div>
+
+      <div class="space-y-2">
+        <label class="section-label text-sm font-medium flex items-center gap-1.5">
+          <mat-icon class="text-base !w-4 !h-4 leading-4">place</mat-icon>
+          Position
+        </label>
+        <app-toggle-group [options]="positionOptions" [(value)]="position" class="w-full" />
+      </div>
+
+      <div>
+        <app-checkbox [(checked)]="overlap" color="primary">Overlap</app-checkbox>
+        <app-checkbox [(checked)]="hidden" color="tertiary">Hidden</app-checkbox>
+      </div>
+    } @else {
+      <div class="space-y-2">
+        <app-form-field-input
+          [(ngModel)]="badgeLabel"
+          [config]="{
+            label: 'Label',
+            placeholder: 'Badge label',
+            icon: 'text_fields'
+          }">
+        </app-form-field-input>
+      </div>
+
+      <div class="space-y-2">
+        <label class="section-label text-sm font-medium flex items-center gap-1.5">
+          <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
+          Color
+        </label>
+        <app-toggle-group [options]="inlineColorOptions" [(value)]="inlineColor" class="w-full" />
+      </div>
+      <div>
+        <app-checkbox [(checked)]="hasIndicator" color="primary">Show Indicator (!)</app-checkbox>
+      </div>
+    }
+  </div>
+
+  <!-- Documentation -->
+  <div documentation>
+    @if (currentVariantGuide(); as guide) {
+      <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
+        <mat-card-content class="p-0">
+          <div class="p-6 md:p-8 pb-4">
+            <div class="flex items-center gap-3 mb-4">
+              <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
+                    class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                {{ guide.emphasis }} emphasis
+              </span>
+            </div>
+            <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
+            <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
+            <div class="info-box rounded-xl p-5 border">
+              <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                <mat-icon class="success text-lg">check_circle</mat-icon>
+                When to Use
+              </h4>
+              <ul class="space-y-3">
+                @for (use of guide.whenToUse; track use) {
+                  <li class="info-box-content flex items-start gap-2.5 text-sm">
+                    <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
+                    <span>{{ use }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+            <div class="info-box rounded-xl p-5 border">
+              <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                <mat-icon class="info text-lg">lightbulb</mat-icon>
+                Common Examples
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                @for (example of guide.examples; track example) {
+                  <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
+                    {{ example }}
+                  </span>
+                }
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      @if (selectedVariant() === 'overlay') {
+        <section>
+          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+            <mat-icon color="primary">explore</mat-icon> Position Variations
           </h3>
-        </div>
-        <mat-card-content class="p-8">
-          <div class="preview-container flex items-center justify-center min-h-[160px] bg-center rounded-lg border shadow-sm">
-            @if (selectedVariant() === 'overlay') {
-              <app-badge
-                variant="overlay"
-                [content]="badgeContent()"
-                [color]="overlayColor()"
-                [position]="position()"
-                [overlap]="overlap()"
-                [hidden]="hidden()">
-                <button mat-icon-button>
-                  <mat-icon>notifications</mat-icon>
-                </button>
-              </app-badge>
-            } @else {
-              <app-badge variant="inline" [color]="inlineColor()" [hasIndicator]="hasIndicator()">
-                {{ badgeLabel() }}
-              </app-badge>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            @for (pos of BADGE_POSITIONS; track pos.value) {
+              <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                <app-badge
+                  variant="overlay"
+                  [content]="badgeContent()"
+                  [color]="overlayColor()"
+                  [position]="pos.value"
+                  [overlap]="overlap()">
+                  <button mat-icon-button>
+                    <mat-icon>star</mat-icon>
+                  </button>
+                </app-badge>
+                <code class="text-xs text-center">{{ pos.label }}</code>
+              </div>
             }
           </div>
-        </mat-card-content>
-      </mat-card>
-      <mat-card appearance="outlined">
-        <div class="card-header px-6 py-4 border-b">
-          <h3 class="card-title font-semibold flex items-center gap-2">
-            <span>🎮</span> Controls
+        </section>
+      } @else {
+        <section>
+          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+            <mat-icon color="primary">palette</mat-icon> Color Variations
           </h3>
-        </div>
-        <mat-card-content class="p-6 space-y-6">
-          <div class="space-y-2">
-            <label class="section-label text-sm font-medium flex items-center gap-1.5">
-              <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
-              Variant
-            </label>
-            <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" class="w-full" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            @for (color of INLINE_COLORS; track color.value) {
+              <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                <app-badge variant="inline" [color]="color.value">{{ badgeLabel() }}</app-badge>
+                <div class="text-center">
+                  <code class="text-xs block">color="{{ color.value }}"</code>
+                </div>
+              </div>
+            }
           </div>
-
-          @if (selectedVariant() === 'overlay') {
-            <div class="space-y-2">
-              <app-form-field-input
-                [(ngModel)]="badgeContent"
-                [config]="{
-                  label: 'Content',
-                  placeholder: 'Badge content',
-                  icon: 'numbers'
-                }">
-              </app-form-field-input>
-            </div>
-
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">place</mat-icon>
-                Position
-              </label>
-              <app-toggle-group [options]="positionOptions" [(value)]="position" class="w-full" />
-            </div>
-
-            <div>
-              <app-checkbox [(checked)]="overlap" color="primary">Overlap</app-checkbox>
-              <app-checkbox [(checked)]="hidden" color="tertiary">Hidden</app-checkbox>
-            </div>
-          } @else {
-            <div class="space-y-2">
-              <app-form-field-input
-                [(ngModel)]="badgeLabel"
-                [config]="{
-                  label: 'Label',
-                  placeholder: 'Badge label',
-                  icon: 'text_fields'
-                }">
-              </app-form-field-input>
-            </div>
-
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
-                Color
-              </label>
-              <app-toggle-group [options]="inlineColorOptions" [(value)]="inlineColor" class="w-full" />
-            </div>
-            <div>
-              <app-checkbox [(checked)]="hasIndicator" color="primary">Show Indicator (!)</app-checkbox>
-            </div>
-          }
-        </mat-card-content>
-      </mat-card>
-      <app-pds-code-block [code]="generatedCode()" />
-    </section>
-    <aside class="xl:col-span-7 space-y-8">
-      @if (currentVariantGuide(); as guide) {
-        <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
-          <mat-card-content class="p-0">
-            <div class="p-6 md:p-8 pb-4">
-              <div class="flex items-center gap-3 mb-4">
-                <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
-                      class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
-                  {{ guide.emphasis }} emphasis
-                </span>
+        </section>
+        <section>
+          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+            <mat-icon color="primary">info</mat-icon> With Indicator
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            @for (color of INLINE_COLORS; track color.value) {
+              <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+                <app-badge variant="inline" [color]="color.value" [hasIndicator]="true">{{ badgeLabel() }}</app-badge>
+                <code class="text-xs">[hasIndicator]="true"</code>
               </div>
-              <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
-              <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
-              <div class="info-box rounded-xl p-5 border">
-                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
-                  <mat-icon class="success text-lg">check_circle</mat-icon>
-                  When to Use
-                </h4>
-                <ul class="space-y-3">
-                  @for (use of guide.whenToUse; track use) {
-                    <li class="info-box-content flex items-start gap-2.5 text-sm">
-                      <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
-                      <span>{{ use }}</span>
-                    </li>
-                  }
-                </ul>
-              </div>
-              <div class="info-box rounded-xl p-5 border">
-                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
-                  <mat-icon class="info text-lg">lightbulb</mat-icon>
-                  Common Examples
-                </h4>
-                <div class="flex flex-wrap gap-2">
-                  @for (example of guide.examples; track example) {
-                    <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
-                      {{ example }}
-                    </span>
-                  }
-                </div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-
-        @if (selectedVariant() === 'overlay') {
-          <section>
-            <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-              <mat-icon color="primary">explore</mat-icon> Position Variations
-            </h3>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              @for (pos of BADGE_POSITIONS; track pos.value) {
-                <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-                  <app-badge
-                    variant="overlay"
-                    [content]="badgeContent()"
-                    [color]="overlayColor()"
-                    [position]="pos.value"
-                    [overlap]="overlap()">
-                    <button mat-icon-button>
-                      <mat-icon>star</mat-icon>
-                    </button>
-                  </app-badge>
-                  <code class="text-xs text-center">{{ pos.label }}</code>
-                </div>
-              }
-            </div>
-          </section>
-        } @else {
-          <section>
-            <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-              <mat-icon color="primary">palette</mat-icon> Color Variations
-            </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              @for (color of INLINE_COLORS; track color.value) {
-                <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-                  <app-badge variant="inline" [color]="color.value">{{ badgeLabel() }}</app-badge>
-                  <div class="text-center">
-                    <code class="text-xs block">color="{{ color.value }}"</code>
-                  </div>
-                </div>
-              }
-            </div>
-          </section>
-          <section>
-            <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-              <mat-icon color="primary">info</mat-icon> With Indicator
-            </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              @for (color of INLINE_COLORS; track color.value) {
-                <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-                  <app-badge variant="inline" [color]="color.value" [hasIndicator]="true">{{ badgeLabel() }}</app-badge>
-                  <code class="text-xs">[hasIndicator]="true"</code>
-                </div>
-              }
-            </div>
-          </section>
-        }
-
-        <app-pds-best-practices [practices]="BEST_PRACTICES" />
+            }
+          </div>
+        </section>
       }
-    </aside>
+    }
   </div>
-  <app-pds-api-reference componentTag="<app-badge>" [properties]="API_PROPERTIES" />
-</div>
+
+</pds-playground-template>
