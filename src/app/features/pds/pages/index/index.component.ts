@@ -55,6 +55,13 @@ export class IndexComponent {
       route: '/pds/selects'
     },
     {
+      id: 'toggle-groups',
+      title: 'Toggle Groups',
+      description: 'Segmented controls for single or multiple selection with icon support',
+      icon: 'view_week',
+      route: '/pds/toggle-groups'
+    },
+    {
       id: 'badges',
       title: 'Badges',
       description: 'Componente unificado para badges inline (etiquetas) y overlay (notificaciones)',

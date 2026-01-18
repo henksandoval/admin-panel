@@ -409,6 +409,12 @@ export class NavigationService {
           title: 'Selects',
           icon: 'arrow_drop_down_circle',
           url: '/pds/selects'
+        },
+        {
+          id: 'toggle-groups',
+          title: 'Toggle Groups',
+          icon: 'view_week',
+          url: '/pds/toggle-groups'
         }
       ]
     }
