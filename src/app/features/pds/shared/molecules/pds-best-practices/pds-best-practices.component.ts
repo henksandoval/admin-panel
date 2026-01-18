@@ -23,31 +23,7 @@ import {PdsBestPracticeItemModel} from './pds-best-practice-item.model';
       </div>
     </div>
   `,
-  styles: [`
-    .alert-tip {
-      background-color: var(--mat-sys-tertiary-container);
-      border-color: var(--mat-sys-tertiary);
-      color: var(--mat-sys-on-tertiary-container);
-
-      mat-icon {
-        color: var(--mat-sys-tertiary);
-      }
-    }
-
-    .alert-title {
-      color: var(--mat-sys-on-tertiary-container);
-    }
-
-    .alert-content {
-      color: var(--mat-sys-on-tertiary-container);
-      opacity: 0.9;
-    }
-
-    .alert-label {
-      color: var(--mat-sys-tertiary);
-      font-weight: 600;
-    }
-  `]
+  styleUrl: 'pds-best-practices.component.scss'
 })
 export class PdsBestPracticesComponent {
   @Input() title = 'Best Practices';
