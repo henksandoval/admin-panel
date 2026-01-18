@@ -39,7 +39,42 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         </div>
       }
     </mat-card>
-  `
+  `,
+  styles: [`
+    .code-card {
+      background-color: var(--mat-sys-surface-container-highest);
+      border-color: var(--mat-sys-outline);
+      color: var(--mat-sys-on-surface);
+    }
+
+    .code-header {
+      border-color: var(--mat-sys-outline);
+      color: var(--mat-sys-on-surface-variant);
+
+      mat-icon {
+        color: var(--mat-sys-on-surface-variant);
+      }
+    }
+
+    .code-footer {
+      background-color: var(--mat-sys-surface-container-low);
+      color: var(--mat-sys-on-surface-variant);
+      border-color: var(--mat-sys-outline);
+      opacity: 0.8;
+    }
+
+    pre {
+      color: var(--mat-sys-primary);
+      font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+
+      code {
+        color: inherit;
+      }
+    }
+  `]
 })
 export class PdsCodeBlockComponent {
   @Input({ required: true }) code!: string;

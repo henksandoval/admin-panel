@@ -19,6 +19,21 @@ import { MatCardModule } from '@angular/material/card';
         </div>
       </mat-card-content>
     </mat-card>
-  `
+  `,
+  styles: [`
+    .card-header {
+      background-color: var(--mat-sys-surface-container-low);
+      border-color: var(--mat-sys-outline-variant);
+    }
+
+    .card-title {
+      color: var(--mat-sys-on-surface);
+    }
+
+    .preview-container {
+      border-color: var(--mat-sys-outline-variant);
+      background-image: url('https://bg.ibelick.com/dot-grid.svg');
+    }
+  `]
 })
 export class PdsPreviewCardComponent {}

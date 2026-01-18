@@ -1,3 +1,129 @@
 :host {
   display: block;
 }
+
+.page-title {
+  color: var(--mat-sys-on-surface);
+}
+
+.page-description {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.section-title {
+  color: var(--mat-sys-on-surface);
+}
+
+.section-label {
+  color: var(--mat-sys-on-surface-variant);
+  opacity: 0.7;
+}
+
+.back-button {
+  ::ng-deep .mat-mdc-button-persistent-ripple {
+    opacity: 0;
+  }
+}
+
+.card-header {
+  background-color: var(--mat-sys-surface-container-low);
+  border-color: var(--mat-sys-outline-variant);
+}
+
+.card-title {
+  color: var(--mat-sys-on-surface);
+}
+
+.preview-container {
+  border-color: var(--mat-sys-outline-variant);
+  background-image: url('https://bg.ibelick.com/dot-grid.svg');
+}
+
+.inline-code {
+  background-color: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface);
+  border-color: var(--mat-sys-outline-variant);
+}
+
+// Emphasis badges
+.emphasis-badge {
+  &.high {
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+  }
+
+  &.medium {
+    background-color: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
+  }
+
+  &.low {
+    background-color: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
+  }
+}
+
+// Card borders for emphasis
+.card-border {
+  &.high {
+    border-left: 4px solid var(--mat-sys-primary);
+  }
+
+  &.medium {
+    border-left: 4px solid var(--mat-sys-secondary);
+  }
+
+  &.low {
+    border-left: 4px solid var(--mat-sys-tertiary);
+  }
+}
+
+// Info boxes
+.info-box {
+  background-color: var(--mat-sys-surface-container-low);
+  border-color: var(--mat-sys-outline-variant);
+
+  .info-box-title {
+    color: var(--mat-sys-on-surface-variant);
+    text-transform: uppercase;
+  }
+
+  .info-box-content {
+    color: var(--mat-sys-on-surface);
+  }
+
+  mat-icon {
+    &.success {
+      color: var(--mat-sys-tertiary);
+    }
+
+    &.info {
+      color: var(--mat-sys-primary);
+    }
+  }
+}
+
+// Example tag
+.example-tag {
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  border-color: var(--mat-sys-outline-variant);
+}
+
+// Color variation card
+.color-variation-card {
+  background-color: var(--mat-sys-surface);
+  border-color: var(--mat-sys-outline-variant);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    border-color: var(--mat-sys-primary);
+    box-shadow: 0 4px 12px var(--overlay-shadow-10);
+  }
+
+  code {
+    color: var(--mat-sys-on-surface-variant);
+    opacity: 0.7;
+  }
+}
+
