@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppSelectComponent } from '@shared/atoms/app-select/app-select.component';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
@@ -21,9 +19,7 @@ import {
   BEST_PRACTICES,
   type SelectStateGuide
 } from './selects.data';
-import { PdsCodeBlockComponent } from '@shared/molecules/pds-code-block/pds-code-block.component';
-import { PdsBestPracticesComponent } from '@shared/molecules/pds-best-practices/pds-best-practices.component';
-import { PdsApiReferenceComponent } from '@shared/molecules/pds-api-reference/pds-api-reference.component';
+import { PdsPlaygroundTemplateComponent } from '@shared/templates/pds-playground-template/pds-playground-template.component';
 
 @Component({
   selector: 'app-selects',
@@ -33,15 +29,11 @@ import { PdsApiReferenceComponent } from '@shared/molecules/pds-api-reference/pd
     FormsModule,
     MatCardModule,
     MatIconModule,
-    MatButtonModule,
-    MatTooltipModule,
     AppSelectComponent,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
-    PdsCodeBlockComponent,
-    PdsBestPracticesComponent,
-    PdsApiReferenceComponent
+    PdsPlaygroundTemplateComponent
   ],
   templateUrl: './selects.component.html'
 })
@@ -62,9 +54,6 @@ export default class SelectsComponent {
   groupedValue = signal<string | null>(null);
 
   // Data
-  readonly COUNTRY_OPTIONS = COUNTRY_OPTIONS;
-  readonly FRAMEWORK_OPTIONS = FRAMEWORK_OPTIONS;
-  readonly GROUPED_OPTIONS = GROUPED_OPTIONS;
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly apiProperties = API_PROPERTIES;
 
