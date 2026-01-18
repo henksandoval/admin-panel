@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
-import {PdsApiReferencePropertyModel} from '@shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import {PdsApiReferencePropertyModel} from './pds-api-reference-property.model';
 
 @Component({
   selector: 'app-pds-api-reference',

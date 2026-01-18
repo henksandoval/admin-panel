@@ -1,6 +1,6 @@
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import { PdsApiReferencePropertyModel } from '@shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import { PdsBestPracticeItemModel } from '@shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
 
 /**
  * Toggle group state guides for documentation

@@ -19,7 +19,7 @@ import {
   BEST_PRACTICES,
   type SelectStateGuide
 } from './selects.data';
-import { PdsPlaygroundTemplateComponent } from '@shared/templates/pds-playground-template/pds-playground-template.component';
+import { PdsPlaygroundTemplateComponent } from '../../shared/templates/pds-playground-template/pds-playground-template.component';
 
 @Component({
   selector: 'app-selects',

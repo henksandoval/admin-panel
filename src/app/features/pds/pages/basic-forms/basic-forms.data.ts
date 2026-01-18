@@ -1,7 +1,7 @@
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { InputFieldType } from '@shared/atoms/form-field-input/form-field-input.model';
-import {PdsApiReferencePropertyModel} from '@shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import {PdsBestPracticeItemModel} from '@shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import {PdsApiReferencePropertyModel} from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import {PdsBestPracticeItemModel} from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
 
 export type FieldEmphasis = 'high' | 'medium' | 'low';
 

@@ -11,7 +11,7 @@ import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.mo
 import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
 import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES, type VariantGuide } from './buttons.data';
-import { PdsPlaygroundTemplateComponent } from '@shared/templates/pds-playground-template/pds-playground-template.component';
+import { PdsPlaygroundTemplateComponent } from '../../shared/templates/pds-playground-template/pds-playground-template.component';
 
 @Component({
   selector: 'app-buttons',

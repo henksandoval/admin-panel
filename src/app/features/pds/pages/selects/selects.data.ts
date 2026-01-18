@@ -1,6 +1,6 @@
 import { SelectOption } from '@shared/atoms/app-select/app-select.model';
-import { PdsApiReferencePropertyModel } from '@shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import { PdsBestPracticeItemModel } from '@shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
 
 /**
  * Select state guides for documentation

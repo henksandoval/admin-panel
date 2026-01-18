@@ -24,7 +24,7 @@ import {
 } from './indicators.data';
 import {
   PdsPlaygroundTemplateComponent
-} from '@shared/templates/pds-playground-template/pds-playground-template.component';
+} from '../../shared/templates/pds-playground-template/pds-playground-template.component';
 
 @Component({
   selector: 'app-indicators',

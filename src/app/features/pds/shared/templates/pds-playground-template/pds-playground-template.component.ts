@@ -2,11 +2,11 @@ import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { PdsCodeBlockComponent } from '@shared/molecules/pds-code-block/pds-code-block.component';
-import { PdsApiReferenceComponent } from '@shared/molecules/pds-api-reference/pds-api-reference.component';
-import { PdsBestPracticesComponent } from '@shared/molecules/pds-best-practices/pds-best-practices.component';
-import { PdsApiReferencePropertyModel } from '@shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import { PdsBestPracticeItemModel } from '@shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsCodeBlockComponent } from '../../molecules/pds-code-block/pds-code-block.component';
+import { PdsApiReferenceComponent } from '../../molecules/pds-api-reference/pds-api-reference.component';
+import { PdsBestPracticesComponent } from '../../molecules/pds-best-practices/pds-best-practices.component';
+import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
+import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
 
 /**
  * Template reutilizable para páginas PDS (Pattern Design System)
