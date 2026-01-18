@@ -73,16 +73,6 @@ export const routes: Routes = [
       },
       { path: 'settings', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
       {
-        path: 'showcase',
-        loadComponent: () => import('./features/showcase/showcase.component').then(m => m.ShowcaseComponent),
-        children: [
-          { path: 'index', loadComponent: () => import('./features/showcase/pages/index/index.component').then(m => m.IndexComponent) },
-          { path: 'forms', loadComponent: () => import('./features/showcase/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent) },
-          { path: 'buttons', loadComponent: () => import('./features/showcase/pages/buttons/buttons.component').then(m => m.ButtonsComponent) },
-          { path: 'checkboxes', loadComponent: () => import('./features/showcase/pages/checkboxes/checkboxes.component').then(m => m.CheckboxesComponent) },
-        ]
-      },
-      {
         path: 'pds',
         loadComponent: () => import('./features/pds/showcase.component').then(m => m.ShowcaseComponent),
         children: [

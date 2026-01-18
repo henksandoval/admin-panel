@@ -339,37 +339,6 @@ export class NavigationService {
       ]
     },
     {
-      id: 'showcase',
-      title: 'Showcase',
-      icon: 'dashboard_customize',
-      children: [
-        {
-          id: 'index',
-          title: 'Index',
-          icon: 'home',
-          url: '/showcase/index'
-        },
-        {
-          id: 'forms',
-          title: 'Formularios',
-          icon: 'edit_note',
-          url: '/showcase/forms'
-        },
-        {
-          id: 'buttons',
-          title: 'Botones',
-          icon: 'edit_note',
-          url: '/showcase/buttons'
-        },
-        {
-          id: 'checkboxes',
-          title: 'Checkbox',
-          icon: 'edit_note',
-          url: '/showcase/checkboxes'
-        },
-      ]
-    },
-    {
       id: 'pds',
       title: 'PDS',
       icon: 'dashboard_customize',
