@@ -106,11 +106,9 @@ import { SelectConfig, SelectOption, SELECT_DEFAULTS } from './app-select.model'
   ]
 })
 export class AppSelectComponent<T = any> implements ControlValueAccessor {
-  // Inputs
   options = input.required<SelectOption<T>[]>();
   config = input<SelectConfig<T>>({});
 
-  // Computed config with defaults
   fullConfig = computed<Required<SelectConfig<T>>>(() => ({
     label: '',
     placeholder: '',
@@ -122,21 +120,16 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
     ...this.config()
   }));
 
-  // Internal form control
   internalControl = new FormControl<T | T[] | null>(null);
 
-  // Services
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
 
-  // NgControl reference (injected if used with formControlName)
   public ngControl: NgControl | null = null;
 
-  // ControlValueAccessor callbacks
   onChange: (value: T | T[] | null) => void = () => {};
   onTouched: () => void = () => {};
 
-  // Computed properties
   selectClasses = computed(() => {
     const size = this.fullConfig().size;
     return `select-size-${size}`;
@@ -183,7 +176,6 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
   });
 
   constructor() {
-    // Try to inject NgControl to sync validators
     try {
       this.ngControl = inject(NgControl, { self: true, optional: true });
       if (this.ngControl) {
@@ -193,7 +185,6 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
       // NgControl not available, component used with [(ngModel)]
     }
 
-    // Subscribe to internal control changes
     this.internalControl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
@@ -202,7 +193,6 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
       });
   }
 
-  // ControlValueAccessor implementation
   writeValue(value: T | T[] | null): void {
     this.internalControl.setValue(value, { emitEvent: false });
   }
@@ -223,12 +213,10 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
     }
   }
 
-  // Event handlers
   onSelectionChange(): void {
     this.onTouched();
   }
 
-  // Helper methods
   private getDefaultErrorMessage(errorKey: string, errorValue: any): string {
     const messages: Record<string, string> = {
       required: 'This field is required',

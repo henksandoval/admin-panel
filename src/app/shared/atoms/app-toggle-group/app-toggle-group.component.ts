@@ -51,7 +51,6 @@ import {
   ]
 })
 export class AppToggleGroupComponent implements ControlValueAccessor {
-  // Input signals
   options = input.required<ToggleOption[]>();
   color = input<ToggleGroupColor>(TOGGLE_GROUP_DEFAULTS.color);
   size = input<ToggleGroupSize>(TOGGLE_GROUP_DEFAULTS.size);
@@ -63,13 +62,10 @@ export class AppToggleGroupComponent implements ControlValueAccessor {
   hideMultipleSelectionIndicator = input<boolean>(TOGGLE_GROUP_DEFAULTS.hideMultipleSelectionIndicator);
   ariaLabel = input<string>();
 
-  // Model signal for two-way binding
   value = model<string | string[] | null>(null);
 
-  // Output for change events
   changed = output<string | string[]>();
 
-  // Computed classes
   toggleGroupClasses = computed(() => {
     const classes: string[] = [];
 
@@ -84,7 +80,6 @@ export class AppToggleGroupComponent implements ControlValueAccessor {
     return classes.join(' ');
   });
 
-  // ControlValueAccessor implementation
   private onChange: (value: string | string[] | null) => void = () => {};
   private onTouched: () => void = () => {};
 
@@ -98,11 +93,6 @@ export class AppToggleGroupComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    // Note: disabled is an input signal, so we can't set it directly
-    // This is handled by the parent component through the disabled input
   }
 
   onToggleChange(event: any): void {
