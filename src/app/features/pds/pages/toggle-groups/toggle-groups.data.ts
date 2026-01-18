@@ -2,9 +2,6 @@ import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.mo
 import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
 
-/**
- * Toggle group state guides for documentation
- */
 export interface ToggleGroupStateGuide {
   state: 'single' | 'multiple' | 'icons' | 'vertical';
   title: string;
@@ -64,18 +61,6 @@ export const TOGGLE_GROUP_STATE_GUIDES: ToggleGroupStateGuide[] = [
   }
 ];
 
-/**
- * Default toggle group configuration
- */
-export const TOGGLE_GROUP_DEFAULTS_CONFIG = {
-  color: 'primary' as const,
-  size: 'medium' as const,
-  appearance: 'standard' as const
-};
-
-/**
- * Sample data for toggle options
- */
 export const ALIGNMENT_OPTIONS: ToggleOption[] = [
   { value: 'left', label: 'Left' },
   { value: 'center', label: 'Center' },
@@ -102,9 +87,6 @@ export const VIEW_OPTIONS: ToggleOption[] = [
   { value: 'timeline', label: 'Timeline View' }
 ];
 
-/**
- * API properties documentation
- */
 export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   {
     name: 'options',
@@ -185,9 +167,6 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   }
 ];
 
-/**
- * Best practices
- */
 export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   {
     label: 'Opciones Limitadas',

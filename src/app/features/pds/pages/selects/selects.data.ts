@@ -2,9 +2,6 @@ import { SelectOption } from '@shared/atoms/app-select/app-select.model';
 import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
 
-/**
- * Select state guides for documentation
- */
 export interface SelectStateGuide {
   state: 'single' | 'multiple' | 'grouped' | 'disabled';
   title: string;
@@ -64,17 +61,11 @@ export const SELECT_STATE_GUIDES: SelectStateGuide[] = [
   }
 ];
 
-/**
- * Default select configuration
- */
 export const SELECT_DEFAULTS_CONFIG = {
   appearance: 'fill' as const,
   size: 'medium' as const
 };
 
-/**
- * Sample data for select options
- */
 export const COUNTRY_OPTIONS: SelectOption<string>[] = [
   { value: 'us', label: 'United States' },
   { value: 'uk', label: 'United Kingdom' },
@@ -105,9 +96,6 @@ export const GROUPED_OPTIONS: SelectOption<string>[] = [
   { value: 'redis', label: 'Redis', group: 'Databases' }
 ];
 
-/**
- * API properties documentation
- */
 export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   {
     name: 'options',
@@ -201,9 +189,6 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
   }
 ];
 
-/**
- * Best practices
- */
 export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   {
     label: 'Límite de Opciones',
