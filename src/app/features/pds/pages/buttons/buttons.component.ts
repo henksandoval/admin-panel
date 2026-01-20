@@ -10,8 +10,8 @@ import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-togg
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
-import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES, type VariantGuide } from './buttons.data';
-import { PdsPlaygroundTemplateComponent } from '../../shared/templates/pds-playground-template/pds-playground-template.component';
+import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES } from './buttons.data';
+import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 
 @Component({
   selector: 'app-buttons',
@@ -24,7 +24,7 @@ import { PdsPlaygroundTemplateComponent } from '../../shared/templates/pds-playg
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
-    PdsPlaygroundTemplateComponent
+    PdsPageLayoutComponent
   ],
   templateUrl: './buttons.component.html'
 })
@@ -42,6 +42,7 @@ export default class ButtonsComponent {
 
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
+  readonly VARIANT_GUIDES = VARIANT_GUIDES;
 
   readonly variantOptions: ToggleOption[] = [
     { value: 'filled', label: 'Filled' },
@@ -68,9 +69,6 @@ export default class ButtonsComponent {
     { value: 'large', label: 'L' }
   ];
 
-  currentVariantGuide = computed(() => {
-    return VARIANT_GUIDES.find(guide => guide.variant === this.selectedVariant());
-  });
 
   generatedCode = computed(() => {
     const variant = this.selectedVariant();
@@ -123,23 +121,6 @@ export default class ButtonsComponent {
     return code;
   });
 
-  getEmphasisBadgeClasses(emphasis: VariantGuide['emphasis']): string {
-    const classMap = {
-      high: 'emphasis-badge high',
-      medium: 'emphasis-badge medium',
-      low: 'emphasis-badge low'
-    };
-    return classMap[emphasis];
-  }
-
-  getCardBorderClasses(emphasis: VariantGuide['emphasis']): string {
-    const classMap = {
-      high: 'card-border high',
-      medium: 'card-border medium',
-      low: 'card-border low'
-    };
-    return classMap[emphasis];
-  }
 
   goBack(): void {
     this.router.navigate(['/pds/index']);

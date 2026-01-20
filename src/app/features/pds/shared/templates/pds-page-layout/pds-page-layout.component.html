@@ -1,0 +1,208 @@
+<div class="p-6 max-w-[1600px] mx-auto">
+  <!-- Header Section -->
+  <header class="mb-8 space-y-4">
+    @if (showBackButton()) {
+      <ng-content select="[slot=header-action]"></ng-content>
+    }
+
+    <div class="flex items-baseline justify-between border-b pb-6" style="border-color: var(--mat-sys-outline-variant);">
+      <div class="max-w-3xl">
+        <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
+          {{ title() }}
+        </h1>
+        <p class="page-description text-lg leading-relaxed">
+          {{ description() }}
+        </p>
+      </div>
+      @if (componentTag()) {
+        <span class="inline-code px-3 py-1.5 rounded-full text-sm font-mono border shrink-0">
+          {{ componentTag() }}
+        </span>
+      }
+    </div>
+  </header>
+
+  <!-- Main Grid Layout -->
+  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+
+    <!-- Left Column: Controls -->
+    <div class="xl:col-span-4 space-y-6">
+      <mat-card appearance="outlined" class="overflow-hidden xl:sticky xl:top-6">
+        <div class="card-header px-4 py-3 border-b flex items-center gap-2">
+          <mat-icon class="text-base">tune</mat-icon>
+          <h3 class="card-title font-semibold text-sm uppercase tracking-wide">Controls</h3>
+        </div>
+        <mat-card-content class="p-5 space-y-6">
+          <ng-content select="[slot=controls]"></ng-content>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Right Column: Preview & Documentation -->
+    <div class="xl:col-span-8 space-y-10">
+
+      <!-- Live Preview Area -->
+      <section class="space-y-3">
+        <div class="flex items-center gap-2">
+          <mat-icon class="text-lg">visibility</mat-icon>
+          <h3 class="section-title font-semibold">Live Preview</h3>
+        </div>
+        <mat-card appearance="outlined" class="overflow-hidden">
+          <mat-card-content class="p-10">
+            <div class="preview-container flex items-center justify-center min-h-[300px] bg-center rounded-lg border shadow-sm">
+              <ng-content select="[slot=preview]"></ng-content>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- Generated Code -->
+      @if (code()) {
+        <section class="space-y-3">
+          <div class="flex items-center gap-2">
+            <mat-icon class="text-lg">code</mat-icon>
+            <h3 class="section-title font-semibold">Generated Code</h3>
+          </div>
+          <app-pds-code-block [code]="code()" />
+        </section>
+      }
+
+      <!-- Variant Guide (Rendered internally if currentVariantGuide exists) -->
+      @if (currentVariantGuide(); as guide) {
+        <section>
+          <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
+            <mat-card-content class="p-0">
+              <div class="p-6 md:p-8 pb-4">
+                <div class="flex items-center gap-3 mb-4">
+                  <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
+                        class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                    {{ guide.emphasis }} emphasis
+                  </span>
+                </div>
+                <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
+                <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
+                <div class="info-box rounded-xl p-5 border">
+                  <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                    <mat-icon class="success text-lg">check_circle</mat-icon>
+                    When to Use
+                  </h4>
+                  <ul class="space-y-3">
+                    @for (use of guide.whenToUse; track use) {
+                      <li class="info-box-content flex items-start gap-2.5 text-sm">
+                        <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
+                        <span>{{ use }}</span>
+                      </li>
+                    }
+                  </ul>
+                </div>
+
+                <div class="info-box rounded-xl p-5 border">
+                  <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
+                    <mat-icon class="info text-lg">lightbulb</mat-icon>
+                    Common Examples
+                  </h4>
+                  <div class="flex flex-wrap gap-2">
+                    @for (example of guide.examples; track example) {
+                      <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
+                        {{ example }}
+                      </span>
+                    }
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </section>
+      }
+
+      <!-- Custom Documentation Slot (for component-specific docs) -->
+      <ng-content select="[slot=documentation]"></ng-content>
+
+      <!-- API Properties Table -->
+      @if (apiProperties().length > 0) {
+        <section class="space-y-4 pt-4" style="border-top: 1px solid var(--mat-sys-outline-variant);">
+          <div class="api-section-header mb-6">
+            <div class="flex items-center gap-4">
+              <div class="api-icon-container p-3 rounded-lg border-2">
+                <mat-icon class="text-2xl">data_object</mat-icon>
+              </div>
+              <div>
+                <h2 class="api-title text-2xl font-bold mb-1">API Reference</h2>
+                <p class="api-description text-sm">
+                  Propiedades disponibles para
+                  <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">{{ componentTag() }}</code>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @for (prop of apiProperties(); track prop.name) {
+              <div class="api-card p-5 rounded-xl border-2">
+                <div class="flex justify-between items-start mb-3">
+                  <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">{{ prop.name }}</code>
+                  <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ prop.decorator }}</span>
+                </div>
+                <p class="api-description-text text-sm mb-3 leading-relaxed">{{ prop.description }}</p>
+                <div class="space-y-2 text-xs">
+                  <div class="flex items-start gap-2">
+                    <span class="api-label font-bold">Type:</span>
+                    <code class="api-type flex-1 font-mono">{{ prop.type }}</code>
+                  </div>
+                  @if (prop.defaultValue) {
+                    <div class="flex items-start gap-2">
+                      <span class="api-label font-bold">Default:</span>
+                      <code class="api-default flex-1 font-mono">{{ prop.defaultValue }}</code>
+                    </div>
+                  }
+                  @if (prop.optional) {
+                    <span class="api-optional-badge px-2 py-0.5 rounded text-xs font-bold">OPTIONAL</span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- Best Practices -->
+      @if (bestPractices().length > 0) {
+        <section class="space-y-4">
+          <div class="best-practices-header mb-6">
+            <div class="flex items-center gap-4">
+              <div class="best-practices-icon-container p-3 rounded-lg border-2">
+                <mat-icon class="text-2xl">lightbulb</mat-icon>
+              </div>
+              <div>
+                <h2 class="best-practices-title text-2xl font-bold mb-1">Best Practices</h2>
+                <p class="best-practices-description text-sm">
+                  Recomendaciones para el uso correcto del componente
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @for (practice of bestPractices(); track practice.label) {
+              <div class="best-practice-card p-5 rounded-xl border-2">
+                <div class="flex items-start gap-3">
+                  <div class="best-practice-icon-wrapper mt-1">
+                    <mat-icon class="text-lg">check_circle</mat-icon>
+                  </div>
+                  <div class="flex-1">
+                    <h4 class="best-practice-label font-bold text-sm mb-2">{{ practice.label }}</h4>
+                    <p class="best-practice-text text-sm leading-relaxed">{{ practice.text }}</p>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+    </div>
+  </div>
+</div>

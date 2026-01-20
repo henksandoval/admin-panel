@@ -1,14 +1,10 @@
 import { MatButtonAppearance } from '@angular/material/button';
-import {PdsApiReferencePropertyModel} from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import {PdsBestPracticeItemModel} from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
 
-export interface VariantGuide {
+export interface VariantGuide extends PdsVariantGuideModel {
   readonly variant: MatButtonAppearance;
-  readonly title: string;
-  readonly description: string;
-  readonly whenToUse: string[];
-  readonly examples: string[];
-  readonly emphasis: 'high' | 'medium' | 'low';
 }
 
 export const VARIANT_GUIDES: VariantGuide[] = [
