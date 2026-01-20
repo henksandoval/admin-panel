@@ -19,12 +19,9 @@ import {
   BADGE_POSITIONS,
   INLINE_COLORS,
   API_PROPERTIES,
-  BEST_PRACTICES,
-  type BadgeVariantGuide
+  BEST_PRACTICES
 } from './indicators.data';
-import {
-  PdsPlaygroundTemplateComponent
-} from '../../shared/templates/pds-playground-template/pds-playground-template.component';
+import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 
 @Component({
   selector: 'app-indicators',
@@ -42,7 +39,7 @@ import {
     AppCheckboxComponent,
     AppToggleGroupComponent,
     FormFieldInputComponent,
-    PdsPlaygroundTemplateComponent
+    PdsPageLayoutComponent
   ],
   templateUrl: './indicators.component.html'
 })
@@ -85,10 +82,7 @@ export default class IndicatorsComponent {
   readonly INLINE_COLORS = INLINE_COLORS;
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
-
-  currentVariantGuide = computed(() => {
-    return BADGE_VARIANT_GUIDES.find(guide => guide.variant === this.selectedVariant());
-  });
+  readonly BADGE_VARIANT_GUIDES = BADGE_VARIANT_GUIDES;
 
   generatedCode = computed(() => {
     const variant = this.selectedVariant();
@@ -152,23 +146,6 @@ export default class IndicatorsComponent {
     return code;
   }
 
-  getEmphasisBadgeClasses(emphasis: BadgeVariantGuide['emphasis']): string {
-    const classMap = {
-      high: 'emphasis-badge high',
-      medium: 'emphasis-badge medium',
-      low: 'emphasis-badge low'
-    };
-    return classMap[emphasis];
-  }
-
-  getCardBorderClasses(emphasis: BadgeVariantGuide['emphasis']): string {
-    const classMap = {
-      high: 'card-border high',
-      medium: 'card-border medium',
-      low: 'card-border low'
-    };
-    return classMap[emphasis];
-  }
 
   goBack(): void {
     this.router.navigate(['/pds/index']);

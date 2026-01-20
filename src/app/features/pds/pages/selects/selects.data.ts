@@ -1,17 +1,16 @@
 import { SelectOption } from '@shared/atoms/app-select/app-select.model';
 import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
 
-export interface SelectStateGuide {
-  state: 'single' | 'multiple' | 'grouped' | 'disabled';
-  title: string;
-  description: string;
-  whenToUse: string[];
-  emphasis: 'high' | 'medium' | 'low';
+export interface SelectStateGuide extends PdsVariantGuideModel {
+  readonly variant: 'single' | 'multiple' | 'grouped' | 'disabled';
+  readonly state: 'single' | 'multiple' | 'grouped' | 'disabled';
 }
 
 export const SELECT_STATE_GUIDES: SelectStateGuide[] = [
   {
+    variant: 'single',
     state: 'single',
     title: 'Single Selection',
     description: 'Standard dropdown for selecting one option from a list.',
@@ -21,9 +20,16 @@ export const SELECT_STATE_GUIDES: SelectStateGuide[] = [
       'List contains 5+ options (use radio for fewer)',
       'Space is limited'
     ],
+    examples: [
+      'Country selector',
+      'Language picker',
+      'Sort order',
+      'Page size'
+    ],
     emphasis: 'high'
   },
   {
+    variant: 'multiple',
     state: 'multiple',
     title: 'Multiple Selection',
     description: 'Allow users to select multiple options with checkboxes.',
@@ -33,9 +39,16 @@ export const SELECT_STATE_GUIDES: SelectStateGuide[] = [
       'Filtering or tagging scenarios',
       'Building lists or collections'
     ],
+    examples: [
+      'Filter by categories',
+      'Select frameworks',
+      'Choose tags',
+      'Permission settings'
+    ],
     emphasis: 'high'
   },
   {
+    variant: 'grouped',
     state: 'grouped',
     title: 'Grouped Options',
     description: 'Organize options into logical groups for better scanability.',
@@ -45,9 +58,16 @@ export const SELECT_STATE_GUIDES: SelectStateGuide[] = [
       'Improve findability',
       'Reduce cognitive load'
     ],
+    examples: [
+      'Grouped by region',
+      'Categorized products',
+      'Department hierarchy',
+      'Font families'
+    ],
     emphasis: 'medium'
   },
   {
+    variant: 'disabled',
     state: 'disabled',
     title: 'Disabled State',
     description: 'Indicate when selection is not currently available.',
@@ -56,6 +76,12 @@ export const SELECT_STATE_GUIDES: SelectStateGuide[] = [
       'Read-only forms',
       'Progressive disclosure',
       'Permission restrictions'
+    ],
+    examples: [
+      'Locked fields',
+      'View-only mode',
+      'Conditional inputs',
+      'Restricted access'
     ],
     emphasis: 'low'
   }

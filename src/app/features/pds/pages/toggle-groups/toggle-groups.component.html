@@ -1,24 +1,20 @@
-<pds-playground-template
-  [generatedCode]="generatedCode()"
+<app-pds-page-layout
+  title="Toggle Group Component Playground"
+  description="Segmented controls for single or multiple selection. A wrapper around Material Button Toggle providing consistent styling and ergonomic API."
+  componentTag="<app-toggle-group>"
+  [code]="generatedCode()"
   [apiProperties]="API_PROPERTIES"
   [bestPractices]="BEST_PRACTICES"
-  [componentTag]="'<app-toggle-group>'">
+  [variantGuides]="TOGGLE_GROUP_STATE_GUIDES"
+  [currentVariant]="selectedState()">
 
-  <!-- Header -->
-  <div header>
-    <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
-      Back to PDS Index
-    </app-button>
-    <div class="max-w-3xl">
-      <h1 class="text-4xl font-bold mb-3">Toggle Group Component</h1>
-      <p class="text-lg opacity-90">
-        Segmented controls for single or multiple selection. A wrapper around Material Button Toggle providing consistent styling and ergonomic API.
-      </p>
-    </div>
-  </div>
+  <!-- Header Action -->
+  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+    Back to PDS Index
+  </app-button>
 
   <!-- Preview -->
-  <div preview>
+  <div slot="preview">
     @if (selectedState() === 'single') {
       <div class="flex flex-col items-center gap-4">
         <app-toggle-group
@@ -86,7 +82,7 @@
   </div>
 
   <!-- Controls -->
-  <div controls>
+  <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
         <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
@@ -129,41 +125,8 @@
   </div>
 
   <!-- Documentation -->
-  <div documentation>
-    @if (currentStateGuide(); as guide) {
-      <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
-        <mat-card-content class="p-0">
-          <div class="card-header p-6 border-b border-outline-variant/30">
-            <div class="flex items-start justify-between gap-4">
-              <div class="flex-1">
-                <h2 class="card-title text-2xl font-bold mb-2">{{ guide.title }}</h2>
-                <p class="text-base opacity-80">{{ guide.description }}</p>
-              </div>
-              <span [class]="getEmphasisBadgeClasses(guide.emphasis)">
-                {{ guide.emphasis }}
-              </span>
-            </div>
-          </div>
-
-          <div class="p-6 space-y-6">
-            <div>
-              <div class="flex items-center gap-2 mb-3">
-                <mat-icon class="success text-lg">check_circle</mat-icon>
-                <h3 class="font-semibold text-lg">When to Use</h3>
-              </div>
-              <ul class="space-y-2 ml-6">
-                @for (item of guide.whenToUse; track item) {
-                  <li class="flex items-start gap-2">
-                    <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
-                    <span>{{ item }}</span>
-                  </li>
-                }
-              </ul>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    }
+  <div slot="documentation">
+    <!-- Add toggle-group-specific documentation here if needed -->
   </div>
 
-</pds-playground-template>
+</app-pds-page-layout>

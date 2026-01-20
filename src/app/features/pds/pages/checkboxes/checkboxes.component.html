@@ -1,28 +1,20 @@
-<pds-playground-template
-  [generatedCode]="generatedCode()"
+<app-pds-page-layout
+  title="Checkbox Component Playground"
+  description="Experimenta con diferentes configuraciones del componente y observa cómo cambia la documentación en tiempo real."
+  componentTag="<app-checkbox>"
+  [code]="generatedCode()"
   [apiProperties]="API_PROPERTIES"
   [bestPractices]="BEST_PRACTICES"
-  [componentTag]="'<app-checkbox>'">
+  [variantGuides]="STATE_GUIDES"
+  [currentVariant]="selectedState()">
 
-  <!-- Header -->
-  <div header>
-    <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
-      Back to PDS Index
-    </app-button>
-    <div class="max-w-3xl">
-      <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
-        Checkbox Component Playground
-      </h1>
-      <p class="page-description text-lg leading-relaxed">
-        Experimenta con diferentes configuraciones del componente
-        <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-checkbox&gt;</code>
-        y observa cómo cambia la documentación en tiempo real.
-      </p>
-    </div>
-  </div>
+  <!-- Header Action -->
+  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+    Back to PDS Index
+  </app-button>
 
   <!-- Preview -->
-  <div preview>
+  <div slot="preview">
     <app-checkbox
       [checked]="isChecked()"
       [color]="selectedColor()"
@@ -36,7 +28,7 @@
   </div>
 
   <!-- Controls -->
-  <div controls>
+  <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
         <mat-icon class="text-base !w-4 !h-4 leading-4">toggle_on</mat-icon>
@@ -78,96 +70,48 @@
   </div>
 
   <!-- Documentation -->
-  <div documentation>
-    @if (currentStateGuide(); as guide) {
-      <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
-        <mat-card-content class="p-0">
-          <div class="p-6 md:p-8 pb-4">
-            <div class="flex items-center gap-3 mb-4">
-              <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
-                    class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
-                {{ guide.emphasis }} emphasis
-              </span>
-            </div>
-            <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
-            <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
+  <div slot="documentation">
+    <section>
+      <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+        <mat-icon color="primary">palette</mat-icon> Color Variations
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        @for (color of CHECKBOX_COLORS; track color.value) {
+          <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+            <app-checkbox
+              [checked]="isChecked()"
+              [indeterminate]="isIndeterminate()"
+              [color]="color.value"
+              [size]="size()"
+              [labelPosition]="labelPosition()">
+              {{ color.label }}
+            </app-checkbox>
+            <code class="text-xs">color="{{ color.value }}"</code>
           </div>
+        }
+      </div>
+    </section>
 
-          <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
-            <div class="info-box rounded-xl p-5 border">
-              <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
-                <mat-icon class="success text-lg">check_circle</mat-icon>
-                When to Use
-              </h4>
-              <ul class="space-y-3">
-                @for (use of guide.whenToUse; track use) {
-                  <li class="info-box-content flex items-start gap-2.5 text-sm">
-                    <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
-                    <span>{{ use }}</span>
-                  </li>
-                }
-              </ul>
-            </div>
-
-            <div class="info-box rounded-xl p-5 border">
-              <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
-                <mat-icon class="info text-lg">lightbulb</mat-icon>
-                Common Examples
-              </h4>
-              <div class="flex flex-wrap gap-2">
-                @for (example of guide.examples; track example) {
-                  <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
-                    {{ example }}
-                  </span>
-                }
-              </div>
-            </div>
+    <section>
+      <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
+        <mat-icon color="primary">straighten</mat-icon> Size Variations
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        @for (sizeOption of CHECKBOX_SIZES; track sizeOption.value) {
+          <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+            <app-checkbox
+              [checked]="isChecked()"
+              [indeterminate]="isIndeterminate()"
+              [color]="selectedColor()"
+              [size]="sizeOption.value"
+              [labelPosition]="labelPosition()">
+              {{ sizeOption.label }}
+            </app-checkbox>
+            <code class="text-xs">size="{{ sizeOption.value }}"</code>
           </div>
-        </mat-card-content>
-      </mat-card>
-
-      <section>
-        <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-          <mat-icon color="primary">palette</mat-icon> Color Variations
-        </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          @for (color of CHECKBOX_COLORS; track color.value) {
-            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-              <app-checkbox
-                [checked]="isChecked()"
-                [indeterminate]="isIndeterminate()"
-                [color]="color.value"
-                [size]="size()"
-                [labelPosition]="labelPosition()">
-                {{ color.label }}
-              </app-checkbox>
-              <code class="text-xs">color="{{ color.value }}"</code>
-            </div>
-          }
-        </div>
-      </section>
-
-      <section>
-        <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-          <mat-icon color="primary">straighten</mat-icon> Size Variations
-        </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          @for (sizeOption of CHECKBOX_SIZES; track sizeOption.value) {
-            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
-              <app-checkbox
-                [checked]="isChecked()"
-                [indeterminate]="isIndeterminate()"
-                [color]="selectedColor()"
-                [size]="sizeOption.value"
-                [labelPosition]="labelPosition()">
-                {{ sizeOption.label }}
-              </app-checkbox>
-              <code class="text-xs">size="{{ sizeOption.value }}"</code>
-            </div>
-          }
-        </div>
-      </section>
-    }
+        }
+      </div>
+    </section>
   </div>
 
-</pds-playground-template>
+</app-pds-page-layout>

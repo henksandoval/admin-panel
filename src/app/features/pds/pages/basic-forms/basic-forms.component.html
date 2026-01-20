@@ -1,94 +1,75 @@
-<div class="p-6 max-w-[1600px] mx-auto">
-  <header class="mb-8">
-    <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
-      Back to PDS Index
-    </app-button>
-    <div class="max-w-3xl">
-      <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
-        Form Field Input Playground
-      </h1>
-      <p class="page-description text-lg leading-relaxed">
-        Experimenta con diferentes configuraciones del componente
-        <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">&lt;app-form-field-input&gt;</code>
-        y observa cómo cambia la documentación en tiempo real.
-      </p>
+<app-pds-page-layout
+  title="Form Field Input Playground"
+  description="Experimenta con diferentes configuraciones del componente y observa cómo cambia la documentación en tiempo real."
+  componentTag="<app-form-field-input>"
+  [code]="generatedCode()"
+  [apiProperties]="apiProperties"
+  [bestPractices]="bestPractices">
+
+  <!-- Header Action -->
+  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+    Back to PDS Index
+  </app-button>
+
+  <!-- Preview -->
+  <div slot="preview">
+    <form [formGroup]="form" class="w-full max-w-md">
+      <app-form-field-input formControlName="playgroundField" [config]="currentFieldConfig()" appControlConnector>
+      </app-form-field-input>
+    </form>
+  </div>
+
+  <!-- Controls -->
+  <div slot="controls">
+    <div class="space-y-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5">
+        <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
+        Configuration Preset
+      </label>
+      <app-toggle-group [options]="configOptions" [value]="selectedConfig()" (changed)="onConfigChange($event)" class="w-full" />
     </div>
-  </header>
 
-  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-    <section class="xl:col-span-5 space-y-6 xl:sticky xl:top-6">
-      <mat-card appearance="outlined" class="overflow-hidden">
-        <div class="card-header border-b px-6 py-4">
-          <h3 class="card-title font-semibold flex items-center gap-2">
-            <span>🎨</span> Live Preview
-          </h3>
-        </div>
-        <mat-card-content class="p-8">
-          <div class="preview-container flex items-center justify-center min-h-[160px] bg-center rounded-lg border shadow-sm">
-            <form [formGroup]="form" class="w-full max-w-md">
-              <app-form-field-input formControlName="playgroundField" [config]="currentFieldConfig()" appControlConnector>
-              </app-form-field-input>
-            </form>
-          </div>
-        </mat-card-content>
-      </mat-card>
+    <div class="space-y-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5">
+        <mat-icon class="text-base !w-4 !h-4 leading-4">text_fields</mat-icon>
+        Input Type
+      </label>
+      <app-toggle-group [options]="typeOptions" [(value)]="fieldType" class="w-full" />
+    </div>
 
-      <mat-card appearance="outlined">
-        <div class="card-header px-6 py-4 border-b">
-          <h3 class="card-title font-semibold flex items-center gap-2">
-            <span>🎮</span> Controls
-          </h3>
-        </div>
-        <mat-card-content class="p-6 space-y-8">
-          <div class="space-y-2">
-            <label class="section-label text-sm font-medium flex items-center gap-1.5">
-              <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
-              Configuration Preset
-            </label>
-            <app-toggle-group [options]="configOptions" [value]="selectedConfig()" (changed)="onConfigChange($event)" class="w-full" />
-          </div>
+    <div class="space-y-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5">
+        <mat-icon class="text-base !w-4 !h-4 leading-4">style</mat-icon>
+        Appearance
+      </label>
+      <app-toggle-group [options]="appearanceOptions" [(value)]="appearance" class="w-full" />
+    </div>
 
-          <div class="space-y-2">
-            <label class="section-label text-sm font-medium flex items-center gap-1.5">
-              <mat-icon class="text-base !w-4 !h-4 leading-4">text_fields</mat-icon>
-              Input Type
-            </label>
-            <app-toggle-group [options]="typeOptions" [(value)]="fieldType" class="w-full" />
-          </div>
+    <div class="space-y-3">
+      <app-form-field-input
+        [(ngModel)]="fieldLabel"
+        [config]="{
+          label: 'Label',
+          placeholder: 'Field label'
+        }">
+      </app-form-field-input>
 
-            <div class="space-y-2">
-              <label class="section-label text-sm font-medium flex items-center gap-1.5">
-                <mat-icon class="text-base !w-4 !h-4 leading-4">style</mat-icon>
-                Appearance
-              </label>
-              <app-toggle-group [options]="appearanceOptions" [(value)]="appearance" class="w-full" />
-            </div>
+      <app-form-field-input
+        [(ngModel)]="fieldPlaceholder"
+        [config]="{
+          label: 'Placeholder',
+          placeholder: 'Placeholder text'
+        }">
+      </app-form-field-input>
 
-          <div class="space-y-3">
-            <app-form-field-input
-              [(ngModel)]="fieldLabel"
-              [config]="{
-                label: 'Label',
-                placeholder: 'Field label'
-              }">
-            </app-form-field-input>
-
-            <app-form-field-input
-              [(ngModel)]="fieldPlaceholder"
-              [config]="{
-                label: 'Placeholder',
-                placeholder: 'Placeholder text'
-              }">
-            </app-form-field-input>
-
-            <app-form-field-input
-              [(ngModel)]="fieldHint"
-              [config]="{
-                label: 'Hint (Optional)',
-                placeholder: 'Hint text'
-              }">
-            </app-form-field-input>
-          </div>
+      <app-form-field-input
+        [(ngModel)]="fieldHint"
+        [config]="{
+          label: 'Hint (Optional)',
+          placeholder: 'Hint text'
+        }">
+      </app-form-field-input>
+    </div>
 
           <div class="space-y-2">
             <label class="section-label text-sm font-medium flex items-center gap-1.5">
@@ -96,138 +77,36 @@
               Icon (Optional)
             </label>
             <app-toggle-group [options]="iconOptions" [(value)]="selectedIcon" class="w-full" />
-          </div>
+    </div>
 
-          <div class="grid grid-cols-2 gap-4">
-            <app-form-field-input
-              [(ngModel)]="fieldPrefix"
-              [config]="{
-                label: 'Prefix',
-                placeholder: '$'
-              }">
-            </app-form-field-input>
+    <div class="grid grid-cols-2 gap-4">
+      <app-form-field-input
+        [(ngModel)]="fieldPrefix"
+        [config]="{
+          label: 'Prefix',
+          placeholder: '$'
+        }">
+      </app-form-field-input>
 
-            <app-form-field-input
-              [(ngModel)]="fieldSuffix"
-              [config]="{
-                label: 'Suffix',
-                placeholder: '.00'
-              }">
-            </app-form-field-input>
-          </div>
+      <app-form-field-input
+        [(ngModel)]="fieldSuffix"
+        [config]="{
+          label: 'Suffix',
+          placeholder: '.00'
+        }">
+      </app-form-field-input>
+    </div>
 
-          <div>
-            <app-checkbox [(checked)]="hasValidation" color="primary">Show Validation Errors</app-checkbox>
-            <app-checkbox [(checked)]="isRequired" color="tertiary">Required Field</app-checkbox>
-            <app-checkbox [(checked)]="isDisabled" color="secondary">Disabled State</app-checkbox>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <app-pds-code-block [code]="generatedCode()" footer="💡 TypeScript config + HTML template usage example." />
-    </section>
-
-    <aside class="xl:col-span-7 space-y-8">
-      @if (currentConfigGuide(); as guide) {
-        <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
-          <mat-card-content class="p-0">
-            <div class="p-6 md:p-8 pb-4">
-              <div class="flex items-center gap-3 mb-4">
-                <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
-                      class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
-                  {{ guide.emphasis }} emphasis
-                </span>
-              </div>
-              <h2 class="page-title text-3xl font-bold mb-4">{{ guide.title }}</h2>
-              <p class="page-description text-lg leading-relaxed">{{ guide.description }}</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
-              <div class="info-box rounded-xl p-5 border">
-                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
-                  <mat-icon class="success text-lg">check_circle</mat-icon>
-                  When to Use
-                </h4>
-                <ul class="space-y-3">
-                  @for (use of guide.whenToUse; track use) {
-                    <li class="info-box-content flex items-start gap-2.5 text-sm">
-                      <mat-icon class="success text-base mt-0.5 shrink-0">arrow_right</mat-icon>
-                      <span>{{ use }}</span>
-                    </li>
-                  }
-                </ul>
-              </div>
-
-              <div class="info-box rounded-xl p-5 border">
-                <h4 class="info-box-title font-bold text-sm mb-4 flex items-center gap-2">
-                  <mat-icon class="info text-lg">lightbulb</mat-icon>
-                  Common Examples
-                </h4>
-                <div class="flex flex-wrap gap-2">
-                  @for (example of guide.examples; track example) {
-                    <span class="example-tag px-3 py-1.5 rounded border text-sm font-medium shadow-sm">
-                      {{ example }}
-                    </span>
-                  }
-                </div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-
-        <section>
-          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-            <mat-icon color="primary">text_fields</mat-icon> Input Type Variations
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            @for (type of INPUT_TYPES; track type.value) {
-              <div class="color-variation-card p-4 rounded-lg border">
-                <code class="text-xs block mb-3">type="{{ type.value }}"</code>
-                <form [formGroup]="form">
-                  <app-form-field-input
-                    formControlName="playgroundField"
-                    [config]="{
-                      label: type.label + ' Field',
-                      placeholder: 'Enter ' + type.label.toLowerCase(),
-                      type: type.value
-                    }"
-                    appControlConnector>
-                  </app-form-field-input>
-                </form>
-              </div>
-            }
-          </div>
-        </section>
-
-        <section>
-          <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-            <mat-icon color="primary">style</mat-icon> Appearance Variations
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            @for (app of FIELD_APPEARANCES; track app.value) {
-              <div class="color-variation-card p-4 rounded-lg border">
-                <code class="text-xs block mb-3">appearance="{{ app.value }}"</code>
-                <form [formGroup]="form">
-                  <app-form-field-input
-                    formControlName="playgroundField"
-                    [config]="{
-                      label: app.label,
-                      placeholder: 'Placeholder text',
-                      appearance: app.value
-                    }"
-                    appControlConnector>
-                  </app-form-field-input>
-                </form>
-              </div>
-            }
-          </div>
-        </section>
-
-        <app-pds-best-practices [practices]="bestPractices" />
-      }
-    </aside>
+    <div>
+      <app-checkbox [(checked)]="hasValidation" color="primary">Show Validation Errors</app-checkbox>
+      <app-checkbox [(checked)]="isRequired" color="tertiary">Required Field</app-checkbox>
+      <app-checkbox [(checked)]="isDisabled" color="secondary">Disabled State</app-checkbox>
+    </div>
   </div>
 
-  <app-pds-api-reference
-    componentTag="<app-form-field-input>"
-    [properties]="apiProperties" />
-</div>
+  <!-- Documentation -->
+  <div slot="documentation">
+    <!-- Basic forms doesn't have variant guides, so documentation slot is minimal -->
+  </div>
+
+</app-pds-page-layout>

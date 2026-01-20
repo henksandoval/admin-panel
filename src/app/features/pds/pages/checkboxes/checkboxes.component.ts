@@ -15,12 +15,9 @@ import {
   CHECKBOX_COLORS,
   CHECKBOX_SIZES,
   BEST_PRACTICES,
-  API_PROPERTIES,
-  type StateGuide
+  API_PROPERTIES
 } from './checkboxes.data';
-import {
-  PdsPlaygroundTemplateComponent
-} from '../../shared/templates/pds-playground-template/pds-playground-template.component';
+import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 
 @Component({
   selector: 'app-checkboxes',
@@ -33,7 +30,7 @@ import {
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
-    PdsPlaygroundTemplateComponent
+    PdsPageLayoutComponent
   ],
   templateUrl: './checkboxes.component.html'
 })
@@ -51,7 +48,8 @@ export default class CheckboxesComponent {
   readonly CHECKBOX_COLORS = CHECKBOX_COLORS;
   readonly CHECKBOX_SIZES = CHECKBOX_SIZES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
-  readonly apiProperties = API_PROPERTIES;
+  readonly API_PROPERTIES = API_PROPERTIES;
+  readonly STATE_GUIDES = STATE_GUIDES;
 
   readonly stateOptions: ToggleOption[] = [
     { value: 'checked', label: 'Checked' },
@@ -79,9 +77,6 @@ export default class CheckboxesComponent {
   isChecked = computed(() => this.selectedState() === 'checked');
   isIndeterminate = computed(() => this.selectedState() === 'indeterminate');
 
-  currentStateGuide = computed(() => {
-    return STATE_GUIDES.find(guide => guide.state === this.selectedState());
-  });
 
   generatedCode = computed(() => {
     const state = this.selectedState();
@@ -125,27 +120,7 @@ export default class CheckboxesComponent {
     return code;
   });
 
-  getEmphasisBadgeClasses(emphasis: StateGuide['emphasis']): string {
-    const classMap = {
-      high: 'emphasis-badge high',
-      medium: 'emphasis-badge medium',
-      low: 'emphasis-badge low'
-    };
-    return classMap[emphasis];
-  }
-
-  getCardBorderClasses(emphasis: StateGuide['emphasis']): string {
-    const classMap = {
-      high: 'card-border high',
-      medium: 'card-border medium',
-      low: 'card-border low'
-    };
-    return classMap[emphasis];
-  }
-
   goBack(): void {
     this.router.navigate(['/pds/index']);
   }
-
-  protected readonly API_PROPERTIES = API_PROPERTIES;
 }

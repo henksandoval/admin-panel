@@ -23,12 +23,9 @@ import {
   FORM_FIELD_DEFAULTS,
   INPUT_TYPES,
   FIELD_APPEARANCES,
-  COMMON_ICONS,
-  type FieldConfigGuide,
+  COMMON_ICONS
 } from './basic-forms.data';
-import {PdsCodeBlockComponent} from '../../shared/molecules/pds-code-block/pds-code-block.component';
-import {PdsBestPracticesComponent} from '../../shared/molecules/pds-best-practices/pds-best-practices.component';
-import {PdsApiReferenceComponent} from '../../shared/molecules/pds-api-reference/pds-api-reference.component';
+import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 
 @Component({
   selector: 'app-basic-forms',
@@ -47,9 +44,7 @@ import {PdsApiReferenceComponent} from '../../shared/molecules/pds-api-reference
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
-    PdsCodeBlockComponent,
-    PdsBestPracticesComponent,
-    PdsApiReferenceComponent
+    PdsPageLayoutComponent
   ],
   templateUrl: './basic-forms.component.html'
 })
@@ -106,10 +101,6 @@ export class BasicFormsComponent implements OnInit {
       ariaLabel: icon
     }))
   ];
-
-  currentConfigGuide = computed(() => {
-    return FIELD_CONFIG_GUIDES.find(guide => guide.config === this.selectedConfig());
-  });
 
   currentFieldConfig = computed<FormFieldInputOptions>(() => {
     const config: FormFieldInputOptions = {
@@ -215,23 +206,6 @@ export class BasicFormsComponent implements OnInit {
     this.hasValidation.set(this.selectedConfig() === 'with-validation');
   }
 
-  getEmphasisBadgeClasses(emphasis: FieldConfigGuide['emphasis']): string {
-    const classMap = {
-      high: 'emphasis-badge high',
-      medium: 'emphasis-badge medium',
-      low: 'emphasis-badge low'
-    };
-    return classMap[emphasis];
-  }
-
-  getCardBorderClasses(emphasis: FieldConfigGuide['emphasis']): string {
-    const classMap = {
-      high: 'card-border high',
-      medium: 'card-border medium',
-      low: 'card-border low'
-    };
-    return classMap[emphasis];
-  }
 
   onConfigChange(value: string | string[]): void {
     // app-toggle-group emits string | string[], but we only use single selection

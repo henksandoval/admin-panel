@@ -16,10 +16,9 @@ import {
   FRAMEWORK_OPTIONS,
   GROUPED_OPTIONS,
   API_PROPERTIES,
-  BEST_PRACTICES,
-  type SelectStateGuide
+  BEST_PRACTICES
 } from './selects.data';
-import { PdsPlaygroundTemplateComponent } from '../../shared/templates/pds-playground-template/pds-playground-template.component';
+import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 
 @Component({
   selector: 'app-selects',
@@ -33,7 +32,7 @@ import { PdsPlaygroundTemplateComponent } from '../../shared/templates/pds-playg
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
-    PdsPlaygroundTemplateComponent
+    PdsPageLayoutComponent
   ],
   templateUrl: './selects.component.html'
 })
@@ -55,7 +54,8 @@ export default class SelectsComponent {
 
   // Data
   readonly BEST_PRACTICES = BEST_PRACTICES;
-  readonly apiProperties = API_PROPERTIES;
+  readonly API_PROPERTIES = API_PROPERTIES;
+  readonly SELECT_STATE_GUIDES = SELECT_STATE_GUIDES;
 
   // Toggle options
   readonly stateOptions: ToggleOption[] = [
@@ -77,9 +77,6 @@ export default class SelectsComponent {
   ];
 
   // Computed properties
-  currentStateGuide = computed(() => {
-    return SELECT_STATE_GUIDES.find(guide => guide.state === this.selectedState());
-  });
 
   currentOptions = computed<SelectOption<string>[]>(() => {
     const state = this.selectedState();
@@ -144,23 +141,6 @@ export default class SelectsComponent {
     return `${tsCode}${htmlCode}`;
   });
 
-  getEmphasisBadgeClasses(emphasis: SelectStateGuide['emphasis']): string {
-    const classMap = {
-      high: 'emphasis-badge high',
-      medium: 'emphasis-badge medium',
-      low: 'emphasis-badge low'
-    };
-    return classMap[emphasis];
-  }
-
-  getCardBorderClasses(emphasis: SelectStateGuide['emphasis']): string {
-    const classMap = {
-      high: 'card-border high',
-      medium: 'card-border medium',
-      low: 'card-border low'
-    };
-    return classMap[emphasis];
-  }
 
   goBack(): void {
     this.router.navigate(['/pds/index']);

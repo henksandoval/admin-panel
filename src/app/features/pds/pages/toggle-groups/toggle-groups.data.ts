@@ -1,17 +1,16 @@
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
 
-export interface ToggleGroupStateGuide {
-  state: 'single' | 'multiple' | 'icons' | 'vertical';
-  title: string;
-  description: string;
-  whenToUse: string[];
-  emphasis: 'high' | 'medium' | 'low';
+export interface ToggleGroupStateGuide extends PdsVariantGuideModel {
+  readonly variant: 'single' | 'multiple' | 'icons' | 'vertical';
+  readonly state: 'single' | 'multiple' | 'icons' | 'vertical';
 }
 
 export const TOGGLE_GROUP_STATE_GUIDES: ToggleGroupStateGuide[] = [
   {
+    variant: 'single',
     state: 'single',
     title: 'Single Selection',
     description: 'Allow users to select one option from a mutually exclusive set.',
@@ -21,9 +20,16 @@ export const TOGGLE_GROUP_STATE_GUIDES: ToggleGroupStateGuide[] = [
       'You have 2-5 options to display',
       'Visual segmented control is preferred over dropdown'
     ],
+    examples: [
+      'View mode toggle',
+      'Sort order',
+      'Chart type selector',
+      'Payment method'
+    ],
     emphasis: 'high'
   },
   {
+    variant: 'multiple',
     state: 'multiple',
     title: 'Multiple Selection',
     description: 'Enable users to select multiple options independently.',
@@ -33,9 +39,16 @@ export const TOGGLE_GROUP_STATE_GUIDES: ToggleGroupStateGuide[] = [
       'Filtering or toggling multiple states',
       'Quick access to multiple settings'
     ],
+    examples: [
+      'Text formatting',
+      'Filter options',
+      'Feature toggles',
+      'Multi-select filters'
+    ],
     emphasis: 'high'
   },
   {
+    variant: 'icons',
     state: 'icons',
     title: 'Icon Toggles',
     description: 'Use icons instead of text labels for compact visual representation.',
@@ -45,9 +58,16 @@ export const TOGGLE_GROUP_STATE_GUIDES: ToggleGroupStateGuide[] = [
       'Quick visual scanning is important',
       'Formatting toolbars or controls'
     ],
+    examples: [
+      'Text alignment',
+      'View toggles',
+      'Tool selection',
+      'Editor toolbar'
+    ],
     emphasis: 'medium'
   },
   {
+    variant: 'vertical',
     state: 'vertical',
     title: 'Vertical Layout',
     description: 'Stack toggle options vertically for narrow spaces or longer labels.',
@@ -56,6 +76,12 @@ export const TOGGLE_GROUP_STATE_GUIDES: ToggleGroupStateGuide[] = [
       'Options have longer text labels',
       'Part of a vertical form layout',
       'Mobile-optimized interfaces'
+    ],
+    examples: [
+      'Sidebar filters',
+      'Navigation menu',
+      'Settings panel',
+      'Mobile layouts'
     ],
     emphasis: 'low'
   }

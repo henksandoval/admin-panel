@@ -1,14 +1,11 @@
 import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
-import {PdsApiReferencePropertyModel} from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import {PdsBestPracticeItemModel} from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
 
-export interface StateGuide {
-  state: 'checked' | 'unchecked' | 'indeterminate';
-  title: string;
-  description: string;
-  whenToUse: string[];
-  examples: string[];
-  emphasis: StateEmphasis;
+export interface StateGuide extends PdsVariantGuideModel {
+  readonly variant: 'checked' | 'unchecked' | 'indeterminate';
+  readonly state: 'checked' | 'unchecked' | 'indeterminate';
 }
 
 export type StateEmphasis = 'high' | 'medium' | 'low';
@@ -25,6 +22,7 @@ export const CHECKBOX_DEFAULTS = {
 
 export const STATE_GUIDES: StateGuide[] = [
   {
+    variant: 'checked',
     state: 'checked',
     title: 'Checked State',
     description: 'Estado activo cuando la opción está seleccionada. Indica que el usuario ha elegido esta opción de manera explícita.',
@@ -42,6 +40,7 @@ export const STATE_GUIDES: StateGuide[] = [
     emphasis: 'high'
   },
   {
+    variant: 'unchecked',
     state: 'unchecked',
     title: 'Unchecked State',
     description: 'Estado por defecto cuando ninguna selección ha sido hecha. Representa una opción disponible pero no elegida.',
@@ -59,6 +58,7 @@ export const STATE_GUIDES: StateGuide[] = [
     emphasis: 'medium'
   },
   {
+    variant: 'indeterminate',
     state: 'indeterminate',
     title: 'Indeterminate State',
     description: 'Estado intermedio que indica una selección parcial. Comúnmente usado en checkboxes "Seleccionar todos" cuando solo algunos elementos están marcados.',

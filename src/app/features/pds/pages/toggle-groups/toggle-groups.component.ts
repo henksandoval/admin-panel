@@ -15,12 +15,9 @@ import {
   FORMATTING_OPTIONS,
   VIEW_OPTIONS,
   API_PROPERTIES,
-  BEST_PRACTICES,
-  type ToggleGroupStateGuide
+  BEST_PRACTICES
 } from './toggle-groups.data';
-import {
-  PdsPlaygroundTemplateComponent
-} from '../../shared/templates/pds-playground-template/pds-playground-template.component';
+import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 
 @Component({
   selector: 'app-toggle-groups',
@@ -33,7 +30,7 @@ import {
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
-    PdsPlaygroundTemplateComponent
+    PdsPageLayoutComponent
   ],
   templateUrl: './toggle-groups.component.html'
 })
@@ -59,7 +56,8 @@ export default class ToggleGroupsComponent {
   readonly FORMATTING_OPTIONS = FORMATTING_OPTIONS;
   readonly VIEW_OPTIONS = VIEW_OPTIONS;
   readonly BEST_PRACTICES = BEST_PRACTICES;
-  readonly apiProperties = API_PROPERTIES;
+  readonly API_PROPERTIES = API_PROPERTIES;
+  readonly TOGGLE_GROUP_STATE_GUIDES = TOGGLE_GROUP_STATE_GUIDES;
 
   // Toggle options
   readonly stateOptions: ToggleOption[] = [
@@ -82,9 +80,6 @@ export default class ToggleGroupsComponent {
   ];
 
   // Computed properties
-  currentStateGuide = computed(() => {
-    return TOGGLE_GROUP_STATE_GUIDES.find(guide => guide.state === this.selectedState());
-  });
 
   currentOptions = computed<ToggleOption[]>(() => {
     const state = this.selectedState();
@@ -158,27 +153,7 @@ export default class ToggleGroupsComponent {
     return `${tsCode}${htmlCode}`;
   });
 
-  getEmphasisBadgeClasses(emphasis: ToggleGroupStateGuide['emphasis']): string {
-    const classMap = {
-      high: 'emphasis-badge high',
-      medium: 'emphasis-badge medium',
-      low: 'emphasis-badge low'
-    };
-    return classMap[emphasis];
-  }
-
-  getCardBorderClasses(emphasis: ToggleGroupStateGuide['emphasis']): string {
-    const classMap = {
-      high: 'card-border high',
-      medium: 'card-border medium',
-      low: 'card-border low'
-    };
-    return classMap[emphasis];
-  }
-
   goBack(): void {
     this.router.navigate(['/pds/index']);
   }
-
-  protected readonly API_PROPERTIES = API_PROPERTIES;
 }
