@@ -1,4 +1,4 @@
-<div class="p-6 max-w-[1600px] mx-auto">
+<div class="p-6 mx-auto">
   <!-- Header Section -->
   <header class="mb-8 space-y-4">
     @if (showBackButton()) {
@@ -26,20 +26,7 @@
   <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
 
     <!-- Left Column: Controls -->
-    <div class="xl:col-span-4 space-y-6">
-      <mat-card appearance="outlined" class="overflow-hidden xl:sticky xl:top-6">
-        <div class="card-header px-4 py-3 border-b flex items-center gap-2">
-          <mat-icon class="text-base">tune</mat-icon>
-          <h3 class="card-title font-semibold text-sm uppercase tracking-wide">Controls</h3>
-        </div>
-        <mat-card-content class="p-5 space-y-6">
-          <ng-content select="[slot=controls]"></ng-content>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <!-- Right Column: Preview & Documentation -->
-    <div class="xl:col-span-8 space-y-10">
+    <div class="xl:col-span-5 space-y-6">
 
       <!-- Live Preview Area -->
       <section class="space-y-3">
@@ -56,6 +43,16 @@
         </mat-card>
       </section>
 
+      <mat-card appearance="outlined" class="overflow-hidden xl:sticky xl:top-6">
+        <div class="card-header px-4 py-3 border-b flex items-center gap-2">
+          <mat-icon class="text-base">tune</mat-icon>
+          <h3 class="card-title font-semibold text-sm uppercase tracking-wide">Controls</h3>
+        </div>
+        <mat-card-content class="p-5 space-y-6">
+          <ng-content select="[slot=controls]"></ng-content>
+        </mat-card-content>
+      </mat-card>
+
       <!-- Generated Code -->
       @if (code()) {
         <section class="space-y-3">
@@ -66,6 +63,10 @@
           <app-pds-code-block [code]="code()" />
         </section>
       }
+    </div>
+
+    <!-- Right Column: Preview & Documentation -->
+    <div class="xl:col-span-7 space-y-10">
 
       <!-- Variant Guide (Rendered internally if currentVariantGuide exists) -->
       @if (currentVariantGuide(); as guide) {
@@ -120,6 +121,43 @@
 
       <!-- Custom Documentation Slot (for component-specific docs) -->
       <ng-content select="[slot=documentation]"></ng-content>
+    </div>
+
+    <div class="xl:col-span-12">
+      <!-- Best Practices -->
+      @if (bestPractices().length > 0) {
+        <section class="space-y-4">
+          <div class="best-practices-header mb-6">
+            <div class="flex items-center gap-4">
+              <div class="best-practices-icon-container p-3 rounded-lg border-2">
+                <mat-icon class="text-2xl">lightbulb</mat-icon>
+              </div>
+              <div>
+                <h2 class="best-practices-title text-2xl font-bold mb-1">Best Practices</h2>
+                <p class="best-practices-description text-sm">
+                  Recomendaciones para el uso correcto del componente
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @for (practice of bestPractices(); track practice.label) {
+              <div class="best-practice-card p-5 rounded-xl border-2">
+                <div class="flex items-start gap-3">
+                  <div class="best-practice-icon-wrapper mt-1">
+                    <mat-icon class="text-lg">check_circle</mat-icon>
+                  </div>
+                  <div class="flex-1">
+                    <h4 class="best-practice-label font-bold text-sm mb-2">{{ practice.label }}</h4>
+                    <p class="best-practice-text text-sm leading-relaxed">{{ practice.text }}</p>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
 
       <!-- API Properties Table -->
       @if (apiProperties().length > 0) {
@@ -167,42 +205,6 @@
           </div>
         </section>
       }
-
-      <!-- Best Practices -->
-      @if (bestPractices().length > 0) {
-        <section class="space-y-4">
-          <div class="best-practices-header mb-6">
-            <div class="flex items-center gap-4">
-              <div class="best-practices-icon-container p-3 rounded-lg border-2">
-                <mat-icon class="text-2xl">lightbulb</mat-icon>
-              </div>
-              <div>
-                <h2 class="best-practices-title text-2xl font-bold mb-1">Best Practices</h2>
-                <p class="best-practices-description text-sm">
-                  Recomendaciones para el uso correcto del componente
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            @for (practice of bestPractices(); track practice.label) {
-              <div class="best-practice-card p-5 rounded-xl border-2">
-                <div class="flex items-start gap-3">
-                  <div class="best-practice-icon-wrapper mt-1">
-                    <mat-icon class="text-lg">check_circle</mat-icon>
-                  </div>
-                  <div class="flex-1">
-                    <h4 class="best-practice-label font-bold text-sm mb-2">{{ practice.label }}</h4>
-                    <p class="best-practice-text text-sm leading-relaxed">{{ practice.text }}</p>
-                  </div>
-                </div>
-              </div>
-            }
-          </div>
-        </section>
-      }
-
     </div>
   </div>
 </div>
