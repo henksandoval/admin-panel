@@ -6,6 +6,7 @@ import { PdsCodeBlockComponent } from '../../molecules/pds-code-block/pds-code-b
 import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
 import { PdsVariantGuideModel } from './pds-variant-guide.model';
+import {PdsBestPracticesComponent} from '../../molecules/pds-best-practices/pds-best-practices.component';
 
 /**
  * Layout Shell component for PDS component playgrounds.
@@ -51,7 +52,8 @@ import { PdsVariantGuideModel } from './pds-variant-guide.model';
     CommonModule,
     MatCardModule,
     MatIconModule,
-    PdsCodeBlockComponent
+    PdsCodeBlockComponent,
+    PdsBestPracticesComponent
   ],
   templateUrl: './pds-page-layout.component.html',
   styleUrl: './pds-page-layout.component.scss'

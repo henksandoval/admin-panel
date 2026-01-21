@@ -126,37 +126,9 @@
     <div class="xl:col-span-12">
       <!-- Best Practices -->
       @if (bestPractices().length > 0) {
-        <section class="space-y-4">
-          <div class="best-practices-header mb-6">
-            <div class="flex items-center gap-4">
-              <div class="best-practices-icon-container p-3 rounded-lg border-2">
-                <mat-icon class="text-2xl">lightbulb</mat-icon>
-              </div>
-              <div>
-                <h2 class="best-practices-title text-2xl font-bold mb-1">Best Practices</h2>
-                <p class="best-practices-description text-sm">
-                  Recomendaciones para el uso correcto del componente
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            @for (practice of bestPractices(); track practice.label) {
-              <div class="best-practice-card p-5 rounded-xl border-2">
-                <div class="flex items-start gap-3">
-                  <div class="best-practice-icon-wrapper mt-1">
-                    <mat-icon class="text-lg">check_circle</mat-icon>
-                  </div>
-                  <div class="flex-1">
-                    <h4 class="best-practice-label font-bold text-sm mb-2">{{ practice.label }}</h4>
-                    <p class="best-practice-text text-sm leading-relaxed">{{ practice.text }}</p>
-                  </div>
-                </div>
-              </div>
-            }
-          </div>
-        </section>
+        <app-pds-best-practices
+          [practices]="bestPractices()">
+        </app-pds-best-practices>
       }
 
       <!-- API Properties Table -->
