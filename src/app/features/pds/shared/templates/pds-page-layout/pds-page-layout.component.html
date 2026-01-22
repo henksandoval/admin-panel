@@ -1,5 +1,4 @@
 <div class="p-6 mx-auto">
-  <!-- Header Section -->
   <header class="mb-8 space-y-4">
     @if (showBackButton()) {
       <ng-content select="[slot=header-action]"></ng-content>
@@ -22,26 +21,11 @@
     </div>
   </header>
 
-  <!-- Main Grid Layout -->
   <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
-
-    <!-- Left Column: Controls -->
     <div class="xl:col-span-5 space-y-6">
-
-      <!-- Live Preview Area -->
-      <section class="space-y-3">
-        <div class="flex items-center gap-2">
-          <mat-icon class="text-lg">visibility</mat-icon>
-          <h3 class="section-title font-semibold">Live Preview</h3>
-        </div>
-        <mat-card appearance="outlined" class="overflow-hidden">
-          <mat-card-content class="p-6">
-            <div class="preview-container flex items-center justify-center min-h-[120px] py-6 bg-center rounded-lg border shadow-sm">
-              <ng-content select="[slot=preview]"></ng-content>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </section>
+      <app-pds-preview-card>
+        <ng-content select="[slot=preview]"></ng-content>
+      </app-pds-preview-card>
 
       <mat-card appearance="outlined" class="overflow-hidden xl:sticky xl:top-6">
         <div class="card-header px-4 py-3 border-b flex items-center gap-2">
@@ -53,7 +37,6 @@
         </mat-card-content>
       </mat-card>
 
-      <!-- Generated Code -->
       @if (code()) {
         <section class="space-y-3">
           <div class="flex items-center gap-2">
@@ -65,10 +48,7 @@
       }
     </div>
 
-    <!-- Right Column: Preview & Documentation -->
     <div class="xl:col-span-7 space-y-10">
-
-      <!-- Variant Guide (Rendered internally if currentVariantGuide exists) -->
       @if (currentVariantGuide(); as guide) {
         <section>
           <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
@@ -119,63 +99,21 @@
         </section>
       }
 
-      <!-- Custom Documentation Slot (for component-specific docs) -->
       <ng-content select="[slot=documentation]"></ng-content>
     </div>
 
     <div class="xl:col-span-12">
-      <!-- Best Practices -->
       @if (bestPractices().length > 0) {
         <app-pds-best-practices
           [practices]="bestPractices()">
         </app-pds-best-practices>
       }
 
-      <!-- API Properties Table -->
       @if (apiProperties().length > 0) {
-        <section class="space-y-4 pt-4" style="border-top: 1px solid var(--mat-sys-outline-variant);">
-          <div class="api-section-header mb-6">
-            <div class="flex items-center gap-4">
-              <div class="api-icon-container p-3 rounded-lg border-2">
-                <mat-icon class="text-2xl">data_object</mat-icon>
-              </div>
-              <div>
-                <h2 class="api-title text-2xl font-bold mb-1">API Reference</h2>
-                <p class="api-description text-sm">
-                  Propiedades disponibles para
-                  <code class="inline-code px-1.5 py-0.5 rounded text-sm font-mono border">{{ componentTag() }}</code>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            @for (prop of apiProperties(); track prop.name) {
-              <div class="api-card p-5 rounded-xl border-2">
-                <div class="flex justify-between items-start mb-3">
-                  <code class="api-property px-2.5 py-1.5 rounded-lg text-sm">{{ prop.name }}</code>
-                  <span class="api-decorator text-xs font-mono px-2 py-1 rounded">{{ prop.decorator }}</span>
-                </div>
-                <p class="api-description-text text-sm mb-3 leading-relaxed">{{ prop.description }}</p>
-                <div class="space-y-2 text-xs">
-                  <div class="flex items-start gap-2">
-                    <span class="api-label font-bold">Type:</span>
-                    <code class="api-type flex-1 font-mono">{{ prop.type }}</code>
-                  </div>
-                  @if (prop.defaultValue) {
-                    <div class="flex items-start gap-2">
-                      <span class="api-label font-bold">Default:</span>
-                      <code class="api-default flex-1 font-mono">{{ prop.defaultValue }}</code>
-                    </div>
-                  }
-                  @if (prop.optional) {
-                    <span class="api-optional-badge px-2 py-0.5 rounded text-xs font-bold">OPTIONAL</span>
-                  }
-                </div>
-              </div>
-            }
-          </div>
-        </section>
+        <app-pds-api-reference
+          [componentTag]="componentTag()"
+          [properties]="apiProperties()">
+        </app-pds-api-reference>
       }
     </div>
   </div>

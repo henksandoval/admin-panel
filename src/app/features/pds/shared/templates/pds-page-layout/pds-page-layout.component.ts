@@ -7,6 +7,8 @@ import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/
 import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
 import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import {PdsBestPracticesComponent} from '../../molecules/pds-best-practices/pds-best-practices.component';
+import {PdsPreviewCardComponent} from '../../molecules/pds-preview-card/pds-preview-card.component';
+import {PdsApiReferenceComponent} from '../../molecules/pds-api-reference/pds-api-reference.component';
 
 /**
  * Layout Shell component for PDS component playgrounds.
@@ -53,7 +55,9 @@ import {PdsBestPracticesComponent} from '../../molecules/pds-best-practices/pds-
     MatCardModule,
     MatIconModule,
     PdsCodeBlockComponent,
-    PdsBestPracticesComponent
+    PdsBestPracticesComponent,
+    PdsPreviewCardComponent,
+    PdsApiReferenceComponent
   ],
   templateUrl: './pds-page-layout.component.html',
   styleUrl: './pds-page-layout.component.scss'
