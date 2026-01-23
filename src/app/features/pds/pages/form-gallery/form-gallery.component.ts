@@ -1,0 +1,287 @@
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
+import { Router } from '@angular/router';
+import { FormFieldInputComponent } from '@shared/atoms/form-field-input/form-field-input.component';
+import { ControlConnectorDirective } from '@shared/atoms/form-field-input/control-connector.directive';
+import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
+import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
+import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
+import { FormFieldInputOptions } from '@shared/atoms/form-field-input/form-field-input.model';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+import {
+  FIELD_EXAMPLES,
+  API_PROPERTIES,
+  BEST_PRACTICES
+} from './form-gallery.data';
+
+/**
+ * Form Field Gallery - Complete Form Field Reference
+ *
+ * Shows all form field types together with real working validations.
+ * Visual customization (appearance, icons, hints) is reactive via signals.
+ * Validations are static and work immediately (like BasicFormsOldComponent).
+ */
+@Component({
+  selector: 'app-form-gallery',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatIconModule,
+    MatDividerModule,
+    MatTabsModule,
+    FormFieldInputComponent,
+    ControlConnectorDirective,
+    AppButtonComponent,
+    AppToggleGroupComponent,
+    AppCheckboxComponent
+  ],
+  templateUrl: './form-gallery.component.html',
+  styleUrls: ['./form-gallery.component.scss']
+})
+export default class FormGalleryComponent implements OnInit {
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+
+  // Main form with FIXED validators (never change)
+  public galleryForm!: FormGroup;
+
+  // Visual configuration signals (ONLY for appearance, not validations)
+  globalAppearance = signal<MatFormFieldAppearance>('outline');
+  showIcons = signal<boolean>(true);
+  showHints = signal<boolean>(true);
+  showPrefixSuffix = signal<boolean>(true);
+
+  readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
+  readonly API_PROPERTIES = API_PROPERTIES;
+  readonly BEST_PRACTICES = BEST_PRACTICES;
+
+  readonly appearanceOptions: ToggleOption[] = [
+    { value: 'fill', label: 'Fill' },
+    { value: 'outline', label: 'Outline' }
+  ];
+
+  // Computed configs for each field (ONLY visual properties change)
+  basicTextConfig = computed<FormFieldInputOptions>(() => ({
+    label: 'Full Name',
+    placeholder: 'John Doe',
+    type: 'text',
+    appearance: this.globalAppearance(),
+    icon: this.showIcons() ? 'person' : '',
+    hint: this.showHints() ? 'Enter your full name' : ''
+  }));
+
+  emailConfig = computed<FormFieldInputOptions>(() => ({
+    label: 'Email Address',
+    placeholder: 'your@email.com',
+    type: 'email',
+    appearance: this.globalAppearance(),
+    icon: this.showIcons() ? 'email' : '',
+    hint: this.showHints() ? "We'll never share your email" : '',
+    errorMessages: {
+      required: 'Email address is required',
+      email: 'Please enter a valid email address'
+    }
+  }));
+
+  passwordConfig = computed<FormFieldInputOptions>(() => ({
+    label: 'Password',
+    placeholder: 'Enter secure password',
+    type: 'password',
+    appearance: this.globalAppearance(),
+    icon: this.showIcons() ? 'lock' : '',
+    hint: this.showHints() ? 'Must be at least 8 characters' : '',
+    prefix: this.showPrefixSuffix() ? '🔒 ' : '',
+    errorMessages: {
+      required: 'Password is required',
+      minlength: 'Password must be at least 8 characters long'
+    }
+  }));
+
+  ageConfig = computed<FormFieldInputOptions>(() => ({
+    label: 'Age',
+    placeholder: '18-99',
+    type: 'number',
+    appearance: this.globalAppearance(),
+    icon: this.showIcons() ? 'cake' : '',
+    suffix: this.showPrefixSuffix() ? ' years' : '',
+    hint: this.showHints() ? 'You must be 18 or older' : '',
+    errorMessages: {
+      required: 'Age is required',
+      min: 'You must be at least 18 years old',
+      max: 'Please enter a valid age (maximum 99)'
+    }
+  }));
+
+  phoneConfig = computed<FormFieldInputOptions>(() => ({
+    label: 'Phone Number',
+    placeholder: '(555) 123-4567',
+    type: 'tel',
+    appearance: this.globalAppearance(),
+    icon: this.showIcons() ? 'phone' : '',
+    prefix: this.showPrefixSuffix() ? '+1 ' : '',
+    hint: this.showHints() ? 'US phone numbers only' : '',
+    errorMessages: {
+      required: 'Phone number is required'
+    }
+  }));
+
+  // Form status computed
+  formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
+  formValid = computed(() => this.galleryForm?.valid || false);
+  formTouched = computed(() => this.galleryForm?.touched || false);
+  formDirty = computed(() => this.galleryForm?.dirty || false);
+
+  ngOnInit(): void {
+    // Initialize form with FIXED validators (like BasicFormsOldComponent)
+    this.galleryForm = this.fb.group({
+      basicText: [''],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
+      phone: ['', [Validators.required]]
+    });
+  }
+
+  onSubmit(): void {
+    if (this.galleryForm.valid) {
+      console.log('✅ Form is valid!', this.galleryForm.value);
+      alert('✅ Form submitted successfully! Check console for values.');
+    } else {
+      console.log('❌ Form has errors', this.galleryForm.value);
+      this.galleryForm.markAllAsTouched();
+      alert('❌ Please fix validation errors before submitting.');
+    }
+  }
+
+  resetForm(): void {
+    this.galleryForm.reset();
+  }
+
+  copyCode(fieldName: string): void {
+    const example = this.FIELD_EXAMPLES.find((e: any) => e.id === fieldName);
+    if (!example) return;
+
+    const code = this.generateFieldCode(example);
+    navigator.clipboard.writeText(code).then(() => {
+      console.log('📋 Code copied to clipboard!');
+      alert(`📋 ${example.title} code copied to clipboard!`);
+    });
+  }
+
+  copyCompleteForm(): void {
+    const code = this.generateCompleteFormCode();
+    navigator.clipboard.writeText(code).then(() => {
+      console.log('📋 Complete form code copied to clipboard!');
+      alert('📋 Complete form code copied to clipboard!');
+    });
+  }
+
+  private generateFieldCode(example: any): string {
+    let code = `// ${example.title}\n`;
+    code += `// ${example.description}\n\n`;
+
+    code += `// TypeScript Configuration\n`;
+    code += `${example.configName}: FormFieldInputOptions = {\n`;
+    code += `  label: '${example.config.label}',\n`;
+    code += `  placeholder: '${example.config.placeholder}',\n`;
+    code += `  type: '${example.config.type}'`;
+
+    if (example.config.icon) {
+      code += `,\n  icon: '${example.config.icon}'`;
+    }
+    if (example.config.hint) {
+      code += `,\n  hint: '${example.config.hint}'`;
+    }
+    if (example.config.prefix) {
+      code += `,\n  prefix: '${example.config.prefix}'`;
+    }
+    if (example.config.suffix) {
+      code += `,\n  suffix: '${example.config.suffix}'`;
+    }
+    if (example.config.errorMessages) {
+      code += `,\n  errorMessages: {\n`;
+      Object.entries(example.config.errorMessages).forEach(([key, value]) => {
+        code += `    ${key}: '${value}',\n`;
+      });
+      code = code.slice(0, -2) + '\n  }';
+    }
+
+    code += `\n};\n\n`;
+
+    code += `// Form Setup\n`;
+    code += `form = this.fb.group({\n`;
+    code += `  ${example.formControlName}: ['', [${example.validators}]]\n`;
+    code += `});\n\n`;
+
+    code += `// HTML Template\n`;
+    code += `<app-form-field-input\n`;
+    code += `  formControlName="${example.formControlName}"\n`;
+    code += `  [config]="${example.configName}"\n`;
+    code += `  appControlConnector>\n`;
+    code += `</app-form-field-input>`;
+
+    return code;
+  }
+
+  private generateCompleteFormCode(): string {
+    let code = `// Complete Form with All Field Types\n\n`;
+
+    code += `// TypeScript - Form Initialization\n`;
+    code += `form = this.fb.group({\n`;
+    code += `  basicText: [''],\n`;
+    code += `  email: ['', [Validators.required, Validators.email]],\n`;
+    code += `  password: ['', [Validators.required, Validators.minLength(8)]],\n`;
+    code += `  age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],\n`;
+    code += `  phone: ['', [Validators.required]]\n`;
+    code += `});\n\n`;
+
+    code += `// HTML Template\n`;
+    code += `<form [formGroup]="form" (ngSubmit)="onSubmit()">\n`;
+    code += `  <app-form-field-input\n`;
+    code += `    formControlName="basicText"\n`;
+    code += `    [config]="basicTextConfig"\n`;
+    code += `    appControlConnector>\n`;
+    code += `  </app-form-field-input>\n\n`;
+
+    code += `  <app-form-field-input\n`;
+    code += `    formControlName="email"\n`;
+    code += `    [config]="emailConfig"\n`;
+    code += `    appControlConnector>\n`;
+    code += `  </app-form-field-input>\n\n`;
+
+    code += `  <app-form-field-input\n`;
+    code += `    formControlName="password"\n`;
+    code += `    [config]="passwordConfig"\n`;
+    code += `    appControlConnector>\n`;
+    code += `  </app-form-field-input>\n\n`;
+
+    code += `  <app-form-field-input\n`;
+    code += `    formControlName="age"\n`;
+    code += `    [config]="ageConfig"\n`;
+    code += `    appControlConnector>\n`;
+    code += `  </app-form-field-input>\n\n`;
+
+    code += `  <app-form-field-input\n`;
+    code += `    formControlName="phone"\n`;
+    code += `    [config]="phoneConfig"\n`;
+    code += `    appControlConnector>\n`;
+    code += `  </app-form-field-input>\n\n`;
+
+    code += `  <button type="submit">Submit</button>\n`;
+    code += `</form>`;
+
+    return code;
+  }
+
+  goBack(): void {
+    this.router.navigate(['/pds/index']);
+  }
+}

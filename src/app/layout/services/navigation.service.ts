@@ -362,6 +362,12 @@ export class NavigationService {
           url: '/pds/forms-old'
         },
         {
+          id: 'form-gallery',
+          title: 'Formularios (Gallery)',
+          icon: 'assignment',
+          url: '/pds/form-gallery'
+        },
+        {
           id: 'buttons',
           title: 'Botones',
           icon: 'touch_app',

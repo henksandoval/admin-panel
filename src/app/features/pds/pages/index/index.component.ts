@@ -27,6 +27,34 @@ interface ShowcaseItem {
 export class IndexComponent {
   showcaseItems: ShowcaseItem[] = [
     {
+      id: 'form-gallery',
+      title: '🎯 Form Field Gallery',
+      description: 'Complete reference with all field types and working validations. Simple, clean, and functional like BasicFormsOld.',
+      icon: 'grid_view',
+      route: '/pds/form-gallery'
+    },
+    {
+      id: 'form-field-studio',
+      title: '🎨 Form Field Studio',
+      description: 'Ultimate interactive playground with two-column layout, real-world examples, organized tabs, and instant code generation.',
+      icon: 'science',
+      route: '/pds/form-field-studio'
+    },
+    {
+      id: 'form-field-showcase',
+      title: 'Form Field Showcase ⭐',
+      description: 'Clean, simple example of app-form-field-input with ngModel. Perfect for learning the basics without complexity.',
+      icon: 'input',
+      route: '/pds/form-field-showcase'
+    },
+    {
+      id: 'dynamic-forms',
+      title: 'Dynamic Forms (Advanced)',
+      description: 'Enhanced interactive playground with working validations, multiple examples, and real-time configuration.',
+      icon: 'science',
+      route: '/pds/dynamic-forms'
+    },
+    {
       id: 'forms',
       title: 'Form Fields',
       description: 'Input fields, textareas, and form controls with various appearances and configurations.',

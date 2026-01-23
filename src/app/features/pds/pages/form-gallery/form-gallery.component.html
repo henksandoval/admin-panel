@@ -1,0 +1,371 @@
+<div class="form-gallery">
+  <!-- Header -->
+  <div class="gallery-header">
+    <div class="header-content">
+      <div class="header-title">
+        <mat-icon class="header-icon">grid_view</mat-icon>
+        <div>
+          <h1 class="title">Form Field Gallery</h1>
+          <p class="subtitle">Complete reference with all field types and working validations</p>
+        </div>
+      </div>
+      <app-button
+        variant="text"
+        (clicked)="goBack()"
+        iconBefore="arrow_back">
+        Back to PDS Index
+      </app-button>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="gallery-main">
+    <!-- Left Column: Complete Form -->
+    <div class="form-column">
+      <mat-card class="form-card">
+        <mat-card-header>
+          <div class="card-header-content">
+            <mat-icon class="card-icon">description</mat-icon>
+            <mat-card-title>Complete Form Example</mat-card-title>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content class="form-content">
+          <p class="form-description">
+            All field types with real validations. Try entering invalid data to see errors.
+          </p>
+
+          <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="gallery-form">
+            <!-- Basic Text -->
+            <app-form-field-input
+              formControlName="basicText"
+              [config]="basicTextConfig()"
+              appControlConnector>
+            </app-form-field-input>
+
+            <!-- Email (required + email validation) -->
+            <app-form-field-input
+              formControlName="email"
+              [config]="emailConfig()"
+              appControlConnector>
+            </app-form-field-input>
+
+            <!-- Password (required + minLength(8)) -->
+            <app-form-field-input
+              formControlName="password"
+              [config]="passwordConfig()"
+              appControlConnector>
+            </app-form-field-input>
+
+            <!-- Age (required + min(18) + max(99)) -->
+            <app-form-field-input
+              formControlName="age"
+              [config]="ageConfig()"
+              appControlConnector>
+            </app-form-field-input>
+
+            <!-- Phone (required) -->
+            <app-form-field-input
+              formControlName="phone"
+              [config]="phoneConfig()"
+              appControlConnector>
+            </app-form-field-input>
+
+            <!-- Form Status Display -->
+            <div class="status-card">
+              <h4 class="status-title">Form Status</h4>
+              <div class="status-grid">
+                <div class="status-item">
+                  <span class="status-label">Status:</span>
+                  <span [class]="'status-badge status-' + formStatus().toLowerCase()">
+                    @if (formStatus() === 'VALID') {
+                      <mat-icon class="status-icon">check_circle</mat-icon>
+                    } @else if (formStatus() === 'INVALID') {
+                      <mat-icon class="status-icon">error</mat-icon>
+                    }
+                    {{ formStatus() }}
+                  </span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">Valid:</span>
+                  <span class="status-value">{{ formValid() }}</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">Touched:</span>
+                  <span class="status-value">{{ formTouched() }}</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-label">Dirty:</span>
+                  <span class="status-value">{{ formDirty() }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-actions">
+              <app-button
+                type="submit"
+                variant="filled"
+                color="primary"
+                iconBefore="send">
+                Submit Form
+              </app-button>
+
+              <app-button
+                type="button"
+                variant="outlined"
+                color="secondary"
+                iconBefore="refresh"
+                (clicked)="resetForm()">
+                Reset
+              </app-button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Right Column: Visual Controls -->
+    <div class="controls-column">
+      <mat-card class="controls-card">
+        <mat-card-header>
+          <div class="card-header-content">
+            <mat-icon class="card-icon">tune</mat-icon>
+            <mat-card-title>Visual Controls</mat-card-title>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content class="controls-content">
+          <p class="controls-description">
+            Change visual appearance of all fields (validations stay the same)
+          </p>
+
+          <div class="control-section">
+            <label class="control-label">
+              <mat-icon class="label-icon">style</mat-icon>
+              Appearance Style
+            </label>
+            <app-toggle-group
+              [options]="appearanceOptions"
+              [(value)]="globalAppearance"
+              class="w-full" />
+            <p class="control-hint">Changes the Material Design style of all fields</p>
+          </div>
+
+          <mat-divider class="section-divider"></mat-divider>
+
+          <div class="control-section">
+            <label class="control-label">
+              <mat-icon class="label-icon">visibility</mat-icon>
+              Show/Hide Elements
+            </label>
+
+            <div class="checkbox-group">
+              <app-checkbox [(checked)]="showIcons" color="primary">
+                <div class="checkbox-label">
+                  <mat-icon class="checkbox-icon">insert_emoticon</mat-icon>
+                  <span>Show Icons</span>
+                </div>
+              </app-checkbox>
+
+              <app-checkbox [(checked)]="showHints" color="primary">
+                <div class="checkbox-label">
+                  <mat-icon class="checkbox-icon">info</mat-icon>
+                  <span>Show Hints</span>
+                </div>
+              </app-checkbox>
+
+              <app-checkbox [(checked)]="showPrefixSuffix" color="primary">
+                <div class="checkbox-label">
+                  <mat-icon class="checkbox-icon">text_format</mat-icon>
+                  <span>Show Prefix/Suffix</span>
+                </div>
+              </app-checkbox>
+            </div>
+          </div>
+
+          <mat-divider class="section-divider"></mat-divider>
+
+          <div class="info-card">
+            <mat-icon class="info-icon">lightbulb</mat-icon>
+            <div class="info-content">
+              <h4 class="info-title">Try It!</h4>
+              <p class="info-text">
+                Enter invalid data in the fields to see validation errors in real-time.
+                The visual controls only affect appearance, not validations.
+              </p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Documentation Tabs -->
+  <div class="documentation-section">
+    <mat-card class="documentation-card">
+      <mat-card-content class="documentation-content">
+        <mat-tab-group
+          animationDuration="300ms"
+          class="documentation-tabs">
+
+          <!-- Tab 1: Field Examples -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon">code</mat-icon>
+              Field Examples
+            </ng-template>
+
+            <div class="tab-content">
+              <h3 class="tab-title">Individual Field Code</h3>
+              <p class="tab-description">
+                Copy the code for any field type to use in your project
+              </p>
+
+              <div class="examples-grid">
+                @for (example of FIELD_EXAMPLES; track example.id) {
+                  <div class="example-card">
+                    <div class="example-header">
+                      <mat-icon class="example-icon">{{ example.icon }}</mat-icon>
+                      <div>
+                        <h4 class="example-title">{{ example.title }}</h4>
+                        <p class="example-description">{{ example.description }}</p>
+                      </div>
+                    </div>
+
+                    <div class="example-info">
+                      <div class="info-badge">
+                        <mat-icon class="badge-icon">check_circle</mat-icon>
+                        <span>{{ example.validators }}</span>
+                      </div>
+                    </div>
+
+                    <app-button
+                      variant="outlined"
+                      size="small"
+                      iconBefore="content_copy"
+                      (clicked)="copyCode(example.id)"
+                      class="w-full">
+                      Copy Code
+                    </app-button>
+                  </div>
+                }
+              </div>
+            </div>
+          </mat-tab>
+
+          <!-- Tab 2: Complete Form -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon">article</mat-icon>
+              Complete Form
+            </ng-template>
+
+            <div class="tab-content">
+              <h3 class="tab-title">Complete Form Code</h3>
+              <p class="tab-description">
+                Copy the entire form with all fields
+              </p>
+
+              <div class="code-section">
+                <div class="code-header">
+                  <h4 class="code-title">TypeScript + HTML</h4>
+                  <app-button
+                    variant="filled"
+                    size="small"
+                    iconBefore="content_copy"
+                    (clicked)="copyCompleteForm()">
+                    Copy All Code
+                  </app-button>
+                </div>
+
+                <pre class="code-block"><code>// Form Initialization
+form = this.fb.group(&#123;
+  basicText: [''],
+  email: ['', [Validators.required, Validators.email]],
+  password: ['', [Validators.required, Validators.minLength(8)]],
+  age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
+  phone: ['', [Validators.required]]
+&#125;);
+
+// HTML Template
+&lt;form [formGroup]="form" (ngSubmit)="onSubmit()"&gt;
+  &lt;app-form-field-input
+    formControlName="email"
+    [config]="emailConfig"
+    appControlConnector&gt;
+  &lt;/app-form-field-input&gt;
+
+  &lt;!-- More fields... --&gt;
+&lt;/form&gt;</code></pre>
+              </div>
+            </div>
+          </mat-tab>
+
+          <!-- Tab 3: API Reference -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon">api</mat-icon>
+              API Reference
+            </ng-template>
+
+            <div class="tab-content">
+              <h3 class="tab-title">FormFieldInputOptions API</h3>
+              <p class="tab-description">
+                Complete reference of all available configuration options
+              </p>
+
+              <div class="api-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Property</th>
+                      <th>Type</th>
+                      <th>Default</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (prop of API_PROPERTIES; track prop.name) {
+                      <tr>
+                        <td class="prop-name">{{ prop.name }}</td>
+                        <td class="prop-type">{{ prop.type }}</td>
+                        <td class="prop-default">{{ prop.defaultValue || '-' }}</td>
+                        <td class="prop-description">{{ prop.description }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </mat-tab>
+
+          <!-- Tab 4: Best Practices -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon">tips_and_updates</mat-icon>
+              Best Practices
+            </ng-template>
+
+            <div class="tab-content">
+              <h3 class="tab-title">Best Practices Guide</h3>
+              <p class="tab-description">
+                Follow these guidelines for optimal form field usage
+              </p>
+
+              <div class="practices-grid">
+                @for (practice of BEST_PRACTICES; track practice.label) {
+                  <div class="practice-card">
+                    <mat-icon class="practice-icon">{{ practice.icon }}</mat-icon>
+                    <h4 class="practice-title">{{ practice.label }}</h4>
+                    <p class="practice-text">{{ practice.text }}</p>
+                  </div>
+                }
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
