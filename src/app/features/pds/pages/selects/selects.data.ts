@@ -217,26 +217,32 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
 
 export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   {
+    icon: 'format_list_numbered',
     label: 'Límite de Opciones',
     text: 'Para más de 15 opciones, considera agregar funcionalidad de búsqueda o usar opciones agrupadas'
   },
   {
+    icon: 'check_circle',
     label: 'Selección por Defecto',
     text: 'Para campos requeridos, considera pre-seleccionar un valor sensato para reducir fricción'
   },
   {
+    icon: 'label',
     label: 'Labels vs Placeholders',
     text: 'Siempre usa un label. Los placeholders desaparecen al seleccionar, dificultando la revisión de formularios'
   },
   {
+    icon: 'sort_by_alpha',
     label: 'Orden Alfabético',
     text: 'Ordena las opciones alfabéticamente a menos que haya un orden lógico (ej: prioridad, frecuencia)'
   },
   {
+    icon: 'checklist',
     label: 'Múltiple vs Checkboxes',
     text: 'Usa select múltiple para listas. Para 2-5 opciones, considera checkboxes individuales'
   },
   {
+    icon: 'error_outline',
     label: 'Mensajes de Error',
     text: 'Proporciona mensajes de error claros y accionables que indiquen cómo resolver el problema'
   }

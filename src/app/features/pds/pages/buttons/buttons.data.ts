@@ -146,7 +146,7 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
 ];
 
 export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
-  { label: 'Jerarquía', text: 'Usa solo un botón de alto énfasis por sección.' },
-  { label: 'Consistencia', text: 'Mantén el mismo variant para acciones similares.' },
-  { label: 'Diálogos', text: 'Filled para confirmar, Outlined para cancelar.' }
+  { icon: 'priority_high', label: 'Jerarquía', text: 'Usa solo un botón de alto énfasis por sección.' },
+  { icon: 'sync_alt', label: 'Consistencia', text: 'Mantén el mismo variant para acciones similares.' },
+  { icon: 'chat_bubble_outline', label: 'Diálogos', text: 'Filled para confirmar, Outlined para cancelar.' }
 ];

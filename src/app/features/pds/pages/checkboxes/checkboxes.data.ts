@@ -90,10 +90,10 @@ export const CHECKBOX_SIZES: Array<{ value: CheckboxSize; label: string }> = [
 ];
 
 export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
-  { label: 'Labels', text: 'Usa textos claros y descriptivos que indiquen qué representa la selección.' },
-  { label: 'Agrupación', text: 'Agrupa checkboxes relacionados bajo un título común.' },
-  { label: 'Indeterminate', text: 'Usa para "Seleccionar todos" cuando hay selección parcial de elementos hijos.' },
-  { label: 'Accesibilidad', text: 'Marca como required los campos obligatorios y usa ariaLabel cuando no hay texto visible.' }
+  { icon: 'title', label: 'Labels', text: 'Usa textos claros y descriptivos que indiquen qué representa la selección.' },
+  { icon: 'layers', label: 'Agrupación', text: 'Agrupa checkboxes relacionados bajo un título común.' },
+  { icon: 'indeterminate_check_box', label: 'Indeterminate', text: 'Usa para "Seleccionar todos" cuando hay selección parcial de elementos hijos.' },
+  { icon: 'accessibility', label: 'Accesibilidad', text: 'Marca como required los campos obligatorios y usa ariaLabel cuando no hay texto visible.' }
 ];
 
 export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [

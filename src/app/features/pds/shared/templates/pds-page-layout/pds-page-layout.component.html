@@ -105,6 +105,7 @@
     <div class="xl:col-span-12">
       @if (bestPractices().length > 0) {
         <app-pds-best-practices
+          [componentTag]="componentTag()"
           [practices]="bestPractices()">
         </app-pds-best-practices>
       }

@@ -178,8 +178,8 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
 ];
 
 export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
-  { label: 'Labels', text: 'Usa labels descriptivos que indiquen claramente qué se espera del usuario.' },
-  { label: 'Placeholders', text: 'Los placeholders deben ser ejemplos, no instrucciones. Usa hints para instrucciones.' },
-  { label: 'Validación', text: 'Muestra errores de validación en tiempo real después del primer intento o blur.' },
-  { label: 'Accesibilidad', text: 'Siempre incluye labels, marca campos requeridos y proporciona mensajes de error claros.' }
+  { icon: 'label', label: 'Labels', text: 'Usa labels descriptivos que indiquen claramente qué se espera del usuario.' },
+  { icon: 'short_text', label: 'Placeholders', text: 'Los placeholders deben ser ejemplos, no instrucciones. Usa hints para instrucciones.' },
+  { icon: 'check_circle', label: 'Validación', text: 'Muestra errores de validación en tiempo real después del primer intento o blur.' },
+  { icon: 'accessibility', label: 'Accesibilidad', text: 'Siempre incluye labels, marca campos requeridos y proporciona mensajes de error claros.' }
 ];

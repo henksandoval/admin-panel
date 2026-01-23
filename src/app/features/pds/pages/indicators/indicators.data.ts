@@ -122,8 +122,8 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
 ];
 
 export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
-  { label: 'Overlay', text: 'Usa badges overlay para notificaciones y contadores en iconos.' },
-  { label: 'Inline', text: 'Usa badges inline para estados, etiquetas y categorías en el contenido.' },
-  { label: 'Números', text: 'Para cantidades mayores a 99, muestra "99+".' },
-  { label: 'Colores', text: 'Usa colores semánticos: error para urgente, success para completado, warning para atención.' }
+  { icon: 'layers', label: 'Overlay', text: 'Usa badges overlay para notificaciones y contadores en iconos.' },
+  { icon: 'view_stream', label: 'Inline', text: 'Usa badges inline para estados, etiquetas y categorías en el contenido.' },
+  { icon: 'plus_one', label: 'Números', text: 'Para cantidades mayores a 99, muestra "99+".' },
+  { icon: 'palette', label: 'Colores', text: 'Usa colores semánticos: error para urgente, success para completado, warning para atención.' }
 ];

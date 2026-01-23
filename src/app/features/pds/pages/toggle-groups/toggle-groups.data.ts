@@ -195,26 +195,32 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
 
 export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   {
+    icon: 'filter_2',
     label: 'Opciones Limitadas',
     text: 'Usa toggle groups para 2-5 opciones. Para más opciones, considera un select o radio buttons'
   },
   {
+    icon: 'title',
     label: 'Labels Claros',
     text: 'Las etiquetas deben ser cortas, claras y mutuamente exclusivas. Evita ambigüedad'
   },
   {
+    icon: 'emoji_symbols',
     label: 'Iconos Reconocibles',
     text: 'Cuando uses iconos sin texto, asegúrate de que sean universalmente reconocidos y agrega aria-label'
   },
   {
+    icon: 'toggle_on',
     label: 'Estado Inicial',
     text: 'Para single selection, considera tener una opción pre-seleccionada por defecto'
   },
   {
+    icon: 'layers',
     label: 'Agrupación Lógica',
     text: 'Agrupa opciones relacionadas juntas. No mezcles categorías diferentes en un mismo toggle group'
   },
   {
+    icon: 'visibility',
     label: 'Feedback Visual',
     text: 'El estado seleccionado debe ser claramente visible y distinguible del no seleccionado'
   }

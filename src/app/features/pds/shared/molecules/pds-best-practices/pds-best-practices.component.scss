@@ -1,24 +1,32 @@
-
-.alert-tip {
+.practice-item {
   background-color: var(--mat-sys-tertiary-container);
   border-color: var(--mat-sys-tertiary);
   color: var(--mat-sys-on-tertiary-container);
+  border-width: 2px;
 
-  mat-icon {
-    color: var(--mat-sys-tertiary);
+  &:hover {
+    border-color: var(--mat-sys-primary);
+    box-shadow: 0 8px 24px var(--overlay-shadow-15);
+    transform: translateY(-2px);
   }
-}
 
-.alert-title {
-  color: var(--mat-sys-on-tertiary-container);
-}
+  .practice-icon {
+    color: var(--mat-sys-tertiary);
+    opacity: 0.7;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
 
-.alert-content {
-  color: var(--mat-sys-on-tertiary-container);
-  opacity: 0.9;
-}
+  .practice-label {
+    color: var(--mat-sys-on-tertiary-container);
+    font-size: 14px;
+  }
 
-.alert-label {
-  color: var(--mat-sys-tertiary);
-  font-weight: 600;
+  .practice-text {
+    color: var(--mat-sys-on-tertiary-container);
+    opacity: 0.8;
+    line-height: 1.5;
+  }
 }
