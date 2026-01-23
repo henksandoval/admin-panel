@@ -356,6 +356,12 @@ export class NavigationService {
           url: '/pds/forms'
         },
         {
+          id: 'forms-old',
+          title: 'Formularios (old)',
+          icon: 'assignment',
+          url: '/pds/forms-old'
+        },
+        {
           id: 'buttons',
           title: 'Botones',
           icon: 'touch_app',

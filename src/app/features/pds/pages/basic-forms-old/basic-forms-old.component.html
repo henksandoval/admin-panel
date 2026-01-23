@@ -1,0 +1,110 @@
+<div class="p-6">
+  <!-- Header -->
+  <div class="mb-6">
+    <button mat-button (click)="goBack()" color="primary">
+      <mat-icon class="mr-2">arrow_back</mat-icon>
+      Volver al Showcase
+    </button>
+    <h1 class="text-3xl font-bold mb-2 text-primary">
+      Componente: Form Field Input
+    </h1>
+    <p class="text-lg text-on-surface-variant">
+      Ejemplos de uso del componente wrapper <code class="bg-gray-200 p-1 rounded">app-form-field-input</code>.
+    </p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <mat-card class="mb-8 shadow-lg">
+          <mat-card-header>
+            <mat-card-title class="text-xl font-semibold">Uso Básico</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="p-6">
+            <app-form-field-input
+              formControlName="basicField"
+              [config]="basicFieldConfig"
+              appControlConnector>
+            </app-form-field-input>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mb-8 shadow-lg">
+          <mat-card-header>
+            <mat-card-title class="text-xl font-semibold">Características Visuales</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="p-6">
+            <app-form-field-input
+              formControlName="fullFeatureField"
+              [config]="fullFeatureConfig"
+              appControlConnector>
+            </app-form-field-input>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mb-8 shadow-lg">
+          <mat-card-header>
+            <mat-card-title class="text-xl font-semibold">Validación y Errores</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="p-6">
+            <app-form-field-input
+              formControlName="email"
+              [config]="emailConfig"
+              appControlConnector>
+            </app-form-field-input>
+
+            <app-form-field-input
+              formControlName="password"
+              [config]="passwordConfig"
+              appControlConnector>
+            </app-form-field-input>
+
+            <app-form-field-input
+              formControlName="age"
+              [config]="ageConfig"
+              appControlConnector>
+            </app-form-field-input>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mb-8 shadow-lg">
+          <mat-card-header>
+            <mat-card-title class="text-xl font-semibold">Estados del Campo</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="p-6">
+            <app-form-field-input
+              formControlName="disabledField"
+              [config]="disabledConfig"
+              appControlConnector>
+            </app-form-field-input>
+          </mat-card-content>
+        </mat-card>
+
+        <button mat-raised-button color="primary" type="submit">
+          Enviar Formulario
+        </button>
+      </div>
+
+      <div>
+        <mat-card class="shadow-lg form-state-card sticky top-6">
+          <mat-card-header>
+            <mat-card-title class="text-xl font-semibold">Estado del Formulario en Vivo</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="p-6 text-sm">
+            <h3 class="font-bold">Form Status:</h3>
+            <pre>{{ form.status | json }}</pre>
+
+            <h3 class="font-bold mt-4">Form Touched:</h3>
+            <pre>{{ form.touched | json }}</pre>
+
+            <h3 class="font-bold mt-4">Form Dirty:</h3>
+            <pre>{{ form.dirty | json }}</pre>
+
+            <h3 class="font-bold mt-4">Form Value:</h3>
+            <pre class="whitespace-pre-wrap break-words">{{ form.value | json }}</pre>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </form>
+</div>
