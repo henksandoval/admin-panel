@@ -1,17 +1,4 @@
-.page-title {
-  color: var(--mat-sys-on-surface);
-}
-
-.page-description {
-  color: var(--mat-sys-on-surface-variant);
-}
-
-.section-title {
-  color: var(--mat-sys-on-surface);
-}
-
 .section-label {
-  color: var(--mat-sys-on-surface-variant);
   opacity: 0.7;
 }
 
@@ -26,9 +13,6 @@
   border-color: var(--mat-sys-outline-variant);
 }
 
-.card-title {
-  color: var(--mat-sys-on-surface);
-}
 
 .preview-container {
   border-color: var(--mat-sys-outline-variant);
@@ -37,27 +21,19 @@
 
 .inline-code {
   background-color: var(--mat-sys-surface-container);
-  color: var(--mat-sys-on-surface);
   border-color: var(--mat-sys-outline-variant);
 }
 
 .code-card {
   background-color: var(--mat-sys-surface-container-highest);
   border-color: var(--mat-sys-outline);
-  color: var(--mat-sys-on-surface);
 
   .code-header {
     border-color: var(--mat-sys-outline);
-    color: var(--mat-sys-on-surface-variant);
-
-    mat-icon {
-      color: var(--mat-sys-on-surface-variant);
-    }
   }
 
   .code-footer {
     background-color: var(--mat-sys-surface-container-low);
-    color: var(--mat-sys-on-surface-variant);
     border-color: var(--mat-sys-outline);
     opacity: 0.8;
   }
@@ -111,12 +87,7 @@
   border-color: var(--mat-sys-outline-variant);
 
   .info-box-title {
-    color: var(--mat-sys-on-surface-variant);
     text-transform: uppercase;
-  }
-
-  .info-box-content {
-    color: var(--mat-sys-on-surface);
   }
 
   mat-icon {
@@ -132,7 +103,6 @@
 
 .example-tag {
   background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
   border-color: var(--mat-sys-outline-variant);
 }
 
@@ -147,7 +117,6 @@
   }
 
   code {
-    color: var(--mat-sys-on-surface-variant);
     opacity: 0.7;
   }
 }
@@ -189,14 +158,6 @@
       color: var(--mat-sys-primary);
     }
   }
-
-  .api-title {
-    color: var(--mat-sys-on-surface);
-  }
-
-  .api-description {
-    color: var(--mat-sys-on-surface-variant);
-  }
 }
 
 .api-card {
@@ -219,10 +180,6 @@
 
   .api-decorator {
     background-color: var(--mat-sys-surface-container-low);
-    color: var(--mat-sys-on-surface-variant);
-  }
-
-  .api-description-text {
     color: var(--mat-sys-on-surface-variant);
   }
 
