@@ -39,7 +39,6 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
 export default class SelectsComponent {
   private readonly router = inject(Router);
 
-  // State signals
   selectedState = signal<'single' | 'multiple' | 'grouped' | 'disabled'>('single');
   selectedAppearance = signal<SelectAppearance>(SELECT_DEFAULTS.appearance);
   selectedSize = signal<SelectSize>(SELECT_DEFAULTS.size);
@@ -47,17 +46,14 @@ export default class SelectsComponent {
   showHint = signal<boolean>(false);
   isRequired = signal<boolean>(false);
 
-  // Value signals for preview
   singleValue = signal<string | null>(null);
   multipleValue = signal<string[]>([]);
   groupedValue = signal<string | null>(null);
 
-  // Data
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly SELECT_STATE_GUIDES = SELECT_STATE_GUIDES;
 
-  // Toggle options
   readonly stateOptions: ToggleOption[] = [
     { value: 'single', label: 'Single' },
     { value: 'multiple', label: 'Multiple' },
@@ -75,8 +71,6 @@ export default class SelectsComponent {
     { value: 'medium', label: 'M' },
     { value: 'large', label: 'L' }
   ];
-
-  // Computed properties
 
   currentOptions = computed<SelectOption<string>[]>(() => {
     const state = this.selectedState();

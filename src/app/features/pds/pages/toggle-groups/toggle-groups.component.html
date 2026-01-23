@@ -8,12 +8,10 @@
   [variantGuides]="TOGGLE_GROUP_STATE_GUIDES"
   [currentVariant]="selectedState()">
 
-  <!-- Header Action -->
   <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
     Back to PDS Index
   </app-button>
 
-  <!-- Preview -->
   <div slot="preview">
     @if (selectedState() === 'single') {
       <div class="flex flex-col items-center gap-4">
@@ -81,7 +79,6 @@
     }
   </div>
 
-  <!-- Controls -->
   <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
@@ -122,11 +119,6 @@
       <app-checkbox [(checked)]="isVertical" color="primary">Vertical Layout</app-checkbox>
       <app-checkbox [(checked)]="isDisabled" color="tertiary">Disabled State</app-checkbox>
     </div>
-  </div>
-
-  <!-- Documentation -->
-  <div slot="documentation">
-    <!-- Add toggle-group-specific documentation here if needed -->
   </div>
 
 </app-pds-page-layout>

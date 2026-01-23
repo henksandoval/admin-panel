@@ -10,43 +10,6 @@ import {PdsBestPracticesComponent} from '../../molecules/pds-best-practices/pds-
 import {PdsPreviewCardComponent} from '../../molecules/pds-preview-card/pds-preview-card.component';
 import {PdsApiReferenceComponent} from '../../molecules/pds-api-reference/pds-api-reference.component';
 
-/**
- * Layout Shell component for PDS component playgrounds.
- * Implements the "Orquestador" pattern - manages the COMPLETE page structure
- * and renders all documentation sections internally.
- *
- * This is a true "Smart Container" that:
- * - Accepts pure data via Inputs
- * - Uses multi-slot content projection for interactive areas
- * - Renders all structural elements (header, API table, best practices)
- * - Conditionally shows sections based on data availability
- *
- * @example
- * ```html
- * <app-pds-page-layout
- *   title="Button Component"
- *   description="Interactive playground for button component"
- *   componentTag="<app-button>"
- *   [code]="generatedCode()"
- *   [apiProperties]="API_PROPERTIES"
- *   [bestPractices]="BEST_PRACTICES">
- *
- *   <app-button slot="header-action">Back</app-button>
- *
- *   <div slot="preview">
- *     <app-button>Click me</app-button>
- *   </div>
- *
- *   <div slot="controls">
- *     <!-- Control elements -->
- *   </div>
- *
- *   <div slot="documentation">
- *     <!-- Additional custom documentation -->
- *   </div>
- * </app-pds-page-layout>
- * ```
- */
 @Component({
   selector: 'app-pds-page-layout',
   standalone: true,
@@ -63,7 +26,6 @@ import {PdsApiReferenceComponent} from '../../molecules/pds-api-reference/pds-ap
   styleUrl: './pds-page-layout.component.scss'
 })
 export class PdsPageLayoutComponent {
-  // Pure data inputs
   title = input.required<string>();
   description = input.required<string>();
   componentTag = input.required<string>();
@@ -71,22 +33,18 @@ export class PdsPageLayoutComponent {
   apiProperties = input<PdsApiReferencePropertyModel[]>([]);
   bestPractices = input<PdsBestPracticeItemModel[]>([]);
 
-  // Variant guides (optional)
   variantGuides = input<PdsVariantGuideModel[]>([]);
   currentVariant = input<string>('');
 
-  // Computed current variant guide
   currentVariantGuide = computed(() => {
     const variant = this.currentVariant();
     const guides = this.variantGuides();
     return guides.find(guide => guide.variant === variant);
   });
 
-  // Optional configuration
   backRoute = input<string>('/pds/index');
   showBackButton = input<boolean>(true);
 
-  // Helper methods for styling
   getEmphasisBadgeClasses(emphasis: 'high' | 'medium' | 'low'): string {
     const classMap = {
       high: 'emphasis-badge high',

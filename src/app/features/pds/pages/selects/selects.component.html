@@ -8,12 +8,10 @@
   [variantGuides]="SELECT_STATE_GUIDES"
   [currentVariant]="selectedState()">
 
-  <!-- Header Action -->
   <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
     Back to PDS Index
   </app-button>
 
-  <!-- Live Preview Section -->
   <div slot="preview" class="w-full">
     @if (selectedState() === 'single') {
       <div class="w-full max-w-sm">
@@ -98,7 +96,6 @@
     }
   </div>
 
-  <!-- Controls Section -->
   <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
@@ -141,10 +138,4 @@
       <app-checkbox [(checked)]="isRequired" color="tertiary">Required Field</app-checkbox>
     </div>
   </div>
-
-  <!-- Documentation Section -->
-  <div slot="documentation">
-    <!-- Add select-specific documentation here if needed -->
-  </div>
-
 </app-pds-page-layout>

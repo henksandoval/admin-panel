@@ -69,7 +69,6 @@ export default class ButtonsComponent {
     { value: 'large', label: 'L' }
   ];
 
-
   generatedCode = computed(() => {
     const variant = this.selectedVariant();
     const color = this.selectedColor();

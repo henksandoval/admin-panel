@@ -77,7 +77,6 @@ export default class CheckboxesComponent {
   isChecked = computed(() => this.selectedState() === 'checked');
   isIndeterminate = computed(() => this.selectedState() === 'indeterminate');
 
-
   generatedCode = computed(() => {
     const state = this.selectedState();
     const color = this.selectedColor();

@@ -8,12 +8,10 @@
   [variantGuides]="BADGE_VARIANT_GUIDES"
   [currentVariant]="selectedVariant()">
 
-  <!-- Header Action -->
   <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
     Back to PDS Index
   </app-button>
 
-  <!-- Preview -->
   <div slot="preview">
     @if (selectedVariant() === 'overlay') {
       <app-badge
@@ -34,7 +32,6 @@
     }
   </div>
 
-  <!-- Controls -->
   <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
@@ -93,7 +90,6 @@
     }
   </div>
 
-  <!-- Documentation -->
   <div slot="documentation">
     @if (selectedVariant() === 'overlay') {
       <section>
