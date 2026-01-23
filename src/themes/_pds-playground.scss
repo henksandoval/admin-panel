@@ -1,4 +1,5 @@
 .section-label {
+  color: var(--mat-sys-on-surface-variant);
   opacity: 0.7;
 }
 
@@ -13,96 +14,14 @@
   border-color: var(--mat-sys-outline-variant);
 }
 
-
 .preview-container {
   border-color: var(--mat-sys-outline-variant);
   background-image: url('https://bg.ibelick.com/dot-grid.svg');
 }
 
 .inline-code {
-  background-color: var(--mat-sys-surface-container);
-  border-color: var(--mat-sys-outline-variant);
-}
-
-.code-card {
-  background-color: var(--mat-sys-surface-container-highest);
-  border-color: var(--mat-sys-outline);
-
-  .code-header {
-    border-color: var(--mat-sys-outline);
-  }
-
-  .code-footer {
-    background-color: var(--mat-sys-surface-container-low);
-    border-color: var(--mat-sys-outline);
-    opacity: 0.8;
-  }
-
-  pre {
-    color: var(--mat-sys-primary);
-    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
-    margin: 0;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-
-    code {
-      color: inherit;
-    }
-  }
-}
-
-.emphasis-badge {
-  &.high {
-    background-color: var(--mat-sys-primary-container);
-    color: var(--mat-sys-on-primary-container);
-  }
-
-  &.medium {
-    background-color: var(--mat-sys-secondary-container);
-    color: var(--mat-sys-on-secondary-container);
-  }
-
-  &.low {
-    background-color: var(--mat-sys-tertiary-container);
-    color: var(--mat-sys-on-tertiary-container);
-  }
-}
-
-.card-border {
-  &.high {
-    border-left: 4px solid var(--mat-sys-primary);
-  }
-
-  &.medium {
-    border-left: 4px solid var(--mat-sys-secondary);
-  }
-
-  &.low {
-    border-left: 4px solid var(--mat-sys-tertiary);
-  }
-}
-
-.info-box {
-  background-color: var(--mat-sys-surface-container-low);
-  border-color: var(--mat-sys-outline-variant);
-
-  .info-box-title {
-    text-transform: uppercase;
-  }
-
-  mat-icon {
-    &.success {
-      color: var(--mat-sys-tertiary);
-    }
-
-    &.info {
-      color: var(--mat-sys-primary);
-    }
-  }
-}
-
-.example-tag {
-  background-color: var(--mat-sys-surface);
+  background-color: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-primary);
   border-color: var(--mat-sys-outline-variant);
 }
 
@@ -121,30 +40,6 @@
   }
 }
 
-.alert-tip {
-  background-color: var(--mat-sys-tertiary-container);
-  border-color: var(--mat-sys-tertiary);
-  color: var(--mat-sys-on-tertiary-container);
-
-  mat-icon {
-    color: var(--mat-sys-tertiary);
-  }
-
-  .alert-title {
-    color: var(--mat-sys-on-tertiary-container);
-  }
-
-  .alert-content {
-    color: var(--mat-sys-on-tertiary-container);
-    opacity: 0.9;
-
-    .alert-label {
-      color: var(--mat-sys-tertiary);
-      font-weight: 600;
-    }
-  }
-}
-
 .api-section-header {
   .api-icon-container {
     background: linear-gradient(
@@ -157,6 +52,14 @@
     mat-icon {
       color: var(--mat-sys-primary);
     }
+  }
+
+  .api-title {
+    color: var(--mat-sys-on-surface);
+  }
+
+  .api-description {
+    color: var(--mat-sys-on-surface-variant);
   }
 }
 
@@ -183,6 +86,14 @@
     color: var(--mat-sys-on-surface-variant);
   }
 
+  .api-description-text {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .api-label {
+    color: var(--mat-sys-on-surface);
+  }
+
   .api-type {
     background-color: var(--mat-sys-surface-container-low);
     color: var(--mat-sys-on-surface-variant);
@@ -200,8 +111,9 @@
       border-color: var(--mat-sys-outline-variant);
     }
   }
-}
 
-.section-divider {
-  border-color: var(--mat-sys-outline-variant);
+  .api-optional-badge {
+    background-color: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
+  }
 }

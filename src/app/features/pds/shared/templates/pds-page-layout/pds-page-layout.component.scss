@@ -14,153 +14,61 @@
   color: var(--mat-sys-on-surface);
 }
 
-.section-label {
-  color: var(--mat-sys-on-surface-variant);
-  opacity: 0.7;
-}
-
-.back-button {
-  ::ng-deep .mat-mdc-button-persistent-ripple {
-    opacity: 0;
-  }
-}
-
-.card-header {
-  background-color: var(--mat-sys-surface-container-low);
-  border-color: var(--mat-sys-outline-variant);
-}
-
 .card-title {
   color: var(--mat-sys-on-surface);
 }
 
-.preview-container {
-  border-color: var(--mat-sys-outline-variant);
-  background-image: url('https://bg.ibelick.com/dot-grid.svg');
-}
-
-.inline-code {
-  background-color: var(--mat-sys-surface-container-high);
-  color: var(--mat-sys-primary);
-  border-color: var(--mat-sys-outline-variant);
-}
-
-// API Reference Styles
-.api-section-header {
-  .api-icon-container {
-    background: linear-gradient(
-      135deg,
-      var(--mat-sys-primary-container),
-      var(--mat-sys-tertiary-container)
-    );
-    border-color: var(--mat-sys-primary);
-
-    mat-icon {
-      color: var(--mat-sys-primary);
-    }
-  }
-
-  .api-title {
-    color: var(--mat-sys-on-surface);
-  }
-
-  .api-description {
-    color: var(--mat-sys-on-surface-variant);
-  }
-}
-
-.api-card {
-  background-color: var(--mat-sys-surface);
-  border-color: var(--mat-sys-outline);
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    border-color: var(--mat-sys-primary);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-  }
-
-  .api-property {
+.emphasis-badge {
+  &.high {
     background-color: var(--mat-sys-primary-container);
     color: var(--mat-sys-on-primary-container);
-    font-weight: 600;
   }
 
-  .api-decorator {
-    background-color: var(--mat-sys-surface-container-low);
-    color: var(--mat-sys-on-surface-variant);
+  &.medium {
+    background-color: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
   }
 
-  .api-description-text {
-    color: var(--mat-sys-on-surface-variant);
-  }
-
-  .api-label {
-    color: var(--mat-sys-on-surface);
-  }
-
-  .api-type {
-    color: var(--mat-sys-on-surface-variant);
-  }
-
-  .api-default {
-    color: var(--mat-sys-on-surface-variant);
-  }
-
-  .api-optional-badge {
+  &.low {
     background-color: var(--mat-sys-tertiary-container);
     color: var(--mat-sys-on-tertiary-container);
   }
 }
 
-// Best Practices Styles
-.best-practices-header {
-  .best-practices-icon-container {
-    background: linear-gradient(
-      135deg,
-      var(--mat-sys-tertiary-container),
-      var(--mat-sys-secondary-container)
-    );
-    border-color: var(--mat-sys-tertiary);
-
-    mat-icon {
-      color: var(--mat-sys-tertiary);
-    }
+.card-border {
+  &.high {
+    border-left: 4px solid var(--mat-sys-primary);
   }
 
-  .best-practices-title {
-    color: var(--mat-sys-on-surface);
+  &.medium {
+    border-left: 4px solid var(--mat-sys-secondary);
   }
 
-  .best-practices-description {
-    color: var(--mat-sys-on-surface-variant);
+  &.low {
+    border-left: 4px solid var(--mat-sys-tertiary);
   }
 }
 
-.best-practice-card {
-  background-color: var(--mat-sys-surface);
-  border-color: var(--mat-sys-outline);
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+.info-box {
+  background-color: var(--mat-sys-surface-container-low);
+  border-color: var(--mat-sys-outline-variant);
 
-  &:hover {
-    border-color: var(--mat-sys-tertiary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .best-practice-icon-wrapper {
-    mat-icon {
-      color: var(--mat-sys-tertiary);
-    }
-  }
-
-  .best-practice-label {
-    color: var(--mat-sys-on-surface);
+  .info-box-title {
     text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
 
-  .best-practice-text {
-    color: var(--mat-sys-on-surface-variant);
+  mat-icon {
+    &.success {
+      color: var(--mat-sys-tertiary);
+    }
+
+    &.info {
+      color: var(--mat-sys-primary);
+    }
   }
 }
 
+.example-tag {
+  background-color: var(--mat-sys-surface);
+  border-color: var(--mat-sys-outline-variant);
+}
