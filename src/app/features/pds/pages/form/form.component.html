@@ -1,113 +1,104 @@
-<div class="form-gallery">
-  <!-- Header -->
-  <div class="gallery-header">
-    <div class="header-content">
-      <div class="header-title">
-        <mat-icon class="header-icon">grid_view</mat-icon>
-        <div>
-          <h1 class="title">Form Field Gallery</h1>
-          <p class="subtitle">Complete reference with all field types and working validations</p>
-        </div>
+<div class="max-w-7xl mx-auto">
+  <div class="flex items-center justify-between mb-6 p-4 bg-surface-container-highest rounded-lg">
+    <div class="flex items-start gap-4">
+      <mat-icon class="text-primary text-4xl">grid_view</mat-icon>
+      <div>
+        <h1 class="text-3xl font-bold text-on-surface">Form Field Gallery</h1>
+        <p class="text-on-surface-variant mt-1">Complete reference with all field types and working validations</p>
       </div>
-      <app-button
-        variant="text"
-        (clicked)="goBack()"
-        iconBefore="arrow_back">
-        Back to PDS Index
-      </app-button>
     </div>
+    <app-button
+      variant="text"
+      (clicked)="goBack()"
+      iconBefore="arrow_back">
+      Back to PDS Index
+    </app-button>
   </div>
 
-  <!-- Main Layout -->
-  <div class="gallery-main">
-    <!-- Left Column: Complete Form -->
-    <div class="form-column">
-      <mat-card class="form-card">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <div>
+      <mat-card>
         <mat-card-header>
-          <div class="card-header-content">
-            <mat-icon class="card-icon">description</mat-icon>
+          <div class="flex items-center gap-3">
+            <mat-icon class="text-primary">description</mat-icon>
             <mat-card-title>Complete Form Example</mat-card-title>
           </div>
         </mat-card-header>
 
-        <mat-card-content class="form-content">
-          <p class="form-description">
+        <mat-card-content class="pt-4">
+          <p class="text-on-surface-variant mb-6">
             All field types with real validations. Try entering invalid data to see errors.
           </p>
 
-          <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="gallery-form">
-            <!-- Basic Text -->
+          <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
             <app-form-field-input
               formControlName="basicText"
               [config]="basicTextConfig()"
               appControlConnector>
             </app-form-field-input>
 
-            <!-- Email (required + email validation) -->
             <app-form-field-input
               formControlName="email"
               [config]="emailConfig()"
               appControlConnector>
             </app-form-field-input>
 
-            <!-- Password (required + minLength(8)) -->
             <app-form-field-input
               formControlName="password"
               [config]="passwordConfig()"
               appControlConnector>
             </app-form-field-input>
 
-            <!-- Age (required + min(18) + max(99)) -->
             <app-form-field-input
               formControlName="age"
               [config]="ageConfig()"
               appControlConnector>
             </app-form-field-input>
 
-            <!-- Phone (required) -->
             <app-form-field-input
               formControlName="phone"
               [config]="phoneConfig()"
               appControlConnector>
             </app-form-field-input>
 
-            <!-- Form Status Display -->
-            <div class="status-card">
-              <h4 class="status-title">Form Status</h4>
-              <div class="status-grid">
-                <div class="status-item">
-                  <span class="status-label">Status:</span>
-                  <span [class]="'status-badge status-' + formStatus().toLowerCase()">
+            <div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant">
+              <h4 class="text-base font-semibold mb-3 text-on-surface">Form Status</h4>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="flex flex-col gap-1">
+                  <span class="text-xs text-on-surface-variant">Status:</span>
+                  <span class="flex items-center gap-2 text-sm font-medium"
+                        [class.text-tertiary]="formStatus() === 'VALID'"
+                        [class.text-error]="formStatus() === 'INVALID'">
                     @if (formStatus() === 'VALID') {
-                      <mat-icon class="status-icon">check_circle</mat-icon>
+                      <mat-icon class="text-base">check_circle</mat-icon>
                     } @else if (formStatus() === 'INVALID') {
-                      <mat-icon class="status-icon">error</mat-icon>
+                      <mat-icon class="text-base">error</mat-icon>
                     }
                     {{ formStatus() }}
                   </span>
                 </div>
-                <div class="status-item">
-                  <span class="status-label">Valid:</span>
-                  <span class="status-value">{{ formValid() }}</span>
+                <div class="flex flex-col gap-1">
+                  <span class="text-xs text-on-surface-variant">Valid:</span>
+                  <span class="text-sm font-medium">{{ formValid() }}</span>
                 </div>
-                <div class="status-item">
-                  <span class="status-label">Touched:</span>
-                  <span class="status-value">{{ formTouched() }}</span>
+                <div class="flex flex-col gap-1">
+                  <span class="text-xs text-on-surface-variant">Touched:</span>
+                  <span class="text-sm font-medium">{{ formTouched() }}</span>
                 </div>
-                <div class="status-item">
-                  <span class="status-label">Dirty:</span>
-                  <span class="status-value">{{ formDirty() }}</span>
+                <div class="flex flex-col gap-1">
+                  <span class="text-xs text-on-surface-variant">Dirty:</span>
+                  <span class="text-sm font-medium">{{ formDirty() }}</span>
                 </div>
               </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="form-actions">
+            <div class="flex gap-3">
               <app-button
                 type="submit"
                 variant="filled"
                 color="primary"
-                iconBefore="send">
+                iconBefore="send"
+                class="flex-1">
                 Submit Form
               </app-button>
 
@@ -116,7 +107,8 @@
                 variant="outlined"
                 color="secondary"
                 iconBefore="refresh"
-                (clicked)="resetForm()">
+                (clicked)="resetForm()"
+                class="flex-1">
                 Reset
               </app-button>
             </div>
@@ -125,72 +117,71 @@
       </mat-card>
     </div>
 
-    <!-- Right Column: Visual Controls -->
-    <div class="controls-column">
-      <mat-card class="controls-card">
+    <div>
+      <mat-card class="h-full">
         <mat-card-header>
-          <div class="card-header-content">
-            <mat-icon class="card-icon">tune</mat-icon>
+          <div class="flex items-center gap-3">
+            <mat-icon class="text-primary">tune</mat-icon>
             <mat-card-title>Visual Controls</mat-card-title>
           </div>
         </mat-card-header>
 
-        <mat-card-content class="controls-content">
-          <p class="controls-description">
+        <mat-card-content class="flex flex-col gap-6 pt-4">
+          <p class="text-on-surface-variant">
             Change visual appearance of all fields (validations stay the same)
           </p>
 
-          <div class="control-section">
-            <label class="control-label">
-              <mat-icon class="label-icon">style</mat-icon>
+          <div class="flex flex-col gap-3">
+            <label class="flex items-center gap-2 font-medium text-on-surface">
+              <mat-icon class="text-primary">style</mat-icon>
               Appearance Style
             </label>
             <app-toggle-group
               [options]="appearanceOptions"
               [(value)]="globalAppearance"
-              class="w-full" />
-            <p class="control-hint">Changes the Material Design style of all fields</p>
+              class="w-full"/>
+            <p class="text-xs text-on-surface-variant">Changes the Material Design style of all fields</p>
           </div>
 
-          <mat-divider class="section-divider"></mat-divider>
+          <mat-divider></mat-divider>
 
-          <div class="control-section">
-            <label class="control-label">
-              <mat-icon class="label-icon">visibility</mat-icon>
+          <div class="flex flex-col gap-3">
+            <label class="flex items-center gap-2 font-medium text-on-surface">
+              <mat-icon class="text-primary">visibility</mat-icon>
               Show/Hide Elements
             </label>
 
-            <div class="checkbox-group">
+            <div class="flex flex-col gap-3">
               <app-checkbox [(checked)]="showIcons" color="primary">
-                <div class="checkbox-label">
-                  <mat-icon class="checkbox-icon">insert_emoticon</mat-icon>
+                <div class="flex items-center gap-2">
+                  <mat-icon class="text-lg">insert_emoticon</mat-icon>
                   <span>Show Icons</span>
                 </div>
               </app-checkbox>
 
               <app-checkbox [(checked)]="showHints" color="primary">
-                <div class="checkbox-label">
-                  <mat-icon class="checkbox-icon">info</mat-icon>
+                <div class="flex items-center gap-2">
+                  <mat-icon class="text-lg">info</mat-icon>
                   <span>Show Hints</span>
                 </div>
               </app-checkbox>
 
               <app-checkbox [(checked)]="showPrefixSuffix" color="primary">
-                <div class="checkbox-label">
-                  <mat-icon class="checkbox-icon">text_format</mat-icon>
+                <div class="flex items-center gap-2">
+                  <mat-icon class="text-lg">text_format</mat-icon>
                   <span>Show Prefix/Suffix</span>
                 </div>
               </app-checkbox>
             </div>
           </div>
 
-          <mat-divider class="section-divider"></mat-divider>
+          <mat-divider></mat-divider>
 
-          <div class="info-card">
-            <mat-icon class="info-icon">lightbulb</mat-icon>
-            <div class="info-content">
-              <h4 class="info-title">Try It!</h4>
-              <p class="info-text">
+          <div class="bg-surface-container-high p-4 rounded-lg flex gap-3 mt-auto">
+            <mat-icon class="text-tertiary text-2xl">lightbulb</mat-icon>
+            <div>
+              <h4 class="font-semibold text-sm mb-1">Try It!</h4>
+              <p class="text-xs text-on-surface-variant">
                 Enter invalid data in the fields to see validation errors in real-time.
                 The visual controls only affect appearance, not validations.
               </p>
@@ -201,43 +192,36 @@
     </div>
   </div>
 
-  <!-- Documentation Tabs -->
-  <div class="documentation-section">
-    <mat-card class="documentation-card">
-      <mat-card-content class="documentation-content">
-        <mat-tab-group
-          animationDuration="300ms"
-          class="documentation-tabs">
-
-          <!-- Tab 1: Field Examples -->
+  <div>
+    <mat-card>
+      <mat-card-content class="p-0">
+        <mat-tab-group animationDuration="300ms">
           <mat-tab>
             <ng-template mat-tab-label>
-              <mat-icon class="tab-icon">code</mat-icon>
+              <mat-icon class="mr-2">code</mat-icon>
               Field Examples
             </ng-template>
 
-            <div class="tab-content">
-              <h3 class="tab-title">Individual Field Code</h3>
-              <p class="tab-description">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Individual Field Code</h3>
+              <p class="text-on-surface-variant mb-6">
                 Copy the code for any field type to use in your project
               </p>
 
-              <div class="examples-grid">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @for (example of FIELD_EXAMPLES; track example.id) {
-                  <div class="example-card">
-                    <div class="example-header">
-                      <mat-icon class="example-icon">{{ example.icon }}</mat-icon>
-                      <div>
-                        <h4 class="example-title">{{ example.title }}</h4>
-                        <p class="example-description">{{ example.description }}</p>
+                  <div class="border border-outline-variant rounded-lg p-4 flex flex-col gap-3">
+                    <div class="flex items-start gap-3">
+                      <mat-icon class="text-primary text-2xl">{{ example.icon }}</mat-icon>
+                      <div class="flex-1">
+                        <h4 class="font-semibold text-base">{{ example.title }}</h4>
+                        <p class="text-sm text-on-surface-variant">{{ example.description }}</p>
                       </div>
                     </div>
 
-                    <div class="example-info">
-                      <div class="info-badge">
-                        <mat-icon class="badge-icon">check_circle</mat-icon>
-                        <span>{{ example.validators }}</span>
-                      </div>
+                    <div class="flex items-center gap-2 bg-surface-container-low p-2 rounded">
+                      <mat-icon class="text-sm text-tertiary">check_circle</mat-icon>
+                      <span class="text-xs text-on-surface-variant">{{ example.validators }}</span>
                     </div>
 
                     <app-button
@@ -254,22 +238,21 @@
             </div>
           </mat-tab>
 
-          <!-- Tab 2: Complete Form -->
           <mat-tab>
             <ng-template mat-tab-label>
-              <mat-icon class="tab-icon">article</mat-icon>
+              <mat-icon class="mr-2">article</mat-icon>
               Complete Form
             </ng-template>
 
-            <div class="tab-content">
-              <h3 class="tab-title">Complete Form Code</h3>
-              <p class="tab-description">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Complete Form Code</h3>
+              <p class="text-on-surface-variant mb-6">
                 Copy the entire form with all fields
               </p>
 
-              <div class="code-section">
-                <div class="code-header">
-                  <h4 class="code-title">TypeScript + HTML</h4>
+              <div class="border border-outline-variant rounded-lg overflow-hidden">
+                <div class="flex items-center justify-between bg-surface-container-highest p-4 border-b border-outline-variant">
+                  <h4 class="font-semibold">TypeScript + HTML</h4>
                   <app-button
                     variant="filled"
                     size="small"
@@ -279,7 +262,7 @@
                   </app-button>
                 </div>
 
-                <pre class="code-block"><code>// Form Initialization
+                <pre class="p-4 overflow-x-auto bg-surface-container-low"><code>// Form Initialization
 form = this.fb.group(&#123;
   basicText: [''],
   email: ['', [Validators.required, Validators.email]],
@@ -302,36 +285,35 @@ form = this.fb.group(&#123;
             </div>
           </mat-tab>
 
-          <!-- Tab 3: API Reference -->
           <mat-tab>
             <ng-template mat-tab-label>
-              <mat-icon class="tab-icon">api</mat-icon>
+              <mat-icon class="mr-2">api</mat-icon>
               API Reference
             </ng-template>
 
-            <div class="tab-content">
-              <h3 class="tab-title">FormFieldInputOptions API</h3>
-              <p class="tab-description">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">FormFieldInputOptions API</h3>
+              <p class="text-on-surface-variant mb-6">
                 Complete reference of all available configuration options
               </p>
 
-              <div class="api-table">
-                <table>
-                  <thead>
+              <div class="overflow-x-auto border border-outline-variant rounded-lg">
+                <table class="w-full">
+                  <thead class="bg-surface-container-highest">
                     <tr>
-                      <th>Property</th>
-                      <th>Type</th>
-                      <th>Default</th>
-                      <th>Description</th>
+                      <th class="text-left p-3 font-semibold text-sm border-b border-outline-variant">Property</th>
+                      <th class="text-left p-3 font-semibold text-sm border-b border-outline-variant">Type</th>
+                      <th class="text-left p-3 font-semibold text-sm border-b border-outline-variant">Default</th>
+                      <th class="text-left p-3 font-semibold text-sm border-b border-outline-variant">Description</th>
                     </tr>
                   </thead>
                   <tbody>
                     @for (prop of API_PROPERTIES; track prop.name) {
-                      <tr>
-                        <td class="prop-name">{{ prop.name }}</td>
-                        <td class="prop-type">{{ prop.type }}</td>
-                        <td class="prop-default">{{ prop.defaultValue || '-' }}</td>
-                        <td class="prop-description">{{ prop.description }}</td>
+                      <tr class="border-b border-outline-variant last:border-0">
+                        <td class="p-3 font-mono text-sm text-primary">{{ prop.name }}</td>
+                        <td class="p-3 font-mono text-xs text-on-surface-variant">{{ prop.type }}</td>
+                        <td class="p-3 text-sm">{{ prop.defaultValue || '-' }}</td>
+                        <td class="p-3 text-sm text-on-surface-variant">{{ prop.description }}</td>
                       </tr>
                     }
                   </tbody>
@@ -340,26 +322,25 @@ form = this.fb.group(&#123;
             </div>
           </mat-tab>
 
-          <!-- Tab 4: Best Practices -->
           <mat-tab>
             <ng-template mat-tab-label>
-              <mat-icon class="tab-icon">tips_and_updates</mat-icon>
+              <mat-icon class="mr-2">tips_and_updates</mat-icon>
               Best Practices
             </ng-template>
 
-            <div class="tab-content">
-              <h3 class="tab-title">Best Practices Guide</h3>
-              <p class="tab-description">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Best Practices Guide</h3>
+              <p class="text-on-surface-variant mb-6">
                 Follow these guidelines for optimal form field usage
               </p>
 
-              <div class="practices-grid">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @for (practice of BEST_PRACTICES; track practice.label) {
-                  <div class="practice-card">
-                    <mat-icon class="practice-icon">{{ practice.icon }}</mat-icon>
-                    <h4 class="practice-title">{{ practice.label }}</h4>
-                    <p class="practice-text">{{ practice.text }}</p>
-                  </div>
+                  <mat-card appearance="outlined" class="flex flex-col gap-3 p-5">
+                    <mat-icon color="primary" class="text-3xl">{{ practice.icon }}</mat-icon>
+                    <h4 class="font-semibold text-base">{{ practice.label }}</h4>
+                    <p class="text-sm text-on-surface-variant">{{ practice.text }}</p>
+                  </mat-card>
                 }
               </div>
             </div>
