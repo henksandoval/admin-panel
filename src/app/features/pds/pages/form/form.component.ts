@@ -12,7 +12,7 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
-import { PdsLayoutComponent } from '../../shared/templates/pds-layout/pds-layout.component';
+import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { FormFieldInputOptions } from '@shared/atoms/form-field-input/form-field-input.model';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -38,7 +38,7 @@ import {
     AppToggleGroupComponent,
     AppCheckboxComponent,
     PdsCodeBlockComponent,
-    PdsLayoutComponent
+    PdsPageLayoutComponent
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']

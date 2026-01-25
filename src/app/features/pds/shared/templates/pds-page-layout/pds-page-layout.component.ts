@@ -27,7 +27,7 @@ export class PdsPageLayoutComponent {
   title = input.required<string>();
   description = input.required<string>();
   componentTag = input.required<string>();
-  code = input.required<string>();
+  code = input<string>('');
   apiProperties = input<PdsApiReferencePropertyModel[]>([]);
   bestPractices = input<PdsBestPracticeItemModel[]>([]);
 
@@ -39,6 +39,12 @@ export class PdsPageLayoutComponent {
     const guides = this.variantGuides();
     return guides.find(guide => guide.variant === variant);
   });
+
+  // Auto-detect visibility based on content
+  // Preview and controls only show when there are variant guides (playground mode)
+  showPreview = computed(() => this.variantGuides().length > 0);
+  showControls = computed(() => this.variantGuides().length > 0);
+  showDocumentation = computed(() => this.variantGuides().length > 0);
 
   backRoute = input<string>('/pds/index');
   showBackButton = input<boolean>(true);

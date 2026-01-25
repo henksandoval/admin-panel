@@ -21,34 +21,45 @@
     </div>
   </header>
 
+  <!-- Main content slot for custom layouts (e.g., form page with 2-column layout) -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <ng-content select="[slot=main-content]"></ng-content>
+  </div>
+
   <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
-    <div class="xl:col-span-5 space-y-6">
-      <app-pds-preview-card>
-        <ng-content select="[slot=preview]"></ng-content>
-      </app-pds-preview-card>
+    @if (showPreview() || showControls() || code()) {
+      <div class="xl:col-span-5 space-y-6">
+        @if (showPreview()) {
+          <app-pds-preview-card>
+            <ng-content select="[slot=preview]"></ng-content>
+          </app-pds-preview-card>
+        }
 
-      <mat-card appearance="outlined" class="overflow-hidden xl:sticky xl:top-6">
-        <div class="card-header px-4 py-3 border-b flex items-center gap-2">
-          <mat-icon class="text-base">tune</mat-icon>
-          <h3 class="card-title font-semibold text-sm uppercase tracking-wide">Controls</h3>
-        </div>
-        <mat-card-content class="p-5 space-y-6">
-          <ng-content select="[slot=controls]"></ng-content>
-        </mat-card-content>
-      </mat-card>
+        @if (showControls()) {
+          <mat-card appearance="outlined" class="overflow-hidden xl:sticky xl:top-6">
+            <div class="card-header px-4 py-3 border-b flex items-center gap-2">
+              <mat-icon class="text-base">tune</mat-icon>
+              <h3 class="card-title font-semibold text-sm uppercase tracking-wide">Controls</h3>
+            </div>
+            <mat-card-content class="p-5 space-y-6">
+              <ng-content select="[slot=controls]"></ng-content>
+            </mat-card-content>
+          </mat-card>
+        }
 
-      @if (code()) {
-        <section class="space-y-3">
-          <div class="flex items-center gap-2">
-            <mat-icon class="text-lg">code</mat-icon>
-            <h3 class="section-title font-semibold">Generated Code</h3>
-          </div>
-          <app-pds-code-block [code]="code()" />
-        </section>
-      }
-    </div>
+        @if (code()) {
+          <section class="space-y-3">
+            <div class="flex items-center gap-2">
+              <mat-icon class="text-lg">code</mat-icon>
+              <h3 class="section-title font-semibold">Generated Code</h3>
+            </div>
+            <app-pds-code-block [code]="code()" />
+          </section>
+        }
+      </div>
+    }
 
-    <div class="xl:col-span-7 space-y-10">
+    <div [class]="showPreview() || showControls() || code() ? 'xl:col-span-7' : 'xl:col-span-12'" class="space-y-10">
       @if (currentVariantGuide(); as guide) {
         <section>
           <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
@@ -99,7 +110,9 @@
         </section>
       }
 
-      <ng-content select="[slot=documentation]"></ng-content>
+      @if (showDocumentation()) {
+        <ng-content select="[slot=documentation]"></ng-content>
+      }
     </div>
 
     <div class="xl:col-span-12">

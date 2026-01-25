@@ -1,12 +1,10 @@
-<app-pds-layout
+<app-pds-page-layout
   title="Form Field Gallery"
   description="Complete reference with all field types and working validations. Test real-time validation and explore different visual configurations."
   componentTag="<app-form-field-input>"
   [code]="completeFormCode()"
   [apiProperties]="API_PROPERTIES"
-  [bestPractices]="BEST_PRACTICES"
-  [showCodeTab]="false"
-  [showCustomTabs]="true">
+  [bestPractices]="BEST_PRACTICES">
 
   <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back">
     Back to PDS Index
@@ -248,4 +246,4 @@
     </div>
   </mat-tab>
 
-</app-pds-layout>
+</app-pds-page-layout>
