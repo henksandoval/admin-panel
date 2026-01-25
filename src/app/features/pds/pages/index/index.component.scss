@@ -1,0 +1,27 @@
+.showcase-card {
+  border-left: 4px solid var(--mat-sys-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.showcase-avatar {
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.showcase-description {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.showcase-button {
+  color: var(--mat-sys-primary);
+}
