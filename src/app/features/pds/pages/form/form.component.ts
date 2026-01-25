@@ -18,7 +18,7 @@ import {
   FIELD_EXAMPLES,
   API_PROPERTIES,
   BEST_PRACTICES
-} from './form-gallery.data';
+} from './form.data';
 
 /**
  * Form Field Gallery - Complete Form Field Reference
@@ -43,10 +43,10 @@ import {
     AppToggleGroupComponent,
     AppCheckboxComponent
   ],
-  templateUrl: './form-gallery.component.html',
-  styleUrls: ['./form-gallery.component.scss']
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss']
 })
-export default class FormGalleryComponent implements OnInit {
+export class FormComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 

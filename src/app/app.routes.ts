@@ -77,9 +77,7 @@ export const routes: Routes = [
         loadComponent: () => import('./features/pds/showcase.component').then(m => m.ShowcaseComponent),
         children: [
           { path: 'index', loadComponent: () => import('./features/pds/pages/index/index.component').then(m => m.IndexComponent) },
-          { path: 'form-gallery', loadComponent: () => import('./features/pds/pages/form-gallery/form-gallery.component') },
-          { path: 'forms', loadComponent: () => import('./features/pds/pages/basic-forms/basic-forms.component').then(m => m.BasicFormsComponent) },
-          { path: 'forms-old', loadComponent: () => import('./features/pds/pages/basic-forms-old/basic-forms-old.component').then(m => m.BasicFormsOldComponent) },
+          { path: 'form', loadComponent: () => import('./features/pds/pages/form/form.component').then(m => m.FormComponent) },
           { path: 'buttons', loadComponent: () => import('./features/pds/pages/buttons/buttons.component') },
           { path: 'checkboxes', loadComponent: () => import('./features/pds/pages/checkboxes/checkboxes.component') },
           { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component') },

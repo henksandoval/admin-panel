@@ -350,22 +350,10 @@ export class NavigationService {
           url: '/pds/index'
         },
         {
-          id: 'forms',
+          id: 'form',
           title: 'Formularios',
           icon: 'assignment',
-          url: '/pds/forms'
-        },
-        {
-          id: 'forms-old',
-          title: 'Formularios (old)',
-          icon: 'assignment',
-          url: '/pds/forms-old'
-        },
-        {
-          id: 'form-gallery',
-          title: 'Formularios (Gallery)',
-          icon: 'assignment',
-          url: '/pds/form-gallery'
+          url: '/pds/form'
         },
         {
           id: 'buttons',
