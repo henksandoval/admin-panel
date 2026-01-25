@@ -10,7 +10,7 @@ import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/
 import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
 
 @Component({
-  selector: 'app-pds-tabs-layout',
+  selector: 'app-pds-layout',
   standalone: true,
   imports: [
     CommonModule,
@@ -21,10 +21,10 @@ import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds
     PdsApiReferenceComponent,
     PdsBestPracticesComponent
   ],
-  templateUrl: './pds-tabs-layout.component.html',
-  styleUrl: './pds-tabs-layout.component.scss'
+  templateUrl: './pds-layout.component.html',
+  styleUrl: './pds-layout.component.scss'
 })
-export class PdsTabsLayoutComponent {
+export class PdsLayoutComponent {
   title = input.required<string>();
   description = input.required<string>();
   componentTag = input.required<string>();

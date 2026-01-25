@@ -12,7 +12,7 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
-import { PdsTabsLayoutComponent } from '../../shared/templates/pds-tabs-layout/pds-tabs-layout.component';
+import { PdsLayoutComponent } from '../../shared/templates/pds-layout/pds-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { FormFieldInputOptions } from '@shared/atoms/form-field-input/form-field-input.model';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -22,13 +22,6 @@ import {
   BEST_PRACTICES
 } from './form.data';
 
-/**
- * Form Field Gallery - Complete Form Field Reference
- *
- * Shows all form field types together with real working validations.
- * Visual customization (appearance, icons, hints) is reactive via signals.
- * Validations are static and work immediately (like BasicFormsOldComponent).
- */
 @Component({
   selector: 'app-form-gallery',
   standalone: true,
@@ -45,7 +38,7 @@ import {
     AppToggleGroupComponent,
     AppCheckboxComponent,
     PdsCodeBlockComponent,
-    PdsTabsLayoutComponent
+    PdsLayoutComponent
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
@@ -54,10 +47,8 @@ export class FormComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
-  // Main form with FIXED validators (never change)
   public galleryForm!: FormGroup;
 
-  // Visual configuration signals (ONLY for appearance, not validations)
   globalAppearance = signal<MatFormFieldAppearance>('outline');
   showIcons = signal<boolean>(true);
   showHints = signal<boolean>(true);
@@ -72,7 +63,6 @@ export class FormComponent implements OnInit {
     { value: 'outline', label: 'Outline' }
   ];
 
-  // Computed configs for each field (ONLY visual properties change)
   basicTextConfig = computed<FormFieldInputOptions>(() => ({
     label: 'Full Name',
     placeholder: 'John Doe',
@@ -137,7 +127,6 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  // Form status computed
   formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
   formValid = computed(() => this.galleryForm?.valid || false);
   formTouched = computed(() => this.galleryForm?.touched || false);
@@ -146,7 +135,6 @@ export class FormComponent implements OnInit {
   completeFormCode = computed(() => this.generateCompleteFormCode());
 
   ngOnInit(): void {
-    // Initialize form with FIXED validators (like BasicFormsOldComponent)
     this.galleryForm = this.fb.group({
       basicText: [''],
       email: ['', [Validators.required, Validators.email]],
