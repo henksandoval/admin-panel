@@ -11,6 +11,8 @@ import { ControlConnectorDirective } from '@shared/atoms/form-field-input/contro
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
+import { PdsTabsLayoutComponent } from '../../shared/templates/pds-tabs-layout/pds-tabs-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { FormFieldInputOptions } from '@shared/atoms/form-field-input/form-field-input.model';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -41,7 +43,9 @@ import {
     ControlConnectorDirective,
     AppButtonComponent,
     AppToggleGroupComponent,
-    AppCheckboxComponent
+    AppCheckboxComponent,
+    PdsCodeBlockComponent,
+    PdsTabsLayoutComponent
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
@@ -139,6 +143,8 @@ export class FormComponent implements OnInit {
   formTouched = computed(() => this.galleryForm?.touched || false);
   formDirty = computed(() => this.galleryForm?.dirty || false);
 
+  completeFormCode = computed(() => this.generateCompleteFormCode());
+
   ngOnInit(): void {
     // Initialize form with FIXED validators (like BasicFormsOldComponent)
     this.galleryForm = this.fb.group({
@@ -176,13 +182,6 @@ export class FormComponent implements OnInit {
     });
   }
 
-  copyCompleteForm(): void {
-    const code = this.generateCompleteFormCode();
-    navigator.clipboard.writeText(code).then(() => {
-      console.log('📋 Complete form code copied to clipboard!');
-      alert('📋 Complete form code copied to clipboard!');
-    });
-  }
 
   private generateFieldCode(example: any): string {
     let code = `// ${example.title}\n`;
