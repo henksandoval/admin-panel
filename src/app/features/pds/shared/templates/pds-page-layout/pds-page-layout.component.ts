@@ -2,6 +2,7 @@ import { Component, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { PdsCodeBlockComponent } from '../../molecules/pds-code-block/pds-code-block.component';
 import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
@@ -17,6 +18,7 @@ import {PdsApiReferenceComponent} from '../../molecules/pds-api-reference/pds-ap
     CommonModule,
     MatCardModule,
     MatIconModule,
+    MatTabsModule,
     PdsCodeBlockComponent,
     PdsBestPracticesComponent,
     PdsPreviewCardComponent,
