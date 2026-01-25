@@ -28,7 +28,7 @@
             required: isRequired()
           }">
         </app-select>
-        <p class="mt-2 text-sm text-on-surface-variant">
+        <p class="hint-text">
           Selected: <strong>{{ singleValue() || 'None' }}</strong>
         </p>
       </div>
@@ -50,7 +50,7 @@
             required: isRequired()
           }">
         </app-select>
-        <p class="mt-2 text-sm text-on-surface-variant">
+        <p class="hint-text">
           Selected: <strong>{{ multipleValue().join(', ') || 'None' }}</strong>
         </p>
       </div>
@@ -71,7 +71,7 @@
             required: isRequired()
           }">
         </app-select>
-        <p class="mt-2 text-sm text-on-surface-variant">
+        <p class="hint-text">
           Selected: <strong>{{ groupedValue() || 'None' }}</strong>
         </p>
       </div>
@@ -99,7 +99,7 @@
   <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
+        <mat-icon class="control-label-icon">category</mat-icon>
         State Type
       </label>
       <app-toggle-group
@@ -110,7 +110,7 @@
 
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="text-base !w-4 !h-4 leading-4">style</mat-icon>
+        <mat-icon class="control-label-icon">style</mat-icon>
         Appearance
       </label>
       <app-toggle-group
@@ -122,7 +122,7 @@
     <div class="grid grid-cols-2 gap-6">
       <div class="space-y-2">
         <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
+          <mat-icon class="control-label-icon">straighten</mat-icon>
           Size
         </label>
         <app-toggle-group

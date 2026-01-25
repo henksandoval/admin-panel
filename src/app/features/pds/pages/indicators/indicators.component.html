@@ -35,7 +35,7 @@
   <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
+        <mat-icon class="control-label-icon">category</mat-icon>
         Variant
       </label>
       <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" class="w-full" />
@@ -55,7 +55,7 @@
 
       <div class="space-y-2">
         <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="text-base !w-4 !h-4 leading-4">place</mat-icon>
+          <mat-icon class="control-label-icon">place</mat-icon>
           Position
         </label>
         <app-toggle-group [options]="positionOptions" [(value)]="position" class="w-full" />
@@ -79,7 +79,7 @@
 
       <div class="space-y-2">
         <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
+          <mat-icon class="control-label-icon">palette</mat-icon>
           Color
         </label>
         <app-toggle-group [options]="inlineColorOptions" [(value)]="inlineColor" class="w-full" />

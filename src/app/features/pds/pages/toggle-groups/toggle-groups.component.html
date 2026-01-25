@@ -23,7 +23,7 @@
           [vertical]="isVertical()"
           [disabled]="isDisabled()">
         </app-toggle-group>
-        <p class="text-sm text-on-surface-variant">
+        <p class="hint-text">
           Selected: <strong>{{ singleValue() || 'None' }}</strong>
         </p>
       </div>
@@ -40,7 +40,7 @@
           [vertical]="isVertical()"
           [disabled]="isDisabled()">
         </app-toggle-group>
-        <p class="text-sm text-on-surface-variant">
+        <p class="hint-text">
           Selected: <strong>{{ multipleValue().join(', ') || 'None' }}</strong>
         </p>
       </div>
@@ -56,7 +56,7 @@
           [vertical]="isVertical()"
           [disabled]="isDisabled()">
         </app-toggle-group>
-        <p class="text-sm text-on-surface-variant">
+        <p class="hint-text">
           Selected: <strong>{{ iconsValue() || 'None' }}</strong>
         </p>
       </div>
@@ -72,7 +72,7 @@
           [vertical]="true"
           [disabled]="isDisabled()">
         </app-toggle-group>
-        <p class="text-sm text-on-surface-variant">
+        <p class="hint-text">
           Selected: <strong>{{ verticalValue() || 'None' }}</strong>
         </p>
       </div>
@@ -82,7 +82,7 @@
   <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="text-base !w-4 !h-4 leading-4">category</mat-icon>
+        <mat-icon class="control-label-icon">category</mat-icon>
         State Type
       </label>
       <app-toggle-group
@@ -93,7 +93,7 @@
 
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
+        <mat-icon class="control-label-icon">palette</mat-icon>
         Color
       </label>
       <app-toggle-group
@@ -105,7 +105,7 @@
     <div class="grid grid-cols-2 gap-6">
       <div class="space-y-2">
         <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
+          <mat-icon class="control-label-icon">straighten</mat-icon>
           Size
         </label>
         <app-toggle-group

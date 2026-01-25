@@ -31,7 +31,7 @@
   <div slot="controls">
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="text-base !w-4 !h-4 leading-4">toggle_on</mat-icon>
+        <mat-icon class="control-label-icon">toggle_on</mat-icon>
         State
       </label>
       <app-toggle-group [options]="stateOptions" [(value)]="selectedState" class="w-full" />
@@ -39,7 +39,7 @@
 
     <div class="space-y-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="text-base !w-4 !h-4 leading-4">palette</mat-icon>
+        <mat-icon class="control-label-icon">palette</mat-icon>
         Color
       </label>
       <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
@@ -48,7 +48,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="space-y-2">
         <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="text-base !w-4 !h-4 leading-4">straighten</mat-icon>
+          <mat-icon class="control-label-icon">straighten</mat-icon>
           Size
         </label>
         <app-toggle-group [options]="sizeOptions" [(value)]="size" class="w-full" />
@@ -56,7 +56,7 @@
 
       <div class="space-y-2">
         <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="text-base !w-4 !h-4 leading-4">format_align_left</mat-icon>
+          <mat-icon class="control-label-icon">format_align_left</mat-icon>
           Label Position
         </label>
         <app-toggle-group [options]="labelPositionOptions" [(value)]="labelPosition" class="w-full" />
