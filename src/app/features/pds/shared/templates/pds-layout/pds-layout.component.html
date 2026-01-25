@@ -28,65 +28,10 @@
   </div>
 
   <div>
-    <mat-card>
-      <mat-card-content class="p-0">
-        <mat-tab-group animationDuration="300ms">
-          @if (showCustomTabs()) {
-            <ng-content select="[slot=custom-tabs]"></ng-content>
-          }
-
-          @if (showCodeTab() && code()) {
-            <mat-tab>
-              <ng-template mat-tab-label>
-                <mat-icon class="mr-2">article</mat-icon>
-                Complete Code
-              </ng-template>
-
-              <div class="p-6">
-                <h3 class="tab-section-title text-xl font-semibold mb-2">Complete Component Code</h3>
-                <p class="tab-description mb-6">
-                  Copy the entire implementation with all configurations
-                </p>
-
-                <app-pds-code-block
-                  title="TypeScript + HTML"
-                  [code]="code()"
-                  footer="💡 This includes the complete setup with all validations and configurations." />
-              </div>
-            </mat-tab>
-          }
-
-          @if (showApiTab() && apiProperties().length > 0) {
-            <mat-tab>
-              <ng-template mat-tab-label>
-                <mat-icon class="mr-2">api</mat-icon>
-                API Reference
-              </ng-template>
-
-              <div class="p-6">
-                <app-pds-api-reference
-                  [componentTag]="componentTag()"
-                  [properties]="apiProperties()" />
-              </div>
-            </mat-tab>
-          }
-
-          @if (showBestPracticesTab() && bestPractices().length > 0) {
-            <mat-tab>
-              <ng-template mat-tab-label>
-                <mat-icon class="mr-2">tips_and_updates</mat-icon>
-                Best Practices
-              </ng-template>
-
-              <div class="p-6">
-                <app-pds-best-practices
-                  [componentTag]="componentTag()"
-                  [practices]="bestPractices()" />
-              </div>
-            </mat-tab>
-          }
-        </mat-tab-group>
-      </mat-card-content>
-    </mat-card>
+    <app-pds-documentation-tabs
+      [componentTag]="componentTag()"
+      [apiProperties]="apiProperties()"
+      [bestPractices]="bestPractices()">
+    </app-pds-documentation-tabs>
   </div>
 </div>
