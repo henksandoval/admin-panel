@@ -1,7 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
@@ -25,7 +24,6 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
   imports: [
     CommonModule,
     FormsModule,
-    MatCardModule,
     MatIconModule,
     AppButtonComponent,
     AppToggleGroupComponent,
