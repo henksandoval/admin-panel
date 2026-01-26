@@ -11,7 +11,7 @@ import {AppCardComponent} from '@shared/atoms/app-card/app-card.component';
       title="LIVE PREVIEW"
       icon="visibility"
       customClass="overflow-hidden">
-      <div class="preview-container flex items-center justify-center min-h-[120px] py-6 bg-center rounded-lg border shadow-sm">
+      <div class="preview-container flex items-center justify-center min-h-[200px] p-8 rounded-lg">
         <ng-content />
       </div>
     </app-card>

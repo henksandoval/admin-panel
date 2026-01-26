@@ -25,7 +25,7 @@
     <ng-content select="[slot=main-content]"></ng-content>
   </div>
 
-  <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+  <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
     @if (showPreview() || showControls() || code()) {
       <div class="xl:col-span-5 space-y-6">
         @if (showPreview()) {
@@ -56,14 +56,14 @@
       </div>
     }
 
-    <div [class]="showPreview() || showControls() || code() ? 'xl:col-span-7' : 'xl:col-span-12'" class="space-y-10">
+    <div [class]="showPreview() || showControls() || code() ? 'xl:col-span-7' : 'xl:col-span-12'" class="space-y-6">
       @if (currentVariantGuide(); as guide) {
         <section>
           <app-card
             [customClass]="'overflow-hidden ' + getCardBorderClasses(guide.emphasis)"
             contentPadding="p-0"
             [showHeader]="false">
-              <div class="p-5 md:p-6 pb-3">
+              <div class="p-6 pb-3">
                 <div class="flex items-center gap-2 mb-3">
                   <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
                         class="px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
@@ -74,7 +74,7 @@
                 <p class="page-description text-base leading-relaxed">{{ guide.description }}</p>
               </div>
 
-              <div class="grid md:grid-cols-2 gap-4 p-5 md:p-6 pt-0">
+              <div class="grid md:grid-cols-2 gap-4 p-6 pt-0">
                 <div class="info-box rounded-lg p-4 border">
                   <h4 class="info-box-title font-bold text-sm mb-3 flex items-center gap-2">
                     <mat-icon class="success text-base">check_circle</mat-icon>

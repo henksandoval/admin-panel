@@ -18,7 +18,7 @@ export class AppCardComponent {
 
   // Visual configuration
   variant = input<'outlined' | 'raised'>('outlined');
-  contentPadding = input<string>('p-5');
+  contentPadding = input<string>('p-6');
   customClass = input<string>('');
 
   // Layout options
