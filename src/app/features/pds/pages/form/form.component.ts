@@ -1,7 +1,6 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -11,6 +10,7 @@ import { ControlConnectorDirective } from '@shared/atoms/form-field-input/contro
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
@@ -28,7 +28,6 @@ import {
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatCardModule,
     MatIconModule,
     MatDividerModule,
     MatTabsModule,
@@ -37,6 +36,7 @@ import {
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
+    AppCardComponent,
     PdsCodeBlockComponent,
     PdsPageLayoutComponent
   ],
