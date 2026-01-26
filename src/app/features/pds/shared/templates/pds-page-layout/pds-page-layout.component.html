@@ -35,31 +35,23 @@
         }
 
         @if (showControls()) {
-          <mat-card appearance="outlined" class="overflow-hidden xl:sticky xl:top-6">
-            <mat-card-header>
-              <div class="flex items-center gap-2">
-                <mat-icon class="text-base">tune</mat-icon>
-                <mat-card-title class="font-semibold text-sm uppercase tracking-wide">Controls</mat-card-title>
-              </div>
-            </mat-card-header>
-            <mat-card-content class="p-5 space-y-6">
-              <ng-content select="[slot=controls]"></ng-content>
-            </mat-card-content>
-          </mat-card>
+          <app-card
+            title="CONTROLS"
+            icon="tune"
+            [sticky]="true"
+            customClass="overflow-hidden xl:sticky xl:top-6"
+            contentPadding="space-y-6">
+            <ng-content select="[slot=controls]"></ng-content>
+          </app-card>
         }
 
         @if (code()) {
-          <mat-card appearance="outlined" class="overflow-hidden">
-            <mat-card-header>
-              <div class="flex items-center gap-2">
-                <mat-icon class="text-base">code</mat-icon>
-                <mat-card-title class="font-semibold text-sm uppercase tracking-wide">Generated Code</mat-card-title>
-              </div>
-            </mat-card-header>
-            <mat-card-content class="p-5">
-              <app-pds-code-block [code]="code()" />
-            </mat-card-content>
-          </mat-card>
+          <app-card
+            title="GENERATED CODE"
+            icon="code"
+            customClass="overflow-hidden">
+            <app-pds-code-block [code]="code()" />
+          </app-card>
         }
       </div>
     }
@@ -67,8 +59,10 @@
     <div [class]="showPreview() || showControls() || code() ? 'xl:col-span-7' : 'xl:col-span-12'" class="space-y-10">
       @if (currentVariantGuide(); as guide) {
         <section>
-          <mat-card appearance="outlined" class="overflow-hidden" [class]="getCardBorderClasses(guide.emphasis)">
-            <mat-card-content class="p-0">
+          <app-card
+            [customClass]="'overflow-hidden ' + getCardBorderClasses(guide.emphasis)"
+            contentPadding="p-0"
+            [showHeader]="false">
               <div class="p-5 md:p-6 pb-3">
                 <div class="flex items-center gap-2 mb-3">
                   <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
@@ -110,8 +104,7 @@
                   </div>
                 </div>
               </div>
-            </mat-card-content>
-          </mat-card>
+          </app-card>
         </section>
       }
 

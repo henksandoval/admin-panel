@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
-import {MatCardModule} from "@angular/material/card";
 import {CommonModule} from "@angular/common";
 import {Router} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
+import {AppCardComponent} from '@shared/atoms/app-card/app-card.component';
 
 interface ShowcaseItem {
   id: string;
@@ -17,9 +17,9 @@ interface ShowcaseItem {
   selector: 'app-index',
     imports: [
       CommonModule,
-      MatCardModule,
       MatButtonModule,
-      MatIconModule
+      MatIconModule,
+      AppCardComponent
     ],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss'

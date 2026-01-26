@@ -1,7 +1,7 @@
 import { Component, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsCodeBlockComponent } from '../../molecules/pds-code-block/pds-code-block.component';
 import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
@@ -14,8 +14,8 @@ import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
     MatIconModule,
+    AppCardComponent,
     PdsCodeBlockComponent,
     PdsPreviewCardComponent,
     PdsDocumentationTabsComponent
