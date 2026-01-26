@@ -1,0 +1,30 @@
+<mat-card
+  [appearance]="variant()"
+  [class]="customClass()"
+  class="overflow-hidden"
+  [class.xl:sticky]="sticky()"
+  [class.xl:top-6]="sticky()"
+  [class.h-full]="fullHeight()">
+
+  @if (showHeader() && (title() || icon())) {
+    <mat-card-header>
+      <div class="flex items-center gap-2">
+        @if (icon()) {
+          <mat-icon class="text-base">{{ icon() }}</mat-icon>
+        }
+        @if (title()) {
+          <mat-card-title class="font-semibold text-sm uppercase tracking-wide">
+            {{ title() }}
+          </mat-card-title>
+        }
+      </div>
+      <ng-content select="[slot=header-actions]"></ng-content>
+    </mat-card-header>
+  }
+
+  <mat-card-content [class]="contentPadding()">
+    <ng-content></ng-content>
+  </mat-card-content>
+
+  <ng-content select="[slot=footer]"></ng-content>
+</mat-card>

@@ -1,0 +1,14 @@
+// App Card Component Styles
+// Atomic Design: Atom level
+
+:host {
+  display: block;
+}
+
+mat-card-title {
+  color: var(--mat-sys-on-surface);
+}
+
+mat-icon {
+  color: var(--mat-sys-primary);
+}
