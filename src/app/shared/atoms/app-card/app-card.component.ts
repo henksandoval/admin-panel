@@ -11,17 +11,14 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './app-card.component.scss'
 })
 export class AppCardComponent {
-  // Header configuration
   title = input<string>();
   icon = input<string>();
   showHeader = input<boolean>(true);
 
-  // Visual configuration
   variant = input<'outlined' | 'raised'>('outlined');
   contentPadding = input<string>('p-6');
   customClass = input<string>('');
 
-  // Layout options
   sticky = input<boolean>(false);
   fullHeight = input<boolean>(false);
 }

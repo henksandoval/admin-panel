@@ -1,8 +1,11 @@
-// App Card Component Styles
-// Atomic Design: Atom level
-
 :host {
   display: block;
+}
+
+mat-card-header {
+  background-color: var(--mat-sys-surface-container);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  padding: 0.75rem;
 }
 
 mat-card-title {
@@ -11,4 +14,8 @@ mat-card-title {
 
 mat-icon {
   color: var(--mat-sys-primary);
+}
+
+mat-card-footer {
+  padding: 0.75rem;
 }
