@@ -5,10 +5,10 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatDivider} from '@angular/material/list';
 
 @Directive({ selector: '[slot=header-actions]', standalone: true })
-export class CardHeaderActionsDirective {}
+export class AppCardHeaderActionsDirective {}
 
 @Directive({ selector: '[slot=footer]', standalone: true })
-export class CardFooterActionsDirective {}
+export class AppCardFooterActionsDirective {}
 
 @Component({
   selector: 'app-card',
@@ -121,8 +121,8 @@ export class AppCardComponent {
   isExpandable = input<boolean>(false);
   expanded = model<boolean>(true);
 
-  headerActions = contentChild(CardHeaderActionsDirective);
-  footerContent = contentChild(CardFooterActionsDirective);
+  headerActions = contentChild(AppCardHeaderActionsDirective);
+  footerContent = contentChild(AppCardFooterActionsDirective);
 
   hasHeader = computed(() => {
     const titleIsPresent = Boolean(this.title());

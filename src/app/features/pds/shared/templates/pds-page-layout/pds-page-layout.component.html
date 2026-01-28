@@ -46,7 +46,15 @@
           <app-card
             title="Generated Code"
             icon="code"
-            [isExpandable]="true">
+            [isExpandable]="true"
+            [expanded]="false">
+              <button
+                mat-icon-button
+                slot="header-actions"
+                (click)="copyToClipboard(); $event.stopPropagation()"
+                matTooltip="Copiar código">
+                <mat-icon>content_copy</mat-icon>
+              </button>
               <pre class="font-mono text-sm overflow-x-auto"><code>{{ code() }}</code></pre>
           </app-card>
         }
