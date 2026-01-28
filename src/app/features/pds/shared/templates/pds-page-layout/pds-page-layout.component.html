@@ -35,26 +35,7 @@
         }
 
         @if (showControls()) {
-<!--
-          <app-expandable-card
-            title="Controls"
-            icon="tune"
-            [collapsible]="true"
-            [startExpanded]="true"
-            class="block xl:sticky xl:top-6">
 
-            <div class="space-y-6">
-              <ng-content select="[slot=controls]"></ng-content>
-            </div>
-          </app-expandable-card>
-          <app-card
-            title="Controls"
-            icon="tune"
-            customClass="overflow-hidden xl:sticky xl:top-6"
-            contentPadding="space-y-6">
-            <ng-content select="[slot=controls]"></ng-content>
-          </app-card>
--->
           <app-card-expandable
             title="Controls"
             [isExpandable]="true"
@@ -63,6 +44,17 @@
               <ng-content select="[slot=controls]"></ng-content>
             </div>
           </app-card-expandable>
+
+
+
+
+          <app-card
+            title="Controls"
+            icon="tune"
+            customClass="overflow-hidden xl:sticky xl:top-6"
+            contentPadding="space-y-6">
+            <ng-content select="[slot=controls]"></ng-content>
+          </app-card>
         }
 
         @if (code()) {

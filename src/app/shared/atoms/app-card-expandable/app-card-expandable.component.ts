@@ -2,8 +2,8 @@ import { Component, input, model, contentChild, Directive, ViewEncapsulation, co
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import {MatDivider} from '@angular/material/list';
 
-// --- Directivas reutilizadas del AppCard para mantener consistencia ---
 @Directive({ selector: '[slot=header-actions]', standalone: true })
 export class CardHeaderActionsDirective {}
 
@@ -13,131 +13,120 @@ export class CardFooterActionsDirective {}
 @Component({
   selector: 'app-card-expandable',
   standalone: true,
-  imports: [CommonModule, MatExpansionModule, MatIconModule],
+  imports: [CommonModule, MatExpansionModule, MatIconModule, MatDivider],
   template: `
-    <mat-accordion class="app-card-expandable" displayMode="flat">
+    <mat-accordion displayMode="flat">
       <mat-expansion-panel
         [expanded]="expanded()"
         (opened)="expanded.set(true)"
         (closed)="expanded.set(false)"
         [disabled]="!isExpandable()"
-        class="!rounded-xl overflow-hidden transition-all duration-200"
-        [ngClass]="containerClasses()"
+        [class]="variantClass()"
+        [ngClass]="customClass()"
         hideToggle
       >
-        <!-- HEADER -->
-        <mat-expansion-panel-header
-          class="!h-auto !py-3 !px-4 bg-[var(--mat-sys-surface-container)]"
-          [class.border-b]="expanded()"
-          [class.border-[var(--mat-sys-outline-variant)]]="expanded()"
-        >
-          <div class="flex items-center justify-between w-full">
-
-            <!-- IZQUIERDA: Título e Icono -->
-            <div class="flex items-center gap-2">
-              @if (icon()) {
-                <mat-icon class="text-base text-[var(--mat-sys-primary)]">{{ icon() }}</mat-icon>
-              }
-              @if (title()) {
-                <span class="font-semibold text-sm tracking-wide text-[var(--mat-sys-on-surface)]">
+        @if (hasHeader()) {
+          <mat-expansion-panel-header>
+            <div class="panel-header-content">
+              <div class="flex items-center gap-2">
+                @if (icon()) {
+                  <mat-icon class="text-base">{{ icon() }}</mat-icon>
+                }
+                @if (title()) {
+                  <span class="font-semibold text-sm tracking-wide title-text">
                   {{ title() }}
                 </span>
-              }
+                }
+              </div>
+
+              <div class="flex items-center gap-2">
+                <ng-content select="[slot=header-actions]"></ng-content>
+                @if (isExpandable()) {
+                  <mat-icon class="toggle-icon" [class.rotated]="expanded()">
+                    expand_more
+                  </mat-icon>
+                }
+              </div>
             </div>
+          </mat-expansion-panel-header>
+        }
 
-            <!-- DERECHA: Acciones + Toggle -->
-            <div class="flex items-center gap-2">
+        @if (hasHeader()) {
+          <mat-divider></mat-divider>
+        }
 
-              <!-- Slot de Acciones (Header Actions) -->
-              <!-- Nota: Los botones aquí deben tener (click)="$event.stopPropagation()" para no colapsar el panel -->
-              <ng-content select="[slot=header-actions]"></ng-content>
-
-              <!-- Icono de toggle (Solo si es expandible) -->
-              @if (isExpandable()) {
-                <mat-icon
-                  class="transition-transform duration-300 text-[var(--mat-sys-on-surface-variant)]"
-                  [class.rotate-180]="expanded()">
-                  expand_more
-                </mat-icon>
-              }
-            </div>
-
-          </div>
-        </mat-expansion-panel-header>
-
-        <!-- CONTENIDO + FOOTER -->
-        <!-- Envolvemos todo en un div para controlar el padding dinámicamente -->
-        <div [class]="contentPadding()">
-
-          <!-- Contenido Principal -->
-          <div class="text-[var(--mat-sys-on-surface-variant)]">
+        <div class="mt-4">
             <ng-content></ng-content>
-          </div>
-
-          <!-- Footer (Si existe) -->
-          @if (hasFooter()) {
-            <div class="mt-4 pt-3 border-t border-[var(--mat-sys-outline-variant)] flex items-center">
-              <ng-content select="[slot=footer]"></ng-content>
-            </div>
-          }
         </div>
 
+        @if (hasFooter()) {
+          <ng-content select="[slot=footer]"></ng-content>
+        }
       </mat-expansion-panel>
     </mat-accordion>
   `,
+  host: { class: 'block' },
   styles: `
-    :host {
-      display: block;
+    mat-expansion-panel {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      position: relative;
+      border-style: solid;
+      border-width: 0;
+      background-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));
+      border-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));
+      border-radius: var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium));
+      box-shadow: var(--mat-card-elevated-container-elevation, var(--mat-sys-level1));
+      transition: all 0.2s ease-in-out;
+      overflow: hidden;
     }
 
-    /* Reseteamos el padding por defecto de Material a 0
-       para que el input 'contentPadding' tenga control total sobre el espaciado interno */
-    ::ng-deep .mat-expansion-panel-body {
-      padding: 0 !important;
+    .mat-expansion-panel-header.mat-expanded {
+      height: var(--mat-expansion-header-expanded-state-height, 52px);
     }
 
-    /* Asegurar que el header no cambie de altura al expandirse */
-    ::ng-deep .mat-expansion-panel-header.mat-expanded {
-      height: auto !important;
+    .panel-header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
     }
 
-    /* Estilo para estado deshabilitado */
-    ::ng-deep .mat-expansion-panel-header.mat-expansion-panel-header-disabled {
-      opacity: 1 !important;
-      cursor: default !important;
+    mat-icon {
+      color: var(--mat-sys-primary);
     }
-  `,
-  encapsulation: ViewEncapsulation.None
+
+    .toggle-icon {
+      color: var(--mat-sys-on-surface-variant);
+      transition: transform 0.3s ease;
+    }
+
+    .toggle-icon.rotated {
+      transform: rotate(180deg);
+    }
+  `
 })
 export class AppCardExpandableComponent {
-  // --- Inputs idénticos al AppCard ---
-  title = input<string>(); // Ahora es opcional como en AppCard
+  title = input<string>();
   icon = input<string>();
   variant = input<'outlined' | 'raised'>('outlined');
-  contentPadding = input<string>('p-6'); // Padding dinámico
   customClass = input<string>('');
 
-  // --- Inputs específicos del Expandable ---
   isExpandable = input<boolean>(true);
   expanded = model<boolean>(true);
 
-  // --- Queries para detectar contenido ---
   headerActions = contentChild(CardHeaderActionsDirective);
   footerContent = contentChild(CardFooterActionsDirective);
 
-  // --- Computados ---
+  hasHeader = computed(() => {
+    const titleIsPresent = Boolean(this.title());
+    const iconIsPresent = Boolean(this.icon());
+    const actionsArePresent = Boolean(this.headerActions());
+
+    return titleIsPresent || iconIsPresent || actionsArePresent;
+  });
   hasFooter = computed(() => Boolean(this.footerContent()));
 
-  // Lógica para combinar clases de variante + clases custom
-  containerClasses = computed(() => {
-    const baseClasses = this.customClass();
-
-    // Lógica de variantes visuales
-    if (this.variant() === 'outlined') {
-      return `${baseClasses} border border-[var(--mat-sys-outline-variant)] shadow-none`;
-    } else {
-      // Raised (default material shadow, sin borde)
-      return `${baseClasses} border-none shadow-md`;
-    }
-  });
+  variantClass = computed(() => this.variant() === 'outlined' ? 'mat-mdc-card-outlined' : '');
 }
