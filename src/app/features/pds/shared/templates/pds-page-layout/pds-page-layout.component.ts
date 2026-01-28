@@ -1,4 +1,4 @@
-import { Component, input, computed } from '@angular/core';
+import {Component, input, computed, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
@@ -8,8 +8,7 @@ import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds
 import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
-import {ExpandableCardComponent} from '@shared/atoms/app-expandable-card/app-expandable-card.component';
-import {AppCardExpandableComponent} from '@shared/atoms/app-card-expandable/app-card-expandable.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pds-page-layout',
@@ -21,13 +20,14 @@ import {AppCardExpandableComponent} from '@shared/atoms/app-card-expandable/app-
     PdsCodeBlockComponent,
     PdsPreviewCardComponent,
     PdsDocumentationTabsComponent,
-    ExpandableCardComponent,
-    AppCardExpandableComponent
+    AppCardComponent
   ],
   templateUrl: './pds-page-layout.component.html',
   styleUrl: './pds-page-layout.component.scss'
 })
 export class PdsPageLayoutComponent {
+  private readonly snackBar = inject(MatSnackBar);
+
   title = input.required<string>();
   description = input.required<string>();
   componentTag = input.required<string>();
@@ -67,5 +67,15 @@ export class PdsPageLayoutComponent {
       low: 'card-border low'
     };
     return classMap[emphasis];
+  }
+
+  copyToClipboard(): void {
+    navigator.clipboard.writeText(this.code()).then(() => {
+      this.snackBar.open('✅ Código copiado al portapapeles', 'Cerrar', {
+        duration: 2000,
+        horizontalPosition: 'end',
+        verticalPosition: 'bottom'
+      });
+    });
   }
 }

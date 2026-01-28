@@ -72,3 +72,11 @@
   background-color: var(--mat-sys-surface);
   border-color: var(--mat-sys-outline-variant);
 }
+
+pre {
+  margin: 0;
+
+  code {
+    display: block;
+  }
+}
