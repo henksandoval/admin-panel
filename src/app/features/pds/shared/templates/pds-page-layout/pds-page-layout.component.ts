@@ -40,8 +40,6 @@ export class PdsPageLayoutComponent {
     return guides.find(guide => guide.variant === variant);
   });
 
-  // Auto-detect visibility based on content
-  // Preview and controls only show when there are variant guides (playground mode)
   showPreview = computed(() => this.variantGuides().length > 0);
   showControls = computed(() => this.variantGuides().length > 0);
   showDocumentation = computed(() => this.variantGuides().length > 0);
