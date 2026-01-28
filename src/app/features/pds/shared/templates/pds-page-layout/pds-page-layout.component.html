@@ -38,7 +38,6 @@
           <app-card
             title="Controls"
             icon="tune"
-            [sticky]="true"
             customClass="overflow-hidden xl:sticky xl:top-6"
             contentPadding="space-y-6">
             <ng-content select="[slot=controls]"></ng-content>
@@ -61,8 +60,7 @@
         <section>
           <app-card
             [customClass]="'overflow-hidden ' + getCardBorderClasses(guide.emphasis)"
-            contentPadding="p-0"
-            [showHeader]="false">
+            contentPadding="p-0">
               <div class="p-6 pb-3">
                 <div class="flex items-center gap-2 mb-3">
                   <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
