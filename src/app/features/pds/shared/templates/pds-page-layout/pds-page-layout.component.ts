@@ -8,6 +8,8 @@ import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds
 import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
+import {ExpandableCardComponent} from '@shared/atoms/app-expandable-card/app-expandable-card.component';
+import {AppCardExpandableComponent} from '@shared/atoms/app-card-expandable/app-card-expandable.component';
 
 @Component({
   selector: 'app-pds-page-layout',
@@ -18,7 +20,9 @@ import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation
     AppCardComponent,
     PdsCodeBlockComponent,
     PdsPreviewCardComponent,
-    PdsDocumentationTabsComponent
+    PdsDocumentationTabsComponent,
+    ExpandableCardComponent,
+    AppCardExpandableComponent
   ],
   templateUrl: './pds-page-layout.component.html',
   styleUrl: './pds-page-layout.component.scss'
