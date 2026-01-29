@@ -5,8 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { FormFieldInputComponent } from '@shared/atoms/form-field-input/form-field-input.component';
-import { ControlConnectorDirective } from '@shared/atoms/form-field-input/control-connector.directive';
+import { AppFormFieldInputComponent } from '@shared/atoms/form-field-input/app-form-field-input.component';
+import { AppControlConnectorDirective } from '@shared/atoms/form-field-input/app-control-connector.directive';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
@@ -14,7 +14,7 @@ import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import { FormFieldInputOptions } from '@shared/atoms/form-field-input/form-field-input.model';
+import { AppFormFieldInputOptions } from '@shared/atoms/form-field-input/app-form-field-input.model';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import {
   FIELD_EXAMPLES,
@@ -31,8 +31,8 @@ import {
     MatIconModule,
     MatDividerModule,
     MatTabsModule,
-    FormFieldInputComponent,
-    ControlConnectorDirective,
+    AppFormFieldInputComponent,
+    AppControlConnectorDirective,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
@@ -63,7 +63,7 @@ export class FormComponent implements OnInit {
     { value: 'outline', label: 'Outline' }
   ];
 
-  basicTextConfig = computed<FormFieldInputOptions>(() => ({
+  basicTextConfig = computed<AppFormFieldInputOptions>(() => ({
     label: 'Full Name',
     placeholder: 'John Doe',
     type: 'text',
@@ -72,7 +72,7 @@ export class FormComponent implements OnInit {
     hint: this.showHints() ? 'Enter your full name' : ''
   }));
 
-  emailConfig = computed<FormFieldInputOptions>(() => ({
+  emailConfig = computed<AppFormFieldInputOptions>(() => ({
     label: 'Email Address',
     placeholder: 'your@email.com',
     type: 'email',
@@ -85,7 +85,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  passwordConfig = computed<FormFieldInputOptions>(() => ({
+  passwordConfig = computed<AppFormFieldInputOptions>(() => ({
     label: 'Password',
     placeholder: 'Enter secure password',
     type: 'password',
@@ -99,7 +99,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  ageConfig = computed<FormFieldInputOptions>(() => ({
+  ageConfig = computed<AppFormFieldInputOptions>(() => ({
     label: 'Age',
     placeholder: '18-99',
     type: 'number',
@@ -114,7 +114,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  phoneConfig = computed<FormFieldInputOptions>(() => ({
+  phoneConfig = computed<AppFormFieldInputOptions>(() => ({
     label: 'Phone Number',
     placeholder: '(555) 123-4567',
     type: 'tel',
@@ -176,7 +176,7 @@ export class FormComponent implements OnInit {
     code += `// ${example.description}\n\n`;
 
     code += `// TypeScript Configuration\n`;
-    code += `${example.configName}: FormFieldInputOptions = {\n`;
+    code += `${example.configName}: AppFormFieldInputOptions = {\n`;
     code += `  label: '${example.config.label}',\n`;
     code += `  placeholder: '${example.config.placeholder}',\n`;
     code += `  type: '${example.config.type}'`;

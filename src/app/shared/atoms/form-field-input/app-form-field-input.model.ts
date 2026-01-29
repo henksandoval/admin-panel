@@ -2,7 +2,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 export type InputFieldType = 'text' | 'email' | 'password' | 'number' | 'tel';
 
-export interface FormFieldInputConfig {
+export interface AppFormFieldInputConfig {
   label: string;
   placeholder: string;
   hint: string;
@@ -15,4 +15,4 @@ export interface FormFieldInputConfig {
   errorMessages: Record<string, string>;
 }
 
-export type FormFieldInputOptions = Partial<FormFieldInputConfig>;
+export type AppFormFieldInputOptions = Partial<AppFormFieldInputConfig>;

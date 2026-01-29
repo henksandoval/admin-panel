@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import { FormFieldInputConfig, FormFieldInputOptions } from './form-field-input.model';
+import { AppFormFieldInputConfig, AppFormFieldInputOptions } from './app-form-field-input.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -58,14 +58,14 @@ interface ErrorState {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormFieldInputComponent),
+      useExisting: forwardRef(() => AppFormFieldInputComponent),
       multi: true
     }
   ]
 })
-export class FormFieldInputComponent implements ControlValueAccessor, AfterViewInit {
-  config = input<FormFieldInputOptions>({});
-  fullConfig = computed<FormFieldInputConfig>(() => ({
+export class AppFormFieldInputComponent implements ControlValueAccessor, AfterViewInit {
+  config = input<AppFormFieldInputOptions>({});
+  fullConfig = computed<AppFormFieldInputConfig>(() => ({
     appearance: 'fill', type: 'text', label: '', placeholder: '', hint: '',
     icon: '', prefix: '', suffix: '', ariaLabel: '', errorMessages: {},
     ...this.config()
@@ -92,7 +92,7 @@ export class FormFieldInputComponent implements ControlValueAccessor, AfterViewI
 
   constructor() {
     this.internalControl.valueChanges
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
         this.onChange(value);
       });
