@@ -83,11 +83,11 @@ export class FormFieldInputComponent implements ControlValueAccessor, AfterViewI
   onTouched: () => void = () => {};
 
   private readonly defaultErrorMessages: Record<string, string> = {
-    required: '$localize`:@@common.form.required:This field is required`',
-    email: '$localize`:@@common.form.invalidEmail:Please enter a valid email address`',
-    minlength: '$localize`:@@common.form.minlength:The value is too short`',
-    maxlength: '$localize`:@@common.form.maxlength:The value is too long`',
-    pattern: '$localize`:@@common.form.pattern:The format is not valid`'
+    required: 'This field is required',
+    email: 'Please enter a valid email address',
+    minlength: 'The value is too short',
+    maxlength: 'The value is too long',
+    pattern: 'The format is not valid'
   };
 
   constructor() {
@@ -142,7 +142,7 @@ export class FormFieldInputComponent implements ControlValueAccessor, AfterViewI
     if (!errors) return { shouldShow: false, message: '' };
     const errorKey = Object.keys(errors)[0];
     const customMessages = this.fullConfig().errorMessages || {};
-    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || '$localize`:@@common.form.validationError:Validation error`';
+    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
     return { shouldShow: true, message };
   }
 

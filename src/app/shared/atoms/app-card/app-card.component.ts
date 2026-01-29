@@ -33,7 +33,7 @@ export class AppCardFooterActionsDirective {}
                   <mat-icon class="text-base">{{ icon() }}</mat-icon>
                 }
                 @if (title()) {
-                  <span class="font-semibold text-sm tracking-wide title-text">
+                  <span class="font-semibold text-sm tracking-wide">
                   {{ title() }}
                 </span>
                 }

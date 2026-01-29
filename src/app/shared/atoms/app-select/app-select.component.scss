@@ -1,10 +1,7 @@
-@use '@angular/material' as mat;
-
 :host {
   display: block;
 }
 
-// Size variations
 ::ng-deep .select-size-small {
   mat-form-field {
     font-size: 0.875rem;
