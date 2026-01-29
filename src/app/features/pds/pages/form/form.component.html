@@ -49,6 +49,25 @@
             appControlConnector>
           </app-form-field-input>
 
+          <div class="p-4 rounded-lg border"
+               [class.border-red-500]="galleryForm.get('country')?.invalid && galleryForm.get('country')?.touched">
+            <label class="block text-sm font-medium mb-2">Country *</label>
+            <app-select
+              formControlName="country"
+              [options]="countryOptions"
+              [config]="{
+                label: 'Select your country',
+                placeholder: 'Choose a country',
+                appearance: globalAppearance(),
+                icon: showIcons() ? 'public' : '',
+                hint: showHints() ? 'Select the country where you reside' : ''
+              }">
+            </app-select>
+            @if (galleryForm.get('country')?.invalid && galleryForm.get('country')?.touched) {
+              <p class="text-red-600 text-sm mt-2">Please select a country</p>
+            }
+          </div>
+
           <div class="p-4 rounded-lg border" 
                [class.border-red-500]="galleryForm.get('acceptTerms')?.invalid && galleryForm.get('acceptTerms')?.touched">
             <app-checkbox formControlName="acceptTerms" color="primary">

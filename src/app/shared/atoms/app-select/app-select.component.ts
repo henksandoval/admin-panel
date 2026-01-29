@@ -1,35 +1,20 @@
-import { Component, computed, forwardRef, inject, input, DestroyRef, ChangeDetectorRef } from '@angular/core';
+import { Component, computed, forwardRef, input, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SelectConfig, SelectOption, SELECT_DEFAULTS } from './app-select.model';
 
 /**
  * Wrapper component for Angular Material Select with ControlValueAccessor support.
  *
  * @example
- * // Basic usage with ngModel
+ * // With two-way binding
  * <app-select
- *   [(ngModel)]="selectedValue"
+ *   [(value)]="selectedValue"
  *   [options]="countryOptions"
- *   [config]="{
- *     label: 'Country',
- *     placeholder: 'Select a country'
- *   }">
- * </app-select>
- *
- * @example
- * // Multiple selection
- * <app-select
- *   [(ngModel)]="selectedValues"
- *   [options]="options"
- *   [config]="{
- *     label: 'Tags',
- *     multiple: true
- *   }">
+ *   [config]="{ label: 'Country' }">
  * </app-select>
  *
  * @example
@@ -39,13 +24,21 @@ import { SelectConfig, SelectOption, SELECT_DEFAULTS } from './app-select.model'
  *   [options]="options"
  *   [config]="{ label: 'Select Option' }">
  * </app-select>
+ *
+ * @example
+ * // Multiple selection
+ * <app-select
+ *   formControlName="tags"
+ *   [options]="options"
+ *   [config]="{ label: 'Tags', multiple: true }">
+ * </app-select>
  */
 @Component({
   selector: 'app-select',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
+    FormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatIconModule
@@ -59,14 +52,14 @@ import { SelectConfig, SelectOption, SELECT_DEFAULTS } from './app-select.model'
       }
 
       <mat-select
-        [formControl]="internalControl"
+        [value]="value()"
         [placeholder]="fullConfig().placeholder"
         [multiple]="fullConfig().multiple"
         [required]="fullConfig().required"
         [disabled]="fullConfig().disabled"
         [attr.aria-label]="fullConfig().ariaLabel"
         [panelClass]="fullConfig().panelClass"
-        (selectionChange)="onSelectionChange()">
+        (selectionChange)="onSelectionChange($event)">
 
         @if (hasGroups()) {
           @for (group of groupedOptions(); track group.name) {
@@ -90,10 +83,6 @@ import { SelectConfig, SelectOption, SELECT_DEFAULTS } from './app-select.model'
       @if (fullConfig().hint) {
         <mat-hint>{{ fullConfig().hint }}</mat-hint>
       }
-
-      @if (errorState().shouldShow) {
-        <mat-error>{{ errorState().message }}</mat-error>
-      }
     </mat-form-field>
   `,
   styleUrls: ['./app-select.component.scss'],
@@ -109,6 +98,8 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
   options = input.required<SelectOption<T>[]>();
   config = input<SelectConfig<T>>({});
 
+  value = model<T | T[] | null>(null);
+
   fullConfig = computed<Required<SelectConfig<T>>>(() => ({
     label: '',
     placeholder: '',
@@ -120,15 +111,8 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
     ...this.config()
   }));
 
-  internalControl = new FormControl<T | T[] | null>(null);
-
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly destroyRef = inject(DestroyRef);
-
-  public ngControl: NgControl | null = null;
-
-  onChange: (value: T | T[] | null) => void = () => {};
-  onTouched: () => void = () => {};
+  private onChange: (value: T | T[] | null) => void = () => {};
+  private onTouched: () => void = () => {};
 
   selectClasses = computed(() => {
     const size = this.fullConfig().size;
@@ -156,45 +140,19 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
     }));
   });
 
-  errorState = computed<{ shouldShow: boolean; message: string }>(() => {
-    const control = this.internalControl;
-
-    if (!control.invalid || !control.touched) {
-      return { shouldShow: false, message: '' };
-    }
-
-    const errors = control.errors;
-    if (!errors) {
-      return { shouldShow: false, message: '' };
-    }
-
-    const customMessages = this.fullConfig().errorMessages;
-    const errorKey = Object.keys(errors)[0];
-    const message = customMessages[errorKey] || this.getDefaultErrorMessage(errorKey, errors[errorKey]);
-
-    return { shouldShow: true, message };
-  });
-
-  constructor() {
-    try {
-      this.ngControl = inject(NgControl, { self: true, optional: true });
-      if (this.ngControl) {
-        this.ngControl.valueAccessor = this;
-      }
-    } catch {
-      // NgControl not available, component used with [(ngModel)]
-    }
-
-    this.internalControl.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(value => {
-        this.onChange(value);
-        this.changeDetectorRef.markForCheck();
-      });
+  onSelectionChange(event: any): void {
+    const newValue = event.value;
+    this.value.set(newValue);
+    this.onChange(newValue);
+    this.onTouched();
   }
 
+  // ============================================================================
+  // ControlValueAccessor Implementation
+  // ============================================================================
+
   writeValue(value: T | T[] | null): void {
-    this.internalControl.setValue(value, { emitEvent: false });
+    this.value.set(value);
   }
 
   registerOnChange(fn: (value: T | T[] | null) => void): void {
@@ -206,28 +164,6 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.internalControl.disable({ emitEvent: false });
-    } else {
-      this.internalControl.enable({ emitEvent: false });
-    }
-  }
-
-  onSelectionChange(): void {
-    this.onTouched();
-  }
-
-  private getDefaultErrorMessage(errorKey: string, errorValue: any): string {
-    const messages: Record<string, string> = {
-      required: 'This field is required',
-      min: `Minimum value is ${errorValue.min}`,
-      max: `Maximum value is ${errorValue.max}`,
-      minlength: `Minimum length is ${errorValue.requiredLength}`,
-      maxlength: `Maximum length is ${errorValue.requiredLength}`,
-      email: 'Please enter a valid email',
-      pattern: 'Invalid format'
-    };
-
-    return messages[errorKey] || 'Invalid value';
+    // disabled is handled by [disabled] binding in template from config
   }
 }

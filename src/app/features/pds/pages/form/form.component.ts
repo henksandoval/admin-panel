@@ -10,6 +10,7 @@ import { AppControlConnectorDirective } from '@shared/atoms/app-form-field-input
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { AppSelectComponent } from '@shared/atoms/app-select/app-select.component';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
@@ -36,6 +37,7 @@ import {
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
+    AppSelectComponent,
     AppCardComponent,
     PdsCodeBlockComponent,
     PdsPageLayoutComponent
@@ -61,6 +63,17 @@ export class FormComponent implements OnInit {
   readonly appearanceOptions: ToggleOption[] = [
     { value: 'fill', label: 'Fill' },
     { value: 'outline', label: 'Outline' }
+  ];
+
+  readonly countryOptions = [
+    { value: 'us', label: 'United States' },
+    { value: 'uk', label: 'United Kingdom' },
+    { value: 'ca', label: 'Canada' },
+    { value: 'mx', label: 'Mexico' },
+    { value: 'es', label: 'Spain' },
+    { value: 'fr', label: 'France' },
+    { value: 'de', label: 'Germany' },
+    { value: 'it', label: 'Italy' }
   ];
 
   basicTextConfig = computed<AppFormFieldInputOptions>(() => ({
@@ -141,6 +154,7 @@ export class FormComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
       phone: ['', [Validators.required]],
+      country: ['', [Validators.required]],
       acceptTerms: [false, [Validators.requiredTrue]]
     });
   }
