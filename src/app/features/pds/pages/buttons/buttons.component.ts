@@ -11,6 +11,7 @@ import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/a
 import { MatButtonAppearance } from '@angular/material/button';
 import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES } from './buttons.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
+import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 
 @Component({
   selector: 'app-buttons',
@@ -22,8 +23,9 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
-    PdsPageLayoutComponent
-  ],
+    PdsPageLayoutComponent,
+    AppCardComponent
+],
   templateUrl: './buttons.component.html'
 })
 export default class ButtonsComponent {

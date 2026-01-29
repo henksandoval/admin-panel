@@ -67,10 +67,7 @@
   </div>
 
   <div slot="documentation">
-    <section>
-      <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-        <mat-icon color="primary">palette</mat-icon> Color Variations
-      </h3>
+    <app-card title="Color Variations" icon="palette">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
           <app-button [variant]="selectedVariant()" color="primary" [shape]="shape()" [size]="size()">Primary</app-button>
@@ -85,7 +82,7 @@
           <code class="text-xs">color="tertiary"</code>
         </div>
       </div>
-    </section>
+    </app-card>
   </div>
 
 </app-pds-page-layout>
