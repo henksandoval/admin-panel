@@ -15,19 +15,6 @@ interface ErrorState {
   message: string;
 }
 
-/**
- * Wrapper component for Angular Material Form Field with automatic validator synchronization.
- *
- * @example
- * // Correct usage with FormControlName
- * <app-form-field-input
- *   formControlName="email"
- *   [config]="emailConfig"
- *   appControlConnector>  <!-- ⚠️ REQUIRED for validator synchronization -->
- * </app-form-field-input>
- *
- * @requires ControlConnectorDirective when used with formControlName to sync parent validators
- */
 @Component({
   selector: 'app-form-field-input',
   standalone: true,
@@ -36,8 +23,12 @@ interface ErrorState {
   ],
   template: `
     <mat-form-field class="w-full" [appearance]="fullConfig().appearance">
-      <mat-label *ngIf="fullConfig().label">{{ fullConfig().label }}</mat-label>
-      <span *ngIf="fullConfig().prefix" matTextPrefix>{{ fullConfig().prefix }}&nbsp;</span>
+      @if(fullConfig().label) {
+        <mat-label>{{ fullConfig().label }}</mat-label>
+      }
+      @if(fullConfig().prefix) {
+        <span matTextPrefix>{{ fullConfig().prefix }}&nbsp;</span>
+      }
       <input
         matInput
         [type]="fullConfig().type"
@@ -47,12 +38,20 @@ interface ErrorState {
         [attr.aria-label]="fullConfig().ariaLabel"
         [required]="isRequired"
       >
-      <span *ngIf="fullConfig().suffix" matTextSuffix>{{ fullConfig().suffix }}</span>
-      <mat-icon *ngIf="fullConfig().icon" matSuffix>{{ fullConfig().icon }}</mat-icon>
-      <mat-hint *ngIf="fullConfig().hint">{{ fullConfig().hint }}</mat-hint>
-      <mat-error *ngIf="errorState.shouldShow">
-        {{ errorState.message }}
-      </mat-error>
+      @if(fullConfig().suffix) {
+        <span matTextSuffix>{{ fullConfig().suffix }}</span>
+      }
+      @if(fullConfig().icon) {
+        <mat-icon matSuffix>{{ fullConfig().icon }}</mat-icon>
+      }
+      @if(fullConfig().hint) {
+        <mat-hint>{{ fullConfig().hint }}</mat-hint>
+      }
+      @if(errorState.shouldShow) {
+        <mat-error>
+          {{ errorState.message }}
+        </mat-error>
+      }
     </mat-form-field>
   `,
   providers: [

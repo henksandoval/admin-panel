@@ -140,7 +140,8 @@ export class FormComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
-      phone: ['', [Validators.required]]
+      phone: ['', [Validators.required]],
+      acceptTerms: [false, [Validators.requiredTrue]]
     });
   }
 
