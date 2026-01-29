@@ -35,20 +35,6 @@
   }
 }
 
-.card-border {
-  &.high {
-    border-left: 4px solid var(--mat-sys-primary);
-  }
-
-  &.medium {
-    border-left: 4px solid var(--mat-sys-secondary);
-  }
-
-  &.low {
-    border-left: 4px solid var(--mat-sys-tertiary);
-  }
-}
-
 .info-box {
   background-color: var(--mat-sys-surface-container-low);
   border-color: var(--mat-sys-outline-variant);

@@ -80,6 +80,18 @@ export class AppCardFooterActionsDirective {}
       box-shadow: var(--mat-card-elevated-container-elevation, var(--mat-sys-level1));
       transition: all 0.2s ease-in-out;
       overflow: hidden;
+
+      &.high {
+        border-left: 4px solid var(--mat-sys-primary);
+      }
+
+      &.medium {
+        border-left: 4px solid var(--mat-sys-secondary);
+      }
+
+      &.low {
+        border-left: 4px solid var(--mat-sys-tertiary);
+      }
     }
 
     .mat-expansion-panel-header {
