@@ -157,68 +157,69 @@
   <div slot="main-content">
     <app-card
       title="Visual Controls"
-      icon="tune"
-      contentPadding="flex flex-col gap-6">
-      <p class="card-description">
+      icon="tune">
+      <p class="card-description mb-6">
         Change visual appearance of all fields (validations stay the same)
       </p>
 
-      <div class="flex flex-col gap-3">
-          <label class="controls-label flex items-center gap-2 font-medium">
-            <mat-icon>style</mat-icon>
-            Appearance Style
-          </label>
-          <app-toggle-group
-            [options]="appearanceOptions"
-            [(value)]="globalAppearance"
-            class="w-full"/>
-          <p class="controls-hint text-xs">Changes the Material Design style of all fields</p>
+      <div class="mt-2">
+        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+          <mat-icon>style</mat-icon>
+          Appearance Style
+        </label>
+        <app-toggle-group
+          [options]="appearanceOptions"
+          [(value)]="globalAppearance"
+          class="w-full"/>
+        <p class="text-xs mt-1" style="color: var(--mat-sys-on-surface-variant);">
+          Changes the Material Design style of all fields
+        </p>
+      </div>
+
+      <mat-divider class="my-4"></mat-divider>
+
+      <div class="mt-2">
+        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-3">
+          <mat-icon>visibility</mat-icon>
+          Show/Hide Elements
+        </label>
+
+        <div class="grid grid-cols-1 gap-3">
+          <app-checkbox [(checked)]="showIcons" color="primary">
+            <div class="flex items-center gap-2">
+              <mat-icon class="text-lg">insert_emoticon</mat-icon>
+              <span>Show Icons</span>
+            </div>
+          </app-checkbox>
+
+          <app-checkbox [(checked)]="showHints" color="primary">
+            <div class="flex items-center gap-2">
+              <mat-icon class="text-lg">info</mat-icon>
+              <span>Show Hints</span>
+            </div>
+          </app-checkbox>
+
+          <app-checkbox [(checked)]="showPrefixSuffix" color="primary">
+            <div class="flex items-center gap-2">
+              <mat-icon class="text-lg">text_format</mat-icon>
+              <span>Show Prefix/Suffix</span>
+            </div>
+          </app-checkbox>
         </div>
+      </div>
 
-        <mat-divider></mat-divider>
+      <mat-divider class="my-4"></mat-divider>
 
-        <div class="flex flex-col gap-3">
-          <label class="controls-label flex items-center gap-2 font-medium">
-            <mat-icon>visibility</mat-icon>
-            Show/Hide Elements
-          </label>
-
-          <div class="flex flex-col gap-3">
-            <app-checkbox [(checked)]="showIcons" color="primary">
-              <div class="flex items-center gap-2">
-                <mat-icon class="text-lg">insert_emoticon</mat-icon>
-                <span>Show Icons</span>
-              </div>
-            </app-checkbox>
-
-            <app-checkbox [(checked)]="showHints" color="primary">
-              <div class="flex items-center gap-2">
-                <mat-icon class="text-lg">info</mat-icon>
-                <span>Show Hints</span>
-              </div>
-            </app-checkbox>
-
-            <app-checkbox [(checked)]="showPrefixSuffix" color="primary">
-              <div class="flex items-center gap-2">
-                <mat-icon class="text-lg">text_format</mat-icon>
-                <span>Show Prefix/Suffix</span>
-              </div>
-            </app-checkbox>
-          </div>
+      <div class="info-card p-4 rounded-lg flex gap-3">
+        <mat-icon class="text-2xl">lightbulb</mat-icon>
+        <div>
+          <h4 class="font-semibold text-sm mb-1">Try It!</h4>
+          <p class="text-xs" style="color: var(--mat-sys-on-surface-variant);">
+            Enter invalid data in the fields to see validation errors in real-time.
+            The visual controls only affect appearance, not validations.
+          </p>
         </div>
-
-        <mat-divider></mat-divider>
-
-        <div class="info-card p-4 rounded-lg flex gap-3 mt-auto">
-          <mat-icon class="text-2xl">lightbulb</mat-icon>
-          <div>
-            <h4 class="font-semibold text-sm mb-1">Try It!</h4>
-            <p class="info-description text-xs">
-              Enter invalid data in the fields to see validation errors in real-time.
-              The visual controls only affect appearance, not validations.
-            </p>
-          </div>
-        </div>
+      </div>
     </app-card>
   </div>
 
