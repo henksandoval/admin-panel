@@ -33,16 +33,16 @@
   </div>
 
   <div slot="controls">
-    <div class="space-y-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="control-label-icon">category</mat-icon>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>category</mat-icon>
         Variant
       </label>
       <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" class="w-full" />
     </div>
 
     @if (selectedVariant() === 'overlay') {
-      <div class="space-y-2">
+      <div class="mt-2">
         <app-form-input
           [(ngModel)]="badgeContent"
           [config]="{
@@ -53,20 +53,20 @@
         </app-form-input>
       </div>
 
-      <div class="space-y-2">
-        <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="control-label-icon">place</mat-icon>
+      <div class="mt-2">
+        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+          <mat-icon>place</mat-icon>
           Position
         </label>
         <app-toggle-group [options]="positionOptions" [(value)]="position" class="w-full" />
       </div>
 
-      <div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
         <app-checkbox [(checked)]="overlap" color="primary">Overlap</app-checkbox>
         <app-checkbox [(checked)]="hidden" color="tertiary">Hidden</app-checkbox>
       </div>
     } @else {
-      <div class="space-y-2">
+      <div class="mt-2">
         <app-form-input
           [(ngModel)]="badgeLabel"
           [config]="{
@@ -77,25 +77,24 @@
         </app-form-input>
       </div>
 
-      <div class="space-y-2">
-        <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="control-label-icon">palette</mat-icon>
+      <div class="mt-2">
+        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+          <mat-icon>palette</mat-icon>
           Color
         </label>
         <app-toggle-group [options]="inlineColorOptions" [(value)]="inlineColor" class="w-full" />
       </div>
-      <div>
+
+      <div class="mt-2">
         <app-checkbox [(checked)]="hasIndicator" color="primary">Show Indicator (!)</app-checkbox>
       </div>
     }
   </div>
 
   <div slot="documentation">
+    <!-- Badge variations based on selected variant -->
     @if (selectedVariant() === 'overlay') {
-      <section>
-        <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-          <mat-icon color="primary">explore</mat-icon> Position Variations
-        </h3>
+      <app-card title="Position Variations" icon="explore">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           @for (pos of BADGE_POSITIONS; track pos.value) {
             <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
@@ -113,12 +112,9 @@
             </div>
           }
         </div>
-      </section>
+      </app-card>
     } @else {
-      <section>
-        <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-          <mat-icon color="primary">palette</mat-icon> Color Variations
-        </h3>
+      <app-card title="Color Variations" icon="palette">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           @for (color of INLINE_COLORS; track color.value) {
             <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
@@ -129,11 +125,9 @@
             </div>
           }
         </div>
-      </section>
-      <section>
-        <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-          <mat-icon color="primary">info</mat-icon> With Indicator
-        </h3>
+      </app-card>
+
+      <app-card title="With Indicator" icon="info">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           @for (color of INLINE_COLORS; track color.value) {
             <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
@@ -142,7 +136,7 @@
             </div>
           }
         </div>
-      </section>
+      </app-card>
     }
   </div>
 

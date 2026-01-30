@@ -21,6 +21,7 @@ import {
 } from './indicators.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { AppFormInputComponent } from '@shared/molecules/app-form-input/app-form-input.component';
+import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 
 @Component({
   selector: 'app-indicators',
@@ -37,7 +38,8 @@ import { AppFormInputComponent } from '@shared/molecules/app-form-input/app-form
     AppCheckboxComponent,
     AppToggleGroupComponent,
     AppFormInputComponent,
-    PdsPageLayoutComponent
+    PdsPageLayoutComponent,
+    AppCardComponent
   ],
   templateUrl: './indicators.component.html'
 })
