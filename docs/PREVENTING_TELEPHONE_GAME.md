@@ -31,14 +31,14 @@ Developer 5: Copia de Dev 4, rompe algo sin darse cuenta
 
 Mira tu código actual:
 
-### app-form-field-input: ✅ Soluciona el problema
+### app-form-input: ✅ Soluciona el problema
 ```typescript
 // ✅ API estandarizada
-<app-form-field-input 
+<app-form-input 
   formControlName="email"
   [config]="{ label: 'Email', type: 'email', hint: '...' }"
   appControlConnector>
-</app-form-field-input>
+</app-form-input>
 
 // ✅ Validación automática
 // ✅ Errores automáticos
@@ -66,12 +66,12 @@ Mira tu código actual:
 ### El "Teléfono Roto" YA está pasando:
 
 ```
-Developer A: Usa app-form-field-input → Errores automáticos ✓
+Developer A: Usa app-form-input → Errores automáticos ✓
 Developer B: Usa app-select → ¿Cómo muestro errores? 🤔
 Developer B: Copia del componente anterior donde pusieron <div class="error">
 Developer C: Copia de B, pero usa diferentes clases CSS
 Developer D: Copia de C, olvida el @if condicional
-Developer E: Usa app-form-field-input otra vez → Confundido por qué este sí muestra errores
+Developer E: Usa app-form-input otra vez → Confundido por qué este sí muestra errores
 
 Resultado: CAOS - Dos formas de manejar validación en TU PROPIO sistema
 ```
@@ -91,7 +91,7 @@ Resultado: CAOS - Dos formas de manejar validación en TU PROPIO sistema
 
 ### Tu Implementación Actual (Inconsistente):
 ```
-❌ app-form-field-input: Validación automática
+❌ app-form-input: Validación automática
 ❌ app-select: SIN validación automática
 ❌ app-checkbox: SIN validación automática
 
@@ -107,7 +107,7 @@ No necesitas **MENOS** abstracción, necesitas **COMPLETAR** la abstracción.
 
 ### Visión Actual (Incompleta):
 ```
-app-form-field-input ✅ → Smart, validación integrada
+app-form-input ✅ → Smart, validación integrada
 app-select           ❌ → Dumb, sin validación
 app-checkbox         ❌ → Dumb, sin validación
 ```
@@ -144,23 +144,23 @@ app-form-textarea ✅ → Smart, validación integrada
 
 ```typescript
 // ESTO YA ES "TELÉFONO ROTO"
-<app-form-field-input 
+<app-form-input 
   formControlName="email"
   appControlConnector>  <!-- ¿Qué es esto? -->
-</app-form-field-input>
+</app-form-input>
 ```
 
 **Escenarios reales que pasarán:**
 
 ```typescript
 // Developer Junior 1:
-<app-form-field-input formControlName="email" appControlConnector>
-</app-form-field-input>
+<app-form-input formControlName="email" appControlConnector>
+</app-form-input>
 // ✓ Funciona
 
 // Developer Junior 2: Copia, pero olvida la directive
-<app-form-field-input formControlName="name">
-</app-form-field-input>
+<app-form-input formControlName="name">
+</app-form-input>
 // ✗ NO funciona correctamente, pero no da error obvio
 
 // Developer Junior 3: Se confunde, pone la directive en select
@@ -181,8 +181,8 @@ app-form-textarea ✅ → Smart, validación integrada
 // Form con 4 campos
 <form [formGroup]="myForm">
   <!-- ✓ Input: Errores automáticos -->
-  <app-form-field-input formControlName="name" [config]="nameConfig" appControlConnector>
-  </app-form-field-input>
+  <app-form-input formControlName="name" [config]="nameConfig" appControlConnector>
+  </app-form-input>
   
   <!-- ✗ Select: Dev tiene que agregar errores manualmente -->
   <app-select formControlName="country" [options]="countries" [config]="countryConfig">
@@ -198,8 +198,8 @@ app-form-textarea ✅ → Smart, validación integrada
   }
   
   <!-- ✓ Email: Errores automáticos -->
-  <app-form-field-input formControlName="email" [config]="emailConfig" appControlConnector>
-  </app-form-field-input>
+  <app-form-input formControlName="email" [config]="emailConfig" appControlConnector>
+  </app-form-input>
 </form>
 ```
 
@@ -316,7 +316,7 @@ app-form-textarea ✅ → Smart, validación integrada
 ### 1. Onboarding de Nuevos Devs
 ```
 ANTES (Inconsistente):
-"Para input usa app-form-field-input con appControlConnector,
+"Para input usa app-form-input con appControlConnector,
 para select usa app-select pero tienes que agregar los errores manualmente,
 para checkbox usa app-checkbox y también errores manuales..."
 
@@ -407,7 +407,7 @@ Estandariza TODOS los form controls al mismo nivel
 
 ### Hoy:
 ```
-✓ Tienes app-form-field-input (smart)
+✓ Tienes app-form-input (smart)
 ✓ Tienes app-select (dumb)
 ✓ Tienes app-checkbox (dumb)
 → 66% de consistencia
@@ -441,7 +441,7 @@ Estandariza TODOS los form controls al mismo nivel
 
 ```typescript
 // 1. Crear FormControlConnectorService (lógica compartida)
-// 2. Refactorizar app-form-field-input para usar el service
+// 2. Refactorizar app-form-input para usar el service
 // 3. Crear app-form-select con MISMA lógica
 // 4. Crear app-form-checkbox con MISMA lógica
 ```

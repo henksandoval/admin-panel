@@ -1,7 +1,7 @@
 # 🔍 Análisis Crítico: Arquitectura de Componentes de Formulario
 
 **Fecha:** 30 de Enero, 2026  
-**Objetivo:** Análisis sin concesiones de `app-form-field-input`, `app-select` y `app-checkbox`
+**Objetivo:** Análisis sin concesiones de `app-form-input`, `app-select` y `app-checkbox`
 
 ---
 
@@ -9,13 +9,13 @@
 
 **Tu observación inicial es INCORRECTA, pero tu intuición de que algo no cuadra es CORRECTA.**
 
-El problema NO es que `app-form-field-input` sea una molécula y `app-select` un átomo. El problema real es **INCONSISTENCIA ARQUITECTÓNICA** entre tus componentes. Tienes tres componentes que siguen tres patrones de diseño diferentes, lo cual es una **deuda técnica** significativa.
+El problema NO es que `app-form-input` sea una molécula y `app-select` un átomo. El problema real es **INCONSISTENCIA ARQUITECTÓNICA** entre tus componentes. Tienes tres componentes que siguen tres patrones de diseño diferentes, lo cual es una **deuda técnica** significativa.
 
 ---
 
 ## 📊 Análisis Comparativo
 
-### 1. **app-form-field-input** (168 líneas)
+### 1. **app-form-input** (168 líneas)
 
 #### ✅ Lo que hace BIEN:
 - **Validación automática integrada** con display de errores
@@ -49,7 +49,7 @@ El problema NO es que `app-form-field-input` sea una molécula y `app-select` un
 - **CERO manejo de validación** - No muestra errores
 - **CERO integración con NgControl** - No sabe si el FormControl padre tiene errores
 - **CERO feedback visual** de estados (touched, dirty, invalid)
-- **Inconsistente con `app-form-field-input`** - API completamente diferente
+- **Inconsistente con `app-form-input`** - API completamente diferente
 
 #### 🏗️ Nivel de Abstracción:
 **ATOM GLORIFICADO** - Es un wrapper "pretty" de mat-select sin valor agregado real más allá de cosmética
@@ -81,7 +81,7 @@ El problema NO es que `app-form-field-input` sea una molécula y `app-select` un
 Tienes tres filosofías de diseño coexistiendo:
 
 ```
-app-form-field-input:  "Smart Component" - Todo integrado
+app-form-input:  "Smart Component" - Todo integrado
 app-select:            "Pretty Wrapper"  - Solo UI
 app-checkbox:          "Dumb Component" - Minimalista
 ```
@@ -89,12 +89,12 @@ app-checkbox:          "Dumb Component" - Minimalista
 ### Esto causa:
 
 1. **Developer Confusion**
-   - ¿Por qué `app-form-field-input` muestra errores automáticamente pero `app-select` no?
+   - ¿Por qué `app-form-input` muestra errores automáticamente pero `app-select` no?
    - ¿Por qué necesito `appControlConnector` para uno pero no para otros?
    - ¿Cuándo uso qué componente?
 
 2. **Duplicación de Esfuerzo**
-   - Si quieres agregar validación a `app-select`, tendrás que duplicar toda la lógica de `app-form-field-input`
+   - Si quieres agregar validación a `app-select`, tendrás que duplicar toda la lógica de `app-form-input`
    - No hay código compartido entre componentes similares
 
 3. **Testing Inconsistente**
@@ -226,10 +226,10 @@ export class AppFormInputComponent extends AppInputBaseComponent {
 
 ```typescript
 // ESTO ES UNA RED FLAG 🚩
-<app-form-field-input 
+<app-form-input 
   formControlName="email" 
   appControlConnector>  <!-- ¿Por qué necesito esto? -->
-</app-form-field-input>
+</app-form-input>
 ```
 
 **Por qué es malo:**
@@ -255,8 +255,8 @@ constructor(@Optional() @Self() public ngControl?: NgControl) {
 </app-select>
 <!-- ¿Cómo muestro errores? 🤷 -->
 
-<app-form-field-input formControlName="email" [config]="config">
-</app-form-field-input>
+<app-form-input formControlName="email" [config]="config">
+</app-form-input>
 <!-- Errores automáticos ✓ -->
 ```
 
@@ -265,7 +265,7 @@ constructor(@Optional() @Self() public ngControl?: NgControl) {
 ### Problem 3: Duplicación Futura Inevitable
 
 Si quieres agregar validación a `app-select`:
-- Copiar/pegar todo el código de `app-form-field-input`
+- Copiar/pegar todo el código de `app-form-input`
 - Adaptar para mat-select
 - Mantener 2 implementaciones de la misma lógica
 
@@ -277,7 +277,7 @@ Si quieres agregar validación a `app-select`:
 
 | Componente | CVA | NgControl | Validación | Errores | Nivel |
 |------------|-----|-----------|------------|---------|-------|
-| app-form-field-input | ✅ | ✅ | ✅ | ✅ | **ORGANISM** |
+| app-form-input | ✅ | ✅ | ✅ | ✅ | **ORGANISM** |
 | app-select | ✅ | ❌ | ❌ | ❌ | **ATOM+** |
 | app-checkbox | ✅ | ❌ | ❌ | ❌ | **ATOM** |
 | mat-input (Material) | ✅ | ✅ | ✅ | ✅ | **ORGANISM** |
@@ -289,7 +289,7 @@ Si quieres agregar validación a `app-select`:
 
 ## 🎯 Respuesta Directa a Tu Pregunta
 
-### "¿Mi app-form-field-input es una molecule?"
+### "¿Mi app-form-input es una molecule?"
 
 **NO.** Es un **ORGANISM** según Atomic Design porque:
 - Gestiona múltiples responsabilidades
@@ -311,7 +311,7 @@ Si quieres agregar validación a `app-select`:
 
 ## 🚀 Plan de Acción Recomendado
 
-### Opción 1: **Estandarizar TODO al nivel de app-form-field-input**
+### Opción 1: **Estandarizar TODO al nivel de app-form-input**
 
 **Hacer:**
 1. Refactorizar `app-select` y `app-checkbox` para incluir validación
@@ -324,10 +324,10 @@ Si quieres agregar validación a `app-select`:
 
 ---
 
-### Opción 2: **Degradar app-form-field-input a nivel base**
+### Opción 2: **Degradar app-form-input a nivel base**
 
 **Hacer:**
-1. Remover validación de `app-form-field-input`
+1. Remover validación de `app-form-input`
 2. Simplificar todos los componentes a wrappers básicos
 3. Validación manual en templates (como Material nativo)
 
@@ -412,7 +412,7 @@ components/
 
 ## 📊 Scorecard Final
 
-| Aspecto | app-form-field-input | app-select | app-checkbox |
+| Aspecto | app-form-input | app-select | app-checkbox |
 |---------|---------------------|------------|--------------|
 | **Consistencia API** | 🔴 Diferente | 🔴 Diferente | 🔴 Diferente |
 | **Validación** | 🟢 Completa | 🔴 Ninguna | 🔴 Ninguna |

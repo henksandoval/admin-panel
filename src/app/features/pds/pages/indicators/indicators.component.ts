@@ -10,7 +10,6 @@ import { AppBadgeComponent } from '@shared/atoms/app-badge/app-badge.component';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
-import { AppFormFieldInputComponent } from '@shared/atoms/app-form-field-input/app-form-field-input.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { BADGE_DEFAULTS, BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
 import {
@@ -21,6 +20,7 @@ import {
   BEST_PRACTICES
 } from './indicators.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
+import { AppFormInputComponent } from '@shared/molecules/app-form-field-input/app-form-input.component';
 
 @Component({
   selector: 'app-indicators',
@@ -36,7 +36,7 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
-    AppFormFieldInputComponent,
+    AppFormInputComponent,
     PdsPageLayoutComponent
   ],
   templateUrl: './indicators.component.html'

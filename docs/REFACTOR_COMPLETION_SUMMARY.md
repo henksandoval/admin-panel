@@ -2,7 +2,7 @@
 
 ## 🎯 Objetivo Cumplido
 
-Has completado app-select y app-checkbox para que funcionen **exactamente igual** que tu componente estrella `app-form-field-input`.
+Has completado app-select y app-checkbox para que funcionen **exactamente igual** que tu componente estrella `app-form-input`.
 
 ---
 
@@ -133,11 +133,11 @@ Todos los componentes ahora tienen la **MISMA API**:
 
 ```typescript
 // ✅ Input
-<app-form-field-input
+<app-form-input
   formControlName="email"
   [config]="emailConfig"
   appControlConnector>
-</app-form-field-input>
+</app-form-input>
 
 // ✅ Select (ahora igual que input)
 <app-select
@@ -185,11 +185,11 @@ galleryForm = this.fb.group({
 
 ### Template (Sin código de validación manual):
 ```html
-<app-form-field-input 
+<app-form-input 
   formControlName="email" 
   [config]="emailConfig"
   appControlConnector>
-</app-form-field-input>
+</app-form-input>
 <!-- ✅ Muestra "This field is required" automáticamente -->
 
 <app-select
@@ -257,7 +257,7 @@ Developer C: Usa app-select con appControlConnector
 
 ## ✅ SIEMPRE usa appControlConnector
 
-<app-form-field-input formControlName="..." appControlConnector>
+<app-form-input formControlName="..." appControlConnector>
 <app-select formControlName="..." appControlConnector>
 <app-checkbox formControlName="..." appControlConnector>
 
@@ -366,13 +366,13 @@ Para cada form existente:
 
 ```
 ANTES:
-app-form-field-input ✅ (completo)
+app-form-input ✅ (completo)
 app-select           ⚠️  (incompleto)
 app-checkbox         ⚠️  (incompleto)
 → 33% de consistencia
 
 AHORA:
-app-form-field-input ✅ (completo)
+app-form-input ✅ (completo)
 app-select           ✅ (completo - como input)
 app-checkbox         ✅ (completo - como input)
 → 100% de consistencia

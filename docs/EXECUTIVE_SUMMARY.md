@@ -8,7 +8,7 @@
 
 ## 🎯 TL;DR (Too Long, Didn't Read)
 
-**Tu observación:** "app-form-field-input es molecule, app-select es algo intermedio"
+**Tu observación:** "app-form-input es molecule, app-select es algo intermedio"
 
 **La realidad:**
 ```
@@ -16,7 +16,7 @@
 ✅ ES un problema de INCONSISTENCIA ARQUITECTÓNICA
 
 Tienes 3 componentes con 3 filosofías diferentes:
-- app-form-field-input: Smart pero mal implementado (necesita directive)
+- app-form-input: Smart pero mal implementado (necesita directive)
 - app-select: Dumb wrapper sin valor agregado
 - app-checkbox: Minimalist wrapper
 
@@ -36,7 +36,7 @@ Resultado: Experiencia de desarrollo inconsistente y confusa
 │                    ESTADO ACTUAL (Inconsistente)                 │
 └─────────────────────────────────────────────────────────────────┘
 
-app-form-field-input (168 LOC)          app-select (140 LOC)
+app-form-input (168 LOC)          app-select (140 LOC)
 ┌──────────────────────────────┐        ┌────────────────────┐
 │ ✅ ControlValueAccessor      │        │ ✅ CVA             │
 │ ✅ NgControl (manual)         │        │ ❌ NgControl       │
@@ -327,7 +327,7 @@ Mes 6: "Let's rewrite everything"
 
 ## 💬 Respuestas Directas
 
-### ¿Es app-form-field-input una molecule?
+### ¿Es app-form-input una molecule?
 **Respuesta:** NO. Es un ORGANISM mal implementado que intenta ser smart pero requiere accesorios externos (directive) para funcionar.
 
 ### ¿Es app-select algo intermedio?

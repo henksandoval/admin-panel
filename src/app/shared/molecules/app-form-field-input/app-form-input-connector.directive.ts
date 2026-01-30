@@ -1,0 +1,23 @@
+import { Directive, inject, OnInit } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import {AppFormInputComponent} from '@shared/molecules/app-form-field-input/app-form-input.component';
+
+@Directive({
+  selector: '[appControlConnector]',
+  standalone: true,
+})
+export class AppFormInputConnectorDirective implements OnInit {
+  private readonly ngControl = inject(NgControl, { self: true });
+
+  private readonly hostComponent = inject(AppFormInputComponent, { self: true });
+
+  constructor() {
+    if (!this.ngControl || !this.hostComponent) {
+      throw new Error('AppControlConnectorDirective debe usarse en un AppFormFieldInputComponent con una directiva de formulario (formControlName, etc.)');
+    }
+  }
+
+  ngOnInit(): void {
+    this.hostComponent.connectControl(this.ngControl);
+  }
+}

@@ -8,24 +8,25 @@ import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/fo
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
-import { AppFormFieldInputComponent } from '@shared/atoms/app-form-field-input/app-form-field-input.component';
-import { AppControlConnectorDirective } from '@shared/atoms/app-form-field-input/app-control-connector.directive';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppSelectComponent } from '@shared/atoms/app-select/app-select.component';
 import { AppFormCheckboxComponent } from '@shared/molecules/app-form-checkbox/app-form-checkbox.component';
-import { AppFormCheckboxConnectorDirective } from '@shared/molecules/app-form-checkbox/app-form-checkbox-connector.directive';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import { AppFormFieldInputOptions } from '@shared/atoms/app-form-field-input/app-form-field-input.model';
 import {
   FIELD_EXAMPLES,
   API_PROPERTIES,
   BEST_PRACTICES
 } from './form.data';
+import {AppFormInputComponent} from '@shared/molecules/app-form-field-input/app-form-input.component';
+import {
+  AppFormInputConnectorDirective
+} from '@shared/molecules/app-form-field-input/app-form-input-connector.directive';
+import {AppFormInputOptions} from '@shared/molecules/app-form-field-input/app-form-field-input.model';
 
 @Component({
   selector: 'app-form-gallery',
@@ -39,13 +40,12 @@ import {
     MatFormFieldModule,
     MatSelectModule,
     MatCheckboxModule,
-    AppFormFieldInputComponent,
-    AppControlConnectorDirective,
+    AppFormInputComponent,
+    AppFormInputConnectorDirective,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
     AppFormCheckboxComponent,
-    AppFormCheckboxConnectorDirective,
     AppSelectComponent,
     AppCardComponent,
     PdsCodeBlockComponent,
@@ -85,7 +85,7 @@ export class FormComponent implements OnInit {
     { value: 'it', label: 'Italy' }
   ];
 
-  basicTextConfig = computed<AppFormFieldInputOptions>(() => ({
+  basicTextConfig = computed<AppFormInputOptions>(() => ({
     label: 'Full Name',
     placeholder: 'John Doe',
     type: 'text',
@@ -94,7 +94,7 @@ export class FormComponent implements OnInit {
     hint: this.showHints() ? 'Enter your full name' : ''
   }));
 
-  emailConfig = computed<AppFormFieldInputOptions>(() => ({
+  emailConfig = computed<AppFormInputOptions>(() => ({
     label: 'Email Address',
     placeholder: 'your@email.com',
     type: 'email',
@@ -107,7 +107,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  passwordConfig = computed<AppFormFieldInputOptions>(() => ({
+  passwordConfig = computed<AppFormInputOptions>(() => ({
     label: 'Password',
     placeholder: 'Enter secure password',
     type: 'password',
@@ -121,7 +121,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  ageConfig = computed<AppFormFieldInputOptions>(() => ({
+  ageConfig = computed<AppFormInputOptions>(() => ({
     label: 'Age',
     placeholder: '18-99',
     type: 'number',
@@ -136,7 +136,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  phoneConfig = computed<AppFormFieldInputOptions>(() => ({
+  phoneConfig = computed<AppFormInputOptions>(() => ({
     label: 'Phone Number',
     placeholder: '(555) 123-4567',
     type: 'tel',
@@ -236,11 +236,11 @@ export class FormComponent implements OnInit {
     code += `});\n\n`;
 
     code += `// HTML Template\n`;
-    code += `<app-form-field-input\n`;
+    code += `<app-form-input\n`;
     code += `  formControlName="${example.formControlName}"\n`;
     code += `  [config]="${example.configName}"\n`;
     code += `  appControlConnector>\n`;
-    code += `</app-form-field-input>`;
+    code += `</app-form-input>`;
 
     return code;
   }
@@ -265,11 +265,11 @@ export class FormComponent implements OnInit {
     code += `// HTML Template\n`;
     code += `<form [formGroup]="form" (ngSubmit)="onSubmit()">\n`;
     code += `  <!-- Custom Components -->\n`;
-    code += `  <app-form-field-input\n`;
+    code += `  <app-form-input\n`;
     code += `    formControlName="basicText"\n`;
     code += `    [config]="basicTextConfig"\n`;
     code += `    appControlConnector>\n`;
-    code += `  </app-form-field-input>\n\n`;
+    code += `  </app-form-input>\n\n`;
 
     code += `  <app-select\n`;
     code += `    formControlName="country"\n`;

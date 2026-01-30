@@ -154,7 +154,7 @@ Sí, en **FORM_CONTROLS_REFACTOR_GUIDE.md** hay implementaciones completas.
 ## 📈 Estado del Proyecto
 
 ### Componentes Actuales Analizados:
-- ✅ app-form-field-input (168 LOC)
+- ✅ app-form-input (168 LOC)
 - ✅ app-select (140 LOC)
 - ✅ app-checkbox (83 LOC)
 

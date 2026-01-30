@@ -43,14 +43,14 @@
 
     @if (selectedVariant() === 'overlay') {
       <div class="space-y-2">
-        <app-form-field-input
+        <app-form-input
           [(ngModel)]="badgeContent"
           [config]="{
             label: 'Content',
             placeholder: 'Badge content',
             icon: 'numbers'
           }">
-        </app-form-field-input>
+        </app-form-input>
       </div>
 
       <div class="space-y-2">
@@ -67,14 +67,14 @@
       </div>
     } @else {
       <div class="space-y-2">
-        <app-form-field-input
+        <app-form-input
           [(ngModel)]="badgeLabel"
           [config]="{
             label: 'Label',
             placeholder: 'Badge label',
             icon: 'text_fields'
           }">
-        </app-form-field-input>
+        </app-form-input>
       </div>
 
       <div class="space-y-2">

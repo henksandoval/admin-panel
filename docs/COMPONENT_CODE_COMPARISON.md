@@ -4,7 +4,7 @@
 
 ---
 
-## 1️⃣ app-form-field-input (168 líneas)
+## 1️⃣ app-form-input (168 líneas)
 
 ### 🏗️ Arquitectura: SMART COMPONENT (Organism)
 
@@ -226,7 +226,7 @@ export class AppCheckboxComponent implements ControlValueAccessor {
 
 ## 🎯 Comparación Side-by-Side
 
-| Feature | app-form-field-input | app-select | app-checkbox |
+| Feature | app-form-input | app-select | app-checkbox |
 |---------|---------------------|------------|--------------|
 | **Líneas de código** | 168 | 140 | 83 |
 | **ControlValueAccessor** | ✅ Completo | ✅ Completo | ✅ Completo |
@@ -247,7 +247,7 @@ export class AppCheckboxComponent implements ControlValueAccessor {
 
 ## 🔍 Diferencias Clave en NgControl
 
-### ❌ PROBLEMA: app-form-field-input
+### ❌ PROBLEMA: app-form-input
 ```typescript
 // El componente NO inyecta NgControl directamente
 export class AppFormFieldInputComponent {
@@ -261,10 +261,10 @@ export class AppFormFieldInputComponent {
 }
 
 // USO - Requiere directiva externa 😰
-<app-form-field-input 
+<app-form-input 
   formControlName="email"
   appControlConnector>  <!-- ← ESTO NO DEBERÍA SER NECESARIO -->
-</app-form-field-input>
+</app-form-input>
 ```
 
 ### ✅ SOLUCIÓN: Inyección directa
@@ -290,7 +290,7 @@ export class BetterComponent {
 
 ## 🧩 Análisis de Patrones CVA
 
-### Pattern 1: "Full Integration" (app-form-field-input)
+### Pattern 1: "Full Integration" (app-form-input)
 
 ```typescript
 // PROS:
@@ -353,12 +353,12 @@ registrationForm = this.fb.group({
 ### Con componentes actuales (INCONSISTENTE):
 
 ```html
-<!-- ✅ app-form-field-input: Errores automáticos -->
-<app-form-field-input 
+<!-- ✅ app-form-input: Errores automáticos -->
+<app-form-input 
   formControlName="name"
   [config]="{ label: 'Name' }"
   appControlConnector>
-</app-form-field-input>
+</app-form-input>
 <!-- Muestra "This field is required" automáticamente ✓ -->
 
 <!-- ❌ app-select: SIN errores -->
@@ -415,7 +415,7 @@ registrationForm = this.fb.group({
 
 | Componente | Complejidad | Categoría |
 |------------|-------------|-----------|
-| app-form-field-input | ~12 | 🔴 Alta |
+| app-form-input | ~12 | 🔴 Alta |
 | app-select | ~5 | 🟢 Baja |
 | app-checkbox | ~2 | 🟢 Muy Baja |
 
@@ -423,7 +423,7 @@ registrationForm = this.fb.group({
 
 | Componente | LOC | Template LOC | Total |
 |------------|-----|--------------|-------|
-| app-form-field-input | ~130 | ~38 | ~168 |
+| app-form-input | ~130 | ~38 | ~168 |
 | app-select | ~95 | ~45 | ~140 |
 | app-checkbox | ~55 | ~28 | ~83 |
 
@@ -431,7 +431,7 @@ registrationForm = this.fb.group({
 
 | Componente | Angular | Material | Custom | Total |
 |------------|---------|----------|--------|-------|
-| app-form-field-input | 5 | 3 | 2 | 10 |
+| app-form-input | 5 | 3 | 2 | 10 |
 | app-select | 3 | 3 | 1 | 7 |
 | app-checkbox | 2 | 1 | 1 | 4 |
 
@@ -439,7 +439,7 @@ registrationForm = this.fb.group({
 
 ## 🎭 Conclusión: Los Tres Arquetipos
 
-### 🦸 app-form-field-input: "The Overachiever"
+### 🦸 app-form-input: "The Overachiever"
 - Intenta hacer TODO
 - Complejo pero poderoso
 - Requiere accesorios externos (directive)
@@ -464,7 +464,7 @@ registrationForm = this.fb.group({
 > **"No necesitas tres niveles de abstracción diferentes. Necesitas UNO, bien implementado y CONSISTENTE."**
 
 Tu código actual es como tener:
-- Un coche de F1 (app-form-field-input) - rápido pero complicado
+- Un coche de F1 (app-form-input) - rápido pero complicado
 - Una bicicleta eléctrica (app-select) - bonita pero limitada
 - Un monopatín (app-checkbox) - simple pero funcional
 

@@ -27,7 +27,7 @@ galleryForm = this.fb.group({
 
 ### Componentes Custom con Validación ✅
 
-#### 1. app-form-field-input (5 campos)
+#### 1. app-form-input (5 campos)
 ```html
 ✅ basicText  - Sin validación
 ✅ email      - Validators.required, Validators.email
@@ -140,7 +140,7 @@ code += `      <mat-option value="us">United States</mat-option>\n`;
 ## ✅ Checklist de Funcionalidad
 
 ### Custom Components
-- [x] app-form-field-input funciona correctamente
+- [x] app-form-input funciona correctamente
 - [x] app-select funciona correctamente con validación
 - [x] app-checkbox funciona correctamente con validación
 - [x] appControlConnector funciona con los 3 componentes

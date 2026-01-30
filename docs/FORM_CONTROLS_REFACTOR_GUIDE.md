@@ -627,12 +627,12 @@ export class FormSelectComponent<T = any> extends SelectBaseComponent<T> {
 ### ANTES (Inconsistente):
 
 ```html
-<!-- app-form-field-input: Muestra errores automáticamente -->
-<app-form-field-input
+<!-- app-form-input: Muestra errores automáticamente -->
+<app-form-input
   formControlName="email"
   [config]="{ label: 'Email', type: 'email' }"
   appControlConnector>  <!-- ¿Por qué esto? -->
-</app-form-field-input>
+</app-form-input>
 
 <!-- app-select: NO muestra errores -->
 <app-select
@@ -723,7 +723,7 @@ export class FormSelectComponent<T = any> extends SelectBaseComponent<T> {
 - ✅ `FormCheckboxComponent`
 
 ### Phase 4: Migración gradual (Día 4-5)
-- 🔄 Reemplazar `app-form-field-input` → `app-form-input`
+- 🔄 Reemplazar `app-form-input` → `app-form-input`
 - 🔄 Reemplazar `app-select` → `app-form-select`
 - 🔄 Reemplazar `app-checkbox` → `app-form-checkbox`
 - 🗑️ Eliminar `appControlConnector` directive

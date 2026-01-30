@@ -43,7 +43,7 @@ export class IndexComponent {
     {
       id: 'form-field-showcase',
       title: 'Form Field Showcase ⭐',
-      description: 'Clean, simple example of app-form-field-input with ngModel. Perfect for learning the basics without complexity.',
+      description: 'Clean, simple example of app-form-input with ngModel. Perfect for learning the basics without complexity.',
       icon: 'input',
       route: '/pds/form-field-showcase'
     },

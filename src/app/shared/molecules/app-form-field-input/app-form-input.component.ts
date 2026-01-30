@@ -8,7 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import { AppFormFieldInputConfig, AppFormFieldInputOptions } from './app-form-field-input.model';
+import {
+  AppFormInputConfig,
+  AppFormInputOptions
+} from '@shared/molecules/app-form-field-input/app-form-field-input.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -16,7 +19,7 @@ interface ErrorState {
 }
 
 @Component({
-  selector: 'app-form-field-input',
+  selector: 'app-form-input',
   standalone: true,
   imports: [
     CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule
@@ -57,14 +60,14 @@ interface ErrorState {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AppFormFieldInputComponent),
+      useExisting: forwardRef(() => AppFormInputComponent),
       multi: true
     }
   ]
 })
-export class AppFormFieldInputComponent implements ControlValueAccessor, AfterViewInit {
-  config = input<AppFormFieldInputOptions>({});
-  fullConfig = computed<AppFormFieldInputConfig>(() => ({
+export class AppFormInputComponent implements ControlValueAccessor, AfterViewInit {
+  config = input<AppFormInputOptions>({});
+  fullConfig = computed<AppFormInputConfig>(() => ({
     appearance: 'fill', type: 'text', label: '', placeholder: '', hint: '',
     icon: '', prefix: '', suffix: '', ariaLabel: '', errorMessages: {},
     ...this.config()
@@ -104,8 +107,8 @@ export class AppFormFieldInputComponent implements ControlValueAccessor, AfterVi
         `⚠️ FormFieldInputComponent: No se detectó conexión con NgControl.\n\n` +
         `Si estás usando formControlName, asegúrate de agregar la directiva appControlConnector.\n\n` +
         `Uso correcto:\n` +
-        `<app-form-field-input formControlName="email" [config]="config" appControlConnector>\n` +
-        `</app-form-field-input>\n\n` +
+        `<app-form-input formControlName="email" [config]="config" appControlConnector>\n` +
+        `</app-form-input>\n\n` +
         `Sin la directiva, los validadores del FormGroup padre NO se sincronizarán con este componente.`
       );
       this.hasCheckedConnection = true;
