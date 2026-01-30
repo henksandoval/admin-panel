@@ -22,7 +22,7 @@ interface ErrorState {
         <label class="text-sm font-medium mb-2 block">
           {{ fullConfig().label }}
           @if(isRequired) {
-            <span class="text-red-500">*</span>
+            <span>*</span>
           }
         </label>
       }
@@ -41,11 +41,11 @@ interface ErrorState {
       </mat-radio-group>
 
       @if(fullConfig().hint) {
-        <div class="text-xs text-gray-600 mt-1">{{ fullConfig().hint }}</div>
+        <div class="text-xs mt-1">{{ fullConfig().hint }}</div>
       }
 
       @if (fullConfig().showErrors && errorState.shouldShow) {
-        <div class="form-radio-error text-red-500 text-sm mt-1" role="alert">
+        <div class="form-radio-error text-sm mt-1" role="alert">
           {{ errorState.message }}
         </div>
       }
@@ -56,6 +56,10 @@ interface ErrorState {
       display: flex;
       flex-direction: column;
       gap: 4px;
+    }
+
+    .form-radio-error {
+      color: var(--mat-sys-error);
     }
   `],
   providers: [

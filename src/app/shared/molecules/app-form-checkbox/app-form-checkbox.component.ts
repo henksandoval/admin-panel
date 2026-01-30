@@ -31,7 +31,7 @@ interface ErrorState {
       </app-checkbox>
 
       @if (fullConfig().showErrors && errorState.shouldShow) {
-        <div class="form-checkbox-error text-red-500 text-sm mt-1" role="alert">
+        <div class="form-checkbox-error text-sm mt-1" role="alert">
           {{ errorState.message }}
         </div>
       }
@@ -45,6 +45,7 @@ interface ErrorState {
     }
 
     .form-checkbox-error {
+      color: var(--mat-sys-error);
       padding-left: 32px;
     }
   `],
