@@ -29,41 +29,41 @@
 
   <!-- Controls -->
   <div slot="controls">
-    <div class="space-y-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="control-label-icon">toggle_on</mat-icon>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>toggle_on</mat-icon>
         State
       </label>
       <app-toggle-group [options]="stateOptions" [(value)]="selectedState" class="w-full" />
     </div>
 
-    <div class="space-y-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="control-label-icon">palette</mat-icon>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>palette</mat-icon>
         Color
       </label>
       <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="space-y-2">
-        <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="control-label-icon">straighten</mat-icon>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 mt-2">
+      <div>
+        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+          <mat-icon>straighten</mat-icon>
           Size
         </label>
         <app-toggle-group [options]="sizeOptions" [(value)]="size" class="w-full" />
       </div>
 
-      <div class="space-y-2">
-        <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="control-label-icon">format_align_left</mat-icon>
+      <div>
+        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+          <mat-icon>format_align_left</mat-icon>
           Label Position
         </label>
         <app-toggle-group [options]="labelPositionOptions" [(value)]="labelPosition" class="w-full" />
       </div>
     </div>
 
-    <div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
       <app-checkbox [(checked)]="isDisabled" color="tertiary">Disabled State</app-checkbox>
       <app-checkbox [(checked)]="isRequired" color="primary">Required Field</app-checkbox>
     </div>
@@ -71,10 +71,8 @@
 
   <!-- Documentation -->
   <div slot="documentation">
-    <section>
-      <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-        <mat-icon color="primary">palette</mat-icon> Color Variations
-      </h3>
+    <!-- Color and size variations -->
+    <app-card title="Color Variations" icon="palette">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (color of CHECKBOX_COLORS; track color.value) {
           <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
@@ -90,12 +88,9 @@
           </div>
         }
       </div>
-    </section>
+    </app-card>
 
-    <section>
-      <h3 class="section-title text-lg font-bold mb-4 flex items-center gap-2">
-        <mat-icon color="primary">straighten</mat-icon> Size Variations
-      </h3>
+    <app-card title="Size Variations" icon="straighten" class="mt-2">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (sizeOption of CHECKBOX_SIZES; track sizeOption.value) {
           <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
@@ -111,7 +106,7 @@
           </div>
         }
       </div>
-    </section>
+    </app-card>
   </div>
 
 </app-pds-page-layout>

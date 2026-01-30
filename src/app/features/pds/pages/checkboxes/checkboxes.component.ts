@@ -17,6 +17,7 @@ import {
   API_PROPERTIES
 } from './checkboxes.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
+import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 
 @Component({
   selector: 'app-checkboxes',
@@ -28,7 +29,8 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
     AppButtonComponent,
     AppCheckboxComponent,
     AppToggleGroupComponent,
-    PdsPageLayoutComponent
+    PdsPageLayoutComponent,
+    AppCardComponent
   ],
   templateUrl: './checkboxes.component.html'
 })
@@ -121,3 +123,5 @@ export default class CheckboxesComponent {
     this.router.navigate(['/pds/index']);
   }
 }
+
+
