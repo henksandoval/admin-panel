@@ -13,8 +13,8 @@ import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-togg
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppFormCheckboxComponent } from '@shared/molecules/app-form-checkbox/app-form-checkbox.component';
 import { AppFormCheckboxConnectorDirective } from '@shared/molecules/app-form-checkbox/app-form-checkbox-connector.directive';
-import { AppFormSelectComponent } from '@shared/form-controls/app-form-select/app-form-select.component';
-import { AppFormSelectConnectorDirective } from '@shared/form-controls/app-form-select/app-form-select-connector.directive';
+import { AppFormSelectComponent } from '@shared/molecules/app-form-select/app-form-select.component';
+import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form-select/app-form-select-connector.directive';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';

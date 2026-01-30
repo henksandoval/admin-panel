@@ -15,12 +15,13 @@ interface ShowcaseItem {
 
 @Component({
   selector: 'app-index',
-    imports: [
-      CommonModule,
-      MatButtonModule,
-      MatIconModule,
-      AppCardComponent
-    ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    AppCardComponent
+  ],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss'
 })
