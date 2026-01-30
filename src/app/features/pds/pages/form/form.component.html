@@ -49,18 +49,21 @@
             appControlConnector>
           </app-form-input>
 
-          <app-select
+          <app-form-select
             formControlName="country"
             [options]="countryOptions"
             [config]="{
               label: 'Select your country',
               placeholder: 'Choose a country',
               appearance: globalAppearance(),
-              required: true,
               icon: showIcons() ? 'public' : '',
-              hint: showHints() ? 'Select the country where you reside' : ''
-            }">
-          </app-select>
+              hint: showHints() ? 'Select the country where you reside' : '',
+              errorMessages: {
+                required: 'Country selection is required for shipping'
+              }
+            }"
+            appFormSelectConnector>
+          </app-form-select>
 
           <app-form-checkbox
             formControlName="acceptTerms"
@@ -74,37 +77,6 @@
             appFormCheckboxConnector>
             <span class="font-medium">I accept the terms and conditions *</span>
           </app-form-checkbox>
-
-          <mat-divider class="my-4"></mat-divider>
-
-          <!-- Material Comparison Section -->
-          <div class="comparison-header flex items-center gap-2 mb-4">
-            <mat-icon class="text-primary">compare_arrows</mat-icon>
-            <h3 class="text-lg font-semibold">Angular Material Comparison</h3>
-          </div>
-
-          <!-- Material Select -->
-          <mat-form-field [appearance]="globalAppearance()" class="w-full">
-            <mat-label>Select your country (Material Native)</mat-label>
-            <mat-select formControlName="matCountry" required>
-              <mat-icon matPrefix>public</mat-icon>
-              @for (option of countryOptions; track option.value) {
-                <mat-option [value]="option.value">{{ option.label }}</mat-option>
-              }
-            </mat-select>
-            <mat-hint>Select the country where you reside</mat-hint>
-            @if (galleryForm.get('matCountry')?.hasError('required') && galleryForm.get('matCountry')?.touched) {
-              <mat-error>Country is required</mat-error>
-            }
-          </mat-form-field>
-
-          <!-- Material Checkbox -->
-          <mat-checkbox formControlName="matAcceptTerms" color="primary" class="mb-4">
-            <span class="font-medium">I accept the terms and conditions (Material Native) *</span>
-          </mat-checkbox>
-          @if (galleryForm.get('matAcceptTerms')?.hasError('required') && galleryForm.get('matAcceptTerms')?.touched) {
-            <div class="text-red-500 text-sm mt-1">You must accept the terms and conditions</div>
-          }
 
           <mat-divider class="my-4"></mat-divider>
 

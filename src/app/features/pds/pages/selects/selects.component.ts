@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { AppSelectComponent } from '@shared/atoms/app-select/app-select.component';
+import { AppFormSelectComponent } from '@shared/form-controls/app-form-select/app-form-select.component';
+import { SelectOption } from '@shared/form-controls/app-form-select/app-form-select.model';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import { SelectOption, SelectAppearance, SelectSize, SELECT_DEFAULTS } from '@shared/atoms/app-select/app-select.model';
 import {
   SELECT_STATE_GUIDES,
   COUNTRY_OPTIONS,
@@ -26,7 +26,7 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
     CommonModule,
     FormsModule,
     MatIconModule,
-    AppSelectComponent,
+    AppFormSelectComponent,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
@@ -38,8 +38,8 @@ export default class SelectsComponent {
   private readonly router = inject(Router);
 
   selectedState = signal<'single' | 'multiple' | 'grouped' | 'disabled'>('single');
-  selectedAppearance = signal<SelectAppearance>(SELECT_DEFAULTS.appearance);
-  selectedSize = signal<SelectSize>(SELECT_DEFAULTS.size);
+  selectedAppearance = signal<'fill' | 'outline'>('fill');
+  selectedSize = signal<'small' | 'medium' | 'large'>('medium');
   showIcon = signal<boolean>(false);
   showHint = signal<boolean>(false);
   isRequired = signal<boolean>(false);
@@ -86,7 +86,7 @@ export default class SelectsComponent {
     const required = this.isRequired();
 
     let tsCode = `// TypeScript\n`;
-    tsCode += `import { SelectOption } from '@shared/atoms/app-select';\n\n`;
+    tsCode += `import { SelectOption } from '@shared/form-controls/app-form-select/app-form-select.model';\n\n`;
 
     if (state === 'grouped') {
       tsCode += `options: SelectOption<string>[] = [\n`;
@@ -102,17 +102,14 @@ export default class SelectsComponent {
     }
 
     let htmlCode = `<!-- HTML -->\n`;
-    htmlCode += `<app-select\n`;
-    htmlCode += `  [(ngModel)]="selectedValue"\n`;
+    htmlCode += `<app-form-select\n`;
+    htmlCode += `  [(value)]="selectedValue"\n`;
     htmlCode += `  [options]="options"\n`;
     htmlCode += `  [config]="{\n`;
     htmlCode += `    label: 'Select Label'`;
 
-    if (appearance !== SELECT_DEFAULTS.appearance) {
+    if (appearance !== 'fill') {
       htmlCode += `,\n    appearance: '${appearance}'`;
-    }
-    if (size !== SELECT_DEFAULTS.size) {
-      htmlCode += `,\n    size: '${size}'`;
     }
     if (state === 'multiple') {
       htmlCode += `,\n    multiple: true`;
@@ -123,12 +120,9 @@ export default class SelectsComponent {
     if (showHint) {
       htmlCode += `,\n    hint: 'Helper text here'`;
     }
-    if (required) {
-      htmlCode += `,\n    required: true`;
-    }
 
     htmlCode += `\n  }">\n`;
-    htmlCode += `</app-select>`;
+    htmlCode += `</app-form-select>`;
 
     return `${tsCode}${htmlCode}`;
   });
