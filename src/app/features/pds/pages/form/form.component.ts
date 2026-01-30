@@ -29,6 +29,8 @@ import { AppFormInputConnectorDirective } from '@shared/molecules/app-form-input
 import { AppFormInputOptions } from '@shared/molecules/app-form-input/app-form-input.model';
 import { AppFormTextareaComponent } from '@shared/molecules/app-form-textarea/app-form-textarea.component';
 import { AppFormTextareaConnectorDirective } from '@shared/molecules/app-form-textarea/app-form-textarea-connector.directive';
+import { AppFormDatepickerComponent } from '@shared/molecules/app-form-datepicker/app-form-datepicker.component';
+import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form-datepicker/app-form-datepicker-connector.directive';
 
 @Component({
   selector: 'app-form-gallery',
@@ -46,6 +48,8 @@ import { AppFormTextareaConnectorDirective } from '@shared/molecules/app-form-te
     AppFormInputConnectorDirective,
     AppFormTextareaComponent,
     AppFormTextareaConnectorDirective,
+    AppFormDatepickerComponent,
+    AppFormDatepickerConnectorDirective,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
@@ -170,6 +174,19 @@ export class FormComponent implements OnInit {
     }
   }));
 
+  birthDateConfig = computed(() => ({
+    label: 'Birth Date',
+    placeholder: 'MM/DD/YYYY',
+    appearance: this.globalAppearance(),
+    icon: this.showIcons() ? 'cake' : '',
+    hint: this.showHints() ? 'You must be 18 or older' : '',
+    maxDate: new Date(new Date().getFullYear() - 18, 11, 31),
+    errorMessages: {
+      required: 'Birth date is required',
+      matDatepickerMax: 'You must be at least 18 years old'
+    }
+  }));
+
   formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
   formValid = computed(() => this.galleryForm?.valid || false);
   formTouched = computed(() => this.galleryForm?.touched || false);
@@ -185,6 +202,7 @@ export class FormComponent implements OnInit {
       age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
       phone: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
+      birthDate: [null, [Validators.required]],
       country: ['', [Validators.required]],
       acceptTerms: [false, [Validators.requiredTrue]],
       matCountry: ['', [Validators.required]],
