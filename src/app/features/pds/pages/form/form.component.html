@@ -62,9 +62,18 @@
             }">
           </app-select>
 
-          <app-checkbox formControlName="acceptTerms" color="primary">
+          <app-form-checkbox
+            formControlName="acceptTerms"
+            [config]="{
+              color: 'primary',
+              errorMessages: {
+                required: 'You must accept the terms and conditions to continue',
+                requiredTrue: 'Please check this box to proceed'
+              }
+            }"
+            appFormCheckboxConnector>
             <span class="font-medium">I accept the terms and conditions *</span>
-          </app-checkbox>
+          </app-form-checkbox>
 
           <mat-divider class="my-4"></mat-divider>
 

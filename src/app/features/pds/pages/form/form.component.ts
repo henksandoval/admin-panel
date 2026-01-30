@@ -14,6 +14,8 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppSelectComponent } from '@shared/atoms/app-select/app-select.component';
+import { AppFormCheckboxComponent } from '@shared/molecules/app-form-checkbox/app-form-checkbox.component';
+import { AppFormCheckboxConnectorDirective } from '@shared/molecules/app-form-checkbox/app-form-checkbox-connector.directive';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
@@ -42,6 +44,8 @@ import {
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
+    AppFormCheckboxComponent,
+    AppFormCheckboxConnectorDirective,
     AppSelectComponent,
     AppCardComponent,
     PdsCodeBlockComponent,
