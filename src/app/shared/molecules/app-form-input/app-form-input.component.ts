@@ -11,7 +11,7 @@ import { startWith } from 'rxjs/operators';
 import {
   AppFormInputConfig,
   AppFormInputOptions
-} from '@shared/molecules/app-form-field-input/app-form-field-input.model';
+} from '@shared/molecules/app-form-input/app-form-field-input.model';
 
 interface ErrorState {
   shouldShow: boolean;

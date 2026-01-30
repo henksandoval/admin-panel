@@ -1,6 +1,6 @@
 import { Directive, inject, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import {AppFormInputComponent} from '@shared/molecules/app-form-field-input/app-form-input.component';
+import {AppFormInputComponent} from '@shared/molecules/app-form-input/app-form-input.component';
 
 @Directive({
   selector: '[appControlConnector]',

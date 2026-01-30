@@ -20,7 +20,7 @@ import {
   BEST_PRACTICES
 } from './indicators.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
-import { AppFormInputComponent } from '@shared/molecules/app-form-field-input/app-form-input.component';
+import { AppFormInputComponent } from '@shared/molecules/app-form-input/app-form-input.component';
 
 @Component({
   selector: 'app-indicators',

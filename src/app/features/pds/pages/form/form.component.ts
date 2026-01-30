@@ -22,11 +22,11 @@ import {
   API_PROPERTIES,
   BEST_PRACTICES
 } from './form.data';
-import {AppFormInputComponent} from '@shared/molecules/app-form-field-input/app-form-input.component';
+import {AppFormInputComponent} from '@shared/molecules/app-form-input/app-form-input.component';
 import {
   AppFormInputConnectorDirective
-} from '@shared/molecules/app-form-field-input/app-form-input-connector.directive';
-import {AppFormInputOptions} from '@shared/molecules/app-form-field-input/app-form-field-input.model';
+} from '@shared/molecules/app-form-input/app-form-input-connector.directive';
+import {AppFormInputOptions} from '@shared/molecules/app-form-input/app-form-field-input.model';
 
 @Component({
   selector: 'app-form-gallery',
