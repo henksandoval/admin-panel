@@ -90,9 +90,9 @@
   </div>
 
   <div slot="controls">
-    <div class="space-y-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="control-label-icon">category</mat-icon>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>category</mat-icon>
         State Type
       </label>
       <app-toggle-group
@@ -101,9 +101,9 @@
         class="w-full" />
     </div>
 
-    <div class="space-y-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="control-label-icon">style</mat-icon>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>style</mat-icon>
         Appearance
       </label>
       <app-toggle-group
@@ -112,20 +112,18 @@
         class="w-full" />
     </div>
 
-    <div class="grid grid-cols-2 gap-6">
-      <div class="space-y-2">
-        <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="control-label-icon">straighten</mat-icon>
-          Size
-        </label>
-        <app-toggle-group
-          [options]="sizeOptions"
-          [(ngModel)]="selectedSize"
-          class="w-full" />
-      </div>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>straighten</mat-icon>
+        Size
+      </label>
+      <app-toggle-group
+        [options]="sizeOptions"
+        [(ngModel)]="selectedSize"
+        class="w-full" />
     </div>
 
-    <div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
       <app-checkbox [(checked)]="showIcon" color="primary">Show Icon</app-checkbox>
       <app-checkbox [(checked)]="showHint" color="primary">Show Hint</app-checkbox>
       <app-checkbox [(checked)]="isRequired" color="tertiary">Required Field</app-checkbox>
