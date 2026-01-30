@@ -31,6 +31,9 @@ import { AppFormTextareaComponent } from '@shared/molecules/app-form-textarea/ap
 import { AppFormTextareaConnectorDirective } from '@shared/molecules/app-form-textarea/app-form-textarea-connector.directive';
 import { AppFormDatepickerComponent } from '@shared/molecules/app-form-datepicker/app-form-datepicker.component';
 import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form-datepicker/app-form-datepicker-connector.directive';
+import { AppFormRadioGroupComponent } from '@shared/molecules/app-form-radio-group/app-form-radio-group.component';
+import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form-radio-group/app-form-radio-group-connector.directive';
+import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-radio-group.model';
 
 @Component({
   selector: 'app-form-gallery',
@@ -50,6 +53,8 @@ import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form-
     AppFormTextareaConnectorDirective,
     AppFormDatepickerComponent,
     AppFormDatepickerConnectorDirective,
+    AppFormRadioGroupComponent,
+    AppFormRadioGroupConnectorDirective,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
@@ -73,9 +78,15 @@ export class FormComponent implements OnInit {
   globalAppearance = signal<MatFormFieldAppearance>('outline');
   showIcons = signal<boolean>(true);
   showHints = signal<boolean>(true);
-  showPrefixSuffix = signal<boolean>(true);
+  showPrefixSuffix = signal<boolean>(false);
 
-  readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
+  genderOptions: RadioOption<string>[] = [
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
+    { value: 'other', label: 'Other' },
+    { value: 'prefer-not-to-say', label: 'Prefer not to say' }
+  ];
+
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
 
@@ -187,6 +198,16 @@ export class FormComponent implements OnInit {
     }
   }));
 
+  genderConfig = computed(() => ({
+    label: 'Gender',
+    hint: this.showHints() ? 'Select your gender identity' : '',
+    color: 'primary' as const,
+    layout: 'vertical' as const,
+    errorMessages: {
+      required: 'Gender selection is required'
+    }
+  }));
+
   formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
   formValid = computed(() => this.galleryForm?.valid || false);
   formTouched = computed(() => this.galleryForm?.touched || false);
@@ -203,6 +224,7 @@ export class FormComponent implements OnInit {
       phone: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
       birthDate: [null, [Validators.required]],
+      gender: ['', [Validators.required]],
       country: ['', [Validators.required]],
       acceptTerms: [false, [Validators.requiredTrue]],
       matCountry: ['', [Validators.required]],
@@ -225,6 +247,8 @@ export class FormComponent implements OnInit {
     this.galleryForm.reset();
   }
 
+  readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
+
   copyCode(fieldName: string): void {
     const example = this.FIELD_EXAMPLES.find((e: any) => e.id === fieldName);
     if (!example) return;
@@ -236,8 +260,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-
-  private generateFieldCode(example: any): string {
+  generateFieldCode(example: any): string {
     let code = `// ${example.title}\n`;
     code += `// ${example.description}\n\n`;
 

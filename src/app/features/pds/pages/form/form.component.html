@@ -61,6 +61,13 @@
             appFormDatepickerConnector>
           </app-form-datepicker>
 
+          <app-form-radio-group
+            formControlName="gender"
+            [options]="genderOptions"
+            [config]="genderConfig()"
+            appFormRadioGroupConnector>
+          </app-form-radio-group>
+
           <app-form-select
             formControlName="country"
             [options]="countryOptions"
