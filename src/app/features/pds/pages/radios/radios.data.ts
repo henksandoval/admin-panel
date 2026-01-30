@@ -84,11 +84,9 @@ export const GENDER_OPTIONS: RadioOption<string>[] = [
 ];
 
 export const SIZE_OPTIONS: RadioOption<string>[] = [
-  { value: 'xs', label: 'Extra Small' },
   { value: 's', label: 'Small' },
   { value: 'm', label: 'Medium' },
-  { value: 'l', label: 'Large' },
-  { value: 'xl', label: 'Extra Large' }
+  { value: 'l', label: 'Large' }
 ];
 
 export const PAYMENT_OPTIONS: RadioOption<string>[] = [
