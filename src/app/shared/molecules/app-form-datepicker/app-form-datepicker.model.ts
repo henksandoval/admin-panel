@@ -1,6 +1,6 @@
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
-export interface AppFormDatepickerConfig {
+interface AppFormDatepickerConfig {
   label?: string;
   placeholder?: string;
   hint?: string;

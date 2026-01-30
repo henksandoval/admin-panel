@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import { AppFormDatepickerConfig, AppFormDatepickerOptions, APP_FORM_DATEPICKER_DEFAULTS } from './app-form-datepicker.model';
+import { AppFormDatepickerOptions, APP_FORM_DATEPICKER_DEFAULTS } from './app-form-datepicker.model';
 
 interface ErrorState {
   shouldShow: boolean;
