@@ -202,7 +202,7 @@ export class FormComponent implements OnInit {
     label: 'Gender',
     hint: this.showHints() ? 'Select your gender identity' : '',
     color: 'primary' as const,
-    layout: 'vertical' as const,
+    layout: 'horizontal' as const,
     errorMessages: {
       required: 'Gender selection is required'
     }
