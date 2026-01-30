@@ -63,7 +63,6 @@ import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-rad
     AppFormSelectComponent,
     AppFormSelectConnectorDirective,
     AppCardComponent,
-    PdsCodeBlockComponent,
     PdsPageLayoutComponent
   ],
   templateUrl: './form.component.html',
@@ -89,6 +88,9 @@ export class FormComponent implements OnInit {
 
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
+
+  readonly VARIANT_GUIDES = [];
+  readonly currentVariant = 'form';
 
   readonly appearanceOptions: ToggleOption[] = [
     { value: 'fill', label: 'Fill' },

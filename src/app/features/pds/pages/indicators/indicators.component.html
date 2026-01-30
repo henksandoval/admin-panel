@@ -92,7 +92,6 @@
   </div>
 
   <div slot="documentation">
-    <!-- Badge variations based on selected variant -->
     @if (selectedVariant() === 'overlay') {
       <app-card title="Position Variations" icon="explore">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -127,7 +126,7 @@
         </div>
       </app-card>
 
-      <app-card title="With Indicator" icon="info">
+      <app-card title="With Indicator" icon="info" class="mt-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           @for (color of INLINE_COLORS; track color.value) {
             <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">

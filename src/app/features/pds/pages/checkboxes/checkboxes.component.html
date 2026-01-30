@@ -8,12 +8,10 @@
   [variantGuides]="STATE_GUIDES"
   [currentVariant]="selectedState()">
 
-  <!-- Header Action -->
   <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
     Back to PDS Index
   </app-button>
 
-  <!-- Preview -->
   <div slot="preview">
     <app-checkbox
       [checked]="isChecked()"
@@ -27,7 +25,6 @@
     </app-checkbox>
   </div>
 
-  <!-- Controls -->
   <div slot="controls">
     <div class="mt-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
@@ -36,7 +33,6 @@
       </label>
       <app-toggle-group [options]="stateOptions" [(value)]="selectedState" class="w-full" />
     </div>
-
     <div class="mt-2">
       <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
         <mat-icon>palette</mat-icon>
@@ -44,7 +40,6 @@
       </label>
       <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 mt-2">
       <div>
         <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
@@ -62,16 +57,13 @@
         <app-toggle-group [options]="labelPositionOptions" [(value)]="labelPosition" class="w-full" />
       </div>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
       <app-checkbox [(checked)]="isDisabled" color="tertiary">Disabled State</app-checkbox>
       <app-checkbox [(checked)]="isRequired" color="primary">Required Field</app-checkbox>
     </div>
   </div>
 
-  <!-- Documentation -->
   <div slot="documentation">
-    <!-- Color and size variations -->
     <app-card title="Color Variations" icon="palette">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (color of CHECKBOX_COLORS; track color.value) {
