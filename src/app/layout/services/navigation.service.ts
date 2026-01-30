@@ -368,6 +368,12 @@ export class NavigationService {
           url: '/pds/checkboxes'
         },
         {
+          id: 'radio',
+          title: 'Radios',
+          icon: 'radio_button_checked',
+          url: '/pds/radios'
+        },
+        {
           id: 'indicators',
           title: 'Indicadores',
           icon: 'edit_note',
