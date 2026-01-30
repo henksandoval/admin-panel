@@ -47,7 +47,7 @@ export default class IndicatorsComponent {
   selectedVariant = signal<BadgeVariant>(BADGE_DEFAULTS.variant);
   badgeContent = signal<string>('8');
 
-  overlayColor = signal<Extract<BadgeColor, 'primary' | 'accent' | 'warn'>>(BADGE_DEFAULTS.overlayColor);
+  overlayColor = signal<Extract<BadgeColor, 'primary' | 'secondary' | 'tertiary'>>(BADGE_DEFAULTS.overlayColor);
   position = signal<BadgePosition>(BADGE_DEFAULTS.position);
   overlap = signal<boolean>(BADGE_DEFAULTS.overlap);
   hidden = signal<boolean>(BADGE_DEFAULTS.hidden);

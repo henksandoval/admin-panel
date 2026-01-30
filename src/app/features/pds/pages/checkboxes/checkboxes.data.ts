@@ -115,7 +115,7 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
     name: 'color',
     decorator: '@Input()',
     description: 'Color semántico del checkbox.',
-    type: "'primary' | 'accent' | 'warn'",
+    type: "'primary' | 'secondary' | 'tertiary'",
     defaultValue: 'primary'
   },
   {

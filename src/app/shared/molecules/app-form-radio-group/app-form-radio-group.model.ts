@@ -1,5 +1,3 @@
-import { RadioColor } from '@shared/atoms/app-radio/app-radio.model';
-
 export interface RadioOption<T = any> {
   value: T;
   label: string;
@@ -9,7 +7,6 @@ export interface RadioOption<T = any> {
 export interface AppFormRadioGroupConfig {
   label?: string;
   hint?: string;
-  color?: RadioColor;
   ariaLabel?: string;
   errorMessages?: Record<string, string>;
   showErrors?: boolean;
@@ -19,7 +16,6 @@ export interface AppFormRadioGroupConfig {
 export type AppFormRadioGroupConfigComplete = Required<Omit<AppFormRadioGroupConfig, 'label' | 'hint' | 'ariaLabel' | 'errorMessages'>>;
 
 export const APP_FORM_RADIO_GROUP_DEFAULTS: AppFormRadioGroupConfigComplete = {
-  color: 'primary',
   showErrors: true,
   layout: 'vertical'
 };

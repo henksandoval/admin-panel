@@ -34,7 +34,6 @@ interface ErrorState {
         @for (option of options(); track option.value) {
           <app-radio
             [value]="option.value"
-            [color]="fullConfig().color"
             [disabled]="isDisabled || option.disabled || false">
             {{ option.label }}
           </app-radio>

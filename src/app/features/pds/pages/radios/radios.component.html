@@ -21,7 +21,6 @@
           [config]="{
             label: showLabel() ? 'Select your gender' : '',
             hint: showHint() ? 'This helps us personalize your experience' : '',
-            color: selectedColor(),
             layout: 'vertical'
           }"
           appFormRadioGroupConnector>
@@ -38,7 +37,6 @@
           [config]="{
             label: showLabel() ? 'Notification preferences' : '',
             hint: showHint() ? 'Choose how you want to receive notifications' : '',
-            color: selectedColor(),
             layout: 'vertical'
           }"
           appFormRadioGroupConnector>
@@ -55,7 +53,6 @@
           [config]="{
             label: showLabel() ? 'Select size' : '',
             hint: showHint() ? 'Choose your preferred size' : '',
-            color: selectedColor(),
             layout: 'horizontal'
           }"
           appFormRadioGroupConnector>
@@ -72,7 +69,6 @@
           [config]="{
             label: showLabel() ? 'Payment method (Disabled)' : '',
             hint: showHint() ? 'Selection is currently disabled' : '',
-            color: selectedColor(),
             layout: 'vertical'
           }"
           appFormRadioGroupConnector>
@@ -93,17 +89,6 @@
       <app-toggle-group
         [options]="stateOptions"
         [(value)]="selectedState"
-        class="w-full" />
-    </div>
-
-    <div class="space-y-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="control-label-icon">palette</mat-icon>
-        Color
-      </label>
-      <app-toggle-group
-        [options]="colorOptions"
-        [(value)]="selectedColor"
         class="w-full" />
     </div>
 

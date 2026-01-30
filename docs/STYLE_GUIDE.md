@@ -16,29 +16,29 @@
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│   CAPA 1: Angular Material (GESTOR DE THEMING)      │
-│   - Componentes Material (button, card, toolbar)    │
-│   - Atributo color="primary|accent|warn"            │
-│   - Gestión automática de dark/light/theme-color   │
-│   - Material maneja TODOS los colores              │
+│   CAPA 1: Angular Material (GESTOR DE THEMING)       │
+│   - Componentes Material (button, card, toolbar)     │
+│   - Atributo color="primary|secundary|tertiary"      │
+│   - Gestión automática de dark/light/theme-color     │
+│   - Material maneja TODOS los colores                │
 ├──────────────────────────────────────────────────────┤
-│   CAPA 2: Tailwind (SOLO LAYOUT Y SPACING)         │
-│   - Layout: flex, grid, gap, items-center          │
-│   - Spacing: p-6, m-4, space-y-2                   │
-│   - Sizing: w-full, h-screen, max-w-4xl            │
-│   - Effects: hover:scale-110, transition-transform │
-│   - Responsive: md:, lg:, max-sm:                  │
-│   - Borders SIN color: border-t, border-b, border-r│
-│   - Radius: rounded-lg, rounded-full, rounded-xl   │
-│   - Shadows básicos: shadow-sm, shadow-md, shadow-lg│
-│   - NO COLORES: sin bg-*, text-*, border-red-500  │
-│   - NO DARK MODE: sin dark:*                       │
+│   CAPA 2: Tailwind (SOLO LAYOUT Y SPACING)           │
+│   - Layout: flex, grid, gap, items-center            │
+│   - Spacing: p-6, m-4, space-y-2                     │
+│   - Sizing: w-full, h-screen, max-w-4xl              │
+│   - Effects: hover:scale-110, transition-transform   │
+│   - Responsive: md:, lg:, max-sm:                    │
+│   - Borders SIN color: border-t, border-b, border-r  │
+│   - Radius: rounded-lg, rounded-full, rounded-xl     │
+│   - Shadows básicos: shadow-sm, shadow-md, shadow-lg │
+│   - NO COLORES: sin bg-*, text-*, border-red-500     │
+│   - NO DARK MODE: sin dark:*                         │
 ├──────────────────────────────────────────────────────┤
-│   CAPA 3: SCSS (SOLO CASOS EXTREMOS)               │
-│   - Gradientes muy complejos                        │
-│   - Componentes 100% custom (no usan Material)     │
-│   - Cuando Material no puede manejar el caso       │
-│   - MÍNIMO uso, preferir Material                  │
+│   CAPA 3: SCSS (SOLO CASOS EXTREMOS)                 │
+│   - Gradientes muy complejos                         │
+│   - Componentes 100% custom (no usan Material)       │
+│   - Cuando Material no puede manejar el caso         │
+│   - MÍNIMO uso, preferir Material                    │
 └──────────────────────────────────────────────────────┘
 ```
 
@@ -49,7 +49,7 @@
 ### 1. Botones con Material
 ```html
 <button mat-raised-button color="primary">Guardar</button>
-<button mat-stroked-button color="accent">Cancelar</button>
+<button mat-stroked-button color="secondary">Cancelar</button>
 <button mat-icon-button color="primary">
   <mat-icon>edit</mat-icon>
 </button>
@@ -91,7 +91,7 @@
 
 ```html
 <mat-icon color="primary">check_circle</mat-icon>
-<mat-icon color="accent">favorite</mat-icon>
+<mat-icon color="secondary">favorite</mat-icon>
 <mat-icon color="warn">warning</mat-icon>
 ```
 
@@ -567,7 +567,7 @@ Cuando necesites aplicar estilos, sigue este árbol de decisión:
              ▼
     ┌────────────────────┐
     │ ¿Puedes usar color │ ────── SÍ ──────► Usa Material attribute
-    │  de Material?      │                   (color="primary|accent|warn")
+    │  de Material?      │                   (color="primary|secondary|tertiary")
     └────────┬───────────┘
              │ NO
              ▼

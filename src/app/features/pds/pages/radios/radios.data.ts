@@ -136,13 +136,6 @@ export const API_PROPERTIES = [
     optional: true
   },
   {
-    name: 'config.color',
-    decorator: '',
-    type: "'primary' | 'accent' | 'warn'",
-    description: 'Color theme for selected radio buttons',
-    defaultValue: "'primary'"
-  },
-  {
     name: 'config.layout',
     decorator: '',
     type: "'vertical' | 'horizontal'",

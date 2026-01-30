@@ -1,6 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
@@ -41,7 +41,6 @@ export default class RadiosComponent {
   private readonly fb = inject(FormBuilder);
 
   selectedState = signal<'basic' | 'descriptions' | 'horizontal' | 'disabled'>('basic');
-  selectedColor = signal<'primary' | 'accent' | 'warn'>('primary');
   showLabel = signal<boolean>(true);
   showHint = signal<boolean>(true);
 
@@ -56,12 +55,6 @@ export default class RadiosComponent {
     { value: 'descriptions', label: 'With Descriptions' },
     { value: 'horizontal', label: 'Horizontal' },
     { value: 'disabled', label: 'Disabled' }
-  ];
-
-  colorOptions = [
-    { value: 'primary', label: 'Primary' },
-    { value: 'accent', label: 'Accent' },
-    { value: 'warn', label: 'Warn' }
   ];
 
   currentOptions = computed(() => {
@@ -84,7 +77,6 @@ export default class RadiosComponent {
 
   generatedCode = computed(() => {
     const state = this.selectedState();
-    const color = this.selectedColor();
     const showLabel = this.showLabel();
     const showHint = this.showHint();
 
@@ -114,7 +106,6 @@ export default class RadiosComponent {
     if (showHint) {
       htmlCode += `    hint: 'Choose the option that best fits',\n`;
     }
-    htmlCode += `    color: '${color}',\n`;
     htmlCode += `    layout: '${state === 'horizontal' ? 'horizontal' : 'vertical'}',\n`;
     htmlCode += `    errorMessages: {\n`;
     htmlCode += `      required: 'Please select an option'\n`;

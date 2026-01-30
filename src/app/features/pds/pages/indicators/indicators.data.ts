@@ -81,7 +81,7 @@ export const API_PROPERTIES: PdsApiReferencePropertyModel[] = [
     name: 'color (overlay)',
     decorator: '@Input()',
     description: 'Color del badge cuando variant="overlay".',
-    type: "'primary' | 'accent' | 'warn'",
+    type: "'primary' | 'secondary' | 'tertiary'",
     defaultValue: 'primary'
   },
   {
