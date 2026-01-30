@@ -49,6 +49,12 @@
             appFormInputConnector>
           </app-form-input>
 
+          <app-form-textarea
+            formControlName="description"
+            [config]="descriptionConfig()"
+            appFormTextareaConnector>
+          </app-form-textarea>
+
           <app-form-select
             formControlName="country"
             [options]="countryOptions"

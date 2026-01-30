@@ -24,9 +24,11 @@ import {
   API_PROPERTIES,
   BEST_PRACTICES
 } from './form.data';
-import {AppFormInputComponent} from '@shared/molecules/app-form-input/app-form-input.component';
+import { AppFormInputComponent} from '@shared/molecules/app-form-input/app-form-input.component';
 import { AppFormInputConnectorDirective } from '@shared/molecules/app-form-input/app-form-input-connector.directive';
-import {AppFormInputOptions} from '@shared/molecules/app-form-input/app-form-input.model';
+import { AppFormInputOptions } from '@shared/molecules/app-form-input/app-form-input.model';
+import { AppFormTextareaComponent } from '@shared/molecules/app-form-textarea/app-form-textarea.component';
+import { AppFormTextareaConnectorDirective } from '@shared/molecules/app-form-textarea/app-form-textarea-connector.directive';
 
 @Component({
   selector: 'app-form-gallery',
@@ -42,6 +44,8 @@ import {AppFormInputOptions} from '@shared/molecules/app-form-input/app-form-inp
     MatCheckboxModule,
     AppFormInputComponent,
     AppFormInputConnectorDirective,
+    AppFormTextareaComponent,
+    AppFormTextareaConnectorDirective,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
@@ -151,6 +155,21 @@ export class FormComponent implements OnInit {
     }
   }));
 
+  descriptionConfig = computed(() => ({
+    label: 'Description',
+    placeholder: 'Tell us about yourself...',
+    appearance: this.globalAppearance(),
+    icon: this.showIcons() ? 'description' : '',
+    hint: this.showHints() ? 'Minimum 10 characters, maximum 500' : '',
+    rows: 4,
+    maxRows: 8,
+    errorMessages: {
+      required: 'Description is required',
+      minlength: 'Description must be at least 10 characters',
+      maxlength: 'Description cannot exceed 500 characters'
+    }
+  }));
+
   formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
   formValid = computed(() => this.galleryForm?.valid || false);
   formTouched = computed(() => this.galleryForm?.touched || false);
@@ -165,9 +184,9 @@ export class FormComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
       phone: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
       country: ['', [Validators.required]],
       acceptTerms: [false, [Validators.requiredTrue]],
-      // Material native controls for comparison
       matCountry: ['', [Validators.required]],
       matAcceptTerms: [false, [Validators.requiredTrue]]
     });
