@@ -80,6 +80,7 @@ export const routes: Routes = [
           { path: 'form', loadComponent: () => import('./features/pds/pages/form/form.component').then(m => m.FormComponent) },
           { path: 'buttons', loadComponent: () => import('./features/pds/pages/buttons/buttons.component') },
           { path: 'checkboxes', loadComponent: () => import('./features/pds/pages/checkboxes/checkboxes.component') },
+          { path: 'radios', loadComponent: () => import('./features/pds/pages/radios/radios.component') },
           { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component') },
           { path: 'selects', loadComponent: () => import('./features/pds/pages/selects/selects.component') },
           { path: 'toggle-groups', loadComponent: () => import('./features/pds/pages/toggle-groups/toggle-groups.component') }

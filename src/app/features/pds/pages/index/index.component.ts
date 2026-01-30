@@ -77,6 +77,13 @@ export class IndexComponent {
       route: '/pds/checkboxes'
     },
     {
+      id: 'radios',
+      title: 'Radio Buttons',
+      description: 'Radio button groups for mutually exclusive selections with form validation',
+      icon: 'radio_button_checked',
+      route: '/pds/radios'
+    },
+    {
       id: 'selects',
       title: 'Selects',
       description: 'Dropdown select fields for single and multiple selection with grouped options support',

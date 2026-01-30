@@ -1,0 +1,116 @@
+<app-pds-page-layout
+  title="Radio Button Component Playground"
+  description="Mutually exclusive selection controls. A form-connected radio group with automatic validation and error handling."
+  componentTag="<app-form-radio-group>"
+  [code]="generatedCode()"
+  [apiProperties]="API_PROPERTIES"
+  [bestPractices]="BEST_PRACTICES"
+  [variantGuides]="RADIO_STATE_GUIDES"
+  [currentVariant]="selectedState()">
+
+  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+    Back to PDS Index
+  </app-button>
+
+  <div slot="preview">
+    <form [formGroup]="demoForm" class="max-w-md mx-auto">
+      @if (selectedState() === 'basic') {
+        <app-form-radio-group
+          formControlName="basicSelection"
+          [options]="currentOptions()"
+          [config]="{
+            label: showLabel() ? 'Select your gender' : '',
+            hint: showHint() ? 'This helps us personalize your experience' : '',
+            color: selectedColor(),
+            layout: 'vertical'
+          }"
+          appFormRadioGroupConnector>
+        </app-form-radio-group>
+        <p class="hint-text mt-4">
+          Selected: <strong>{{ demoForm.get('basicSelection')?.value || 'None' }}</strong>
+        </p>
+      }
+
+      @if (selectedState() === 'descriptions') {
+        <app-form-radio-group
+          formControlName="descriptionsSelection"
+          [options]="currentOptions()"
+          [config]="{
+            label: showLabel() ? 'Notification preferences' : '',
+            hint: showHint() ? 'Choose how you want to receive notifications' : '',
+            color: selectedColor(),
+            layout: 'vertical'
+          }"
+          appFormRadioGroupConnector>
+        </app-form-radio-group>
+        <p class="hint-text mt-4">
+          Selected: <strong>{{ demoForm.get('descriptionsSelection')?.value || 'None' }}</strong>
+        </p>
+      }
+
+      @if (selectedState() === 'horizontal') {
+        <app-form-radio-group
+          formControlName="horizontalSelection"
+          [options]="currentOptions()"
+          [config]="{
+            label: showLabel() ? 'Select size' : '',
+            hint: showHint() ? 'Choose your preferred size' : '',
+            color: selectedColor(),
+            layout: 'horizontal'
+          }"
+          appFormRadioGroupConnector>
+        </app-form-radio-group>
+        <p class="hint-text mt-4">
+          Selected: <strong>{{ demoForm.get('horizontalSelection')?.value || 'None' }}</strong>
+        </p>
+      }
+
+      @if (selectedState() === 'disabled') {
+        <app-form-radio-group
+          formControlName="disabledSelection"
+          [options]="currentOptions()"
+          [config]="{
+            label: showLabel() ? 'Payment method (Disabled)' : '',
+            hint: showHint() ? 'Selection is currently disabled' : '',
+            color: selectedColor(),
+            layout: 'vertical'
+          }"
+          appFormRadioGroupConnector>
+        </app-form-radio-group>
+        <p class="hint-text mt-4">
+          Selected: <strong>{{ demoForm.get('disabledSelection')?.value || 'None' }}</strong>
+        </p>
+      }
+    </form>
+  </div>
+
+  <div slot="controls">
+    <div class="space-y-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5">
+        <mat-icon class="control-label-icon">category</mat-icon>
+        State Type
+      </label>
+      <app-toggle-group
+        [options]="stateOptions"
+        [(value)]="selectedState"
+        class="w-full" />
+    </div>
+
+    <div class="space-y-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5">
+        <mat-icon class="control-label-icon">palette</mat-icon>
+        Color
+      </label>
+      <app-toggle-group
+        [options]="colorOptions"
+        [(value)]="selectedColor"
+        class="w-full" />
+    </div>
+
+    <div>
+      <app-checkbox [(checked)]="showLabel" color="primary">Show Label</app-checkbox>
+      <app-checkbox [(checked)]="showHint" color="primary">Show Hint</app-checkbox>
+    </div>
+  </div>
+
+</app-pds-page-layout>
