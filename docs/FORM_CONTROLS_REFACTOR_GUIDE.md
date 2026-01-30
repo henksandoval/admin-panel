@@ -631,7 +631,7 @@ export class FormSelectComponent<T = any> extends SelectBaseComponent<T> {
 <app-form-input
   formControlName="email"
   [config]="{ label: 'Email', type: 'email' }"
-  appControlConnector>  <!-- ¿Por qué esto? -->
+  appFormInputConnector>  <!-- ¿Por qué esto? -->
 </app-form-input>
 
 <!-- app-select: NO muestra errores -->
@@ -726,7 +726,7 @@ export class FormSelectComponent<T = any> extends SelectBaseComponent<T> {
 - 🔄 Reemplazar `app-form-input` → `app-form-input`
 - 🔄 Reemplazar `app-select` → `app-form-select`
 - 🔄 Reemplazar `app-checkbox` → `app-form-checkbox`
-- 🗑️ Eliminar `appControlConnector` directive
+- 🗑️ Eliminar `appFormInputConnector` directive
 
 ### Phase 5: Limpieza (Día 6)
 - 🗑️ Remover componentes antiguos
@@ -740,7 +740,7 @@ export class FormSelectComponent<T = any> extends SelectBaseComponent<T> {
 ```
 ✅ API consistente en todos los form controls
 ✅ Validación automática en todos los componentes
-✅ NO necesita directivas externas (appControlConnector)
+✅ NO necesita directivas externas (appFormInputConnector)
 ✅ Código compartido y DRY
 ✅ Fácil de extender y mantener
 ✅ Testeable y modular

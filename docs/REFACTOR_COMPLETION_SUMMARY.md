@@ -112,13 +112,13 @@ Has completado app-select y app-checkbox para que funcionen **exactamente igual*
   formControlName="country"
   [options]="countryOptions"
   [config]="..."
-  appControlConnector>  <!-- Agregado -->
+  appFormInputConnector>  <!-- Agregado -->
 </app-select>
 
 <!-- ✅ Checkbox con validación automática -->
 <app-checkbox 
   formControlName="acceptTerms" 
-  appControlConnector>  <!-- Agregado -->
+  appFormInputConnector>  <!-- Agregado -->
   Accept terms
 </app-checkbox>
 ```
@@ -136,7 +136,7 @@ Todos los componentes ahora tienen la **MISMA API**:
 <app-form-input
   formControlName="email"
   [config]="emailConfig"
-  appControlConnector>
+  appFormInputConnector>
 </app-form-input>
 
 // ✅ Select (ahora igual que input)
@@ -144,13 +144,13 @@ Todos los componentes ahora tienen la **MISMA API**:
   formControlName="country"
   [options]="countries"
   [config]="countryConfig"
-  appControlConnector>
+  appFormInputConnector>
 </app-select>
 
 // ✅ Checkbox (ahora igual que input)
 <app-checkbox
   formControlName="terms"
-  appControlConnector>
+  appFormInputConnector>
   Accept terms
 </app-checkbox>
 ```
@@ -167,7 +167,7 @@ Todos los componentes ahora tienen la **MISMA API**:
 | **isRequired detection** | ✅ | ✅ | ✅ |
 | **Custom error messages** | ✅ | ✅ | ✅ |
 | **Dev mode warnings** | ✅ | ✅ | ✅ |
-| **appControlConnector** | ✅ | ✅ | ✅ |
+| **appFormInputConnector** | ✅ | ✅ | ✅ |
 | **ReactiveFormsModule** | ✅ | ✅ | ✅ |
 
 ---
@@ -188,7 +188,7 @@ galleryForm = this.fb.group({
 <app-form-input 
   formControlName="email" 
   [config]="emailConfig"
-  appControlConnector>
+  appFormInputConnector>
 </app-form-input>
 <!-- ✅ Muestra "This field is required" automáticamente -->
 
@@ -196,11 +196,11 @@ galleryForm = this.fb.group({
   formControlName="country"
   [options]="countries"
   [config]="countryConfig"
-  appControlConnector>
+  appFormInputConnector>
 </app-select>
 <!-- ✅ Muestra "This field is required" automáticamente -->
 
-<app-checkbox formControlName="acceptTerms" appControlConnector>
+<app-checkbox formControlName="acceptTerms" appFormInputConnector>
   Accept terms
 </app-checkbox>
 <!-- ✅ Muestra "You must accept this" automáticamente -->
@@ -234,13 +234,13 @@ Developer C: Copia de Dev B
 
 ### Ahora (Consistente):
 ```
-Developer A: Usa app-select con appControlConnector
+Developer A: Usa app-select con appFormInputConnector
             Errores automáticos
 
-Developer B: Usa app-select con appControlConnector
+Developer B: Usa app-select con appFormInputConnector
             Errores automáticos (idénticos a Dev A)
 
-Developer C: Usa app-select con appControlConnector
+Developer C: Usa app-select con appFormInputConnector
             Errores automáticos (idénticos a Dev A y B)
 
 → CONSISTENCIA: Una sola forma, automática
@@ -255,11 +255,11 @@ Developer C: Usa app-select con appControlConnector
 ```markdown
 # Form Controls - PDS
 
-## ✅ SIEMPRE usa appControlConnector
+## ✅ SIEMPRE usa appFormInputConnector
 
-<app-form-input formControlName="..." appControlConnector>
-<app-select formControlName="..." appControlConnector>
-<app-checkbox formControlName="..." appControlConnector>
+<app-form-input formControlName="..." appFormInputConnector>
+<app-select formControlName="..." appFormInputConnector>
+<app-checkbox formControlName="..." appFormInputConnector>
 
 ## Validación
 
@@ -299,12 +299,12 @@ Para cada form existente:
 
 ```
 [ ] Buscar todos los <app-select>
-[ ] Agregar appControlConnector
+[ ] Agregar appFormInputConnector
 [ ] Remover @if manuales para errores (si existen)
 [ ] Agregar errorMessages en config si quieres custom messages
 
 [ ] Buscar todos los <app-checkbox>
-[ ] Agregar appControlConnector
+[ ] Agregar appFormInputConnector
 [ ] Remover @if manuales para errores (si existen)
 
 [ ] Test: Submit form sin llenar campos
@@ -347,7 +347,7 @@ Para cada form existente:
 
 2. **Migrar otros forms**
    - Busca otros forms en el proyecto
-   - Agrega appControlConnector
+   - Agrega appFormInputConnector
    - Remueve validación manual
 
 3. **Documentar en PDS**
@@ -358,7 +358,7 @@ Para cada form existente:
 4. **Onboard al equipo**
    - Muestra los componentes actualizados
    - Explica la regla simple
-   - Enfatiza: "SIEMPRE appControlConnector"
+   - Enfatiza: "SIEMPRE appFormInputConnector"
 
 ---
 

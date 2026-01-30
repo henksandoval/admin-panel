@@ -37,7 +37,7 @@ Mira tu código actual:
 <app-form-input 
   formControlName="email"
   [config]="{ label: 'Email', type: 'email', hint: '...' }"
-  appControlConnector>
+  appFormInputConnector>
 </app-form-input>
 
 // ✅ Validación automática
@@ -140,13 +140,13 @@ app-form-textarea ✅ → Smart, validación integrada
 
 ## 🔥 El Problema Real con tu Código
 
-### 1. `appControlConnector` Directive
+### 1. `appFormInputConnector` Directive
 
 ```typescript
 // ESTO YA ES "TELÉFONO ROTO"
 <app-form-input 
   formControlName="email"
-  appControlConnector>  <!-- ¿Qué es esto? -->
+  appFormInputConnector>  <!-- ¿Qué es esto? -->
 </app-form-input>
 ```
 
@@ -154,7 +154,7 @@ app-form-textarea ✅ → Smart, validación integrada
 
 ```typescript
 // Developer Junior 1:
-<app-form-input formControlName="email" appControlConnector>
+<app-form-input formControlName="email" appFormInputConnector>
 </app-form-input>
 // ✓ Funciona
 
@@ -164,7 +164,7 @@ app-form-textarea ✅ → Smart, validación integrada
 // ✗ NO funciona correctamente, pero no da error obvio
 
 // Developer Junior 3: Se confunde, pone la directive en select
-<app-select formControlName="country" appControlConnector>
+<app-select formControlName="country" appFormInputConnector>
 </app-select>
 // ✗ No hace nada (select no tiene connectControl)
 
@@ -181,7 +181,7 @@ app-form-textarea ✅ → Smart, validación integrada
 // Form con 4 campos
 <form [formGroup]="myForm">
   <!-- ✓ Input: Errores automáticos -->
-  <app-form-input formControlName="name" [config]="nameConfig" appControlConnector>
+  <app-form-input formControlName="name" [config]="nameConfig" appFormInputConnector>
   </app-form-input>
   
   <!-- ✗ Select: Dev tiene que agregar errores manualmente -->
@@ -198,7 +198,7 @@ app-form-textarea ✅ → Smart, validación integrada
   }
   
   <!-- ✓ Email: Errores automáticos -->
-  <app-form-input formControlName="email" [config]="emailConfig" appControlConnector>
+  <app-form-input formControlName="email" [config]="emailConfig" appFormInputConnector>
   </app-form-input>
 </form>
 ```
@@ -207,7 +207,7 @@ app-form-textarea ✅ → Smart, validación integrada
 - "¿Por qué input muestra errores solo pero select no?"
 - "¿Debo siempre agregar el @if para select?"
 - "¿Qué clases CSS uso para los errores?"
-- "¿Por qué a veces necesito appControlConnector y a veces no?"
+- "¿Por qué a veces necesito appFormInputConnector y a veces no?"
 
 **6 meses después:**
 - 5 devs han usado 5 formas diferentes de mostrar errores en select
@@ -316,7 +316,7 @@ app-form-textarea ✅ → Smart, validación integrada
 ### 1. Onboarding de Nuevos Devs
 ```
 ANTES (Inconsistente):
-"Para input usa app-form-input con appControlConnector,
+"Para input usa app-form-input con appFormInputConnector,
 para select usa app-select pero tienes que agregar los errores manualmente,
 para checkbox usa app-checkbox y también errores manuales..."
 
@@ -451,7 +451,7 @@ Estandariza TODOS los form controls al mismo nivel
 ```typescript
 // 1. Actualizar forms existentes
 // 2. Remover @if manuales para errores
-// 3. Remover appControlConnector directive (auto-inject)
+// 3. Remover appFormInputConnector directive (auto-inject)
 ```
 
 ### Fase 3: Documentación (1 día)

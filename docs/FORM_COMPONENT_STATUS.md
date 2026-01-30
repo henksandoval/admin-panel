@@ -39,7 +39,7 @@ galleryForm = this.fb.group({
 #### 2. app-select
 ```html
 ✅ country - Validators.required
-✅ Con appControlConnector
+✅ Con appFormInputConnector
 ✅ Con errorMessages custom
 ✅ Validación automática
 ```
@@ -47,7 +47,7 @@ galleryForm = this.fb.group({
 #### 3. app-checkbox
 ```html
 ✅ acceptTerms - Validators.requiredTrue
-✅ Con appControlConnector
+✅ Con appFormInputConnector
 ✅ Validación automática
 ```
 
@@ -143,7 +143,7 @@ code += `      <mat-option value="us">United States</mat-option>\n`;
 - [x] app-form-input funciona correctamente
 - [x] app-select funciona correctamente con validación
 - [x] app-checkbox funciona correctamente con validación
-- [x] appControlConnector funciona con los 3 componentes
+- [x] appFormInputConnector funciona con los 3 componentes
 - [x] Validación automática en todos
 - [x] Error messages custom funcionan
 
@@ -188,7 +188,7 @@ Los warnings del IDE son:
 
 Todo debería funcionar correctamente. Si hay algún problema en runtime:
 1. Verifica que los imports estén correctos
-2. Verifica que AppControlConnectorDirective esté en imports del módulo
+2. Verifica que appFormInputConnectorDirective esté en imports del módulo
 3. Verifica que los componentes custom tengan el método connectControl()
 
 ---

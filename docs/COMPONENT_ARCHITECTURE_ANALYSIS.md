@@ -20,7 +20,7 @@ El problema NO es que `app-form-input` sea una molécula y `app-select` un átom
 #### ✅ Lo que hace BIEN:
 - **Validación automática integrada** con display de errores
 - **Integración profunda con Angular Forms** mediante ControlValueAccessor + NgControl
-- **Directiva companion** (`appControlConnector`) para sincronización de validadores
+- **Directiva companion** (`appFormInputConnector`) para sincronización de validadores
 - **Mensajes de error configurables** con fallbacks inteligentes
 - **Detección de conexión** con warnings en desarrollo
 - **Estado reactivo** que responde a cambios del FormControl padre
@@ -29,7 +29,7 @@ El problema NO es que `app-form-input` sea una molécula y `app-select` un átom
 - **Acoplamiento excesivo a MatFormField** - No es reutilizable sin Material
 - **Lógica compleja de conexión** que requiere una directiva externa
 - **Responsabilidad mezclada**: Es un wrapper de Material + validador + error handler
-- **Developer Experience confusa**: ¿Por qué necesito `appControlConnector`?
+- **Developer Experience confusa**: ¿Por qué necesito `appFormInputConnector`?
 
 #### 🏗️ Nivel de Abstracción:
 **MOLECULE-ORGANISM HÍBRIDO** - Gestiona múltiples responsabilidades (input + validación + errores + sincronización)
@@ -90,7 +90,7 @@ app-checkbox:          "Dumb Component" - Minimalista
 
 1. **Developer Confusion**
    - ¿Por qué `app-form-input` muestra errores automáticamente pero `app-select` no?
-   - ¿Por qué necesito `appControlConnector` para uno pero no para otros?
+   - ¿Por qué necesito `appFormInputConnector` para uno pero no para otros?
    - ¿Cuándo uso qué componente?
 
 2. **Duplicación de Esfuerzo**
@@ -222,13 +222,13 @@ export class AppFormInputComponent extends AppInputBaseComponent {
 
 ## 🔍 Por Qué Tu Implementación Actual Falla
 
-### Problem 1: `appControlConnector` Directive
+### Problem 1: `appFormInputConnector` Directive
 
 ```typescript
 // ESTO ES UNA RED FLAG 🚩
 <app-form-input 
   formControlName="email" 
-  appControlConnector>  <!-- ¿Por qué necesito esto? -->
+  appFormInputConnector>  <!-- ¿Por qué necesito esto? -->
 </app-form-input>
 ```
 
@@ -316,7 +316,7 @@ Si quieres agregar validación a `app-select`:
 **Hacer:**
 1. Refactorizar `app-select` y `app-checkbox` para incluir validación
 2. Crear service compartido `FormControlConnector`
-3. Eliminar `appControlConnector` directive, usar `@Self() @Optional()`
+3. Eliminar `appFormInputConnector` directive, usar `@Self() @Optional()`
 4. Mantener API consistente entre todos
 
 **Esfuerzo:** 🟠 Medio (2-3 días)  
@@ -438,7 +438,7 @@ components/
 - ❌ Aplicaste Atomic Design dogmáticamente sin cuestionar si aplica
 - ❌ Creaste componentes con niveles de abstracción inconsistentes
 - ❌ Implementaste lógica crítica (validación) de forma fragmentada
-- ❌ Inventaste soluciones (appControlConnector) cuando Angular ya tiene patterns
+- ❌ Inventaste soluciones (appFormInputConnector) cuando Angular ya tiene patterns
 
 ### Lo que necesitas:
 - 🎯 **Refactorización arquitectónica** - No es opcional

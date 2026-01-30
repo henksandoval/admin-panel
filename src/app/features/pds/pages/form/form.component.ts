@@ -241,7 +241,7 @@ export class FormComponent implements OnInit {
     code += `<app-form-input\n`;
     code += `  formControlName="${example.formControlName}"\n`;
     code += `  [config]="${example.configName}"\n`;
-    code += `  appControlConnector>\n`;
+    code += `  appFormInputConnector>\n`;
     code += `</app-form-input>`;
 
     return code;
@@ -270,7 +270,7 @@ export class FormComponent implements OnInit {
     code += `  <app-form-input\n`;
     code += `    formControlName="basicText"\n`;
     code += `    [config]="basicTextConfig"\n`;
-    code += `    appControlConnector>\n`;
+    code += `    appFormInputConnector>\n`;
     code += `  </app-form-input>\n\n`;
 
     code += `  <app-select\n`;

@@ -263,7 +263,7 @@ export class AppFormFieldInputComponent {
 // USO - Requiere directiva externa 😰
 <app-form-input 
   formControlName="email"
-  appControlConnector>  <!-- ← ESTO NO DEBERÍA SER NECESARIO -->
+  appFormInputConnector>  <!-- ← ESTO NO DEBERÍA SER NECESARIO -->
 </app-form-input>
 ```
 
@@ -357,7 +357,7 @@ registrationForm = this.fb.group({
 <app-form-input 
   formControlName="name"
   [config]="{ label: 'Name' }"
-  appControlConnector>
+  appFormInputConnector>
 </app-form-input>
 <!-- Muestra "This field is required" automáticamente ✓ -->
 

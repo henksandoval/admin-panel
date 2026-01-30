@@ -162,7 +162,7 @@ Sí, en **FORM_CONTROLS_REFACTOR_GUIDE.md** hay implementaciones completas.
 - ❌ Inconsistencia arquitectónica
 - ❌ Tres niveles de abstracción diferentes
 - ❌ Validación solo en 1 de 3 componentes
-- ❌ Require directive externa (appControlConnector)
+- ❌ Require directive externa (appFormInputConnector)
 - ❌ Sin código compartido
 
 ### Solución Propuesta:

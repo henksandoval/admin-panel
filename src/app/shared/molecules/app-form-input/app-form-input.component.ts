@@ -105,9 +105,9 @@ export class AppFormInputComponent implements ControlValueAccessor, AfterViewIni
     if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
       console.warn(
         `⚠️ FormFieldInputComponent: No se detectó conexión con NgControl.\n\n` +
-        `Si estás usando formControlName, asegúrate de agregar la directiva appControlConnector.\n\n` +
+        `Si estás usando formControlName, asegúrate de agregar la directiva appFormInputConnector.\n\n` +
         `Uso correcto:\n` +
-        `<app-form-input formControlName="email" [config]="config" appControlConnector>\n` +
+        `<app-form-input formControlName="email" [config]="config" appFormInputConnector>\n` +
         `</app-form-input>\n\n` +
         `Sin la directiva, los validadores del FormGroup padre NO se sincronizarán con este componente.`
       );

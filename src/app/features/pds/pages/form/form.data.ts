@@ -222,8 +222,8 @@ export const BEST_PRACTICES: PdsBestPracticeItemModel[] = [
   },
   {
     icon: 'code',
-    label: 'Always Use appControlConnector',
-    text: 'When using formControlName, ALWAYS add appControlConnector directive for validator sync.'
+    label: 'Always Use appFormInputConnector',
+    text: 'When using formControlName, ALWAYS add appFormInputConnector directive for validator sync.'
   },
   {
     icon: 'palette',

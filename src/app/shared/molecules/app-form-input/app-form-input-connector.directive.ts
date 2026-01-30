@@ -3,7 +3,7 @@ import { NgControl } from '@angular/forms';
 import {AppFormInputComponent} from '@shared/molecules/app-form-input/app-form-input.component';
 
 @Directive({
-  selector: '[appControlConnector]',
+  selector: '[appFormInputConnector]',
   standalone: true,
 })
 export class AppFormInputConnectorDirective implements OnInit {
@@ -13,7 +13,7 @@ export class AppFormInputConnectorDirective implements OnInit {
 
   constructor() {
     if (!this.ngControl || !this.hostComponent) {
-      throw new Error('AppControlConnectorDirective debe usarse en un AppFormFieldInputComponent con una directiva de formulario (formControlName, etc.)');
+      throw new Error('appFormInputConnectorDirective debe usarse en un AppFormFieldInputComponent con una directiva de formulario (formControlName, etc.)');
     }
   }
 

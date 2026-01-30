@@ -133,7 +133,7 @@ app-checkbox (83 LOC)
 | **Mantenibilidad** | 🔴 Difícil | 🟢 Fácil |
 | **Testabilidad** | 🟠 Media | 🟢 Alta |
 | **Extensibilidad** | 🔴 Difícil | 🟢 Fácil |
-| **Directives externas** | ❌ Sí (appControlConnector) | ✅ No |
+| **Directives externas** | ❌ Sí (appFormInputConnector) | ✅ No |
 | **Validación automática** | ⚠️ Solo input | ✅ Todos |
 | **Error display** | ⚠️ Solo input | ✅ Todos |
 | **Time to add new control** | 🔴 2-3 horas | 🟢 30 min |
@@ -273,7 +273,7 @@ Sprint 3 (Semana 3):
 Sprint 4 (Semana 4):
 [ ] Migración completa
 [ ] Remover componentes antiguos
-[ ] Remover appControlConnector
+[ ] Remover appFormInputConnector
 [ ] Final review y merge
 ```
 
