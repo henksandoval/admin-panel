@@ -1,4 +1,3 @@
-
 .card-header-icon {
   color: var(--mat-sys-primary);
 }
@@ -77,5 +76,26 @@
     span {
       color: var(--mat-sys-on-surface-variant);
     }
+  }
+}
+//TODO: BORRAR ESTE ESTILO
+.comparison-header {
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
+
+  h3 {
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+// Material native controls styling to match theme
+mat-form-field {
+  width: 100%;
+}
+
+mat-checkbox {
+  .mat-mdc-checkbox-label {
+    color: var(--mat-sys-on-surface);
   }
 }

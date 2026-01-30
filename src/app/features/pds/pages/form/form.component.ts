@@ -4,6 +4,9 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AppFormFieldInputComponent } from '@shared/atoms/app-form-field-input/app-form-field-input.component';
 import { AppControlConnectorDirective } from '@shared/atoms/app-form-field-input/app-control-connector.directive';
@@ -16,7 +19,6 @@ import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import { AppFormFieldInputOptions } from '@shared/atoms/app-form-field-input/app-form-field-input.model';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import {
   FIELD_EXAMPLES,
   API_PROPERTIES,
@@ -32,6 +34,9 @@ import {
     MatIconModule,
     MatDividerModule,
     MatTabsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatCheckboxModule,
     AppFormFieldInputComponent,
     AppControlConnectorDirective,
     AppButtonComponent,
@@ -155,7 +160,10 @@ export class FormComponent implements OnInit {
       age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
       phone: ['', [Validators.required]],
       country: ['', [Validators.required]],
-      acceptTerms: [false, [Validators.requiredTrue]]
+      acceptTerms: [false, [Validators.requiredTrue]],
+      // Material native controls for comparison
+      matCountry: ['', [Validators.required]],
+      matAcceptTerms: [false, [Validators.requiredTrue]]
     });
   }
 
@@ -242,40 +250,45 @@ export class FormComponent implements OnInit {
     code += `  email: ['', [Validators.required, Validators.email]],\n`;
     code += `  password: ['', [Validators.required, Validators.minLength(8)]],\n`;
     code += `  age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],\n`;
-    code += `  phone: ['', [Validators.required]]\n`;
+    code += `  phone: ['', [Validators.required]],\n`;
+    code += `  country: ['', [Validators.required]],\n`;
+    code += `  acceptTerms: [false, [Validators.requiredTrue]],\n`;
+    code += `  // Material native controls for comparison\n`;
+    code += `  matCountry: ['', [Validators.required]],\n`;
+    code += `  matAcceptTerms: [false, [Validators.requiredTrue]]\n`;
     code += `});\n\n`;
 
     code += `// HTML Template\n`;
     code += `<form [formGroup]="form" (ngSubmit)="onSubmit()">\n`;
+    code += `  <!-- Custom Components -->\n`;
     code += `  <app-form-field-input\n`;
     code += `    formControlName="basicText"\n`;
     code += `    [config]="basicTextConfig"\n`;
     code += `    appControlConnector>\n`;
     code += `  </app-form-field-input>\n\n`;
 
-    code += `  <app-form-field-input\n`;
-    code += `    formControlName="email"\n`;
-    code += `    [config]="emailConfig"\n`;
-    code += `    appControlConnector>\n`;
-    code += `  </app-form-field-input>\n\n`;
+    code += `  <app-select\n`;
+    code += `    formControlName="country"\n`;
+    code += `    [options]="countryOptions"\n`;
+    code += `    [config]="{ label: 'Country', required: true }">\n`;
+    code += `  </app-select>\n\n`;
 
-    code += `  <app-form-field-input\n`;
-    code += `    formControlName="password"\n`;
-    code += `    [config]="passwordConfig"\n`;
-    code += `    appControlConnector>\n`;
-    code += `  </app-form-field-input>\n\n`;
+    code += `  <app-checkbox formControlName="acceptTerms">\n`;
+    code += `    I accept the terms\n`;
+    code += `  </app-checkbox>\n\n`;
 
-    code += `  <app-form-field-input\n`;
-    code += `    formControlName="age"\n`;
-    code += `    [config]="ageConfig"\n`;
-    code += `    appControlConnector>\n`;
-    code += `  </app-form-field-input>\n\n`;
+    code += `  <!-- Material Native for Comparison -->\n`;
+    code += `  <mat-form-field>\n`;
+    code += `    <mat-label>Country (Material)</mat-label>\n`;
+    code += `    <mat-select formControlName="matCountry" required>\n`;
+    code += `      <mat-option value="us">United States</mat-option>\n`;
+    code += `    </mat-select>\n`;
+    code += `    <mat-error>Country is required</mat-error>\n`;
+    code += `  </mat-form-field>\n\n`;
 
-    code += `  <app-form-field-input\n`;
-    code += `    formControlName="phone"\n`;
-    code += `    [config]="phoneConfig"\n`;
-    code += `    appControlConnector>\n`;
-    code += `  </app-form-field-input>\n\n`;
+    code += `  <mat-checkbox formControlName="matAcceptTerms">\n`;
+    code += `    I accept the terms (Material)\n`;
+    code += `  </mat-checkbox>\n\n`;
 
     code += `  <button type="submit">Submit</button>\n`;
     code += `</form>`;

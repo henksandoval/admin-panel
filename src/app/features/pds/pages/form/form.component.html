@@ -66,6 +66,39 @@
             <span class="font-medium">I accept the terms and conditions *</span>
           </app-checkbox>
 
+          <mat-divider class="my-4"></mat-divider>
+
+          <!-- Material Comparison Section -->
+          <div class="comparison-header flex items-center gap-2 mb-4">
+            <mat-icon class="text-primary">compare_arrows</mat-icon>
+            <h3 class="text-lg font-semibold">Angular Material Comparison</h3>
+          </div>
+
+          <!-- Material Select -->
+          <mat-form-field [appearance]="globalAppearance()" class="w-full">
+            <mat-label>Select your country (Material Native)</mat-label>
+            <mat-select formControlName="matCountry" required>
+              <mat-icon matPrefix>public</mat-icon>
+              @for (option of countryOptions; track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+            <mat-hint>Select the country where you reside</mat-hint>
+            @if (galleryForm.get('matCountry')?.hasError('required') && galleryForm.get('matCountry')?.touched) {
+              <mat-error>Country is required</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Material Checkbox -->
+          <mat-checkbox formControlName="matAcceptTerms" color="primary" class="mb-4">
+            <span class="font-medium">I accept the terms and conditions (Material Native) *</span>
+          </mat-checkbox>
+          @if (galleryForm.get('matAcceptTerms')?.hasError('required') && galleryForm.get('matAcceptTerms')?.touched) {
+            <div class="text-red-500 text-sm mt-1">You must accept the terms and conditions</div>
+          }
+
+          <mat-divider class="my-4"></mat-divider>
+
           <div class="form-status-card p-4 rounded-lg border">
             <h4 class="status-title text-base font-semibold mb-3">Form Status</h4>
             <div class="grid grid-cols-2 gap-3">
@@ -247,6 +280,126 @@
         title="TypeScript + HTML"
         [code]="completeFormCode()"
         footer="💡 This includes the complete form setup with all validations." />
+    </div>
+  </mat-tab>
+
+  <mat-tab slot="custom-tabs">
+    <ng-template mat-tab-label>
+      <mat-icon class="mr-2">compare</mat-icon>
+      Custom vs Material
+    </ng-template>
+
+    <div class="p-6">
+      <h3 class="tab-section-title text-xl font-semibold mb-2">Component Comparison</h3>
+      <p class="tab-description mb-6">
+        Compare the implementation and features between custom components and Angular Material native components
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Select Comparison -->
+        <app-card title="Custom Select (app-select)" icon="check_circle" class="h-full">
+          <div class="flex flex-col gap-4">
+            <div>
+              <h4 class="font-semibold mb-2">✅ Advantages</h4>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Simplified API with config object</li>
+                <li>Automatic validation display</li>
+                <li>Consistent with custom design system</li>
+                <li>Less boilerplate code</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-2">❌ Considerations</h4>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Custom maintenance required</li>
+                <li>Less community support</li>
+                <li>May need additional features over time</li>
+              </ul>
+            </div>
+          </div>
+        </app-card>
+
+        <app-card title="Material Select (mat-select)" icon="widgets" class="h-full">
+          <div class="flex flex-col gap-4">
+            <div>
+              <h4 class="font-semibold mb-2">✅ Advantages</h4>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Battle-tested and stable</li>
+                <li>Rich feature set out of the box</li>
+                <li>Large community support</li>
+                <li>Accessibility built-in (A11y)</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-2">❌ Considerations</h4>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>More verbose template code</li>
+                <li>Manual error handling needed</li>
+                <li>Harder to customize deeply</li>
+              </ul>
+            </div>
+          </div>
+        </app-card>
+
+        <!-- Checkbox Comparison -->
+        <app-card title="Custom Checkbox (app-checkbox)" icon="check_circle" class="h-full">
+          <div class="flex flex-col gap-4">
+            <div>
+              <h4 class="font-semibold mb-2">✅ Advantages</h4>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Two-way binding with [(checked)]</li>
+                <li>Simplified API</li>
+                <li>Custom styling easier</li>
+                <li>Consistent with design system</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-2">❌ Considerations</h4>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Need to handle validation display manually</li>
+                <li>Custom maintenance</li>
+                <li>May lack advanced features</li>
+              </ul>
+            </div>
+          </div>
+        </app-card>
+
+        <app-card title="Material Checkbox (mat-checkbox)" icon="widgets" class="h-full">
+          <div class="flex flex-col gap-4">
+            <div>
+              <h4 class="font-semibold mb-2">✅ Advantages</h4>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Production-ready</li>
+                <li>Full accessibility support</li>
+                <li>Indeterminate state support</li>
+                <li>Touch-friendly by default</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-2">❌ Considerations</h4>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Validation display is manual</li>
+                <li>More Material-specific</li>
+                <li>Theming can be complex</li>
+              </ul>
+            </div>
+          </div>
+        </app-card>
+      </div>
+
+      <div class="mt-6 p-4 rounded-lg" style="background-color: var(--mat-sys-surface-container-high);">
+        <div class="flex gap-3">
+          <mat-icon class="text-2xl" style="color: var(--mat-sys-tertiary);">lightbulb</mat-icon>
+          <div>
+            <h4 class="font-semibold text-sm mb-2">Recommendation</h4>
+            <p class="text-xs" style="color: var(--mat-sys-on-surface-variant);">
+              Both approaches have merit. Custom components offer better integration with your design system and cleaner APIs,
+              while Material components provide battle-tested reliability and rich features. Consider using custom components
+              for frequently used, simple controls, and Material for complex components or when accessibility is critical.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </mat-tab>
 
