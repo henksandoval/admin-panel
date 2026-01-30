@@ -6,33 +6,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { SelectConfig, SelectOption, SELECT_DEFAULTS } from './app-select.model';
 
-/**
- * Wrapper component for Angular Material Select with ControlValueAccessor support.
- *
- * @example
- * // With two-way binding
- * <app-select
- *   [(value)]="selectedValue"
- *   [options]="countryOptions"
- *   [config]="{ label: 'Country' }">
- * </app-select>
- *
- * @example
- * // With FormControl
- * <app-select
- *   [formControl]="myControl"
- *   [options]="options"
- *   [config]="{ label: 'Select Option' }">
- * </app-select>
- *
- * @example
- * // Multiple selection
- * <app-select
- *   formControlName="tags"
- *   [options]="options"
- *   [config]="{ label: 'Tags', multiple: true }">
- * </app-select>
- */
 @Component({
   selector: 'app-select',
   standalone: true,
@@ -45,7 +18,9 @@ import { SelectConfig, SelectOption, SELECT_DEFAULTS } from './app-select.model'
   ],
   template: `
     <mat-form-field class="w-full" [appearance]="fullConfig().appearance" [class]="selectClasses()">
-      <mat-label *ngIf="fullConfig().label">{{ fullConfig().label }}</mat-label>
+      @if(fullConfig().label) {
+        <mat-label>{{ fullConfig().label }}</mat-label>
+      }
 
       @if (fullConfig().icon) {
         <mat-icon matPrefix>{{ fullConfig().icon }}</mat-icon>
@@ -85,7 +60,6 @@ import { SelectConfig, SelectOption, SELECT_DEFAULTS } from './app-select.model'
       }
     </mat-form-field>
   `,
-  styleUrls: ['./app-select.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -146,10 +120,6 @@ export class AppSelectComponent<T = any> implements ControlValueAccessor {
     this.onChange(newValue);
     this.onTouched();
   }
-
-  // ============================================================================
-  // ControlValueAccessor Implementation
-  // ============================================================================
 
   writeValue(value: T | T[] | null): void {
     this.value.set(value);
