@@ -80,9 +80,9 @@
   </div>
 
   <div slot="controls">
-    <div class="space-y-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="control-label-icon">category</mat-icon>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>category</mat-icon>
         State Type
       </label>
       <app-toggle-group
@@ -91,9 +91,9 @@
         class="w-full" />
     </div>
 
-    <div class="space-y-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5">
-        <mat-icon class="control-label-icon">palette</mat-icon>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>palette</mat-icon>
         Color
       </label>
       <app-toggle-group
@@ -102,20 +102,18 @@
         class="w-full" />
     </div>
 
-    <div class="grid grid-cols-2 gap-6">
-      <div class="space-y-2">
-        <label class="section-label text-sm font-medium flex items-center gap-1.5">
-          <mat-icon class="control-label-icon">straighten</mat-icon>
-          Size
-        </label>
-        <app-toggle-group
-          [options]="sizeOptions"
-          [(value)]="selectedSize"
-          class="w-full" />
-      </div>
+    <div class="mt-2">
+      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <mat-icon>straighten</mat-icon>
+        Size
+      </label>
+      <app-toggle-group
+        [options]="sizeOptions"
+        [(value)]="selectedSize"
+        class="w-full" />
     </div>
 
-    <div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
       <app-checkbox [(checked)]="isVertical" color="primary">Vertical Layout</app-checkbox>
       <app-checkbox [(checked)]="isDisabled" color="tertiary">Disabled State</app-checkbox>
     </div>
