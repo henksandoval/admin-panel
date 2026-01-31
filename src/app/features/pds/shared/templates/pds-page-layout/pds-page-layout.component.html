@@ -1,4 +1,4 @@
-<app-page-layout title="Test Page" description="Probando el layout dinámico" preset="dashboard" [showEmptySlots]="true">
+<app-page-layout title="Test Page" description="Probando el layout dinámico" [preset]="preset()" [showEmptySlots]="true">
   <ng-template appSlot="header">
     <header class="mb-8 space-y-4">
       <div class="flex items-baseline justify-between border-b pb-6"

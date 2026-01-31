@@ -7,7 +7,7 @@ import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AppPageLayoutComponent, AppSlotContainerDirective } from "@shared/templates/app-page-layout/app-page-layout.component";
+import { AppPageLayoutComponent, AppSlotContainerDirective, LayoutPreset } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 
 @Component({
@@ -31,6 +31,7 @@ export class PdsPageLayoutComponent {
   title = input.required<string>();
   description = input.required<string>();
   componentTag = input.required<string>();
+  preset = input<LayoutPreset>('dashboard');
   code = input<string>('');
   apiProperties = input<PdsApiReferencePropertyModel[]>([]);
   bestPractices = input<PdsBestPracticeItemModel[]>([]);
