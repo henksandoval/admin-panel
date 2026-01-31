@@ -34,6 +34,7 @@ import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form-
 import { AppFormRadioGroupComponent } from '@shared/molecules/app-form-radio-group/app-form-radio-group.component';
 import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form-radio-group/app-form-radio-group-connector.directive';
 import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-radio-group.model';
+import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 
 @Component({
   selector: 'app-form-gallery',
@@ -64,8 +65,9 @@ import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-rad
     AppFormSelectConnectorDirective,
     AppCardComponent,
     PdsCodeBlockComponent,
-    PdsPageLayoutComponent
-  ],
+    PdsPageLayoutComponent,
+    AppPageLayoutComponent
+],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
