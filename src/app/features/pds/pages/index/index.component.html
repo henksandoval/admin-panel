@@ -1,5 +1,4 @@
 <app-page-layout title="Test Page" description="Probando el layout dinámico" preset="fullWidth" [showEmptySlots]="true">
-
   <ng-template appSlot="content">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <app-card *ngFor="let item of showcaseItems" class="showcase-card" [title]="item.title" [icon]="item.icon"

@@ -1,15 +1,14 @@
 import {Component, input, computed, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
 import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {MatIconButton} from '@angular/material/button';
-import {MatTooltip} from '@angular/material/tooltip';
+import { AppPageLayoutComponent, AppSlotContainerDirective } from "@shared/templates/app-page-layout/app-page-layout.component";
+import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 
 @Component({
   selector: 'app-pds-page-layout',
@@ -17,13 +16,12 @@ import {MatTooltip} from '@angular/material/tooltip';
   imports: [
     CommonModule,
     MatIconModule,
-    AppCardComponent,
-    PdsPreviewCardComponent,
+    AppPageLayoutComponent,
+    AppSlotContainerDirective,
     PdsDocumentationTabsComponent,
-    AppCardComponent,
-    MatIconButton,
-    MatTooltip
-  ],
+    PdsPreviewCardComponent,
+    AppCardComponent
+],
   templateUrl: './pds-page-layout.component.html',
   styleUrl: './pds-page-layout.component.scss'
 })

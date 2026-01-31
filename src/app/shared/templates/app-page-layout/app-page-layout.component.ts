@@ -1,5 +1,3 @@
-// app-page-layout.component.ts
-
 import {
   Component,
   Directive,
@@ -15,8 +13,6 @@ import {
 } from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
 
 // ==================== MODELS ====================
 
@@ -133,29 +129,10 @@ export class AppSlotContainerDirective {
   imports: [
     CommonModule,
     NgTemplateOutlet,
-    MatIconModule,
-    MatIconButton,
-    RouterLink
+    MatIconModule
   ],
   template: `
-    <!-- HEADER -->
-    <header class="page-header">
-      @if (showBackButton()) {
-        <button mat-icon-button [routerLink]="backRoute()" class="back-button">
-          <mat-icon>arrow_back</mat-icon>
-        </button>
-      }
-
-      <div class="header-content">
-        <h1 class="title">{{ title() }}</h1>
-        @if (description()) {
-          <p class="description">{{ description() }}</p>
-        }
-        @if (componentTag()) {
-          <code class="component-tag">&lt;{{ componentTag() }}&gt;</code>
-        }
-      </div>
-    </header>
+    <!-- TODO: Colocar BreadCrumbs -->
 
     <!-- DYNAMIC GRID -->
     <div class="page-grid" [ngStyle]="gridStyles()">
