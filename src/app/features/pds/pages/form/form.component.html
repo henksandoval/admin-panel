@@ -183,7 +183,10 @@
   </ng-template>
 
   <ng-template appSlot="footer">
-    <!-- <app-pds-documentation-tabs [componentTag]="componentTag()" [apiProperties]="apiProperties()"
-      [bestPractices]="bestPractices()" /> -->
+    <app-pds-documentation-tabs 
+      componentTag="<app-form-input>"
+      [apiProperties]="API_PROPERTIES"
+      [bestPractices]="BEST_PRACTICES">
+    </app-pds-documentation-tabs>
   </ng-template>
 </app-page-layout>

@@ -7,6 +7,7 @@ import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PdsUtilitiesService } from '../../services/pds-utilities.service';
 import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 import { LayoutPreset } from '@shared/templates/app-page-layout/app-page-layout.model';
@@ -28,7 +29,7 @@ import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app
   styleUrl: './pds-page-layout.component.scss'
 })
 export class PdsPageLayoutComponent {
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly pdsUtils = inject(PdsUtilitiesService);
 
   title = input.required<string>();
   description = input.required<string>();
@@ -55,30 +56,14 @@ export class PdsPageLayoutComponent {
   showBackButton = input<boolean>(true);
 
   getEmphasisBadgeClasses(emphasis: 'high' | 'medium' | 'low'): string {
-    const classMap = {
-      high: 'emphasis-badge high',
-      medium: 'emphasis-badge medium',
-      low: 'emphasis-badge low'
-    };
-    return classMap[emphasis];
+    return this.pdsUtils.getEmphasisBadgeClasses(emphasis);
   }
 
   getCardBorderClasses(emphasis: 'high' | 'medium' | 'low'): string {
-    const classMap = {
-      high: 'card-border high',
-      medium: 'card-border medium',
-      low: 'card-border low'
-    };
-    return classMap[emphasis];
+    return this.pdsUtils.getCardBorderClasses(emphasis);
   }
 
   copyToClipboard(): void {
-    navigator.clipboard.writeText(this.code()).then(() => {
-      this.snackBar.open('✅ Código copiado al portapapeles', 'Cerrar', {
-        duration: 2000,
-        horizontalPosition: 'end',
-        verticalPosition: 'bottom'
-      });
-    });
+    this.pdsUtils.copyToClipboard(this.code());
   }
 }

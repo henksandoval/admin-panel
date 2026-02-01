@@ -33,6 +33,8 @@ import { AppFormRadioGroupComponent } from '@shared/molecules/app-form-radio-gro
 import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form-radio-group/app-form-radio-group-connector.directive';
 import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-radio-group.model';
 import { LayoutConfig } from '@shared/templates/app-page-layout/app-page-layout.model';
+import { PdsUtilitiesService } from '../../shared/services/pds-utilities.service';
+import { PdsDocumentationTabsComponent } from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
 
@@ -65,7 +67,8 @@ import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app
     AppFormSelectConnectorDirective,
     AppCardComponent,
     AppPageLayoutComponent,
-    AppSlotContainerDirective
+    AppSlotContainerDirective,
+    PdsDocumentationTabsComponent
 ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
@@ -82,6 +85,7 @@ throw new Error('Method not implemented.');
 }
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
+  private readonly pdsUtils = inject(PdsUtilitiesService);
 
   public galleryForm!: FormGroup;
 
@@ -277,10 +281,7 @@ throw new Error('Method not implemented.');
     if (!example) return;
 
     const code = this.generateFieldCode(example);
-    navigator.clipboard.writeText(code).then(() => {
-      console.log('📋 Code copied to clipboard!');
-      alert(`📋 ${example.title} code copied to clipboard!`);
-    });
+    this.pdsUtils.copyToClipboard(code, `📋 ${example.title} code copied to clipboard!`);
   }
 
   generateFieldCode(example: any): string {
