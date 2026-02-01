@@ -1,78 +1,57 @@
-<app-pds-page-layout
-  title="Form Field Gallery"
-  description="Complete reference with all field types and working validations. Test real-time validation and explore different visual configurations."
-  componentTag="<app-form-input>"
-  [preset]="'dashboard'"
-  [code]="completeFormCode()"
-  [apiProperties]="API_PROPERTIES"
-  [bestPractices]="BEST_PRACTICES">
+<app-page-layout title="Form Field Gallery"
+  description="Complete reference with all field types and working validations" [layoutConfig]="customLayout"
+  [showEmptySlots]="true">
 
-  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back">
-    Back to PDS Index
-  </app-button>
+  <ng-template appSlot="header">
+    <header class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold mb-2">Form Field Gallery</h1>
+          <p class="text-lg text-gray-600">
+            Complete reference with all field types and working validations. Test real-time validation and explore
+            different visual configurations.
+          </p>
+        </div>
+        <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back">
+          Back to PDS
+        </app-button>
+      </div>
+    </header>
+  </ng-template>
 
-  <div slot="main-content">
-    <app-card
-      title="Complete Form Example"
-      icon="description">
+  <ng-template appSlot="left">
+    <app-card title="Complete Form Example" icon="description">
       <p class="card-description mb-6">
         All field types with real validations. Try entering invalid data to see errors.
       </p>
 
-        <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-          <app-form-input
-            formControlName="basicText"
-            [config]="basicTextConfig()"
-            appFormInputConnector>
-          </app-form-input>
+      <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+        <app-form-input formControlName="basicText" [config]="basicTextConfig()" appFormInputConnector>
+        </app-form-input>
 
-          <app-form-input
-            formControlName="email"
-            [config]="emailConfig()"
-            appFormInputConnector>
-          </app-form-input>
+        <app-form-input formControlName="email" [config]="emailConfig()" appFormInputConnector>
+        </app-form-input>
 
-          <app-form-input
-            formControlName="password"
-            [config]="passwordConfig()"
-            appFormInputConnector>
-          </app-form-input>
+        <app-form-input formControlName="password" [config]="passwordConfig()" appFormInputConnector>
+        </app-form-input>
 
-          <app-form-input
-            formControlName="age"
-            [config]="ageConfig()"
-            appFormInputConnector>
-          </app-form-input>
+        <app-form-input formControlName="age" [config]="ageConfig()" appFormInputConnector>
+        </app-form-input>
 
-          <app-form-input
-            formControlName="phone"
-            [config]="phoneConfig()"
-            appFormInputConnector>
-          </app-form-input>
+        <app-form-input formControlName="phone" [config]="phoneConfig()" appFormInputConnector>
+        </app-form-input>
 
-          <app-form-textarea
-            formControlName="description"
-            [config]="descriptionConfig()"
-            appFormTextareaConnector>
-          </app-form-textarea>
+        <app-form-textarea formControlName="description" [config]="descriptionConfig()" appFormTextareaConnector>
+        </app-form-textarea>
 
-          <app-form-datepicker
-            formControlName="birthDate"
-            [config]="birthDateConfig()"
-            appFormDatepickerConnector>
-          </app-form-datepicker>
+        <app-form-datepicker formControlName="birthDate" [config]="birthDateConfig()" appFormDatepickerConnector>
+        </app-form-datepicker>
 
-          <app-form-radio-group
-            formControlName="gender"
-            [options]="genderOptions"
-            [config]="genderConfig()"
-            appFormRadioGroupConnector>
-          </app-form-radio-group>
+        <app-form-radio-group formControlName="gender" [options]="genderOptions" [config]="genderConfig()"
+          appFormRadioGroupConnector>
+        </app-form-radio-group>
 
-          <app-form-select
-            formControlName="country"
-            [options]="countryOptions"
-            [config]="{
+        <app-form-select formControlName="country" [options]="countryOptions" [config]="{
               label: 'Select your country',
               placeholder: 'Choose a country',
               appearance: globalAppearance(),
@@ -81,84 +60,35 @@
               errorMessages: {
                 required: 'Country selection is required for shipping'
               }
-            }"
-            appFormSelectConnector>
-          </app-form-select>
+            }" appFormSelectConnector>
+        </app-form-select>
 
-          <app-form-checkbox
-            formControlName="acceptTerms"
-            [config]="{
+        <app-form-checkbox formControlName="acceptTerms" [config]="{
               color: 'primary',
               errorMessages: {
                 required: 'You must accept the terms and conditions to continue',
                 requiredTrue: 'Please check this box to proceed'
               }
-            }"
-            appFormCheckboxConnector>
-            <span class="font-medium">I accept the terms and conditions *</span>
-          </app-form-checkbox>
+            }" appFormCheckboxConnector>
+          <span class="font-medium">I accept the terms and conditions *</span>
+        </app-form-checkbox>
 
-          <mat-divider class="my-4"></mat-divider>
+        <div class="flex gap-3">
+          <app-button type="submit" variant="filled" color="primary" iconBefore="send" class="flex-1">
+            Submit Form
+          </app-button>
 
-          <div class="form-status-card p-4 rounded-lg border">
-            <h4 class="status-title text-base font-semibold mb-3">Form Status</h4>
-            <div class="grid grid-cols-2 gap-3">
-              <div class="flex flex-col gap-1">
-                <span class="status-label text-xs">Status:</span>
-                <span class="flex items-center gap-2 text-sm font-medium"
-                      [class.status-valid]="formStatus() === 'VALID'"
-                      [class.status-invalid]="formStatus() === 'INVALID'">
-                  @if (formStatus() === 'VALID') {
-                    <mat-icon class="text-base">check_circle</mat-icon>
-                  } @else if (formStatus() === 'INVALID') {
-                    <mat-icon class="text-base">error</mat-icon>
-                  }
-                  {{ formStatus() }}
-                </span>
-              </div>
-              <div class="flex flex-col gap-1">
-                <span class="status-label text-xs">Valid:</span>
-                <span class="text-sm font-medium">{{ formValid() }}</span>
-              </div>
-              <div class="flex flex-col gap-1">
-                <span class="status-label text-xs">Touched:</span>
-                <span class="text-sm font-medium">{{ formTouched() }}</span>
-              </div>
-              <div class="flex flex-col gap-1">
-                <span class="status-label text-xs">Dirty:</span>
-                <span class="text-sm font-medium">{{ formDirty() }}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex gap-3">
-            <app-button
-              type="submit"
-              variant="filled"
-              color="primary"
-              iconBefore="send"
-              class="flex-1">
-              Submit Form
-            </app-button>
-
-            <app-button
-              type="button"
-              variant="outlined"
-              color="secondary"
-              iconBefore="refresh"
-              (clicked)="resetForm()"
-              class="flex-1">
-              Reset
-            </app-button>
-          </div>
-        </form>
+          <app-button type="button" variant="outlined" color="secondary" iconBefore="refresh" (clicked)="resetForm()"
+            class="flex-1">
+            Reset
+          </app-button>
+        </div>
+      </form>
     </app-card>
-  </div>
+  </ng-template>
 
-  <div slot="main-content">
-    <app-card
-      title="Visual Controls"
-      icon="tune">
+  <ng-template appSlot="right">
+    <app-card title="Visual Controls" icon="tune">
       <p class="card-description mb-6">
         Change visual appearance of all fields (validations stay the same)
       </p>
@@ -168,10 +98,7 @@
           <mat-icon>style</mat-icon>
           Appearance Style
         </label>
-        <app-toggle-group
-          [options]="appearanceOptions"
-          [(value)]="globalAppearance"
-          class="w-full"/>
+        <app-toggle-group [options]="appearanceOptions" [(value)]="globalAppearance" class="w-full" />
         <p class="text-xs mt-1" style="color: var(--mat-sys-on-surface-variant);">
           Changes the Material Design style of all fields
         </p>
@@ -222,187 +149,41 @@
         </div>
       </div>
     </app-card>
-  </div>
-
-  <mat-tab slot="custom-tabs">
-    <ng-template mat-tab-label>
-      <mat-icon class="mr-2">code</mat-icon>
-      Field Examples
-    </ng-template>
-
-    <div class="p-6">
-      <h3 class="tab-section-title text-xl font-semibold mb-2">Individual Field Code</h3>
-      <p class="tab-description mb-6">
-        Copy the code for any field type to use in your project
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        @for (example of FIELD_EXAMPLES; track example.id) {
-          <div class="example-card rounded-lg p-4 flex flex-col gap-3">
-            <div class="flex items-start gap-3">
-              <mat-icon class="example-icon text-2xl">{{ example.icon }}</mat-icon>
-              <div class="flex-1">
-                <h4 class="example-title font-semibold text-base">{{ example.title }}</h4>
-                <p class="example-description text-sm">{{ example.description }}</p>
-              </div>
-            </div>
-
-            <div class="example-badge flex items-center gap-2 p-2 rounded">
-              <mat-icon class="text-sm">check_circle</mat-icon>
-              <span class="text-xs">{{ example.validators }}</span>
-            </div>
-
-            <app-button
-              variant="outlined"
-              size="small"
-              iconBefore="content_copy"
-              (clicked)="copyCode(example.id)"
-              class="w-full">
-              Copy Code
-            </app-button>
+    <app-card class="mt-2">
+      <div class="form-status-card p-4 rounded-lg border">
+        <h4 class="status-title text-base font-semibold mb-3">Form Status</h4>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="flex flex-col gap-1">
+            <span class="status-label text-xs">Status:</span>
+            <span class="flex items-center gap-2 text-sm font-medium" [class.status-valid]="formStatus() === 'VALID'"
+              [class.status-invalid]="formStatus() === 'INVALID'">
+              @if (formStatus() === 'VALID') {
+              <mat-icon class="text-base">check_circle</mat-icon>
+              } @else if (formStatus() === 'INVALID') {
+              <mat-icon class="text-base">error</mat-icon>
+              }
+              {{ formStatus() }}
+            </span>
           </div>
-        }
-      </div>
-    </div>
-  </mat-tab>
-
-  <mat-tab slot="custom-tabs">
-    <ng-template mat-tab-label>
-      <mat-icon class="mr-2">article</mat-icon>
-      Complete Form
-    </ng-template>
-
-    <div class="p-6">
-      <h3 class="tab-section-title text-xl font-semibold mb-2">Complete Form Code</h3>
-      <p class="tab-description mb-6">
-        Copy the entire form with all fields
-      </p>
-
-      <app-pds-code-block
-        title="TypeScript + HTML"
-        [code]="completeFormCode()"
-        footer="💡 This includes the complete form setup with all validations." />
-    </div>
-  </mat-tab>
-
-  <mat-tab slot="custom-tabs">
-    <ng-template mat-tab-label>
-      <mat-icon class="mr-2">compare</mat-icon>
-      Custom vs Material
-    </ng-template>
-
-    <div class="p-6">
-      <h3 class="tab-section-title text-xl font-semibold mb-2">Component Comparison</h3>
-      <p class="tab-description mb-6">
-        Compare the implementation and features between custom components and Angular Material native components
-      </p>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Select Comparison -->
-        <app-card title="Custom Select (app-select)" icon="check_circle" class="h-full">
-          <div class="flex flex-col gap-4">
-            <div>
-              <h4 class="font-semibold mb-2">✅ Advantages</h4>
-              <ul class="list-disc list-inside space-y-1 text-sm">
-                <li>Simplified API with config object</li>
-                <li>Automatic validation display</li>
-                <li>Consistent with custom design system</li>
-                <li>Less boilerplate code</li>
-              </ul>
-            </div>
-            <div>
-              <h4 class="font-semibold mb-2">❌ Considerations</h4>
-              <ul class="list-disc list-inside space-y-1 text-sm">
-                <li>Custom maintenance required</li>
-                <li>Less community support</li>
-                <li>May need additional features over time</li>
-              </ul>
-            </div>
+          <div class="flex flex-col gap-1">
+            <span class="status-label text-xs">Valid:</span>
+            <span class="text-sm font-medium">{{ formValid() }}</span>
           </div>
-        </app-card>
-
-        <app-card title="Material Select (mat-select)" icon="widgets" class="h-full">
-          <div class="flex flex-col gap-4">
-            <div>
-              <h4 class="font-semibold mb-2">✅ Advantages</h4>
-              <ul class="list-disc list-inside space-y-1 text-sm">
-                <li>Battle-tested and stable</li>
-                <li>Rich feature set out of the box</li>
-                <li>Large community support</li>
-                <li>Accessibility built-in (A11y)</li>
-              </ul>
-            </div>
-            <div>
-              <h4 class="font-semibold mb-2">❌ Considerations</h4>
-              <ul class="list-disc list-inside space-y-1 text-sm">
-                <li>More verbose template code</li>
-                <li>Manual error handling needed</li>
-                <li>Harder to customize deeply</li>
-              </ul>
-            </div>
+          <div class="flex flex-col gap-1">
+            <span class="status-label text-xs">Touched:</span>
+            <span class="text-sm font-medium">{{ formTouched() }}</span>
           </div>
-        </app-card>
-
-        <!-- Checkbox Comparison -->
-        <app-card title="Custom Checkbox (app-checkbox)" icon="check_circle" class="h-full">
-          <div class="flex flex-col gap-4">
-            <div>
-              <h4 class="font-semibold mb-2">✅ Advantages</h4>
-              <ul class="list-disc list-inside space-y-1 text-sm">
-                <li>Two-way binding with [(checked)]</li>
-                <li>Simplified API</li>
-                <li>Custom styling easier</li>
-                <li>Consistent with design system</li>
-              </ul>
-            </div>
-            <div>
-              <h4 class="font-semibold mb-2">❌ Considerations</h4>
-              <ul class="list-disc list-inside space-y-1 text-sm">
-                <li>Need to handle validation display manually</li>
-                <li>Custom maintenance</li>
-                <li>May lack advanced features</li>
-              </ul>
-            </div>
-          </div>
-        </app-card>
-
-        <app-card title="Material Checkbox (mat-checkbox)" icon="widgets" class="h-full">
-          <div class="flex flex-col gap-4">
-            <div>
-              <h4 class="font-semibold mb-2">✅ Advantages</h4>
-              <ul class="list-disc list-inside space-y-1 text-sm">
-                <li>Production-ready</li>
-                <li>Full accessibility support</li>
-                <li>Indeterminate state support</li>
-                <li>Touch-friendly by default</li>
-              </ul>
-            </div>
-            <div>
-              <h4 class="font-semibold mb-2">❌ Considerations</h4>
-              <ul class="list-disc list-inside space-y-1 text-sm">
-                <li>Validation display is manual</li>
-                <li>More Material-specific</li>
-                <li>Theming can be complex</li>
-              </ul>
-            </div>
-          </div>
-        </app-card>
-      </div>
-
-      <div class="mt-6 p-4 rounded-lg" style="background-color: var(--mat-sys-surface-container-high);">
-        <div class="flex gap-3">
-          <mat-icon class="text-2xl" style="color: var(--mat-sys-tertiary);">lightbulb</mat-icon>
-          <div>
-            <h4 class="font-semibold text-sm mb-2">Recommendation</h4>
-            <p class="text-xs" style="color: var(--mat-sys-on-surface-variant);">
-              Both approaches have merit. Custom components offer better integration with your design system and cleaner APIs,
-              while Material components provide battle-tested reliability and rich features. Consider using custom components
-              for frequently used, simple controls, and Material for complex components or when accessibility is critical.
-            </p>
+          <div class="flex flex-col gap-1">
+            <span class="status-label text-xs">Dirty:</span>
+            <span class="text-sm font-medium">{{ formDirty() }}</span>
           </div>
         </div>
       </div>
-    </div>
-  </mat-tab>
+    </app-card>
+  </ng-template>
 
-</app-pds-page-layout>
+  <ng-template appSlot="footer">
+    <!-- <app-pds-documentation-tabs [componentTag]="componentTag()" [apiProperties]="apiProperties()"
+      [bestPractices]="bestPractices()" /> -->
+  </ng-template>
+</app-page-layout>

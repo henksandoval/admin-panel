@@ -16,8 +16,6 @@ import { AppFormCheckboxConnectorDirective } from '@shared/molecules/app-form-ch
 import { AppFormSelectComponent } from '@shared/molecules/app-form-select/app-form-select.component';
 import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form-select/app-form-select-connector.directive';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
-import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
-import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import {
   FIELD_EXAMPLES,
@@ -34,7 +32,9 @@ import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form-
 import { AppFormRadioGroupComponent } from '@shared/molecules/app-form-radio-group/app-form-radio-group.component';
 import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form-radio-group/app-form-radio-group-connector.directive';
 import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-radio-group.model';
+import { LayoutConfig } from '@shared/templates/app-page-layout/app-page-layout.model';
 import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
+import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
 
 @Component({
   selector: 'app-form-gallery',
@@ -64,14 +64,22 @@ import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-pa
     AppFormSelectComponent,
     AppFormSelectConnectorDirective,
     AppCardComponent,
-    PdsCodeBlockComponent,
-    PdsPageLayoutComponent,
-    AppPageLayoutComponent
+    AppPageLayoutComponent,
+    AppSlotContainerDirective
 ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
+componentTag() {
+throw new Error('Method not implemented.');
+}
+apiProperties() {
+throw new Error('Method not implemented.');
+}
+bestPractices() {
+throw new Error('Method not implemented.');
+}
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
@@ -81,6 +89,19 @@ export class FormComponent implements OnInit {
   showIcons = signal<boolean>(true);
   showHints = signal<boolean>(true);
   showPrefixSuffix = signal<boolean>(false);
+
+  readonly customLayout: LayoutConfig = {
+    grid: { 
+      columns: '2fr 1fr',
+      gap: '1.5rem' 
+    },
+    cells: [
+      { slotId: 'header', colStart: 1, colEnd: 'full', rowStart: 1 },
+      { slotId: 'left', colStart: 1, rowStart: 2 },
+      { slotId: 'right', colStart: 2, rowStart: 2 },
+      { slotId: 'footer', colStart: 1, colEnd: 'full', rowStart: 3 }
+    ]
+  };
 
   genderOptions: RadioOption<string>[] = [
     { value: 'male', label: 'Male' },

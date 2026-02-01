@@ -7,8 +7,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { 
-  AppPageLayoutComponent, AppSlotContainerDirective, LayoutPreset, GridCell, GridConfig, LayoutConfig 
+  AppPageLayoutComponent 
 } from "@shared/templates/app-page-layout/app-page-layout.component";
+import { LayoutPreset, LayoutConfig, GridConfig, GridCell } from '@shared/templates/app-page-layout/app-page-layout.model';
+import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
 
 @Component({
   selector: 'pds-page-layout',
@@ -20,10 +22,6 @@ import {
   template: `
     <app-page-layout
       [title]="title()"
-      [description]="description()"
-      [componentTag]="componentTag()"
-      [backRoute]="backRoute()"
-      [showBackButton]="showBackButton()"
       [preset]="preset()"
       [layoutConfig]="layoutConfig()"
       [gridConfig]="gridConfig()"

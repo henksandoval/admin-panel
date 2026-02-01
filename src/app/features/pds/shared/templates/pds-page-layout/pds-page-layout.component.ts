@@ -7,8 +7,10 @@ import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AppPageLayoutComponent, AppSlotContainerDirective, LayoutPreset } from "@shared/templates/app-page-layout/app-page-layout.component";
+import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
+import { LayoutPreset } from '@shared/templates/app-page-layout/app-page-layout.model';
+import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
 
 @Component({
   selector: 'app-pds-page-layout',
