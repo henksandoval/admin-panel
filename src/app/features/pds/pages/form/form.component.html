@@ -25,10 +25,9 @@
         All field types with real validations. Try entering invalid data to see errors.
       </p>
 
-      <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+      <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <app-form-input formControlName="basicText" [config]="basicTextConfig()" appFormInputConnector>
         </app-form-input>
-
         <app-form-input formControlName="email" [config]="emailConfig()" appFormInputConnector>
         </app-form-input>
 
@@ -41,39 +40,47 @@
         <app-form-input formControlName="phone" [config]="phoneConfig()" appFormInputConnector>
         </app-form-input>
 
-        <app-form-textarea formControlName="description" [config]="descriptionConfig()" appFormTextareaConnector>
-        </app-form-textarea>
-
         <app-form-datepicker formControlName="birthDate" [config]="birthDateConfig()" appFormDatepickerConnector>
         </app-form-datepicker>
 
-        <app-form-radio-group formControlName="gender" [options]="genderOptions" [config]="genderConfig()"
-          appFormRadioGroupConnector>
-        </app-form-radio-group>
+        <div class="md:col-span-2">
+          <app-form-textarea formControlName="description" [config]="descriptionConfig()" appFormTextareaConnector>
+          </app-form-textarea>
+        </div>
 
-        <app-form-select formControlName="country" [options]="countryOptions" [config]="{
-              label: 'Select your country',
-              placeholder: 'Choose a country',
-              appearance: globalAppearance(),
-              icon: showIcons() ? 'public' : '',
-              hint: showHints() ? 'Select the country where you reside' : '',
-              errorMessages: {
-                required: 'Country selection is required for shipping'
-              }
-            }" appFormSelectConnector>
-        </app-form-select>
+        <div class="md:col-span-2">
+          <app-form-radio-group formControlName="gender" [options]="genderOptions" [config]="genderConfig()"
+            appFormRadioGroupConnector>
+          </app-form-radio-group>
+        </div>
 
-        <app-form-checkbox formControlName="acceptTerms" [config]="{
-              color: 'primary',
-              errorMessages: {
-                required: 'You must accept the terms and conditions to continue',
-                requiredTrue: 'Please check this box to proceed'
-              }
-            }" appFormCheckboxConnector>
-          <span class="font-medium">I accept the terms and conditions *</span>
-        </app-form-checkbox>
+        <div class="md:col-span-2">
+          <app-form-select formControlName="country" [options]="countryOptions" [config]="{
+                label: 'Select your country',
+                placeholder: 'Choose a country',
+                appearance: globalAppearance(),
+                icon: showIcons() ? 'public' : '',
+                hint: showHints() ? 'Select the country where you reside' : '',
+                errorMessages: {
+                  required: 'Country selection is required for shipping'
+                }
+              }" appFormSelectConnector>
+          </app-form-select>
+        </div>
 
-        <div class="flex gap-3">
+        <div class="md:col-span-2">
+          <app-form-checkbox formControlName="acceptTerms" [config]="{
+                color: 'primary',
+                errorMessages: {
+                  required: 'You must accept the terms and conditions to continue',
+                  requiredTrue: 'Please check this box to proceed'
+                }
+              }" appFormCheckboxConnector>
+            <span class="font-medium">I accept the terms and conditions *</span>
+          </app-form-checkbox>
+        </div>
+
+        <div class="md:col-span-2 flex gap-3">
           <app-button type="submit" variant="filled" color="primary" iconBefore="send" class="flex-1">
             Submit Form
           </app-button>
@@ -183,9 +190,7 @@
   </ng-template>
 
   <ng-template appSlot="footer">
-    <app-pds-documentation-tabs 
-      componentTag="<app-form-input>"
-      [apiProperties]="API_PROPERTIES"
+    <app-pds-documentation-tabs componentTag="<app-form-input>" [apiProperties]="API_PROPERTIES"
       [bestPractices]="BEST_PRACTICES">
     </app-pds-documentation-tabs>
   </ng-template>
