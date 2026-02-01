@@ -89,7 +89,7 @@ throw new Error('Method not implemented.');
 
   public galleryForm!: FormGroup;
 
-  globalAppearance = signal<MatFormFieldAppearance>('outline');
+  globalAppearance = signal<MatFormFieldAppearance>('fill');
   showIcons = signal<boolean>(true);
   showHints = signal<boolean>(true);
   showPrefixSuffix = signal<boolean>(false);

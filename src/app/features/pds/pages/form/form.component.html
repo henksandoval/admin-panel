@@ -26,35 +26,10 @@
       </p>
 
       <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <app-form-input formControlName="basicText" [config]="basicTextConfig()" appFormInputConnector>
-        </app-form-input>
-        <app-form-input formControlName="email" [config]="emailConfig()" appFormInputConnector>
-        </app-form-input>
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-form-input formControlName="basicText" [config]="basicTextConfig()" appFormInputConnector>
+          </app-form-input>
 
-        <app-form-input formControlName="password" [config]="passwordConfig()" appFormInputConnector>
-        </app-form-input>
-
-        <app-form-input formControlName="age" [config]="ageConfig()" appFormInputConnector>
-        </app-form-input>
-
-        <app-form-input formControlName="phone" [config]="phoneConfig()" appFormInputConnector>
-        </app-form-input>
-
-        <app-form-datepicker formControlName="birthDate" [config]="birthDateConfig()" appFormDatepickerConnector>
-        </app-form-datepicker>
-
-        <div class="md:col-span-2">
-          <app-form-textarea formControlName="description" [config]="descriptionConfig()" appFormTextareaConnector>
-          </app-form-textarea>
-        </div>
-
-        <div class="md:col-span-2">
-          <app-form-radio-group formControlName="gender" [options]="genderOptions" [config]="genderConfig()"
-            appFormRadioGroupConnector>
-          </app-form-radio-group>
-        </div>
-
-        <div class="md:col-span-2">
           <app-form-select formControlName="country" [options]="countryOptions" [config]="{
                 label: 'Select your country',
                 placeholder: 'Choose a country',
@@ -66,6 +41,37 @@
                 }
               }" appFormSelectConnector>
           </app-form-select>
+        </div>
+
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-form-input formControlName="email" [config]="emailConfig()" appFormInputConnector>
+          </app-form-input>
+          
+          <app-form-input formControlName="password" [config]="passwordConfig()" appFormInputConnector>
+          </app-form-input>
+        </div>
+
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <app-form-input formControlName="age" [config]="ageConfig()" appFormInputConnector>
+          </app-form-input>
+          
+          <app-form-input formControlName="phone" [config]="phoneConfig()" appFormInputConnector>
+          </app-form-input>
+          
+          <app-form-datepicker formControlName="birthDate" [config]="birthDateConfig()"
+            appFormDatepickerConnector>
+          </app-form-datepicker>
+        </div>
+
+        <div class="md:col-span-2">
+          <app-form-textarea formControlName="description" [config]="descriptionConfig()" appFormTextareaConnector>
+          </app-form-textarea>
+        </div>
+
+        <div class="md:col-span-2">
+          <app-form-radio-group formControlName="gender" [options]="genderOptions" [config]="genderConfig()"
+            appFormRadioGroupConnector>
+          </app-form-radio-group>
         </div>
 
         <div class="md:col-span-2">
@@ -80,14 +86,13 @@
           </app-form-checkbox>
         </div>
 
-        <div class="md:col-span-2 flex gap-3">
-          <app-button type="submit" variant="filled" color="primary" iconBefore="send" class="flex-1">
-            Submit Form
+        <div class="md:col-span-2 flex justify-end gap-3">
+          <app-button type="button" variant="outlined" color="secondary" iconBefore="refresh" (clicked)="resetForm()">
+            Reset
           </app-button>
 
-          <app-button type="button" variant="outlined" color="secondary" iconBefore="refresh" (clicked)="resetForm()"
-            class="flex-1">
-            Reset
+          <app-button type="submit" variant="filled" color="primary" iconBefore="send">
+            Submit Form
           </app-button>
         </div>
       </form>
