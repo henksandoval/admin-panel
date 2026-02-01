@@ -1,16 +1,11 @@
 import {
   Component,
-  Directive,
-  TemplateRef,
   ContentChildren,
   QueryList,
   AfterContentInit,
   input,
   computed,
-  signal,
-  inject,
-  Input
-} from '@angular/core';
+  signal} from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutPreset, LayoutConfig, GridConfig, GridCell, LAYOUT_PRESETS } from './app-page-layout.model';
@@ -46,12 +41,6 @@ import { AppSlotContainerDirective } from './app-slot-container.directive';
   styleUrl: './app-page-layout.component.scss'
 })
 export class AppPageLayoutComponent implements AfterContentInit {
-  readonly title = input.required<string>();
-  readonly description = input<string>('');
-  readonly componentTag = input<string>('');
-  readonly backRoute = input<string>('');
-  readonly showBackButton = input<boolean>(true);
-
   readonly preset = input<LayoutPreset | null>(null);
   readonly layoutConfig = input<LayoutConfig | null>(null);
   readonly gridConfig = input<GridConfig | null>(null);

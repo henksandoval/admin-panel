@@ -1,3 +1,4 @@
+const SPACING_MD = '1.5rem';
 
 export interface GridCell {
   slotId: string;
@@ -27,11 +28,9 @@ export interface LayoutConfig {
   cells: GridCell[];
 }
 
-// ==================== PRESETS ====================
-
 export const LAYOUT_PRESETS = {
   twoColumn: {
-    grid: { columns: 2, gap: '1.5rem' },
+    grid: { columns: 2, gap: SPACING_MD },
     cells: [
       { slotId: 'left', colStart: 1 },
       { slotId: 'right', colStart: 2 }
@@ -39,7 +38,7 @@ export const LAYOUT_PRESETS = {
   },
 
   twoColumnWithFooter: {
-    grid: { columns: 2, gap: '1.5rem' },
+    grid: { columns: 2, gap: SPACING_MD },
     cells: [
       { slotId: 'left', colStart: 1, rowStart: 1 },
       { slotId: 'right', colStart: 2, rowStart: 1 },
@@ -48,7 +47,7 @@ export const LAYOUT_PRESETS = {
   },
 
   mainWithSidebar: {
-    grid: { columns: '2fr 1fr', gap: '1.5rem' },
+    grid: { columns: '2fr 1fr', gap: SPACING_MD },
     cells: [
       { slotId: 'main', colStart: 1 },
       { slotId: 'sidebar', colStart: 2 }
@@ -56,7 +55,7 @@ export const LAYOUT_PRESETS = {
   },
 
   sidebarWithMain: {
-    grid: { columns: '1fr 2fr', gap: '1.5rem' },
+    grid: { columns: '1fr 2fr', gap: SPACING_MD },
     cells: [
       { slotId: 'sidebar', colStart: 1 },
       { slotId: 'main', colStart: 2 }
@@ -64,7 +63,7 @@ export const LAYOUT_PRESETS = {
   },
 
   threeColumn: {
-    grid: { columns: 3, gap: '1.5rem' },
+    grid: { columns: 3, gap: SPACING_MD },
     cells: [
       { slotId: 'col1', colStart: 1 },
       { slotId: 'col2', colStart: 2 },
@@ -73,7 +72,7 @@ export const LAYOUT_PRESETS = {
   },
 
   dashboard: {
-    grid: { columns: 2, gap: '1.5rem' },
+    grid: { columns: 2, gap: SPACING_MD },
     cells: [
       { slotId: 'header', colStart: 1, colEnd: 'full', rowStart: 1 },
       { slotId: 'left', colStart: 1, rowStart: 2 },
@@ -83,7 +82,7 @@ export const LAYOUT_PRESETS = {
   },
 
   fullWidth: {
-    grid: { columns: 1, gap: '1.5rem' },
+    grid: { columns: 1, gap: SPACING_MD },
     cells: [
       { slotId: 'content' }
     ]

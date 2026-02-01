@@ -3,33 +3,12 @@
     padding: 1.5rem;
 }
 
-.page-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
 .back-button {
     margin-top: 0.25rem;
 }
 
 .header-content {
     flex: 1;
-}
-
-.title {
-    margin: 0 0 0.5rem;
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--text-primary, #1a1a1a);
-}
-
-.description {
-    margin: 0 0 1rem;
-    color: var(--text-secondary, #666);
-    font-size: 1rem;
-    line-height: 1.5;
 }
 
 .component-tag {
