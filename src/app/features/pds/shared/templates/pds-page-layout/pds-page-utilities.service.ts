@@ -4,12 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root'
 })
-export class PdsUtilitiesService {
+export class PdsPageUtilitiesService {
   private readonly snackBar = inject(MatSnackBar);
 
-  /**
-   * Obtiene las clases CSS para el badge de énfasis
-   */
   getEmphasisBadgeClasses(emphasis: 'high' | 'medium' | 'low'): string {
     const classMap = {
       high: 'emphasis-badge high',
@@ -19,9 +16,6 @@ export class PdsUtilitiesService {
     return classMap[emphasis];
   }
 
-  /**
-   * Obtiene las clases CSS para el borde de la card según énfasis
-   */
   getCardBorderClasses(emphasis: 'high' | 'medium' | 'low'): string {
     const classMap = {
       high: 'card-border high',
@@ -31,9 +25,6 @@ export class PdsUtilitiesService {
     return classMap[emphasis];
   }
 
-  /**
-   * Copia texto al portapapeles y muestra un snackbar de confirmación
-   */
   copyToClipboard(text: string, message: string = '✅ Código copiado al portapapeles'): Promise<void> {
     return navigator.clipboard.writeText(text).then(() => {
       this.snackBar.open(message, 'Cerrar', {
@@ -44,9 +35,6 @@ export class PdsUtilitiesService {
     });
   }
 
-  /**
-   * Muestra un mensaje de éxito
-   */
   showSuccess(message: string, duration: number = 2000): void {
     this.snackBar.open(message, 'Cerrar', {
       duration,
@@ -56,9 +44,6 @@ export class PdsUtilitiesService {
     });
   }
 
-  /**
-   * Muestra un mensaje de error
-   */
   showError(message: string, duration: number = 3000): void {
     this.snackBar.open(message, 'Cerrar', {
       duration,
@@ -68,9 +53,6 @@ export class PdsUtilitiesService {
     });
   }
 
-  /**
-   * Muestra un mensaje informativo
-   */
   showInfo(message: string, duration: number = 2000): void {
     this.snackBar.open(message, 'Cerrar', {
       duration,

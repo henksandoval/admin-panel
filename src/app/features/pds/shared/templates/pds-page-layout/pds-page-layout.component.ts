@@ -7,7 +7,7 @@ import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PdsUtilitiesService } from '../../services/pds-utilities.service';
+import { PdsPageUtilitiesService } from './pds-page-utilities.service';
 import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 import { LayoutPreset } from '@shared/templates/app-page-layout/app-page-layout.model';
@@ -30,7 +30,7 @@ import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app
   encapsulation: ViewEncapsulation.None
 })
 export class PdsPageLayoutComponent {
-  private readonly pdsUtils = inject(PdsUtilitiesService);
+  private readonly pdsUtils = inject(PdsPageUtilitiesService);
 
   title = input.required<string>();
   description = input.required<string>();

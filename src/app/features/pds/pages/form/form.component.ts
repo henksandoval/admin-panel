@@ -33,7 +33,7 @@ import { AppFormRadioGroupComponent } from '@shared/molecules/app-form-radio-gro
 import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form-radio-group/app-form-radio-group-connector.directive';
 import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-radio-group.model';
 import { LayoutConfig } from '@shared/templates/app-page-layout/app-page-layout.model';
-import { PdsUtilitiesService } from '../../shared/services/pds-utilities.service';
+import { PdsPageUtilitiesService } from '../../shared/templates/pds-page-layout/pds-page-utilities.service';
 import { PdsDocumentationTabsComponent } from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
@@ -85,7 +85,7 @@ throw new Error('Method not implemented.');
 }
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
-  private readonly pdsUtils = inject(PdsUtilitiesService);
+  private readonly pdsUtils = inject(PdsPageUtilitiesService);
 
   public galleryForm!: FormGroup;
 
