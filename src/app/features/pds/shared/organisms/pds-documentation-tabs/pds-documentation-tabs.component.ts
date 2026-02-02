@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -20,7 +20,8 @@ import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds
     PdsBestPracticesComponent,
   ],
   templateUrl: './pds-documentation-tabs.component.html',
-  styleUrl: './pds-documentation-tabs.component.scss'
+  styleUrl: './pds-documentation-tabs.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class PdsDocumentationTabsComponent {
   componentTag = input.required<string>();

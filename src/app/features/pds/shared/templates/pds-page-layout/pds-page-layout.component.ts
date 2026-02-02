@@ -1,4 +1,4 @@
-import {Component, input, computed, inject} from '@angular/core';
+import {Component, input, computed, inject, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
@@ -26,7 +26,8 @@ import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app
     AppCardComponent
 ],
   templateUrl: './pds-page-layout.component.html',
-  styleUrl: './pds-page-layout.component.scss'
+  styleUrl: './pds-page-layout.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class PdsPageLayoutComponent {
   private readonly pdsUtils = inject(PdsUtilitiesService);

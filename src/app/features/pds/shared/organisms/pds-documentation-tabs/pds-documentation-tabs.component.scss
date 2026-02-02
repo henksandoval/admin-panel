@@ -10,3 +10,24 @@
 .tab-description {
   color: var(--mat-sys-on-surface-variant);
 }
+
+.api-section-header {
+  .api-icon-container {
+    background: linear-gradient(135deg,
+        var(--mat-sys-primary-container),
+        var(--mat-sys-tertiary-container));
+    border-color: var(--mat-sys-primary);
+
+    mat-icon {
+      color: var(--mat-sys-primary);
+    }
+  }
+
+  .api-title {
+    color: var(--mat-sys-on-surface);
+  }
+
+  .api-description {
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
