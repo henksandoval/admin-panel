@@ -10,14 +10,6 @@
   color: var(--mat-sys-on-surface-variant);
 }
 
-.section-title {
-  color: var(--mat-sys-on-surface);
-}
-
-.card-title {
-  color: var(--mat-sys-on-surface);
-}
-
 .emphasis-badge {
   &.high {
     background-color: var(--mat-sys-primary-container);
@@ -59,23 +51,9 @@
   border-color: var(--mat-sys-outline-variant);
 }
 
-pre {
-  margin: 0;
-
-  code {
-    display: block;
-  }
-}
-
 .section-label {
   color: var(--mat-sys-on-surface-variant);
   opacity: 0.7;
-}
-
-.inline-code {
-  background-color: var(--mat-sys-surface-container-high);
-  color: var(--mat-sys-primary);
-  border-color: var(--mat-sys-outline-variant);
 }
 
 .color-variation-card {

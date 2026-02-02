@@ -31,3 +31,9 @@
     color: var(--mat-sys-on-surface-variant);
   }
 }
+
+.inline-code {
+  background-color: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-primary);
+  border-color: var(--mat-sys-outline-variant);
+}
