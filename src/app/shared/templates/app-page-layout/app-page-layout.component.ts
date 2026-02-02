@@ -5,11 +5,13 @@ import {
   AfterContentInit,
   input,
   computed,
-  signal} from '@angular/core';
+  signal
+} from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutPreset, LayoutConfig, GridConfig, GridCell, LAYOUT_PRESETS } from './app-page-layout.model';
 import { AppSlotContainerDirective } from './app-slot-container.directive';
+import { AppBreadCrumbComponent } from "@shared/molecules/app-bread-crumb/app-bread-crumb.component";
 
 @Component({
   selector: 'app-page-layout',
@@ -17,9 +19,11 @@ import { AppSlotContainerDirective } from './app-slot-container.directive';
   imports: [
     CommonModule,
     NgTemplateOutlet,
-    MatIconModule
+    MatIconModule,
+    AppBreadCrumbComponent
   ],
   template: `
+    <app-bread-crumb></app-bread-crumb>
     <div class="page-grid" [ngStyle]="gridStyles()">
       @for (cell of resolvedConfig().cells; track cell.slotId) {
         <div
