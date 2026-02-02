@@ -74,15 +74,6 @@ import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-componentTag() {
-throw new Error('Method not implemented.');
-}
-apiProperties() {
-throw new Error('Method not implemented.');
-}
-bestPractices() {
-throw new Error('Method not implemented.');
-}
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
   private readonly pdsUtils = inject(PdsPageUtilitiesService);
@@ -276,59 +267,8 @@ throw new Error('Method not implemented.');
 
   readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
 
-  copyCode(fieldName: string): void {
-    const example = this.FIELD_EXAMPLES.find((e: any) => e.id === fieldName);
-    if (!example) return;
-
-    const code = this.generateFieldCode(example);
-    this.pdsUtils.copyToClipboard(code, `📋 ${example.title} code copied to clipboard!`);
-  }
-
-  generateFieldCode(example: any): string {
-    let code = `// ${example.title}\n`;
-    code += `// ${example.description}\n\n`;
-
-    code += `// TypeScript Configuration\n`;
-    code += `${example.configName}: AppFormFieldInputOptions = {\n`;
-    code += `  label: '${example.config.label}',\n`;
-    code += `  placeholder: '${example.config.placeholder}',\n`;
-    code += `  type: '${example.config.type}'`;
-
-    if (example.config.icon) {
-      code += `,\n  icon: '${example.config.icon}'`;
-    }
-    if (example.config.hint) {
-      code += `,\n  hint: '${example.config.hint}'`;
-    }
-    if (example.config.prefix) {
-      code += `,\n  prefix: '${example.config.prefix}'`;
-    }
-    if (example.config.suffix) {
-      code += `,\n  suffix: '${example.config.suffix}'`;
-    }
-    if (example.config.errorMessages) {
-      code += `,\n  errorMessages: {\n`;
-      Object.entries(example.config.errorMessages).forEach(([key, value]) => {
-        code += `    ${key}: '${value}',\n`;
-      });
-      code = code.slice(0, -2) + '\n  }';
-    }
-
-    code += `\n};\n\n`;
-
-    code += `// Form Setup\n`;
-    code += `form = this.fb.group({\n`;
-    code += `  ${example.formControlName}: ['', [${example.validators}]]\n`;
-    code += `});\n\n`;
-
-    code += `// HTML Template\n`;
-    code += `<app-form-input\n`;
-    code += `  formControlName="${example.formControlName}"\n`;
-    code += `  [config]="${example.configName}"\n`;
-    code += `  appFormInputConnector>\n`;
-    code += `</app-form-input>`;
-
-    return code;
+  copyToClipboard(): void {
+    this.pdsUtils.copyToClipboard(this.completeFormCode());
   }
 
   private generateCompleteFormCode(): string {
