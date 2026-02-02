@@ -63,61 +63,6 @@
   }
 }
 
-.api-card {
-  background-color: var(--mat-sys-surface);
-  border-color: var(--mat-sys-outline);
-  border-width: 2px;
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    border-color: var(--mat-sys-primary);
-    box-shadow: 0 8px 24px var(--overlay-shadow-15);
-    transform: translateY(-2px);
-  }
-
-  .api-property {
-    background-color: var(--mat-sys-primary-container);
-    color: var(--mat-sys-on-primary-container);
-    font-weight: 600;
-  }
-
-  .api-decorator {
-    background-color: var(--mat-sys-surface-container-low);
-    color: var(--mat-sys-on-surface-variant);
-  }
-
-  .api-description-text {
-    color: var(--mat-sys-on-surface-variant);
-  }
-
-  .api-label {
-    color: var(--mat-sys-on-surface);
-  }
-
-  .api-type {
-    background-color: var(--mat-sys-surface-container-low);
-    color: var(--mat-sys-on-surface-variant);
-    border-color: var(--mat-sys-outline-variant);
-  }
-
-  .api-default {
-    background-color: var(--mat-sys-tertiary-container);
-    color: var(--mat-sys-on-tertiary-container);
-    border-color: var(--mat-sys-tertiary);
-
-    &.optional {
-      background-color: var(--mat-sys-surface-container);
-      color: var(--mat-sys-on-surface-variant);
-      border-color: var(--mat-sys-outline-variant);
-    }
-  }
-
-  .api-optional-badge {
-    background-color: var(--mat-sys-tertiary-container);
-    color: var(--mat-sys-on-tertiary-container);
-  }
-}
-
 .hint-text {
   margin-top: 0.5rem;
   font-size: 0.875rem;
