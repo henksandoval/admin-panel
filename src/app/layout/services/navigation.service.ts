@@ -357,6 +357,48 @@ export class NavigationService {
           url: '/pds/index'
         },
         {
+          id: 'layout',
+          title: 'Layouts',
+          children: [
+            {
+              id: 'dashboard',
+              title: 'Dashboard',
+              icon: 'dashboard',
+              url: '/pds/layout/dashboard'
+            },
+            {
+              id: 'full-width',
+              title: 'Full Width',
+              icon: 'view_quilt',
+              url: '/pds/layout/full-width'
+            },
+            {
+              id: 'two-column',
+              title: 'Two Column',
+              icon: 'view_column',
+              url: '/pds/layout/two-column'
+            },
+            {
+              id: 'three-column',
+              title: 'Three Column',
+              icon: 'view_module',
+              url: '/pds/layout/three-column'
+            },
+            {
+              id: 'main-sidebar',
+              title: 'Main Sidebar',
+              icon: 'view_compact',
+              url: '/pds/layout/main-sidebar'
+            },
+            {
+              id: 'sidebar-main',
+              title: 'Sidebar Main',
+              icon: 'view_day',
+              url: '/pds/layout/sidebar-main'
+            }
+          ]
+        },
+        {
           id: 'form',
           title: 'Formularios',
           icon: 'assignment',

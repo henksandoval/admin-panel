@@ -83,7 +83,19 @@ export const routes: Routes = [
           { path: 'radios', loadComponent: () => import('./features/pds/pages/radios/radios.component') },
           { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component') },
           { path: 'selects', loadComponent: () => import('./features/pds/pages/selects/selects.component') },
-          { path: 'toggle-groups', loadComponent: () => import('./features/pds/pages/toggle-groups/toggle-groups.component') }
+          { path: 'toggle-groups', loadComponent: () => import('./features/pds/pages/toggle-groups/toggle-groups.component') },
+          {
+            path: 'layout',
+            children: [
+              { path: 'full-width', loadComponent: () => import('./features/pds/pages/layouts/full-width.component') },
+              { path: 'two-column', loadComponent: () => import('./features/pds/pages/layouts/two-column.component') },
+              { path: 'two-column-footer', loadComponent: () => import('./features/pds/pages/layouts/two-column-footer.component') },
+              { path: 'three-column', loadComponent: () => import('./features/pds/pages/layouts/three-column.component') },
+              { path: 'main-sidebar', loadComponent: () => import('./features/pds/pages/layouts/main-sidebar.component') },
+              { path: 'sidebar-main', loadComponent: () => import('./features/pds/pages/layouts/sidebar-main.component') },
+              { path: 'dashboard', loadComponent: () => import('./features/pds/pages/layouts/dashboard.component') }
+            ]
+          }
         ]
       },
     ]
