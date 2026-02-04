@@ -1,0 +1,43 @@
+:host {
+    display: block;
+    padding: 1.5rem;
+}
+
+.back-button {
+    margin-top: 0.25rem;
+}
+
+.header-content {
+    flex: 1;
+}
+
+.component-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--surface-variant, #f0f0f0);
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.875rem;
+    color: var(--primary, #6200ea);
+}
+
+.page-grid {
+    display: grid;
+}
+
+.grid-cell {
+    min-width: 0;
+}
+
+.empty-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    border: 2px dashed var(--border-color, #ccc);
+    border-radius: 8px;
+    background: var(--surface-variant, #f5f5f5);
+    color: var(--text-secondary, #666);
+    font-family: monospace;
+    font-size: 0.875rem;
+}

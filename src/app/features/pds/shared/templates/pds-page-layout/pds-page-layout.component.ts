@@ -1,15 +1,17 @@
-import {Component, input, computed, inject} from '@angular/core';
+import {Component, input, computed, inject, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
 import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {MatIconButton} from '@angular/material/button';
-import {MatTooltip} from '@angular/material/tooltip';
+import { PdsPageUtilitiesService } from './pds-page-utilities.service';
+import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
+import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
+import { LayoutPreset } from '@shared/templates/app-page-layout/app-page-layout.model';
+import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
 
 @Component({
   selector: 'app-pds-page-layout',
@@ -17,22 +19,23 @@ import {MatTooltip} from '@angular/material/tooltip';
   imports: [
     CommonModule,
     MatIconModule,
-    AppCardComponent,
-    PdsPreviewCardComponent,
+    AppPageLayoutComponent,
+    AppSlotContainerDirective,
     PdsDocumentationTabsComponent,
-    AppCardComponent,
-    MatIconButton,
-    MatTooltip
-  ],
+    PdsPreviewCardComponent,
+    AppCardComponent
+],
   templateUrl: './pds-page-layout.component.html',
-  styleUrl: './pds-page-layout.component.scss'
+  styleUrl: './pds-page-layout.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class PdsPageLayoutComponent {
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly pdsUtils = inject(PdsPageUtilitiesService);
 
   title = input.required<string>();
   description = input.required<string>();
   componentTag = input.required<string>();
+  preset = input<LayoutPreset>('dashboard');
   code = input<string>('');
   apiProperties = input<PdsApiReferencePropertyModel[]>([]);
   bestPractices = input<PdsBestPracticeItemModel[]>([]);
@@ -54,30 +57,14 @@ export class PdsPageLayoutComponent {
   showBackButton = input<boolean>(true);
 
   getEmphasisBadgeClasses(emphasis: 'high' | 'medium' | 'low'): string {
-    const classMap = {
-      high: 'emphasis-badge high',
-      medium: 'emphasis-badge medium',
-      low: 'emphasis-badge low'
-    };
-    return classMap[emphasis];
+    return this.pdsUtils.getEmphasisBadgeClasses(emphasis);
   }
 
   getCardBorderClasses(emphasis: 'high' | 'medium' | 'low'): string {
-    const classMap = {
-      high: 'card-border high',
-      medium: 'card-border medium',
-      low: 'card-border low'
-    };
-    return classMap[emphasis];
+    return this.pdsUtils.getCardBorderClasses(emphasis);
   }
 
   copyToClipboard(): void {
-    navigator.clipboard.writeText(this.code()).then(() => {
-      this.snackBar.open('✅ Código copiado al portapapeles', 'Cerrar', {
-        duration: 2000,
-        horizontalPosition: 'end',
-        verticalPosition: 'bottom'
-      });
-    });
+    this.pdsUtils.copyToClipboard(this.code());
   }
 }

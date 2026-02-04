@@ -1,166 +1,113 @@
-<app-pds-page-layout
-  title="Form Field Gallery"
-  description="Complete reference with all field types and working validations. Test real-time validation and explore different visual configurations."
-  componentTag="<app-form-input>"
-  [code]="completeFormCode()"
-  [apiProperties]="API_PROPERTIES"
-  [bestPractices]="BEST_PRACTICES"
-  [variantGuides]="VARIANT_GUIDES"
-  [currentVariant]="currentVariant">
+<app-page-layout title="Form Field Gallery"
+  description="Complete reference with all field types and working validations" [layoutConfig]="customLayout"
+  [showEmptySlots]="true">
 
-  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back">
-    Back to PDS Index
-  </app-button>
-
-  <div slot="documentation">
-    <app-card title="Form Status" icon="info">
-      <div class="form-status-card p-4 rounded-lg border">
-        <h4 class="status-title text-base font-semibold mb-3">Form Status</h4>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="flex flex-col gap-1">
-            <span class="status-label text-xs">Status:</span>
-            <span class="flex items-center gap-2 text-sm font-medium"
-                  [class.status-valid]="formStatus() === 'VALID'"
-                  [class.status-invalid]="formStatus() === 'INVALID'">
-              @if (formStatus() === 'VALID') {
-                <mat-icon class="text-base">check_circle</mat-icon>
-              } @else if (formStatus() === 'INVALID') {
-                <mat-icon class="text-base">error</mat-icon>
-              }
-              {{ formStatus() }}
-            </span>
-          </div>
-          <div class="flex flex-col gap-1">
-            <span class="status-label text-xs">Valid:</span>
-            <span class="text-sm font-medium">{{ formValid() }}</span>
-          </div>
-          <div class="flex flex-col gap-1">
-            <span class="status-label text-xs">Touched:</span>
-            <span class="text-sm font-medium">{{ formTouched() }}</span>
-          </div>
-          <div class="flex flex-col gap-1">
-            <span class="status-label text-xs">Dirty:</span>
-            <span class="text-sm font-medium">{{ formDirty() }}</span>
-          </div>
+  <ng-template appSlot="header">
+    <header class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold mb-2">Form Field Gallery</h1>
+          <p class="text-lg text-gray-600">
+            Complete reference with all field types and working validations. Test real-time validation and explore
+            different visual configurations.
+          </p>
         </div>
+        <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back">
+          Back to PDS
+        </app-button>
       </div>
-    </app-card>
-  </div>
+    </header>
+  </ng-template>
 
-  <div slot="main-content">
-    <app-card
-      title="Complete Form Example"
-      icon="description">
+  <ng-template appSlot="left">
+    <app-card title="Complete Form Example" icon="description">
       <p class="card-description mb-6">
         All field types with real validations. Try entering invalid data to see errors.
       </p>
-        <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-          <app-form-input
-            formControlName="basicText"
-            [config]="basicTextConfig()"
-            appFormInputConnector>
+
+      <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-form-input formControlName="basicText" [config]="basicTextConfig()" appFormInputConnector>
           </app-form-input>
 
-          <app-form-input
-            formControlName="email"
-            [config]="emailConfig()"
-            appFormInputConnector>
+          <app-form-select formControlName="country" [options]="countryOptions" [config]="{
+                label: 'Select your country',
+                placeholder: 'Choose a country',
+                appearance: globalAppearance(),
+                icon: showIcons() ? 'public' : '',
+                hint: showHints() ? 'Select the country where you reside' : '',
+                errorMessages: {
+                  required: 'Country selection is required for shipping'
+                }
+              }" appFormSelectConnector>
+          </app-form-select>
+        </div>
+
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-form-input formControlName="email" [config]="emailConfig()" appFormInputConnector>
           </app-form-input>
 
-          <app-form-input
-            formControlName="password"
-            [config]="passwordConfig()"
-            appFormInputConnector>
+          <app-form-input formControlName="password" [config]="passwordConfig()" appFormInputConnector>
+          </app-form-input>
+        </div>
+
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <app-form-input formControlName="age" [config]="ageConfig()" appFormInputConnector>
           </app-form-input>
 
-          <app-form-input
-            formControlName="age"
-            [config]="ageConfig()"
-            appFormInputConnector>
+          <app-form-input formControlName="phone" [config]="phoneConfig()" appFormInputConnector>
           </app-form-input>
 
-          <app-form-input
-            formControlName="phone"
-            [config]="phoneConfig()"
-            appFormInputConnector>
-          </app-form-input>
-
-          <app-form-textarea
-            formControlName="description"
-            [config]="descriptionConfig()"
-            appFormTextareaConnector>
-          </app-form-textarea>
-
-          <app-form-datepicker
-            formControlName="birthDate"
-            [config]="birthDateConfig()"
+          <app-form-datepicker formControlName="birthDate" [config]="birthDateConfig()"
             appFormDatepickerConnector>
           </app-form-datepicker>
+        </div>
 
-          <app-form-radio-group
-            formControlName="gender"
-            [options]="genderOptions"
-            [config]="genderConfig()"
+        <div class="md:col-span-2">
+          <app-form-textarea formControlName="description" [config]="descriptionConfig()" appFormTextareaConnector>
+          </app-form-textarea>
+        </div>
+
+        <div class="md:col-span-2">
+          <app-form-radio-group formControlName="gender" [options]="genderOptions" [config]="genderConfig()"
             appFormRadioGroupConnector>
           </app-form-radio-group>
+        </div>
 
-          <app-form-select
-            formControlName="country"
-            [options]="countryOptions"
-            [config]="{
-              label: 'Select your country',
-              placeholder: 'Choose a country',
-              appearance: globalAppearance(),
-              icon: showIcons() ? 'public' : '',
-              hint: showHints() ? 'Select the country where you reside' : '',
-              errorMessages: {
-                required: 'Country selection is required for shipping'
-              }
-            }"
-            appFormSelectConnector>
-          </app-form-select>
-
-          <app-form-checkbox
-            formControlName="acceptTerms"
-            [config]="{
-              color: 'primary',
-              errorMessages: {
-                required: 'You must accept the terms and conditions to continue',
-                requiredTrue: 'Please check this box to proceed'
-              }
-            }"
-            appFormCheckboxConnector>
+        <div class="md:col-span-2">
+          <app-form-checkbox formControlName="acceptTerms" [config]="{
+                color: 'primary',
+                errorMessages: {
+                  required: 'You must accept the terms and conditions to continue',
+                  requiredTrue: 'Please check this box to proceed'
+                }
+              }" appFormCheckboxConnector>
             <span class="font-medium">I accept the terms and conditions *</span>
           </app-form-checkbox>
+        </div>
 
-          <div class="flex gap-3">
-            <app-button
-              type="submit"
-              variant="filled"
-              color="primary"
-              iconBefore="send"
-              class="flex-1">
-              Submit Form
-            </app-button>
+        <div class="md:col-span-2 flex justify-end gap-3">
+          <app-button type="button" variant="outlined" color="secondary" iconBefore="refresh" (clicked)="resetForm()">
+            Reset
+          </app-button>
 
-            <app-button
-              type="button"
-              variant="outlined"
-              color="secondary"
-              iconBefore="refresh"
-              (clicked)="resetForm()"
-              class="flex-1">
-              Reset
-            </app-button>
-          </div>
-        </form>
+          <app-button type="submit" variant="filled" color="primary" iconBefore="send">
+            Submit Form
+          </app-button>
+        </div>
+      </form>
     </app-card>
-  </div>
+     <app-card title="Generated Code" icon="code" [isExpandable]="true" [expanded]="false" class="mt-2">
+      <button mat-icon-button slot="header-actions" (click)="copyToClipboard(); $event.stopPropagation()"
+        matTooltip="Copiar código">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+      <pre class="font-mono text-sm overflow-x-auto"><code>{{ completeFormCode() }}</code></pre>
+    </app-card>
+  </ng-template>
 
-  <div slot="main-content">
-    <app-card
-      title="Visual Controls"
-      icon="tune">
+  <ng-template appSlot="right">
+    <app-card title="Visual Controls" icon="tune">
       <p class="card-description mb-6">
         Change visual appearance of all fields (validations stay the same)
       </p>
@@ -170,10 +117,7 @@
           <mat-icon>style</mat-icon>
           Appearance Style
         </label>
-        <app-toggle-group
-          [options]="appearanceOptions"
-          [(value)]="globalAppearance"
-          class="w-full"/>
+        <app-toggle-group [options]="appearanceOptions" [(value)]="globalAppearance" class="w-full" />
         <p class="text-xs mt-1" style="color: var(--mat-sys-on-surface-variant);">
           Changes the Material Design style of all fields
         </p>
@@ -224,6 +168,42 @@
         </div>
       </div>
     </app-card>
-  </div>
+    <app-card class="mt-2">
+      <div class="form-status-card p-4 rounded-lg border">
+        <h4 class="status-title text-base font-semibold mb-3">Form Status</h4>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="flex flex-col gap-1">
+            <span class="status-label text-xs">Status:</span>
+            <span class="flex items-center gap-2 text-sm font-medium" [class.status-valid]="formStatus() === 'VALID'"
+              [class.status-invalid]="formStatus() === 'INVALID'">
+              @if (formStatus() === 'VALID') {
+              <mat-icon class="text-base">check_circle</mat-icon>
+              } @else if (formStatus() === 'INVALID') {
+              <mat-icon class="text-base">error</mat-icon>
+              }
+              {{ formStatus() }}
+            </span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="status-label text-xs">Valid:</span>
+            <span class="text-sm font-medium">{{ formValid() }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="status-label text-xs">Touched:</span>
+            <span class="text-sm font-medium">{{ formTouched() }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="status-label text-xs">Dirty:</span>
+            <span class="text-sm font-medium">{{ formDirty() }}</span>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </ng-template>
 
-</app-pds-page-layout>
+  <ng-template appSlot="footer">
+    <app-pds-documentation-tabs componentTag="<app-form-input>" [apiProperties]="API_PROPERTIES"
+      [bestPractices]="BEST_PRACTICES">
+    </app-pds-documentation-tabs>
+  </ng-template>
+</app-page-layout>

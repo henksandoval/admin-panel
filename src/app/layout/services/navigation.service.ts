@@ -1,5 +1,7 @@
-import {Injectable, signal, inject} from '@angular/core';
-import {Router} from '@angular/router';
+import { Injectable, signal, inject, computed } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 export interface NavigationItem {
   id: string;
@@ -9,9 +11,14 @@ export interface NavigationItem {
   children?: NavigationItem[];
   badge?: {
     title: string;
-    type: 'normal'| 'success' | 'info' | 'warning' | 'error';
+    type: 'normal' | 'success' | 'info' | 'warning' | 'error';
     indicator?: boolean;
   };
+}
+
+export interface BreadcrumbItem {
+  label: string;
+  route: string | null;
 }
 
 @Injectable({
@@ -397,6 +404,49 @@ export class NavigationService {
   private readonly currentNavigationChildren = signal<NavigationItem[]>([]);
   private readonly activeRootItemId = signal<string | null>(null);
 
+  // ============ BREADCRUMBS ============
+  private readonly currentUrl = toSignal(
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      map(event => event.urlAfterRedirects)
+    ),
+    { initialValue: this.router.url }
+  );
+
+  readonly breadcrumbs = computed<BreadcrumbItem[]>(() => {
+    const url = this.currentUrl();
+    return this.buildBreadcrumbs(url);
+  });
+
+  private buildBreadcrumbs(url: string): BreadcrumbItem[] {
+    const path = this.findPathToUrl(this.navigationMenu(), url);
+
+    return path.map(item => ({
+      label: item.title,
+      route: item.url ?? null
+    }));
+  }
+
+  private findPathToUrl(items: NavigationItem[], targetUrl: string, path: NavigationItem[] = []): NavigationItem[] {
+    for (const item of items) {
+      const currentPath = [...path, item];
+
+      if (item.url === targetUrl) {
+        return currentPath;
+      }
+
+      if (item.children) {
+        const found = this.findPathToUrl(item.children, targetUrl, currentPath);
+        if (found.length > 0) {
+          return found;
+        }
+      }
+    }
+
+    return [];
+  }
+  // ============ FIN BREADCRUMBS ============
+
   isRouteActive(url: string): boolean {
     return this.router.isActive(url, {
       paths: 'subset',
@@ -451,4 +501,3 @@ export class NavigationService {
     return false;
   }
 }
-

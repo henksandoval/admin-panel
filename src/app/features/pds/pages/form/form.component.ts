@@ -16,8 +16,6 @@ import { AppFormCheckboxConnectorDirective } from '@shared/molecules/app-form-ch
 import { AppFormSelectComponent } from '@shared/molecules/app-form-select/app-form-select.component';
 import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form-select/app-form-select-connector.directive';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
-import { PdsCodeBlockComponent } from '../../shared/molecules/pds-code-block/pds-code-block.component';
-import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import {
   FIELD_EXAMPLES,
@@ -34,6 +32,11 @@ import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form-
 import { AppFormRadioGroupComponent } from '@shared/molecules/app-form-radio-group/app-form-radio-group.component';
 import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form-radio-group/app-form-radio-group-connector.directive';
 import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-radio-group.model';
+import { LayoutConfig } from '@shared/templates/app-page-layout/app-page-layout.model';
+import { PdsPageUtilitiesService } from '../../shared/templates/pds-page-layout/pds-page-utilities.service';
+import { PdsDocumentationTabsComponent } from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
+import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
+import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
 
 @Component({
   selector: 'app-form-gallery',
@@ -63,21 +66,37 @@ import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-rad
     AppFormSelectComponent,
     AppFormSelectConnectorDirective,
     AppCardComponent,
-    PdsPageLayoutComponent
-  ],
+    AppPageLayoutComponent,
+    AppSlotContainerDirective,
+    PdsDocumentationTabsComponent
+],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
+  private readonly pdsUtils = inject(PdsPageUtilitiesService);
 
   public galleryForm!: FormGroup;
 
-  globalAppearance = signal<MatFormFieldAppearance>('outline');
+  globalAppearance = signal<MatFormFieldAppearance>('fill');
   showIcons = signal<boolean>(true);
   showHints = signal<boolean>(true);
   showPrefixSuffix = signal<boolean>(false);
+
+  readonly customLayout: LayoutConfig = {
+    grid: {
+      columns: '2fr 1fr',
+      gap: '1.5rem'
+    },
+    cells: [
+      { slotId: 'header', colStart: 1, colEnd: 'full', rowStart: 1 },
+      { slotId: 'left', colStart: 1, rowStart: 2 },
+      { slotId: 'right', colStart: 2, rowStart: 2 },
+      { slotId: 'footer', colStart: 1, colEnd: 'full', rowStart: 3 }
+    ]
+  };
 
   genderOptions: RadioOption<string>[] = [
     { value: 'male', label: 'Male' },
@@ -88,9 +107,6 @@ export class FormComponent implements OnInit {
 
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
-
-  readonly VARIANT_GUIDES = [];
-  readonly currentVariant = 'form';
 
   readonly appearanceOptions: ToggleOption[] = [
     { value: 'fill', label: 'Fill' },
@@ -251,62 +267,8 @@ export class FormComponent implements OnInit {
 
   readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
 
-  copyCode(fieldName: string): void {
-    const example = this.FIELD_EXAMPLES.find((e: any) => e.id === fieldName);
-    if (!example) return;
-
-    const code = this.generateFieldCode(example);
-    navigator.clipboard.writeText(code).then(() => {
-      console.log('📋 Code copied to clipboard!');
-      alert(`📋 ${example.title} code copied to clipboard!`);
-    });
-  }
-
-  generateFieldCode(example: any): string {
-    let code = `// ${example.title}\n`;
-    code += `// ${example.description}\n\n`;
-
-    code += `// TypeScript Configuration\n`;
-    code += `${example.configName}: AppFormFieldInputOptions = {\n`;
-    code += `  label: '${example.config.label}',\n`;
-    code += `  placeholder: '${example.config.placeholder}',\n`;
-    code += `  type: '${example.config.type}'`;
-
-    if (example.config.icon) {
-      code += `,\n  icon: '${example.config.icon}'`;
-    }
-    if (example.config.hint) {
-      code += `,\n  hint: '${example.config.hint}'`;
-    }
-    if (example.config.prefix) {
-      code += `,\n  prefix: '${example.config.prefix}'`;
-    }
-    if (example.config.suffix) {
-      code += `,\n  suffix: '${example.config.suffix}'`;
-    }
-    if (example.config.errorMessages) {
-      code += `,\n  errorMessages: {\n`;
-      Object.entries(example.config.errorMessages).forEach(([key, value]) => {
-        code += `    ${key}: '${value}',\n`;
-      });
-      code = code.slice(0, -2) + '\n  }';
-    }
-
-    code += `\n};\n\n`;
-
-    code += `// Form Setup\n`;
-    code += `form = this.fb.group({\n`;
-    code += `  ${example.formControlName}: ['', [${example.validators}]]\n`;
-    code += `});\n\n`;
-
-    code += `// HTML Template\n`;
-    code += `<app-form-input\n`;
-    code += `  formControlName="${example.formControlName}"\n`;
-    code += `  [config]="${example.configName}"\n`;
-    code += `  appFormInputConnector>\n`;
-    code += `</app-form-input>`;
-
-    return code;
+  copyToClipboard(): void {
+    this.pdsUtils.copyToClipboard(this.completeFormCode());
   }
 
   private generateCompleteFormCode(): string {

@@ -10,14 +10,6 @@
   color: var(--mat-sys-on-surface-variant);
 }
 
-.section-title {
-  color: var(--mat-sys-on-surface);
-}
-
-.card-title {
-  color: var(--mat-sys-on-surface);
-}
-
 .emphasis-badge {
   &.high {
     background-color: var(--mat-sys-primary-container);
@@ -59,10 +51,28 @@
   border-color: var(--mat-sys-outline-variant);
 }
 
-pre {
-  margin: 0;
+.section-label {
+  color: var(--mat-sys-on-surface-variant);
+  opacity: 0.7;
+}
+
+.color-variation-card {
+  background-color: var(--mat-sys-surface);
+  border-color: var(--mat-sys-outline-variant);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    border-color: var(--mat-sys-primary);
+    box-shadow: 0 4px 12px var(--overlay-shadow-10);
+  }
 
   code {
-    display: block;
+    opacity: 0.7;
   }
+}
+
+.hint-text {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--mat-sys-on-surface-variant);
 }
