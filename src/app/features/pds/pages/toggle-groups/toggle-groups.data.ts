@@ -4,8 +4,8 @@ import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practi
 import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
 
 export interface ToggleGroupStateGuide extends PdsVariantGuideModel {
-  readonly variant: 'single' | 'multiple' | 'icons' | 'vertical';
-  readonly state: 'single' | 'multiple' | 'icons' | 'vertical';
+  readonly variant: 'single' | 'multiple' | 'icons-gallery' | 'vertical';
+  readonly state: 'single' | 'multiple' | 'icons-gallery' | 'vertical';
 }
 
 export const TOGGLE_GROUP_STATE_GUIDES: ToggleGroupStateGuide[] = [
@@ -48,10 +48,10 @@ export const TOGGLE_GROUP_STATE_GUIDES: ToggleGroupStateGuide[] = [
     emphasis: 'high'
   },
   {
-    variant: 'icons',
-    state: 'icons',
+    variant: 'icons-gallery',
+    state: 'icons-gallery',
     title: 'Icon Toggles',
-    description: 'Use icons instead of text labels for compact visual representation.',
+    description: 'Use icons-gallery instead of text labels for compact visual representation.',
     whenToUse: [
       'Space is limited',
       'Icons are universally recognized',

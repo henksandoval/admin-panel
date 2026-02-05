@@ -445,6 +445,12 @@ export class NavigationService {
           title: 'Toggle Groups',
           icon: 'view_week',
           url: '/pds/toggle-groups'
+        },
+        {
+          id: 'icons',
+          title: 'Iconos',
+          icon: 'style',
+          url: '/pds/icons-gallery'
         }
       ]
     }

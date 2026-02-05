@@ -36,7 +36,7 @@ export default class ToggleGroupsComponent {
   private readonly router = inject(Router);
 
   // State signals
-  selectedState = signal<'single' | 'multiple' | 'icons' | 'vertical'>('single');
+  selectedState = signal<'single' | 'multiple' | 'icons-gallery' | 'vertical'>('single');
   selectedColor = signal<ToggleGroupColor>(TOGGLE_GROUP_DEFAULTS.color);
   selectedSize = signal<ToggleGroupSize>(TOGGLE_GROUP_DEFAULTS.size);
   isVertical = signal<boolean>(false);
@@ -61,7 +61,7 @@ export default class ToggleGroupsComponent {
   readonly stateOptions: ToggleOption[] = [
     { value: 'single', label: 'Single' },
     { value: 'multiple', label: 'Multiple' },
-    { value: 'icons', label: 'Icons' },
+    { value: 'icons-gallery', label: 'Icons' },
     { value: 'vertical', label: 'Vertical' }
   ];
 
@@ -81,7 +81,7 @@ export default class ToggleGroupsComponent {
 
   currentOptions = computed<ToggleOption[]>(() => {
     const state = this.selectedState();
-    if (state === 'icons') return ALIGNMENT_ICON_OPTIONS;
+    if (state === 'icons-gallery') return ALIGNMENT_ICON_OPTIONS;
     if (state === 'multiple') return FORMATTING_OPTIONS;
     if (state === 'vertical') return VIEW_OPTIONS;
     return ALIGNMENT_OPTIONS;
@@ -98,7 +98,7 @@ export default class ToggleGroupsComponent {
     let tsCode = `// TypeScript\n`;
     tsCode += `import { ToggleOption } from '@shared/atoms/app-toggle-group';\n\n`;
 
-    if (state === 'icons') {
+    if (state === 'icons-gallery') {
       tsCode += `options: ToggleOption[] = [\n`;
       tsCode += `  { value: 'left', label: 'Align Left', icon: 'format_align_left' },\n`;
       tsCode += `  { value: 'center', label: 'Align Center', icon: 'format_align_center' },\n`;

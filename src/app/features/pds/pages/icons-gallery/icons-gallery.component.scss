@@ -1,0 +1,162 @@
+// Icons Grid
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+// Icon Item
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+
+  &:hover {
+    border-color: var(--primary-500, #3b82f6);
+    background-color: #f0f9ff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+
+    .icon-wrapper {
+      transform: scale(1.1);
+    }
+
+    .icon-name {
+      color: var(--primary-700, #1e40af);
+      font-weight: 600;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary-500, #3b82f6);
+    outline-offset: 2px;
+  }
+}
+
+// Icon Wrapper
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+// Icon Sizes
+.icon-small {
+  .icon-wrapper .icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.icon-medium {
+  .icon-wrapper .icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.icon-large {
+  .icon-wrapper .icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+// Icon Name
+.icon-name {
+  font-size: 0.75rem;
+  color: #6b7280;
+  word-break: break-word;
+  transition: all 0.2s ease-in-out;
+  line-height: 1.2;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+  }
+}
+
+// Empty State
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+}
+
+.empty-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.empty-description {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  max-width: 400px;
+}
+
+// Usage Sections
+.usage-section {
+  margin-bottom: 1rem;
+}
+
+.code-block {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: #1f2937;
+    line-height: 1.5;
+  }
+}
+
+// Material Form Field Overrides
+::ng-deep {
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background-color: white !important;
+  }
+}

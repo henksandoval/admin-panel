@@ -84,6 +84,7 @@ export const routes: Routes = [
           { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component') },
           { path: 'selects', loadComponent: () => import('./features/pds/pages/selects/selects.component') },
           { path: 'toggle-groups', loadComponent: () => import('./features/pds/pages/toggle-groups/toggle-groups.component') },
+          { path: 'icons-gallery', loadComponent: () => import('./features/pds/pages/icons-gallery/icons-gallery.component') },
           {
             path: 'layout',
             children: [

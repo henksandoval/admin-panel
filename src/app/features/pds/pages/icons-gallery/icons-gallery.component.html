@@ -1,0 +1,134 @@
+<app-page-layout preset="mainWithSidebar" [showEmptySlots]="true">
+  <ng-template appSlot="header">
+    <header class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold mb-2">Material Icons Gallery</h1>
+          <p class="text-lg text-gray-600">
+            Browse and copy {{ totalCount() }} Material Design icons. Search, filter by size and style, and copy icon names with a single click.
+          </p>
+        </div>
+        <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back">
+          Back to PDS
+        </app-button>
+      </div>
+    </header>
+  </ng-template>
+  <ng-template appSlot="sidebar">
+    <app-card>
+      <div class="p-6 space-y-6">
+        <!-- Search Bar -->
+        <div class="flex gap-4 items-start">
+          <mat-form-field class="flex-1" appearance="outline">
+            <mat-label>Search icons</mat-label>
+            <input
+              matInput
+              [(ngModel)]="searchQuery"
+              (ngModelChange)="searchQuery.set($event)"
+              placeholder="e.g., home, search, settings..."
+              autocomplete="off">
+            <mat-icon matPrefix>search</mat-icon>
+            @if (searchQuery()) {
+              <button
+                matSuffix
+                mat-icon-button
+                (click)="clearSearch()"
+                aria-label="Clear search">
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Filters Row -->
+        <div class="flex flex-wrap gap-6">
+          <!-- Size Selection -->
+          <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Icon Size</label>
+            <app-toggle-group
+              [options]="sizeOptions"
+              [(value)]="selectedSize">
+            </app-toggle-group>
+          </div>
+
+          <!-- Style Selection -->
+          <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Icon Style</label>
+            <app-toggle-group
+              [options]="styleOptions"
+              [(value)]="selectedStyle">
+            </app-toggle-group>
+          </div>
+
+          <!-- Color Preview Toggle -->
+          <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Color Preview</label>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Select Color</mat-label>
+              <mat-select [(value)]="selectedColor" (valueChange)="selectedColor.set($event)">
+                @for (color of colorOptions; track color.value) {
+                  <mat-option [value]="color.value">
+                    <span [class]="color.class">{{ color.label }}</span>
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+          <p class="text-sm text-gray-600">
+            @if (searchQuery()) {
+              <span class="font-medium">{{ totalCount() }}</span> icons found
+            } @else {
+              <span class="font-medium">{{ totalCount() }}</span> total icons
+            }
+          </p>
+          @if (searchQuery()) {
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="clearSearch()">
+              Clear search
+            </button>
+          }
+        </div>
+      </div>
+    </app-card>
+  </ng-template>
+  <ng-template appSlot="main">
+    <app-card>
+      <div class="p-6">
+        @if (totalCount() > 0) {
+          <div class="icon-grid">
+            @for (icon of filteredIcons(); track icon) {
+              <button
+                class="icon-item"
+                [class]="getSizeClass()"
+                (click)="copyIconName(icon)"
+                [attr.aria-label]="'Copy icon ' + icon"
+                type="button">
+                <div class="icon-wrapper" [class]="getColorClass()">
+                  <mat-icon class="icon">{{ getIconName(icon) }}</mat-icon>
+                </div>
+                <span class="icon-name">{{ icon }}</span>
+              </button>
+            }
+          </div>
+        } @else {
+          <div class="empty-state">
+            <mat-icon class="empty-icon">search_off</mat-icon>
+            <h3 class="empty-title">No icons found</h3>
+            <p class="empty-description">
+              Try adjusting your search query. We couldn't find any icons matching "{{ searchQuery() }}".
+            </p>
+            <button mat-raised-button color="primary" (click)="clearSearch()">
+              Clear search
+            </button>
+          </div>
+        }
+      </div>
+    </app-card>
+  </ng-template>
+</app-page-layout>
