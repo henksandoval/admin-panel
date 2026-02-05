@@ -70,7 +70,20 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
       </mat-sidenav-container>
     </div>
   `,
-  styleUrl: './layout.component.scss'
+  styles: `
+    .sidenav {
+      width: var(--sidebar-width-collapsed);
+
+      &.expanded {
+        width: var(--sidebar-width-expanded);
+      }
+    }
+
+    .mat-drawer {
+      border-radius: 0;
+      border-right: none;
+    }
+  `
 })
 export class LayoutComponent {
   private layoutService = inject(LayoutService);
