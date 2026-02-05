@@ -37,7 +37,6 @@ export const LAYOUT_PRESETS = {
       { slotId: 'right', cellClass: 'cell-right' }
     ]
   },
-
   twoColumnWithFooter: {
     grid: { columns: 2, gap: SPACING_MD, gridClass: 'grid-two-column-footer' },
     cells: [
@@ -46,7 +45,6 @@ export const LAYOUT_PRESETS = {
       { slotId: 'footer', cellClass: 'cell-footer' }
     ]
   },
-
   mainWithSidebar: {
     grid: { columns: '2fr 1fr', gap: SPACING_MD, gridClass: 'grid-main-sidebar' },
     cells: [
@@ -54,7 +52,6 @@ export const LAYOUT_PRESETS = {
       { slotId: 'sidebar', cellClass: 'cell-sidebar' }
     ]
   },
-
   sidebarWithMain: {
     grid: { columns: '1fr 2fr', gap: SPACING_MD, gridClass: 'grid-sidebar-main' },
     cells: [
@@ -62,7 +59,6 @@ export const LAYOUT_PRESETS = {
       { slotId: 'main', cellClass: 'cell-main' }
     ]
   },
-
   threeColumn: {
     grid: { columns: 3, gap: SPACING_MD, gridClass: 'grid-three-column' },
     cells: [
@@ -71,7 +67,6 @@ export const LAYOUT_PRESETS = {
       { slotId: 'col3', cellClass: 'cell-col3' }
     ]
   },
-
   dashboard: {
     grid: { columns: 2, gap: SPACING_MD, gridClass: 'grid-dashboard' },
     cells: [
@@ -81,7 +76,6 @@ export const LAYOUT_PRESETS = {
       { slotId: 'footer', cellClass: 'cell-footer' }
     ]
   },
-
   fullWidth: {
     grid: { columns: 1, gap: SPACING_MD, gridClass: 'grid-full-width' },
     cells: [

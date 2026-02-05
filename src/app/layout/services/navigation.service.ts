@@ -363,26 +363,14 @@ export class NavigationService {
             {
               id: 'dashboard',
               title: 'Dashboard',
-              icon: 'dashboard',
+              icon: 'view_compact',
               url: '/pds/layout/dashboard'
             },
             {
               id: 'full-width',
               title: 'Full Width',
-              icon: 'view_quilt',
+              icon: 'crop_landscape',
               url: '/pds/layout/full-width'
-            },
-            {
-              id: 'two-column',
-              title: 'Two Column',
-              icon: 'view_column',
-              url: '/pds/layout/two-column'
-            },
-            {
-              id: 'three-column',
-              title: 'Three Column',
-              icon: 'view_module',
-              url: '/pds/layout/three-column'
             },
             {
               id: 'main-sidebar',
@@ -393,8 +381,26 @@ export class NavigationService {
             {
               id: 'sidebar-main',
               title: 'Sidebar Main',
-              icon: 'view_day',
+              icon: 'view_quilt',
               url: '/pds/layout/sidebar-main'
+            },
+            {
+              id: 'two-column',
+              title: 'Two Column',
+              icon: 'vertical_split',
+              url: '/pds/layout/two-column'
+            },
+            {
+              id: 'two-column-footer',
+              title: 'Two Column Footer',
+              icon: 'view_kanban',
+              url: '/pds/layout/two-column-footer'
+            },
+            {
+              id: 'three-column',
+              title: 'Three Column',
+              icon: 'view_column',
+              url: '/pds/layout/three-column'
             }
           ]
         },
