@@ -1,13 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {AppTableComponent} from '@shared/organisms/app-table/app-table.component';
+import { AppTableComponent } from '@shared/atoms/app-table/app-table.component';
 import {
-  AppTableActionConfig,
-  AppTableColumnConfig,
-  AppTableDataRequest,
-  AppTableDataResponse,
-  AppTableOptions
-} from '@shared/organisms/app-table/app-table.model';
+  AppTableConfig,
+  AppTableSort,
+  AppTableAction
+} from '@shared/atoms/app-table/app-table.model';
+import { AppTableFiltersComponent } from '@shared/atoms/app-table/app-table-filters.component';
+import { AppTableFilterValues, AppTableFiltersConfig } from '@shared/atoms/app-table/app-table-filters.model';
 
 interface User {
   id: number;
@@ -21,23 +21,49 @@ interface User {
 @Component({
   selector: 'app-tables',
   standalone: true,
-  imports: [CommonModule, AppTableComponent],
+  imports: [CommonModule, AppTableComponent, AppTableFiltersComponent],
   template: `
     <div class="p-4">
-      <h2 class="text-2xl font-bold mb-4">Client-Side Example</h2>
-      <app-table [config]="clientTableConfig" [data]="users()"></app-table>
+      <h2 class="text-2xl font-bold mb-4 mt-8">Filters with Select Options</h2>
+      
+      <div class="table-container">
+        <app-table-filters
+          [config]="filtersConfigWithSelect"
+          [values]="filterValuesWithSelect()"
+          (valuesChange)="onFiltersWithSelectChange($event)">
+        </app-table-filters>
+        
+        <app-table
+          [config]="tableConfig"
+          [data]="filteredUsersWithSelect()"
+          [sort]="currentSort()"
+          (sortChange)="onSortChange($event)"
+          (actionClick)="onActionClick($event)">
+        </app-table>
+      </div>
 
-      <h2 class="text-2xl font-bold mb-4 mt-8">Server-Side Example</h2>
-      <app-table
-        [config]="serverTableConfig"
-        [loadDataFn]="loadServerData"
-        (selectionChange)="onSelectionChange($event)">
-      </app-table>
+      @if (lastAction()) {
+        <div class="mt-4 p-4 bg-blue-50 rounded">
+          <strong>Última acción:</strong> {{ lastAction() }}
+        </div>
+      }
+      
+      <div class="mt-4 p-4 bg-gray-50 rounded">
+        <strong>Filtros activos:</strong>
+        <pre class="text-sm mt-2">{{ filterValuesWithSelect() | json }}</pre>
+      </div>
     </div>
-  `
+  `,
+  styles: [`
+    .table-container {
+      border: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  `]
 })
 export class TablesComponent {
-  users = signal<User[]>([
+  private readonly allUsers = signal<User[]>([
     {
       id: 1,
       name: 'Juan Pérez',
@@ -61,159 +87,199 @@ export class TablesComponent {
       role: 'User',
       active: false,
       createdAt: new Date('2024-03-10')
+    },
+    {
+      id: 4,
+      name: 'Ana Martínez',
+      email: 'ana@example.com',
+      role: 'Admin',
+      active: true,
+      createdAt: new Date('2024-04-05')
+    },
+    {
+      id: 5,
+      name: 'Pedro Sánchez',
+      email: 'pedro@example.com',
+      role: 'User',
+      active: false,
+      createdAt: new Date('2024-05-12')
     }
   ]);
 
-  columns: AppTableColumnConfig<User>[] = [
-    {
-      key: 'id',
-      header: 'ID',
-      type: 'number',
-      width: '80px',
-      align: 'center',
-      sticky: 'start'
-    },
-    {
-      key: 'name',
-      header: 'Nombre',
-      type: 'text',
-      sortable: true,
-      filterable: true
-    },
-    {
-      key: 'email',
-      header: 'Email',
-      type: 'text',
-      sortable: true,
-      filterable: true
-    },
-    {
-      key: 'role',
-      header: 'Rol',
-      type: 'text',
-      sortable: true,
-      filterable: true,
-      cellClass: (row) => row.role === 'Admin' ? 'font-bold text-primary' : ''
-    },
-    {
-      key: 'active',
-      header: 'Activo',
-      type: 'boolean',
-      align: 'center',
-      sortable: true,
-      valueFormatter: (value) => value ? '✓' : '✗'
-    },
-    {
-      key: 'createdAt',
-      header: 'Fecha Creación',
-      type: 'date',
-      sortable: true,
-      valueFormatter: (value: Date) => value.toLocaleDateString('es-ES')
-    }
-  ];
+  currentSort = signal<AppTableSort>({ active: '', direction: '' });
+  filterValues = signal<AppTableFilterValues>({});
+  filterValuesWithSelect = signal<AppTableFilterValues>({});
+  lastAction = signal<string>('');
 
-  actions: AppTableActionConfig<User>[] = [
+  // Configuración de filtros básicos (solo texto)
+  filtersConfig: AppTableFiltersConfig = {
+    filters: [
+      {
+        key: 'name',
+        label: 'Nombre',
+        placeholder: 'Buscar por nombre...',
+        type: 'text'
+      },
+      {
+        key: 'email',
+        label: 'Email',
+        placeholder: 'Buscar por email...',
+        type: 'text'
+      }
+    ],
+    debounceMs: 300,
+    appearance: 'outline',
+    showClearAll: true
+  };
+
+  // Configuración de filtros con select
+  filtersConfigWithSelect: AppTableFiltersConfig = {
+    filters: [
+      {
+        key: 'name',
+        label: 'Nombre',
+        placeholder: 'Buscar...',
+        type: 'text'
+      },
+      {
+        key: 'role',
+        label: 'Rol',
+        type: 'select',
+        options: [
+          { value: 'Admin', label: 'Administrador' },
+          { value: 'User', label: 'Usuario' }
+        ]
+      },
+      {
+        key: 'active',
+        label: 'Estado',
+        type: 'select',
+        options: [
+          { value: true, label: 'Activo' },
+          { value: false, label: 'Inactivo' }
+        ]
+      }
+    ],
+    debounceMs: 300,
+    appearance: 'outline',
+    showClearAll: true,
+    clearAllLabel: 'Resetear filtros'
+  };
+
+  // Datos filtrados (client-side filtering)
+  filteredUsers = computed(() => {
+    const users = this.allUsers();
+    const filters = this.filterValues();
+    return this.applyFilters(users, filters);
+  });
+
+  filteredUsersWithSelect = computed(() => {
+    const users = this.allUsers();
+    const filters = this.filterValuesWithSelect();
+    return this.applyFilters(users, filters);
+  });
+
+  private readonly actions: AppTableAction<User>[] = [
     {
       icon: 'edit',
       label: 'Editar',
-      color: 'primary',
-      action: (row) => this.editUser(row)
+      color: 'primary'
     },
     {
       icon: 'delete',
       label: 'Eliminar',
       color: 'warn',
-      visible: (row) => !row.active,
-      action: (row) => this.deleteUser(row)
-    },
-    {
-      icon: 'visibility',
-      label: 'Ver detalles',
-      action: (row) => this.viewUser(row)
+      visible: (row) => !row.active
     }
   ];
 
-  clientTableConfig: AppTableOptions<User> = {
-    columns: this.columns,
+  tableConfig: AppTableConfig<User> = {
+    columns: [
+      {
+        key: 'id',
+        header: 'ID',
+        width: '80px',
+        align: 'center',
+        sticky: 'start'
+      },
+      {
+        key: 'name',
+        header: 'Nombre',
+        sortable: true
+      },
+      {
+        key: 'email',
+        header: 'Email',
+        sortable: true
+      },
+      {
+        key: 'role',
+        header: 'Rol',
+        sortable: true
+      },
+      {
+        key: 'active',
+        header: 'Estado',
+        align: 'center',
+        valueFormatter: (value) => value ? 'Activo' : 'Inactivo'
+      },
+      {
+        key: 'createdAt',
+        header: 'Fecha Creación',
+        sortable: true,
+        valueFormatter: (value: Date) => value.toLocaleDateString('es-ES')
+      }
+    ],
     actions: this.actions,
-    dataMode: 'client',
-    pagination: {
-      pageSize: 10,
-      pageSizeOptions: [5, 10, 25, 50]
-    },
-    selection: {
-      enabled: true,
-      mode: 'multiple',
-      selectableRows: (row) => row.active
-    },
-    showFilter: true,
-    filterDebounce: 300,
+    trackByKey: 'id',
     stickyHeader: true,
-    maxHeight: '600px',
-    rowClick: (row) => console.log('Row clicked:', row),
     rowClass: (row) => row.active ? '' : 'opacity-50'
   };
 
-  serverTableConfig: AppTableOptions<User> = {
-    columns: this.columns,
-    actions: this.actions,
-    dataMode: 'server',
-    pagination: {
-      pageSize: 10,
-      pageSizeOptions: [10, 25, 50, 100]
-    },
-    selection: {
-      enabled: true,
-      mode: 'multiple'
-    },
-    showFilter: true,
-    stickyHeader: true
-  };
+  onFiltersChange(values: AppTableFilterValues): void {
+    this.filterValues.set(values);
+    this.lastAction.set(`Filtros cambiados: ${JSON.stringify(values)}`);
+  }
 
-  loadServerData = async (request: AppTableDataRequest): Promise<AppTableDataResponse<User>> => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  onFiltersWithSelectChange(values: AppTableFilterValues): void {
+    this.filterValuesWithSelect.set(values);
+    this.lastAction.set(`Filtros con select cambiados: ${JSON.stringify(values)}`);
+  }
 
-    let filteredUsers = [...this.users()];
+  onSortChange(sort: AppTableSort): void {
+    this.currentSort.set(sort);
+    this.lastAction.set(`Sort: ${sort.active} ${sort.direction}`);
+  }
 
-    if (request.filters) {
-      Object.entries(request.filters).forEach(([key, value]) => {
-        filteredUsers = filteredUsers.filter(user => {
-          const userValue = String((user as any)[key]).toLowerCase();
-          const filterValue = String(value).toLowerCase();
-          return userValue.includes(filterValue);
-        });
-      });
+  onRowClick(row: User): void {
+    this.lastAction.set(`Row clicked: ${row.name}`);
+  }
+
+  onActionClick(event: { action: AppTableAction<User>; row: User }): void {
+    this.lastAction.set(`Action "${event.action.label}" on ${event.row.name}`);
+  }
+
+  private applyFilters(users: User[], filters: AppTableFilterValues): User[] {
+    if (Object.keys(filters).length === 0) {
+      return users;
     }
 
-    if (request.sort?.active && request.sort.direction) {
-      filteredUsers.sort((a, b) => {
-        const aValue = (a as any)[request.sort!.active];
-        const bValue = (b as any)[request.sort!.active];
-        const comparison = aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-        return request.sort!.direction === 'asc' ? comparison : -comparison;
+    return users.filter(user => {
+      return Object.entries(filters).every(([key, filterValue]) => {
+        const userValue = user[key as keyof User];
+
+        // Para selects con valores exactos (boolean, string específico)
+        if (typeof filterValue === 'boolean' || (typeof filterValue === 'string' && filterValue === userValue)) {
+          return userValue === filterValue;
+        }
+
+        // Para búsqueda de texto (contains)
+        if (typeof filterValue === 'string' && typeof userValue === 'string') {
+          return userValue.toLowerCase().includes(filterValue.toLowerCase());
+        }
+
+        return true;
       });
-    }
-
-    const total = filteredUsers.length;
-    const start = request.page * request.pageSize;
-    const data = filteredUsers.slice(start, start + request.pageSize);
-
-    return { data, total };
-  };
-
-  editUser(user: User): void {
-    console.log('Editar usuario:', user);
-  }
-
-  deleteUser(user: User): void {
-    console.log('Eliminar usuario:', user);
-  }
-
-  viewUser(user: User): void {
-    console.log('Ver usuario:', user);
-  }
-
-  onSelectionChange(selected: User[]): void {
-    console.log('Selección cambiada:', selected);
+    });
   }
 }
