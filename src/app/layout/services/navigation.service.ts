@@ -359,6 +359,7 @@ export class NavigationService {
         {
           id: 'layout',
           title: 'Layouts',
+          icon: 'view_carousel',
           children: [
             {
               id: 'dashboard',
@@ -413,7 +414,7 @@ export class NavigationService {
         {
           id: 'tables',
           title: 'Tablas',
-          icon: 'table_chart',
+          icon: 'table_view',
           url: '/pds/tables'
         },
         {
@@ -455,7 +456,7 @@ export class NavigationService {
         {
           id: 'icons',
           title: 'Iconos',
-          icon: 'style',
+          icon: 'insert_emoticon',
           url: '/pds/icons-gallery'
         }
       ]
