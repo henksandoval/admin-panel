@@ -1,13 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppTableComponent } from '@shared/organisms/app-table';
+import {AppTableComponent} from '@shared/organisms/app-table/app-table.component';
 import {
-  AppTableOptions,
-  AppTableColumnConfig,
   AppTableActionConfig,
+  AppTableColumnConfig,
   AppTableDataRequest,
-  AppTableDataResponse
-} from '@shared/organisms/app-table';
+  AppTableDataResponse,
+  AppTableOptions
+} from '@shared/organisms/app-table/app-table.model';
 
 interface User {
   id: number;
@@ -28,8 +28,8 @@ interface User {
       <app-table [config]="clientTableConfig" [data]="users()"></app-table>
 
       <h2 class="text-2xl font-bold mb-4 mt-8">Server-Side Example</h2>
-      <app-table 
-        [config]="serverTableConfig" 
+      <app-table
+        [config]="serverTableConfig"
         [loadDataFn]="loadServerData"
         (selectionChange)="onSelectionChange($event)">
       </app-table>
