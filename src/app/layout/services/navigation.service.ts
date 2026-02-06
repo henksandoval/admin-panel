@@ -411,6 +411,12 @@ export class NavigationService {
           url: '/pds/form'
         },
         {
+          id: 'tables',
+          title: 'Tablas',
+          icon: 'table_chart',
+          url: '/pds/tables'
+        },
+        {
           id: 'buttons',
           title: 'Botones',
           icon: 'touch_app',
@@ -423,7 +429,7 @@ export class NavigationService {
           url: '/pds/checkboxes'
         },
         {
-          id: 'radio',
+          id: 'radios',
           title: 'Radios',
           icon: 'radio_button_checked',
           url: '/pds/radios'

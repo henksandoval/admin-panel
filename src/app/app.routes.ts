@@ -83,6 +83,7 @@ export const routes: Routes = [
           { path: 'radios', loadComponent: () => import('./features/pds/pages/radios/radios.component') },
           { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component') },
           { path: 'selects', loadComponent: () => import('./features/pds/pages/selects/selects.component') },
+          { path: 'tables', loadComponent: () => import('./features/pds/pages/tables/tables.component').then(m => m.TablesComponent) },
           { path: 'toggle-groups', loadComponent: () => import('./features/pds/pages/toggle-groups/toggle-groups.component') },
           { path: 'icons-gallery', loadComponent: () => import('./features/pds/pages/icons-gallery/icons-gallery.component') },
           {
