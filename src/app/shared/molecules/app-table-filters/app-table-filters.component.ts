@@ -21,7 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AppTableFiltersConfig, AppTableFilterValues } from './app-table-filters.model';
+import { AppTableFiltersConfig, AppTableFilterValues, FILTERS_DEFAULTS } from './app-table-filters.model';
 
 @Component({
   selector: 'app-table-filters',
@@ -38,12 +38,13 @@ import { AppTableFiltersConfig, AppTableFilterValues } from './app-table-filters
     MatTooltipModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./app-table-filters.component.scss'],
   template: `
     <div class="filters-container">
       <div class="filters-fields">
         @for (filter of config().filters; track filter.key) {
           <mat-form-field 
-            [appearance]="config().appearance ?? 'outline'"
+            [appearance]="appearance()"
             [style.width]="filter.width ?? 'auto'"
             class="filter-field">
             
@@ -102,94 +103,36 @@ import { AppTableFiltersConfig, AppTableFilterValues } from './app-table-filters
         }
       </div>
       
-      @if (config().showClearAll && hasAnyValue()) {
+      @if (showClearAll() && hasAnyValue()) {
         <button
           mat-stroked-button
           type="button"
           class="clear-all-button"
           (click)="clearAll()">
           <mat-icon>filter_alt_off</mat-icon>
-          {{ config().clearAllLabel ?? 'Limpiar filtros' }}
+          {{ clearAllLabel() }}
         </button>
       }
     </div>
-  `,
-  styles: [`
-    .filters-container {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem;
-      background-color: var(--mat-sys-surface-container-low, rgba(0, 0, 0, 0.02));
-      border-bottom: 1px solid var(--mat-sys-outline-variant, rgba(0, 0, 0, 0.12));
-    }
-
-    .filters-fields {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      flex: 1;
-    }
-
-    .filter-field {
-      min-width: 180px;
-      flex: 1 1 auto;
-      max-width: 280px;
-    }
-
-    .clear-all-button {
-      align-self: center;
-      white-space: nowrap;
-    }
-
-    :host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .filters-container {
-        flex-direction: column;
-      }
-
-      .filters-fields {
-        width: 100%;
-      }
-
-      .filter-field {
-        max-width: none;
-        width: 100%;
-      }
-
-      .clear-all-button {
-        width: 100%;
-      }
-    }
-  `]
+  `
 })
 export class AppTableFiltersComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
-  // === Inputs ===
   config = input.required<AppTableFiltersConfig>();
   values = input<AppTableFilterValues>({});
+  debounceMs = input<number>(FILTERS_DEFAULTS.debounceMs);
+  appearance = input<'fill' | 'outline'>(FILTERS_DEFAULTS.appearance);
+  showClearAll = input<boolean>(FILTERS_DEFAULTS.showClearAll);
+  clearAllLabel = input<string>(FILTERS_DEFAULTS.clearAllLabel);
 
-  // === Outputs ===
   valuesChange = output<AppTableFilterValues>();
   filterChange = output<{ key: string; value: any }>();
 
-  // === Internal State ===
   private formGroup = signal<FormGroup>(new FormGroup({}));
   private initialized = signal(false);
 
-  // === Computed ===
-  private currentValues = computed(() => {
-    const form = this.formGroup();
-    return form ? form.value : {};
-  });
-
   constructor() {
-    // Sincronizar valores externos con el form
     effect(() => {
       const externalValues = this.values();
       const form = this.formGroup();
@@ -198,7 +141,6 @@ export class AppTableFiltersComponent implements OnInit {
         Object.keys(form.controls).forEach(key => {
           const control = form.get(key);
           const externalValue = externalValues[key] ?? null;
-          
           if (control && control.value !== externalValue) {
             control.setValue(externalValue, { emitEvent: false });
           }
@@ -224,12 +166,9 @@ export class AppTableFiltersComponent implements OnInit {
     const form = new FormGroup(group);
     this.formGroup.set(form);
 
-    // Configurar debounce y subscripción
-    const debounceMs = this.config().debounceMs ?? 300;
-
     form.valueChanges
       .pipe(
-        debounceTime(debounceMs),
+        debounceTime(this.debounceMs()),
         distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
         takeUntilDestroyed(this.destroyRef)
       )
@@ -254,7 +193,6 @@ export class AppTableFiltersComponent implements OnInit {
   hasAnyValue(): boolean {
     const form = this.formGroup();
     if (!form) return false;
-    
     return Object.values(form.value).some(
       value => value !== null && value !== undefined && value !== ''
     );
@@ -262,10 +200,8 @@ export class AppTableFiltersComponent implements OnInit {
 
   clearFilter(key: string, event?: Event): void {
     event?.stopPropagation();
-    
     const control = this.getControl(key);
     control.setValue(null);
-    
     this.filterChange.emit({ key, value: null });
   }
 
@@ -279,13 +215,11 @@ export class AppTableFiltersComponent implements OnInit {
 
   private cleanValues(values: Record<string, any>): AppTableFilterValues {
     const cleaned: AppTableFilterValues = {};
-    
     Object.entries(values).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
         cleaned[key] = value;
       }
     });
-    
     return cleaned;
   }
 }

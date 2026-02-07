@@ -1,4 +1,3 @@
-// app-table-pagination.component.ts
 import {
   Component,
   computed,
@@ -15,7 +14,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   AppTablePaginationConfig,
   AppTablePaginationState,
-  AppTablePageEvent
+  AppTablePageEvent,
+  PAGINATION_DEFAULTS
 } from './app-table-pagination.model';
 
 @Component({
@@ -30,13 +30,12 @@ import {
     MatTooltipModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./app-table-pagination.component.scss'],
   template: `
     <div class="pagination-container">
-      @if (config().showPageSizeSelector !== false) {
+      @if (showPageSizeSelector()) {
         <div class="page-size-selector">
-          <span class="page-size-label">
-            {{ config().itemsPerPageLabel ?? 'Items por página:' }}
-          </span>
+          <span class="page-size-label">{{ itemsPerPageLabel() }}</span>
           <mat-form-field appearance="outline" class="page-size-field">
             <mat-select
               [value]="state().pageSize"
@@ -49,17 +48,15 @@ import {
         </div>
       }
 
-      <div class="range-info">
-        {{ rangeLabel() }}
-      </div>
+      <div class="range-info">{{ rangeLabel() }}</div>
 
       <div class="navigation-buttons">
-        @if (config().showFirstLastButtons !== false) {
+        @if (showFirstLastButtons()) {
           <button
             mat-icon-button
             type="button"
             [disabled]="isFirstPage()"
-            [matTooltip]="config().firstPageLabel ?? 'Primera página'"
+            [matTooltip]="firstPageLabel()"
             (click)="goToFirstPage()">
             <mat-icon>first_page</mat-icon>
           </button>
@@ -69,7 +66,7 @@ import {
           mat-icon-button
           type="button"
           [disabled]="isFirstPage()"
-          [matTooltip]="config().previousPageLabel ?? 'Página anterior'"
+          [matTooltip]="previousPageLabel()"
           (click)="goToPreviousPage()">
           <mat-icon>chevron_left</mat-icon>
         </button>
@@ -78,119 +75,41 @@ import {
           mat-icon-button
           type="button"
           [disabled]="isLastPage()"
-          [matTooltip]="config().nextPageLabel ?? 'Página siguiente'"
+          [matTooltip]="nextPageLabel()"
           (click)="goToNextPage()">
           <mat-icon>chevron_right</mat-icon>
         </button>
 
-        @if (config().showFirstLastButtons !== false) {
+        @if (showFirstLastButtons()) {
           <button
             mat-icon-button
             type="button"
             [disabled]="isLastPage()"
-            [matTooltip]="config().lastPageLabel ?? 'Última página'"
+            [matTooltip]="lastPageLabel()"
             (click)="goToLastPage()">
             <mat-icon>last_page</mat-icon>
           </button>
         }
       </div>
     </div>
-  `,
-  styles: [`
-    .pagination-container {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 1.5rem;
-      padding: 0.75rem 1rem;
-      background-color: var(--mat-sys-surface-container-low, rgba(0, 0, 0, 0.02));
-      border-top: 1px solid var(--mat-sys-outline-variant, rgba(0, 0, 0, 0.12));
-      flex-wrap: wrap;
-    }
-
-    .page-size-selector {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .page-size-label {
-      font-size: 0.875rem;
-      color: var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.6));
-      white-space: nowrap;
-    }
-
-    .page-size-field {
-      width: 70px;
-    }
-
-    :host ::ng-deep .page-size-field .mat-mdc-form-field-subscript-wrapper {
-      display: none;
-    }
-
-    :host ::ng-deep .page-size-field .mat-mdc-text-field-wrapper {
-      padding: 0 8px;
-    }
-
-    :host ::ng-deep .page-size-field .mat-mdc-form-field-infix {
-      padding: 8px 0;
-      min-height: 36px;
-    }
-
-    .range-info {
-      font-size: 0.875rem;
-      color: var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.6));
-      white-space: nowrap;
-    }
-
-    .navigation-buttons {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .navigation-buttons button {
-      color: var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.6));
-    }
-
-    .navigation-buttons button:disabled {
-      color: var(--mat-sys-on-surface, rgba(0, 0, 0, 0.26));
-    }
-
-    @media (max-width: 600px) {
-      .pagination-container {
-        justify-content: center;
-        gap: 1rem;
-      }
-
-      .page-size-selector {
-        order: 2;
-        width: 100%;
-        justify-content: center;
-      }
-
-      .range-info {
-        order: 1;
-      }
-
-      .navigation-buttons {
-        order: 3;
-      }
-    }
-  `]
+  `
 })
 export class AppTablePaginationComponent {
-  // === Inputs ===
   config = input<AppTablePaginationConfig>({});
   state = input.required<AppTablePaginationState>();
+  
+  pageSizeOptions = input<number[]>(PAGINATION_DEFAULTS.pageSizeOptions);
+  showFirstLastButtons = input<boolean>(PAGINATION_DEFAULTS.showFirstLastButtons);
+  showPageSizeSelector = input<boolean>(PAGINATION_DEFAULTS.showPageSizeSelector);
+  itemsPerPageLabel = input<string>(PAGINATION_DEFAULTS.itemsPerPageLabel);
+  pageLabel = input<string>(PAGINATION_DEFAULTS.pageLabel);
+  ofLabel = input<string>(PAGINATION_DEFAULTS.ofLabel);
+  firstPageLabel = input<string>(PAGINATION_DEFAULTS.firstPageLabel);
+  lastPageLabel = input<string>(PAGINATION_DEFAULTS.lastPageLabel);
+  previousPageLabel = input<string>(PAGINATION_DEFAULTS.previousPageLabel);
+  nextPageLabel = input<string>(PAGINATION_DEFAULTS.nextPageLabel);
 
-  // === Outputs ===
   pageChange = output<AppTablePageEvent>();
-
-  // === Computed ===
-  pageSizeOptions = computed(() => {
-    return this.config().pageSizeOptions ?? [10, 25, 50, 100];
-  });
 
   totalPages = computed(() => {
     const { pageSize, totalItems } = this.state();
@@ -199,41 +118,25 @@ export class AppTablePaginationComponent {
 
   rangeLabel = computed(() => {
     const { pageIndex, pageSize, totalItems } = this.state();
-    const pageLabel = this.config().pageLabel ?? 'Página';
-    const ofLabel = this.config().ofLabel ?? 'de';
-
-    if (totalItems === 0) {
-      return `0 ${ofLabel} 0`;
-    }
-
+    if (totalItems === 0) return `0 ${this.ofLabel()} 0`;
+    
     const startIndex = pageIndex * pageSize + 1;
     const endIndex = Math.min((pageIndex + 1) * pageSize, totalItems);
-
-    return `${startIndex} - ${endIndex} ${ofLabel} ${totalItems}`;
+    return `${startIndex} - ${endIndex} ${this.ofLabel()} ${totalItems}`;
   });
 
-  isFirstPage = computed(() => {
-    return this.state().pageIndex === 0;
-  });
+  isFirstPage = computed(() => this.state().pageIndex === 0);
+  isLastPage = computed(() => this.state().pageIndex >= this.totalPages() - 1);
 
-  isLastPage = computed(() => {
-    const { pageIndex } = this.state();
-    return pageIndex >= this.totalPages() - 1;
-  });
-
-  // === Actions ===
   onPageSizeChange(newPageSize: number): void {
     const currentState = this.state();
     const currentFirstItemIndex = currentState.pageIndex * currentState.pageSize;
     const newPageIndex = Math.floor(currentFirstItemIndex / newPageSize);
-
     this.emitPageChange(newPageIndex, newPageSize);
   }
 
   goToFirstPage(): void {
-    if (!this.isFirstPage()) {
-      this.emitPageChange(0, this.state().pageSize);
-    }
+    if (!this.isFirstPage()) this.emitPageChange(0, this.state().pageSize);
   }
 
   goToPreviousPage(): void {

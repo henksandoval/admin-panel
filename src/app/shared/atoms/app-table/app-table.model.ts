@@ -1,12 +1,12 @@
-export type ColumnAlign = 'left' | 'center' | 'right';
-export type SortDirection = 'asc' | 'desc' | '';
+export type TableColumnAlign = 'left' | 'center' | 'right';
+export type TableSortDirection = 'asc' | 'desc' | '';
 
 export interface AppTableColumn<T = any> {
   key: string;
   header: string;
   width?: string;
   minWidth?: string;
-  align?: ColumnAlign;
+  align?: TableColumnAlign;
   sortable?: boolean;
   sticky?: 'start' | 'end';
   headerClass?: string;
@@ -22,10 +22,10 @@ export interface AppTableAction<T = any> {
   disabled?: (row: T) => boolean;
 }
 
-export interface AppTableSort {
+export type AppTableSort = {
   active: string;
-  direction: SortDirection;
-}
+  direction: TableSortDirection;
+};
 
 export interface AppTableConfig<T = any> {
   columns: AppTableColumn<T>[];
@@ -36,3 +36,9 @@ export interface AppTableConfig<T = any> {
   emptyMessage?: string;
   clickableRows?: boolean;
 }
+
+export const TABLE_DEFAULTS = {
+  stickyHeader: false,
+  clickableRows: false,
+  emptyMessage: 'No hay datos disponibles',
+} as const;

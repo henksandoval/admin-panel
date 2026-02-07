@@ -5,7 +5,7 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { AppTableConfig, AppTableColumn, AppTableAction, AppTableSort } from './app-table.model';
+import { AppTableConfig, AppTableColumn, AppTableAction, AppTableSort, TABLE_DEFAULTS } from './app-table.model';
 
 @Component({
   selector: 'app-table',
@@ -19,6 +19,7 @@ import { AppTableConfig, AppTableColumn, AppTableAction, AppTableSort } from './
     MatTooltipModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./app-table.component.scss'],
   template: `
     <div class="app-table-wrapper">
       <table
@@ -29,7 +30,7 @@ import { AppTableConfig, AppTableColumn, AppTableAction, AppTableSort } from './
         [matSortActive]="sort().active"
         [matSortDirection]="sort().direction"
         (matSortChange)="onSortChange($event)"
-        [class.sticky-header]="config().stickyHeader">
+        [class]="tableClasses()">
 
         @for (column of columns(); track column.key) {
           <ng-container [matColumnDef]="column.key">
@@ -49,12 +50,10 @@ import { AppTableConfig, AppTableColumn, AppTableAction, AppTableSort } from './
             <td
               mat-cell
               *matCellDef="let row"
-              [class]="cellClass(column, row)"
+              [class]="cellClasses()(column, row)"
               [style.width]="column.width"
               [style.min-width]="column.minWidth"
-              [style.text-align]="column.align ?? 'left'"
-              [class.sticky-start]="column.sticky === 'start'"
-              [class.sticky-end]="column.sticky === 'end'">
+              [style.text-align]="column.align ?? 'left'">
               @if (cellTemplate()) {
                 <ng-container
                   *ngTemplateOutlet="cellTemplate()!; context: { $implicit: row, column, value: getCellValue(column, row) }">
@@ -68,16 +67,10 @@ import { AppTableConfig, AppTableColumn, AppTableAction, AppTableSort } from './
 
         @if (hasActions()) {
           <ng-container matColumnDef="actions">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="actions-column sticky-end">
+            <th mat-header-cell *matHeaderCellDef class="app-table-actions-column sticky-end">
               Acciones
             </th>
-            <td
-              mat-cell
-              *matCellDef="let row"
-              class="actions-column sticky-end">
+            <td mat-cell *matCellDef="let row" class="app-table-actions-column sticky-end">
               @for (action of visibleActions(row); track action.label) {
                 <button
                   mat-icon-button
@@ -96,107 +89,78 @@ import { AppTableConfig, AppTableColumn, AppTableAction, AppTableSort } from './
         <tr
           mat-row
           *matRowDef="let row; columns: displayedColumns()"
-          [class]="rowClass(row)"
-          [class.clickable]="config().clickableRows"
+          [class]="rowClasses()(row)"
           (click)="onRowClick(row)">
         </tr>
       </table>
 
       @if (data().length === 0) {
-        <div class="empty-state">
-          <ng-content select="[emptyState]">
-          </ng-content>
+        <div class="app-table-empty-state">
+          <ng-content select="[emptyState]"></ng-content>
           @if (!hasCustomEmptyState()) {
-            <p>{{ config().emptyMessage ?? 'No hay datos disponibles' }}</p>
+            <p>{{ emptyMessage() }}</p>
           }
         </div>
       }
     </div>
-  `,
-  styles: [`
-    .app-table-wrapper {
-      overflow: auto;
-      width: 100%;
-    }
-
-    table {
-      width: 100%;
-    }
-
-    .sticky-header th {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: var(--mat-sys-surface, white);
-    }
-
-    .sticky-start {
-      position: sticky;
-      left: 0;
-      z-index: 5;
-      background: var(--mat-sys-surface, white);
-    }
-
-    .sticky-end {
-      position: sticky;
-      right: 0;
-      z-index: 5;
-      background: var(--mat-sys-surface, white);
-    }
-
-    .actions-column {
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .clickable {
-      cursor: pointer;
-    }
-
-    .clickable:hover {
-      background: var(--mat-sys-surface-variant, rgba(0, 0, 0, 0.04));
-    }
-
-    .empty-state {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 200px;
-      color: var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.54));
-    }
-  `]
+  `
 })
 export class AppTableComponent<T extends Record<string, any> = Record<string, any>> {
-  // === Inputs ===
   config = input.required<AppTableConfig<T>>();
   data = input<T[]>([]);
   sort = input<AppTableSort>({ active: '', direction: '' });
   loading = input<boolean>(false);
+  emptyMessage = input<string>(TABLE_DEFAULTS.emptyMessage);
+  stickyHeader = input<boolean>(TABLE_DEFAULTS.stickyHeader);
+  clickableRows = input<boolean>(TABLE_DEFAULTS.clickableRows);
 
-  // === Outputs ===
   sortChange = output<AppTableSort>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
-  // === Content ===
   cellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   emptyStateContent = contentChild<TemplateRef<any>>('emptyState');
 
-  // === Computed ===
   columns = computed(() => this.config().columns);
 
   displayedColumns = computed(() => {
     const cols = this.columns().map(c => c.key);
-    if (this.hasActions()) {
-      cols.push('actions');
-    }
+    if (this.hasActions()) cols.push('actions');
     return cols;
   });
 
-  // === Methods ===
+  tableClasses = computed(() => {
+    const classes: string[] = ['app-table'];
+    if (this.stickyHeader()) classes.push('sticky-header');
+    return classes.join(' ');
+  });
+
+  rowClasses = computed(() => (row: T) => {
+    const classes: string[] = ['app-table-row'];
+    if (this.clickableRows()) classes.push('clickable');
+    
+    const customClass = this.config().rowClass;
+    if (customClass) {
+      const value = typeof customClass === 'function' ? customClass(row) : customClass;
+      if (value) classes.push(value);
+    }
+    return classes.join(' ');
+  });
+
+  cellClasses = computed(() => (column: AppTableColumn<T>, row: T) => {
+    const classes: string[] = ['app-table-cell'];
+    if (column.sticky === 'start') classes.push('sticky-start');
+    if (column.sticky === 'end') classes.push('sticky-end');
+    
+    if (column.cellClass) {
+      const value = typeof column.cellClass === 'function' ? column.cellClass(row) : column.cellClass;
+      if (value) classes.push(value);
+    }
+    return classes.join(' ');
+  });
+
   hasActions(): boolean {
-    const actions = this.config().actions;
-    return !!actions && actions.length > 0;
+    return !!this.config().actions?.length;
   }
 
   hasCustomEmptyState(): boolean {
@@ -218,38 +182,12 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
 
   formatCellValue(column: AppTableColumn<T>, row: T): string {
     const value = this.getCellValue(column, row);
-
-    if (column.valueFormatter) {
-      return column.valueFormatter(value, row);
-    }
-
-    if (value == null) {
-      return '';
-    }
-
-    return String(value);
-  }
-
-  cellClass(column: AppTableColumn<T>, row: T): string {
-    if (!column.cellClass) {
-      return '';
-    }
-    return typeof column.cellClass === 'function'
-      ? column.cellClass(row)
-      : column.cellClass;
-  }
-
-  rowClass(row: T): string {
-    const rc = this.config().rowClass;
-    if (!rc) {
-      return '';
-    }
-    return typeof rc === 'function' ? rc(row) : rc;
+    if (column.valueFormatter) return column.valueFormatter(value, row);
+    return value == null ? '' : String(value);
   }
 
   visibleActions(row: T): AppTableAction<T>[] {
-    const actions = this.config().actions ?? [];
-    return actions.filter(a => !a.visible || a.visible(row));
+    return this.config().actions?.filter(a => !a.visible || a.visible(row)) ?? [];
   }
 
   isActionDisabled(action: AppTableAction<T>, row: T): boolean {
@@ -257,16 +195,11 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
   }
 
   onSortChange(sort: Sort): void {
-    this.sortChange.emit({
-      active: sort.active,
-      direction: sort.direction
-    });
+    this.sortChange.emit({ active: sort.active, direction: sort.direction });
   }
 
   onRowClick(row: T): void {
-    if (this.config().clickableRows) {
-      this.rowClick.emit(row);
-    }
+    if (this.clickableRows()) this.rowClick.emit(row);
   }
 
   onActionClick(event: Event, action: AppTableAction<T>, row: T): void {

@@ -21,3 +21,10 @@ export interface AppTableFiltersConfig {
 }
 
 export type AppTableFilterValues = Record<string, any>;
+
+export const FILTERS_DEFAULTS = {
+  debounceMs: 300,
+  appearance: 'outline' as const,
+  showClearAll: true,
+  clearAllLabel: 'Limpiar filtros',
+} as const;
