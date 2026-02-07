@@ -6,8 +6,8 @@ import {
   AppTableSort,
   AppTableAction
 } from '@shared/atoms/app-table/app-table.model';
-import { AppTableFiltersComponent } from '@shared/atoms/app-table/app-table-filters.component';
-import { AppTableFilterValues, AppTableFiltersConfig } from '@shared/atoms/app-table/app-table-filters.model';
+import { AppTableFiltersComponent } from '@shared/molecules/app-table-filters/app-table-filters.component';
+import { AppTableFilterValues, AppTableFiltersConfig } from '@shared/molecules/app-table-filters/app-table-filters.model';
 import { AppTablePaginationComponent } from '@shared/atoms/app-table/app-table-pagination.component';
 import { AppTablePaginationState, AppTablePageEvent, AppTablePaginationConfig } from '@shared/atoms/app-table/app-table-pagination.model';
 
