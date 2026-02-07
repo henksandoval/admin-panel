@@ -136,7 +136,9 @@ export class AppTablePaginationComponent {
   }
 
   goToFirstPage(): void {
-    if (!this.isFirstPage()) this.emitPageChange(0, this.state().pageSize);
+    if (!this.isFirstPage()) {
+      this.emitPageChange(0, this.state().pageSize);
+    }
   }
 
   goToPreviousPage(): void {

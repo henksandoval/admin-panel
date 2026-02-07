@@ -122,6 +122,8 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
   emptyStateContent = contentChild<TemplateRef<any>>('emptyState');
 
   columns = computed(() => this.config().columns);
+  hasActions = computed(() => !!this.config().actions?.length);
+  hasCustomEmptyState = computed(() => !!this.emptyStateContent());
 
   displayedColumns = computed(() => {
     const cols = this.columns().map(c => c.key);
@@ -159,14 +161,6 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
     return classes.join(' ');
   });
 
-  hasActions(): boolean {
-    return !!this.config().actions?.length;
-  }
-
-  hasCustomEmptyState(): boolean {
-    return !!this.emptyStateContent();
-  }
-
   trackByFn = (index: number, row: T): any => {
     const key = this.config().trackByKey;
     return key ? row[key] : index;
@@ -176,14 +170,14 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
     return column.sortable ? column.key : '';
   }
 
-  getCellValue(column: AppTableColumn<T>, row: T): any {
-    return row[column.key];
-  }
-
   formatCellValue(column: AppTableColumn<T>, row: T): string {
-    const value = this.getCellValue(column, row);
+    const value = row[column.key];
     if (column.valueFormatter) return column.valueFormatter(value, row);
     return value == null ? '' : String(value);
+  }
+
+  getCellValue(column: AppTableColumn<T>, row: T): any {
+    return row[column.key];
   }
 
   visibleActions(row: T): AppTableAction<T>[] {

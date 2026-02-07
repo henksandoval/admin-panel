@@ -214,12 +214,10 @@ export class AppTableFiltersComponent implements OnInit {
   }
 
   private cleanValues(values: Record<string, any>): AppTableFilterValues {
-    const cleaned: AppTableFilterValues = {};
-    Object.entries(values).forEach(([key, value]) => {
-      if (value !== null && value !== undefined && value !== '') {
-        cleaned[key] = value;
-      }
-    });
-    return cleaned;
+    return Object.fromEntries(
+      Object.entries(values).filter(([_, value]) => 
+        value !== null && value !== undefined && value !== ''
+      )
+    );
   }
 }
