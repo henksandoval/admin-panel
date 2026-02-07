@@ -24,10 +24,58 @@ import { LayoutService } from '../../services/layout.service';
   styles: `
     .toolbar {
       height: var(--toolbar-height);
+      padding-inline: 1rem;
       position: relative;
       z-index: var(--z-toolbar);
       transition: all var(--transition-slow);
       box-shadow: 0 2px 10px var(--overlay-shadow-15);
+    }
+
+    .toolbar-content {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+    }
+
+    .toolbar-title-area {
+      flex: 1;
+    }
+
+    .toolbar-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .menu-header {
+      padding: 0.75rem 1rem;
+    }
+
+    .menu-header-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .menu-header-subtitle {
+      font-size: 0.75rem;
+      margin: 0;
+      opacity: 0.7;
+    }
+
+    .menu-item-text {
+      font-size: 0.875rem;
+    }
+
+    .menu-divider {
+      margin-block: 0.5rem;
     }
   `
 })
