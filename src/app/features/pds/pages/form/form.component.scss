@@ -1,3 +1,14 @@
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--mat-sys-on-surface);
+}
+
+.page-description {
+  font-size: 1.125rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
 .card-header-icon {
   color: var(--mat-sys-primary);
 }
@@ -6,28 +17,11 @@
   color: var(--mat-sys-on-surface-variant);
 }
 
-.form-status-card {
-  background-color: var(--mat-sys-surface-container-low);
-  border-color: var(--mat-sys-outline-variant);
-
-  .status-title {
-    color: var(--mat-sys-on-surface);
-  }
-
-  .status-label {
-    color: var(--mat-sys-on-surface-variant);
-  }
-
-  .status-valid {
-    color: var(--mat-sys-tertiary);
-  }
-
-  .status-invalid {
-    color: var(--mat-sys-error);
-  }
-}
-
-.controls-label {
+.section-label {
+  font-size: var(--typ-label-size);
+  font-weight: var(--typ-label-weight);
+  line-height: var(--typ-label-line-height);
+  letter-spacing: var(--typ-label-tracking);
   color: var(--mat-sys-on-surface);
 
   mat-icon {
@@ -35,19 +29,88 @@
   }
 }
 
-.controls-hint {
+.helper-text {
+  font-size: 0.75rem;
   color: var(--mat-sys-on-surface-variant);
 }
 
-.info-card {
-  background-color: var(--mat-sys-surface-container-high);
+.terms-label {
+  font-weight: 500;
+}
 
+.code-block {
+  font-family: monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.checkbox-options {
   mat-icon {
+    font-size: 1.125rem;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
+
+.info-card {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 0.75rem;
+  background-color: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface);
+
+  > mat-icon {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
     color: var(--mat-sys-tertiary);
   }
 
-  .info-description {
+  .info-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+.form-status-card {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container-low);
+
+  .status-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--mat-sys-on-surface);
+  }
+
+  .status-label {
+    font-size: 0.75rem;
     color: var(--mat-sys-on-surface-variant);
+  }
+
+  .status-value {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--mat-sys-on-surface);
+
+    mat-icon {
+      font-size: 1rem;
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &.status-valid {
+      color: var(--mat-sys-tertiary);
+    }
+
+    &.status-invalid {
+      color: var(--mat-sys-error);
+    }
   }
 }
 
@@ -78,18 +141,7 @@
     }
   }
 }
-//TODO: BORRAR ESTE ESTILO
-.comparison-header {
-  mat-icon {
-    color: var(--mat-sys-primary);
-  }
 
-  h3 {
-    color: var(--mat-sys-on-surface);
-  }
-}
-
-// Material native controls styling to match theme
 mat-form-field {
   width: 100%;
 }
