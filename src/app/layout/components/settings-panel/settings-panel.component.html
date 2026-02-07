@@ -1,6 +1,6 @@
 <div class="flex flex-col h-full">
-  <div class="flex items-center justify-between px-6 py-4 border-b">
-    <h2 class="text-lg font-semibold m-0">Configuración</h2>
+  <div class="settings-header flex items-center justify-between px-6 py-4">
+    <h2 class="settings-title m-0">Configuración</h2>
     <button
       mat-icon-button
       (click)="closePanel()"
@@ -10,7 +10,7 @@
   </div>
   <div class="main-content flex-1 overflow-y-auto p-6">
     <div class="mb-8">
-      <h3 class="text-xs font-semibold tracking-wide uppercase m-0 mb-4 opacity-60">Modo</h3>
+      <h3 class="section-label m-0 mb-4">Modo</h3>
       <mat-button-toggle-group
         name="scheme"
         aria-label="Modo de visualización"
@@ -19,7 +19,7 @@
         class="w-full">
         @for (scheme of schemes; track scheme.id) {
           <mat-button-toggle [value]="scheme.id" class="flex-1">
-            <mat-icon class="text-lg">{{ scheme.icon }}</mat-icon>
+            <mat-icon>{{ scheme.icon }}</mat-icon>
             <span class="ml-2">{{ scheme.label }}</span>
           </mat-button-toggle>
         }
@@ -27,29 +27,27 @@
     </div>
 
     <div class="mb-8">
-      <h3 class="text-xs font-semibold tracking-wide uppercase m-0 mb-4 opacity-60">Color de Acento</h3>
+      <h3 class="section-label m-0 mb-4">Color de Acento</h3>
       <div class="flex gap-3 flex-wrap">
         @for (theme of themes; track theme.id) {
           <button
-            class="theme-color-button relative w-12 h-12 p-0 rounded-full border-0 cursor-pointer transition-all duration-200"
+            class="theme-color-button"
             [class.active]="isThemeActive()(theme.id)"
             [matTooltip]="theme.label"
             matTooltipPosition="above"
             (click)="selectTheme(theme.id)"
             [attr.aria-label]="theme.label">
-            <span class="absolute inset-0 rounded-full" [style.background-color]="theme.color_primary"></span>
-            <span class="theme-accent-preview absolute bottom-0 right-0 w-5 h-5 rounded-full"
-                  [style.background-color]="theme.color_tertiary"></span>
+            <span class="theme-primary-preview" [style.background-color]="theme.color_primary"></span>
+            <span class="theme-accent-preview" [style.background-color]="theme.color_tertiary"></span>
             @if (isThemeActive()(theme.id)) {
-              <mat-icon class="theme-check-icon absolute inset-0 m-auto z-10">check</mat-icon>
+              <mat-icon class="theme-check-icon">check</mat-icon>
             }
           </button>
         }
       </div>
     </div>
   </div>
-
-  <div class="px-6 py-4 border-t">
+  <div class="settings-footer px-6 py-4">
     <button
       matButton="tonal"
       class="w-full"
