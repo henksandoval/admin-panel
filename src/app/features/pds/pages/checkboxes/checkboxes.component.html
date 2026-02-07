@@ -27,14 +27,15 @@
 
   <div slot="controls">
     <div class="mt-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+      <label class="section-label flex items-center gap-1.5 mb-1">
         <mat-icon>toggle_on</mat-icon>
         State
       </label>
       <app-toggle-group [options]="stateOptions" [(value)]="selectedState" class="w-full" />
     </div>
+
     <div class="mt-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+      <label class="section-label flex items-center gap-1.5 mb-1">
         <mat-icon>palette</mat-icon>
         Color
       </label>
@@ -42,7 +43,7 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 mt-2">
       <div>
-        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <label class="section-label flex items-center gap-1.5 mb-1">
           <mat-icon>straighten</mat-icon>
           Size
         </label>
@@ -50,7 +51,7 @@
       </div>
 
       <div>
-        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <label class="section-label flex items-center gap-1.5 mb-1">
           <mat-icon>format_align_left</mat-icon>
           Label Position
         </label>
@@ -67,7 +68,7 @@
     <app-card title="Color Variations" icon="palette">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (color of CHECKBOX_COLORS; track color.value) {
-          <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+          <div class="color-variation-card">
             <app-checkbox
               [checked]="isChecked()"
               [indeterminate]="isIndeterminate()"
@@ -76,7 +77,7 @@
               [labelPosition]="labelPosition()">
               {{ color.label }}
             </app-checkbox>
-            <code class="text-xs">color="{{ color.value }}"</code>
+            <code class="code-snippet">color="{{ color.value }}"</code>
           </div>
         }
       </div>
@@ -85,7 +86,7 @@
     <app-card title="Size Variations" icon="straighten" class="mt-2">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (sizeOption of CHECKBOX_SIZES; track sizeOption.value) {
-          <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+          <div class="color-variation-card">
             <app-checkbox
               [checked]="isChecked()"
               [indeterminate]="isIndeterminate()"
@@ -94,7 +95,7 @@
               [labelPosition]="labelPosition()">
               {{ sizeOption.label }}
             </app-checkbox>
-            <code class="text-xs">size="{{ sizeOption.value }}"</code>
+            <code class="code-snippet">size="{{ sizeOption.value }}"</code>
           </div>
         }
       </div>
