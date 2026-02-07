@@ -465,7 +465,6 @@ export class NavigationService {
   private readonly currentNavigationChildren = signal<NavigationItem[]>([]);
   private readonly activeRootItemId = signal<string | null>(null);
 
-  // ============ BREADCRUMBS ============
   private readonly currentUrl = toSignal(
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
@@ -506,7 +505,6 @@ export class NavigationService {
 
     return [];
   }
-  // ============ FIN BREADCRUMBS ============
 
   isRouteActive(url: string): boolean {
     return this.router.isActive(url, {
