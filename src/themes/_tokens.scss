@@ -104,3 +104,20 @@
   --nav-surface-active-border: var(--mat-sys-primary);
   --nav-surface-parent-bg: var(--overlay-on-surface-05);
 }
+
+@mixin define-typography-tokens() {
+  --typ-label-size: 0.875rem;
+  --typ-label-weight: 500;
+  --typ-label-line-height: 1.25rem;
+  --typ-label-tracking: 0.01rem;
+
+  --typ-code-size: 0.75rem;
+  --typ-code-weight: 400;
+  --typ-code-line-height: 1rem;
+  --typ-code-family: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --typ-caption-size: 0.75rem;
+  --typ-caption-weight: 400;
+  --typ-caption-line-height: 1rem;
+  --typ-caption-tracking: 0.025rem;
+}

@@ -36,6 +36,7 @@ $theme-config: (
   body {
     @include tokens.define-overlay-tokens();
     @include tokens.define-badge-tokens();
+    @include tokens.define-typography-tokens();
   }
 
   .dark-theme {

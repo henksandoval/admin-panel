@@ -26,7 +26,18 @@ import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
     PdsPageLayoutComponent,
     AppCardComponent
 ],
-  templateUrl: './buttons.component.html'
+  templateUrl: './buttons.component.html',
+  styles: `
+    .color-variation-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--mat-sys-outline-variant);
+    }
+  `
 })
 export default class ButtonsComponent {
   private readonly router = inject(Router);
