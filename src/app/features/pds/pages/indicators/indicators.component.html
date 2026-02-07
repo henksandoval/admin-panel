@@ -34,7 +34,7 @@
 
   <div slot="controls">
     <div class="mt-2">
-      <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+      <label class="section-label flex items-center gap-1.5 mb-1">
         <mat-icon>category</mat-icon>
         Variant
       </label>
@@ -54,7 +54,7 @@
       </div>
 
       <div class="mt-2">
-        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <label class="section-label flex items-center gap-1.5 mb-1">
           <mat-icon>place</mat-icon>
           Position
         </label>
@@ -78,7 +78,7 @@
       </div>
 
       <div class="mt-2">
-        <label class="section-label text-sm font-medium flex items-center gap-1.5 mb-1">
+        <label class="section-label flex items-center gap-1.5 mb-1">
           <mat-icon>palette</mat-icon>
           Color
         </label>
@@ -96,7 +96,7 @@
       <app-card title="Position Variations" icon="explore">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           @for (pos of BADGE_POSITIONS; track pos.value) {
-            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+            <div class="color-variation-card">
               <app-badge
                 variant="overlay"
                 [content]="badgeContent()"
@@ -107,7 +107,7 @@
                   <mat-icon>star</mat-icon>
                 </button>
               </app-badge>
-              <code class="text-xs text-center">{{ pos.label }}</code>
+              <code class="code-snippet text-center">{{ pos.label }}</code>
             </div>
           }
         </div>
@@ -116,11 +116,9 @@
       <app-card title="Color Variations" icon="palette">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           @for (color of INLINE_COLORS; track color.value) {
-            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+            <div class="color-variation-card">
               <app-badge variant="inline" [color]="color.value">{{ badgeLabel() }}</app-badge>
-              <div class="text-center">
-                <code class="text-xs block">color="{{ color.value }}"</code>
-              </div>
+              <code class="code-snippet">color="{{ color.value }}"</code>
             </div>
           }
         </div>
@@ -129,9 +127,9 @@
       <app-card title="With Indicator" icon="info" class="mt-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           @for (color of INLINE_COLORS; track color.value) {
-            <div class="color-variation-card p-4 rounded-lg border flex flex-col items-center gap-3">
+            <div class="color-variation-card">
               <app-badge variant="inline" [color]="color.value" [hasIndicator]="true">{{ badgeLabel() }}</app-badge>
-              <code class="text-xs">[hasIndicator]="true"</code>
+              <code class="code-snippet">[hasIndicator]="true"</code>
             </div>
           }
         </div>
