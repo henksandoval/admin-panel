@@ -26,7 +26,21 @@ import {BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize, ButtonType} from 
       }
     </button>
   `,
-  styleUrls: ['./app-button.component.scss']
+  styles: `
+    :host {
+      display: inline-block;
+
+      button {
+        .mat-icon:first-child:not(:only-child) {
+          margin-right: 0.5rem;
+        }
+
+        .mat-icon:last-child:not(:only-child) {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  `
 })
 export class AppButtonComponent {
   variant = input<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
