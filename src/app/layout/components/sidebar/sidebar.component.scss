@@ -1,11 +1,84 @@
 @use '../../../../themes/navigation' as nav;
 
+.hidden {
+  display: none;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  transition: all 300ms;
+}
+
+sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 1rem;
+  height: 4rem;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+.sidebar-header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
 .app-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   box-shadow: 0 4px 12px var(--overlay-shadow-15);
 }
 
+.app-logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.sidebar-title-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-version {
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .nav-tree-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-block: 0.5rem;
+
   .nav-icon-item {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     @include nav.nav-item-all-states();
   }
 
@@ -18,4 +91,36 @@
     background-color: var(--mat-sys-tertiary);
     border-radius: 50%;
   }
+}
+
+.nav-tree-expanded {
+  overflow-x: hidden;
+}
+
+.nav-tree-collapsed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sidebar-footer {
+  padding: 1rem;
+  flex-shrink: 0;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+.sidebar-footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &.collapsed {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.sidebar-copyright {
+  font-size: 0.75rem;
 }

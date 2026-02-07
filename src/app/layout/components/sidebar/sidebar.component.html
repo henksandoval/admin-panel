@@ -1,27 +1,27 @@
-<div class="flex flex-col h-full w-full transition-all duration-300 overflow-hidden">
-  <div class="flex items-center justify-between px-4 h-16 border-b">
-    <div class="flex items-center gap-3 flex-1 min-w-0">
-      <div class="app-logo w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
-        <span class="text-xl font-bold">A</span>
+<div class="sidebar-container">
+  <div class="sidebar-header">
+    <div class="sidebar-header-content">
+      <div class="app-logo">
+        <span class="app-logo-text">A</span>
       </div>
-      <div [class.hidden]="!isExpanded()" class="flex flex-col flex-1 min-w-0">
-        <h1 class="font-semibold text-lg leading-tight truncate">Admin Panel</h1>
-        <p class="text-xs truncate">Dashboard v1.0</p>
+      <div [class.hidden]="!isExpanded()" class="sidebar-title-group">
+        <h1 class="sidebar-title">Admin Panel</h1>
+        <p class="sidebar-version">Dashboard v1.0</p>
       </div>
     </div>
   </div>
 
   @if (isExpanded()) {
-    <div class="flex-1 overflow-y-auto overflow-x-hidden py-2 nav-tree-container">
+    <div class="nav-tree-container nav-tree-expanded">
       <app-nav-tree-inline></app-nav-tree-inline>
     </div>
   } @else {
-    <div class="nav-tree-container flex-1 overflow-y-auto py-2 flex flex-col items-center gap-1">
+    <div class="nav-tree-container nav-tree-collapsed">
       @for (item of navigation(); track item.id) {
         <div
           [class.active]="isItemActive(item)"
           [class.parent-active]="isItemParentActive(item)"
-          class="nav-icon-item relative w-full flex justify-center">
+          class="nav-icon-item">
           <button
             mat-icon-button
             [matTooltip]="item.title"
@@ -48,8 +48,8 @@
     }
   }
 
-  <footer class="px-4 py-4 flex-shrink-0 border-t">
-    <div [class]="isExpanded() ? 'flex items-center justify-between' : 'flex flex-col items-center gap-2'">
+  <footer class="sidebar-footer">
+    <div class="sidebar-footer-content" [class.collapsed]="!isExpanded()">
       <button
         mat-icon-button
         (click)="toggleCollapse()"
@@ -58,7 +58,7 @@
         aria-label="Toggle sidebar">
         <mat-icon>{{ isExpanded() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
       </button>
-      <p  [class.hidden]="!isExpanded()" class="text-xs">© 2025 Admin Panel</p>
+      <p [class.hidden]="!isExpanded()" class="sidebar-copyright">© 2025 Admin Panel</p>
     </div>
   </footer>
 </div>
