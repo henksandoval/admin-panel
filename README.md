@@ -17,7 +17,31 @@
 
 ---
 
-## 🚀 Inicio Rápido
+## � Documentación para Desarrolladores
+
+**⭐ LEER ANTES DE CODEAR:**
+
+1. **[GitHub Copilot Instructions](.github/.copilot-instructions.md)** 🤖
+   - Guía completa para agentes IA y nuevos desarrolladores
+   - Reglas críticas, patrones de código, ejemplos
+   - Checklist pre-implementación
+   - **Lee esto primero si es tu primera vez en el proyecto**
+
+2. **[STYLE_GUIDE.md](docs/STYLE_GUIDE.md)** 📐
+   - Estrategia definitiva de estilos
+   - Material para colores, Tailwind para layout
+   - Árbol de decisión para estilos
+   - **Referencia obligatoria para cualquier cambio visual**
+
+3. **[AUDITORIA_APP_TABLE_COMPONENTS.md](docs/AUDITORIA_APP_TABLE_COMPONENTS.md)** 📊
+   - Ejemplo real de refactorización (Fase 1 + Fase 2)
+   - Antes: 831 líneas → Después: 592 líneas (-28.8%)
+   - Puntuación: 6.2/10 → 8.8/10
+   - **Ejemplo práctico de cómo mejorar código existente**
+
+---
+
+## �🚀 Inicio Rápido
 
 ```bash
 # Instalar dependencias

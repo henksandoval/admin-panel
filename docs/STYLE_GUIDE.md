@@ -363,9 +363,376 @@ var(--badge-error-bg)
 
 ---
 
+## 📋 REGLAS DE COMPONENTES (OBLIGATORIAS)
+
+### 1. 📏 CSS INLINE - CRITERIO PRAGMÁTICO
+
+**Usa CSS inline para componentes pequeños y simples. Usa archivo SCSS externo para componentes complejos.**
+
+#### ✅ CSS Inline PERMITIDO cuando:
+
+- Componente tiene **<50 líneas de estilos**
+- Estilos son **simples** (sin gradientes complejos, sin múltiples estados)
+- **NO necesita mixins** del theme
+- Estilos **NO se reutilizan** en otros componentes
+- Componente es **auto-contenido** y pequeño
+
+```typescript
+// ✅ BIEN - Componente simple (<50 líneas)
+@Component({
+  selector: 'app-simple-badge',
+  standalone: true,
+  styles: [`
+    :host {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
+  `],
+  template: `
+    <mat-icon class="icon">{{ icon() }}</mat-icon>
+    <ng-content></ng-content>
+  `
+})
+export class SimpleBadgeComponent {
+  icon = input.required<string>();
+}
+```
+
+#### ❌ CSS Inline NO PERMITIDO cuando:
+
+- Componente tiene **>50 líneas de estilos**
+- Necesita **mixins del theme** o **tokens complejos**
+- Tiene **múltiples estados** (hover, active, disabled, loading, etc.)
+- Estilos se **reutilizan** en múltiples lugares
+- Requiere **lógica SCSS** (loops, conditionals, functions)
+- Usa **colores hardcoded** con fallbacks
+
+```typescript
+// ❌ MAL - Componente complejo (>50 líneas)
+@Component({
+  selector: 'app-table',
+  styles: [` // ❌ 176 líneas con colores, estados, gradientes
+    .table { 
+      background: var(--mat-sys-surface, white);
+    }
+    .row:hover { 
+      background: var(--mat-sys-surface-variant, rgba(0,0,0,0.04));
+    }
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(to bottom, var(--mat-sys-surface), transparent);
+    }
+    // ... 165+ líneas más con estados complejos ...
+  `]
+})
+
+// ✅ BIEN - Archivo externo para componente complejo
+@Component({
+  selector: 'app-table',
+  styleUrls: ['./app-table.component.scss']
+})
+```
+
+#### 📊 Tabla de Decisión:
+
+| Criterio | CSS Inline | Archivo SCSS |
+|----------|-----------|-------------|
+| Líneas de estilos | <50 | >50 |
+| Complejidad | Simple | Compleja |
+| Mixins del theme | No necesita | Necesita |
+| Estados | 0-2 estados | 3+ estados |
+| Reutilización | No reutilizable | Reutilizable |
+| Tokens CSS | Pocos o ninguno | Múltiples tokens |
+| Lógica SCSS | No | Sí (loops, conditionals) |
+
+#### 💡 Regla de Oro:
+
+**"Si dudas, usa archivo externo. Es más fácil mantener y permite crecer el componente sin refactorizar después."**
+
+**Ejemplos del proyecto:**
+- ✅ CSS inline OK: Componentes de <30 líneas sin estados complejos
+- ❌ CSS inline MAL: [app-table.component.ts](../src/app/shared/atoms/app-table/app-table.component.ts) tenía 176 líneas inline - Refactorizado a SCSS externo
+
+**Ver caso real:** [AUDITORIA_APP_TABLE_COMPONENTS.md](./AUDITORIA_APP_TABLE_COMPONENTS.md) - Problema resuelto de 176 líneas inline → 60 líneas en archivo SCSS
+
+---
+
+### 2. ✅ DEFAULTS OBLIGATORIOS
+
+**TODOS los componentes deben tener constante DEFAULTS:**
+
+```typescript
+// ✅ BIEN - En archivo .model.ts
+export const BUTTON_DEFAULTS = {
+  variant: 'filled' as const,
+  color: 'primary' as ButtonColor,
+  shape: 'rounded' as ButtonShape,
+  size: 'medium' as ButtonSize,
+  disabled: false,
+} as const;
+
+export const TABLE_DEFAULTS = {
+  emptyMessage: 'No hay datos disponibles',
+  stickyHeader: false,
+  clickableRows: false,
+} as const;
+
+// Uso en componente:
+emptyMessage = input<string>(TABLE_DEFAULTS.emptyMessage);
+stickyHeader = input<boolean>(TABLE_DEFAULTS.stickyHeader);
+```
+
+**Beneficios:**
+- ✅ Consistencia entre componentes
+- ✅ Valores centralizados y documentados
+- ✅ Facilita testing
+- ✅ Type-safe y auto-completado
+
+**Ver ejemplos reales:**
+- [app-button.model.ts](../src/app/shared/atoms/app-button/app-button.model.ts)
+- [app-table.model.ts](../src/app/shared/atoms/app-table/app-table.model.ts)
+- [app-badge.model.ts](../src/app/shared/atoms/app-badge/app-badge.model.ts)
+
+---
+
+### 3. ✅ COMPUTED SIGNALS PARA CLASES
+
+**Usa computed para lógica de clases dinámica:**
+
+```typescript
+// ❌ MAL - Métodos simples
+hasActions(): boolean {
+  return !!this.config().actions?.length;
+}
+
+getClasses(): string {
+  return this.active ? 'active' : '';
+}
+
+// ✅ BIEN - Computed signals
+hasActions = computed(() => !!this.config().actions?.length);
+
+tableClasses = computed(() => {
+  const classes: string[] = ['app-table'];
+  if (this.stickyHeader()) classes.push('sticky-header');
+  if (this.loading()) classes.push('loading');
+  return classes.join(' ');
+});
+
+rowClasses = computed(() => (row: T) => {
+  const classes: string[] = ['app-table-row'];
+  if (this.clickableRows()) classes.push('clickable');
+  
+  const customClass = this.config().rowClass;
+  if (customClass) {
+    const value = typeof customClass === 'function' ? customClass(row) : customClass;
+    if (value) classes.push(value);
+  }
+  return classes.join(' ');
+});
+```
+
+**Uso en template:**
+```html
+<table [class]="tableClasses()">
+  <tr *matRowDef="let row" [class]="rowClasses()(row)">
+  </tr>
+</table>
+```
+
+**Beneficios:**
+- ✅ Reactividad optimizada de Angular signals
+- ✅ Lógica centralizada y testeable
+- ✅ Consistencia con patrón de otros atoms
+- ✅ Código más declarativo
+
+---
+
+### 4. ✅ PREFIJADO DE CLASES CSS
+
+**TODAS las clases CSS deben tener prefijo del componente:**
+
+```scss
+// ❌ MAL - Clases genéricas (riesgo de colisión)
+.table { }
+.row { }
+.cell { }
+.header { }
+.empty-state { }
+
+// ✅ BIEN - Prefijo del componente
+.app-table { }
+.app-table-row { }
+.app-table-cell { }
+.app-table-header { }
+.app-table-empty-state { }
+
+// ✅ BIEN - Otro ejemplo
+.app-button { }
+.app-button-icon { }
+.app-button-label { }
+
+// ✅ BIEN - Otro ejemplo
+.app-badge { }
+.app-badge-indicator { }
+```
+
+**Patrón:** `app-{componente}-{elemento}` o `app-{componente}-{modificador}`
+
+**Beneficios:**
+- ✅ Evita colisiones de nombres
+- ✅ Búsqueda más fácil en codebase
+- ✅ Claridad de origen
+- ✅ Scoping implícito
+
+---
+
+### 5. ✅ CÓDIGO FUNCIONAL MODERNO
+
+**Usa métodos funcionales ES6+ en lugar de bucles imperativos:**
+
+```typescript
+// ❌ MAL - Bucles imperativos
+private cleanValues(values: Record<string, any>): AppTableFilterValues {
+  const cleaned: AppTableFilterValues = {};
+  Object.entries(values).forEach(([key, value]) => {
+    if (value !== null && value !== undefined && value !== '') {
+      cleaned[key] = value;
+    }
+  });
+  return cleaned;
+}
+
+isActionDisabled(action: AppTableAction<T>, row: T): boolean {
+  return action.disabled ? action.disabled(row) : false;
+}
+
+// ✅ BIEN - Métodos funcionales
+private cleanValues(values: Record<string, any>): AppTableFilterValues {
+  return Object.fromEntries(
+    Object.entries(values).filter(([_, value]) => 
+      value !== null && value !== undefined && value !== ''
+    )
+  );
+}
+
+isActionDisabled(action: AppTableAction<T>, row: T): boolean {
+  return !!action.disabled?.(row);
+}
+```
+
+**Métodos recomendados:**
+- ✅ `Object.fromEntries()` + `filter()` en lugar de `forEach` + mutación
+- ✅ Optional chaining `?.` en lugar de ternarios
+- ✅ Nullish coalescing `??` en lugar de `||`
+- ✅ `map()`, `filter()`, `reduce()` en lugar de `for` loops
+- ✅ Destructuring en parámetros
+- ✅ Arrow functions con retorno implícito
+
+---
+
+### 6. ✅ ESTRUCTURA DE ARCHIVOS
+
+**Cada componente debe tener esta estructura:**
+
+```
+app-table/
+├── app-table.component.ts       # Lógica del componente
+├── app-table.component.scss     # Estilos (NUNCA inline)
+├── app-table.component.spec.ts  # Tests
+└── app-table.model.ts           # Interfaces + DEFAULTS
+```
+
+**Distribución de responsabilidades:**
+
+```typescript
+// ✅ app-table.model.ts - Types y constantes
+export interface AppTableConfig<T> { }
+export interface AppTableColumn<T> { }
+export const TABLE_DEFAULTS = { } as const;
+
+// ✅ app-table.component.ts - Lógica y template
+@Component({
+  selector: 'app-table',
+  standalone: true,
+  imports: [...],
+  styleUrls: ['./app-table.component.scss'],
+  template: `...`
+})
+export class AppTableComponent<T> { }
+
+// ✅ app-table.component.scss - Estilos custom
+.app-table-wrapper { }
+.app-table-row.clickable:hover {
+  background-color: var(--overlay-light-04);
+}
+```
+
+**NUNCA:**
+- ❌ CSS inline en `styles: []`
+- ❌ Types en archivo `.component.ts`
+- ❌ Lógica de negocio en template
+- ❌ Valores hardcoded sin DEFAULTS
+
+---
+
+### 7. ✅ USO DE TOKENS DEL PROYECTO
+
+**SIEMPRE usa tokens CSS del proyecto en archivos SCSS:**
+
+```scss
+// ❌ MAL - Hardcoded o Material vars con fallbacks
+.row:hover {
+  background: var(--mat-sys-surface, white);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.active {
+  color: #1976d2;
+}
+
+// ✅ BIEN - Tokens del proyecto
+.app-table-row.clickable:hover {
+  background-color: var(--overlay-light-04);
+  cursor: pointer;
+}
+
+.app-table-cell.sticky-start {
+  border-right: 1px solid var(--overlay-light-12);
+}
+
+.filters-container {
+  background-color: var(--overlay-light-02);
+  border-bottom: 1px solid var(--overlay-light-12);
+}
+```
+
+**Tokens disponibles:**
+- Layout: `var(--sidebar-width-expanded)`, `var(--toolbar-height)`, `var(--transition-fast)`
+- Overlays: `var(--overlay-light-04)`, `var(--overlay-light-12)`, `var(--overlay-dark-10)`
+- Navigation: `var(--nav-item-hover-bg)`, `var(--nav-item-active-bg)`
+
+**Ver definiciones:** [_variables.scss](../src/themes/_variables.scss), [_theming.scss](../src/themes/_theming.scss)
+
+---
+
 ## 📋 CHECKLIST ANTES DE COMMIT
 
 Pregúntate:
+
+### Sobre Estilos:
 
 1. **¿Estoy usando Tailwind para colores?**
   - ❌ Si la respuesta es SÍ → Cámbialo a Material
@@ -387,6 +754,38 @@ Pregúntate:
   - 🔍 ¿Es radius/shadow básico? → Usa `rounded-lg`, `shadow-md`
   - ⚠️ ¿Necesito colores/estados complejos? → Crea clase custom con mixins
   - ✅ Solo si Material no puede hacerlo
+
+### Sobre Componentes:
+
+5. **¿Tengo CSS inline y el componente es complejo?**
+  - ❌ Si tengo >50 líneas o necesito mixins → Muévelo a archivo `.scss`
+  - ✅ Si tengo <50 líneas y es simple → CSS inline está OK
+  - ✅ Si uso archivo externo → `styleUrls: ['./component.scss']`
+
+6. **¿Tengo constante DEFAULTS en mi modelo?**
+  - ❌ Si la respuesta es NO → Créala
+  - ✅ Uso DEFAULTS para todos los valores por defecto
+
+7. **¿Mis clases CSS tienen prefijo del componente?**
+  - ❌ Si tengo `.table`, `.row`, `.cell` → Prefíjalas con `app-table-`
+  - ✅ Todas mis clases empiezan con `app-{componente}-`
+
+8. **¿Uso computed signals para lógica de clases?**
+  - ❌ Si uso métodos simples → Conviértelos a computed
+  - ✅ Uso `tableClasses = computed(() => ...)`
+
+9. **¿Uso tokens del proyecto en mis SCSS?**
+  - ❌ Si uso `rgba(0,0,0,0.12)` o `#1976d2` → Usa tokens
+  - ✅ Uso `var(--overlay-light-XX)`
+
+10. **¿Mi código es funcional y moderno?**
+  - ❌ Si uso `forEach` con mutación → Usa `filter()` + `map()`
+  - ❌ Si uso ternarios con `null` → Usa optional chaining `?.`
+  - ✅ Uso métodos ES6+ funcionales
+
+11. **¿El build pasa sin errores?**
+  - ❌ Si hay errores de compilación → Arregla antes de commit
+  - ✅ `ng build --configuration=development` exitoso
 
 ---
 
