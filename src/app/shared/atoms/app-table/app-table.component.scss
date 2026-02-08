@@ -5,6 +5,12 @@
 .app-table-wrapper {
   overflow: auto;
   width: 100%;
+  transition: opacity 0.2s ease;
+
+  &.loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .app-table {

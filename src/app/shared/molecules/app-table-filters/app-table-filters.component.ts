@@ -8,9 +8,8 @@ import {
   DestroyRef,
   inject,
   ChangeDetectionStrategy,
-  OnInit
+  OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,13 +20,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AppTableFiltersConfig, AppTableFilterValues, FILTERS_DEFAULTS } from './app-table-filters.model';
+import {
+  AppTableFiltersConfig,
+  AppTableFilterValues,
+  FILTERS_DEFAULTS,
+} from './app-table-filters.model';
 
 @Component({
   selector: 'app-table-filters',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -35,7 +37,7 @@ import { AppTableFiltersConfig, AppTableFilterValues, FILTERS_DEFAULTS } from '.
     MatDatepickerModule,
     MatIconModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./app-table-filters.component.scss'],
@@ -43,30 +45,30 @@ import { AppTableFiltersConfig, AppTableFilterValues, FILTERS_DEFAULTS } from '.
     <div class="filters-container">
       <div class="filters-fields">
         @for (filter of config().filters; track filter.key) {
-          <mat-form-field 
+          <mat-form-field
             [appearance]="appearance()"
             [style.width]="filter.width ?? 'auto'"
             class="filter-field">
-            
+
             <mat-label>{{ filter.label }}</mat-label>
-            
+
             @switch (filter.type ?? 'text') {
               @case ('text') {
                 <input
                   matInput
                   [formControl]="getControl(filter.key)"
                   [placeholder]="filter.placeholder ?? ''"
-                  type="text">
+                  type="text" />
               }
-              
+
               @case ('number') {
                 <input
                   matInput
                   [formControl]="getControl(filter.key)"
                   [placeholder]="filter.placeholder ?? ''"
-                  type="number">
+                  type="number" />
               }
-              
+
               @case ('select') {
                 <mat-select [formControl]="getControl(filter.key)">
                   <mat-option [value]="null">-- Todos --</mat-option>
@@ -77,18 +79,18 @@ import { AppTableFiltersConfig, AppTableFilterValues, FILTERS_DEFAULTS } from '.
                   }
                 </mat-select>
               }
-              
+
               @case ('date') {
                 <input
                   matInput
                   [formControl]="getControl(filter.key)"
                   [matDatepicker]="picker"
-                  [placeholder]="filter.placeholder ?? 'DD/MM/YYYY'">
-                <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                  [placeholder]="filter.placeholder ?? 'DD/MM/YYYY'" />
+                <mat-datepicker-toggle [for]="picker" />
+                <mat-datepicker #picker />
               }
             }
-            
+
             @if (hasValue(filter.key)) {
               <button
                 matSuffix
@@ -102,7 +104,7 @@ import { AppTableFiltersConfig, AppTableFilterValues, FILTERS_DEFAULTS } from '.
           </mat-form-field>
         }
       </div>
-      
+
       @if (showClearAll() && hasAnyValue()) {
         <button
           mat-stroked-button
@@ -114,38 +116,39 @@ import { AppTableFiltersConfig, AppTableFilterValues, FILTERS_DEFAULTS } from '.
         </button>
       }
     </div>
-  `
+  `,
 })
 export class AppTableFiltersComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   config = input.required<AppTableFiltersConfig>();
+
   values = input<AppTableFilterValues>({});
-  debounceMs = input<number>(FILTERS_DEFAULTS.debounceMs);
-  appearance = input<'fill' | 'outline'>(FILTERS_DEFAULTS.appearance);
-  showClearAll = input<boolean>(FILTERS_DEFAULTS.showClearAll);
-  clearAllLabel = input<string>(FILTERS_DEFAULTS.clearAllLabel);
 
   valuesChange = output<AppTableFilterValues>();
   filterChange = output<{ key: string; value: any }>();
 
-  private formGroup = signal<FormGroup>(new FormGroup({}));
-  private initialized = signal(false);
+  appearance = computed(() => this.config().appearance ?? FILTERS_DEFAULTS.appearance);
+  showClearAll = computed(() => this.config().showClearAll ?? FILTERS_DEFAULTS.showClearAll);
+  clearAllLabel = computed(() => this.config().clearAllLabel ?? FILTERS_DEFAULTS.clearAllLabel);
+  private debounceMs = computed(() => this.config().debounceMs ?? FILTERS_DEFAULTS.debounceMs);
+
+  private formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
 
   constructor() {
     effect(() => {
       const externalValues = this.values();
       const form = this.formGroup();
-      
-      if (this.initialized() && form) {
-        Object.keys(form.controls).forEach(key => {
-          const control = form.get(key);
-          const externalValue = externalValues[key] ?? null;
-          if (control && control.value !== externalValue) {
-            control.setValue(externalValue, { emitEvent: false });
-          }
-        });
-      }
+
+      if (Object.keys(form.controls).length === 0) return;
+
+      Object.keys(form.controls).forEach((key) => {
+        const control = form.get(key);
+        const externalValue = externalValues[key] ?? null;
+        if (control && control.value !== externalValue) {
+          control.setValue(externalValue, { emitEvent: false });
+        }
+      });
     });
   }
 
@@ -156,68 +159,55 @@ export class AppTableFiltersComponent implements OnInit {
   private initializeForm(): void {
     const filters = this.config().filters;
     const initialValues = this.values();
-    const group: Record<string, FormControl> = {};
+    const controls: Record<string, FormControl> = {};
 
-    filters.forEach(filter => {
-      const initialValue = initialValues[filter.key] ?? null;
-      group[filter.key] = new FormControl(initialValue);
+    filters.forEach((filter) => {
+      controls[filter.key] = new FormControl(initialValues[filter.key] ?? null);
     });
 
-    const form = new FormGroup(group);
+    const form = new FormGroup(controls);
     this.formGroup.set(form);
 
     form.valueChanges
       .pipe(
         debounceTime(this.debounceMs()),
         distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe(values => {
-        const cleanedValues = this.cleanValues(values);
-        this.valuesChange.emit(cleanedValues);
-      });
-
-    this.initialized.set(true);
+      .subscribe((values) => this.valuesChange.emit(this.cleanValues(values)));
   }
 
   getControl(key: string): FormControl {
-    const form = this.formGroup();
-    return (form?.get(key) as FormControl) ?? new FormControl();
+    return this.formGroup().get(key) as FormControl;
   }
 
   hasValue(key: string): boolean {
-    const value = this.getControl(key).value;
+    const value = this.getControl(key)?.value;
     return value !== null && value !== undefined && value !== '';
   }
 
   hasAnyValue(): boolean {
-    const form = this.formGroup();
-    if (!form) return false;
-    return Object.values(form.value).some(
-      value => value !== null && value !== undefined && value !== ''
+    return Object.values(this.formGroup().value).some(
+      (value) => value !== null && value !== undefined && value !== '',
     );
   }
 
   clearFilter(key: string, event?: Event): void {
     event?.stopPropagation();
-    const control = this.getControl(key);
-    control.setValue(null);
+    this.getControl(key).setValue(null);
     this.filterChange.emit({ key, value: null });
   }
 
   clearAll(): void {
-    const form = this.formGroup();
-    if (form) {
-      form.reset();
-      this.valuesChange.emit({});
-    }
+    this.formGroup().reset();
+    this.valuesChange.emit({});
   }
 
   private cleanValues(values: Record<string, any>): AppTableFilterValues {
     return Object.fromEntries(
-      Object.entries(values).filter(([_, value]) => 
-        value !== null && value !== undefined && value !== ''
-      )
+      Object.entries(values).filter(
+        ([, value]) => value !== null && value !== undefined && value !== '',
+      ),
     );
   }
 }

@@ -3,9 +3,8 @@ import {
   computed,
   input,
   output,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -15,19 +14,18 @@ import {
   AppTablePaginationConfig,
   AppTablePaginationState,
   AppTablePageEvent,
-  PAGINATION_DEFAULTS
+  PAGINATION_DEFAULTS,
 } from './app-table-pagination.model';
 
 @Component({
   selector: 'app-table-pagination',
   standalone: true,
   imports: [
-    CommonModule,
     MatIconModule,
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./app-table-pagination.component.scss'],
@@ -92,24 +90,24 @@ import {
         }
       </div>
     </div>
-  `
+  `,
 })
 export class AppTablePaginationComponent {
   config = input<AppTablePaginationConfig>({});
   state = input.required<AppTablePaginationState>();
-  
-  pageSizeOptions = input<number[]>(PAGINATION_DEFAULTS.pageSizeOptions);
-  showFirstLastButtons = input<boolean>(PAGINATION_DEFAULTS.showFirstLastButtons);
-  showPageSizeSelector = input<boolean>(PAGINATION_DEFAULTS.showPageSizeSelector);
-  itemsPerPageLabel = input<string>(PAGINATION_DEFAULTS.itemsPerPageLabel);
-  pageLabel = input<string>(PAGINATION_DEFAULTS.pageLabel);
-  ofLabel = input<string>(PAGINATION_DEFAULTS.ofLabel);
-  firstPageLabel = input<string>(PAGINATION_DEFAULTS.firstPageLabel);
-  lastPageLabel = input<string>(PAGINATION_DEFAULTS.lastPageLabel);
-  previousPageLabel = input<string>(PAGINATION_DEFAULTS.previousPageLabel);
-  nextPageLabel = input<string>(PAGINATION_DEFAULTS.nextPageLabel);
 
   pageChange = output<AppTablePageEvent>();
+
+  pageSizeOptions = computed(() => this.config().pageSizeOptions ?? PAGINATION_DEFAULTS.pageSizeOptions);
+  showFirstLastButtons = computed(() => this.config().showFirstLastButtons ?? PAGINATION_DEFAULTS.showFirstLastButtons);
+  showPageSizeSelector = computed(() => this.config().showPageSizeSelector ?? PAGINATION_DEFAULTS.showPageSizeSelector);
+  itemsPerPageLabel = computed(() => this.config().itemsPerPageLabel ?? PAGINATION_DEFAULTS.itemsPerPageLabel);
+  firstPageLabel = computed(() => this.config().firstPageLabel ?? PAGINATION_DEFAULTS.firstPageLabel);
+  lastPageLabel = computed(() => this.config().lastPageLabel ?? PAGINATION_DEFAULTS.lastPageLabel);
+  previousPageLabel = computed(() => this.config().previousPageLabel ?? PAGINATION_DEFAULTS.previousPageLabel);
+  nextPageLabel = computed(() => this.config().nextPageLabel ?? PAGINATION_DEFAULTS.nextPageLabel);
+
+  private ofLabel = computed(() => this.config().ofLabel ?? PAGINATION_DEFAULTS.ofLabel);
 
   totalPages = computed(() => {
     const { pageSize, totalItems } = this.state();
@@ -119,7 +117,7 @@ export class AppTablePaginationComponent {
   rangeLabel = computed(() => {
     const { pageIndex, pageSize, totalItems } = this.state();
     if (totalItems === 0) return `0 ${this.ofLabel()} 0`;
-    
+
     const startIndex = pageIndex * pageSize + 1;
     const endIndex = Math.min((pageIndex + 1) * pageSize, totalItems);
     return `${startIndex} - ${endIndex} ${this.ofLabel()} ${totalItems}`;
@@ -129,41 +127,33 @@ export class AppTablePaginationComponent {
   isLastPage = computed(() => this.state().pageIndex >= this.totalPages() - 1);
 
   onPageSizeChange(newPageSize: number): void {
-    const currentState = this.state();
-    const currentFirstItemIndex = currentState.pageIndex * currentState.pageSize;
+    const { pageIndex, pageSize } = this.state();
+    const currentFirstItemIndex = pageIndex * pageSize;
     const newPageIndex = Math.floor(currentFirstItemIndex / newPageSize);
     this.emitPageChange(newPageIndex, newPageSize);
   }
 
   goToFirstPage(): void {
-    if (!this.isFirstPage()) {
-      this.emitPageChange(0, this.state().pageSize);
-    }
+    if (!this.isFirstPage()) this.emitPageChange(0, this.state().pageSize);
   }
 
   goToPreviousPage(): void {
-    if (!this.isFirstPage()) {
-      this.emitPageChange(this.state().pageIndex - 1, this.state().pageSize);
-    }
+    if (!this.isFirstPage()) this.emitPageChange(this.state().pageIndex - 1, this.state().pageSize);
   }
 
   goToNextPage(): void {
-    if (!this.isLastPage()) {
-      this.emitPageChange(this.state().pageIndex + 1, this.state().pageSize);
-    }
+    if (!this.isLastPage()) this.emitPageChange(this.state().pageIndex + 1, this.state().pageSize);
   }
 
   goToLastPage(): void {
-    if (!this.isLastPage()) {
-      this.emitPageChange(this.totalPages() - 1, this.state().pageSize);
-    }
+    if (!this.isLastPage()) this.emitPageChange(this.totalPages() - 1, this.state().pageSize);
   }
 
-  private emitPageChange(newPageIndex: number, newPageSize: number): void {
+  private emitPageChange(pageIndex: number, pageSize: number): void {
     this.pageChange.emit({
-      pageIndex: newPageIndex,
-      pageSize: newPageSize,
-      previousPageIndex: this.state().pageIndex
+      pageIndex,
+      pageSize,
+      previousPageIndex: this.state().pageIndex,
     });
   }
 }

@@ -23,8 +23,8 @@ export interface AppTablePageEvent {
   previousPageIndex: number;
 }
 
-export const PAGINATION_DEFAULTS = {
-  pageSizeOptions: [10, 25, 50, 100] as number[],
+export const PAGINATION_DEFAULTS: Required<AppTablePaginationConfig> = {
+  pageSizeOptions: [10, 25, 50, 100],
   showFirstLastButtons: true,
   showPageSizeSelector: true,
   itemsPerPageLabel: 'Items por página:',
