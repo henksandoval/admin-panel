@@ -20,7 +20,9 @@ export interface AppTableFiltersConfig {
   clearAllLabel?: string;
 }
 
-export type AppTableFilterValues = Record<string, any>;
+export type AppTableFilterValue = string | number | boolean | Date | null;
+
+export type AppTableFilterValues = Record<string, AppTableFilterValue>;
 
 export const FILTERS_DEFAULTS = {
   debounceMs: 300,

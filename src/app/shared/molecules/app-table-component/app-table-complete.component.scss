@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+.app-table-complete {
+  border: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+  border-radius: 8px;
+  overflow: hidden;
+}

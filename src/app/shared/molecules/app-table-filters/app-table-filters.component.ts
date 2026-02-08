@@ -11,15 +11,17 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { AppFormInputComponent } from '@shared/molecules/app-form-input/app-form-input.component';
+import { AppFormSelectComponent } from '@shared/molecules/app-form-select/app-form-select.component';
+import { SelectOption } from '@shared/molecules/app-form-select/app-form-select.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 import {
   AppTableFiltersConfig,
   AppTableFilterValues,
@@ -31,13 +33,15 @@ import {
   standalone: true,
   imports: [
     ReactiveFormsModule,
+
+    // PDS
+    AppFormInputComponent,
+    AppFormSelectComponent,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,
     MatDatepickerModule,
     MatIconModule,
     MatButtonModule,
-    MatTooltipModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./app-table-filters.component.scss'],
@@ -45,63 +49,60 @@ import {
     <div class="filters-container">
       <div class="filters-fields">
         @for (filter of config().filters; track filter.key) {
-          <mat-form-field
-            [appearance]="appearance()"
-            [style.width]="filter.width ?? 'auto'"
-            class="filter-field">
-
-            <mat-label>{{ filter.label }}</mat-label>
+          <div
+            class="filter-field"
+            [style.width]="filter.width ?? 'auto'">
 
             @switch (filter.type ?? 'text') {
               @case ('text') {
-                <input
-                  matInput
+                <app-form-input
                   [formControl]="getControl(filter.key)"
-                  [placeholder]="filter.placeholder ?? ''"
-                  type="text" />
+                  [config]="{
+                    type: 'text',
+                    label: filter.label,
+                    placeholder: filter.placeholder ?? '',
+                    appearance: appearance()
+                  }">
+                </app-form-input>
               }
 
               @case ('number') {
-                <input
-                  matInput
+                <app-form-input
                   [formControl]="getControl(filter.key)"
-                  [placeholder]="filter.placeholder ?? ''"
-                  type="number" />
+                  [config]="{
+                    type: 'number',
+                    label: filter.label,
+                    placeholder: filter.placeholder ?? '',
+                    appearance: appearance()
+                  }">
+                </app-form-input>
               }
 
               @case ('select') {
-                <mat-select [formControl]="getControl(filter.key)">
-                  <mat-option [value]="null">-- Todos --</mat-option>
-                  @for (option of filter.options ?? []; track option.value) {
-                    <mat-option [value]="option.value">
-                      {{ option.label }}
-                    </mat-option>
-                  }
-                </mat-select>
+                <app-form-select
+                  [formControl]="getControl(filter.key)"
+                  [options]="getSelectOptions(filter)"
+                  [config]="{
+                    label: filter.label,
+                    appearance: appearance()
+                  }">
+                </app-form-select>
               }
 
               @case ('date') {
-                <input
-                  matInput
-                  [formControl]="getControl(filter.key)"
-                  [matDatepicker]="picker"
-                  [placeholder]="filter.placeholder ?? 'DD/MM/YYYY'" />
-                <mat-datepicker-toggle [for]="picker" />
-                <mat-datepicker #picker />
+                <mat-form-field [appearance]="appearance()" class="w-full">
+                  <mat-label>{{ filter.label }}</mat-label>
+                  <input
+                    matInput
+                    [formControl]="getControl(filter.key)"
+                    [matDatepicker]="picker"
+                    [placeholder]="filter.placeholder ?? 'DD/MM/YYYY'" />
+                  <mat-datepicker-toggle [for]="picker" />
+                  <mat-datepicker #picker />
+                </mat-form-field>
               }
             }
-
-            @if (hasValue(filter.key)) {
-              <button
-                matSuffix
-                mat-icon-button
-                type="button"
-                matTooltip="Limpiar"
-                (click)="clearFilter(filter.key, $event)">
-                <mat-icon>close</mat-icon>
-              </button>
-            }
-          </mat-form-field>
+          </div>
         }
       </div>
 
@@ -122,7 +123,6 @@ export class AppTableFiltersComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   config = input.required<AppTableFiltersConfig>();
-
   values = input<AppTableFilterValues>({});
 
   valuesChange = output<AppTableFilterValues>();
@@ -181,15 +181,20 @@ export class AppTableFiltersComponent implements OnInit {
     return this.formGroup().get(key) as FormControl;
   }
 
-  hasValue(key: string): boolean {
-    const value = this.getControl(key)?.value;
-    return value !== null && value !== undefined && value !== '';
+  getSelectOptions(filter: { options?: { value: any; label: string }[] }): SelectOption[] {
+    const resetOption: SelectOption = { value: null as any, label: '-- Todos --' };
+    return [resetOption, ...(filter.options ?? [])];
   }
 
   hasAnyValue(): boolean {
     return Object.values(this.formGroup().value).some(
       (value) => value !== null && value !== undefined && value !== '',
     );
+  }
+
+  hasValue(key: string): boolean {
+    const value = this.getControl(key)?.value;
+    return value !== null && value !== undefined && value !== '';
   }
 
   clearFilter(key: string, event?: Event): void {

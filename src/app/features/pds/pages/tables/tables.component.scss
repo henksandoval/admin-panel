@@ -1,0 +1,32 @@
+.pds-page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+}
+
+// ── Status badges ───────────────────────────────
+
+.badge {
+  display: inline-block;
+  padding: 0.1875rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &--active   { background: #e6f4ea; color: #137333; }
+  &--inactive { background: #fce8e6; color: #c5221f; }
+  &--vacation { background: #fef7e0; color: #b05a00; }
+}
+
+// ── Salary ──────────────────────────────────────
+
+.salary {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
