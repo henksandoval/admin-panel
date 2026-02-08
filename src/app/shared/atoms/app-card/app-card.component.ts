@@ -2,7 +2,7 @@ import { Component, input, model, contentChild, Directive, computed } from '@ang
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import {MatDivider} from '@angular/material/list';
+import { MatDivider } from '@angular/material/divider';
 
 @Directive({ selector: '[slot=header-actions]', standalone: true })
 export class AppCardHeaderActionsDirective {}
@@ -21,25 +21,22 @@ export class AppCardFooterActionsDirective {}
         (opened)="expanded.set(true)"
         (closed)="expanded.set(false)"
         [disabled]="!isExpandable()"
-        [class]="variantClass()"
-        [ngClass]="customClass()"
+        [ngClass]="panelClass()"
         hideToggle
       >
         @if (hasHeader()) {
           <mat-expansion-panel-header>
             <div class="panel-header-content">
-              <div class="flex items-center gap-2">
+              <div class="panel-header-left">
                 @if (icon()) {
-                  <mat-icon class="text-base">{{ icon() }}</mat-icon>
+                  <mat-icon class="panel-header-icon">{{ icon() }}</mat-icon>
                 }
                 @if (title()) {
-                  <span class="font-semibold text-sm tracking-wide">
-                  {{ title() }}
-                </span>
+                  <span class="panel-header-title">{{ title() }}</span>
                 }
               </div>
 
-              <div class="flex items-center gap-2">
+              <div class="panel-header-right">
                 <ng-content select="[slot=header-actions]"></ng-content>
                 @if (isExpandable()) {
                   <mat-icon class="toggle-icon" [class.rotated]="expanded()">
@@ -55,7 +52,7 @@ export class AppCardFooterActionsDirective {}
           <mat-divider></mat-divider>
         }
 
-        <div class="mt-4">
+        <div class="panel-body">
           <ng-content></ng-content>
         </div>
 
@@ -65,64 +62,7 @@ export class AppCardFooterActionsDirective {}
       </mat-expansion-panel>
     </mat-accordion>
   `,
-  host: { class: 'block' },
-  styles: `
-    mat-expansion-panel {
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      position: relative;
-      border-style: solid;
-      border-width: 0;
-      background-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));
-      border-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));
-      border-radius: var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium));
-      box-shadow: var(--mat-card-elevated-container-elevation, var(--mat-sys-level1));
-      transition: all 0.2s ease-in-out;
-      overflow: hidden;
-
-      &.high {
-        border-left: 4px solid var(--mat-sys-primary);
-      }
-
-      &.medium {
-        border-left: 4px solid var(--mat-sys-secondary);
-      }
-
-      &.low {
-        border-left: 4px solid var(--mat-sys-tertiary);
-      }
-    }
-
-    .mat-expansion-panel-header {
-      color: var(--mat-expansion-header-disabled-state-text-color,
-        color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));
-
-      &.mat-expanded {
-        height: var(--mat-expansion-header-expanded-state-height, 52px);
-      }
-    }
-
-    .panel-header-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    mat-icon {
-      color: var(--mat-sys-primary);
-    }
-
-    .toggle-icon {
-      color: var(--mat-sys-on-surface-variant);
-      transition: transform 0.3s ease;
-    }
-
-    .toggle-icon.rotated {
-      transform: rotate(180deg);
-    }
-  `
+  styleUrl: './app-card.component.scss'
 })
 export class AppCardComponent {
   title = input<string>();
@@ -137,13 +77,14 @@ export class AppCardComponent {
   footerContent = contentChild(AppCardFooterActionsDirective);
 
   hasHeader = computed(() => {
-    const titleIsPresent = Boolean(this.title());
-    const iconIsPresent = Boolean(this.icon());
-    const actionsArePresent = Boolean(this.headerActions());
-
-    return titleIsPresent || iconIsPresent || actionsArePresent;
+    return Boolean(this.title()) || Boolean(this.icon()) || Boolean(this.headerActions());
   });
+
   hasFooter = computed(() => Boolean(this.footerContent()));
 
-  variantClass = computed(() => this.variant() === 'outlined' ? 'mat-mdc-card-outlined' : '');
+  panelClass = computed(() => {
+    const variant = this.variant() === 'outlined' ? 'mat-mdc-card-outlined' : '';
+    const custom = this.customClass();
+    return [variant, custom].filter(Boolean).join(' ');
+  });
 }
