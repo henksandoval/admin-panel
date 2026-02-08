@@ -1,76 +1,70 @@
-import { Component, Input, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-pds-code-block',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatExpansionModule
-  ],
   template: `
-    <mat-expansion-panel 
-      [expanded]="expanded"
-      [hideToggle]="hideToggle"
-      [disabled]="disabled"
-      class="code-expansion-panel">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <div class="flex items-center gap-2">
-            <mat-icon class="text-base">code</mat-icon>
-            <span class="text-sm font-medium">{{ title }}</span>
-          </div>
-        </mat-panel-title>
-        <mat-panel-description>
-          <button
-            mat-icon-button
-            (click)="copyToClipboard(); $event.stopPropagation()"
-            matTooltip="Copiar código"
-            class="scale-75">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      
-      <div class="p-4">
-        <pre class="font-mono text-sm overflow-x-auto"><code>{{ code }}</code></pre>
-      </div>
-      
-      @if (footer) {
-        <div class="code-footer px-4 py-2 text-xs border-t">
-          {{ footer }}
-        </div>
+    <div class="code-block">
+      <pre class="code-block-pre"><code>{{ code() }}</code></pre>
+
+      @if (footer()) {
+        <footer class="code-block-footer">{{ footer() }}</footer>
       }
-    </mat-expansion-panel>
+    </div>
   `,
-  styleUrl: 'pds-code-block.component.scss'
+  styles: `
+    :host {
+      display: block;
+    }
+
+    .code-block {
+      --_bg: var(--code-block-bg, #181825);
+      --_footer-bg: var(--code-block-footer-bg, #1e1e2e);
+      --_border: var(--code-block-border, #313244);
+      --_text: var(--code-block-text, #cdd6f4);
+      --_text-muted: var(--code-block-text-muted, #a6adc8);
+
+      background: var(--_bg);
+    }
+
+    .code-block-pre {
+      margin: 0;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--_border);
+        border-radius: 3px;
+      }
+
+      code {
+        font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+        font-size: 0.8125rem;
+        line-height: 1.7;
+        color: var(--_text);
+        white-space: pre;
+        tab-size: 2;
+      }
+    }
+
+    .code-block-footer {
+      padding: 0.625rem 1.25rem;
+      font-size: 0.75rem;
+      color: var(--_text-muted);
+      background: var(--_footer-bg);
+      border-top: 1px solid var(--_border);
+    }
+  `,
 })
 export class PdsCodeBlockComponent {
-  @Input({ required: true }) code!: string;
-  @Input() title = 'Generated Code';
-  @Input() footer = '💡 Solo incluye las propiedades que difieren de los defaults.';
-  
-  @Input() expanded = false;
-  @Input() hideToggle = false;
-  @Input() disabled = false;
-
-  private readonly snackBar = inject(MatSnackBar);
-
-  copyToClipboard(): void {
-    navigator.clipboard.writeText(this.code).then(() => {
-      this.snackBar.open('✅ Código copiado al portapapeles', 'Cerrar', {
-        duration: 2000,
-        horizontalPosition: 'end',
-        verticalPosition: 'bottom'
-      });
-    });
-  }
+  code = input.required<string>();
+  footer = input('💡 Solo incluye las propiedades que difieren de los defaults.');
 }

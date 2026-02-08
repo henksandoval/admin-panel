@@ -12,6 +12,7 @@ import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-pa
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 import { LayoutPreset } from '@shared/templates/app-page-layout/app-page-layout.model';
 import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
+import { PdsCodeBlockComponent } from "../../molecules/pds-code-block/pds-code-block.component";
 
 @Component({
   selector: 'app-pds-page-layout',
@@ -23,7 +24,8 @@ import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app
     AppSlotContainerDirective,
     PdsDocumentationTabsComponent,
     PdsPreviewCardComponent,
-    AppCardComponent
+    AppCardComponent,
+    PdsCodeBlockComponent
 ],
   templateUrl: './pds-page-layout.component.html',
   styleUrl: './pds-page-layout.component.scss',

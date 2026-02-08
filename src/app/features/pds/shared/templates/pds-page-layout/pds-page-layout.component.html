@@ -33,12 +33,12 @@
     }
 
     @if (code()) {
-    <app-card title="Generated Code" icon="code" [isExpandable]="true" [expanded]="false" class="mt-2">
+    <app-card title="Generated Code" icon="code" [isExpandable]="true" [expanded]="false" class="mt-2" >
       <button mat-icon-button slot="header-actions" (click)="copyToClipboard(); $event.stopPropagation()"
         matTooltip="Copiar código">
         <mat-icon>content_copy</mat-icon>
       </button>
-      <pre class="font-mono text-sm overflow-x-auto"><code>{{ code() }}</code></pre>
+      <app-pds-code-block [code]="code()"></app-pds-code-block>
     </app-card>
     }
   </ng-template>
