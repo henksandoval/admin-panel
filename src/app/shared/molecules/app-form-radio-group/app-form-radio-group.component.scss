@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+
+.form-radio-group-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.radio-group-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.radio-group-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &.layout-horizontal {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
+.radio-group-hint {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.radio-group-error {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--mat-sys-error);
+}

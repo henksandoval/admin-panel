@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, computed, DestroyRef, forwardRef, inject, input, isDevMode, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
@@ -15,22 +14,23 @@ interface ErrorState {
 @Component({
   selector: 'app-form-radio-group',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatRadioModule, AppRadioComponent],
+  imports: [ReactiveFormsModule, MatRadioModule, AppRadioComponent],
   template: `
     <div class="form-radio-group-wrapper">
-      @if(fullConfig().label) {
-        <label class="text-sm font-medium mb-2 block">
+      @if (fullConfig().label) {
+        <label class="radio-group-label">
           {{ fullConfig().label }}
-          @if(isRequired) {
+          @if (isRequired) {
             <span>*</span>
           }
         </label>
       }
 
       <mat-radio-group
+        class="radio-group-options"
+        [class.layout-horizontal]="fullConfig().layout === 'horizontal'"
         [formControl]="internalControl"
-        [attr.aria-label]="fullConfig().ariaLabel"
-        [class]="fullConfig().layout === 'horizontal' ? 'flex gap-4' : 'flex flex-col gap-2'">
+        [attr.aria-label]="fullConfig().ariaLabel">
         @for (option of options(); track option.value) {
           <app-radio
             [value]="option.value"
@@ -40,28 +40,18 @@ interface ErrorState {
         }
       </mat-radio-group>
 
-      @if(fullConfig().hint) {
-        <div class="text-xs mt-1">{{ fullConfig().hint }}</div>
+      @if (fullConfig().hint) {
+        <div class="radio-group-hint">{{ fullConfig().hint }}</div>
       }
 
       @if (fullConfig().showErrors && errorState.shouldShow) {
-        <div class="form-radio-error text-sm mt-1" role="alert">
+        <div class="radio-group-error" role="alert">
           {{ errorState.message }}
         </div>
       }
     </div>
   `,
-  styles: [`
-    .form-radio-group-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .form-radio-error {
-      color: var(--mat-sys-error);
-    }
-  `],
+  styleUrl: './app-form-radio-group.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -73,6 +63,7 @@ interface ErrorState {
 export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor, AfterViewInit {
   options = input.required<RadioOption<T>[]>();
   config = input<AppFormRadioGroupConfig>({});
+
   fullConfig = computed<AppFormRadioGroupConfigComplete & Pick<AppFormRadioGroupConfig, 'label' | 'hint' | 'ariaLabel' | 'errorMessages'>>(() => ({
     label: '',
     hint: '',
@@ -146,12 +137,21 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
   public get errorState(): ErrorState {
     const control = this.ngControl?.control;
     const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
-    if (!shouldShow) return { shouldShow: false, message: '' };
+
+    if (!shouldShow) {
+      return { shouldShow: false, message: '' };
+    }
+
     const errors = control.errors;
-    if (!errors) return { shouldShow: false, message: '' };
+
+    if (!errors) {
+      return { shouldShow: false, message: '' };
+    }
+
     const errorKey = Object.keys(errors)[0];
     const customMessages = this.fullConfig().errorMessages || {};
     const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
+
     return { shouldShow: true, message };
   }
 
@@ -169,6 +169,11 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    isDisabled ? this.internalControl.disable({ emitEvent: false }) : this.internalControl.enable({ emitEvent: false });
+
+    if (isDisabled) {
+      this.internalControl.disable({ emitEvent: false });
+    } else {
+      this.internalControl.enable({ emitEvent: false });
+    }
   }
 }
