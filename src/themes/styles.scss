@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use './theming' as theming;
 @use '@angular/material' as mat;
+@use 'highlight.js/scss/github-dark.scss';
 
 @tailwind base;
 
