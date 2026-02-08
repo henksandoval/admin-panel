@@ -20,8 +20,7 @@ import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds
     PdsBestPracticesComponent,
   ],
   templateUrl: './pds-documentation-tabs.component.html',
-  styleUrl: './pds-documentation-tabs.component.scss',
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './pds-documentation-tabs.component.scss'
 })
 export class PdsDocumentationTabsComponent {
   componentTag = input.required<string>();

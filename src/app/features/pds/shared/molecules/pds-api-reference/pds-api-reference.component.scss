@@ -1,48 +1,12 @@
+@use '../../organisms/pds-documentation-tabs/section-header';
+@include section-header.styles;
+
 .api-reference {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding-top: 1rem;
   border-top: 1px solid var(--mat-sys-outline-variant);
-}
-
-.api-section-header {
-  margin-bottom: 1.5rem;
-}
-
-.api-section-header-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.api-icon-container {
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  border: 2px solid;
-}
-
-.api-icon {
-  font-size: 1.5rem;
-}
-
-.api-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-}
-
-.api-subtitle {
-  font-size: 0.875rem;
-  margin: 0;
-}
-
-.inline-code {
-  padding: 0.125rem 0.375rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  font-family: monospace;
-  border: 1px solid;
 }
 
 .api-grid {
