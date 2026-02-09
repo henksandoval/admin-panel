@@ -134,7 +134,7 @@ export class AppTableCompleteComponent<T extends Record<string, any> = Record<st
     if (currentPage > lastPage) {
       this.pageIndex.set(lastPage);
     }
-  }, { allowSignalWrites: true });
+  });
 
   onFiltersChange(values: AppTableFilterValues): void {
     this.filterValues.set(values);
