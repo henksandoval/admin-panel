@@ -1,0 +1,29 @@
+<div class="pds-page">
+  <h1>Directorio de empleados</h1>
+
+  <app-table-complete
+    [tableConfig]="tableConfig"
+    [filtersConfig]="filtersConfig"
+    [paginationConfig]="paginationConfig"
+    [data]="employeesViewModel()"
+    (sortChange)="onSort($event)"
+    (filterChange)="onFilter($event)"
+    (pageChange)="onPage($event)"
+    (actionClick)="onAction($event)">
+    <ng-template #cellTemplate let-row let-column="column" let-value="value">
+      @switch (column.key) {
+        @case ('statusLabel') {
+          <span class="badge" [class]="'badge--' + row.status">
+                {{ value }}
+              </span>
+        }
+        @case ('salaryFormatted') {
+          <span class="salary">{{ value }}</span>
+        }
+        @default {
+          {{ value }}
+        }
+      }
+    </ng-template>
+  </app-table-complete>
+</div>

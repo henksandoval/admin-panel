@@ -5,7 +5,7 @@ import {
   input,
   output,
   signal,
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, contentChild, TemplateRef,
 } from '@angular/core';
 import { AppTableComponent } from '@shared/atoms/app-table/app-table.component';
 import {
@@ -51,6 +51,7 @@ import { AppTableFilterFn, AppTableSortFn } from './app-table-complete.model';
         [data]="displayData()"
         [sort]="currentSort()"
         [loading]="loading()"
+        [cellTemplateRef]="projectedCellTemplate()"
         (sortChange)="onSortChange($event)"
         (rowClick)="rowClick.emit($event)"
         (actionClick)="actionClick.emit($event)">
@@ -84,6 +85,7 @@ export class AppTableCompleteComponent<T extends Record<string, any> = Record<st
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
+  readonly projectedCellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
   readonly filterValues = signal<AppTableFilterValues>({});
   readonly pageIndex = signal(0);
@@ -162,12 +164,10 @@ export class AppTableCompleteComponent<T extends Record<string, any> = Record<st
         const itemValue: unknown = (item as Record<string, unknown>)[key];
         if (itemValue === null || itemValue === undefined) return false;
 
-        // ── Date comparison ───────────────────────
         if (filterValue instanceof Date && itemValue instanceof Date) {
           return itemValue.getTime() === filterValue.getTime();
         }
 
-        // ── String / default comparison ───────────
         return String(itemValue)
           .toLowerCase()
           .includes(String(filterValue).toLowerCase());

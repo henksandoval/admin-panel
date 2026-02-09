@@ -68,9 +68,9 @@ import {
               [style.width]="column.width"
               [style.min-width]="column.minWidth"
               [style.text-align]="column.align ?? 'left'">
-              @if (cellTemplate()) {
+              @if (resolvedCellTemplate()) {
                 <ng-container
-                  *ngTemplateOutlet="cellTemplate()!; context: { $implicit: row, column, value: getCellValue(column, row) }">
+                  *ngTemplateOutlet="resolvedCellTemplate()!; context: { $implicit: row, column, value: getCellValue(column, row) }">
                 </ng-container>
               } @else {
                 {{ formatCellValue(column, row) }}
@@ -130,6 +130,11 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
+  cellTemplateRef = input<TemplateRef<any> | undefined>(undefined);
+
+  readonly resolvedCellTemplate = computed(
+    () => this.cellTemplateRef() ?? this.cellTemplate()
+  );
   cellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   emptyStateContent = contentChild<TemplateRef<any>>('emptyState');
 

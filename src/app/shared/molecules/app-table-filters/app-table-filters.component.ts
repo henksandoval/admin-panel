@@ -27,14 +27,13 @@ import {
   AppTableFilterValues,
   FILTERS_DEFAULTS,
 } from './app-table-filters.model';
+import {AppFormDatepickerComponent} from '@shared/molecules/app-form-datepicker/app-form-datepicker.component';
 
 @Component({
   selector: 'app-table-filters',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-
-    // PDS
     AppFormInputComponent,
     AppFormSelectComponent,
     MatFormFieldModule,
@@ -42,6 +41,7 @@ import {
     MatDatepickerModule,
     MatIconModule,
     MatButtonModule,
+    AppFormDatepickerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./app-table-filters.component.scss'],
@@ -90,16 +90,14 @@ import {
               }
 
               @case ('date') {
-                <mat-form-field [appearance]="appearance()" class="w-full">
-                  <mat-label>{{ filter.label }}</mat-label>
-                  <input
-                    matInput
-                    [formControl]="getControl(filter.key)"
-                    [matDatepicker]="picker"
-                    [placeholder]="filter.placeholder ?? 'DD/MM/YYYY'" />
-                  <mat-datepicker-toggle [for]="picker" />
-                  <mat-datepicker #picker />
-                </mat-form-field>
+                <app-form-datepicker
+                  [formControl]="getControl(filter.key)"
+                  [config]="{
+                    label: filter.label,
+                    placeholder: filter.placeholder ?? 'DD/MM/YYYY',
+                    appearance: appearance()
+                  }">
+                </app-form-datepicker>
               }
             }
           </div>
@@ -190,17 +188,6 @@ export class AppTableFiltersComponent implements OnInit {
     return Object.values(this.formGroup().value).some(
       (value) => value !== null && value !== undefined && value !== '',
     );
-  }
-
-  hasValue(key: string): boolean {
-    const value = this.getControl(key)?.value;
-    return value !== null && value !== undefined && value !== '';
-  }
-
-  clearFilter(key: string, event?: Event): void {
-    event?.stopPropagation();
-    this.getControl(key).setValue(null);
-    this.filterChange.emit({ key, value: null });
   }
 
   clearAll(): void {
