@@ -24,7 +24,13 @@ import {
   AppTablePaginationState,
   AppTablePageEvent,
 } from '@shared/atoms/app-table/app-table-pagination.model';
+import { AppTableFiltersAdvancedComponent } from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.component';
+import {
+  AppTableFiltersAdvancedConfig,
+  AppTableFiltersAdvancedOutput,
+} from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.model';
 import { AppTableFilterFn, AppTableSortFn } from './app-table-client-side.model';
+import { convertAdvancedToSimple } from '@shared/utils/filter-config-converter';
 
 @Component({
   selector: 'app-table-client-side',
@@ -32,6 +38,7 @@ import { AppTableFilterFn, AppTableSortFn } from './app-table-client-side.model'
   imports: [
     AppTableComponent,
     AppTableFiltersComponent,
+    AppTableFiltersAdvancedComponent,
     AppTablePaginationComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +51,13 @@ import { AppTableFilterFn, AppTableSortFn } from './app-table-client-side.model'
           [values]="filterValues()"
           (valuesChange)="onFiltersChange($event)">
         </app-table-filters>
+      }
+
+      @if (filtersAdvancedConfig()) {
+        <app-table-filters-advanced
+          [config]="filtersAdvancedConfig()!"
+          (search)="onAdvancedSearch($event)">
+        </app-table-filters-advanced>
       }
 
       <app-table
@@ -71,6 +85,7 @@ import { AppTableFilterFn, AppTableSortFn } from './app-table-client-side.model'
 export class AppTableClientSideComponent<T extends Record<string, any> = Record<string, any>> {
   tableConfig = input.required<AppTableConfig<T>>();
   filtersConfig = input<AppTableFiltersConfig>();
+  filtersAdvancedConfig = input<AppTableFiltersAdvancedConfig>();
   paginationConfig = input<AppTablePaginationConfig>();
 
   data = input<T[]>([]);
@@ -81,6 +96,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
 
   sortChange = output<AppTableSort>();
   filterChange = output<AppTableFilterValues>();
+  advancedSearch = output<AppTableFiltersAdvancedOutput>();
   pageChange = output<AppTablePageEvent>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
@@ -140,6 +156,13 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     this.filterValues.set(values);
     this.pageIndex.set(0);
     this.filterChange.emit(values);
+  }
+
+  onAdvancedSearch(output: AppTableFiltersAdvancedOutput): void {
+    const simpleFilters = convertAdvancedToSimple(output.criteria);
+    this.filterValues.set(simpleFilters);
+    this.pageIndex.set(0);
+    this.advancedSearch.emit(output);
   }
 
   onSortChange(sort: AppTableSort): void {
