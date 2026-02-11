@@ -67,7 +67,6 @@ export const routes: Routes = [
         path: 'ui',
         children: [
           { path: 'forms', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
-          { path: 'tables', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
           { path: 'cards', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) }
         ]
       },
@@ -83,7 +82,6 @@ export const routes: Routes = [
           { path: 'radios', loadComponent: () => import('./features/pds/pages/radios/radios.component') },
           { path: 'indicators', loadComponent: () => import('./features/pds/pages/indicators/indicators.component') },
           { path: 'selects', loadComponent: () => import('./features/pds/pages/selects/selects.component') },
-          { path: 'tables', loadComponent: () => import('./features/pds/pages/tables/tables.component').then(m => m.TablesComponent) },          
           { path: 'toggle-groups', loadComponent: () => import('./features/pds/pages/toggle-groups/toggle-groups.component') },
           { path: 'icons-gallery', loadComponent: () => import('./features/pds/pages/icons-gallery/icons-gallery.component') },
           {
@@ -96,6 +94,13 @@ export const routes: Routes = [
               { path: 'main-sidebar', loadComponent: () => import('./features/pds/pages/layouts/main-sidebar.component') },
               { path: 'sidebar-main', loadComponent: () => import('./features/pds/pages/layouts/sidebar-main.component') },
               { path: 'dashboard', loadComponent: () => import('./features/pds/pages/layouts/dashboard.component') }
+            ]
+          },
+          {
+            path: 'table',
+            children: [
+              { path: 'client-side', loadComponent: () => import('./features/pds/pages/table-client-side/table-client-side.component').then(m => m.TableClientSideComponent) },
+              { path: 'server-side', loadComponent: () => import('./features/pds/pages/table-server-side/table-server-side.component').then(m => m.TableServerSideComponent) }
             ]
           }
         ]

@@ -1,0 +1,29 @@
+<div class="app-server-side-table">
+  @if (filtersConfig()) {
+    <app-table-filters
+      [config]="filtersConfig()!"
+      [values]="filterValues()"
+      (valuesChange)="onFiltersChange($event)">
+    </app-table-filters>
+  }
+
+  <app-table
+    [config]="tableConfig()"
+    [data]="data()"
+    [sort]="currentSort()"
+    [loading]="loading()"
+    [cellTemplateRef]="projectedCellTemplate()"
+    (sortChange)="onSortChange($event)"
+    (rowClick)="rowClick.emit($event)"
+    (actionClick)="actionClick.emit($event)">
+    <ng-content select="[cellTemplate]" />
+  </app-table>
+
+  @if (paginationConfig()) {
+    <app-table-pagination
+      [config]="paginationConfig()!"
+      [state]="paginationState()"
+      (pageChange)="onPageChange($event)">
+    </app-table-pagination>
+  }
+</div>

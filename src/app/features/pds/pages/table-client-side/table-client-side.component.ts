@@ -9,7 +9,7 @@ import {
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-table.model';
-import { TablesService, Employee } from './tables.service';
+import { TableClientSideService, Employee } from './table-client-side.service';
 import {AppTableClientSideComponent} from '@shared/molecules/app-table-client-side/app-table-client-side.component';
 
 interface EmployeeViewModel {
@@ -27,16 +27,16 @@ interface EmployeeViewModel {
 }
 
 @Component({
-  selector: 'app-tables-pds',
+  selector: 'app-table-client-side-client-side-pds',
   standalone: true,
   imports: [MatSnackBarModule, AppTableClientSideComponent],
   providers: [CurrencyPipe, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: './tables.component.scss',
-  templateUrl: './tables.component.html'
+  styleUrl: './table-client-side.component.scss',
+  templateUrl: './table-client-side.component.html'
 })
-export class TablesComponent implements OnInit {
-  private readonly service = inject(TablesService);
+export class TableClientSideComponent implements OnInit {
+  private readonly service = inject(TableClientSideService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly currencyPipe = inject(CurrencyPipe);
   private readonly datePipe = inject(DatePipe);

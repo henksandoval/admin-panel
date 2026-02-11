@@ -213,7 +213,7 @@ export class NavigationService {
           url: '/ui/forms'
         },
         {
-          id: 'tables',
+          id: 'table-client-side',
           title: 'Tablas',
           icon: 'table_chart',
           url: '/ui/tables'
@@ -406,16 +406,29 @@ export class NavigationService {
           ]
         },
         {
+          id: 'table',
+          title: 'Tablas',
+          icon: 'table_view',
+          children: [
+            {
+              id: 'client-side',
+              title: 'Client-Side',
+              icon: 'cloud_off',
+              url: '/pds/table/client-side'
+            },
+            {
+              id: 'server-side',
+              title: 'Server-Side',
+              icon: 'cloud_download',
+              url: '/pds/table/server-side'
+            }
+          ]
+        },
+        {
           id: 'form',
           title: 'Formularios',
           icon: 'assignment',
           url: '/pds/form'
-        },
-        {
-          id: 'tables',
-          title: 'Tablas',
-          icon: 'table_view',
-          url: '/pds/tables'
         },
         {
           id: 'buttons',

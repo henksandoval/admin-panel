@@ -17,7 +17,7 @@ export interface Employee {
 @Injectable({
   providedIn: 'root'
 })
-export class TablesService {
+export class TableClientSideService {
   private readonly firstNames = ['Ana', 'Carlos', 'María', 'Juan', 'Laura', 'Pedro', 'Sofía', 'Diego', 'Valentina', 'Andrés', 'Camila', 'Santiago', 'Isabella', 'Mateo', 'Lucía', 'Daniel', 'Emma', 'Sebastián'];
   private readonly lastNames = ['García', 'López', 'Rodríguez', 'Martínez', 'Sánchez', 'Fernández', 'Gómez', 'Díaz', 'Torres', 'Ruiz', 'Vargas', 'Moreno', 'Castro', 'Jiménez', 'Romero', 'Herrera', 'Mendoza', 'Ortiz'];
   private readonly departments = ['Ingeniería', 'Marketing', 'Ventas', 'RRHH', 'Finanzas'];
