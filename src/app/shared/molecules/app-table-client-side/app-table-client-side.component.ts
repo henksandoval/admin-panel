@@ -24,10 +24,10 @@ import {
   AppTablePaginationState,
   AppTablePageEvent,
 } from '@shared/atoms/app-table/app-table-pagination.model';
-import { AppTableFilterFn, AppTableSortFn } from './app-client-side-table.model';
+import { AppTableFilterFn, AppTableSortFn } from './app-table-client-side.model';
 
 @Component({
-  selector: 'app-client-side-table',
+  selector: 'app-table-client-side',
   standalone: true,
   imports: [
     AppTableComponent,
@@ -35,7 +35,7 @@ import { AppTableFilterFn, AppTableSortFn } from './app-client-side-table.model'
     AppTablePaginationComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: './app-client-side-table.component.scss',
+  styleUrl: './app-table-client-side.component.scss',
   template: `
     <div class="app-client-side-table">
       @if (filtersConfig()) {
@@ -68,7 +68,7 @@ import { AppTableFilterFn, AppTableSortFn } from './app-client-side-table.model'
     </div>
   `,
 })
-export class AppClientSideTableComponent<T extends Record<string, any> = Record<string, any>> {
+export class AppTableClientSideComponent<T extends Record<string, any> = Record<string, any>> {
   tableConfig = input.required<AppTableConfig<T>>();
   filtersConfig = input<AppTableFiltersConfig>();
   paginationConfig = input<AppTablePaginationConfig>();

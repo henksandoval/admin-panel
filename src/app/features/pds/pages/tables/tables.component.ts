@@ -10,7 +10,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { TablesService, Employee } from './tables.service';
-import { AppClientSideTableComponent } from '@shared/molecules/app-client-side-table/app-client-side-table.component';
+import {AppTableClientSideComponent} from '@shared/molecules/app-table-client-side/app-table-client-side.component';
 
 interface EmployeeViewModel {
   id: number;
@@ -29,7 +29,7 @@ interface EmployeeViewModel {
 @Component({
   selector: 'app-tables-pds',
   standalone: true,
-  imports: [MatSnackBarModule, AppClientSideTableComponent],
+  imports: [MatSnackBarModule, AppTableClientSideComponent],
   providers: [CurrencyPipe, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './tables.component.scss',
