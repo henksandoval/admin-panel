@@ -1,0 +1,138 @@
+:host {
+  display: block;
+}
+
+.bg-surface-variant {
+  background: var(--mat-sys-surface-variant);
+}
+
+.bg-surface {
+  background: var(--mat-sys-surface);
+}
+
+.border-outline-variant {
+  border-color: var(--mat-sys-outline-variant);
+}
+
+.app-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--mat-sys-primary-container);
+  border: 1px solid var(--mat-sys-primary);
+  border-radius: 999px;
+  padding: 6px 8px 6px 12px;
+  animation: pillEnter var(--transition-fast, 150ms) ease-out;
+
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &[data-type="date"] {
+    background: var(--mat-sys-tertiary-container);
+    border-color: var(--mat-sys-tertiary);
+
+    .app-filter-pill-field,
+    .app-filter-pill-value {
+      color: var(--mat-sys-on-tertiary-container);
+    }
+
+    .app-filter-pill-remove {
+      background: var(--mat-sys-tertiary-container);
+
+      mat-icon {
+        color: var(--mat-sys-tertiary);
+      }
+    }
+  }
+
+  &[data-type="number"] {
+    background: var(--mat-sys-secondary-container);
+    border-color: var(--mat-sys-secondary);
+
+    .app-filter-pill-field,
+    .app-filter-pill-value {
+      color: var(--mat-sys-on-secondary-container);
+    }
+
+    .app-filter-pill-remove {
+      background: var(--mat-sys-secondary-container);
+
+      mat-icon {
+        color: var(--mat-sys-secondary);
+      }
+    }
+  }
+
+  &[data-type="boolean"] {
+    background: var(--mat-sys-error-container);
+    border-color: var(--mat-sys-error);
+
+    .app-filter-pill-field,
+    .app-filter-pill-value {
+      color: var(--mat-sys-on-error-container);
+    }
+
+    .app-filter-pill-remove {
+      background: var(--mat-sys-error-container);
+
+      mat-icon {
+        color: var(--mat-sys-error);
+      }
+    }
+  }
+}
+
+@keyframes pillEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.app-filter-pill-field {
+  font-weight: 600;
+  color: var(--mat-sys-on-primary-container);
+}
+
+.app-filter-pill-operator {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.app-filter-pill-value {
+  color: var(--mat-sys-on-primary-container);
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-filter-pill-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: var(--mat-sys-primary-container);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast, 150ms) ease;
+
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
+
+  &:hover {
+    background: var(--mat-sys-error-container);
+
+    mat-icon {
+      color: var(--mat-sys-error);
+    }
+  }
+}

@@ -8,9 +8,13 @@ import {
 } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
 import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { TableClientSideService, Employee } from './table-client-side.service';
-import {AppTableClientSideComponent} from '@shared/molecules/app-table-client-side/app-table-client-side.component';
+import { AppTableClientSideComponent } from '@shared/molecules/app-table-client-side/app-table-client-side.component';
+import { AppTableFiltersAdvancedOutput } from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.model';
+import { convertToAdvancedConfig } from '@shared/utils/filter-config-converter';
 
 interface EmployeeViewModel {
   id: number;
@@ -29,7 +33,7 @@ interface EmployeeViewModel {
 @Component({
   selector: 'app-table-client-side-client-side-pds',
   standalone: true,
-  imports: [MatSnackBarModule, AppTableClientSideComponent],
+  imports: [MatSnackBarModule, AppTableClientSideComponent, MatButtonToggleModule, MatIconModule],
   providers: [CurrencyPipe, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './table-client-side.component.scss',
@@ -44,6 +48,12 @@ export class TableClientSideComponent implements OnInit {
   readonly tableConfig = this.service.getTableConfig();
   readonly filtersConfig = this.service.getFiltersConfig();
   readonly paginationConfig = this.service.getPaginationConfig();
+
+  readonly filterMode = signal<'simple' | 'advanced'>('simple');
+
+  readonly advancedFiltersConfig = computed(() =>
+    convertToAdvancedConfig(this.filtersConfig)
+  );
 
   readonly testTableConfig: AppTableConfig<EmployeeViewModel> = {
     columns: [
@@ -89,6 +99,10 @@ export class TableClientSideComponent implements OnInit {
 
   onFilter(event: any): void {
     console.log('[filter]', event);
+  }
+
+  onAdvancedSearch(output: AppTableFiltersAdvancedOutput): void {
+    console.log('[filter advanced]', output);
   }
 
   onPage(event: any): void {
