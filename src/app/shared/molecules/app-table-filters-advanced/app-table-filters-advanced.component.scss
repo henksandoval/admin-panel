@@ -37,12 +37,8 @@
       color: var(--mat-sys-on-tertiary-container);
     }
 
-    .app-filter-pill-remove {
-      background: var(--mat-sys-tertiary-container);
-
-      mat-icon {
-        color: var(--mat-sys-tertiary);
-      }
+    .app-filter-pill-remove mat-icon {
+      color: var(--mat-sys-tertiary);
     }
   }
 
@@ -55,12 +51,8 @@
       color: var(--mat-sys-on-secondary-container);
     }
 
-    .app-filter-pill-remove {
-      background: var(--mat-sys-secondary-container);
-
-      mat-icon {
-        color: var(--mat-sys-secondary);
-      }
+    .app-filter-pill-remove mat-icon {
+      color: var(--mat-sys-secondary);
     }
   }
 
@@ -73,12 +65,8 @@
       color: var(--mat-sys-on-error-container);
     }
 
-    .app-filter-pill-remove {
-      background: var(--mat-sys-error-container);
-
-      mat-icon {
-        color: var(--mat-sys-error);
-      }
+    .app-filter-pill-remove mat-icon {
+      color: var(--mat-sys-error);
     }
   }
 }

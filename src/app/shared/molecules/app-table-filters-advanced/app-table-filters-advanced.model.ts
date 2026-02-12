@@ -1,7 +1,9 @@
+export type AppTableFilterFieldType = 'text' | 'number' | 'date' | 'select' | 'boolean';
+
 export interface AppTableFilterField {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'date' | 'select' | 'boolean';
+  type: AppTableFilterFieldType;
   options?: AppTableFilterOption[];
   width?: string;
 }
@@ -15,7 +17,7 @@ export interface AppTableFilterOperator {
   key: string;
   label: string;
   symbol: string;
-  applicableTo: Array<'text' | 'number' | 'date' | 'select' | 'boolean'>;
+  applicableTo: AppTableFilterFieldType[];
   requiresValue: boolean;
 }
 
