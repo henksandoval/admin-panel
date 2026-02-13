@@ -35,20 +35,17 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
 export default class ToggleGroupsComponent {
   private readonly router = inject(Router);
 
-  // State signals
   selectedState = signal<'single' | 'multiple' | 'icons-gallery' | 'vertical'>('single');
   selectedColor = signal<ToggleGroupColor>(TOGGLE_GROUP_DEFAULTS.color);
   selectedSize = signal<ToggleGroupSize>(TOGGLE_GROUP_DEFAULTS.size);
   isVertical = signal<boolean>(false);
   isDisabled = signal<boolean>(false);
 
-  // Value signals for preview
   singleValue = signal<string | null>('left');
   multipleValue = signal<string[]>(['bold', 'italic']);
   iconsValue = signal<string | null>('center');
   verticalValue = signal<string | null>('list');
 
-  // Data
   readonly ALIGNMENT_OPTIONS = ALIGNMENT_OPTIONS;
   readonly ALIGNMENT_ICON_OPTIONS = ALIGNMENT_ICON_OPTIONS;
   readonly FORMATTING_OPTIONS = FORMATTING_OPTIONS;
@@ -57,7 +54,6 @@ export default class ToggleGroupsComponent {
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly TOGGLE_GROUP_STATE_GUIDES = TOGGLE_GROUP_STATE_GUIDES;
 
-  // Toggle options
   readonly stateOptions: ToggleOption[] = [
     { value: 'single', label: 'Single' },
     { value: 'multiple', label: 'Multiple' },
@@ -76,8 +72,6 @@ export default class ToggleGroupsComponent {
     { value: 'medium', label: 'M' },
     { value: 'large', label: 'L' }
   ];
-
-  // Computed properties
 
   currentOptions = computed<ToggleOption[]>(() => {
     const state = this.selectedState();

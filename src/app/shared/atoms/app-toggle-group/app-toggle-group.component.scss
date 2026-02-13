@@ -2,7 +2,6 @@
   display: block;
 }
 
-// Icon styling inside toggle buttons
 ::ng-deep .toggle-icon {
   font-size: 18px;
   width: 18px;
@@ -10,7 +9,6 @@
   line-height: 18px;
 }
 
-// Size variations
 ::ng-deep .toggle-size-small {
   mat-button-toggle {
     font-size: 0.813rem;
@@ -41,14 +39,12 @@
   }
 }
 
-// Appearance variations
 ::ng-deep .toggle-appearance-legacy {
   mat-button-toggle {
     border-radius: 0;
   }
 }
 
-// Ensure proper spacing for toggle groups
 ::ng-deep mat-button-toggle-group {
   box-shadow: none;
 

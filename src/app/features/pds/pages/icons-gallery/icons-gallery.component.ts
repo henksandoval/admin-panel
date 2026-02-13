@@ -42,28 +42,23 @@ export default class IconsGalleryComponent {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
-  // Signals for reactive state
   searchQuery = signal<string>('');
   selectedSize = signal<'small' | 'medium' | 'large'>('medium');
   selectedStyle = signal<'filled' | 'outlined'>('filled');
 
-  // All available icons
   readonly allIcons = MATERIAL_ICONS_LIST;
 
-  // Size options
   sizeOptions = [
     { value: 'small', label: 'Small (18px)' },
     { value: 'medium', label: 'Medium (24px)' },
     { value: 'large', label: 'Large (36px)' }
   ];
 
-  // Style options
   styleOptions = [
     { value: 'filled', label: 'Filled' },
     { value: 'outlined', label: 'Outlined' }
   ];
 
-  // Color options for preview
   colorOptions = [
     { value: 'default', label: 'Default', class: 'text-gray-700' },
     { value: 'primary', label: 'Primary', class: 'text-primary-600' },
@@ -74,7 +69,6 @@ export default class IconsGalleryComponent {
 
   selectedColor = signal<string>('default');
 
-  // Filtered icons based on search
   filteredIcons = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
     if (!query) return this.allIcons;
@@ -84,10 +78,8 @@ export default class IconsGalleryComponent {
     );
   });
 
-  // Total count
   totalCount = computed(() => this.filteredIcons().length);
 
-  // Get size class
   getSizeClass(): string {
     const size = this.selectedSize();
     if (size === 'small') return 'icon-small';
@@ -95,20 +87,17 @@ export default class IconsGalleryComponent {
     return 'icon-medium';
   }
 
-  // Get icon display name with style suffix
   getIconName(icon: string): string {
     const style = this.selectedStyle();
     return style === 'outlined' ? `${icon}_outlined` : icon;
   }
 
-  // Get color class
   getColorClass(): string {
     const color = this.selectedColor();
     const option = this.colorOptions.find(opt => opt.value === color);
     return option?.class || 'text-gray-700';
   }
 
-  // Copy icon name to clipboard
   copyIconName(icon: string): void {
     const iconName = this.getIconName(icon);
     navigator.clipboard.writeText(iconName).then(() => {
@@ -120,7 +109,6 @@ export default class IconsGalleryComponent {
     });
   }
 
-  // Clear search
   clearSearch(): void {
     this.searchQuery.set('');
   }

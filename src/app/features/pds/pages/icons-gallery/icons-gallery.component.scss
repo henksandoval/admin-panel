@@ -1,4 +1,3 @@
-// Icons Grid
 .icon-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -10,7 +9,6 @@
   }
 }
 
-// Icon Item
 .icon-item {
   display: flex;
   flex-direction: column;
@@ -51,7 +49,6 @@
   }
 }
 
-// Icon Wrapper
 .icon-wrapper {
   display: flex;
   align-items: center;
@@ -59,7 +56,6 @@
   transition: transform 0.2s ease-in-out;
 }
 
-// Icon Sizes
 .icon-small {
   .icon-wrapper .icon {
     font-size: 18px;
@@ -84,7 +80,6 @@
   }
 }
 
-// Icon Name
 .icon-name {
   font-size: 0.75rem;
   color: #6b7280;
@@ -98,7 +93,6 @@
   }
 }
 
-// Empty State
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -130,7 +124,6 @@
   max-width: 400px;
 }
 
-// Usage Sections
 .usage-section {
   margin-bottom: 1rem;
 }
@@ -150,7 +143,6 @@
   }
 }
 
-// Material Form Field Overrides
 ::ng-deep {
   .mat-mdc-form-field {
     width: 100%;

@@ -172,10 +172,6 @@ $large-size-scale: 1.5;
   }
 }
 
-// ============================================
-// CHECKBOX OVERRIDES
-// ============================================
-
 @mixin _checkbox-overrides() {
   @include _checkbox-color-overrides();
   @include _checkbox-size-overrides();
