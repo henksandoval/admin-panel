@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
-import { AppFormRadioGroupComponent } from '@shared/molecules/app-form-radio-group/app-form-radio-group.component';
-import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form-radio-group/app-form-radio-group-connector.directive';
 
 import {
   RADIO_STATE_GUIDES,
@@ -19,6 +17,8 @@ import {
   BEST_PRACTICES
 } from './radios.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
+import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
+import { AppFormRadioGroupComponent } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.component';
 
 @Component({
   selector: 'app-radios',

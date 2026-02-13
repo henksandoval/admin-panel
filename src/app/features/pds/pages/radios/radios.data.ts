@@ -1,4 +1,4 @@
-import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-radio-group.model';
+import { RadioOption } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.model';
 import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
 
 export const RADIO_STATE_GUIDES: PdsVariantGuideModel[] = [

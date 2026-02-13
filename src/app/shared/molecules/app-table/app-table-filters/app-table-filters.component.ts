@@ -13,21 +13,20 @@ import {
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AppFormInputComponent } from '@shared/molecules/app-form-input/app-form-input.component';
-import { AppFormSelectComponent } from '@shared/molecules/app-form-select/app-form-select.component';
-import { SelectOption } from '@shared/molecules/app-form-select/app-form-select.model';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-
 import {
   AppTableFiltersConfig,
   AppTableFilterValues,
   FILTERS_DEFAULTS,
 } from './app-table-filters.model';
-import {AppFormDatepickerComponent} from '@shared/molecules/app-form-datepicker/app-form-datepicker.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
+import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
+import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
+import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 
 @Component({
   selector: 'app-table-filters',

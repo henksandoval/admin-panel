@@ -8,10 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import {
-  AppFormInputConfig,
-  AppFormInputOptions
-} from '@shared/molecules/app-form-input/app-form-input.model';
+import { AppFormInputOptions, AppFormInputConfig } from './app-form-input.model';
 
 interface ErrorState {
   shouldShow: boolean;

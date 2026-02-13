@@ -10,13 +10,13 @@ import { togglesToRecord } from './app-table-filters-advanced.utils';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
-import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form-datepicker/app-form-datepicker-connector.directive';
-import { AppFormDatepickerComponent } from '@shared/molecules/app-form-datepicker/app-form-datepicker.component';
-import { AppFormInputConnectorDirective } from '@shared/molecules/app-form-input/app-form-input-connector.directive';
-import { AppFormInputComponent } from '@shared/molecules/app-form-input/app-form-input.component';
-import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form-select/app-form-select-connector.directive';
-import { AppFormSelectComponent } from '@shared/molecules/app-form-select/app-form-select.component';
-import { SelectOption } from '@shared/molecules/app-form-select/app-form-select.model';
+import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
+import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
+import { AppFormInputConnectorDirective } from '@shared/molecules/app-form/app-form-input/app-form-input-connector.directive';
+import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
+import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-form-select/app-form-select-connector.directive';
+import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
+import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
