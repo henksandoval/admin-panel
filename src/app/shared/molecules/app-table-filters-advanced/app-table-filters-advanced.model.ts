@@ -70,4 +70,6 @@ export const FILTER_DEFAULTS = {
   autoSearch: false,
   showClearButton: true,
   showSearchButton: true,
+  showInactive: true,
+  showDeleted: true
 } as const;

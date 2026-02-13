@@ -30,7 +30,7 @@ import {
   AppTableFiltersAdvancedOutput,
 } from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.model';
 import { AppTableFilterFn, AppTableSortFn } from './app-table-client-side.model';
-import { convertAdvancedToSimple } from '@shared/utils/filter-config-converter';
+import { convertAdvancedToSimple } from 'src/app/features/pds/shared/utils/filter-config-converter';
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 
 @Component({
@@ -56,7 +56,7 @@ import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
       }
 
       @if (filtersAdvancedConfig()) {
-        <app-card title="Filtros avanzados" icon="filter_alt" [isExpandable]="true" [expanded]="false" class="mt-2" >
+        <app-card title="Filtros avanzados" icon="filter_alt" [isExpandable]="true" [expanded]="false" class="mb-4" >
           <app-table-filters-advanced
             [config]="filtersAdvancedConfig()!"
             (search)="onAdvancedSearch($event)">

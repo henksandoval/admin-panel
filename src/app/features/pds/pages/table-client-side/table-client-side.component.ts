@@ -14,7 +14,7 @@ import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-tabl
 import { TableClientSideService, Employee } from './table-client-side.service';
 import { AppTableClientSideComponent } from '@shared/molecules/app-table-client-side/app-table-client-side.component';
 import { AppTableFiltersAdvancedOutput } from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.model';
-import { convertToAdvancedConfig } from '@shared/utils/filter-config-converter';
+import { convertToAdvancedConfig } from 'src/app/features/pds/shared/utils/filter-config-converter';
 
 interface EmployeeViewModel {
   id: number;

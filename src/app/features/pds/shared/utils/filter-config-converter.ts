@@ -17,6 +17,10 @@ export function convertToAdvancedConfig(
       type: f.type as any,
       options: f.options,
     })),
+    toggles: [
+      { key: 'showInactive', label: 'Mostrar inactivos', value: false },
+      { key: 'showDeleted', label: 'Mostrar eliminados', value: false },
+    ],
     autoSearch: false,
     maxCriteria: 10,
     showClearButton: true,
