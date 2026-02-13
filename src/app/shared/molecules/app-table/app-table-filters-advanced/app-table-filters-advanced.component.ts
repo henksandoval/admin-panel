@@ -3,20 +3,20 @@ import { Component, ChangeDetectionStrategy, computed, effect, input,
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { AppButtonComponent } from '../../atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '../../atoms/app-checkbox/app-checkbox.component';
-import { AppFormSelectComponent } from '../../molecules/app-form-select/app-form-select.component';
-import { AppFormSelectConnectorDirective } from '../../molecules/app-form-select/app-form-select-connector.directive';
-import { AppFormInputComponent } from '../../molecules/app-form-input/app-form-input.component';
-import { AppFormInputConnectorDirective } from '../../molecules/app-form-input/app-form-input-connector.directive';
-import { AppFormDatepickerComponent } from '../../molecules/app-form-datepicker/app-form-datepicker.component';
-import { AppFormDatepickerConnectorDirective } from '../../molecules/app-form-datepicker/app-form-datepicker-connector.directive';
-import { SelectOption } from '../app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from './criterion-display.pipe';
 import { AppTableFiltersAdvancedConfig, AppTableFiltersAdvancedOutput, AppTableFilterCriterion, AppTableFilterToggle,
   DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from './app-table-filters-advanced.model';
 import { togglesToRecord } from './app-table-filters-advanced.utils';
 import { MatDivider } from "@angular/material/divider";
+import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
+import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form-datepicker/app-form-datepicker-connector.directive';
+import { AppFormDatepickerComponent } from '@shared/molecules/app-form-datepicker/app-form-datepicker.component';
+import { AppFormInputConnectorDirective } from '@shared/molecules/app-form-input/app-form-input-connector.directive';
+import { AppFormInputComponent } from '@shared/molecules/app-form-input/app-form-input.component';
+import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form-select/app-form-select-connector.directive';
+import { AppFormSelectComponent } from '@shared/molecules/app-form-select/app-form-select.component';
+import { SelectOption } from '@shared/molecules/app-form-select/app-form-select.model';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },

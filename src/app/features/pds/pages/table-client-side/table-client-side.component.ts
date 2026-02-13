@@ -12,9 +12,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { TableClientSideService, Employee } from './table-client-side.service';
-import { AppTableClientSideComponent } from '@shared/molecules/app-table-client-side/app-table-client-side.component';
-import { AppTableFiltersAdvancedOutput } from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.model';
+import { AppTableClientSideComponent } from '@shared/molecules/app-table/app-table-client-side/app-table-client-side.component';
 import { convertToAdvancedConfig } from 'src/app/features/pds/shared/utils/filter-config-converter';
+import { AppTableFiltersAdvancedOutput } from '@shared/molecules/app-table/app-table-filters-advanced/app-table-filters-advanced.model';
 
 interface EmployeeViewModel {
   id: number;

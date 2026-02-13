@@ -1,13 +1,13 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
 import {finalize} from 'rxjs/operators';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
-import {AppTableServerSideComponent} from '@shared/molecules/app-table-server-side/app-table-server-side.component';
 import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
-import {AppTableFiltersConfig} from '@shared/molecules/app-table-filters/app-table-filters.model';
 import {AppTablePaginationConfig} from '@shared/atoms/app-table/app-table-pagination.model';
-import {AppTableServerParams,} from '@shared/molecules/app-table-server-side/app-table-server-side.model';
 import {TableServerSideService} from './table-server-side.service';
 import {Employee} from '../table-client-side/table-client-side.service';
+import { AppTableFiltersConfig } from '@shared/molecules/app-table/app-table-filters/app-table-filters.model';
+import { AppTableServerSideComponent } from '@shared/molecules/app-table/app-table-server-side/app-table-server-side.component';
+import { AppTableServerParams } from '@shared/molecules/app-table/app-table-server-side/app-table-server-side.model';
 
 @Component({
   selector: 'app-table-server-side-pds',

@@ -16,11 +16,6 @@ import {
   AppTableSort,
   AppTableAction,
 } from '@shared/atoms/app-table/app-table.model';
-import { AppTableFiltersComponent } from '@shared/molecules/app-table-filters/app-table-filters.component';
-import {
-  AppTableFiltersConfig,
-  AppTableFilterValues,
-} from '@shared/molecules/app-table-filters/app-table-filters.model';
 import { AppTablePaginationComponent } from '@shared/atoms/app-table/app-table-pagination.component';
 import {
   AppTablePaginationConfig,
@@ -28,34 +23,9 @@ import {
   AppTablePageEvent,
 } from '@shared/atoms/app-table/app-table-pagination.model';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
+import { AppTableFiltersComponent } from '../app-table-filters/app-table-filters.component';
+import { AppTableFiltersConfig, AppTableFilterValues } from '../app-table-filters/app-table-filters.model';
 
-/**
- * Componente de tabla con filtrado, ordenamiento y paginación server-side.
- *
- * Este componente orquesta la interacción entre filtros, tabla y paginación,
- * emitiendo eventos al consumer para que realice las peticiones al servidor.
- *
- * @example
- * ```html
- * <app-table-server-side
- *   [tableConfig]="config"
- *   [data]="employees()"
- *   [totalItems]="totalEmployees()"
- *   [loading]="isLoading()"
- *   [filtersConfig]="filtersConfig"
- *   [paginationConfig]="paginationConfig"
- *   (filterChange)="onFiltersChange($event)"
- *   (sortChange)="onSortChange($event)"
- *   (pageChange)="onPageChange($event)">
- *
- *   <ng-template #cellTemplate let-column="column" let-row="row">
- *     @if (column.key === 'status') {
- *       <app-badge [text]="row.statusLabel" [color]="row.statusColor" />
- *     }
- *   </ng-template>
- * </app-table-server-side>
- * ```
- */
 @Component({
   selector: 'app-table-server-side',
   standalone: true,

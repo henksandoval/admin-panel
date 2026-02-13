@@ -13,25 +13,19 @@ import {
   AppTableSort,
   AppTableAction,
 } from '@shared/atoms/app-table/app-table.model';
-import { AppTableFiltersComponent } from '@shared/molecules/app-table-filters/app-table-filters.component';
-import {
-  AppTableFiltersConfig,
-  AppTableFilterValues,
-} from '@shared/molecules/app-table-filters/app-table-filters.model';
 import { AppTablePaginationComponent } from '@shared/atoms/app-table/app-table-pagination.component';
 import {
   AppTablePaginationConfig,
   AppTablePaginationState,
   AppTablePageEvent,
 } from '@shared/atoms/app-table/app-table-pagination.model';
-import { AppTableFiltersAdvancedComponent } from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.component';
-import {
-  AppTableFiltersAdvancedConfig,
-  AppTableFiltersAdvancedOutput,
-} from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.model';
 import { AppTableFilterFn, AppTableSortFn } from './app-table-client-side.model';
 import { convertAdvancedToSimple } from 'src/app/features/pds/shared/utils/filter-config-converter';
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
+import { AppTableFiltersAdvancedComponent } from '../app-table-filters-advanced/app-table-filters-advanced.component';
+import { AppTableFiltersAdvancedConfig, AppTableFiltersAdvancedOutput } from '../app-table-filters-advanced/app-table-filters-advanced.model';
+import { AppTableFiltersComponent } from '../app-table-filters/app-table-filters.component';
+import { AppTableFiltersConfig, AppTableFilterValues } from '../app-table-filters/app-table-filters.model';
 
 @Component({
   selector: 'app-table-client-side',

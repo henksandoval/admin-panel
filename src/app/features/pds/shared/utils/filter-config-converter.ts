@@ -1,11 +1,5 @@
-import {
-  AppTableFiltersConfig,
-  AppTableFilterValues
-} from '@shared/molecules/app-table-filters/app-table-filters.model';
-import {
-  AppTableFiltersAdvancedConfig,
-  AppTableFilterCriterion,
-} from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.model';
+import { AppTableFiltersAdvancedConfig, AppTableFilterCriterion } from "@shared/molecules/app-table/app-table-filters-advanced/app-table-filters-advanced.model";
+import { AppTableFiltersConfig, AppTableFilterValues } from "@shared/molecules/app-table/app-table-filters/app-table-filters.model";
 
 export function convertToAdvancedConfig(
   simpleConfig: AppTableFiltersConfig
