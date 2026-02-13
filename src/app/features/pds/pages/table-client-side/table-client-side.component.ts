@@ -13,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { TableClientSideService, Employee } from './table-client-side.service';
 import { AppTableClientSideComponent } from '@shared/molecules/app-table/app-table-client-side/app-table-client-side.component';
-import { convertToAdvancedConfig } from 'src/app/features/pds/shared/utils/filter-config-converter';
 import { AppTableFiltersAdvancedConfig, AppTableFiltersAdvancedOutput } from '@shared/molecules/app-table/app-table-filters-advanced/app-table-filters-advanced.model';
 
 interface EmployeeViewModel {
@@ -48,36 +47,8 @@ export class TableClientSideComponent implements OnInit {
   readonly tableConfig = this.service.getTableConfig();
   readonly filtersConfig = this.service.getFiltersConfig();
   readonly paginationConfig = this.service.getPaginationConfig();
-
   readonly filterMode = signal<'simple' | 'advanced'>('simple');
-
-  readonly advancedFiltersConfig: AppTableFiltersAdvancedConfig = {
-    fields: [
-      { key: 'name', label: 'Nombre', type: 'text' },
-      { key: 'email', label: 'Email', type: 'text' },
-      {
-        key: 'department', label: 'Departamento', type: 'select', options: [
-          { value: 'Ingeniería', label: 'Ingeniería' },
-          { value: 'Ventas', label: 'Ventas' },
-        ]
-      },
-      { key: 'salary', label: 'Salario', type: 'number' },
-      {
-        key: 'status', label: 'Estado', type: 'select', options: [
-          { value: 'active', label: 'Activo' },
-          { value: 'inactive', label: 'Inactivo' },
-          { value: 'vacation', label: 'Vacaciones' },
-        ]
-      },
-      { key: 'hireDate', label: 'Fecha contratación', type: 'date' },
-    ],
-    toggles: [
-      { key: 'showInactive', label: 'Mostrar inactivos', value: false },
-    ],
-    maxCriteria: 10,
-    showClearButton: true,
-    showSearchButton: true,
-  };
+  readonly advancedFiltersConfig = this.service.getAdvancedFiltersConfig();
 
   readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>) => {
     let result = data;
@@ -96,8 +67,6 @@ export class TableClientSideComponent implements OnInit {
     ],
     trackByKey: 'id' as keyof EmployeeViewModel,
   };
-
-  readonly testData = computed(() => this.employeesViewModel().slice(0, 5));
 
   readonly isLoading = signal(true);
   readonly employees = signal<Employee[]>([]);

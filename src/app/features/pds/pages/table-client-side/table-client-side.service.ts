@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { AppTablePaginationConfig } from '@shared/atoms/app-table/app-table-pagination.model';
 import { AppTableFiltersConfig } from '@shared/molecules/app-table/app-table-filters/app-table-filters.model';
+import { AppTableFiltersAdvancedConfig } from '@shared/molecules/app-table/app-table-filters-advanced/app-table-filters-advanced.model';
 
 export interface Employee {
   id: number;
@@ -94,6 +95,31 @@ export class TableClientSideService {
       appearance: 'outline',
     };
   }
+
+  getAdvancedFiltersConfig(): AppTableFiltersAdvancedConfig {
+    return {
+      fields: [
+        { key: 'name', label: 'Nombre', type: 'text' },
+        { key: 'email', label: 'Email', type: 'text' },
+        { key: 'department', label: 'Departamento', type: 'select', options: this.departments.map(d => ({ value: d, label: d })) },
+        { key: 'salary', label: 'Salario', type: 'number' },
+        {
+          key: 'status', label: 'Estado', type: 'select', options: [
+            { value: 'active', label: 'Activo' },
+            { value: 'inactive', label: 'Inactivo' },
+            { value: 'vacation', label: 'Vacaciones' },
+          ]
+        },
+        { key: 'hireDate', label: 'Fecha contratación', type: 'date' },
+      ],
+      toggles: [
+        { key: 'showInactive', label: 'Mostrar inactivos', value: false },
+      ],
+      maxCriteria: 10,
+      showClearButton: true,
+      showSearchButton: true,
+    };
+  } 
 
   getPaginationConfig(): AppTablePaginationConfig {
     return {
