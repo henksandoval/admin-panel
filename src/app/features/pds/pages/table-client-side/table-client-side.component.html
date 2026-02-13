@@ -48,7 +48,7 @@
   } @else {
     <app-table-client-side
       [tableConfig]="tableConfig"
-      [filtersAdvancedConfig]="advancedFiltersConfig()"
+      [filtersAdvancedConfig]="advancedFiltersConfig"
       [paginationConfig]="paginationConfig"
       [data]="employeesViewModel()"
       (sortChange)="onSort($event)"

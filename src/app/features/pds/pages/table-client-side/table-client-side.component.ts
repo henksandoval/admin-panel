@@ -14,7 +14,7 @@ import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-tabl
 import { TableClientSideService, Employee } from './table-client-side.service';
 import { AppTableClientSideComponent } from '@shared/molecules/app-table/app-table-client-side/app-table-client-side.component';
 import { convertToAdvancedConfig } from 'src/app/features/pds/shared/utils/filter-config-converter';
-import { AppTableFiltersAdvancedOutput } from '@shared/molecules/app-table/app-table-filters-advanced/app-table-filters-advanced.model';
+import { AppTableFiltersAdvancedConfig, AppTableFiltersAdvancedOutput } from '@shared/molecules/app-table/app-table-filters-advanced/app-table-filters-advanced.model';
 
 interface EmployeeViewModel {
   id: number;
@@ -51,9 +51,41 @@ export class TableClientSideComponent implements OnInit {
 
   readonly filterMode = signal<'simple' | 'advanced'>('simple');
 
-  readonly advancedFiltersConfig = computed(() =>
-    convertToAdvancedConfig(this.filtersConfig)
-  );
+  readonly advancedFiltersConfig: AppTableFiltersAdvancedConfig = {
+    fields: [
+      { key: 'name', label: 'Nombre', type: 'text' },
+      { key: 'email', label: 'Email', type: 'text' },
+      {
+        key: 'department', label: 'Departamento', type: 'select', options: [
+          { value: 'Ingeniería', label: 'Ingeniería' },
+          { value: 'Ventas', label: 'Ventas' },
+        ]
+      },
+      { key: 'salary', label: 'Salario', type: 'number' },
+      {
+        key: 'status', label: 'Estado', type: 'select', options: [
+          { value: 'active', label: 'Activo' },
+          { value: 'inactive', label: 'Inactivo' },
+          { value: 'vacation', label: 'Vacaciones' },
+        ]
+      },
+      { key: 'hireDate', label: 'Fecha contratación', type: 'date' },
+    ],
+    toggles: [
+      { key: 'showInactive', label: 'Mostrar inactivos', value: false },
+    ],
+    maxCriteria: 10,
+    showClearButton: true,
+    showSearchButton: true,
+  };
+
+  readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>) => {
+    let result = data;
+    if (!toggles['showInactive']) {
+      result = result.filter(e => e.status !== 'inactive');
+    }
+    return result;
+  };
 
   readonly testTableConfig: AppTableConfig<EmployeeViewModel> = {
     columns: [
