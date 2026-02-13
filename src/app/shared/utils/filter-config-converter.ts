@@ -17,7 +17,6 @@ export function convertToAdvancedConfig(
       type: f.type as any,
       options: f.options,
     })),
-    debounceMs: simpleConfig.debounceMs,
     autoSearch: false,
     maxCriteria: 10,
     showClearButton: true,

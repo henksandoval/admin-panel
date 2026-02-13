@@ -1,100 +1,95 @@
-<div class="border rounded-lg overflow-hidden">
-  <div [class]="pillsAreaClasses()">
-    @if (criteria().length === 0) {
-      <span class="flex items-center gap-2 mat-body-medium">
-        <mat-icon class="!w-[18px] !h-[18px] !text-[18px]">filter_list</mat-icon>
-        No hay filtros aplicados
-      </span>
-    } @else {
-      @for (criterion of criteria(); track criterion.id) {
-        <div class="app-filter-pill" [attr.data-type]="criterion.field.type">
-          <span class="app-filter-pill-field mat-label-medium">{{ criterion.field.label }}</span>
-          <span class="app-filter-pill-operator mat-body-small">{{ criterion.operator.symbol }}</span>
-          <span class="app-filter-pill-value mat-label-medium">{{ criterion.displayValue }}</span>
-          <button
-            type="button"
-            class="app-filter-pill-remove"
-            (click)="removeCriterion(criterion.id)"
-            [attr.aria-label]="'Eliminar filtro ' + criterion.field.label">
-            <mat-icon class="!w-3.5 !h-3.5 !text-[14px]">close</mat-icon>
-          </button>
-        </div>
-      }
+<div class="flex flex-wrap gap-2 p-3.5 min-h-[52px] items-center border-b border-outline-variant"
+     [class.bg-surface-variant]="!hasCriteria()"
+     [class.bg-surface]="hasCriteria()"
+     role="list"
+     aria-label="Filtros activos"
+     aria-live="polite">
+
+  @if (!hasCriteria()) {
+    <mat-icon>filter_list</mat-icon>
+    <span>No hay filtros aplicados</span>
+  } @else {
+    @for (criterion of criteria(); track criterion.id) {
+      <div class="app-filter-pill"
+           [attr.data-type]="criterion.field.type"
+           role="listitem">
+        <span class="app-filter-pill-field">{{ criterion.field.label }}</span>
+        <span class="app-filter-pill-operator">{{ criterion.operator.symbol }}</span>
+        <span class="app-filter-pill-value"
+              [title]="criterion | criterionDisplay">
+          {{ criterion | criterionDisplay }}
+        </span>
+        <button type="button"
+                class="app-filter-pill-remove"
+                [attr.aria-label]="'Eliminar filtro: ' + criterion.field.label + ' ' + criterion.operator.symbol + ' ' + (criterion | criterionDisplay)"
+                (click)="removeCriterion(criterion.id)">
+          <mat-icon aria-hidden="true">close</mat-icon>
+        </button>
+      </div>
     }
-  </div>
-
-  <div class="p-4 bg-surface">
-    <form [formGroup]="builderForm" class="flex items-center gap-3 flex-wrap">
-      <span class="mat-body-medium whitespace-nowrap">Agregar filtro:</span>
-
-      <div class="flex-none min-w-[140px]">
-        <app-form-select formControlName="field" [options]="fieldOptions()" [config]="{ label: 'Campo' }" appFormSelectConnector />
-      </div>
-
-      <div class="flex-none min-w-[140px]">
-        <app-form-select formControlName="operator" [options]="operatorOptions()" [config]="{ label: 'Operador' }" appFormSelectConnector />
-      </div>
-
-      <div class="flex-1 min-w-[120px]">
-        @if (selectedField() && !isNoValueOperator()) {
-          @switch (selectedField()!.type) {
-            @case ('select') {
-              <app-form-select formControlName="value" [options]="valueOptions()" [config]="{ label: 'Valor' }" appFormSelectConnector />
-            }
-            @case ('date') {
-              <app-form-datepicker formControlName="value" [config]="{ label: 'Fecha' }" appFormDatepickerConnector />
-            }
-            @case ('number') {
-              <app-form-input formControlName="value" [config]="{ label: 'Valor', type: 'number', placeholder: 'Ingrese un número' }" appFormInputConnector />
-            }
-            @case ('boolean') {
-              <app-form-select formControlName="value" [options]="booleanOptions" [config]="{ label: 'Valor' }" appFormSelectConnector />
-            }
-            @default {
-              <app-form-input formControlName="value" [config]="{ label: 'Valor', placeholder: 'Ingrese un valor' }" appFormInputConnector />
-            }
-          }
-        }
-      </div>
-
-      <app-button
-        variant="filled"
-        color="primary"
-        type="button"
-        [disabled]="!canAddCriterion()"
-        (click)="addCriterion()">
-        <mat-icon>add</mat-icon>
-        Agregar
-      </app-button>
-    </form>
-  </div>
-
-  @if (toggles().length > 0 || showClearButton() || showSearchButton()) {
-    <div class="flex justify-between items-center gap-4 p-3.5 bg-surface-variant border-t border-outline-variant max-md:flex-col max-md:items-stretch">
-      <div class="flex gap-6 flex-wrap items-center max-md:flex-col max-md:gap-3 max-md:items-start">
-        @for (toggle of toggles(); track toggle.key) {
-          <app-checkbox [checked]="toggle.value" (changed)="onToggleChange(toggle.key, $event)">
-            <span class="mat-body-medium">{{ toggle.label }}</span>
-          </app-checkbox>
-        }
-      </div>
-
-      <div class="flex gap-3 flex-shrink-0 max-md:w-full">
-        @if (showClearButton() && criteria().length > 0) {
-          <app-button variant="outlined" type="button" class="max-md:flex-1" (click)="clearAllCriteria()">
-            <mat-icon>restart_alt</mat-icon>
-            Limpiar filtros
-          </app-button>
-        }
-
-        @if (showSearchButton()) {
-          <app-button variant="filled" color="primary" type="button" class="max-md:flex-1" (click)="emitSearch()">
-            <mat-icon>search</mat-icon>
-            Buscar
-          </app-button>
-        }
-      </div>
-    </div>
   }
 </div>
 
+<div class="flex items-center gap-3 p-3" [formGroup]="builderForm">
+  <span>Agregar filtro:</span>
+
+  <app-form-select appFormSelectConnector formControlName="field" [options]="fieldOptions()">
+  </app-form-select>
+
+  <app-form-select appFormSelectConnector formControlName="operator" [options]="operatorOptions()">
+  </app-form-select>
+
+  @if (selectedField() && !isNoValueOperator()) {
+    @switch (selectedFieldType()) {
+      @case ('select') {
+        <app-form-select appFormSelectConnector formControlName="value" [options]="valueOptions()">
+        </app-form-select>
+      }
+      @case ('date') {
+        <app-form-datepicker appFormDatepickerConnector formControlName="value">
+        </app-form-datepicker>
+      }
+      @case ('number') {
+        <app-form-input appFormInputConnector formControlName="value" type="number">
+        </app-form-input>
+      }
+      @case ('boolean') {
+        <app-form-select appFormSelectConnector formControlName="value" [options]="booleanOptions">
+        </app-form-select>
+      }
+      @default {
+        <app-form-input appFormInputConnector formControlName="value">
+        </app-form-input>
+      }
+    }
+  }
+
+  <app-button [disabled]="!canAddCriterion()" (click)="addCriterion()">
+    <mat-icon>add</mat-icon>
+    Agregar
+  </app-button>
+</div>
+
+@if (toggles().length > 0 || showClearButton() || showSearchButton()) {
+  <div class="flex items-center gap-3 p-3">
+    @for (toggle of toggles(); track toggle.key) {
+      <app-checkbox [checked]="toggle.value" (change)="onToggleChange(toggle.key, $event)">
+        {{ toggle.label }}
+      </app-checkbox>
+    }
+
+    @if (showClearButton() && hasCriteria()) {
+      <app-button (click)="clearAllCriteria()">
+        <mat-icon>restart_alt</mat-icon>
+        Limpiar filtros
+      </app-button>
+    }
+
+    @if (showSearchButton()) {
+      <app-button (click)="emitSearch()">
+        <mat-icon>search</mat-icon>
+        Buscar
+      </app-button>
+    }
+  </div>
+}
