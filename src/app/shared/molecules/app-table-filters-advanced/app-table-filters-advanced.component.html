@@ -1,6 +1,5 @@
-<div class="flex flex-wrap gap-2 p-3.5 min-h-[52px] items-center border-b border-outline-variant"
-     [class.bg-surface-variant]="!hasCriteria()"
-     [class.bg-surface]="hasCriteria()"
+<div [class]="criteriaAreaClasses()"
+     class="flex flex-wrap gap-2 p-3.5 min-h-[52px] items-center"
      role="list"
      aria-label="Filtros activos"
      aria-live="polite">
@@ -30,66 +29,82 @@
   }
 </div>
 
-<div class="flex items-center gap-3 p-3" [formGroup]="builderForm">
-  <span>Agregar filtro:</span>
+<hr class="app-table-filters-advanced-divider">
 
-  <app-form-select appFormSelectConnector formControlName="field" [options]="fieldOptions()" [config]="{ label: 'Campo' }">
-  </app-form-select>
+<fieldset class="app-table-filters-advanced-builder">
+  <legend class="app-table-filters-advanced-legend">Agregar filtro</legend>
+  <div class="flex flex-wrap items-end gap-3 p-3" [formGroup]="builderForm">
 
-  <app-form-select appFormSelectConnector formControlName="operator" [options]="operatorOptions()" [config]="{ label: 'Operador' }">
-  </app-form-select>
+  <div class="flex-1 min-w-[200px]">
+    <app-form-select appFormSelectConnector formControlName="field" [options]="fieldOptions()" [config]="{ label: 'Campo' }">
+    </app-form-select>
+  </div>
+
+  <div class="flex-1 min-w-[180px]">
+    <app-form-select appFormSelectConnector formControlName="operator" [options]="operatorOptions()" [config]="{ label: 'Operador' }">
+    </app-form-select>
+  </div>
 
   @if (selectedField() && !isNoValueOperator()) {
-    @switch (selectedFieldType()) {
-      @case ('select') {
-        <app-form-select appFormSelectConnector formControlName="value" [options]="valueOptions()" [config]="{ label: 'Valor' }">
-        </app-form-select>
+    <div class="flex-1 min-w-[200px]">
+      @switch (selectedFieldType()) {
+        @case ('select') {
+          <app-form-select appFormSelectConnector formControlName="value" [options]="valueOptions()" [config]="{ label: 'Valor' }">
+          </app-form-select>
+        }
+        @case ('date') {
+          <app-form-datepicker appFormDatepickerConnector formControlName="value" [config]="{ label: 'Fecha' }">
+          </app-form-datepicker>
+        }
+        @case ('number') {
+          <app-form-input appFormInputConnector formControlName="value" type="number" [config]="{ label: 'Valor' }">
+          </app-form-input>
+        }
+        @case ('boolean') {
+          <app-form-select appFormSelectConnector formControlName="value" [options]="booleanOptions" [config]="{ label: 'Valor' }">
+          </app-form-select>
+        }
+        @default {
+          <app-form-input appFormInputConnector formControlName="value" [config]="{ label: 'Valor' }">
+          </app-form-input>
+        }
       }
-      @case ('date') {
-        <app-form-datepicker appFormDatepickerConnector formControlName="value" [config]="{ label: 'Fecha' }">
-        </app-form-datepicker>
-      }
-      @case ('number') {
-        <app-form-input appFormInputConnector formControlName="value" type="number" [config]="{ label: 'Valor' }">
-        </app-form-input>
-      }
-      @case ('boolean') {
-        <app-form-select appFormSelectConnector formControlName="value" [options]="booleanOptions" [config]="{ label: 'Valor' }">
-        </app-form-select>
-      }
-      @default {
-        <app-form-input appFormInputConnector formControlName="value" [config]="{ label: 'Valor' }">
-        </app-form-input>
-      }
-    }
+    </div>
   }
 
-  <app-button [disabled]="!canAddCriterion()" (click)="addCriterion()">
-    <mat-icon>add</mat-icon>
-    Agregar
-  </app-button>
-</div>
+  <div class="ml-auto">
+    <app-button [disabled]="!canAddCriterion()" (click)="addCriterion()">
+      <mat-icon>add</mat-icon>
+      Agregar
+    </app-button>
+  </div>
+  </div>
+</fieldset>
 
 @if (toggles().length > 0 || showClearButton() || showSearchButton()) {
-  <div class="flex items-center gap-3 p-3">
-    @for (toggle of toggles(); track toggle.key) {
-      <app-checkbox [checked]="toggle.value" (change)="onToggleChange(toggle.key, $event)">
-        {{ toggle.label }}
-      </app-checkbox>
-    }
+  <div class="app-table-filters-advanced-footer">
+    <div class="flex flex-wrap items-center gap-3 p-3">
+      @for (toggle of toggles(); track toggle.key) {
+        <app-checkbox [checked]="toggle.value" (change)="onToggleChange(toggle.key, $event)">
+          {{ toggle.label }}
+        </app-checkbox>
+      }
 
-    @if (showClearButton() && hasCriteria()) {
-      <app-button (click)="clearAllCriteria()">
-        <mat-icon>restart_alt</mat-icon>
-        Limpiar filtros
-      </app-button>
-    }
+      <div class="flex items-center gap-3 ml-auto">
+        @if (showClearButton() && hasCriteria()) {
+          <app-button (click)="clearAllCriteria()">
+            <mat-icon>restart_alt</mat-icon>
+            Limpiar filtros
+          </app-button>
+        }
 
-    @if (showSearchButton()) {
-      <app-button (click)="emitSearch()">
-        <mat-icon>search</mat-icon>
-        Buscar
-      </app-button>
-    }
+        @if (showSearchButton()) {
+          <app-button (click)="emitSearch()">
+            <mat-icon>search</mat-icon>
+            Buscar
+          </app-button>
+        }
+      </div>
+    </div>
   </div>
 }

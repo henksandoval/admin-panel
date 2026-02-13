@@ -116,6 +116,14 @@ export class AppTableFiltersAdvancedComponent {
   private readonly autoSearch = computed(() => this.config().autoSearch ?? FILTER_DEFAULTS.autoSearch);
   private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
 
+  readonly criteriaAreaClasses = computed(() => {
+    const classes = ['app-table-filters-advanced-criteria'];
+    if (this.hasCriteria()) {
+      classes.push('app-table-filters-advanced-criteria--active');
+    }
+    return classes.join(' ');
+  });
+
   constructor() {
     this.setupFormCascade();
 
