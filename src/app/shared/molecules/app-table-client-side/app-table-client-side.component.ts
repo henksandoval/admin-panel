@@ -31,6 +31,7 @@ import {
 } from '@shared/molecules/app-table-filters-advanced/app-table-filters-advanced.model';
 import { AppTableFilterFn, AppTableSortFn } from './app-table-client-side.model';
 import { convertAdvancedToSimple } from '@shared/utils/filter-config-converter';
+import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 
 @Component({
   selector: 'app-table-client-side',
@@ -40,7 +41,8 @@ import { convertAdvancedToSimple } from '@shared/utils/filter-config-converter';
     AppTableFiltersComponent,
     AppTableFiltersAdvancedComponent,
     AppTablePaginationComponent,
-  ],
+    AppCardComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-table-client-side.component.scss',
   template: `
@@ -54,10 +56,12 @@ import { convertAdvancedToSimple } from '@shared/utils/filter-config-converter';
       }
 
       @if (filtersAdvancedConfig()) {
-        <app-table-filters-advanced
-          [config]="filtersAdvancedConfig()!"
-          (search)="onAdvancedSearch($event)">
-        </app-table-filters-advanced>
+        <app-card title="Filtros avanzados" icon="filter_alt" [isExpandable]="true" [expanded]="false" class="mt-2" >
+          <app-table-filters-advanced
+            [config]="filtersAdvancedConfig()!"
+            (search)="onAdvancedSearch($event)">
+          </app-table-filters-advanced>
+        </app-card>        
       }
 
       <app-table

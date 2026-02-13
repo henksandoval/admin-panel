@@ -16,6 +16,7 @@ import { CriterionDisplayPipe } from './criterion-display.pipe';
 import { AppTableFiltersAdvancedConfig, AppTableFiltersAdvancedOutput, AppTableFilterCriterion, AppTableFilterToggle,
   DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from './app-table-filters-advanced.model';
 import { togglesToRecord } from './app-table-filters-advanced.utils';
+import { MatDivider } from "@angular/material/divider";
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
@@ -37,7 +38,8 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
     AppFormDatepickerComponent,
     AppFormDatepickerConnectorDirective,
     CriterionDisplayPipe,
-  ],
+    MatDivider
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app-table-filters-advanced.component.html',
   styleUrl: './app-table-filters-advanced.component.scss',

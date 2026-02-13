@@ -2,23 +2,42 @@
   display: block;
 }
 
-.app-table-filters-advanced-divider {
-  border: none;
-  border-top: 1px solid var(--mat-sys-outline-variant);
-  margin: 0;
+.app-table-filters-advanced-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr auto;
+  gap: 12px;
+  padding: 12px;
+  align-items: end;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+
+    > div:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+
+    > div:nth-child(4) {
+      grid-column: 1 / -1;
+      justify-self: end;
+    }
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+
+    > div:nth-child(3),
+    > div:nth-child(4) {
+      grid-column: 1;
+    }
+
+    > div:nth-child(4) {
+      justify-self: stretch;
+    }
+  }
 }
 
-.app-table-filters-advanced-builder {
-  border: none;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-}
-
-.app-table-filters-advanced-legend {
-  padding: 0 12px 0 0;
-  font-weight: 500;
-  color: var(--mat-sys-on-surface-variant);
+.app-table-filters-advanced-form-button {
+  align-self: center;
 }
 
 .app-table-filters-advanced-criteria {
@@ -27,14 +46,37 @@
 
   &--active {
     background: var(--mat-sys-primary-container);
-    border-bottom: 2px solid var(--mat-sys-primary);
+    border-bottom-width: 2px;
+    border-bottom-color: var(--mat-sys-primary);
   }
 }
 
-.app-table-filters-advanced-footer {
-  background: var(--mat-sys-surface-container-highest);
-  border-top: 2px solid var(--mat-sys-outline);
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+.app-table-filters-advanced-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.app-table-filters-advanced-actions-buttons {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+
+  @media (max-width: 640px) {
+    margin-left: 0;
+    justify-content: stretch;
+
+    app-button {
+      flex: 1;
+    }
+  }
 }
 
 .app-filter-pill {
@@ -45,10 +87,10 @@
   border: 1px solid var(--mat-sys-primary);
   border-radius: 999px;
   padding: 6px 8px 6px 12px;
-  animation: pillEnter 150ms ease-out;
+  animation: pillEnter 200ms ease-out;
 
   &:hover {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   }
 
   &[data-type="date"] {
