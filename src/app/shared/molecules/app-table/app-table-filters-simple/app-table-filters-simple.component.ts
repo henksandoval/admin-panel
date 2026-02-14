@@ -43,7 +43,7 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
     AppFormDatepickerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./app-table-filters.component.scss'],
+  styleUrl: './app-table-filters-simple.component.scss',
   template: `
     <div class="filters-container">
       <div class="filters-fields">
@@ -116,7 +116,7 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
     </div>
   `,
 })
-export class AppTableFiltersComponent implements OnInit {
+export class AppTableFiltersSimpleComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   config = input.required<AppTableFiltersConfig>();

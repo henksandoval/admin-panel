@@ -1,4 +1,4 @@
-import { AppTableFilterValues } from '../app-table-filters/app-table-filters.model';
+import { AppTableFilterValues } from '../app-table-filters-simple/app-table-filters.model';
 import { AppTableFilterCriterion } from '../app-table-filters-advanced/app-table-filters-advanced.model';
 import { AppTableSort } from '@shared/atoms/app-table/app-table.model';
 

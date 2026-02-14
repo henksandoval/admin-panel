@@ -23,15 +23,15 @@ import {
   AppTablePageEvent,
 } from '@shared/atoms/app-table/app-table-pagination.model';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
-import { AppTableFiltersComponent } from '../app-table-filters/app-table-filters.component';
-import { AppTableFiltersConfig, AppTableFilterValues } from '../app-table-filters/app-table-filters.model';
+import { AppTableFiltersSimpleComponent } from '../app-table-filters-simple/app-table-filters-simple.component';
+import { AppTableFiltersConfig, AppTableFilterValues } from '../app-table-filters-simple/app-table-filters.model';
 
 @Component({
   selector: 'app-table-server-side',
   standalone: true,
   imports: [
     AppTableComponent,
-    AppTableFiltersComponent,
+    AppTableFiltersSimpleComponent,
     AppTablePaginationComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

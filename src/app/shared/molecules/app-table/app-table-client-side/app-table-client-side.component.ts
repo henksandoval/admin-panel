@@ -34,11 +34,11 @@ import {
   AppTableFiltersAdvancedOutput,
   AppTableFilterCriterion,
 } from '../app-table-filters-advanced/app-table-filters-advanced.model';
-import { AppTableFiltersComponent } from '../app-table-filters/app-table-filters.component';
+import { AppTableFiltersSimpleComponent } from '../app-table-filters-simple/app-table-filters-simple.component';
 import {
   AppTableFiltersConfig,
   AppTableFilterValues,
-} from '../app-table-filters/app-table-filters.model';
+} from '../app-table-filters-simple/app-table-filters.model';
 import { evaluateCriteria } from '../app-table-filters-advanced/criteria-evaluator';
 
 @Component({
@@ -46,7 +46,7 @@ import { evaluateCriteria } from '../app-table-filters-advanced/criteria-evaluat
   standalone: true,
   imports: [
     AppTableComponent,
-    AppTableFiltersComponent,
+    AppTableFiltersSimpleComponent,
     AppTableFiltersAdvancedComponent,
     AppTablePaginationComponent,
     AppCardComponent,

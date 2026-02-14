@@ -1,5 +1,5 @@
 import { AppTableSort } from '@shared/atoms/app-table/app-table.model';
-import { AppTableFilterValues } from '../app-table-filters/app-table-filters.model';
+import { AppTableFilterValues } from '../app-table-filters-simple/app-table-filters.model';
 
 export interface AppTableServerParams {
   filters: AppTableFilterValues;
