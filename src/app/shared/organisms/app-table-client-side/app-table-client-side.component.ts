@@ -5,11 +5,11 @@ import { AppPaginationConfig, AppPageEvent, AppPaginationState } from "@shared/a
 import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
 import { AppTableConfig, AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
 import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
-import { AppFiltersAdvancedConfig, AppFiltersAdvancedOutput, AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
 import { AppTableFiltersConfig, AppTableFilterValues } from "@shared/molecules/app-filters/app-table-filters.model";
 import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator";
 import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
 import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, AppTableSortFn } from "./app-table-client-side.model";
+import { AppAdvancedFiltersConfig, AppAdvancedFiltersOutput, AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
 
 
 @Component({
@@ -74,7 +74,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   // ── Inputs de configuración ──
   tableConfig = input.required<AppTableConfig<T>>();
   filtersConfig = input<AppTableFiltersConfig>();
-  filtersAdvancedConfig = input<AppFiltersAdvancedConfig>();
+  filtersAdvancedConfig = input<AppAdvancedFiltersConfig>();
   paginationConfig = input<AppPaginationConfig>();
 
   // ── Inputs de datos ──
@@ -90,7 +90,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   // ── Outputs ──
   sortChange = output<AppTableSort>();
   filterChange = output<AppTableFilterValues>();
-  advancedSearch = output<AppFiltersAdvancedOutput>();
+  advancedSearch = output<AppAdvancedFiltersOutput>();
   pageChange = output<AppPageEvent>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
@@ -195,7 +195,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     this.filterChange.emit(values);
   }
 
-  onAdvancedSearch(advancedOutput: AppFiltersAdvancedOutput): void {
+  onAdvancedSearch(advancedOutput: AppAdvancedFiltersOutput): void {
     this.advancedCriteria.set(advancedOutput.criteria);
     this.activeToggles.set(advancedOutput.toggles);
     this.simpleFilterValues.set({}); // limpiar filtros simples

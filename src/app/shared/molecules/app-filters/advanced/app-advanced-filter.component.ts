@@ -3,8 +3,6 @@ import { Component, ChangeDetectionStrategy, computed, effect, input,
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { AppFiltersAdvancedConfig, AppFiltersAdvancedOutput, AppFilterCriterion, AppFilterToggle,
-  DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-filter.model';
 import { togglesToRecord } from '../app-filter.utils';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
@@ -17,6 +15,7 @@ import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
+import { ADVANCED_FILTER_DEFAULTS, AppAdvancedFiltersConfig, AppAdvancedFiltersOutput, AppFilterCriterion, AppFilterToggle, DEFAULT_FILTER_OPERATORS } from '../app-filter.model';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
@@ -45,10 +44,10 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   styleUrl: './app-advanced-filter.component.scss',
 })
 export class AppAdvancedFilterComponent {
-  config = input.required<AppFiltersAdvancedConfig>();
+  config = input.required<AppAdvancedFiltersConfig>();
   initialCriteria = input<AppFilterCriterion[]>([]);
 
-  search = output<AppFiltersAdvancedOutput>();
+  search = output<AppAdvancedFiltersOutput>();
   criteriaChange = output<AppFilterCriterion[]>();
   toggleChange = output<Record<string, boolean>>();
 
@@ -113,10 +112,10 @@ export class AppAdvancedFilterComponent {
     return value !== null && value !== undefined && value !== '';
   });
 
-  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
-  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
-  private readonly autoSearch = computed(() => this.config().autoSearch ?? FILTER_DEFAULTS.autoSearch);
-  private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
+  readonly showClearButton = computed(() => this.config().showClearButton ?? ADVANCED_FILTER_DEFAULTS.showClearButton);
+  readonly showSearchButton = computed(() => this.config().showSearchButton ?? ADVANCED_FILTER_DEFAULTS.showSearchButton);
+  private readonly autoSearch = computed(() => this.config().autoSearch ?? ADVANCED_FILTER_DEFAULTS.autoSearch);
+  private readonly maxCriteria = computed(() => this.config().maxCriteria ?? ADVANCED_FILTER_DEFAULTS.maxCriteria);
 
   readonly criteriaAreaClasses = computed(() => {
     const classes = ['app-filters-advanced-criteria'];

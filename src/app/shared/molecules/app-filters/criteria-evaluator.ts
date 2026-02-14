@@ -1,4 +1,4 @@
-import { AppFilterCriterion, FilterValue } from './app-filter.model';
+import { AppFilterCriterion, AppFilterValue } from "./app-filter.model";
 
 export function evaluateCriteria<T extends Record<string, any>>(
   data: T[],
@@ -55,7 +55,7 @@ function normalizeString(value: unknown): string {
   return String(value ?? '').toLowerCase().trim();
 }
 
-function looseEquals(a: unknown, b: FilterValue): boolean {
+function looseEquals(a: unknown, b: AppFilterValue): boolean {
   if (a instanceof Date && (b instanceof Date || typeof b === 'string')) {
     const bDate = b instanceof Date ? b : new Date(b);
     return a.getTime() === bDate.getTime();
@@ -66,7 +66,7 @@ function looseEquals(a: unknown, b: FilterValue): boolean {
   return normalizeString(a) === normalizeString(b);
 }
 
-function compareValues(a: unknown, b: FilterValue): number {
+function compareValues(a: unknown, b: AppFilterValue): number {
   if (a instanceof Date) {
     const bTime = b instanceof Date ? b.getTime() : new Date(b as string).getTime();
     return a.getTime() - bTime;
