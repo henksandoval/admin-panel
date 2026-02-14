@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {NavigationItem, NavigationService} from '../../services/navigation.service';
+import {NavigationItem, NavigationService} from '../../../core/services/navigation.service';
 import { LayoutService } from '../../services/layout.service';
 import {Router} from '@angular/router';
 import {NavTreeInlineComponent} from './components/nav-tree-inline/nav-tree-inline.component';

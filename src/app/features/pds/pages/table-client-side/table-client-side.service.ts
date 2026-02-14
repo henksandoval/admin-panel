@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { AppTablePaginationConfig } from '@shared/atoms/app-table/app-table-pagination.model';
-import { AppTableFiltersConfig } from '@shared/molecules/app-table/app-table-filters-simple/app-table-filters.model';
-import { AppTableFiltersAdvancedConfig } from '@shared/molecules/app-table/app-table-filters-advanced/app-table-filters-advanced.model';
+import { AppTableFiltersConfig } from '@shared/molecules/app-filters/app-table-filters.model';
+import { AppTableFiltersAdvancedConfig } from '@shared/molecules/app-filters/app-table-filters-advanced.model';
 
 export interface Employee {
   id: number;

@@ -6,7 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SettingsService, Theme, Scheme } from '../../services/settings.service';
+import { SettingsService, Theme, Scheme } from '../../../core/services/settings.service';
 import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({

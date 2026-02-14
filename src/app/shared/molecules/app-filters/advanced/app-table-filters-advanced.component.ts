@@ -3,10 +3,9 @@ import { Component, ChangeDetectionStrategy, computed, effect, input,
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { CriterionDisplayPipe } from './criterion-display.pipe';
 import { AppTableFiltersAdvancedConfig, AppTableFiltersAdvancedOutput, AppTableFilterCriterion, AppTableFilterToggle,
-  DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from './app-table-filters-advanced.model';
-import { togglesToRecord } from './app-table-filters-advanced.utils';
+  DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-table-filters-advanced.model';
+import { togglesToRecord } from '../app-table-filters-advanced.utils';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
@@ -17,6 +16,7 @@ import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input
 import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-form-select/app-form-select-connector.directive';
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
+import { CriterionDisplayPipe } from '../criterion-display.pipe';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },

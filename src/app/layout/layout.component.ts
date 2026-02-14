@@ -5,7 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutService } from './services/layout.service';
-import { SettingsService } from './services/settings.service';
+import { SettingsService } from '../core/services/settings.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SettingsPanelComponent } from './components/settings-panel/settings-panel.component';

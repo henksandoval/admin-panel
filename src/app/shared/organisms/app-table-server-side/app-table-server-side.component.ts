@@ -23,8 +23,8 @@ import {
   AppTablePageEvent,
 } from '@shared/atoms/app-table/app-table-pagination.model';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
-import { AppTableFiltersSimpleComponent } from '../app-table-filters-simple/app-table-filters-simple.component';
-import { AppTableFiltersConfig, AppTableFilterValues } from '../app-table-filters-simple/app-table-filters.model';
+import { AppTableFiltersConfig, AppTableFilterValues } from '@shared/molecules/app-filters/app-table-filters.model';
+import { AppTableFiltersSimpleComponent } from '@shared/molecules/app-filters/simple/app-table-filters-simple.component';
 
 @Component({
   selector: 'app-table-server-side',

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NavigationService } from '@layout/services/navigation.service';
+import { NavigationService } from '@core/services/navigation.service';
 
 @Component({
   selector: 'app-bread-crumb',

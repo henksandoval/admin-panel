@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import { AppTableServerParams, AppTableServerResponse } from "@shared/molecules/app-table/app-table-server-side/app-table-server-side.model";
+import { AppTableServerParams, AppTableServerResponse } from "@shared/organisms/app-table-server-side/app-table-server-side.model";
 import {Observable} from "rxjs";
 
 interface Employee {

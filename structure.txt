@@ -1,0 +1,265 @@
+
+> admin-panel@0.0.0 list-tree
+> tree -I 'node_modules|dist|.git|.vscode|.angular'
+
+.
+├── angular.json
+├── docs
+│   ├── ANALISIS_APP_TABLE_ADVANCED_FILTERS.md
+│   ├── ANALISIS_CLAUDE_4_6.md
+│   ├── COMPARATIVA_ANALISIS.md
+│   ├── PropuestaSeriaRefactor.md
+│   └── STYLE_GUIDE.md
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   └── favicon.ico
+├── README.md
+├── src
+│   ├── app
+│   │   ├── app.config.ts
+│   │   ├── app.html
+│   │   ├── app.routes.ts
+│   │   ├── app.spec.ts
+│   │   ├── app.ts
+│   │   ├── core
+│   │   │   ├── guards
+│   │   │   ├── interceptors
+│   │   │   └── services
+│   │   │       ├── navigation.service.ts
+│   │   │       └── settings.service.ts
+│   │   ├── features
+│   │   │   ├── dashboard
+│   │   │   │   ├── dashboard.component.html
+│   │   │   │   ├── dashboard.component.scss
+│   │   │   │   └── dashboard.component.ts
+│   │   │   └── pds
+│   │   │       ├── pages
+│   │   │       │   ├── buttons
+│   │   │       │   │   ├── buttons.component.html
+│   │   │       │   │   ├── buttons.component.ts
+│   │   │       │   │   └── buttons.data.ts
+│   │   │       │   ├── checkboxes
+│   │   │       │   │   ├── checkboxes.component.html
+│   │   │       │   │   ├── checkboxes.component.ts
+│   │   │       │   │   └── checkboxes.data.ts
+│   │   │       │   ├── form
+│   │   │       │   │   ├── form.component.html
+│   │   │       │   │   ├── form.component.scss
+│   │   │       │   │   ├── form.component.ts
+│   │   │       │   │   └── form.data.ts
+│   │   │       │   ├── icons-gallery
+│   │   │       │   │   ├── icons-gallery.component.html
+│   │   │       │   │   ├── icons-gallery.component.scss
+│   │   │       │   │   └── icons-gallery.component.ts
+│   │   │       │   ├── index
+│   │   │       │   │   ├── index.component.html
+│   │   │       │   │   ├── index.component.scss
+│   │   │       │   │   └── index.component.ts
+│   │   │       │   ├── indicators
+│   │   │       │   │   ├── indicators.component.html
+│   │   │       │   │   ├── indicators.component.ts
+│   │   │       │   │   └── indicators.data.ts
+│   │   │       │   ├── layouts
+│   │   │       │   │   ├── dashboard.component.ts
+│   │   │       │   │   ├── full-width.component.ts
+│   │   │       │   │   ├── main-sidebar.component.ts
+│   │   │       │   │   ├── sidebar-main.component.ts
+│   │   │       │   │   ├── three-column.component.ts
+│   │   │       │   │   ├── two-column.component.ts
+│   │   │       │   │   └── two-column-footer.component.ts
+│   │   │       │   ├── radios
+│   │   │       │   │   ├── radios.component.html
+│   │   │       │   │   ├── radios.component.ts
+│   │   │       │   │   └── radios.data.ts
+│   │   │       │   ├── selects
+│   │   │       │   │   ├── selects.component.html
+│   │   │       │   │   ├── selects.component.ts
+│   │   │       │   │   └── selects.data.ts
+│   │   │       │   ├── table-client-side
+│   │   │       │   │   ├── table-client-side.component.html
+│   │   │       │   │   ├── table-client-side.component.scss
+│   │   │       │   │   ├── table-client-side.component.ts
+│   │   │       │   │   └── table-client-side.service.ts
+│   │   │       │   ├── table-server-side
+│   │   │       │   │   ├── table-server-side.component.ts
+│   │   │       │   │   └── table-server-side.service.ts
+│   │   │       │   └── toggle-groups
+│   │   │       │       ├── toggle-groups.component.html
+│   │   │       │       ├── toggle-groups.component.ts
+│   │   │       │       └── toggle-groups.data.ts
+│   │   │       ├── shared
+│   │   │       │   ├── molecules
+│   │   │       │   │   ├── pds-api-reference
+│   │   │       │   │   │   ├── pds-api-reference.component.scss
+│   │   │       │   │   │   ├── pds-api-reference.component.ts
+│   │   │       │   │   │   └── pds-api-reference-property.model.ts
+│   │   │       │   │   ├── pds-best-practices
+│   │   │       │   │   │   ├── pds-best-practice-item.model.ts
+│   │   │       │   │   │   ├── pds-best-practices.component.scss
+│   │   │       │   │   │   └── pds-best-practices.component.ts
+│   │   │       │   │   ├── pds-code-block
+│   │   │       │   │   │   ├── pds-code-block.component.scss
+│   │   │       │   │   │   └── pds-code-block.component.ts
+│   │   │       │   │   └── pds-preview-card
+│   │   │       │   │       ├── pds-preview-card.component.scss
+│   │   │       │   │       └── pds-preview-card.component.ts
+│   │   │       │   ├── organisms
+│   │   │       │   │   └── pds-documentation-tabs
+│   │   │       │   │       ├── pds-documentation-tabs.component.html
+│   │   │       │   │       ├── pds-documentation-tabs.component.scss
+│   │   │       │   │       ├── pds-documentation-tabs.component.ts
+│   │   │       │   │       └── _section-header.scss
+│   │   │       │   ├── templates
+│   │   │       │   │   └── pds-page-layout
+│   │   │       │   │       ├── pds-page-layout.component.html
+│   │   │       │   │       ├── pds-page-layout.component.scss
+│   │   │       │   │       ├── pds-page-layout.component.ts
+│   │   │       │   │       ├── pds-page-utilities.service.ts
+│   │   │       │   │       └── pds-variant-guide.model.ts
+│   │   │       │   └── utils
+│   │   │       │       └── filter-config-converter.ts
+│   │   │       └── showcase.component.ts
+│   │   ├── layout
+│   │   │   ├── components
+│   │   │   │   ├── settings-panel
+│   │   │   │   │   ├── settings-panel.component.html
+│   │   │   │   │   ├── settings-panel.component.scss
+│   │   │   │   │   └── settings-panel.component.ts
+│   │   │   │   ├── sidebar
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── nav-tree-floating
+│   │   │   │   │   │   │   ├── nav-tree-floating.component.html
+│   │   │   │   │   │   │   ├── nav-tree-floating.component.scss
+│   │   │   │   │   │   │   └── nav-tree-floating.component.ts
+│   │   │   │   │   │   └── nav-tree-inline
+│   │   │   │   │   │       ├── nav-tree-inline.component.html
+│   │   │   │   │   │       ├── nav-tree-inline.component.scss
+│   │   │   │   │   │       └── nav-tree-inline.component.ts
+│   │   │   │   │   ├── sidebar.component.html
+│   │   │   │   │   ├── sidebar.component.scss
+│   │   │   │   │   └── sidebar.component.ts
+│   │   │   │   └── toolbar
+│   │   │   │       ├── toolbar.component.html
+│   │   │   │       └── toolbar.component.ts
+│   │   │   ├── layout.component.ts
+│   │   │   └── services
+│   │   │       └── layout.service.ts
+│   │   └── shared
+│   │       ├── atoms
+│   │       │   ├── app-badge
+│   │       │   │   ├── app-badge.component.scss
+│   │       │   │   ├── app-badge.component.ts
+│   │       │   │   └── app-badge.model.ts
+│   │       │   ├── app-button
+│   │       │   │   ├── app-button.component.ts
+│   │       │   │   └── app-button.model.ts
+│   │       │   ├── app-card
+│   │       │   │   ├── app-card.component.scss
+│   │       │   │   └── app-card.component.ts
+│   │       │   ├── app-checkbox
+│   │       │   │   ├── app-checkbox.component.ts
+│   │       │   │   └── app-checkbox.model.ts
+│   │       │   ├── app-radio
+│   │       │   │   ├── app-radio.component.ts
+│   │       │   │   └── app-radio.model.ts
+│   │       │   ├── app-table
+│   │       │   │   ├── app-table.component.scss
+│   │       │   │   ├── app-table.component.ts
+│   │       │   │   ├── app-table.model.ts
+│   │       │   │   ├── app-table-pagination.component.scss
+│   │       │   │   ├── app-table-pagination.component.ts
+│   │       │   │   └── app-table-pagination.model.ts
+│   │       │   └── app-toggle-group
+│   │       │       ├── app-toggle-group.component.scss
+│   │       │       ├── app-toggle-group.component.ts
+│   │       │       └── app-toggle-group.model.ts
+│   │       ├── molecules
+│   │       │   ├── app-bread-crumb
+│   │       │   │   ├── app-bread-crumb.component.html
+│   │       │   │   ├── app-bread-crumb.component.scss
+│   │       │   │   └── app-bread-crumb.component.ts
+│   │       │   ├── app-form
+│   │       │   │   ├── app-form-checkbox
+│   │       │   │   │   ├── app-form-checkbox.component.ts
+│   │       │   │   │   ├── app-form-checkbox-connector.directive.ts
+│   │       │   │   │   └── app-form-checkbox.model.ts
+│   │       │   │   ├── app-form-datepicker
+│   │       │   │   │   ├── app-form-datepicker.component.ts
+│   │       │   │   │   ├── app-form-datepicker-connector.directive.ts
+│   │       │   │   │   └── app-form-datepicker.model.ts
+│   │       │   │   ├── app-form-input
+│   │       │   │   │   ├── app-form-input.component.ts
+│   │       │   │   │   ├── app-form-input-connector.directive.ts
+│   │       │   │   │   └── app-form-input.model.ts
+│   │       │   │   ├── app-form-radio-group
+│   │       │   │   │   ├── app-form-radio-group.component.scss
+│   │       │   │   │   ├── app-form-radio-group.component.ts
+│   │       │   │   │   ├── app-form-radio-group-connector.directive.ts
+│   │       │   │   │   └── app-form-radio-group.model.ts
+│   │       │   │   ├── app-form-select
+│   │       │   │   │   ├── app-form-select.component.ts
+│   │       │   │   │   ├── app-form-select-connector.directive.ts
+│   │       │   │   │   └── app-form-select.model.ts
+│   │       │   │   └── app-form-textarea
+│   │       │   │       ├── app-form-textarea.component.ts
+│   │       │   │       ├── app-form-textarea-connector.directive.ts
+│   │       │   │       └── app-form-textarea.model.ts
+│   │       │   └── app-table
+│   │       │       ├── app-table-client-side
+│   │       │       │   ├── app-table-client-side.component.scss
+│   │       │       │   ├── app-table-client-side.component.ts
+│   │       │       │   └── app-table-client-side.model.ts
+│   │       │       └── app-table-server-side
+│   │       │           ├── app-table-server-side.component.html
+│   │       │           ├── app-table-server-side.component.scss
+│   │       │           ├── app-table-server-side.component.ts
+│   │       │           └── app-table-server-side.model.ts
+│   │       ├── organisms
+│   │       │   └── app-table
+│   │       │       └── app-table-filters
+│   │       │           ├── app-table-filters-advanced.component.html
+│   │       │           ├── app-table-filters-advanced.component.scss
+│   │       │           ├── app-table-filters-advanced.component.ts
+│   │       │           ├── app-table-filters-advanced.model.ts
+│   │       │           ├── app-table-filters-advanced.utils.ts
+│   │       │           ├── app-table-filters.model.ts
+│   │       │           ├── app-table-filters-simple.component.scss
+│   │       │           ├── app-table-filters-simple.component.ts
+│   │       │           ├── criteria-evaluator.ts
+│   │       │           └── criterion-display.pipe.ts
+│   │       ├── templates
+│   │       │   └── app-page-layout
+│   │       │       ├── app-page-layout.component.scss
+│   │       │       ├── app-page-layout.component.ts
+│   │       │       ├── app-page-layout.model.ts
+│   │       │       ├── app-slot-container.directive.ts
+│   │       │       └── README.md
+│   │       └── types
+│   │           └── material-icons.model.ts
+│   ├── index.html
+│   ├── main.ts
+│   └── themes
+│       ├── _badges.scss
+│       ├── colors
+│       │   ├── _aurora-tech.scss
+│       │   ├── _deep-ocean.scss
+│       │   ├── _forest-growth.scss
+│       │   ├── _royal-dashboard.scss
+│       │   ├── _slate-minimal.scss
+│       │   └── _sunset-analytics.scss
+│       ├── _material-overrides.scss
+│       ├── _navigation.scss
+│       ├── _semantic-colors.scss
+│       ├── styles.scss
+│       ├── _theming.scss
+│       ├── _tokens.scss
+│       └── _variables.scss
+├── structure.txt
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+└── tsconfig.spec.json
+
+74 directories, 185 files

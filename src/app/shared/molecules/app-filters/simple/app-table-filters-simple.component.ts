@@ -21,7 +21,7 @@ import {
   AppTableFiltersConfig,
   AppTableFilterValues,
   FILTERS_DEFAULTS,
-} from './app-table-filters.model';
+} from '../app-table-filters.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';

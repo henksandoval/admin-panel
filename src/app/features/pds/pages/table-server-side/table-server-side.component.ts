@@ -5,9 +5,9 @@ import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
 import {AppTablePaginationConfig} from '@shared/atoms/app-table/app-table-pagination.model';
 import {TableServerSideService} from './table-server-side.service';
 import {Employee} from '../table-client-side/table-client-side.service';
-import { AppTableFiltersConfig } from '@shared/molecules/app-table/app-table-filters-simple/app-table-filters.model';
-import { AppTableServerSideComponent } from '@shared/molecules/app-table/app-table-server-side/app-table-server-side.component';
-import { AppTableServerParams } from '@shared/molecules/app-table/app-table-server-side/app-table-server-side.model';
+import { AppTableFiltersConfig } from '@shared/molecules/app-filters/app-table-filters.model';
+import { AppTableServerSideComponent } from '@shared/organisms/app-table-server-side/app-table-server-side.component';
+import { AppTableServerParams } from '@shared/organisms/app-table-server-side/app-table-server-side.model';
 
 @Component({
   selector: 'app-table-server-side-pds',
