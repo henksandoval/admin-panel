@@ -45,9 +45,9 @@ export class TableClientSideComponent implements OnInit {
   private readonly datePipe = inject(DatePipe);
 
   readonly tableConfig = this.service.getTableConfig();
-  readonly filtersConfig = this.service.getFiltersConfig();
   readonly paginationConfig = this.service.getPaginationConfig();
   readonly filterMode = signal<'simple' | 'advanced'>('simple');
+  readonly filtersConfig = this.service.getFiltersConfig();
   readonly advancedFiltersConfig = this.service.getAdvancedFiltersConfig();
 
   readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>) => {
@@ -95,19 +95,21 @@ export class TableClientSideComponent implements OnInit {
   }
 
   onSort(event: any): void {
-    console.log('[sort]', event);
+    this.snackBar.open(`Ordenar por: ${event.columnKey} (${event.direction})`, '✕', { duration: 2500 });
   }
 
   onFilter(event: any): void {
-    console.log('[filter]', event);
+    this.snackBar.open(`Filtrar por: ${event.columnKey} (${event.value})`, '✕', { duration: 2500 });
   }
 
   onAdvancedSearch(output: AppTableFiltersAdvancedOutput): void {
-    console.log('[filter advanced]', output);
+    this.snackBar.open(`Búsqueda avanzada aplicada ver consola`, '✕', { duration: 2500 });
+    console.debug('[filter advanced]', output);
   }
 
   onPage(event: any): void {
-    console.log('[page]', event);
+    this.snackBar.open(`Página: ${event.pageIndex + 1} (items por página: ${event.pageSize})`, '✕', { duration: 2500 });
+    console.debug('[page]', event);
   }
 
   onAction({ action, row }: { action: AppTableAction<EmployeeViewModel>; row: EmployeeViewModel }): void {
