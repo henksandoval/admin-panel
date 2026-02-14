@@ -15,7 +15,7 @@ import {
   AppTablePaginationState,
   AppTablePageEvent,
   PAGINATION_DEFAULTS,
-} from './app-table-pagination.model';
+} from './app-pagination.model';
 
 @Component({
   selector: 'app-table-pagination',
@@ -28,7 +28,7 @@ import {
     MatTooltipModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./app-table-pagination.component.scss'],
+  styleUrl: './app-pagination.component.scss',
   template: `
     <div class="pagination-container">
       @if (showPageSizeSelector()) {
@@ -92,7 +92,7 @@ import {
     </div>
   `,
 })
-export class AppTablePaginationComponent {
+export class AppPaginationComponent {
   config = input<AppTablePaginationConfig>({});
   state = input.required<AppTablePaginationState>();
 

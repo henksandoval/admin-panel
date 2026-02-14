@@ -2,7 +2,7 @@ import {Component, inject, OnInit, signal} from '@angular/core';
 import {finalize} from 'rxjs/operators';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
-import {AppTablePaginationConfig} from '@shared/atoms/app-table/app-table-pagination.model';
+import {AppTablePaginationConfig} from '@shared/atoms/app-pagination/app-pagination.model';
 import {TableServerSideService} from './table-server-side.service';
 import {Employee} from '../table-client-side/table-client-side.service';
 import { AppTableFiltersConfig } from '@shared/molecules/app-filters/app-table-filters.model';

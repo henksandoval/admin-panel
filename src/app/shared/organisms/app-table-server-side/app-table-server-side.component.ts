@@ -16,23 +16,23 @@ import {
   AppTableSort,
   AppTableAction,
 } from '@shared/atoms/app-table/app-table.model';
-import { AppTablePaginationComponent } from '@shared/atoms/app-table/app-table-pagination.component';
+import { AppPaginationComponent } from '@shared/atoms/app-pagination/app-pagination.component';
 import {
   AppTablePaginationConfig,
   AppTablePaginationState,
   AppTablePageEvent,
-} from '@shared/atoms/app-table/app-table-pagination.model';
+} from '@shared/atoms/app-pagination/app-pagination.model';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
 import { AppTableFiltersConfig, AppTableFilterValues } from '@shared/molecules/app-filters/app-table-filters.model';
-import { AppTableFiltersSimpleComponent } from '@shared/molecules/app-filters/simple/app-table-filters-simple.component';
+import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/app-simple-filter.component';
 
 @Component({
   selector: 'app-table-server-side',
   standalone: true,
   imports: [
     AppTableComponent,
-    AppTableFiltersSimpleComponent,
-    AppTablePaginationComponent,
+    AppSimpleFilterComponent,
+    AppPaginationComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-table-server-side.component.scss',

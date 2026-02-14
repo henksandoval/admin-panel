@@ -1,14 +1,14 @@
 import { Component, ChangeDetectionStrategy, input, output, contentChild, TemplateRef, signal, computed, effect } from "@angular/core";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
-import { AppTablePaginationComponent } from "@shared/atoms/app-table/app-table-pagination.component";
-import { AppTablePaginationConfig, AppTablePageEvent, AppTablePaginationState } from "@shared/atoms/app-table/app-table-pagination.model";
+import { AppPaginationComponent } from "@shared/atoms/app-pagination/app-pagination.component";
+import { AppTablePaginationConfig, AppTablePageEvent, AppTablePaginationState } from "@shared/atoms/app-pagination/app-pagination.model";
 import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
 import { AppTableConfig, AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
-import { AppTableFiltersAdvancedComponent } from "@shared/molecules/app-filters/advanced/app-table-filters-advanced.component";
+import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
 import { AppTableFiltersAdvancedConfig, AppTableFiltersAdvancedOutput, AppTableFilterCriterion } from "@shared/molecules/app-filters/app-table-filters-advanced.model";
 import { AppTableFiltersConfig, AppTableFilterValues } from "@shared/molecules/app-filters/app-table-filters.model";
 import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator";
-import { AppTableFiltersSimpleComponent } from "@shared/molecules/app-filters/simple/app-table-filters-simple.component";
+import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
 import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, AppTableSortFn } from "./app-table-client-side.model";
 
 
@@ -17,9 +17,9 @@ import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, App
   standalone: true,
   imports: [
     AppTableComponent,
-    AppTableFiltersSimpleComponent,
-    AppTableFiltersAdvancedComponent,
-    AppTablePaginationComponent,
+    AppSimpleFilterComponent,
+    AppAdvancedFilterComponent,
+    AppPaginationComponent,
     AppCardComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

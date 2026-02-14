@@ -41,10 +41,10 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
     MatDivider
 ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './app-table-filters-advanced.component.html',
-  styleUrl: './app-table-filters-advanced.component.scss',
+  templateUrl: './app-advanced-filter.component.html',
+  styleUrl: './app-advanced-filter.component.scss',
 })
-export class AppTableFiltersAdvancedComponent {
+export class AppAdvancedFilterComponent {
   config = input.required<AppTableFiltersAdvancedConfig>();
   initialCriteria = input<AppTableFilterCriterion[]>([]);
 
