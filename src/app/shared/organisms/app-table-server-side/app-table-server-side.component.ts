@@ -18,9 +18,9 @@ import {
 } from '@shared/atoms/app-table/app-table.model';
 import { AppPaginationComponent } from '@shared/atoms/app-pagination/app-pagination.component';
 import {
-  AppTablePaginationConfig,
-  AppTablePaginationState,
-  AppTablePageEvent,
+  AppPaginationConfig,
+  AppPaginationState,
+  AppPageEvent,
 } from '@shared/atoms/app-pagination/app-pagination.model';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
 import { AppTableFiltersConfig, AppTableFilterValues } from '@shared/molecules/app-filters/app-table-filters.model';
@@ -49,7 +49,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
 
   // Configuration inputs
   filtersConfig = input<AppTableFiltersConfig>();
-  paginationConfig = input<AppTablePaginationConfig>();
+  paginationConfig = input<AppPaginationConfig>();
 
   // Behavior inputs
   resetPageOnFilter = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnFilter);
@@ -58,7 +58,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
   // Outputs
   filterChange = output<AppTableFilterValues>();
   sortChange = output<AppTableSort>();
-  pageChange = output<AppTablePageEvent>();
+  pageChange = output<AppPageEvent>();
   paramsChange = output<AppTableServerParams>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
@@ -73,7 +73,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
   readonly pageSize: WritableSignal<number> = signal(TABLE_SERVER_SIDE_DEFAULTS.initialPageSize);
 
   // Computed state
-  readonly paginationState = computed<AppTablePaginationState>(() => ({
+  readonly paginationState = computed<AppPaginationState>(() => ({
     pageIndex: this.pageIndex(),
     pageSize: this.pageSize(),
     totalItems: this.totalItems(),
@@ -126,7 +126,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
     this.emitParamsChange();
   }
 
-  onPageChange(event: AppTablePageEvent): void {
+  onPageChange(event: AppPageEvent): void {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
 

@@ -1,4 +1,4 @@
-export interface AppTablePaginationConfig {
+export interface AppPaginationConfig {
   pageSizeOptions?: number[];
   showFirstLastButtons?: boolean;
   showPageSizeSelector?: boolean;
@@ -11,19 +11,19 @@ export interface AppTablePaginationConfig {
   nextPageLabel?: string;
 }
 
-export interface AppTablePaginationState {
+export interface AppPaginationState {
   pageIndex: number;
   pageSize: number;
   totalItems: number;
 }
 
-export interface AppTablePageEvent {
+export interface AppPageEvent {
   pageIndex: number;
   pageSize: number;
   previousPageIndex: number;
 }
 
-export const PAGINATION_DEFAULTS: Required<AppTablePaginationConfig> = {
+export const PAGINATION_DEFAULTS: Required<AppPaginationConfig> = {
   pageSizeOptions: [10, 25, 50, 100],
   showFirstLastButtons: true,
   showPageSizeSelector: true,

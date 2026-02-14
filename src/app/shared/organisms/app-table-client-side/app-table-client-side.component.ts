@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, input, output, contentChild, TemplateRef, signal, computed, effect } from "@angular/core";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 import { AppPaginationComponent } from "@shared/atoms/app-pagination/app-pagination.component";
-import { AppTablePaginationConfig, AppTablePageEvent, AppTablePaginationState } from "@shared/atoms/app-pagination/app-pagination.model";
+import { AppPaginationConfig, AppPageEvent, AppPaginationState } from "@shared/atoms/app-pagination/app-pagination.model";
 import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
 import { AppTableConfig, AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
 import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
@@ -61,11 +61,11 @@ import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, App
       </app-table>
 
       @if (paginationConfig()) {
-        <app-table-pagination
+        <app-pagination
           [config]="paginationConfig()!"
           [state]="paginationState()"
           (pageChange)="onPageChange($event)">
-        </app-table-pagination>
+        </app-pagination>
       }
     </div>
   `,
@@ -75,7 +75,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   tableConfig = input.required<AppTableConfig<T>>();
   filtersConfig = input<AppTableFiltersConfig>();
   filtersAdvancedConfig = input<AppFiltersAdvancedConfig>();
-  paginationConfig = input<AppTablePaginationConfig>();
+  paginationConfig = input<AppPaginationConfig>();
 
   // ── Inputs de datos ──
   data = input<T[]>([]);
@@ -91,7 +91,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   sortChange = output<AppTableSort>();
   filterChange = output<AppTableFilterValues>();
   advancedSearch = output<AppFiltersAdvancedOutput>();
-  pageChange = output<AppTablePageEvent>();
+  pageChange = output<AppPageEvent>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
@@ -168,7 +168,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     return data.slice(start, start + this.pageSize());
   });
 
-  readonly paginationState = computed<AppTablePaginationState>(() => ({
+  readonly paginationState = computed<AppPaginationState>(() => ({
     pageIndex: this.pageIndex(),
     pageSize: this.pageSize(),
     totalItems: this.sortedData().length,
@@ -208,7 +208,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     this.sortChange.emit(sort);
   }
 
-  onPageChange(event: AppTablePageEvent): void {
+  onPageChange(event: AppPageEvent): void {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
     this.pageChange.emit(event);

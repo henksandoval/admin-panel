@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
-import { AppTablePaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
+import { AppPaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
 import { AppTableFiltersConfig } from '@shared/molecules/app-filters/app-table-filters.model';
 import { AppFiltersAdvancedConfig } from '@shared/molecules/app-filters/app-filter.model';
 
@@ -121,7 +121,7 @@ export class TableClientSideService {
     };
   } 
 
-  getPaginationConfig(): AppTablePaginationConfig {
+  getPaginationConfig(): AppPaginationConfig {
     return {
       pageSizeOptions: [5, 10, 20],
       showFirstLastButtons: true,

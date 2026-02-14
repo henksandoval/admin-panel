@@ -5,27 +5,30 @@ import {
   output,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {
-  AppTablePaginationConfig,
-  AppTablePaginationState,
-  AppTablePageEvent,
+  AppPaginationConfig,
+  AppPaginationState,
+  AppPageEvent,
   PAGINATION_DEFAULTS,
 } from './app-pagination.model';
+import { AppButtonComponent } from "../app-button/app-button.component";
+import { AppFormSelectComponent } from "@shared/molecules/app-form/app-form-select/app-form-select.component";
+import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 
 @Component({
-  selector: 'app-table-pagination',
+  selector: 'app-pagination',
   standalone: true,
   imports: [
+    FormsModule,
     MatIconModule,
     MatButtonModule,
-    MatSelectModule,
-    MatFormFieldModule,
     MatTooltipModule,
+    AppButtonComponent,
+    AppFormSelectComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-pagination.component.scss',
@@ -34,15 +37,12 @@ import {
       @if (showPageSizeSelector()) {
         <div class="page-size-selector">
           <span class="page-size-label">{{ itemsPerPageLabel() }}</span>
-          <mat-form-field appearance="outline" class="page-size-field">
-            <mat-select
-              [value]="state().pageSize"
-              (selectionChange)="onPageSizeChange($event.value)">
-              @for (option of pageSizeOptions(); track option) {
-                <mat-option [value]="option">{{ option }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+          <app-form-select
+            class="page-size-select"
+            [ngModel]="state().pageSize"
+            (ngModelChange)="onPageSizeChange($event)"
+            [options]="pageSizeSelectOptions()">
+          </app-form-select>
         </div>
       }
 
@@ -50,55 +50,53 @@ import {
 
       <div class="navigation-buttons">
         @if (showFirstLastButtons()) {
-          <button
-            mat-icon-button
-            type="button"
+          <app-button 
             [disabled]="isFirstPage()"
             [matTooltip]="firstPageLabel()"
-            (click)="goToFirstPage()">
-            <mat-icon>first_page</mat-icon>
-          </button>
+            (click)="goToFirstPage()"
+            iconBefore="first_page">
+          </app-button>
         }
 
-        <button
-          mat-icon-button
-          type="button"
+        <app-button
           [disabled]="isFirstPage()"
           [matTooltip]="previousPageLabel()"
-          (click)="goToPreviousPage()">
-          <mat-icon>chevron_left</mat-icon>
-        </button>
+          (click)="goToPreviousPage()"
+          iconBefore="chevron_left">
+      </app-button>
 
-        <button
-          mat-icon-button
-          type="button"
+        <app-button
           [disabled]="isLastPage()"
           [matTooltip]="nextPageLabel()"
-          (click)="goToNextPage()">
-          <mat-icon>chevron_right</mat-icon>
-        </button>
+          (click)="goToNextPage()"
+          iconBefore="chevron_right">
+        </app-button>
 
         @if (showFirstLastButtons()) {
-          <button
-            mat-icon-button
-            type="button"
+          <app-button
             [disabled]="isLastPage()"
             [matTooltip]="lastPageLabel()"
-            (click)="goToLastPage()">
-            <mat-icon>last_page</mat-icon>
-          </button>
+            (click)="goToLastPage()"
+            iconBefore="last_page">
+          </app-button>
         }
       </div>
     </div>
   `,
 })
 export class AppPaginationComponent {
-  config = input<AppTablePaginationConfig>({});
-  state = input.required<AppTablePaginationState>();
+  config = input<AppPaginationConfig>({});
+  state = input.required<AppPaginationState>();
 
-  pageChange = output<AppTablePageEvent>();
+  pageChange = output<AppPageEvent>();
 
   pageSizeOptions = computed(() => this.config().pageSizeOptions ?? PAGINATION_DEFAULTS.pageSizeOptions);
+  pageSizeSelectOptions = computed<SelectOption<number>[]>(() =>
+    this.pageSizeOptions().map(size => ({
+      value: size,
+      label: size.toString()
+    }))
+  );
   showFirstLastButtons = computed(() => this.config().showFirstLastButtons ?? PAGINATION_DEFAULTS.showFirstLastButtons);
   showPageSizeSelector = computed(() => this.config().showPageSizeSelector ?? PAGINATION_DEFAULTS.showPageSizeSelector);
   itemsPerPageLabel = computed(() => this.config().itemsPerPageLabel ?? PAGINATION_DEFAULTS.itemsPerPageLabel);

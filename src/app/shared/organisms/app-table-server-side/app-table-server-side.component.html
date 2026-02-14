@@ -20,10 +20,10 @@
   </app-table>
 
   @if (paginationConfig()) {
-    <app-table-pagination
+    <app-pagination
       [config]="paginationConfig()!"
       [state]="paginationState()"
       (pageChange)="onPageChange($event)">
-    </app-table-pagination>
+    </app-pagination>
   }
 </div>
