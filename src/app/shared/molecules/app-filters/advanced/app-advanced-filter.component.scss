@@ -2,7 +2,7 @@
   display: block;
 }
 
-.app-table-filters-advanced-form {
+.app-filters-advanced-form {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr auto;
   gap: 1rem;
@@ -36,11 +36,11 @@
   }
 }
 
-.app-table-filters-advanced-form-button {
+.app-filters-advanced-form-button {
   align-self: center;
 }
 
-.app-table-filters-advanced-criteria {
+.app-filters-advanced-criteria {
   background: var(--mat-sys-surface-container-low);
   border-bottom: 1px solid var(--mat-sys-outline-variant);
 
@@ -51,7 +51,7 @@
   }
 }
 
-.app-table-filters-advanced-actions {
+.app-filters-advanced-actions {
   display: flex;
   padding: .5rem;
 
@@ -61,7 +61,7 @@
   }
 }
 
-.app-table-filters-advanced-actions-buttons {
+.app-filters-advanced-actions-buttons {
   display: flex;
   gap: 0.75rem;
   margin-left: auto;

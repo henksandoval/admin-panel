@@ -1,56 +1,56 @@
-export type AppTableFilterFieldType = 'text' | 'number' | 'date' | 'select' | 'boolean';
+export type AppFilterFieldType = 'text' | 'number' | 'date' | 'select' | 'boolean';
 
 export type FilterValue = string | number | boolean | Date | null;
 
-export interface AppTableFilterField {
+export interface AppFilterField {
   key: string;
   label: string;
-  type: AppTableFilterFieldType;
-  options?: AppTableFilterOption[];
+  type: AppFilterFieldType;
+  options?: AppFilterOption[];
 }
 
-export interface AppTableFilterOption {
+export interface AppFilterOption {
   value: FilterValue;
   label: string;
 }
 
-export interface AppTableFilterOperator {
+export interface AppFilterOperator {
   key: string;
   label: string;
   symbol: string;
-  applicableTo: AppTableFilterFieldType[];
+  applicableTo: AppFilterFieldType[];
   requiresValue: boolean;
 }
 
-export interface AppTableFilterCriterion {
+export interface AppFilterCriterion {
   id: string;
-  field: AppTableFilterField;
-  operator: AppTableFilterOperator;
+  field: AppFilterField;
+  operator: AppFilterOperator;
   value: FilterValue;
 }
 
-export interface AppTableFilterToggle {
+export interface AppFilterToggle {
   key: string;
   label: string;
   value: boolean;
 }
 
-export interface AppTableFiltersAdvancedConfig {
-  fields: AppTableFilterField[];
-  operators?: AppTableFilterOperator[];
-  toggles?: AppTableFilterToggle[];
+export interface AppFiltersAdvancedConfig {
+  fields: AppFilterField[];
+  operators?: AppFilterOperator[];
+  toggles?: AppFilterToggle[];
   maxCriteria?: number;
   autoSearch?: boolean;
   showClearButton?: boolean;
   showSearchButton?: boolean;
 }
 
-export interface AppTableFiltersAdvancedOutput {
-  criteria: AppTableFilterCriterion[];
+export interface AppFiltersAdvancedOutput {
+  criteria: AppFilterCriterion[];
   toggles: Record<string, boolean>;
 }
 
-export const DEFAULT_FILTER_OPERATORS: AppTableFilterOperator[] = [
+export const DEFAULT_FILTER_OPERATORS: AppFilterOperator[] = [
   { key: 'eq', label: 'Igual a', symbol: '=', applicableTo: ['text', 'number', 'date', 'select', 'boolean'], requiresValue: true },
   { key: 'neq', label: 'Diferente de', symbol: '≠', applicableTo: ['text', 'number', 'date', 'select'], requiresValue: true },
   { key: 'contains', label: 'Contiene', symbol: '∋', applicableTo: ['text'], requiresValue: true },

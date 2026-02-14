@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppTableFilterCriterion } from './app-table-filters-advanced.model';
-import { formatCriterionDisplayValue } from './app-table-filters-advanced.utils';
+import { AppFilterCriterion } from './app-filter.model';
+import { formatCriterionDisplayValue } from './app-filter.utils';
 
 @Pipe({
   name: 'criterionDisplay',
   standalone: true,
 })
 export class CriterionDisplayPipe implements PipeTransform {
-  transform(criterion: AppTableFilterCriterion): string {
+  transform(criterion: AppFilterCriterion): string {
     return formatCriterionDisplayValue(criterion);
   }
 }

@@ -1,6 +1,6 @@
-import { AppTableFilterCriterion, AppTableFilterToggle } from './app-table-filters-advanced.model';
+import { AppFilterCriterion, AppFilterToggle } from './app-filter.model';
 
-export function formatCriterionDisplayValue(criterion: AppTableFilterCriterion): string {
+export function formatCriterionDisplayValue(criterion: AppFilterCriterion): string {
   const { value, field, operator } = criterion;
 
   if (!operator.requiresValue) {
@@ -26,7 +26,7 @@ export function formatCriterionDisplayValue(criterion: AppTableFilterCriterion):
   }
 }
 
-export function togglesToRecord(toggles: AppTableFilterToggle[]): Record<string, boolean> {
+export function togglesToRecord(toggles: AppFilterToggle[]): Record<string, boolean> {
   return toggles.reduce<Record<string, boolean>>((acc, toggle) => {
     acc[toggle.key] = toggle.value;
     return acc;

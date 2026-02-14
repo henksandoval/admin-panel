@@ -24,7 +24,7 @@
 
 <mat-divider class="my-4"></mat-divider>
 
-<div class="app-table-filters-advanced-form" [formGroup]="builderForm">
+<div class="app-filters-advanced-form" [formGroup]="builderForm">
   <div>
     <app-form-select appFormSelectConnector formControlName="field" [options]="fieldOptions()"
       [config]="{ label: 'Campo' }">
@@ -68,7 +68,7 @@
   <div></div>
   }
 
-  <div class="app-table-filters-advanced-form-button">
+  <div class="app-filters-advanced-form-button">
     <app-button [disabled]="!canAddCriterion()" (click)="addCriterion()" iconBefore="add">
       Agregar
     </app-button>
@@ -78,14 +78,14 @@
 @if (toggles().length > 0 || showClearButton() || showSearchButton()) {
 <mat-divider class="my-4"></mat-divider>
 
-<div class="app-table-filters-advanced-actions">
+<div class="app-filters-advanced-actions">
   @for (toggle of toggles(); track toggle.key) {
   <app-checkbox [checked]="toggle.value" (change)="onToggleChange(toggle.key, $event)">
     {{ toggle.label }}
   </app-checkbox>
   }
 
-  <div class="app-table-filters-advanced-actions-buttons">
+  <div class="app-filters-advanced-actions-buttons">
     @if (showClearButton() && hasCriteria()) {
     <app-button (click)="clearAllCriteria()" iconBefore="restart_alt">
       Limpiar filtros

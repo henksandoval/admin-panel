@@ -1,8 +1,8 @@
-import { AppTableFilterCriterion, FilterValue } from './app-table-filters-advanced.model';
+import { AppFilterCriterion, FilterValue } from './app-filter.model';
 
 export function evaluateCriteria<T extends Record<string, any>>(
   data: T[],
-  criteria: AppTableFilterCriterion[]
+  criteria: AppFilterCriterion[]
 ): T[] {
   if (!criteria.length) return data;
   return data.filter(item => criteria.every(c => evaluateOne(item, c)));
@@ -10,7 +10,7 @@ export function evaluateCriteria<T extends Record<string, any>>(
 
 function evaluateOne<T extends Record<string, any>>(
   item: T,
-  criterion: AppTableFilterCriterion
+  criterion: AppFilterCriterion
 ): boolean {
   const raw = item[criterion.field.key];
   const target = criterion.value;

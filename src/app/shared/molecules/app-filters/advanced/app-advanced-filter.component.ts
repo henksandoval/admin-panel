@@ -3,9 +3,9 @@ import { Component, ChangeDetectionStrategy, computed, effect, input,
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { AppTableFiltersAdvancedConfig, AppTableFiltersAdvancedOutput, AppTableFilterCriterion, AppTableFilterToggle,
-  DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-table-filters-advanced.model';
-import { togglesToRecord } from '../app-table-filters-advanced.utils';
+import { AppFiltersAdvancedConfig, AppFiltersAdvancedOutput, AppFilterCriterion, AppFilterToggle,
+  DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-filter.model';
+import { togglesToRecord } from '../app-filter.utils';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
@@ -24,7 +24,7 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
 ];
 
 @Component({
-  selector: 'app-table-filters-advanced',
+  selector: 'app-filters-advanced',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -45,15 +45,15 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   styleUrl: './app-advanced-filter.component.scss',
 })
 export class AppAdvancedFilterComponent {
-  config = input.required<AppTableFiltersAdvancedConfig>();
-  initialCriteria = input<AppTableFilterCriterion[]>([]);
+  config = input.required<AppFiltersAdvancedConfig>();
+  initialCriteria = input<AppFilterCriterion[]>([]);
 
-  search = output<AppTableFiltersAdvancedOutput>();
-  criteriaChange = output<AppTableFilterCriterion[]>();
+  search = output<AppFiltersAdvancedOutput>();
+  criteriaChange = output<AppFilterCriterion[]>();
   toggleChange = output<Record<string, boolean>>();
 
-  readonly criteria = signal<AppTableFilterCriterion[]>([]);
-  readonly toggles = signal<AppTableFilterToggle[]>([]);
+  readonly criteria = signal<AppFilterCriterion[]>([]);
+  readonly toggles = signal<AppFilterToggle[]>([]);
   readonly booleanOptions = BOOLEAN_OPTIONS;
 
   private readonly fb = inject(FormBuilder);
@@ -119,9 +119,9 @@ export class AppAdvancedFilterComponent {
   private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
 
   readonly criteriaAreaClasses = computed(() => {
-    const classes = ['app-table-filters-advanced-criteria'];
+    const classes = ['app-filters-advanced-criteria'];
     if (this.hasCriteria()) {
-      classes.push('app-table-filters-advanced-criteria--active');
+      classes.push('app-filters-advanced-criteria--active');
     }
     return classes.join(' ');
   });
