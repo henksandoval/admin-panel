@@ -1,5 +1,5 @@
-import { AppAdvancedFiltersConfig, AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
-import { AppTableFiltersConfig, AppTableFilterValues } from "@shared/molecules/app-filters/app-table-filters.model";
+import { AppAdvancedFiltersConfig } from "@shared/molecules/app-filters/app-filter.model";
+import { AppTableFiltersConfig } from "@shared/molecules/app-filters/app-table-filters.model";
 
 export function convertToAdvancedConfig(
   simpleConfig: AppTableFiltersConfig
@@ -21,16 +21,3 @@ export function convertToAdvancedConfig(
     showSearchButton: true,
   };
 }
-
-export function convertAdvancedToSimple(
-  criteria: AppFilterCriterion[]
-): AppTableFilterValues {
-  return criteria.reduce((acc, c) => {
-    if (c.operator.key === 'eq' || c.operator.key === 'contains') {
-      acc[c.field.key] = c.value;
-    }
-    return acc;
-  }, {} as AppTableFilterValues);
-}
-
-
