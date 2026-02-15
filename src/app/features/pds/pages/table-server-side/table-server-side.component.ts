@@ -1,11 +1,11 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
-import {finalize} from 'rxjs/operators';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
-import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
-import {AppPaginationConfig} from '@shared/atoms/app-pagination/app-pagination.model';
-import {TableServerSideService} from './table-server-side.service';
-import {Employee} from '../table-client-side/table-client-side.service';
-import { AppTableFiltersConfig } from '@shared/molecules/app-filters/app-table-filters.model';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { finalize } from 'rxjs/operators';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
+import { AppPaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
+import { TableServerSideService } from './table-server-side.service';
+import { Employee } from '../table-client-side/table-client-side.service';
+import { AppSimpleFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
 import { AppTableServerSideComponent } from '@shared/organisms/app-table-server-side/app-table-server-side.component';
 import { AppTableServerParams } from '@shared/organisms/app-table-server-side/app-table-server-side.model';
 
@@ -69,8 +69,8 @@ export class TableServerSideComponent implements OnInit {
     clickableRows: true,
   };
 
-  readonly filtersConfig: AppTableFiltersConfig = {
-    filters: [
+  readonly filtersConfig: AppSimpleFiltersConfig = {
+    fields: [
       {
         key: 'name',
         label: 'Nombre',

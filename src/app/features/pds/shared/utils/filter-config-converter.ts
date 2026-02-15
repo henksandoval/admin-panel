@@ -1,11 +1,10 @@
-import { AppAdvancedFiltersConfig } from "@shared/molecules/app-filters/app-filter.model";
-import { AppTableFiltersConfig } from "@shared/molecules/app-filters/app-table-filters.model";
+import { AppAdvancedFiltersConfig, AppSimpleFiltersConfig } from "@shared/molecules/app-filters/app-filter.model";
 
 export function convertToAdvancedConfig(
-  simpleConfig: AppTableFiltersConfig
+  simpleConfig: AppSimpleFiltersConfig
 ): AppAdvancedFiltersConfig {
   return {
-    fields: simpleConfig.filters.map(f => ({
+    fields: simpleConfig.fields.map(f => ({
       key: f.key,
       label: f.label,
       type: f.type as any,

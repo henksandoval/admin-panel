@@ -23,7 +23,7 @@ import {
   AppPageEvent,
 } from '@shared/atoms/app-pagination/app-pagination.model';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
-import { AppTableFiltersConfig, AppTableFilterValues } from '@shared/molecules/app-filters/app-table-filters.model';
+import { AppSimpleFiltersConfig, AppSimpleFilterValues } from '@shared/molecules/app-filters/app-filter.model';
 import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/app-simple-filter.component';
 
 @Component({
@@ -48,7 +48,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
   loading = input(false);
 
   // Configuration inputs
-  filtersConfig = input<AppTableFiltersConfig>();
+  filtersConfig = input<AppSimpleFiltersConfig>();
   paginationConfig = input<AppPaginationConfig>();
 
   // Behavior inputs
@@ -56,7 +56,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
   resetPageOnSort = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnSort);
 
   // Outputs
-  filterChange = output<AppTableFilterValues>();
+  filterChange = output<AppSimpleFilterValues>();
   sortChange = output<AppTableSort>();
   pageChange = output<AppPageEvent>();
   paramsChange = output<AppTableServerParams>();
@@ -68,7 +68,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
 
   // Internal state
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
-  readonly filterValues = signal<AppTableFilterValues>({});
+  readonly filterValues = signal<AppSimpleFilterValues>({});
   readonly pageIndex: WritableSignal<number> = signal(TABLE_SERVER_SIDE_DEFAULTS.initialPageIndex);
   readonly pageSize: WritableSignal<number> = signal(TABLE_SERVER_SIDE_DEFAULTS.initialPageSize);
 
@@ -104,7 +104,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
     }
   });
 
-  onFiltersChange(values: AppTableFilterValues): void {
+  onFiltersChange(values: AppSimpleFilterValues): void {
     this.filterValues.set(values);
 
     if (this.resetPageOnFilter()) {

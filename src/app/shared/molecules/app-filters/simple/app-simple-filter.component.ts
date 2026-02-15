@@ -18,10 +18,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  AppTableFiltersConfig,
-  AppTableFilterValues,
-  FILTERS_DEFAULTS,
-} from '../app-table-filters.model';
+  AppSimpleFiltersConfig,
+  AppSimpleFilterValues,
+  SIMPLE_FILTER_DEFAULTS,
+} from '../app-filter.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
@@ -47,7 +47,7 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
   template: `
     <div class="filters-container">
       <div class="filters-fields">
-        @for (filter of config().filters; track filter.key) {
+        @for (filter of config().fields; track filter.key) {
           <div
             class="filter-field"
             [style.width]="filter.width ?? 'auto'">
@@ -119,16 +119,16 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
 export class AppSimpleFilterComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
-  config = input.required<AppTableFiltersConfig>();
-  values = input<AppTableFilterValues>({});
+  config = input.required<AppSimpleFiltersConfig>();
+  values = input<AppSimpleFilterValues>({});
 
-  valuesChange = output<AppTableFilterValues>();
+  valuesChange = output<AppSimpleFilterValues>();
   filterChange = output<{ key: string; value: any }>();
 
-  appearance = computed(() => this.config().appearance ?? FILTERS_DEFAULTS.appearance);
-  showClearAll = computed(() => this.config().showClearAll ?? FILTERS_DEFAULTS.showClearAll);
-  clearAllLabel = computed(() => this.config().clearAllLabel ?? FILTERS_DEFAULTS.clearAllLabel);
-  private debounceMs = computed(() => this.config().debounceMs ?? FILTERS_DEFAULTS.debounceMs);
+  appearance = computed(() => this.config().appearance ?? SIMPLE_FILTER_DEFAULTS.appearance);
+  showClearAll = computed(() => this.config().showClearAll ?? SIMPLE_FILTER_DEFAULTS.showClearAll);
+  clearAllLabel = computed(() => this.config().clearAllLabel ?? SIMPLE_FILTER_DEFAULTS.clearAllLabel);
+  private debounceMs = computed(() => this.config().debounceMs ?? SIMPLE_FILTER_DEFAULTS.debounceMs);
 
   private formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
 
@@ -154,7 +154,7 @@ export class AppSimpleFilterComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    const filters = this.config().filters;
+    const filters = this.config().fields;
     const initialValues = this.values();
     const controls: Record<string, FormControl> = {};
 
@@ -194,7 +194,7 @@ export class AppSimpleFilterComponent implements OnInit {
     this.valuesChange.emit({});
   }
 
-  private cleanValues(values: Record<string, any>): AppTableFilterValues {
+  private cleanValues(values: Record<string, any>): AppSimpleFilterValues {
     return Object.fromEntries(
       Object.entries(values).filter(
         ([, value]) => value !== null && value !== undefined && value !== '',

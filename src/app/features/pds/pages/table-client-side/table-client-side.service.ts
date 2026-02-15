@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { AppPaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
-import { AppTableFiltersConfig } from '@shared/molecules/app-filters/app-table-filters.model';
-import { AppAdvancedFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
+import { AppSimpleFiltersConfig, AppAdvancedFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
 
 export interface Employee {
   id: number;
@@ -78,17 +77,19 @@ export class TableClientSideService {
     };
   }
 
-  getFiltersConfig(): AppTableFiltersConfig {
+  getFiltersConfig(): AppSimpleFiltersConfig {
     return {
-      filters: [
+      fields: [
         { key: 'name', label: 'Nombre', type: 'text', placeholder: 'Buscar por nombre...' },
         { key: 'id', label: 'ID', type: 'number', placeholder: 'ID del empleado' },
         { key: 'department', label: 'Departamento', type: 'select', options: this.departments.map(d => ({ value: d, label: d })) },
-        { key: 'status', label: 'Estado', type: 'select', options: [
-          { value: 'active', label: 'Activo' },
-          { value: 'inactive', label: 'Inactivo' },
-          { value: 'vacation', label: 'Vacaciones' },
-        ]},
+        {
+          key: 'status', label: 'Estado', type: 'select', options: [
+            { value: 'active', label: 'Activo' },
+            { value: 'inactive', label: 'Inactivo' },
+            { value: 'vacation', label: 'Vacaciones' },
+          ]
+        },
         { key: 'hireDate', label: 'Fecha contratación', type: 'date', placeholder: 'DD/MM/YYYY' },
       ],
       showClearAll: true,
@@ -119,7 +120,7 @@ export class TableClientSideService {
       showClearButton: true,
       showSearchButton: true,
     };
-  } 
+  }
 
   getPaginationConfig(): AppPaginationConfig {
     return {

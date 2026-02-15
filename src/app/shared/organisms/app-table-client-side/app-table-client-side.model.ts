@@ -1,8 +1,7 @@
 import { AppTableSort } from "@shared/atoms/app-table/app-table.model";
-import { AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
-import { AppTableFilterValues } from "@shared/molecules/app-filters/app-table-filters.model";
+import { AppFilterCriterion, AppSimpleFilterValues } from "@shared/molecules/app-filters/app-filter.model";
 
-export type AppTableFilterFn<T> = (data: T[], filters: AppTableFilterValues) => T[];
+export type AppTableFilterFn<T> = (data: T[], filters: AppSimpleFilterValues) => T[];
 export type AppTableCriteriaFilterFn<T> = (data: T[], criteria: AppFilterCriterion[]) => T[];
 export type AppTableToggleFilterFn<T> = (data: T[], toggles: Record<string, boolean>) => T[];
 export type AppTableSortFn<T> = (data: T[], sort: AppTableSort) => T[];

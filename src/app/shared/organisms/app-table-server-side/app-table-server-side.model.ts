@@ -1,8 +1,8 @@
 import { AppTableSort } from '@shared/atoms/app-table/app-table.model';
-import { AppTableFilterValues } from '@shared/molecules/app-filters/app-table-filters.model';
+import { AppSimpleFilterValues } from '@shared/molecules/app-filters/app-filter.model';
 
 export interface AppTableServerParams {
-  filters: AppTableFilterValues;
+  filters: AppSimpleFilterValues;
   sort: AppTableSort;
   pageIndex: number;
   pageSize: number;
