@@ -2,7 +2,7 @@ export type AppFilterFieldType = 'text' | 'number' | 'date' | 'select' | 'boolea
 
 export type AppFilterValue = string | number | boolean | Date | null;
 
-export type AppSimpleFilterValues = Record<string, AppFilterValue>;
+export type AppFilterValues = Record<string, AppFilterValue>;
 
 export interface AppFilterOption {
   value: AppFilterValue;
@@ -14,6 +14,9 @@ export interface AppFilterField {
   label: string;
   type: AppFilterFieldType;
   options?: AppFilterOption[];
+  placeholder?: string;
+  width?: string;
+  defaultOperator?: string;
 }
 
 export interface AppFilterOperator {
@@ -35,6 +38,27 @@ export interface AppFilterToggle {
   key: string;
   label: string;
   value: boolean;
+}
+
+export interface AppFiltersConfig {
+  fields: AppFilterField[];
+  // Simple filter options
+  debounceMs?: number;
+  appearance?: 'fill' | 'outline';
+  showClearAll?: boolean;
+  clearAllLabel?: string;
+  // Advanced filter options
+  operators?: AppFilterOperator[];
+  toggles?: AppFilterToggle[];
+  maxCriteria?: number;
+  autoSearch?: boolean;
+  showClearButton?: boolean;
+  showSearchButton?: boolean;
+}
+
+export interface AppFiltersOutput {
+  criteria: AppFilterCriterion[];
+  toggles: Record<string, boolean>;
 }
 
 export const DEFAULT_FILTER_OPERATORS: AppFilterOperator[] = [
@@ -60,43 +84,11 @@ export const DEFAULT_OPERATOR_BY_TYPE: Record<AppFilterFieldType, string> = {
   boolean: 'eq',
 };
 
-export interface AppSimpleFilterField extends AppFilterField {
-  placeholder?: string;
-  width?: string;
-  defaultOperator?: string;
-}
-
-export interface AppSimpleFiltersConfig {
-  fields: AppSimpleFilterField[];
-  debounceMs?: number;
-  appearance?: 'fill' | 'outline';
-  showClearAll?: boolean;
-  clearAllLabel?: string;
-}
-
-export const SIMPLE_FILTER_DEFAULTS = {
+export const FILTER_DEFAULTS = {
   debounceMs: 300,
   appearance: 'outline' as const,
   showClearAll: true,
   clearAllLabel: 'Limpiar filtros',
-} as const;
-
-export interface AppAdvancedFiltersConfig {
-  fields: AppFilterField[];
-  operators?: AppFilterOperator[];
-  toggles?: AppFilterToggle[];
-  maxCriteria?: number;
-  autoSearch?: boolean;
-  showClearButton?: boolean;
-  showSearchButton?: boolean;
-}
-
-export interface AppAdvancedFiltersOutput {
-  criteria: AppFilterCriterion[];
-  toggles: Record<string, boolean>;
-}
-
-export const ADVANCED_FILTER_DEFAULTS = {
   maxCriteria: 10,
   autoSearch: false,
   showClearButton: true,

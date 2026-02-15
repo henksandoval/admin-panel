@@ -1,5 +1,7 @@
-import { Component, ChangeDetectionStrategy, computed, effect, input,
- output, signal, inject, DestroyRef } from '@angular/core';
+import {
+  Component, ChangeDetectionStrategy, computed, effect, input,
+  output, signal, inject, DestroyRef
+} from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +17,7 @@ import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
-import { ADVANCED_FILTER_DEFAULTS, AppAdvancedFiltersConfig, AppAdvancedFiltersOutput, AppFilterCriterion, AppFilterToggle, DEFAULT_FILTER_OPERATORS } from '../app-filter.model';
+import { FILTER_DEFAULTS, AppFiltersConfig, AppFiltersOutput, AppFilterCriterion, AppFilterToggle, DEFAULT_FILTER_OPERATORS } from '../app-filter.model';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
@@ -38,16 +40,16 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
     AppFormDatepickerConnectorDirective,
     CriterionDisplayPipe,
     MatDivider
-],
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app-advanced-filter.component.html',
   styleUrl: './app-advanced-filter.component.scss',
 })
 export class AppAdvancedFilterComponent {
-  config = input.required<AppAdvancedFiltersConfig>();
+  config = input.required<AppFiltersConfig>();
   initialCriteria = input<AppFilterCriterion[]>([]);
 
-  search = output<AppAdvancedFiltersOutput>();
+  search = output<AppFiltersOutput>();
   criteriaChange = output<AppFilterCriterion[]>();
   toggleChange = output<Record<string, boolean>>();
 
@@ -112,10 +114,10 @@ export class AppAdvancedFilterComponent {
     return value !== null && value !== undefined && value !== '';
   });
 
-  readonly showClearButton = computed(() => this.config().showClearButton ?? ADVANCED_FILTER_DEFAULTS.showClearButton);
-  readonly showSearchButton = computed(() => this.config().showSearchButton ?? ADVANCED_FILTER_DEFAULTS.showSearchButton);
-  private readonly autoSearch = computed(() => this.config().autoSearch ?? ADVANCED_FILTER_DEFAULTS.autoSearch);
-  private readonly maxCriteria = computed(() => this.config().maxCriteria ?? ADVANCED_FILTER_DEFAULTS.maxCriteria);
+  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
+  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
+  private readonly autoSearch = computed(() => this.config().autoSearch ?? FILTER_DEFAULTS.autoSearch);
+  private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
 
   readonly criteriaAreaClasses = computed(() => {
     const classes = ['app-filters-advanced-criteria'];

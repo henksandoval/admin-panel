@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { TableClientSideService, Employee } from './table-client-side.service';
 import { AppTableClientSideComponent } from '@shared/organisms/app-table-client-side/app-table-client-side.component';
-import { AppAdvancedFiltersOutput } from '@shared/molecules/app-filters/app-filter.model';
+import { AppFiltersOutput } from '@shared/molecules/app-filters/app-filter.model';
 
 interface EmployeeViewModel {
   id: number;
@@ -102,7 +102,7 @@ export class TableClientSideComponent implements OnInit {
     this.snackBar.open(`Filtrar por: ${event.columnKey} (${event.value})`, '✕', { duration: 2500 });
   }
 
-  onAdvancedSearch(output: AppAdvancedFiltersOutput): void {
+  onAdvancedSearch(output: AppFiltersOutput): void {
     this.snackBar.open(`Búsqueda avanzada aplicada ver consola`, '✕', { duration: 2500 });
     console.debug('[filter advanced]', output);
   }

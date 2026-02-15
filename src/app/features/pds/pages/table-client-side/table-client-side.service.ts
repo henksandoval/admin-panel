@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { AppPaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
-import { AppSimpleFiltersConfig, AppAdvancedFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
+import { AppFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
 
 export interface Employee {
   id: number;
@@ -77,7 +77,7 @@ export class TableClientSideService {
     };
   }
 
-  getFiltersConfig(): AppSimpleFiltersConfig {
+  getFiltersConfig(): AppFiltersConfig {
     return {
       fields: [
         { key: 'name', label: 'Nombre', type: 'text', placeholder: 'Buscar por nombre...' },
@@ -97,7 +97,7 @@ export class TableClientSideService {
     };
   }
 
-  getAdvancedFiltersConfig(): AppAdvancedFiltersConfig {
+  getAdvancedFiltersConfig(): AppFiltersConfig {
     return {
       fields: [
         { key: 'name', label: 'Nombre', type: 'text' },

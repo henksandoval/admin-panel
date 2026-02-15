@@ -18,9 +18,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  AppSimpleFiltersConfig,
-  AppSimpleFilterValues,
-  SIMPLE_FILTER_DEFAULTS,
+  AppFiltersConfig,
+  AppFilterValues,
+  FILTER_DEFAULTS,
 } from '../app-filter.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
@@ -119,16 +119,16 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
 export class AppSimpleFilterComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
-  config = input.required<AppSimpleFiltersConfig>();
-  values = input<AppSimpleFilterValues>({});
+  config = input.required<AppFiltersConfig>();
+  values = input<AppFilterValues>({});
 
-  valuesChange = output<AppSimpleFilterValues>();
+  valuesChange = output<AppFilterValues>();
   filterChange = output<{ key: string; value: any }>();
 
-  appearance = computed(() => this.config().appearance ?? SIMPLE_FILTER_DEFAULTS.appearance);
-  showClearAll = computed(() => this.config().showClearAll ?? SIMPLE_FILTER_DEFAULTS.showClearAll);
-  clearAllLabel = computed(() => this.config().clearAllLabel ?? SIMPLE_FILTER_DEFAULTS.clearAllLabel);
-  private debounceMs = computed(() => this.config().debounceMs ?? SIMPLE_FILTER_DEFAULTS.debounceMs);
+  appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
+  showClearAll = computed(() => this.config().showClearAll ?? FILTER_DEFAULTS.showClearAll);
+  clearAllLabel = computed(() => this.config().clearAllLabel ?? FILTER_DEFAULTS.clearAllLabel);
+  private debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
 
   private formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
 
@@ -194,7 +194,7 @@ export class AppSimpleFilterComponent implements OnInit {
     this.valuesChange.emit({});
   }
 
-  private cleanValues(values: Record<string, any>): AppSimpleFilterValues {
+  private cleanValues(values: Record<string, any>): AppFilterValues {
     return Object.fromEntries(
       Object.entries(values).filter(
         ([, value]) => value !== null && value !== undefined && value !== '',

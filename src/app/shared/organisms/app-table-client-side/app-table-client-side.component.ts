@@ -5,11 +5,10 @@ import { AppPaginationConfig, AppPageEvent, AppPaginationState } from "@shared/a
 import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
 import { AppTableConfig, AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
 import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
-import { AppSimpleFiltersConfig, AppSimpleFilterValues } from "@shared/molecules/app-filters/app-filter.model";
+import { AppFiltersConfig, AppFilterValues, AppFiltersOutput, AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
 import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator";
 import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
 import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, AppTableSortFn } from "./app-table-client-side.model";
-import { AppAdvancedFiltersConfig, AppAdvancedFiltersOutput, AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
 
 
 @Component({
@@ -73,8 +72,8 @@ import { AppAdvancedFiltersConfig, AppAdvancedFiltersOutput, AppFilterCriterion 
 export class AppTableClientSideComponent<T extends Record<string, any> = Record<string, any>> {
   // ── Inputs de configuración ──
   tableConfig = input.required<AppTableConfig<T>>();
-  filtersConfig = input<AppSimpleFiltersConfig>();
-  filtersAdvancedConfig = input<AppAdvancedFiltersConfig>();
+  filtersConfig = input<AppFiltersConfig>();
+  filtersAdvancedConfig = input<AppFiltersConfig>();
   paginationConfig = input<AppPaginationConfig>();
 
   // ── Inputs de datos ──
@@ -89,8 +88,8 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
 
   // ── Outputs ──
   sortChange = output<AppTableSort>();
-  filterChange = output<AppSimpleFilterValues>();
-  advancedSearch = output<AppAdvancedFiltersOutput>();
+  filterChange = output<AppFilterValues>();
+  advancedSearch = output<AppFiltersOutput>();
   pageChange = output<AppPageEvent>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
@@ -98,7 +97,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   // ── Estado interno ──
   readonly projectedCellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
-  readonly simpleFilterValues = signal<AppSimpleFilterValues>({});
+  readonly simpleFilterValues = signal<AppFilterValues>({});
   readonly advancedCriteria = signal<AppFilterCriterion[]>([]);
   readonly activeToggles = signal<Record<string, boolean>>({});
   readonly pageIndex = signal(0);
@@ -187,7 +186,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
 
   // ── Handlers ──
 
-  onSimpleFiltersChange(values: AppSimpleFilterValues): void {
+  onSimpleFiltersChange(values: AppFilterValues): void {
     this.simpleFilterValues.set(values);
     this.advancedCriteria.set([]); // limpiar criterios avanzados
     this.activeToggles.set({});
@@ -195,7 +194,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     this.filterChange.emit(values);
   }
 
-  onAdvancedSearch(advancedOutput: AppAdvancedFiltersOutput): void {
+  onAdvancedSearch(advancedOutput: AppFiltersOutput): void {
     this.advancedCriteria.set(advancedOutput.criteria);
     this.activeToggles.set(advancedOutput.toggles);
     this.simpleFilterValues.set({}); // limpiar filtros simples
@@ -216,7 +215,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
 
   // ── Filtro simple por defecto ──
 
-  private defaultSimpleFilter(data: T[], filters: AppSimpleFilterValues): T[] {
+  private defaultSimpleFilter(data: T[], filters: AppFilterValues): T[] {
     const active = Object.entries(filters).filter(
       ([, v]) => v !== null && v !== undefined && v !== '',
     );

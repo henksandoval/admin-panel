@@ -5,7 +5,7 @@ import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { AppPaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
 import { TableServerSideService } from './table-server-side.service';
 import { Employee } from '../table-client-side/table-client-side.service';
-import { AppSimpleFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
+import { AppFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
 import { AppTableServerSideComponent } from '@shared/organisms/app-table-server-side/app-table-server-side.component';
 import { AppTableServerParams } from '@shared/organisms/app-table-server-side/app-table-server-side.model';
 
@@ -69,7 +69,7 @@ export class TableServerSideComponent implements OnInit {
     clickableRows: true,
   };
 
-  readonly filtersConfig: AppSimpleFiltersConfig = {
+  readonly filtersConfig: AppFiltersConfig = {
     fields: [
       {
         key: 'name',
