@@ -40,20 +40,20 @@ import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/a
 })
 export class AppTableServerSideComponent<T extends Record<string, any> = Record<string, any>> {
   // Required inputs
-  tableConfig = input.required<AppTableConfig<T>>();
+  readonly tableConfig = input.required<AppTableConfig<T>>();
 
   // Data inputs
-  data = input<T[]>([]);
-  totalItems = input<number>(0);
-  loading = input(false);
+  readonly data = input<T[]>([]);
+  readonly totalItems = input<number>(0);
+  readonly loading = input(false);
 
   // Configuration inputs
-  filtersConfig = input<AppFiltersConfig>();
-  paginationConfig = input<AppPaginationConfig>();
+  readonly filtersConfig = input<AppFiltersConfig>();
+  readonly paginationConfig = input<AppPaginationConfig>();
 
   // Behavior inputs
-  resetPageOnFilter = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnFilter);
-  resetPageOnSort = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnSort);
+  readonly resetPageOnFilter = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnFilter);
+  readonly resetPageOnSort = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnSort);
 
   // Outputs
   filterChange = output<AppFilterValues>();

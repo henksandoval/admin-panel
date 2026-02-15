@@ -23,8 +23,8 @@ import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds
   styleUrl: './pds-documentation-tabs.component.scss'
 })
 export class PdsDocumentationTabsComponent {
-  componentTag = input.required<string>();
+  readonly componentTag = input.required<string>();
   
-  apiProperties = input<PdsApiReferencePropertyModel[]>([]);
-  bestPractices = input<PdsBestPracticeItemModel[]>([]);
+  readonly apiProperties = input<PdsApiReferencePropertyModel[]>([]);
+  readonly bestPractices = input<PdsBestPracticeItemModel[]>([]);
 }

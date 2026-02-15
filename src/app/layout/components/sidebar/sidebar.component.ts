@@ -33,15 +33,15 @@ export class SidebarComponent implements OnInit {
   private layoutService = inject(LayoutService);
   private router = inject(Router);
 
-  isExpanded = input<boolean>(true);
+  readonly isExpanded = input<boolean>(true);
 
-  protected hoveredIconTop = signal<number>(0);
+  protected readonly hoveredIconTop = signal<number>(0);
   protected readonly showFloatingMenu = computed(() =>
     this.navigationService.getCurrentNavigation()().length > 0
   );
   protected readonly navigation = this.navigationService.getNavigation();
   protected readonly activeRootItemId = this.navigationService.getActiveRootItemId();
-  private routerUrl = toSignal(this.router.events);
+  private readonly routerUrl = toSignal(this.router.events);
 
   constructor() {
     effect(() => {

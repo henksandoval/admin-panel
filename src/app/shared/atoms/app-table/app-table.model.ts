@@ -22,10 +22,10 @@ export interface AppTableAction<T = any> {
   disabled?: (row: T) => boolean;
 }
 
-export type AppTableSort = {
+export interface AppTableSort {
   active: string;
   direction: TableSortDirection;
-};
+}
 
 export interface AppTableConfig<T = any> {
   columns: AppTableColumn<T>[];

@@ -72,10 +72,10 @@ interface ErrorState {
   ]
 })
 export class AppFormSelectComponent<T = any> implements ControlValueAccessor, AfterViewInit {
-  options = input.required<SelectOption<T>[]>();
-  config = input<AppFormSelectConfig>({});
+  readonly options = input.required<SelectOption<T>[]>();
+  readonly config = input<AppFormSelectConfig>({});
 
-  fullConfig = computed(() => ({
+  readonly fullConfig = computed(() => ({
     label: '',
     placeholder: '',
     hint: '',
@@ -103,11 +103,11 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
     maxlength: 'Please select no more than {requiredLength} options'
   };
 
-  hasGroups = computed(() => {
+  readonly hasGroups = computed(() => {
     return this.options().some(opt => opt.group !== undefined);
   });
 
-  groupedOptions = computed(() => {
+  readonly groupedOptions = computed(() => {
     const groups = new Map<string, SelectOption<T>[]>();
     this.options().forEach(option => {
       const groupName = option.group || 'default';

@@ -25,7 +25,7 @@ export class PdsPageUtilitiesService {
     return classMap[emphasis];
   }
 
-  copyToClipboard(text: string, message: string = '✅ Código copiado al portapapeles'): Promise<void> {
+  copyToClipboard(text: string, message = '✅ Código copiado al portapapeles'): Promise<void> {
     return navigator.clipboard.writeText(text).then(() => {
       this.snackBar.open(message, 'Cerrar', {
         duration: 2000,
@@ -35,7 +35,7 @@ export class PdsPageUtilitiesService {
     });
   }
 
-  showSuccess(message: string, duration: number = 2000): void {
+  showSuccess(message: string, duration = 2000): void {
     this.snackBar.open(message, 'Cerrar', {
       duration,
       horizontalPosition: 'end',
@@ -44,7 +44,7 @@ export class PdsPageUtilitiesService {
     });
   }
 
-  showError(message: string, duration: number = 3000): void {
+  showError(message: string, duration = 3000): void {
     this.snackBar.open(message, 'Cerrar', {
       duration,
       horizontalPosition: 'end',
@@ -53,7 +53,7 @@ export class PdsPageUtilitiesService {
     });
   }
 
-  showInfo(message: string, duration: number = 2000): void {
+  showInfo(message: string, duration = 2000): void {
     this.snackBar.open(message, 'Cerrar', {
       duration,
       horizontalPosition: 'end',

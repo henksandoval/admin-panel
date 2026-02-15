@@ -35,16 +35,16 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
 export default class ToggleGroupsComponent {
   private readonly router = inject(Router);
 
-  selectedState = signal<'single' | 'multiple' | 'icons-gallery' | 'vertical'>('single');
-  selectedColor = signal<ToggleGroupColor>(TOGGLE_GROUP_DEFAULTS.color);
-  selectedSize = signal<ToggleGroupSize>(TOGGLE_GROUP_DEFAULTS.size);
-  isVertical = signal<boolean>(false);
-  isDisabled = signal<boolean>(false);
+  readonly selectedState = signal<'single' | 'multiple' | 'icons-gallery' | 'vertical'>('single');
+  readonly selectedColor = signal<ToggleGroupColor>(TOGGLE_GROUP_DEFAULTS.color);
+  readonly selectedSize = signal<ToggleGroupSize>(TOGGLE_GROUP_DEFAULTS.size);
+  readonly isVertical = signal<boolean>(false);
+  readonly isDisabled = signal<boolean>(false);
 
-  singleValue = signal<string | null>('left');
-  multipleValue = signal<string[]>(['bold', 'italic']);
-  iconsValue = signal<string | null>('center');
-  verticalValue = signal<string | null>('list');
+  readonly singleValue = signal<string | null>('left');
+  readonly multipleValue = signal<string[]>(['bold', 'italic']);
+  readonly iconsValue = signal<string | null>('center');
+  readonly verticalValue = signal<string | null>('list');
 
   readonly ALIGNMENT_OPTIONS = ALIGNMENT_OPTIONS;
   readonly ALIGNMENT_ICON_OPTIONS = ALIGNMENT_ICON_OPTIONS;
@@ -73,7 +73,7 @@ export default class ToggleGroupsComponent {
     { value: 'large', label: 'L' }
   ];
 
-  currentOptions = computed<ToggleOption[]>(() => {
+  readonly currentOptions = computed<ToggleOption[]>(() => {
     const state = this.selectedState();
     if (state === 'icons-gallery') return ALIGNMENT_ICON_OPTIONS;
     if (state === 'multiple') return FORMATTING_OPTIONS;
@@ -81,7 +81,7 @@ export default class ToggleGroupsComponent {
     return ALIGNMENT_OPTIONS;
   });
 
-  generatedCode = computed(() => {
+  readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const color = this.selectedColor();
     const size = this.selectedSize();

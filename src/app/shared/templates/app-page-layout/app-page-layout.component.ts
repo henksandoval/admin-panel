@@ -44,7 +44,7 @@ export class AppPageLayoutComponent implements AfterContentInit {
 
   @ContentChildren(AppSlotContainerDirective)
   private slotDirectives!: QueryList<AppSlotContainerDirective>;
-  private slotsMap = signal<Map<string, AppSlotContainerDirective>>(new Map());
+  private readonly slotsMap = signal<Map<string, AppSlotContainerDirective>>(new Map());
 
   readonly resolvedConfig = computed<LayoutConfig>(() => {
     const config = this.layoutConfig();

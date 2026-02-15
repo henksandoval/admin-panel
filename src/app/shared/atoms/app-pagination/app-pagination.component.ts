@@ -85,34 +85,34 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
   `,
 })
 export class AppPaginationComponent {
-  config = input<AppPaginationConfig>({});
-  state = input.required<AppPaginationState>();
+  readonly config = input<AppPaginationConfig>({});
+  readonly state = input.required<AppPaginationState>();
 
   pageChange = output<AppPageEvent>();
 
-  pageSizeOptions = computed(() => this.config().pageSizeOptions ?? PAGINATION_DEFAULTS.pageSizeOptions);
-  pageSizeSelectOptions = computed<SelectOption<number>[]>(() =>
+  readonly pageSizeOptions = computed(() => this.config().pageSizeOptions ?? PAGINATION_DEFAULTS.pageSizeOptions);
+  readonly pageSizeSelectOptions = computed<SelectOption<number>[]>(() =>
     this.pageSizeOptions().map(size => ({
       value: size,
       label: size.toString()
     }))
   );
-  showFirstLastButtons = computed(() => this.config().showFirstLastButtons ?? PAGINATION_DEFAULTS.showFirstLastButtons);
-  showPageSizeSelector = computed(() => this.config().showPageSizeSelector ?? PAGINATION_DEFAULTS.showPageSizeSelector);
-  itemsPerPageLabel = computed(() => this.config().itemsPerPageLabel ?? PAGINATION_DEFAULTS.itemsPerPageLabel);
-  firstPageLabel = computed(() => this.config().firstPageLabel ?? PAGINATION_DEFAULTS.firstPageLabel);
-  lastPageLabel = computed(() => this.config().lastPageLabel ?? PAGINATION_DEFAULTS.lastPageLabel);
-  previousPageLabel = computed(() => this.config().previousPageLabel ?? PAGINATION_DEFAULTS.previousPageLabel);
-  nextPageLabel = computed(() => this.config().nextPageLabel ?? PAGINATION_DEFAULTS.nextPageLabel);
+  readonly showFirstLastButtons = computed(() => this.config().showFirstLastButtons ?? PAGINATION_DEFAULTS.showFirstLastButtons);
+  readonly showPageSizeSelector = computed(() => this.config().showPageSizeSelector ?? PAGINATION_DEFAULTS.showPageSizeSelector);
+  readonly itemsPerPageLabel = computed(() => this.config().itemsPerPageLabel ?? PAGINATION_DEFAULTS.itemsPerPageLabel);
+  readonly firstPageLabel = computed(() => this.config().firstPageLabel ?? PAGINATION_DEFAULTS.firstPageLabel);
+  readonly lastPageLabel = computed(() => this.config().lastPageLabel ?? PAGINATION_DEFAULTS.lastPageLabel);
+  readonly previousPageLabel = computed(() => this.config().previousPageLabel ?? PAGINATION_DEFAULTS.previousPageLabel);
+  readonly nextPageLabel = computed(() => this.config().nextPageLabel ?? PAGINATION_DEFAULTS.nextPageLabel);
 
-  private ofLabel = computed(() => this.config().ofLabel ?? PAGINATION_DEFAULTS.ofLabel);
+  private readonly ofLabel = computed(() => this.config().ofLabel ?? PAGINATION_DEFAULTS.ofLabel);
 
-  totalPages = computed(() => {
+  readonly totalPages = computed(() => {
     const { pageSize, totalItems } = this.state();
     return Math.ceil(totalItems / pageSize) || 1;
   });
 
-  rangeLabel = computed(() => {
+  readonly rangeLabel = computed(() => {
     const { pageIndex, pageSize, totalItems } = this.state();
     if (totalItems === 0) return `0 ${this.ofLabel()} 0`;
 
@@ -121,8 +121,8 @@ export class AppPaginationComponent {
     return `${startIndex} - ${endIndex} ${this.ofLabel()} ${totalItems}`;
   });
 
-  isFirstPage = computed(() => this.state().pageIndex === 0);
-  isLastPage = computed(() => this.state().pageIndex >= this.totalPages() - 1);
+  readonly isFirstPage = computed(() => this.state().pageIndex === 0);
+  readonly isLastPage = computed(() => this.state().pageIndex >= this.totalPages() - 1);
 
   onPageSizeChange(newPageSize: number): void {
     const { pageIndex, pageSize } = this.state();

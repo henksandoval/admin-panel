@@ -65,24 +65,24 @@ export class AppCardFooterActionsDirective {}
   styleUrl: './app-card.component.scss'
 })
 export class AppCardComponent {
-  title = input<string>();
-  icon = input<string>();
-  variant = input<'outlined' | 'raised'>('outlined');
-  customClass = input<string>('');
+  readonly title = input<string>();
+  readonly icon = input<string>();
+  readonly variant = input<'outlined' | 'raised'>('outlined');
+  readonly customClass = input<string>('');
 
-  isExpandable = input<boolean>(false);
-  expanded = model<boolean>(true);
+  readonly isExpandable = input<boolean>(false);
+  readonly expanded = model<boolean>(true);
 
-  headerActions = contentChild(AppCardHeaderActionsDirective);
-  footerContent = contentChild(AppCardFooterActionsDirective);
+  readonly headerActions = contentChild(AppCardHeaderActionsDirective);
+  readonly footerContent = contentChild(AppCardFooterActionsDirective);
 
-  hasHeader = computed(() => {
+  readonly hasHeader = computed(() => {
     return Boolean(this.title()) || Boolean(this.icon()) || Boolean(this.headerActions());
   });
 
-  hasFooter = computed(() => Boolean(this.footerContent()));
+  readonly hasFooter = computed(() => Boolean(this.footerContent()));
 
-  panelClass = computed(() => {
+  readonly panelClass = computed(() => {
     const variant = this.variant() === 'outlined' ? 'mat-mdc-card-outlined' : '';
     const custom = this.customClass();
     return [variant, custom].filter(Boolean).join(' ');

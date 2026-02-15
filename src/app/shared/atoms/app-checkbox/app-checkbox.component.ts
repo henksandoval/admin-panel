@@ -23,18 +23,18 @@ import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from './app-checkb
   `,
 })
 export class AppCheckboxComponent {
-  checked = model<boolean>(false);
-  color = input<CheckboxColor>('primary');
-  size = input<CheckboxSize>('medium');
-  labelPosition = input<CheckboxLabelPosition>('after');
-  disabled = input<boolean>(false);
-  indeterminate = input<boolean>(false);
-  required = input<boolean>(false);
-  ariaLabel = input<string>();
+  readonly checked = model<boolean>(false);
+  readonly color = input<CheckboxColor>('primary');
+  readonly size = input<CheckboxSize>('medium');
+  readonly labelPosition = input<CheckboxLabelPosition>('after');
+  readonly disabled = input<boolean>(false);
+  readonly indeterminate = input<boolean>(false);
+  readonly required = input<boolean>(false);
+  readonly ariaLabel = input<string>();
 
   changed = output<boolean>();
 
-  checkboxClasses = computed(() => {
+  readonly checkboxClasses = computed(() => {
     const classes: string[] = [];
 
     if (this.size() !== 'medium') {

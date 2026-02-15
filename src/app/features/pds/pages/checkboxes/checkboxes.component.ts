@@ -37,13 +37,13 @@ import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 export default class CheckboxesComponent {
   private readonly router = inject(Router);
 
-  selectedState = signal<'checked' | 'unchecked' | 'indeterminate'>('checked');
-  selectedColor = signal<CheckboxColor>(CHECKBOX_DEFAULTS.color);
-  size = signal<CheckboxSize>(CHECKBOX_DEFAULTS.size);
-  labelPosition = signal<CheckboxLabelPosition>(CHECKBOX_DEFAULTS.labelPosition);
-  isDisabled = signal<boolean>(CHECKBOX_DEFAULTS.disabled);
-  isRequired = signal<boolean>(CHECKBOX_DEFAULTS.required);
-  checkboxLabel = signal<string>('Checkbox Label');
+  readonly selectedState = signal<'checked' | 'unchecked' | 'indeterminate'>('checked');
+  readonly selectedColor = signal<CheckboxColor>(CHECKBOX_DEFAULTS.color);
+  readonly size = signal<CheckboxSize>(CHECKBOX_DEFAULTS.size);
+  readonly labelPosition = signal<CheckboxLabelPosition>(CHECKBOX_DEFAULTS.labelPosition);
+  readonly isDisabled = signal<boolean>(CHECKBOX_DEFAULTS.disabled);
+  readonly isRequired = signal<boolean>(CHECKBOX_DEFAULTS.required);
+  readonly checkboxLabel = signal<string>('Checkbox Label');
 
   readonly CHECKBOX_COLORS = CHECKBOX_COLORS;
   readonly CHECKBOX_SIZES = CHECKBOX_SIZES;
@@ -74,10 +74,10 @@ export default class CheckboxesComponent {
     { value: 'after', label: 'After' }
   ];
 
-  isChecked = computed(() => this.selectedState() === 'checked');
-  isIndeterminate = computed(() => this.selectedState() === 'indeterminate');
+  readonly isChecked = computed(() => this.selectedState() === 'checked');
+  readonly isIndeterminate = computed(() => this.selectedState() === 'indeterminate');
 
-  generatedCode = computed(() => {
+  readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const color = this.selectedColor();
     const sizeValue = this.size();

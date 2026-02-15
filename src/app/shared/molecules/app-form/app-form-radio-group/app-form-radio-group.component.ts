@@ -61,10 +61,10 @@ interface ErrorState {
   ]
 })
 export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor, AfterViewInit {
-  options = input.required<RadioOption<T>[]>();
-  config = input<AppFormRadioGroupConfig>({});
+  readonly options = input.required<RadioOption<T>[]>();
+  readonly config = input<AppFormRadioGroupConfig>({});
 
-  fullConfig = computed<AppFormRadioGroupConfigComplete & Pick<AppFormRadioGroupConfig, 'label' | 'hint' | 'ariaLabel' | 'errorMessages'>>(() => ({
+  readonly fullConfig = computed<AppFormRadioGroupConfigComplete & Pick<AppFormRadioGroupConfig, 'label' | 'hint' | 'ariaLabel' | 'errorMessages'>>(() => ({
     label: '',
     hint: '',
     ariaLabel: '',

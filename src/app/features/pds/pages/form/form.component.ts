@@ -80,10 +80,10 @@ export class FormComponent implements OnInit {
 
   public galleryForm!: FormGroup;
 
-  globalAppearance = signal<MatFormFieldAppearance>('fill');
-  showIcons = signal<boolean>(true);
-  showHints = signal<boolean>(true);
-  showPrefixSuffix = signal<boolean>(false);
+  readonly globalAppearance = signal<MatFormFieldAppearance>('fill');
+  readonly showIcons = signal<boolean>(true);
+  readonly showHints = signal<boolean>(true);
+  readonly showPrefixSuffix = signal<boolean>(false);
 
   readonly customLayout: LayoutConfig = {
     grid: {
@@ -124,7 +124,7 @@ export class FormComponent implements OnInit {
     { value: 'it', label: 'Italy' }
   ];
 
-  basicTextConfig = computed<AppFormInputOptions>(() => ({
+  readonly basicTextConfig = computed<AppFormInputOptions>(() => ({
     label: 'Full Name',
     placeholder: 'John Doe',
     type: 'text',
@@ -133,7 +133,7 @@ export class FormComponent implements OnInit {
     hint: this.showHints() ? 'Enter your full name' : ''
   }));
 
-  emailConfig = computed<AppFormInputOptions>(() => ({
+  readonly emailConfig = computed<AppFormInputOptions>(() => ({
     label: 'Email Address',
     placeholder: 'your@email.com',
     type: 'email',
@@ -146,7 +146,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  passwordConfig = computed<AppFormInputOptions>(() => ({
+  readonly passwordConfig = computed<AppFormInputOptions>(() => ({
     label: 'Password',
     placeholder: 'Enter secure password',
     type: 'password',
@@ -160,7 +160,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  ageConfig = computed<AppFormInputOptions>(() => ({
+  readonly ageConfig = computed<AppFormInputOptions>(() => ({
     label: 'Age',
     placeholder: '18-99',
     type: 'number',
@@ -175,7 +175,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  phoneConfig = computed<AppFormInputOptions>(() => ({
+  readonly phoneConfig = computed<AppFormInputOptions>(() => ({
     label: 'Phone Number',
     placeholder: '(555) 123-4567',
     type: 'tel',
@@ -188,7 +188,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  descriptionConfig = computed(() => ({
+  readonly descriptionConfig = computed(() => ({
     label: 'Description',
     placeholder: 'Tell us about yourself...',
     appearance: this.globalAppearance(),
@@ -203,7 +203,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  birthDateConfig = computed(() => ({
+  readonly birthDateConfig = computed(() => ({
     label: 'Birth Date',
     placeholder: 'MM/DD/YYYY',
     appearance: this.globalAppearance(),
@@ -216,7 +216,7 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  genderConfig = computed(() => ({
+  readonly genderConfig = computed(() => ({
     label: 'Gender',
     hint: this.showHints() ? 'Select your gender identity' : '',
     color: 'primary' as const,
@@ -226,12 +226,12 @@ export class FormComponent implements OnInit {
     }
   }));
 
-  formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
-  formValid = computed(() => this.galleryForm?.valid || false);
-  formTouched = computed(() => this.galleryForm?.touched || false);
-  formDirty = computed(() => this.galleryForm?.dirty || false);
+  readonly formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
+  readonly formValid = computed(() => this.galleryForm?.valid || false);
+  readonly formTouched = computed(() => this.galleryForm?.touched || false);
+  readonly formDirty = computed(() => this.galleryForm?.dirty || false);
 
-  completeFormCode = computed(() => this.generateCompleteFormCode());
+  readonly completeFormCode = computed(() => this.generateCompleteFormCode());
 
   ngOnInit(): void {
     this.galleryForm = this.fb.group({

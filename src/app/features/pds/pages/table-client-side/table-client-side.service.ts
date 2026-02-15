@@ -22,7 +22,7 @@ export class TableClientSideService {
   private readonly lastNames = ['García', 'López', 'Rodríguez', 'Martínez', 'Sánchez', 'Fernández', 'Gómez', 'Díaz', 'Torres', 'Ruiz', 'Vargas', 'Moreno', 'Castro', 'Jiménez', 'Romero', 'Herrera', 'Mendoza', 'Ortiz'];
   private readonly departments = ['Ingeniería', 'Marketing', 'Ventas', 'RRHH', 'Finanzas'];
   private readonly roles = ['Junior', 'Mid', 'Senior', 'Lead', 'Manager'];
-  private readonly statuses: Array<'active' | 'inactive' | 'vacation'> = ['active', 'inactive', 'vacation'];
+  private readonly statuses: ('active' | 'inactive' | 'vacation')[] = ['active', 'inactive', 'vacation'];
 
   readonly statusLabels: Record<string, string> = {
     active: 'Activo',
@@ -30,7 +30,7 @@ export class TableClientSideService {
     vacation: 'Vacaciones',
   };
 
-  fetchEmployees(count: number = 18): Promise<Employee[]> {
+  fetchEmployees(count = 18): Promise<Employee[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(this.generateEmployees(count));

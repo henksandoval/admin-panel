@@ -120,45 +120,45 @@ import {
   `,
 })
 export class AppTableComponent<T extends Record<string, any> = Record<string, any>> {
-  config = input.required<AppTableConfig<T>>();
+  readonly config = input.required<AppTableConfig<T>>();
 
-  data = input<T[]>([]);
-  sort = input<AppTableSort>({ active: '', direction: '' });
-  loading = input(false);
+  readonly data = input<T[]>([]);
+  readonly sort = input<AppTableSort>({ active: '', direction: '' });
+  readonly loading = input(false);
 
   sortChange = output<AppTableSort>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
-  cellTemplateRef = input<TemplateRef<any> | undefined>(undefined);
+  readonly cellTemplateRef = input<TemplateRef<any> | undefined>(undefined);
 
   readonly resolvedCellTemplate = computed(
     () => this.cellTemplateRef() ?? this.cellTemplate()
   );
-  cellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
-  emptyStateContent = contentChild<TemplateRef<any>>('emptyState');
+  readonly cellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
+  readonly emptyStateContent = contentChild<TemplateRef<any>>('emptyState');
 
-  columns = computed(() => this.config().columns);
-  hasActions = computed(() => !!this.config().actions?.length);
-  hasCustomEmptyState = computed(() => !!this.emptyStateContent());
-  emptyMessage = computed(() => this.config().emptyMessage ?? TABLE_DEFAULTS.emptyMessage);
+  readonly columns = computed(() => this.config().columns);
+  readonly hasActions = computed(() => !!this.config().actions?.length);
+  readonly hasCustomEmptyState = computed(() => !!this.emptyStateContent());
+  readonly emptyMessage = computed(() => this.config().emptyMessage ?? TABLE_DEFAULTS.emptyMessage);
 
-  private stickyHeader = computed(() => this.config().stickyHeader ?? TABLE_DEFAULTS.stickyHeader);
-  private clickableRows = computed(() => this.config().clickableRows ?? TABLE_DEFAULTS.clickableRows);
+  private readonly stickyHeader = computed(() => this.config().stickyHeader ?? TABLE_DEFAULTS.stickyHeader);
+  private readonly clickableRows = computed(() => this.config().clickableRows ?? TABLE_DEFAULTS.clickableRows);
 
-  displayedColumns = computed(() => {
+  readonly displayedColumns = computed(() => {
     const cols = this.columns().map((c) => c.key);
     if (this.hasActions()) cols.push('actions');
     return cols;
   });
 
-  tableClasses = computed(() => {
+  readonly tableClasses = computed(() => {
     const classes = ['app-table'];
     if (this.stickyHeader()) classes.push('sticky-header');
     return classes.join(' ');
   });
 
-  rowClasses = computed(() => (row: T) => {
+  readonly rowClasses = computed(() => (row: T) => {
     const classes = ['app-table-row'];
     if (this.clickableRows()) classes.push('clickable');
 
@@ -170,7 +170,7 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
     return classes.join(' ');
   });
 
-  cellClasses = computed(() => (column: AppTableColumn<T>, row: T) => {
+  readonly cellClasses = computed(() => (column: AppTableColumn<T>, row: T) => {
     const classes = ['app-table-cell'];
     if (column.sticky === 'start') classes.push('sticky-start');
     if (column.sticky === 'end') classes.push('sticky-end');

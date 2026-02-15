@@ -51,22 +51,22 @@ import {
   ]
 })
 export class AppToggleGroupComponent implements ControlValueAccessor {
-  options = input.required<ToggleOption[]>();
-  color = input<ToggleGroupColor>(TOGGLE_GROUP_DEFAULTS.color);
-  size = input<ToggleGroupSize>(TOGGLE_GROUP_DEFAULTS.size);
-  appearance = input<ToggleGroupAppearance>(TOGGLE_GROUP_DEFAULTS.appearance);
-  disabled = input<boolean>(TOGGLE_GROUP_DEFAULTS.disabled);
-  multiple = input<boolean>(TOGGLE_GROUP_DEFAULTS.multiple);
-  vertical = input<boolean>(TOGGLE_GROUP_DEFAULTS.vertical);
-  hideSingleSelectionIndicator = input<boolean>(TOGGLE_GROUP_DEFAULTS.hideSingleSelectionIndicator);
-  hideMultipleSelectionIndicator = input<boolean>(TOGGLE_GROUP_DEFAULTS.hideMultipleSelectionIndicator);
-  ariaLabel = input<string>();
+  readonly options = input.required<ToggleOption[]>();
+  readonly color = input<ToggleGroupColor>(TOGGLE_GROUP_DEFAULTS.color);
+  readonly size = input<ToggleGroupSize>(TOGGLE_GROUP_DEFAULTS.size);
+  readonly appearance = input<ToggleGroupAppearance>(TOGGLE_GROUP_DEFAULTS.appearance);
+  readonly disabled = input<boolean>(TOGGLE_GROUP_DEFAULTS.disabled);
+  readonly multiple = input<boolean>(TOGGLE_GROUP_DEFAULTS.multiple);
+  readonly vertical = input<boolean>(TOGGLE_GROUP_DEFAULTS.vertical);
+  readonly hideSingleSelectionIndicator = input<boolean>(TOGGLE_GROUP_DEFAULTS.hideSingleSelectionIndicator);
+  readonly hideMultipleSelectionIndicator = input<boolean>(TOGGLE_GROUP_DEFAULTS.hideMultipleSelectionIndicator);
+  readonly ariaLabel = input<string>();
 
-  value = model<string | string[] | null>(null);
+  readonly value = model<string | string[] | null>(null);
 
   changed = output<string | string[]>();
 
-  toggleGroupClasses = computed(() => {
+  readonly toggleGroupClasses = computed(() => {
     const classes: string[] = [];
 
     if (this.size() !== TOGGLE_GROUP_DEFAULTS.size) {

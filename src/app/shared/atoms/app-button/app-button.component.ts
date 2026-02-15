@@ -43,19 +43,19 @@ import {BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize, ButtonType} from 
   `
 })
 export class AppButtonComponent {
-  variant = input<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
-  color = input<ButtonColor>(BUTTON_DEFAULTS.color);
-  shape = input<ButtonShape>(BUTTON_DEFAULTS.shape);
-  size = input<ButtonSize>(BUTTON_DEFAULTS.size);
-  type = input<ButtonType>(BUTTON_DEFAULTS.type);
-  disabled = input<boolean>(BUTTON_DEFAULTS.disabled);
-  iconBefore = input<string>();
-  iconAfter = input<string>();
-  ariaLabel = input<string>();
+  readonly variant = input<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
+  readonly color = input<ButtonColor>(BUTTON_DEFAULTS.color);
+  readonly shape = input<ButtonShape>(BUTTON_DEFAULTS.shape);
+  readonly size = input<ButtonSize>(BUTTON_DEFAULTS.size);
+  readonly type = input<ButtonType>(BUTTON_DEFAULTS.type);
+  readonly disabled = input<boolean>(BUTTON_DEFAULTS.disabled);
+  readonly iconBefore = input<string>();
+  readonly iconAfter = input<string>();
+  readonly ariaLabel = input<string>();
 
   clicked = output<MouseEvent>();
 
-  buttonClasses = computed(() => {
+  readonly buttonClasses = computed(() => {
     const classes: string[] = [];
 
     if (this.shape() !== BUTTON_DEFAULTS.shape) {

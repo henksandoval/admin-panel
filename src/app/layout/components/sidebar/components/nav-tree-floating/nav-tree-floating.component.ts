@@ -10,7 +10,7 @@ import { NavTreeInlineComponent } from '../nav-tree-inline/nav-tree-inline.compo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavTreeFloatingComponent {
-  topPosition = input<number>(0);
+  readonly topPosition = input<number>(0);
 
   closed = output<void>();
 

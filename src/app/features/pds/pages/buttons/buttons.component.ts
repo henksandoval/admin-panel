@@ -42,14 +42,14 @@ import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 export default class ButtonsComponent {
   private readonly router = inject(Router);
 
-  selectedVariant = signal<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
-  selectedColor = signal<ButtonColor>(BUTTON_DEFAULTS.color);
-  shape = signal<ButtonShape>(BUTTON_DEFAULTS.shape);
-  size = signal<ButtonSize>(BUTTON_DEFAULTS.size);
-  showIconBefore = signal<boolean>(false);
-  showIconAfter = signal<boolean>(false);
-  isDisabled = signal<boolean>(BUTTON_DEFAULTS.disabled);
-  buttonLabel = signal<string>('Button Text');
+  readonly selectedVariant = signal<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
+  readonly selectedColor = signal<ButtonColor>(BUTTON_DEFAULTS.color);
+  readonly shape = signal<ButtonShape>(BUTTON_DEFAULTS.shape);
+  readonly size = signal<ButtonSize>(BUTTON_DEFAULTS.size);
+  readonly showIconBefore = signal<boolean>(false);
+  readonly showIconAfter = signal<boolean>(false);
+  readonly isDisabled = signal<boolean>(BUTTON_DEFAULTS.disabled);
+  readonly buttonLabel = signal<string>('Button Text');
 
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
@@ -80,7 +80,7 @@ export default class ButtonsComponent {
     { value: 'large', label: 'L' }
   ];
 
-  generatedCode = computed(() => {
+  readonly generatedCode = computed(() => {
     const variant = this.selectedVariant();
     const color = this.selectedColor();
     const shape = this.shape();

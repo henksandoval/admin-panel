@@ -46,8 +46,8 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   styleUrl: './app-advanced-filter.component.scss',
 })
 export class AppAdvancedFilterComponent {
-  config = input.required<AppFiltersConfig>();
-  initialCriteria = input<AppFilterCriterion[]>([]);
+  readonly config = input.required<AppFiltersConfig>();
+  readonly initialCriteria = input<AppFilterCriterion[]>([]);
 
   search = output<AppFiltersOutput>();
   criteriaChange = output<AppFilterCriterion[]>();

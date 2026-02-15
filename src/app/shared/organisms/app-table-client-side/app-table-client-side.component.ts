@@ -71,20 +71,20 @@ import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, App
 })
 export class AppTableClientSideComponent<T extends Record<string, any> = Record<string, any>> {
   // ── Inputs de configuración ──
-  tableConfig = input.required<AppTableConfig<T>>();
-  filtersConfig = input<AppFiltersConfig>();
-  filtersAdvancedConfig = input<AppFiltersConfig>();
-  paginationConfig = input<AppPaginationConfig>();
+  readonly tableConfig = input.required<AppTableConfig<T>>();
+  readonly filtersConfig = input<AppFiltersConfig>();
+  readonly filtersAdvancedConfig = input<AppFiltersConfig>();
+  readonly paginationConfig = input<AppPaginationConfig>();
 
   // ── Inputs de datos ──
-  data = input<T[]>([]);
-  loading = input(false);
+  readonly data = input<T[]>([]);
+  readonly loading = input(false);
 
   // ── Inputs de funciones custom ──
-  filterFn = input<AppTableFilterFn<T>>();
-  criteriaFilterFn = input<AppTableCriteriaFilterFn<T>>();
-  toggleFilterFn = input<AppTableToggleFilterFn<T>>();
-  sortFn = input<AppTableSortFn<T>>();
+  readonly filterFn = input<AppTableFilterFn<T>>();
+  readonly criteriaFilterFn = input<AppTableCriteriaFilterFn<T>>();
+  readonly toggleFilterFn = input<AppTableToggleFilterFn<T>>();
+  readonly sortFn = input<AppTableSortFn<T>>();
 
   // ── Outputs ──
   sortChange = output<AppTableSort>();

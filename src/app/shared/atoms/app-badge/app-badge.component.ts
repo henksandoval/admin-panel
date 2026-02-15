@@ -34,19 +34,19 @@ import { BADGE_DEFAULTS, BadgeVariant, BadgeColor, BadgePosition, BadgeSize } fr
   styleUrls: ['./app-badge.component.scss']
 })
 export class AppBadgeComponent {
-  variant = input<BadgeVariant>(BADGE_DEFAULTS.variant);
-  color = input<BadgeColor>(BADGE_DEFAULTS.inlineColor);
-  size = input<BadgeSize>(BADGE_DEFAULTS.size);
-  ariaLabel = input<string>();
+  readonly variant = input<BadgeVariant>(BADGE_DEFAULTS.variant);
+  readonly color = input<BadgeColor>(BADGE_DEFAULTS.inlineColor);
+  readonly size = input<BadgeSize>(BADGE_DEFAULTS.size);
+  readonly ariaLabel = input<string>();
 
-  hasIndicator = input<boolean>(false);
+  readonly hasIndicator = input<boolean>(false);
 
-  content = input<string | number>(BADGE_DEFAULTS.content);
-  position = input<BadgePosition>(BADGE_DEFAULTS.position);
-  overlap = input<boolean>(true);
-  hidden = input<boolean>(false);
+  readonly content = input<string | number>(BADGE_DEFAULTS.content);
+  readonly position = input<BadgePosition>(BADGE_DEFAULTS.position);
+  readonly overlap = input<boolean>(true);
+  readonly hidden = input<boolean>(false);
 
-  inlineClasses = computed(() => {
+  readonly inlineClasses = computed(() => {
     const classes: string[] = ['app-badge'];
 
     classes.push(this.color());
@@ -62,7 +62,7 @@ export class AppBadgeComponent {
     return classes.join(' ');
   });
 
-  overlayColor = computed(() => {
+  readonly overlayColor = computed(() => {
     const color = this.color();
     if (color === 'primary' || color === 'accent' || color === 'warn') {
       return color;
@@ -70,7 +70,7 @@ export class AppBadgeComponent {
     return 'primary';
   });
 
-  matBadgeSize = computed(() => {
+  readonly matBadgeSize = computed(() => {
     const size = this.size();
     if (size === BADGE_DEFAULTS.size) {
       return BADGE_DEFAULTS.size;

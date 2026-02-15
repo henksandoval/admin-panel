@@ -77,13 +77,13 @@ export const STATE_GUIDES: StateGuide[] = [
   }
 ];
 
-export const CHECKBOX_COLORS: Array<{ value: CheckboxColor; label: string }> = [
+export const CHECKBOX_COLORS: { value: CheckboxColor; label: string }[] = [
   { value: 'primary', label: 'Primary' },
   { value: 'secondary', label: 'Secondary' },
   { value: 'tertiary', label: 'Tertiary' }
 ];
 
-export const CHECKBOX_SIZES: Array<{ value: CheckboxSize; label: string }> = [
+export const CHECKBOX_SIZES: { value: CheckboxSize; label: string }[] = [
   { value: 'small', label: 'Small' },
   { value: 'medium', label: 'Medium' },
   { value: 'large', label: 'Large' }

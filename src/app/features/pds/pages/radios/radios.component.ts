@@ -40,9 +40,9 @@ export default class RadiosComponent {
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
-  selectedState = signal<'basic' | 'descriptions' | 'horizontal' | 'disabled'>('basic');
-  showLabel = signal<boolean>(true);
-  showHint = signal<boolean>(true);
+  readonly selectedState = signal<'basic' | 'descriptions' | 'horizontal' | 'disabled'>('basic');
+  readonly showLabel = signal<boolean>(true);
+  readonly showHint = signal<boolean>(true);
 
   demoForm!: FormGroup;
 
@@ -57,7 +57,7 @@ export default class RadiosComponent {
     { value: 'disabled', label: 'Disabled' }
   ];
 
-  currentOptions = computed(() => {
+  readonly currentOptions = computed(() => {
     const state = this.selectedState();
     if (state === 'basic') return GENDER_OPTIONS;
     if (state === 'descriptions') return NOTIFICATION_OPTIONS;
@@ -75,7 +75,7 @@ export default class RadiosComponent {
     });
   }
 
-  generatedCode = computed(() => {
+  readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const showLabel = this.showLabel();
     const showHint = this.showHint();

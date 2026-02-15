@@ -63,8 +63,8 @@ interface ErrorState {
   ]
 })
 export class AppFormInputComponent implements ControlValueAccessor, AfterViewInit {
-  config = input<AppFormInputOptions>({});
-  fullConfig = computed<AppFormInputConfig>(() => ({
+  readonly config = input<AppFormInputOptions>({});
+  readonly fullConfig = computed<AppFormInputConfig>(() => ({
     appearance: 'fill', type: 'text', label: '', placeholder: '', hint: '',
     icon: '', prefix: '', suffix: '', ariaLabel: '', errorMessages: {},
     ...this.config()

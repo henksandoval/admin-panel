@@ -46,17 +46,17 @@ import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input
 export default class IndicatorsComponent {
   private readonly router = inject(Router);
 
-  selectedVariant = signal<BadgeVariant>(BADGE_DEFAULTS.variant);
-  badgeContent = signal<string>('8');
+  readonly selectedVariant = signal<BadgeVariant>(BADGE_DEFAULTS.variant);
+  readonly badgeContent = signal<string>('8');
 
-  overlayColor = signal<Extract<BadgeColor, 'primary' | 'secondary' | 'tertiary'>>(BADGE_DEFAULTS.overlayColor);
-  position = signal<BadgePosition>(BADGE_DEFAULTS.position);
-  overlap = signal<boolean>(BADGE_DEFAULTS.overlap);
-  hidden = signal<boolean>(BADGE_DEFAULTS.hidden);
+  readonly overlayColor = signal<Extract<BadgeColor, 'primary' | 'secondary' | 'tertiary'>>(BADGE_DEFAULTS.overlayColor);
+  readonly position = signal<BadgePosition>(BADGE_DEFAULTS.position);
+  readonly overlap = signal<boolean>(BADGE_DEFAULTS.overlap);
+  readonly hidden = signal<boolean>(BADGE_DEFAULTS.hidden);
 
-  inlineColor = signal<Extract<BadgeColor, 'normal' | 'info' | 'success' | 'warning' | 'error'>>(BADGE_DEFAULTS.inlineColor);
-  hasIndicator = signal<boolean>(BADGE_DEFAULTS.hasIndicator);
-  badgeLabel = signal<string>('Badge Text');
+  readonly inlineColor = signal<Extract<BadgeColor, 'normal' | 'info' | 'success' | 'warning' | 'error'>>(BADGE_DEFAULTS.inlineColor);
+  readonly hasIndicator = signal<boolean>(BADGE_DEFAULTS.hasIndicator);
+  readonly badgeLabel = signal<string>('Badge Text');
 
   readonly variantOptions: ToggleOption[] = [
     { value: 'overlay', label: 'Overlay' },
@@ -84,7 +84,7 @@ export default class IndicatorsComponent {
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BADGE_VARIANT_GUIDES = BADGE_VARIANT_GUIDES;
 
-  generatedCode = computed(() => {
+  readonly generatedCode = computed(() => {
     const variant = this.selectedVariant();
 
     if (variant === 'overlay') {

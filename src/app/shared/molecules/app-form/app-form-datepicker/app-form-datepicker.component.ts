@@ -70,8 +70,8 @@ interface ErrorState {
   `
 })
 export class AppFormDatepickerComponent implements ControlValueAccessor, AfterViewInit {
-  config = input<AppFormDatepickerOptions>({});
-  fullConfig = computed(() => ({
+  readonly config = input<AppFormDatepickerOptions>({});
+  readonly fullConfig = computed(() => ({
     label: '',
     placeholder: '',
     hint: '',

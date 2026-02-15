@@ -42,9 +42,9 @@ export default class IconsGalleryComponent {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
-  searchQuery = signal<string>('');
-  selectedSize = signal<'small' | 'medium' | 'large'>('medium');
-  selectedStyle = signal<'filled' | 'outlined'>('filled');
+  readonly searchQuery = signal<string>('');
+  readonly selectedSize = signal<'small' | 'medium' | 'large'>('medium');
+  readonly selectedStyle = signal<'filled' | 'outlined'>('filled');
 
   readonly allIcons = MATERIAL_ICONS_LIST;
 
@@ -67,9 +67,9 @@ export default class IconsGalleryComponent {
     { value: 'success', label: 'Success', class: 'text-green-600' }
   ];
 
-  selectedColor = signal<string>('default');
+  readonly selectedColor = signal<string>('default');
 
-  filteredIcons = computed(() => {
+  readonly filteredIcons = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
     if (!query) return this.allIcons;
 
@@ -78,7 +78,7 @@ export default class IconsGalleryComponent {
     );
   });
 
-  totalCount = computed(() => this.filteredIcons().length);
+  readonly totalCount = computed(() => this.filteredIcons().length);
 
   getSizeClass(): string {
     const size = this.selectedSize();

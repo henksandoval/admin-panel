@@ -86,7 +86,7 @@ export class TableServerSideService {
       'Lead',
       'Director',
     ];
-    const statuses: Array<'active' | 'inactive' | 'vacation'> = [
+    const statuses: ('active' | 'inactive' | 'vacation')[] = [
       'active',
       'inactive',
       'vacation',

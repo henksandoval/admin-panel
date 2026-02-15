@@ -66,8 +66,8 @@ interface ErrorState {
   ]
 })
 export class AppFormTextareaComponent implements ControlValueAccessor, AfterViewInit {
-  config = input<AppFormTextareaOptions>({});
-  fullConfig = computed(() => ({
+  readonly config = input<AppFormTextareaOptions>({});
+  readonly fullConfig = computed(() => ({
     label: '',
     placeholder: '',
     hint: '',

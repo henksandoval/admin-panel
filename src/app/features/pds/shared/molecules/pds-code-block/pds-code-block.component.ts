@@ -19,7 +19,7 @@ import { Highlight } from 'ngx-highlightjs';
   styleUrl: './pds-code-block.component.scss',
 })
 export class PdsCodeBlockComponent {
-  code = input.required<string>();
-  language = input('xml');
-  footer = input('💡 Solo incluye las propiedades que difieren de los defaults.');
+  readonly code = input.required<string>();
+  readonly language = input('xml');
+  readonly footer = input('💡 Solo incluye las propiedades que difieren de los defaults.');
 }

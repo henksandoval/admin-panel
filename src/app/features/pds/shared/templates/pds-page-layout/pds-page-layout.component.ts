@@ -34,29 +34,29 @@ import { PdsCodeBlockComponent } from "../../molecules/pds-code-block/pds-code-b
 export class PdsPageLayoutComponent {
   private readonly pdsUtils = inject(PdsPageUtilitiesService);
 
-  title = input.required<string>();
-  description = input.required<string>();
-  componentTag = input.required<string>();
-  preset = input<LayoutPreset>('dashboard');
-  code = input<string>('');
-  apiProperties = input<PdsApiReferencePropertyModel[]>([]);
-  bestPractices = input<PdsBestPracticeItemModel[]>([]);
+  readonly title = input.required<string>();
+  readonly description = input.required<string>();
+  readonly componentTag = input.required<string>();
+  readonly preset = input<LayoutPreset>('dashboard');
+  readonly code = input<string>('');
+  readonly apiProperties = input<PdsApiReferencePropertyModel[]>([]);
+  readonly bestPractices = input<PdsBestPracticeItemModel[]>([]);
 
-  variantGuides = input<PdsVariantGuideModel[]>([]);
-  currentVariant = input<string>('');
+  readonly variantGuides = input<PdsVariantGuideModel[]>([]);
+  readonly currentVariant = input<string>('');
 
-  currentVariantGuide = computed(() => {
+  readonly currentVariantGuide = computed(() => {
     const variant = this.currentVariant();
     const guides = this.variantGuides();
     return guides.find(guide => guide.variant === variant);
   });
 
-  showPreview = computed(() => this.variantGuides().length > 0);
-  showControls = computed(() => this.variantGuides().length > 0);
-  showDocumentation = computed(() => this.variantGuides().length > 0);
+  readonly showPreview = computed(() => this.variantGuides().length > 0);
+  readonly showControls = computed(() => this.variantGuides().length > 0);
+  readonly showDocumentation = computed(() => this.variantGuides().length > 0);
 
-  backRoute = input<string>('/pds/index');
-  showBackButton = input<boolean>(true);
+  readonly backRoute = input<string>('/pds/index');
+  readonly showBackButton = input<boolean>(true);
 
   getEmphasisBadgeClasses(emphasis: 'high' | 'medium' | 'low'): string {
     return this.pdsUtils.getEmphasisBadgeClasses(emphasis);

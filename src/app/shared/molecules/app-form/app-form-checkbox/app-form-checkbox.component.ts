@@ -58,8 +58,8 @@ interface ErrorState {
   ]
 })
 export class AppFormCheckboxComponent implements ControlValueAccessor, AfterViewInit {
-  config = input<AppFormCheckboxConfig>({});
-  fullConfig = computed<AppFormCheckboxConfigComplete>(() => ({
+  readonly config = input<AppFormCheckboxConfig>({});
+  readonly fullConfig = computed<AppFormCheckboxConfigComplete>(() => ({
     ...APP_FORM_CHECKBOX_DEFAULTS,
     ...this.config()
   }));

@@ -37,16 +37,16 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
 export default class SelectsComponent {
   private readonly router = inject(Router);
 
-  selectedState = signal<'single' | 'multiple' | 'grouped' | 'disabled'>('single');
-  selectedAppearance = signal<'fill' | 'outline'>('fill');
-  selectedSize = signal<'small' | 'medium' | 'large'>('medium');
-  showIcon = signal<boolean>(false);
-  showHint = signal<boolean>(false);
-  isRequired = signal<boolean>(false);
+  readonly selectedState = signal<'single' | 'multiple' | 'grouped' | 'disabled'>('single');
+  readonly selectedAppearance = signal<'fill' | 'outline'>('fill');
+  readonly selectedSize = signal<'small' | 'medium' | 'large'>('medium');
+  readonly showIcon = signal<boolean>(false);
+  readonly showHint = signal<boolean>(false);
+  readonly isRequired = signal<boolean>(false);
 
-  singleValue = signal<string | null>(null);
-  multipleValue = signal<string[]>([]);
-  groupedValue = signal<string | null>(null);
+  readonly singleValue = signal<string | null>(null);
+  readonly multipleValue = signal<string[]>([]);
+  readonly groupedValue = signal<string | null>(null);
 
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
@@ -70,14 +70,14 @@ export default class SelectsComponent {
     { value: 'large', label: 'L' }
   ];
 
-  currentOptions = computed<SelectOption<string>[]>(() => {
+  readonly currentOptions = computed<SelectOption<string>[]>(() => {
     const state = this.selectedState();
     if (state === 'grouped') return GROUPED_OPTIONS;
     if (state === 'multiple') return FRAMEWORK_OPTIONS;
     return COUNTRY_OPTIONS;
   });
 
-  generatedCode = computed(() => {
+  readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const appearance = this.selectedAppearance();
     const size = this.selectedSize();

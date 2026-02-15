@@ -6,6 +6,6 @@ import { Directive, inject, TemplateRef, Input } from "@angular/core";
 })
 export class AppSlotContainerDirective {
   readonly templateRef = inject(TemplateRef);
-  @Input('appSlot') slotName: string = '';
-  @Input() slotOrder: number = 0;
+  @Input('appSlot') slotName = '';
+  @Input() slotOrder = 0;
 }

@@ -119,18 +119,18 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
 export class AppSimpleFilterComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
-  config = input.required<AppFiltersConfig>();
-  values = input<AppFilterValues>({});
+  readonly config = input.required<AppFiltersConfig>();
+  readonly values = input<AppFilterValues>({});
 
   valuesChange = output<AppFilterValues>();
   filterChange = output<{ key: string; value: any }>();
 
-  appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
-  showClearAll = computed(() => this.config().showClearAll ?? FILTER_DEFAULTS.showClearAll);
-  clearAllLabel = computed(() => this.config().clearAllLabel ?? FILTER_DEFAULTS.clearAllLabel);
-  private debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
+  readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
+  readonly showClearAll = computed(() => this.config().showClearAll ?? FILTER_DEFAULTS.showClearAll);
+  readonly clearAllLabel = computed(() => this.config().clearAllLabel ?? FILTER_DEFAULTS.clearAllLabel);
+  private readonly debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
 
-  private formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
+  private readonly formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
 
   constructor() {
     effect(() => {

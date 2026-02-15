@@ -16,7 +16,7 @@ import { MatRadioModule } from '@angular/material/radio';
   `
 })
 export class AppRadioComponent {
-  value = input.required<any>();
-  disabled = input<boolean>(false);
-  ariaLabel = input<string>('');
+  readonly value = input.required<any>();
+  readonly disabled = input<boolean>(false);
+  readonly ariaLabel = input<string>('');
 }

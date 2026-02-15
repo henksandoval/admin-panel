@@ -30,7 +30,7 @@ export class SettingsPanelComponent {
 
   protected readonly config = this.settingsService.config;
 
-  protected readonly themes: Array<{ id: Theme; label: string; color_primary: string, color_tertiary: string }> = [
+  protected readonly themes: { id: Theme; label: string; color_primary: string, color_tertiary: string }[] = [
     { id: 'aurora-tech', label: 'Aurora Tech', color_primary: '#4758B8', color_tertiary: '#00D69D' },
     { id: 'deep-ocean', label: 'Deep Ocean', color_primary: '#0F4C75', color_tertiary: '#3282B8' },
     { id: 'forest-growth', label: 'Forest Growth', color_primary: '#2E7D32', color_tertiary: '#81C784' },
@@ -39,13 +39,13 @@ export class SettingsPanelComponent {
     { id: 'sunset-analytics', label: 'Sunset Analytics', color_primary: '#37474F', color_tertiary: '#FF4081' }
   ];
 
-  protected readonly schemes: Array<{ id: Scheme; label: string; icon: string }> = [
+  protected readonly schemes: { id: Scheme; label: string; icon: string }[] = [
     { id: 'auto', label: 'Auto', icon: 'brightness_auto' },
     { id: 'dark', label: 'Dark', icon: 'dark_mode' },
     { id: 'light', label: 'Light', icon: 'light_mode' }
   ];
 
-  protected isThemeActive = computed(() =>
+  protected readonly isThemeActive = computed(() =>
     (themeId: Theme) => this.config().theme === themeId);
 
   closePanel(): void {
