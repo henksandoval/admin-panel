@@ -1,6 +1,6 @@
 import { Component, computed, input, model, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule, MatCheckboxChange } from '@angular/material/checkbox';
 import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from './app-checkbox.model';
 
 @Component({
@@ -44,7 +44,7 @@ export class AppCheckboxComponent {
     return classes.join(' ');
   });
 
-  onCheckboxChange(event: any): void {
+  onCheckboxChange(event: MatCheckboxChange): void {
     this.checked.set(event.checked);
     this.changed.emit(event.checked);
   }

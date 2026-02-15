@@ -149,8 +149,8 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
     }
 
     const errorKey = Object.keys(errors)[0];
-    const customMessages = this.fullConfig().errorMessages || {};
-    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
+    const customMessages = this.fullConfig().errorMessages ?? {};
+    const message = customMessages[errorKey] ?? this.defaultErrorMessages[errorKey] ?? 'Validation error';
 
     return { shouldShow: true, message };
   }

@@ -10,10 +10,11 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { AppTableAction, AppTableConfig } from '@shared/atoms/app-table/app-table.model';
+import { AppTableAction, AppTableConfig, AppTableSort } from '@shared/atoms/app-table/app-table.model';
 import { TableClientSideService, Employee } from './table-client-side.service';
 import { AppTableClientSideComponent } from '@shared/organisms/app-table-client-side/app-table-client-side.component';
-import { AppFiltersOutput } from '@shared/molecules/app-filters/app-filter.model';
+import { AppFiltersOutput, AppFilterValues } from '@shared/molecules/app-filters/app-filter.model';
+import { AppPageEvent } from '@shared/atoms/app-pagination/app-pagination.model';
 
 interface EmployeeViewModel {
   id: number;
@@ -50,7 +51,7 @@ export class TableClientSideComponent implements OnInit {
   readonly filtersConfig = this.service.getFiltersConfig();
   readonly advancedFiltersConfig = this.service.getAdvancedFiltersConfig();
 
-  readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>) => {
+  readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>): EmployeeViewModel[] => {
     let result = data;
     if (!toggles['showInactive']) {
       result = result.filter(e => e.status !== 'inactive');
@@ -88,18 +89,19 @@ export class TableClientSideComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    this.service.fetchEmployees(18).then(data => {
+    void this.service.fetchEmployees(18).then(data => {
       this.employees.set(data);
       this.isLoading.set(false);
     });
   }
 
-  onSort(event: any): void {
-    this.snackBar.open(`Ordenar por: ${event.columnKey} (${event.direction})`, '✕', { duration: 2500 });
+  onSort(event: AppTableSort): void {
+    this.snackBar.open(`Ordenar por: ${event.active} (${event.direction})`, '✕', { duration: 2500 });
   }
 
-  onFilter(event: any): void {
-    this.snackBar.open(`Filtrar por: ${event.columnKey} (${event.value})`, '✕', { duration: 2500 });
+  onFilter(event: AppFilterValues): void {
+    this.snackBar.open(`Filtros aplicados - ver consola`, '✕', { duration: 2500 });
+    console.debug('[filter]', event);
   }
 
   onAdvancedSearch(output: AppFiltersOutput): void {
@@ -107,7 +109,7 @@ export class TableClientSideComponent implements OnInit {
     console.debug('[filter advanced]', output);
   }
 
-  onPage(event: any): void {
+  onPage(event: AppPageEvent): void {
     this.snackBar.open(`Página: ${event.pageIndex + 1} (items por página: ${event.pageSize})`, '✕', { duration: 2500 });
     console.debug('[page]', event);
   }

@@ -110,7 +110,7 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
   readonly groupedOptions = computed(() => {
     const groups = new Map<string, SelectOption<T>[]>();
     this.options().forEach(option => {
-      const groupName = option.group || 'default';
+      const groupName = option.group ?? 'default';
       if (!groups.has(groupName)) {
         groups.set(groupName, []);
       }
@@ -195,6 +195,10 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    isDisabled ? this.internalControl.disable({ emitEvent: false }) : this.internalControl.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.internalControl.disable({ emitEvent: false });
+    } else {
+      this.internalControl.enable({ emitEvent: false });
+    }
   }
 }

@@ -42,7 +42,7 @@ import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, App
           class="mb-4">
           <app-filters-advanced
             [config]="filtersAdvancedConfig()!"
-            (search)="onAdvancedSearch($event)">
+            (searchApplied)="onAdvancedSearch($event)">
           </app-filters-advanced>
         </app-card>
       }

@@ -78,7 +78,7 @@ export class AppFormInputComponent implements ControlValueAccessor, AfterViewIni
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
   private hasCheckedConnection = false;
 
-  onChange: (value: any) => void = () => {};
+  onChange: (value: string | null) => void = () => {};
   onTouched: () => void = () => {};
 
   private readonly defaultErrorMessages: Record<string, string> = {
@@ -149,19 +149,23 @@ export class AppFormInputComponent implements ControlValueAccessor, AfterViewIni
     this.onTouched();
   }
 
-  writeValue(value: any): void {
+  writeValue(value: string | null): void {
     this.internalControl.setValue(value, { emitEvent: false });
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string | null) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
-    isDisabled ? this.internalControl.disable({ emitEvent: false }) : this.internalControl.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.internalControl.disable({ emitEvent: false });
+    } else {
+      this.internalControl.enable({ emitEvent: false });
+    }
   }
 }

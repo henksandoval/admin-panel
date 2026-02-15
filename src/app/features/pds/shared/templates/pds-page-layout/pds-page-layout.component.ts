@@ -6,7 +6,6 @@ import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds
 import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { PdsPageUtilitiesService } from './pds-page-utilities.service';
 import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
@@ -67,6 +66,6 @@ export class PdsPageLayoutComponent {
   }
 
   copyToClipboard(): void {
-    this.pdsUtils.copyToClipboard(this.code());
+    void this.pdsUtils.copyToClipboard(this.code());
   }
 }

@@ -80,10 +80,10 @@ export default class SelectsComponent {
   readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const appearance = this.selectedAppearance();
-    const size = this.selectedSize();
+    const _size = this.selectedSize();
     const showIcon = this.showIcon();
     const showHint = this.showHint();
-    const required = this.isRequired();
+    const _required = this.isRequired();
 
     let tsCode = `// TypeScript\n`;
     tsCode += `import { SelectOption } from '@shared/form-controls/app-form-select/app-form-select.model';\n\n`;
@@ -129,6 +129,6 @@ export default class SelectsComponent {
 
 
   goBack(): void {
-    this.router.navigate(['/pds/index']);
+    void this.router.navigate(['/pds/index']);
   }
 }

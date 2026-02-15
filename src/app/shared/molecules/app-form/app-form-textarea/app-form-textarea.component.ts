@@ -171,6 +171,10 @@ export class AppFormTextareaComponent implements ControlValueAccessor, AfterView
   }
 
   setDisabledState(isDisabled: boolean): void {
-    isDisabled ? this.internalControl.disable({ emitEvent: false }) : this.internalControl.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.internalControl.disable({ emitEvent: false });
+    } else {
+      this.internalControl.enable({ emitEvent: false });
+    }
   }
 }

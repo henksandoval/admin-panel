@@ -112,6 +112,7 @@ export class AppFormCheckboxComponent implements ControlValueAccessor, AfterView
     const parentControl = this.ngControl.control;
 
     if (parentControl) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       this.isRequired = parentControl.hasValidator(Validators.required) || parentControl.hasValidator(Validators.requiredTrue);
       this.internalControl.setValidators(parentControl.validator);
       this.internalControl.updateValueAndValidity({ emitEvent: false });
@@ -158,6 +159,10 @@ export class AppFormCheckboxComponent implements ControlValueAccessor, AfterView
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    isDisabled ? this.internalControl.disable({ emitEvent: false }) : this.internalControl.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.internalControl.disable({ emitEvent: false });
+    } else {
+      this.internalControl.enable({ emitEvent: false });
+    }
   }
 }

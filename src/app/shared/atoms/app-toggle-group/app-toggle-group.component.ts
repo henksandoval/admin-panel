@@ -1,7 +1,7 @@
 import { Component, computed, forwardRef, input, model, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonToggleModule, MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import {
   TOGGLE_GROUP_DEFAULTS,
@@ -80,7 +80,9 @@ export class AppToggleGroupComponent implements ControlValueAccessor {
     return classes.join(' ');
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onChange: (value: string | string[] | null) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouched: () => void = () => {};
 
   writeValue(value: string | string[] | null): void {
@@ -95,8 +97,8 @@ export class AppToggleGroupComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  onToggleChange(event: any): void {
-    const newValue = event.value;
+  onToggleChange(event: MatButtonToggleChange): void {
+    const newValue = event.value as string | string[];
     this.value.set(newValue);
     this.onChange(newValue);
     this.onTouched();

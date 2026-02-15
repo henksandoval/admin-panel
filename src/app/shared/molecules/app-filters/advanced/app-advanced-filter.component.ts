@@ -49,7 +49,7 @@ export class AppAdvancedFilterComponent {
   readonly config = input.required<AppFiltersConfig>();
   readonly initialCriteria = input<AppFilterCriterion[]>([]);
 
-  search = output<AppFiltersOutput>();
+  searchApplied = output<AppFiltersOutput>();
   criteriaChange = output<AppFilterCriterion[]>();
   toggleChange = output<Record<string, boolean>>();
 
@@ -183,7 +183,7 @@ export class AppAdvancedFilterComponent {
   }
 
   emitSearch(): void {
-    this.search.emit({
+    this.searchApplied.emit({
       criteria: this.criteria(),
       toggles: togglesToRecord(this.toggles()),
     });

@@ -132,7 +132,7 @@ export class TableServerSideComponent implements OnInit {
           this.employees.set(response.data);
           this.totalEmployees.set(response.total);
         },
-        error: (error: any) => {
+        error: (error: unknown) => {
           this.snackBar.open('Error al cargar empleados', 'Cerrar', {
             duration: 3000,
           });

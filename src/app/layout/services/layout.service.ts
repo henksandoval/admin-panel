@@ -1,10 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LayoutService {
+  private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly STORAGE_KEY_SIDEBAR_DISPLAY_MODE = 'sidebar-display-mode';
 
   private readonly _sidebarOpened = signal(true);
@@ -15,7 +16,7 @@ export class LayoutService {
   readonly isMobile = this._isMobile.asReadonly();
   readonly sidebarExpanded = this._sidebarExpanded.asReadonly();
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor() {
     this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small])
       .subscribe(result => {

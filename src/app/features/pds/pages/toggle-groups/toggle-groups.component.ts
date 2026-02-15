@@ -146,6 +146,6 @@ export default class ToggleGroupsComponent {
   });
 
   goBack(): void {
-    this.router.navigate(['/pds/index']);
+    void this.router.navigate(['/pds/index']);
   }
 }

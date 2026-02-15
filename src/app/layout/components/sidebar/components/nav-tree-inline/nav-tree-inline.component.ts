@@ -1,4 +1,4 @@
-﻿import { Component, input, inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, computed } from '@angular/core';
+﻿import { Component, inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatTreeModule } from '@angular/material/tree';
@@ -32,7 +32,7 @@ export class NavTreeInlineComponent implements OnInit, OnDestroy {
 
   protected readonly data = computed(() => this.navigationService.getCurrentNavigation()());
 
-  protected readonly childrenAccessor = (node: NavigationItem) => node.children ?? [];
+  protected readonly childrenAccessor = (node: NavigationItem): NavigationItem[] => node.children ?? [];
 
   public ngOnInit(): void {
     this.routerSubscription = this.router.events
@@ -59,7 +59,7 @@ export class NavTreeInlineComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected hasChild = (_: number, node: NavigationItem) => !!node.children && node.children.length > 0;
+  protected hasChild = (_: number, node: NavigationItem): boolean => !!node.children && node.children.length > 0;
 
   protected isActive(url?: string): boolean {
     if (!url) return false;

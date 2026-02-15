@@ -176,6 +176,10 @@ export class AppFormDatepickerComponent implements ControlValueAccessor, AfterVi
   }
 
   setDisabledState(isDisabled: boolean): void {
-    isDisabled ? this.internalControl.disable({ emitEvent: false }) : this.internalControl.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.internalControl.disable({ emitEvent: false });
+    } else {
+      this.internalControl.enable({ emitEvent: false });
+    }
   }
 }

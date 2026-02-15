@@ -95,7 +95,7 @@ export default class IconsGalleryComponent {
   getColorClass(): string {
     const color = this.selectedColor();
     const option = this.colorOptions.find(opt => opt.value === color);
-    return option?.class || 'text-gray-700';
+    return option?.class ?? 'text-gray-700';
   }
 
   copyIconName(icon: string): void {

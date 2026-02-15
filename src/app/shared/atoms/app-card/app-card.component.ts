@@ -4,10 +4,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
 
-@Directive({ selector: '[slot=header-actions]', standalone: true })
+@Directive({ selector: '[appSlotHeaderActions]', standalone: true })
 export class AppCardHeaderActionsDirective {}
 
-@Directive({ selector: '[slot=footer]', standalone: true })
+@Directive({ selector: '[appSlotFooter]', standalone: true })
 export class AppCardFooterActionsDirective {}
 
 @Component({

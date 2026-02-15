@@ -118,6 +118,6 @@ export default class RadiosComponent {
   });
 
   goBack(): void {
-    this.router.navigate(['/pds/index']);
+    void this.router.navigate(['/pds/index']);
   }
 }
