@@ -100,7 +100,7 @@ export default class IconsGalleryComponent {
 
   copyIconName(icon: string): void {
     const iconName = this.getIconName(icon);
-    navigator.clipboard.writeText(iconName).then(() => {
+    void navigator.clipboard.writeText(iconName).then(() => {
       this.snackBar.open(`Icon "${iconName}" copied to clipboard!`, 'Close', {
         duration: 2000,
         horizontalPosition: 'right',
@@ -114,6 +114,6 @@ export default class IconsGalleryComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/pds/index']);
+    void this.router.navigate(['/pds/index']);
   }
 }

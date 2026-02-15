@@ -52,7 +52,7 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
             class="filter-field"
             [style.width]="filter.width ?? 'auto'">
 
-            @switch (filter.type ?? 'text') {
+            @switch (filter.type) {
               @case ('text') {
                 <app-form-input
                   [formControl]="getControl(filter.key)"
@@ -123,7 +123,7 @@ export class AppSimpleFilterComponent implements OnInit {
   readonly values = input<AppFilterValues>({});
 
   valuesChange = output<AppFilterValues>();
-  filterChange = output<{ key: string; value: any }>();
+  filterChange = output<{ key: string; value: unknown }>();
 
   readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
   readonly showClearAll = computed(() => this.config().showClearAll ?? FILTER_DEFAULTS.showClearAll);
@@ -178,8 +178,8 @@ export class AppSimpleFilterComponent implements OnInit {
     return this.formGroup().get(key) as FormControl;
   }
 
-  getSelectOptions(filter: { options?: { value: any; label: string }[] }): SelectOption[] {
-    const resetOption: SelectOption = { value: null as any, label: '-- Todos --' };
+  getSelectOptions(filter: { options?: { value: unknown; label: string }[] }): SelectOption[] {
+    const resetOption: SelectOption = { value: null as unknown, label: '-- Todos --' };
     return [resetOption, ...(filter.options ?? [])];
   }
 
@@ -194,11 +194,11 @@ export class AppSimpleFilterComponent implements OnInit {
     this.valuesChange.emit({});
   }
 
-  private cleanValues(values: Record<string, any>): AppFilterValues {
+  private cleanValues(values: Record<string, unknown>): AppFilterValues {
     return Object.fromEntries(
       Object.entries(values).filter(
         ([, value]) => value !== null && value !== undefined && value !== '',
       ),
-    );
+    ) as AppFilterValues;
   }
 }

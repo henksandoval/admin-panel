@@ -120,7 +120,7 @@ export default class CheckboxesComponent {
   });
 
   goBack(): void {
-    this.router.navigate(['/pds/index']);
+    void this.router.navigate(['/pds/index']);
   }
 }
 

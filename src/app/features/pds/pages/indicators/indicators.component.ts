@@ -146,8 +146,7 @@ export default class IndicatorsComponent {
     return code;
   }
 
-
   goBack(): void {
-    this.router.navigate(['/pds/index']);
+    void this.router.navigate(['/pds/index']);
   }
 }

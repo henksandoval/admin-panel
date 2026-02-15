@@ -1,4 +1,4 @@
-import { Injectable, signal, inject, computed } from '@angular/core';
+import { Injectable, signal, inject, computed, Signal } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -528,19 +528,19 @@ export class NavigationService {
     });
   }
 
-  getNavigation() {
+  getNavigation(): Signal<NavigationItem[]> {
     return this.navigationMenu.asReadonly();
   }
 
-  getCurrentNavigation() {
+  getCurrentNavigation(): Signal<NavigationItem[]> {
     return this.currentNavigationChildren.asReadonly();
   }
 
-  setCurrentNavigation(navigation: NavigationItem[]) {
+  setCurrentNavigation(navigation: NavigationItem[]): void {
     this.currentNavigationChildren.set(navigation);
   }
 
-  getActiveRootItemId() {
+  getActiveRootItemId(): Signal<string | null> {
     return this.activeRootItemId.asReadonly();
   }
 
@@ -557,7 +557,7 @@ export class NavigationService {
     this.setActiveRootItemId(null);
   }
 
-  private setActiveRootItemId(itemId: string | null) {
+  private setActiveRootItemId(itemId: string | null): void {
     this.activeRootItemId.set(itemId);
   }
 

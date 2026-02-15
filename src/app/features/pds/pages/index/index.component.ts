@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {CommonModule} from "@angular/common";
 import {Router} from '@angular/router';
@@ -30,6 +30,8 @@ interface ShowcaseItem {
   styleUrl: './index.component.scss'
 })
 export class IndexComponent {
+  private readonly router = inject(Router);
+
   showcaseItems: ShowcaseItem[] = [
     {
       id: 'form-gallery',
@@ -117,9 +119,7 @@ export class IndexComponent {
     }
   ];
 
-  constructor(private router: Router) {}
-
-  navigateToShowcase(route: string) {
-    this.router.navigate([route]);
+  navigateToShowcase(route: string): void {
+    void this.router.navigate([route]);
   }
 }

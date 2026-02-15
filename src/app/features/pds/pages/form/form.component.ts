@@ -268,7 +268,7 @@ export class FormComponent implements OnInit {
   readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
 
   copyToClipboard(): void {
-    this.pdsUtils.copyToClipboard(this.completeFormCode());
+    void this.pdsUtils.copyToClipboard(this.completeFormCode());
   }
 
   private generateCompleteFormCode(): string {
@@ -327,6 +327,6 @@ export class FormComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/pds/index']);
+    void this.router.navigate(['/pds/index']);
   }
 }

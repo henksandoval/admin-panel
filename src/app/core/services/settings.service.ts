@@ -56,7 +56,10 @@ export class SettingsService {
     const stored = localStorage.getItem(this.STORAGE_KEY);
     if (stored) {
       try {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored) as unknown;
+        if (this.isValidSettings(parsed)) {
+          return parsed;
+        }
       } catch (e) {
         console.error('Error loading settings:', e);
       }
@@ -65,6 +68,17 @@ export class SettingsService {
       theme: 'default',
       scheme: 'light'
     };
+  }
+
+  private isValidSettings(obj: unknown): obj is SettingsConfig {
+    return (
+      typeof obj === 'object' &&
+      obj !== null &&
+      'theme' in obj &&
+      'scheme' in obj &&
+      typeof (obj as Record<string, unknown>)['theme'] === 'string' &&
+      typeof (obj as Record<string, unknown>)['scheme'] === 'string'
+    );
   }
 
   private saveSettings(config: SettingsConfig): void {
