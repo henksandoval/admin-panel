@@ -77,48 +77,56 @@ export class TableClientSideService {
     };
   }
 
-  getFiltersConfig(): AppFiltersConfig {
+  private getCommonFields() {
+    return [
+      {
+        key: 'department',
+        label: 'Departamento',
+        type: 'select' as const,
+        options: this.departments.map(d => ({ value: d, label: d }))
+      },
+      {
+        key: 'status',
+        label: 'Estado',
+        type: 'select' as const,
+        options: [
+          { value: 'active', label: 'Activo' },
+          { value: 'inactive', label: 'Inactivo' },
+          { value: 'vacation', label: 'Vacaciones' },
+        ]
+      },
+      { key: 'hireDate', label: 'Fecha contratación', type: 'date' as const },
+    ];
+  }
+
+  getFiltersConfig(useAdvanced: boolean): AppFiltersConfig {
+    if (useAdvanced) {
+      return {
+        fields: [
+          { key: 'name', label: 'Nombre', type: 'text' },
+          { key: 'email', label: 'Email', type: 'text' },
+          ...this.getCommonFields(),
+          { key: 'salary', label: 'Salario', type: 'number' },
+        ],
+        toggles: [
+          { key: 'showInactive', label: 'Mostrar inactivos', value: false },
+        ],
+        maxCriteria: 10,
+        showClearButton: true,
+        showSearchButton: true,
+      };
+    }
+
     return {
       fields: [
         { key: 'name', label: 'Nombre', type: 'text', placeholder: 'Buscar por nombre...' },
         { key: 'id', label: 'ID', type: 'number', placeholder: 'ID del empleado' },
-        { key: 'department', label: 'Departamento', type: 'select', options: this.departments.map(d => ({ value: d, label: d })) },
-        {
-          key: 'status', label: 'Estado', type: 'select', options: [
-            { value: 'active', label: 'Activo' },
-            { value: 'inactive', label: 'Inactivo' },
-            { value: 'vacation', label: 'Vacaciones' },
-          ]
-        },
-        { key: 'hireDate', label: 'Fecha contratación', type: 'date', placeholder: 'DD/MM/YYYY' },
+        ...this.getCommonFields().map(f =>
+          f.key === 'hireDate' ? { ...f, placeholder: 'DD/MM/YYYY' } : f
+        ),
       ],
       showClearAll: true,
       appearance: 'outline',
-    };
-  }
-
-  getAdvancedFiltersConfig(): AppFiltersConfig {
-    return {
-      fields: [
-        { key: 'name', label: 'Nombre', type: 'text' },
-        { key: 'email', label: 'Email', type: 'text' },
-        { key: 'department', label: 'Departamento', type: 'select', options: this.departments.map(d => ({ value: d, label: d })) },
-        { key: 'salary', label: 'Salario', type: 'number' },
-        {
-          key: 'status', label: 'Estado', type: 'select', options: [
-            { value: 'active', label: 'Activo' },
-            { value: 'inactive', label: 'Inactivo' },
-            { value: 'vacation', label: 'Vacaciones' },
-          ]
-        },
-        { key: 'hireDate', label: 'Fecha contratación', type: 'date' },
-      ],
-      toggles: [
-        { key: 'showInactive', label: 'Mostrar inactivos', value: false },
-      ],
-      maxCriteria: 10,
-      showClearButton: true,
-      showSearchButton: true,
     };
   }
 

@@ -10,7 +10,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { AppTableAction, AppTableConfig, AppTableSort } from '@shared/atoms/app-table/app-table.model';
+import { AppTableAction, AppTableSort } from '@shared/atoms/app-table/app-table.model';
 import { TableClientSideService, Employee } from './table-client-side.service';
 import { AppTableClientSideComponent } from '@shared/organisms/app-table-client-side/app-table-client-side.component';
 import { AppFiltersOutput, AppFilterValues } from '@shared/molecules/app-filters/app-filter.model';
@@ -47,9 +47,8 @@ export class TableClientSideComponent implements OnInit {
 
   readonly tableConfig = this.service.getTableConfig();
   readonly paginationConfig = this.service.getPaginationConfig();
-  readonly filterMode = signal<'simple' | 'advanced'>('simple');
-  readonly filtersConfig = this.service.getFiltersConfig();
-  readonly advancedFiltersConfig = this.service.getAdvancedFiltersConfig();
+  readonly useAdvancedFilters = signal(false);
+  readonly filtersConfig = computed(() => this.service.getFiltersConfig(this.useAdvancedFilters()));
 
   readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>): EmployeeViewModel[] => {
     let result = data;
@@ -57,16 +56,6 @@ export class TableClientSideComponent implements OnInit {
       result = result.filter(e => e.status !== 'inactive');
     }
     return result;
-  };
-
-  readonly testTableConfig: AppTableConfig<EmployeeViewModel> = {
-    columns: [
-      { key: 'id', header: 'ID', width: '60px' },
-      { key: 'name', header: 'Nombre' },
-      { key: 'statusLabel', header: 'Estado' },
-      { key: 'salaryFormatted', header: 'Salario' },
-    ],
-    trackByKey: 'id' as keyof EmployeeViewModel,
   };
 
   readonly isLoading = signal(true);
@@ -99,14 +88,10 @@ export class TableClientSideComponent implements OnInit {
     this.snackBar.open(`Ordenar por: ${event.active} (${event.direction})`, '✕', { duration: 2500 });
   }
 
-  onFilter(event: AppFilterValues): void {
-    this.snackBar.open(`Filtros aplicados - ver consola`, '✕', { duration: 2500 });
-    console.debug('[filter]', event);
-  }
-
-  onAdvancedSearch(output: AppFiltersOutput): void {
-    this.snackBar.open(`Búsqueda avanzada aplicada ver consola`, '✕', { duration: 2500 });
-    console.debug('[filter advanced]', output);
+  onFilters(filters: AppFilterValues | AppFiltersOutput): void {
+    const mode = this.useAdvancedFilters() ? 'avanzada' : 'simple';
+    this.snackBar.open(`Búsqueda ${mode} aplicada`, '✕', { duration: 2500 });
+    console.debug('[filters]', filters);
   }
 
   onPage(event: AppPageEvent): void {

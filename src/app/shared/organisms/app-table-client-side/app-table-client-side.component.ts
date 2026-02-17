@@ -5,7 +5,7 @@ import { AppPaginationConfig, AppPageEvent, AppPaginationState } from "@shared/a
 import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
 import { AppTableConfig, AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
 import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
-import { AppFiltersConfig, AppFilterValues, AppFiltersOutput, AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
+import { AppFiltersConfig, AppFilterValues, AppFiltersOutput } from "@shared/molecules/app-filters/app-filter.model";
 import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator";
 import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
 import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, AppTableSortFn } from "./app-table-client-side.model";
@@ -23,129 +23,55 @@ import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, App
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-table-client-side.component.scss',
-  template: `
-    <div class="app-client-side-table">
-      @if (filtersConfig() && !filtersAdvancedConfig()) {
-        <app-table-filters
-          [config]="filtersConfig()!"
-          [values]="simpleFilterValues()"
-          (valuesChange)="onSimpleFiltersChange($event)">
-        </app-table-filters>
-      }
-
-      @if (filtersAdvancedConfig()) {
-        <app-card
-          title="Filtros avanzados"
-          icon="filter_alt"
-          [isExpandable]="true"
-          [expanded]="false"
-          class="mb-4">
-          <app-filters-advanced
-            [config]="filtersAdvancedConfig()!"
-            (searchApplied)="onAdvancedSearch($event)">
-          </app-filters-advanced>
-        </app-card>
-      }
-
-      <app-table
-        [config]="tableConfig()"
-        [data]="displayData()"
-        [sort]="currentSort()"
-        [loading]="loading()"
-        [cellTemplateRef]="projectedCellTemplate()"
-        (sortChange)="onSortChange($event)"
-        (rowClick)="rowClick.emit($event)"
-        (actionClick)="actionClick.emit($event)">
-        <ng-content />
-      </app-table>
-
-      @if (paginationConfig()) {
-        <app-pagination
-          [config]="paginationConfig()!"
-          [state]="paginationState()"
-          (pageChange)="onPageChange($event)">
-        </app-pagination>
-      }
-    </div>
-  `,
+  templateUrl: './app-table-client-side.component.html'
 })
 export class AppTableClientSideComponent<T extends Record<string, any> = Record<string, any>> {
-  // ── Inputs de configuración ──
   readonly tableConfig = input.required<AppTableConfig<T>>();
   readonly filtersConfig = input<AppFiltersConfig>();
-  readonly filtersAdvancedConfig = input<AppFiltersConfig>();
+  readonly useAdvancedFilters = input<boolean>(false);
   readonly paginationConfig = input<AppPaginationConfig>();
 
-  // ── Inputs de datos ──
   readonly data = input<T[]>([]);
   readonly loading = input(false);
 
-  // ── Inputs de funciones custom ──
   readonly filterFn = input<AppTableFilterFn<T>>();
   readonly criteriaFilterFn = input<AppTableCriteriaFilterFn<T>>();
   readonly toggleFilterFn = input<AppTableToggleFilterFn<T>>();
   readonly sortFn = input<AppTableSortFn<T>>();
 
-  // ── Outputs ──
   sortChange = output<AppTableSort>();
-  filterChange = output<AppFilterValues>();
-  advancedSearch = output<AppFiltersOutput>();
+  filtersChange = output<AppFilterValues | AppFiltersOutput>();
   pageChange = output<AppPageEvent>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
-  // ── Estado interno ──
   readonly projectedCellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
-  readonly simpleFilterValues = signal<AppFilterValues>({});
-  readonly advancedCriteria = signal<AppFilterCriterion[]>([]);
-  readonly activeToggles = signal<Record<string, boolean>>({});
+  readonly currentFilters = signal<AppFilterValues | AppFiltersOutput>({});
   readonly pageIndex = signal(0);
   readonly pageSize = signal(10);
 
-  // ── Pipeline de datos ──
-
-  /**
-   * Paso 1: Aplicar toggles (e.g., mostrar/ocultar inactivos).
-   */
-  private readonly afterToggleFilter = computed(() => {
-    const data = this.data();
-    const toggles = this.activeToggles();
-
-    if (!Object.keys(toggles).length) return data;
-
-    const customFn = this.toggleFilterFn();
-    return customFn ? customFn(data, toggles) : data;
+  readonly simpleFilterValues = computed(() => {
+    const filters = this.currentFilters();
+    return this.isAdvancedFilters(filters) ? {} : filters;
   });
 
-  /**
-   * Paso 2: Aplicar filtros (simples O avanzados, nunca ambos).
-   * Los criterios avanzados tienen prioridad si existen.
-   */
   private readonly filteredData = computed(() => {
-    const data = this.afterToggleFilter();
-    const criteria = this.advancedCriteria();
-    const simpleFilters = this.simpleFilterValues();
+    const data = this.data();
+    const filters = this.currentFilters();
+    const useAdvanced = this.useAdvancedFilters();
 
-    if (criteria.length > 0) {
-      const customFn = this.criteriaFilterFn();
-      return customFn ? customFn(data, criteria) : evaluateCriteria(data, criteria);
+    if (this.isEmptyFilters(filters)) {
+      return data;
     }
 
-    const activeSimple = Object.entries(simpleFilters).filter(
-      ([, v]) => v !== null && v !== undefined && v !== '',
-    );
-    if (!activeSimple.length) return data;
+    if (useAdvanced && this.isAdvancedFilters(filters)) {
+      return this.applyAdvancedFilters(data, filters as AppFiltersOutput);
+    }
 
-    const customFn = this.filterFn();
-    return customFn
-      ? customFn(data, simpleFilters)
-      : this.defaultSimpleFilter(data, simpleFilters);
+    return this.applySimpleFilters(data, filters as AppFilterValues);
   });
 
-  /**
-   * Paso 3: Ordenar.
-   */
   private readonly sortedData = computed(() => {
     const data = this.filteredData();
     const sort = this.currentSort();
@@ -156,9 +82,6 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     return customFn ? customFn(data, sort) : this.defaultSort(data, sort);
   });
 
-  /**
-   * Paso 4: Paginar.
-   */
   readonly displayData = computed(() => {
     const data = this.sortedData();
     if (!this.paginationConfig()) return data;
@@ -173,7 +96,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     totalItems: this.sortedData().length,
   }));
 
-  private readonly boundaryGuard = effect(() => {
+  private readonly _boundaryGuard = effect(() => {
     const totalItems = this.sortedData().length;
     const pageSize = this.pageSize();
     const currentPage = this.pageIndex();
@@ -184,22 +107,10 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     }
   });
 
-  // ── Handlers ──
-
-  onSimpleFiltersChange(values: AppFilterValues): void {
-    this.simpleFilterValues.set(values);
-    this.advancedCriteria.set([]); // limpiar criterios avanzados
-    this.activeToggles.set({});
+  onFiltersChange(filters: AppFilterValues | AppFiltersOutput): void {
+    this.currentFilters.set(filters);
     this.pageIndex.set(0);
-    this.filterChange.emit(values);
-  }
-
-  onAdvancedSearch(advancedOutput: AppFiltersOutput): void {
-    this.advancedCriteria.set(advancedOutput.criteria);
-    this.activeToggles.set(advancedOutput.toggles);
-    this.simpleFilterValues.set({}); // limpiar filtros simples
-    this.pageIndex.set(0);
-    this.advancedSearch.emit(advancedOutput);
+    this.filtersChange.emit(filters);
   }
 
   onSortChange(sort: AppTableSort): void {
@@ -213,7 +124,46 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     this.pageChange.emit(event);
   }
 
-  // ── Filtro simple por defecto ──
+  private isEmptyFilters(filters: AppFilterValues | AppFiltersOutput): boolean {
+    if (this.isAdvancedFilters(filters)) {
+      return filters.criteria.length === 0;
+    }
+    return Object.keys(filters).length === 0;
+  }
+
+  private isAdvancedFilters(filters: AppFilterValues | AppFiltersOutput): filters is AppFiltersOutput {
+    return 'criteria' in filters && 'toggles' in filters;
+  }
+
+  private applySimpleFilters(data: T[], filters: AppFilterValues): T[] {
+    const activeFilters = Object.entries(filters).filter(
+      ([, v]) => v !== null && v !== undefined && v !== '',
+    );
+    if (!activeFilters.length) return data;
+
+    const customFn = this.filterFn();
+    return customFn
+      ? customFn(data, filters)
+      : this.defaultSimpleFilter(data, filters);
+  }
+
+  private applyAdvancedFilters(data: T[], output: AppFiltersOutput): T[] {
+    let filtered = data;
+
+    if (output.criteria.length > 0) {
+      const customFn = this.criteriaFilterFn();
+      filtered = customFn
+        ? customFn(filtered, output.criteria)
+        : evaluateCriteria(filtered, output.criteria);
+    }
+
+    if (Object.keys(output.toggles).length > 0) {
+      const customFn = this.toggleFilterFn();
+      filtered = customFn ? customFn(filtered, output.toggles) : filtered;
+    }
+
+    return filtered;
+  }
 
   private defaultSimpleFilter(data: T[], filters: AppFilterValues): T[] {
     const active = Object.entries(filters).filter(
@@ -237,7 +187,6 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     );
   }
 
-  // ── Ordenamiento por defecto ──
 
   private defaultSort(data: T[], sort: AppTableSort): T[] {
     return [...data].sort((a, b) => {

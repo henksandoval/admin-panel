@@ -6,70 +6,44 @@
     </div>
 
     <mat-button-toggle-group
-      [value]="filterMode()"
-      (change)="filterMode.set($event.value)">
-      <mat-button-toggle value="simple">
+      [value]="useAdvancedFilters()"
+      (change)="useAdvancedFilters.set($event.value)">
+      <mat-button-toggle [value]="false">
         <mat-icon>filter_list</mat-icon>
         Filtros Simples
       </mat-button-toggle>
-      <mat-button-toggle value="advanced">
+      <mat-button-toggle [value]="true">
         <mat-icon>tune</mat-icon>
         Filtros Avanzados
       </mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 
-  @if (filterMode() === 'simple') {
-    <app-table-client-side
-      [tableConfig]="tableConfig"
-      [filtersConfig]="filtersConfig"
-      [paginationConfig]="paginationConfig"
-      [data]="employeesViewModel()"
-      (sortChange)="onSort($event)"
-      (filterChange)="onFilter($event)"
-      (pageChange)="onPage($event)"
-      (actionClick)="onAction($event)">
-      <ng-template #cellTemplate let-row let-column="column" let-value="value">
-        @switch (column.key) {
-          @case ('statusLabel') {
-            <span class="badge" [class]="'badge--' + row.status">
-                  {{ value }}
-                </span>
-          }
-          @case ('salaryFormatted') {
-            <span class="salary">{{ value }}</span>
-          }
-          @default {
+  <app-table-client-side
+    [tableConfig]="tableConfig"
+    [filtersConfig]="filtersConfig()"
+    [useAdvancedFilters]="useAdvancedFilters()"
+    [paginationConfig]="paginationConfig"
+    [data]="employeesViewModel()"
+    [toggleFilterFn]="toggleFilter"
+    (sortChange)="onSort($event)"
+    (filtersChange)="onFilters($event)"
+    (pageChange)="onPage($event)"
+    (actionClick)="onAction($event)">
+    <ng-template #cellTemplate let-row let-column="column" let-value="value">
+      @switch (column.key) {
+        @case ('statusLabel') {
+          <span class="badge" [class]="'badge--' + row.status">
             {{ value }}
-          }
+          </span>
         }
-      </ng-template>
-    </app-table-client-side>
-  } @else {
-    <app-table-client-side
-      [tableConfig]="tableConfig"
-      [filtersAdvancedConfig]="advancedFiltersConfig"
-      [paginationConfig]="paginationConfig"
-      [data]="employeesViewModel()"
-      (sortChange)="onSort($event)"
-      (advancedSearch)="onAdvancedSearch($event)"
-      (pageChange)="onPage($event)"
-      (actionClick)="onAction($event)">
-      <ng-template #cellTemplate let-row let-column="column" let-value="value">
-        @switch (column.key) {
-          @case ('statusLabel') {
-            <span class="badge" [class]="'badge--' + row.status">
-                  {{ value }}
-                </span>
-          }
-          @case ('salaryFormatted') {
-            <span class="salary">{{ value }}</span>
-          }
-          @default {
-            {{ value }}
-          }
+        @case ('salaryFormatted') {
+          <span class="salary">{{ value }}</span>
         }
-      </ng-template>
-    </app-table-client-side>
-  }
+        @default {
+          {{ value }}
+        }
+      }
+    </ng-template>
+  </app-table-client-side>
 </div>

@@ -1,0 +1,43 @@
+<div class="app-client-side-table">
+  @if (filtersConfig()) {
+    @if (useAdvancedFilters()) {
+      <app-card
+        title="Filtros avanzados"
+        icon="filter_alt"
+        [isExpandable]="true"
+        [expanded]="false"
+        class="mb-4">
+        <app-filters-advanced
+          [config]="filtersConfig()!"
+          (searchApplied)="onFiltersChange($event)">
+        </app-filters-advanced>
+      </app-card>
+    } @else {
+      <app-table-filters
+        [config]="filtersConfig()!"
+        [values]="simpleFilterValues()"
+        (valuesChange)="onFiltersChange($event)">
+      </app-table-filters>
+    }
+  }
+
+  <app-table
+    [config]="tableConfig()"
+    [data]="displayData()"
+    [sort]="currentSort()"
+    [loading]="loading()"
+    [cellTemplateRef]="projectedCellTemplate()"
+    (sortChange)="onSortChange($event)"
+    (rowClick)="rowClick.emit($event)"
+    (actionClick)="actionClick.emit($event)">
+    <ng-content />
+  </app-table>
+
+  @if (paginationConfig()) {
+    <app-pagination
+      [config]="paginationConfig()!"
+      [state]="paginationState()"
+      (pageChange)="onPageChange($event)">
+    </app-pagination>
+  }
+</div>

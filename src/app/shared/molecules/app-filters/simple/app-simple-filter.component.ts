@@ -44,77 +44,7 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-simple-filter.component.scss',
-  template: `
-    <div class="filters-container">
-      <div class="filters-fields">
-        @for (filter of config().fields; track filter.key) {
-          <div
-            class="filter-field"
-            [style.width]="filter.width ?? 'auto'">
-
-            @switch (filter.type) {
-              @case ('text') {
-                <app-form-input
-                  [formControl]="getControl(filter.key)"
-                  [config]="{
-                    type: 'text',
-                    label: filter.label,
-                    placeholder: filter.placeholder ?? '',
-                    appearance: appearance()
-                  }">
-                </app-form-input>
-              }
-
-              @case ('number') {
-                <app-form-input
-                  [formControl]="getControl(filter.key)"
-                  [config]="{
-                    type: 'number',
-                    label: filter.label,
-                    placeholder: filter.placeholder ?? '',
-                    appearance: appearance()
-                  }">
-                </app-form-input>
-              }
-
-              @case ('select') {
-                <app-form-select
-                  [formControl]="getControl(filter.key)"
-                  [options]="getSelectOptions(filter)"
-                  [config]="{
-                    label: filter.label,
-                    appearance: appearance()
-                  }">
-                </app-form-select>
-              }
-
-              @case ('date') {
-                <app-form-datepicker
-                  [formControl]="getControl(filter.key)"
-                  [config]="{
-                    label: filter.label,
-                    placeholder: filter.placeholder ?? 'DD/MM/YYYY',
-                    appearance: appearance()
-                  }">
-                </app-form-datepicker>
-              }
-            }
-          </div>
-        }
-      </div>
-
-      @if (showClearAll() && hasAnyValue()) {
-        <button
-          mat-stroked-button
-          type="button"
-          class="clear-all-button"
-          (click)="clearAll()">
-          <mat-icon>filter_alt_off</mat-icon>
-          {{ clearAllLabel() }}
-        </button>
-      }
-    </div>
-  `,
+  templateUrl: './app-simple-filter.component.html'
 })
 export class AppSimpleFilterComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
