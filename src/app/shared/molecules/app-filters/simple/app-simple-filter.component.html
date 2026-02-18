@@ -57,11 +57,10 @@
     }
   </div>
 
-  @for (toggle of toggles(); track toggle.key) {
-    <app-checkbox [checked]="toggle.value" (change)="onToggleChange(toggle.key, $event)">
-      {{ toggle.label }}
-    </app-checkbox>
-  }
+  <app-filter-toggles
+    [toggles]="toggles()"
+    (toggleChange)="onToggleChange($event.key, $event.event)">
+  </app-filter-toggles>
 
   @if (showClearAll() && hasAnyValue()) {
     <button

@@ -6,9 +6,11 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { togglesToRecord } from '../app-filter.utils';
+import { createFilterTogglesHandlers } from '../app-filter-toggles.utils';
+import { createDefaultComputed } from '../app-filter-defaults.utils';
+import { AppFilterTogglesComponent } from '../app-filter-toggles.component';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
 import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import { AppFormInputConnectorDirective } from '@shared/molecules/app-form/app-form-input/app-form-input-connector.directive';
@@ -17,7 +19,7 @@ import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
-import { FILTER_DEFAULTS, AppFiltersConfig, AppFiltersOutput, AppFilterCriterion, AppFilterToggle, DEFAULT_FILTER_OPERATORS } from '../app-filter.model';
+import { FILTER_DEFAULTS, AppFiltersConfig, AppFiltersOutput, AppFilterCriterion, DEFAULT_FILTER_OPERATORS } from '../app-filter.model';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
@@ -31,7 +33,7 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
     ReactiveFormsModule,
     MatIconModule,
     AppButtonComponent,
-    AppCheckboxComponent,
+    AppFilterTogglesComponent,
     AppFormSelectComponent,
     AppFormSelectConnectorDirective,
     AppFormInputComponent,
@@ -54,12 +56,20 @@ export class AppAdvancedFilterComponent {
   toggleChange = output<Record<string, boolean>>();
 
   readonly criteria = signal<AppFilterCriterion[]>([]);
-  readonly toggles = signal<AppFilterToggle[]>([]);
   readonly booleanOptions = BOOLEAN_OPTIONS;
 
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private criterionCounter = 0;
+
+  private togglesHandlers = createFilterTogglesHandlers(
+    this.config,
+    this.toggleChange,
+    () => this.emitAutoSearch()
+  );
+
+  readonly toggles = this.togglesHandlers.toggles;
+  readonly onToggleChange = this.togglesHandlers.onToggleChange;
 
   readonly builderForm = this.fb.nonNullable.group({
     field: ['', Validators.required],
@@ -114,10 +124,10 @@ export class AppAdvancedFilterComponent {
     return value !== null && value !== undefined && value !== '';
   });
 
-  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
-  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
-  private readonly autoSearch = computed(() => this.config().autoSearch ?? FILTER_DEFAULTS.autoSearch);
-  private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
+  readonly showClearButton = createDefaultComputed(this.config, 'showClearButton');
+  readonly showSearchButton = createDefaultComputed(this.config, 'showSearchButton');
+  private readonly autoSearch = createDefaultComputed(this.config, 'autoSearch');
+  private readonly maxCriteria = createDefaultComputed(this.config, 'maxCriteria');
 
   readonly criteriaAreaClasses = computed(() => {
     const classes = ['app-filters-advanced-criteria'];
@@ -130,9 +140,6 @@ export class AppAdvancedFilterComponent {
   constructor() {
     this.setupFormCascade();
 
-    effect(() => {
-      this.toggles.set((this.config().toggles ?? []).map(t => ({ ...t })));
-    });
 
     effect(() => {
       const initial = this.initialCriteria();
@@ -170,15 +177,6 @@ export class AppAdvancedFilterComponent {
   clearAllCriteria(): void {
     this.criteria.set([]);
     this.criteriaChange.emit(this.criteria());
-    this.emitAutoSearch();
-  }
-
-  onToggleChange(key: string, event: Event): void {
-    const checked = (event.target as HTMLInputElement).checked;
-    this.toggles.update(current =>
-      current.map(t => t.key === key ? { ...t, value: checked } : t)
-    );
-    this.toggleChange.emit(togglesToRecord(this.toggles()));
     this.emitAutoSearch();
   }
 
