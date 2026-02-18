@@ -18,7 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  AppFiltersConfig,
+  AppFiltersConfig, AppFilterToggle,
   AppFilterValues,
   FILTER_DEFAULTS,
 } from '../app-filter.model';
@@ -27,6 +27,8 @@ import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-
 import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
+import {AppCheckboxComponent} from '@shared/atoms/app-checkbox/app-checkbox.component';
+import {togglesToRecord} from '@shared/molecules/app-filters/app-filter.utils';
 
 @Component({
   selector: 'app-table-filters',
@@ -41,6 +43,7 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
     MatIconModule,
     MatButtonModule,
     AppFormDatepickerComponent,
+    AppCheckboxComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-simple-filter.component.scss',
@@ -54,8 +57,10 @@ export class AppSimpleFilterComponent implements OnInit {
 
   valuesChange = output<AppFilterValues>();
   filterChange = output<{ key: string; value: unknown }>();
+  toggleChange = output<Record<string, boolean>>();
 
   readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
+  readonly toggles = signal<AppFilterToggle[]>([]);
   readonly showClearAll = computed(() => this.config().showClearAll ?? FILTER_DEFAULTS.showClearAll);
   readonly clearAllLabel = computed(() => this.config().clearAllLabel ?? FILTER_DEFAULTS.clearAllLabel);
   private readonly debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
@@ -63,6 +68,10 @@ export class AppSimpleFilterComponent implements OnInit {
   private readonly formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
 
   constructor() {
+    effect(() => {
+      this.toggles.set((this.config().toggles ?? []).map(t => ({ ...t })));
+    });
+
     effect(() => {
       const externalValues = this.values();
       const form = this.formGroup();
@@ -122,6 +131,14 @@ export class AppSimpleFilterComponent implements OnInit {
   clearAll(): void {
     this.formGroup().reset();
     this.valuesChange.emit({});
+  }
+
+  onToggleChange(key: string, event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.toggles.update(current =>
+      current.map(t => t.key === key ? { ...t, value: checked } : t)
+    );
+    this.toggleChange.emit(togglesToRecord(this.toggles()));
   }
 
   private cleanValues(values: Record<string, unknown>): AppFilterValues {

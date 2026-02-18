@@ -1,24 +1,24 @@
 <div [class]="criteriaAreaClasses()" class="flex flex-wrap gap-2 p-3.5 min-h-[52px] items-center" role="list"
-  aria-label="Filtros activos" aria-live="polite">
+     aria-label="Filtros activos" aria-live="polite">
 
   @if (!hasCriteria()) {
-  <mat-icon>filter_list</mat-icon>
-  <span>No hay filtros aplicados</span>
+    <mat-icon>filter_list</mat-icon>
+    <span>No hay filtros aplicados</span>
   } @else {
-  @for (criterion of criteria(); track criterion.id) {
-  <div class="app-filter-pill" [attr.data-type]="criterion.field.type" role="listitem">
-    <span class="app-filter-pill-field">{{ criterion.field.label }}</span>
-    <span class="app-filter-pill-operator">{{ criterion.operator.symbol }}</span>
-    <span class="app-filter-pill-value" [title]="criterion | criterionDisplay">
-      {{ criterion | criterionDisplay }}
-    </span>
-    <button type="button" class="app-filter-pill-remove"
-      [attr.aria-label]="'Eliminar filtro: ' + criterion.field.label + ' ' + criterion.operator.symbol + ' ' + (criterion | criterionDisplay)"
-      (click)="removeCriterion(criterion.id)">
-      <mat-icon aria-hidden="true">close</mat-icon>
-    </button>
-  </div>
-  }
+    @for (criterion of criteria(); track criterion.id) {
+      <div class="app-filter-pill" [attr.data-type]="criterion.field.type" role="listitem">
+        <span class="app-filter-pill-field">{{ criterion.field.label }}</span>
+        <span class="app-filter-pill-operator">{{ criterion.operator.symbol }}</span>
+        <span class="app-filter-pill-value" [title]="criterion | criterionDisplay">
+          {{ criterion | criterionDisplay }}
+        </span>
+        <button type="button" class="app-filter-pill-remove"
+                [attr.aria-label]="'Eliminar filtro: ' + criterion.field.label + ' ' + criterion.operator.symbol + ' ' + (criterion | criterionDisplay)"
+                (click)="removeCriterion(criterion.id)">
+          <mat-icon aria-hidden="true">close</mat-icon>
+        </button>
+      </div>
+    }
   }
 </div>
 
@@ -27,45 +27,44 @@
 <div class="app-filters-advanced-form" [formGroup]="builderForm">
   <div>
     <app-form-select appFormSelectConnector formControlName="field" [options]="fieldOptions()"
-      [config]="{ label: 'Campo' }">
+                     [config]="{ label: 'Campo' }">
     </app-form-select>
   </div>
 
   <div>
     <app-form-select appFormSelectConnector formControlName="operator" [options]="operatorOptions()"
-      [config]="{ label: 'Operador' }">
+                     [config]="{ label: 'Operador' }">
     </app-form-select>
   </div>
 
   @if (selectedField() && !isNoValueOperator()) {
-  <div>
-    @switch (selectedFieldType()) {
-    @case ('select') {
-    <app-form-select appFormSelectConnector formControlName="value" [options]="valueOptions()"
-      [config]="{ label: 'Valor' }">
-    </app-form-select>
-    }
-    @case ('date') {
-    <app-form-datepicker appFormDatepickerConnector formControlName="value" [config]="{ label: 'Fecha' }">
-    </app-form-datepicker>
-    }
-    @case ('number') {
-    <app-form-input appFormInputConnector formControlName="value" type="number" [config]="{ label: 'Valor' }">
-    </app-form-input>
-    }
-    @case ('boolean') {
-    <app-form-select appFormSelectConnector formControlName="value" [options]="booleanOptions"
-      [config]="{ label: 'Valor' }">
-    </app-form-select>
-    }
-    @default {
-    <app-form-input appFormInputConnector formControlName="value" [config]="{ label: 'Valor' }">
-    </app-form-input>
-    }
-    }
-  </div>
+    <div>
+      @switch (selectedFieldType()) {
+        @case ('select') {
+          <app-form-select appFormSelectConnector formControlName="value" [options]="valueOptions()"
+                           [config]="{ label: 'Valor' }">
+          </app-form-select>
+        }
+        @case ('date') {
+          <app-form-datepicker appFormDatepickerConnector formControlName="value"
+                               [config]="{ label: 'Fecha' }"></app-form-datepicker>
+        }
+        @case ('number') {
+          <app-form-input appFormInputConnector formControlName="value" type="number"
+                          [config]="{ label: 'Valor' }"></app-form-input>
+        }
+        @case ('boolean') {
+          <app-form-select appFormSelectConnector formControlName="value" [options]="booleanOptions"
+                           [config]="{ label: 'Valor' }">
+          </app-form-select>
+        }
+        @default {
+          <app-form-input appFormInputConnector formControlName="value" [config]="{ label: 'Valor' }"></app-form-input>
+        }
+      }
+    </div>
   } @else {
-  <div></div>
+    <div></div>
   }
 
   <div class="app-filters-advanced-form-button">
@@ -76,27 +75,27 @@
 </div>
 
 @if (toggles().length > 0 || showClearButton() || showSearchButton()) {
-<mat-divider class="my-4"></mat-divider>
+  <mat-divider class="my-4"></mat-divider>
 
-<div class="app-filters-advanced-actions">
-  @for (toggle of toggles(); track toggle.key) {
-  <app-checkbox [checked]="toggle.value" (change)="onToggleChange(toggle.key, $event)">
-    {{ toggle.label }}
-  </app-checkbox>
-  }
-
-  <div class="app-filters-advanced-actions-buttons">
-    @if (showClearButton() && hasCriteria()) {
-    <app-button (click)="clearAllCriteria()" iconBefore="restart_alt">
-      Limpiar filtros
-    </app-button>
+  <div class="app-filters-advanced-actions">
+    @for (toggle of toggles(); track toggle.key) {
+      <app-checkbox [checked]="toggle.value" (change)="onToggleChange(toggle.key, $event)">
+        {{ toggle.label }}
+      </app-checkbox>
     }
 
-    @if (showSearchButton()) {
-    <app-button (click)="emitSearch()" iconBefore="search">
-      Buscar
-    </app-button>
-    }
+    <div class="app-filters-advanced-actions-buttons">
+      @if (showClearButton() && hasCriteria()) {
+        <app-button (click)="clearAllCriteria()" iconBefore="restart_alt">
+          Limpiar filtros
+        </app-button>
+      }
+
+      @if (showSearchButton()) {
+        <app-button (click)="emitSearch()" iconBefore="search">
+          Buscar
+        </app-button>
+      }
+    </div>
   </div>
-</div>
 }

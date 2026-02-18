@@ -108,9 +108,6 @@ export class TableClientSideService {
           ...this.getCommonFields(),
           { key: 'salary', label: 'Salario', type: 'number' },
         ],
-        toggles: [
-          { key: 'showInactive', label: 'Mostrar inactivos', value: false },
-        ],
         maxCriteria: 10,
         showClearButton: true,
         showSearchButton: true,
@@ -124,6 +121,10 @@ export class TableClientSideService {
         ...this.getCommonFields().map(f =>
           f.key === 'hireDate' ? { ...f, placeholder: 'DD/MM/YYYY' } : f
         ),
+      ],
+      toggles: [
+        { key: 'showDeleted', label: 'Mostrar eliminados', value: false },
+        { key: 'showInactive', label: 'Mostrar inactivos', value: false }
       ],
       showClearAll: true,
       appearance: 'outline',

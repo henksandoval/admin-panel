@@ -57,6 +57,12 @@
     }
   </div>
 
+  @for (toggle of toggles(); track toggle.key) {
+    <app-checkbox [checked]="toggle.value" (change)="onToggleChange(toggle.key, $event)">
+      {{ toggle.label }}
+    </app-checkbox>
+  }
+
   @if (showClearAll() && hasAnyValue()) {
     <button
       mat-stroked-button
