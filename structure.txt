@@ -218,15 +218,15 @@
 │   │       │           └── app-table-server-side.model.ts
 │   │       ├── organisms
 │   │       │   └── app-table
-│   │       │       └── app-table-filters
-│   │       │           ├── app-table-filters-advanced.component.html
-│   │       │           ├── app-table-filters-advanced.component.scss
-│   │       │           ├── app-table-filters-advanced.component.ts
-│   │       │           ├── app-table-filters-advanced.model.ts
-│   │       │           ├── app-table-filters-advanced.utils.ts
-│   │       │           ├── app-table-filters.model.ts
-│   │       │           ├── app-table-filters-simple.component.scss
-│   │       │           ├── app-table-filters-simple.component.ts
+│   │       │       └── app-simple-filters
+│   │       │           ├── app-simple-filters-advanced.component.html
+│   │       │           ├── app-simple-filters-advanced.component.scss
+│   │       │           ├── app-simple-filters-advanced.component.ts
+│   │       │           ├── app-simple-filters-advanced.model.ts
+│   │       │           ├── app-simple-filters-advanced.utils.ts
+│   │       │           ├── app-simple-filters.model.ts
+│   │       │           ├── app-simple-filters-simple.component.scss
+│   │       │           ├── app-simple-filters-simple.component.ts
 │   │       │           ├── criteria-evaluator.ts
 │   │       │           └── criterion-display.pipe.ts
 │   │       ├── templates

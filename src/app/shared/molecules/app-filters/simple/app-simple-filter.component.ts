@@ -31,7 +31,7 @@ import {AppCheckboxComponent} from '@shared/atoms/app-checkbox/app-checkbox.comp
 import {togglesToRecord} from '@shared/molecules/app-filters/app-filter.utils';
 
 @Component({
-  selector: 'app-table-filters',
+  selector: 'app-simple-filters',
   standalone: true,
   imports: [
     ReactiveFormsModule,

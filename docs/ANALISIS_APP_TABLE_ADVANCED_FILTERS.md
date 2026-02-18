@@ -175,7 +175,7 @@ Necesitas un **motor de ejecución de filtros** que interprete los criterios ava
 ### 3.1 Interface Base - Filter Execution Strategy
 
 ```typescript
-// app-table-filters-advanced/filter-execution.model.ts
+// app-simple-filters-advanced/filter-execution.model.ts
 
 /**
  * Estrategia abstracta para ejecutar filtros avanzados.
@@ -210,7 +210,7 @@ export interface AppTableFilterQueryStrategy {
 ### 3.2 Client-Side Filter Execution Engine
 
 ```typescript
-// app-table-filters-advanced/client-side-filter-executor.ts
+// app-simple-filters-advanced/client-side-filter-executor.ts
 
 export class ClientSideFilterExecutor<T extends Record<string, any>> 
   implements AppTableFilterExecutionStrategy<T> {
@@ -359,7 +359,7 @@ export class ClientSideFilterExecutor<T extends Record<string, any>>
 ### 3.3 Server-Side Query Builder
 
 ```typescript
-// app-table-filters-advanced/server-side-query-builder.ts
+// app-simple-filters-advanced/server-side-query-builder.ts
 
 export class ServerSideQueryBuilder implements AppTableFilterQueryStrategy {
   
@@ -649,7 +649,7 @@ advancedFilterExecutor = input<AppTableFilterExecutionStrategy<T>>();
 
 1. Añadir soporte para `filtersAdvancedConfig`
 2. Integrar `ServerSideQueryBuilder`
-3. Modificar template para incluir `app-table-filters-advanced`
+3. Modificar template para incluir `app-simple-filters-advanced`
 
 ### Fase 4: Eliminar Código Legacy
 

@@ -13,11 +13,11 @@
         </app-filters-advanced>
       </app-card>
     } @else {
-      <app-table-filters
+      <app-simple-filters
         [config]="filtersConfig()!"
         [values]="simpleFilterValues()"
         (valuesChange)="onFiltersChange($event)">
-      </app-table-filters>
+      </app-simple-filters>
     }
   }
 

@@ -171,9 +171,9 @@ AppTableClientSideComponent
 Este archivo se ubica junto al modelo de filtros avanzados en la capa shared:
 
 ```typescript
-// app-table-filters-advanced/criteria-evaluator.ts
+// app-simple-filters-advanced/criteria-evaluator.ts
 
-import { AppTableFilterCriterion, FilterValue } from './app-table-filters-advanced.model';
+import { AppTableFilterCriterion, FilterValue } from './app-simple-filters-advanced.model';
 
 export function evaluateCriteria<T extends Record<string, any>>(
   data: T[],
@@ -290,18 +290,18 @@ import {
   AppTableToggleFilterFn,
 } from './app-table-client-side.model';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
-import { AppTableFiltersAdvancedComponent } from '../app-table-filters-advanced/app-table-filters-advanced.component';
+import { AppTableFiltersAdvancedComponent } from '../app-simple-filters-advanced/app-simple-filters-advanced.component';
 import {
   AppTableFiltersAdvancedConfig,
   AppTableFiltersAdvancedOutput,
   AppTableFilterCriterion,
-} from '../app-table-filters-advanced/app-table-filters-advanced.model';
-import { AppTableFiltersComponent } from '../app-table-filters/app-table-filters.component';
+} from '../app-simple-filters-advanced/app-simple-filters-advanced.model';
+import { AppTableFiltersComponent } from '../app-simple-filters/app-simple-filters.component';
 import {
   AppTableFiltersConfig,
   AppTableFilterValues,
-} from '../app-table-filters/app-table-filters.model';
-import { evaluateCriteria } from '../app-table-filters-advanced/criteria-evaluator';
+} from '../app-simple-filters/app-simple-filters.model';
+import { evaluateCriteria } from '../app-simple-filters-advanced/criteria-evaluator';
 
 @Component({
   selector: 'app-table-client-side',
@@ -318,11 +318,11 @@ import { evaluateCriteria } from '../app-table-filters-advanced/criteria-evaluat
   template: `
     <div class="app-client-side-table">
       @if (filtersConfig() && !filtersAdvancedConfig()) {
-        <app-table-filters
+        <app-simple-filters
           [config]="filtersConfig()!"
           [values]="simpleFilterValues()"
           (valuesChange)="onSimpleFiltersChange($event)">
-        </app-table-filters>
+        </app-simple-filters>
       }
 
       @if (filtersAdvancedConfig()) {
@@ -332,10 +332,10 @@ import { evaluateCriteria } from '../app-table-filters-advanced/criteria-evaluat
           [isExpandable]="true"
           [expanded]="false"
           class="mb-4">
-          <app-table-filters-advanced
+          <app-simple-filters-advanced
             [config]="filtersAdvancedConfig()!"
             (search)="onAdvancedSearch($event)">
-          </app-table-filters-advanced>
+          </app-simple-filters-advanced>
         </app-card>
       }
 
@@ -551,8 +551,8 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
 ```typescript
 // app-table-client-side.model.ts
 
-import { AppTableFilterValues } from '../app-table-filters/app-table-filters.model';
-import { AppTableFilterCriterion } from '../app-table-filters-advanced/app-table-filters-advanced.model';
+import { AppTableFilterValues } from '../app-simple-filters/app-simple-filters.model';
+import { AppTableFilterCriterion } from '../app-simple-filters-advanced/app-simple-filters-advanced.model';
 import { AppTableSort } from '@shared/atoms/app-table/app-table.model';
 
 export type AppTableFilterFn<T> = (data: T[], filters: AppTableFilterValues) => T[];

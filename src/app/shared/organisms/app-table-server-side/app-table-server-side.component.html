@@ -1,10 +1,10 @@
 <div class="app-server-side-table">
   @if (filtersConfig()) {
-    <app-table-filters
+    <app-simple-filters
       [config]="filtersConfig()!"
       [values]="filterValues()"
       (valuesChange)="onFiltersChange($event)">
-    </app-table-filters>
+    </app-simple-filters>
   }
 
   <app-table

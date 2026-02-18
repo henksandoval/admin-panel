@@ -557,7 +557,7 @@ Fase 5: Testing en Aplicaciones Reales
 2. **Template actualizado con exclusión mutua**:
    ```html
    @if (filtersConfig() && !filtersAdvancedConfig()) {
-     <app-table-filters ... />
+     <app-simple-filters ... />
    }
    ```
 
