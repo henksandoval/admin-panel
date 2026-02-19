@@ -74,27 +74,11 @@
   </div>
 </div>
 
-@if (toggles().length > 0 || showClearButton() || showSearchButton()) {
-  <mat-divider class="my-4"></mat-divider>
-
-  <div class="app-filters-advanced-actions">
-    <app-filter-toggles
-      [toggles]="toggles()"
-      (toggleChange)="onToggleChange($event.key, $event.event)">
-    </app-filter-toggles>
-
-    <div class="app-filters-advanced-actions-buttons">
-      @if (showClearButton() && hasCriteria()) {
-        <app-button (click)="clearAllCriteria()" iconBefore="restart_alt">
-          Limpiar filtros
-        </app-button>
-      }
-
-      @if (showSearchButton()) {
-        <app-button (click)="emitSearch()" iconBefore="search">
-          Buscar
-        </app-button>
-      }
-    </div>
-  </div>
-}
+<app-filter-footer
+  [toggles]="toggles()"
+  [showClearButton]="showClearButton()"
+  [showSearchButton]="showSearchButton()"
+  (toggleChange)="onToggleChange($event)"
+  (clearClick)="clearAllCriteria()"
+  (searchClick)="emitSearch()">
+</app-filter-footer>

@@ -6,11 +6,10 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { togglesToRecord } from '../app-filter.utils';
-import { createFilterTogglesHandlers } from '../app-filter-toggles.utils';
 import { createDefaultComputed } from '../app-filter-defaults.utils';
-import { AppFilterTogglesComponent } from '../app-filter-toggles.component';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
+import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
 import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
 import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import { AppFormInputConnectorDirective } from '@shared/molecules/app-form/app-form-input/app-form-input-connector.directive';
@@ -19,7 +18,7 @@ import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
-import { FILTER_DEFAULTS, AppFiltersConfig, AppFiltersOutput, AppFilterCriterion, DEFAULT_FILTER_OPERATORS } from '../app-filter.model';
+import { AppFiltersConfig, AppFiltersOutput, AppFilterCriterion, DEFAULT_FILTER_OPERATORS } from '../app-filter.model';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
@@ -33,7 +32,7 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
     ReactiveFormsModule,
     MatIconModule,
     AppButtonComponent,
-    AppFilterTogglesComponent,
+    AppFilterFooterComponent,
     AppFormSelectComponent,
     AppFormSelectConnectorDirective,
     AppFormInputComponent,
@@ -62,14 +61,7 @@ export class AppAdvancedFilterComponent {
   private readonly destroyRef = inject(DestroyRef);
   private criterionCounter = 0;
 
-  private togglesHandlers = createFilterTogglesHandlers(
-    this.config,
-    this.toggleChange,
-    () => this.emitAutoSearch()
-  );
-
-  readonly toggles = this.togglesHandlers.toggles;
-  readonly onToggleChange = this.togglesHandlers.onToggleChange;
+  readonly toggles = computed(() => this.config().toggles ?? []);
 
   readonly builderForm = this.fb.nonNullable.group({
     field: ['', Validators.required],
@@ -203,6 +195,11 @@ export class AppAdvancedFilterComponent {
           this.builderForm.controls.value.reset();
         }
       });
+  }
+
+  onToggleChange(togglesRecord: Record<string, boolean>): void {
+    this.toggleChange.emit(togglesRecord);
+    this.emitAutoSearch();
   }
 
   private emitAutoSearch(): void {

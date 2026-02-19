@@ -1,0 +1,30 @@
+@if (showFooter()) {
+  <mat-divider class="my-4"></mat-divider>
+
+  <div class="footer">
+    <div class="footer-toggles">
+      @for (toggle of internalToggles(); track toggle.key) {
+        <app-checkbox
+          [checked]="toggle.value"
+          (change)="onToggleChange(toggle.key, $event)">
+          {{ toggle.label }}
+        </app-checkbox>
+      }
+    </div>
+
+    <div class="footer-buttons">
+      @if (showClearButton()) {
+        <app-button (click)="onClear()" iconBefore="restart_alt">
+          Limpiar filtros
+        </app-button>
+      }
+
+      @if (showSearchButton()) {
+        <app-button (click)="onSearch()" iconBefore="search">
+          Buscar
+        </app-button>
+      }
+    </div>
+  </div>
+}
+

@@ -8,6 +8,7 @@ import {
   inject,
   ChangeDetectionStrategy,
   OnInit,
+  computed,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -20,17 +21,13 @@ import {
   AppFiltersConfig,
   AppFilterValues
 } from '../app-filter.model';
-import { createFilterTogglesHandlers } from '../app-filter-toggles.utils';
 import { createDefaultComputed } from '../app-filter-defaults.utils';
-import { AppFilterTogglesComponent } from '../app-filter-toggles.component';
+import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
-import {MatDivider} from '@angular/material/list';
-import {AppButtonComponent} from '@shared/atoms/app-button/app-button.component';
-import {togglesToRecord} from '@shared/molecules/app-filters/app-filter.utils';
 
 @Component({
   selector: 'app-simple-filters',
@@ -39,15 +36,13 @@ import {togglesToRecord} from '@shared/molecules/app-filters/app-filter.utils';
     ReactiveFormsModule,
     AppFormInputComponent,
     AppFormSelectComponent,
-    AppFilterTogglesComponent,
+    AppFilterFooterComponent,
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
     MatIconModule,
     MatButtonModule,
     AppFormDatepickerComponent,
-    MatDivider,
-    AppButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-simple-filter.component.scss',
@@ -68,13 +63,7 @@ export class AppSimpleFilterComponent implements OnInit {
   readonly showSearchButton = createDefaultComputed(this.config, 'showSearchButton');
   private readonly debounceMs = createDefaultComputed(this.config, 'debounceMs');
 
-  private togglesHandlers = createFilterTogglesHandlers(
-    this.config,
-    this.toggleChange
-  );
-
-  readonly toggles = this.togglesHandlers.toggles;
-  readonly onToggleChange = this.togglesHandlers.onToggleChange;
+  readonly toggles = computed(() => this.config().toggles ?? []);
 
   private readonly formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
 
@@ -127,6 +116,10 @@ export class AppSimpleFilterComponent implements OnInit {
   getSelectOptions(filter: { options?: { value: unknown; label: string }[] }): SelectOption[] {
     const resetOption: SelectOption = { value: null as unknown, label: '-- Todos --' };
     return [resetOption, ...(filter.options ?? [])];
+  }
+
+  onToggleChange(togglesRecord: Record<string, boolean>): void {
+    this.toggleChange.emit(togglesRecord);
   }
 
   emitSearch(): void {
