@@ -1,4 +1,5 @@
 @use '../../organisms/pds-documentation-tabs/section-header';
+
 @include section-header.styles;
 
 .best-practices {
@@ -31,8 +32,8 @@
   background-color: var(--mat-sys-tertiary-container);
   border: 2px solid var(--mat-sys-tertiary);
   transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1),
-              transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1),
+  transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     border-color: var(--mat-sys-primary);

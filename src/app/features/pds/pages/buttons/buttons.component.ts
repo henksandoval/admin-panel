@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,7 +7,7 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import { ButtonShape, ButtonSize, ButtonColor, BUTTON_DEFAULTS } from '@shared/atoms/app-button/app-button.model';
+import { BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize } from '@shared/atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
 import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES } from './buttons.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
@@ -40,8 +40,6 @@ import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
   `
 })
 export default class ButtonsComponent {
-  private readonly router = inject(Router);
-
   readonly selectedVariant = signal<MatButtonAppearance>(BUTTON_DEFAULTS.variant);
   readonly selectedColor = signal<ButtonColor>(BUTTON_DEFAULTS.color);
   readonly shape = signal<ButtonShape>(BUTTON_DEFAULTS.shape);
@@ -50,11 +48,9 @@ export default class ButtonsComponent {
   readonly showIconAfter = signal<boolean>(false);
   readonly isDisabled = signal<boolean>(BUTTON_DEFAULTS.disabled);
   readonly buttonLabel = signal<string>('Button Text');
-
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly VARIANT_GUIDES = VARIANT_GUIDES;
-
   readonly variantOptions: ToggleOption[] = [
     { value: 'filled', label: 'Filled' },
     { value: 'elevated', label: 'Elevated' },
@@ -62,24 +58,20 @@ export default class ButtonsComponent {
     { value: 'text', label: 'Text' },
     { value: 'tonal', label: 'Tonal' }
   ];
-
   readonly colorOptions: ToggleOption[] = [
     { value: 'primary', label: 'Primary' },
     { value: 'secondary', label: 'Secondary' },
     { value: 'tertiary', label: 'Tertiary' }
   ];
-
   readonly shapeOptions: ToggleOption[] = [
     { value: 'rounded', label: 'Rounded' },
     { value: 'square', label: 'Square' }
   ];
-
   readonly sizeOptions: ToggleOption[] = [
     { value: 'small', label: 'S' },
     { value: 'medium', label: 'M' },
     { value: 'large', label: 'L' }
   ];
-
   readonly generatedCode = computed(() => {
     const variant = this.selectedVariant();
     const color = this.selectedColor();
@@ -130,7 +122,7 @@ export default class ButtonsComponent {
 
     return code;
   });
-
+  private readonly router = inject(Router);
 
   goBack(): void {
     void this.router.navigate(['/pds/index']);

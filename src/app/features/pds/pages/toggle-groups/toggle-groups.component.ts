@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,15 +6,20 @@ import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
-import { ToggleOption, ToggleGroupColor, ToggleGroupSize, TOGGLE_GROUP_DEFAULTS } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import {
-  TOGGLE_GROUP_STATE_GUIDES,
-  ALIGNMENT_OPTIONS,
+  TOGGLE_GROUP_DEFAULTS,
+  ToggleGroupColor,
+  ToggleGroupSize,
+  ToggleOption
+} from '@shared/atoms/app-toggle-group/app-toggle-group.model';
+import {
   ALIGNMENT_ICON_OPTIONS,
-  FORMATTING_OPTIONS,
-  VIEW_OPTIONS,
+  ALIGNMENT_OPTIONS,
   API_PROPERTIES,
-  BEST_PRACTICES
+  BEST_PRACTICES,
+  FORMATTING_OPTIONS,
+  TOGGLE_GROUP_STATE_GUIDES,
+  VIEW_OPTIONS
 } from './toggle-groups.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 
@@ -33,19 +38,15 @@ import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/p
   templateUrl: './toggle-groups.component.html'
 })
 export default class ToggleGroupsComponent {
-  private readonly router = inject(Router);
-
   readonly selectedState = signal<'single' | 'multiple' | 'icons-gallery' | 'vertical'>('single');
   readonly selectedColor = signal<ToggleGroupColor>(TOGGLE_GROUP_DEFAULTS.color);
   readonly selectedSize = signal<ToggleGroupSize>(TOGGLE_GROUP_DEFAULTS.size);
   readonly isVertical = signal<boolean>(false);
   readonly isDisabled = signal<boolean>(false);
-
   readonly singleValue = signal<string | null>('left');
   readonly multipleValue = signal<string[]>(['bold', 'italic']);
   readonly iconsValue = signal<string | null>('center');
   readonly verticalValue = signal<string | null>('list');
-
   readonly ALIGNMENT_OPTIONS = ALIGNMENT_OPTIONS;
   readonly ALIGNMENT_ICON_OPTIONS = ALIGNMENT_ICON_OPTIONS;
   readonly FORMATTING_OPTIONS = FORMATTING_OPTIONS;
@@ -53,26 +54,22 @@ export default class ToggleGroupsComponent {
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly TOGGLE_GROUP_STATE_GUIDES = TOGGLE_GROUP_STATE_GUIDES;
-
   readonly stateOptions: ToggleOption[] = [
     { value: 'single', label: 'Single' },
     { value: 'multiple', label: 'Multiple' },
     { value: 'icons-gallery', label: 'Icons' },
     { value: 'vertical', label: 'Vertical' }
   ];
-
   readonly colorOptions: ToggleOption[] = [
     { value: 'primary', label: 'Primary' },
     { value: 'secondary', label: 'Secondary' },
     { value: 'tertiary', label: 'Tertiary' }
   ];
-
   readonly sizeOptions: ToggleOption[] = [
     { value: 'small', label: 'S' },
     { value: 'medium', label: 'M' },
     { value: 'large', label: 'L' }
   ];
-
   readonly currentOptions = computed<ToggleOption[]>(() => {
     const state = this.selectedState();
     if (state === 'icons-gallery') return ALIGNMENT_ICON_OPTIONS;
@@ -80,7 +77,6 @@ export default class ToggleGroupsComponent {
     if (state === 'vertical') return VIEW_OPTIONS;
     return ALIGNMENT_OPTIONS;
   });
-
   readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const color = this.selectedColor();
@@ -144,6 +140,7 @@ export default class ToggleGroupsComponent {
 
     return `${tsCode}${htmlCode}`;
   });
+  private readonly router = inject(Router);
 
   goBack(): void {
     void this.router.navigate(['/pds/index']);

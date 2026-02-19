@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,12 +8,12 @@ import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-togg
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
 import {
-  SELECT_STATE_GUIDES,
+  API_PROPERTIES,
+  BEST_PRACTICES,
   COUNTRY_OPTIONS,
   FRAMEWORK_OPTIONS,
   GROUPED_OPTIONS,
-  API_PROPERTIES,
-  BEST_PRACTICES
+  SELECT_STATE_GUIDES
 } from './selects.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
@@ -35,48 +35,39 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
   templateUrl: './selects.component.html'
 })
 export default class SelectsComponent {
-  private readonly router = inject(Router);
-
   readonly selectedState = signal<'single' | 'multiple' | 'grouped' | 'disabled'>('single');
   readonly selectedAppearance = signal<'fill' | 'outline'>('fill');
   readonly selectedSize = signal<'small' | 'medium' | 'large'>('medium');
   readonly showIcon = signal<boolean>(false);
   readonly showHint = signal<boolean>(false);
   readonly isRequired = signal<boolean>(false);
-
   readonly singleValue = signal<string | null>(null);
   readonly multipleValue = signal<string[]>([]);
   readonly groupedValue = signal<string | null>(null);
-
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly SELECT_STATE_GUIDES = SELECT_STATE_GUIDES;
-
   readonly stateOptions: ToggleOption[] = [
     { value: 'single', label: 'Single' },
     { value: 'multiple', label: 'Multiple' },
     { value: 'grouped', label: 'Grouped' },
     { value: 'disabled', label: 'Disabled' }
   ];
-
   readonly appearanceOptions: ToggleOption[] = [
     { value: 'fill', label: 'Fill' },
     { value: 'outline', label: 'Outline' }
   ];
-
   readonly sizeOptions: ToggleOption[] = [
     { value: 'small', label: 'S' },
     { value: 'medium', label: 'M' },
     { value: 'large', label: 'L' }
   ];
-
   readonly currentOptions = computed<SelectOption<string>[]>(() => {
     const state = this.selectedState();
     if (state === 'grouped') return GROUPED_OPTIONS;
     if (state === 'multiple') return FRAMEWORK_OPTIONS;
     return COUNTRY_OPTIONS;
   });
-
   readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const appearance = this.selectedAppearance();
@@ -126,7 +117,7 @@ export default class SelectsComponent {
 
     return `${tsCode}${htmlCode}`;
   });
-
+  private readonly router = inject(Router);
 
   goBack(): void {
     void this.router.navigate(['/pds/index']);

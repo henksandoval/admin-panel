@@ -18,23 +18,21 @@ export interface Employee {
   providedIn: 'root'
 })
 export class TableClientSideService {
-  private readonly firstNames = ['Ana', 'Carlos', 'María', 'Juan', 'Laura', 'Pedro', 'Sofía', 'Diego', 'Valentina', 'Andrés', 'Camila', 'Santiago', 'Isabella', 'Mateo', 'Lucía', 'Daniel', 'Emma', 'Sebastián'];
-  private readonly lastNames = ['García', 'López', 'Rodríguez', 'Martínez', 'Sánchez', 'Fernández', 'Gómez', 'Díaz', 'Torres', 'Ruiz', 'Vargas', 'Moreno', 'Castro', 'Jiménez', 'Romero', 'Herrera', 'Mendoza', 'Ortiz'];
-  private readonly departments = ['Ingeniería', 'Marketing', 'Ventas', 'RRHH', 'Finanzas'];
-  private readonly roles = ['Junior', 'Mid', 'Senior', 'Lead', 'Manager'];
-  private readonly statuses: ('active' | 'inactive' | 'vacation')[] = ['active', 'inactive', 'vacation'];
-
   readonly statusOptions = [
     {value: 'active', label: 'Activo'},
     {value: 'inactive', label: 'Inactivo'},
     {value: 'vacation', label: 'Vacaciones'},
   ] as const;
-
   readonly statusLabels: Record<string, string> = {
     active: 'Activo',
     inactive: 'Inactivo',
     vacation: 'Vacaciones',
   };
+  private readonly firstNames = ['Ana', 'Carlos', 'María', 'Juan', 'Laura', 'Pedro', 'Sofía', 'Diego', 'Valentina', 'Andrés', 'Camila', 'Santiago', 'Isabella', 'Mateo', 'Lucía', 'Daniel', 'Emma', 'Sebastián'];
+  private readonly lastNames = ['García', 'López', 'Rodríguez', 'Martínez', 'Sánchez', 'Fernández', 'Gómez', 'Díaz', 'Torres', 'Ruiz', 'Vargas', 'Moreno', 'Castro', 'Jiménez', 'Romero', 'Herrera', 'Mendoza', 'Ortiz'];
+  private readonly departments = ['Ingeniería', 'Marketing', 'Ventas', 'RRHH', 'Finanzas'];
+  private readonly roles = ['Junior', 'Mid', 'Senior', 'Lead', 'Manager'];
+  private readonly statuses: ('active' | 'inactive' | 'vacation')[] = ['active', 'inactive', 'vacation'];
 
   fetchEmployees(count = 18): Promise<Employee[]> {
     return new Promise((resolve) => {
@@ -46,20 +44,6 @@ export class TableClientSideService {
 
   generateEmployees(count: number): Employee[] {
     return Array.from({length: count}, (_, i) => this.generateEmployee(i + 1));
-  }
-
-  private generateEmployee(id: number): Employee {
-    const firstName = this.firstNames[id % this.firstNames.length];
-    const lastName = this.lastNames[Math.floor(id / this.firstNames.length) % this.lastNames.length];
-    const name = `${firstName} ${lastName}`;
-    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@empresa.com`;
-    const department = this.departments[id % this.departments.length];
-    const role = this.roles[id % this.roles.length];
-    const status = this.statuses[id % this.statuses.length];
-    const salary = 30000 + (id % 5) * 10000 + Math.floor(id / 5) * 1000;
-    const hireDate = new Date(2020 + (id % 5), (id * 3) % 12, (id * 7) % 28 + 1);
-
-    return {id, name, email, department, role, status, salary, hireDate};
   }
 
   getTableConfig(): AppTableConfig<any> {
@@ -141,5 +125,19 @@ export class TableClientSideService {
       pageSizeOptions: [5, 10, 20],
       showFirstLastButtons: true,
     };
+  }
+
+  private generateEmployee(id: number): Employee {
+    const firstName = this.firstNames[id % this.firstNames.length];
+    const lastName = this.lastNames[Math.floor(id / this.firstNames.length) % this.lastNames.length];
+    const name = `${firstName} ${lastName}`;
+    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@empresa.com`;
+    const department = this.departments[id % this.departments.length];
+    const role = this.roles[id % this.roles.length];
+    const status = this.statuses[id % this.statuses.length];
+    const salary = 30000 + (id % 5) * 10000 + Math.floor(id / 5) * 1000;
+    const hireDate = new Date(2020 + (id % 5), (id * 3) % 12, (id * 7) % 28 + 1);
+
+    return {id, name, email, department, role, status, salary, hireDate};
   }
 }

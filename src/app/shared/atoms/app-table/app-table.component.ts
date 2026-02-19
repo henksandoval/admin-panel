@@ -1,25 +1,11 @@
-import {
-  Component,
-  computed,
-  input,
-  output,
-  contentChild,
-  TemplateRef,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, input, output, TemplateRef, } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {
-  AppTableConfig,
-  AppTableColumn,
-  AppTableAction,
-  AppTableSort,
-  TABLE_DEFAULTS,
-} from './app-table.model';
+import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEFAULTS, } from './app-table.model';
 
 @Component({
   selector: 'app-table',
@@ -131,45 +117,21 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
   readonly cellTemplateRef = input<TemplateRef<any> | undefined>(undefined);
-
+  readonly cellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   readonly resolvedCellTemplate = computed(
     () => this.cellTemplateRef() ?? this.cellTemplate()
   );
-  readonly cellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   readonly emptyStateContent = contentChild<TemplateRef<any>>('emptyState');
 
   readonly columns = computed(() => this.config().columns);
   readonly hasActions = computed(() => !!this.config().actions?.length);
   readonly hasCustomEmptyState = computed(() => !!this.emptyStateContent());
   readonly emptyMessage = computed(() => this.config().emptyMessage ?? TABLE_DEFAULTS.emptyMessage);
-
-  private readonly stickyHeader = computed(() => this.config().stickyHeader ?? TABLE_DEFAULTS.stickyHeader);
-  private readonly clickableRows = computed(() => this.config().clickableRows ?? TABLE_DEFAULTS.clickableRows);
-
   readonly displayedColumns = computed(() => {
     const cols = this.columns().map((c) => c.key);
     if (this.hasActions()) cols.push('actions');
     return cols;
   });
-
-  readonly tableClasses = computed(() => {
-    const classes = ['app-table'];
-    if (this.stickyHeader()) classes.push('sticky-header');
-    return classes.join(' ');
-  });
-
-  readonly rowClasses = computed(() => (row: T) => {
-    const classes = ['app-table-row'];
-    if (this.clickableRows()) classes.push('clickable');
-
-    const customClass = this.config().rowClass;
-    if (customClass) {
-      const value = typeof customClass === 'function' ? customClass(row) : customClass;
-      if (value) classes.push(value);
-    }
-    return classes.join(' ');
-  });
-
   readonly cellClasses = computed(() => (column: AppTableColumn<T>, row: T) => {
     const classes = ['app-table-cell'];
     if (column.sticky === 'start') classes.push('sticky-start');
@@ -177,6 +139,24 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
 
     if (column.cellClass) {
       const value = typeof column.cellClass === 'function' ? column.cellClass(row) : column.cellClass;
+      if (value) classes.push(value);
+    }
+    return classes.join(' ');
+  });
+  private readonly stickyHeader = computed(() => this.config().stickyHeader ?? TABLE_DEFAULTS.stickyHeader);
+  readonly tableClasses = computed(() => {
+    const classes = ['app-table'];
+    if (this.stickyHeader()) classes.push('sticky-header');
+    return classes.join(' ');
+  });
+  private readonly clickableRows = computed(() => this.config().clickableRows ?? TABLE_DEFAULTS.clickableRows);
+  readonly rowClasses = computed(() => (row: T) => {
+    const classes = ['app-table-row'];
+    if (this.clickableRows()) classes.push('clickable');
+
+    const customClass = this.config().rowClass;
+    if (customClass) {
+      const value = typeof customClass === 'function' ? customClass(row) : customClass;
       if (value) classes.push(value);
     }
     return classes.join(' ');

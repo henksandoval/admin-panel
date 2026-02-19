@@ -1,32 +1,32 @@
 <app-pds-page-layout
-  title="Badge Component Playground"
-  description="Experimenta con diferentes configuraciones del componente y observa cómo cambia la documentación en tiempo real."
-  componentTag="<app-badge>"
-  [code]="generatedCode()"
   [apiProperties]="API_PROPERTIES"
   [bestPractices]="BEST_PRACTICES"
+  [code]="generatedCode()"
+  [currentVariant]="selectedVariant()"
   [variantGuides]="BADGE_VARIANT_GUIDES"
-  [currentVariant]="selectedVariant()">
+  componentTag="<app-badge>"
+  description="Experimenta con diferentes configuraciones del componente y observa cómo cambia la documentación en tiempo real."
+  title="Badge Component Playground">
 
-  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+  <app-button (clicked)="goBack()" class="back-button mb-4" iconBefore="arrow_back" slot="header-action" variant="text">
     Back to PDS Index
   </app-button>
 
   <div slot="preview">
     @if (selectedVariant() === 'overlay') {
       <app-badge
-        variant="overlay"
-        [content]="badgeContent()"
         [color]="overlayColor()"
-        [position]="position()"
+        [content]="badgeContent()"
+        [hidden]="hidden()"
         [overlap]="overlap()"
-        [hidden]="hidden()">
+        [position]="position()"
+        variant="overlay">
         <button mat-icon-button>
           <mat-icon>notifications</mat-icon>
         </button>
       </app-badge>
     } @else {
-      <app-badge variant="inline" [color]="inlineColor()" [hasIndicator]="hasIndicator()">
+      <app-badge [color]="inlineColor()" [hasIndicator]="hasIndicator()" variant="inline">
         {{ badgeLabel() }}
       </app-badge>
     }
@@ -38,7 +38,7 @@
         <mat-icon>category</mat-icon>
         Variant
       </label>
-      <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" class="w-full" />
+      <app-toggle-group [(value)]="selectedVariant" [options]="variantOptions" class="w-full"/>
     </div>
 
     @if (selectedVariant() === 'overlay') {
@@ -58,7 +58,7 @@
           <mat-icon>place</mat-icon>
           Position
         </label>
-        <app-toggle-group [options]="positionOptions" [(value)]="position" class="w-full" />
+        <app-toggle-group [(value)]="position" [options]="positionOptions" class="w-full"/>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
@@ -82,7 +82,7 @@
           <mat-icon>palette</mat-icon>
           Color
         </label>
-        <app-toggle-group [options]="inlineColorOptions" [(value)]="inlineColor" class="w-full" />
+        <app-toggle-group [(value)]="inlineColor" [options]="inlineColorOptions" class="w-full"/>
       </div>
 
       <div class="mt-2">
@@ -93,16 +93,16 @@
 
   <div slot="documentation">
     @if (selectedVariant() === 'overlay') {
-      <app-card title="Position Variations" icon="explore">
+      <app-card icon="explore" title="Position Variations">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           @for (pos of BADGE_POSITIONS; track pos.value) {
             <div class="color-variation-card">
               <app-badge
-                variant="overlay"
-                [content]="badgeContent()"
                 [color]="overlayColor()"
+                [content]="badgeContent()"
+                [overlap]="overlap()"
                 [position]="pos.value"
-                [overlap]="overlap()">
+                variant="overlay">
                 <button mat-icon-button>
                   <mat-icon>star</mat-icon>
                 </button>
@@ -113,22 +113,22 @@
         </div>
       </app-card>
     } @else {
-      <app-card title="Color Variations" icon="palette">
+      <app-card icon="palette" title="Color Variations">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           @for (color of INLINE_COLORS; track color.value) {
             <div class="color-variation-card">
-              <app-badge variant="inline" [color]="color.value">{{ badgeLabel() }}</app-badge>
+              <app-badge [color]="color.value" variant="inline">{{ badgeLabel() }}</app-badge>
               <code class="code-snippet">color="{{ color.value }}"</code>
             </div>
           }
         </div>
       </app-card>
 
-      <app-card title="With Indicator" icon="info" class="mt-4">
+      <app-card class="mt-4" icon="info" title="With Indicator">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           @for (color of INLINE_COLORS; track color.value) {
             <div class="color-variation-card">
-              <app-badge variant="inline" [color]="color.value" [hasIndicator]="true">{{ badgeLabel() }}</app-badge>
+              <app-badge [color]="color.value" [hasIndicator]="true" variant="inline">{{ badgeLabel() }}</app-badge>
               <code class="code-snippet">[hasIndicator]="true"</code>
             </div>
           }

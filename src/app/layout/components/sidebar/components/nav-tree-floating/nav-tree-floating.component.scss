@@ -8,9 +8,8 @@
   z-index: var(--z-floating-nav);
   background-color: var(--chrome-bg);
   backdrop-filter: blur(10px);
-  box-shadow:
-    0 8px 16px var(--overlay-shadow-30),
-    0 0 0 1px var(--overlay-on-surface-10);
+  box-shadow: 0 8px 16px var(--overlay-shadow-30),
+  0 0 0 1px var(--overlay-on-surface-10);
   border-radius: 12px;
   padding: 8px 0;
 }

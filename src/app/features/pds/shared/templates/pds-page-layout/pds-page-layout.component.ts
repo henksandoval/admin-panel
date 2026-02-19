@@ -1,4 +1,4 @@
-import {Component, input, computed, inject, ViewEncapsulation} from '@angular/core';
+import { Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
@@ -31,8 +31,6 @@ import { PdsCodeBlockComponent } from "../../molecules/pds-code-block/pds-code-b
   encapsulation: ViewEncapsulation.None
 })
 export class PdsPageLayoutComponent {
-  private readonly pdsUtils = inject(PdsPageUtilitiesService);
-
   readonly title = input.required<string>();
   readonly description = input.required<string>();
   readonly componentTag = input.required<string>();
@@ -40,22 +38,19 @@ export class PdsPageLayoutComponent {
   readonly code = input<string>('');
   readonly apiProperties = input<PdsApiReferencePropertyModel[]>([]);
   readonly bestPractices = input<PdsBestPracticeItemModel[]>([]);
-
   readonly variantGuides = input<PdsVariantGuideModel[]>([]);
   readonly currentVariant = input<string>('');
-
   readonly currentVariantGuide = computed(() => {
     const variant = this.currentVariant();
     const guides = this.variantGuides();
     return guides.find(guide => guide.variant === variant);
   });
-
   readonly showPreview = computed(() => this.variantGuides().length > 0);
   readonly showControls = computed(() => this.variantGuides().length > 0);
   readonly showDocumentation = computed(() => this.variantGuides().length > 0);
-
   readonly backRoute = input<string>('/pds/index');
   readonly showBackButton = input<boolean>(true);
+  private readonly pdsUtils = inject(PdsPageUtilitiesService);
 
   getEmphasisBadgeClasses(emphasis: 'high' | 'medium' | 'low'): string {
     return this.pdsUtils.getEmphasisBadgeClasses(emphasis);

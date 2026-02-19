@@ -2,9 +2,9 @@
   <div class="settings-header flex items-center justify-between px-6 py-4">
     <h2 class="settings-title m-0">Configuración</h2>
     <button
-      mat-icon-button
       (click)="closePanel()"
-      aria-label="Close settings">
+      aria-label="Close settings"
+      mat-icon-button>
       <mat-icon>close</mat-icon>
     </button>
   </div>
@@ -12,11 +12,11 @@
     <div class="mb-8">
       <h3 class="section-label m-0 mb-4">Modo</h3>
       <mat-button-toggle-group
-        name="scheme"
-        aria-label="Modo de visualización"
-        [value]="config().scheme"
         (valueChange)="selectScheme($event)"
-        class="w-full">
+        [value]="config().scheme"
+        aria-label="Modo de visualización"
+        class="w-full"
+        name="scheme">
         @for (scheme of schemes; track scheme.id) {
           <mat-button-toggle [value]="scheme.id" class="flex-1">
             <mat-icon>{{ scheme.icon }}</mat-icon>
@@ -31,14 +31,14 @@
       <div class="flex gap-3 flex-wrap">
         @for (theme of themes; track theme.id) {
           <button
-            class="theme-color-button"
+            (click)="selectTheme(theme.id)"
+            [attr.aria-label]="theme.label"
             [class.active]="isThemeActive()(theme.id)"
             [matTooltip]="theme.label"
-            matTooltipPosition="above"
-            (click)="selectTheme(theme.id)"
-            [attr.aria-label]="theme.label">
-            <span class="theme-primary-preview" [style.background-color]="theme.color_primary"></span>
-            <span class="theme-accent-preview" [style.background-color]="theme.color_tertiary"></span>
+            class="theme-color-button"
+            matTooltipPosition="above">
+            <span [style.background-color]="theme.color_primary" class="theme-primary-preview"></span>
+            <span [style.background-color]="theme.color_tertiary" class="theme-accent-preview"></span>
             @if (isThemeActive()(theme.id)) {
               <mat-icon class="theme-check-icon">check</mat-icon>
             }
@@ -49,9 +49,9 @@
   </div>
   <div class="settings-footer px-6 py-4">
     <button
-      matButton="tonal"
+      (click)="resetSettings()"
       class="w-full"
-      (click)="resetSettings()">
+      matButton="tonal">
       Restablecer valores
     </button>
   </div>

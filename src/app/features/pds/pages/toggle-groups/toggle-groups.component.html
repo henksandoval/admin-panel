@@ -1,14 +1,14 @@
 <app-pds-page-layout
-  title="Toggle Group Component Playground"
-  description="Segmented controls for single or multiple selection. A wrapper around Material Button Toggle providing consistent styling and ergonomic API."
-  componentTag="<app-toggle-group>"
-  [code]="generatedCode()"
   [apiProperties]="API_PROPERTIES"
   [bestPractices]="BEST_PRACTICES"
+  [code]="generatedCode()"
+  [currentVariant]="selectedState()"
   [variantGuides]="TOGGLE_GROUP_STATE_GUIDES"
-  [currentVariant]="selectedState()">
+  componentTag="<app-toggle-group>"
+  description="Segmented controls for single or multiple selection. A wrapper around Material Button Toggle providing consistent styling and ergonomic API."
+  title="Toggle Group Component Playground">
 
-  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+  <app-button (clicked)="goBack()" class="back-button mb-4" iconBefore="arrow_back" slot="header-action" variant="text">
     Back to PDS Index
   </app-button>
 
@@ -16,12 +16,12 @@
     @if (selectedState() === 'single') {
       <div class="flex flex-col items-center gap-4">
         <app-toggle-group
-          [options]="currentOptions()"
           [(value)]="singleValue"
           [color]="selectedColor()"
+          [disabled]="isDisabled()"
+          [options]="currentOptions()"
           [size]="selectedSize()"
-          [vertical]="isVertical()"
-          [disabled]="isDisabled()">
+          [vertical]="isVertical()">
         </app-toggle-group>
         <p class="hint-text">
           Selected: <strong>{{ singleValue() || 'None' }}</strong>
@@ -32,13 +32,13 @@
     @if (selectedState() === 'multiple') {
       <div class="flex flex-col items-center gap-4">
         <app-toggle-group
-          [options]="currentOptions()"
           [(value)]="multipleValue"
           [color]="selectedColor()"
-          [size]="selectedSize()"
+          [disabled]="isDisabled()"
           [multiple]="true"
-          [vertical]="isVertical()"
-          [disabled]="isDisabled()">
+          [options]="currentOptions()"
+          [size]="selectedSize()"
+          [vertical]="isVertical()">
         </app-toggle-group>
         <p class="hint-text">
           Selected: <strong>{{ multipleValue().join(', ') || 'None' }}</strong>
@@ -49,12 +49,12 @@
     @if (selectedState() === 'icons-gallery') {
       <div class="flex flex-col items-center gap-4">
         <app-toggle-group
-          [options]="currentOptions()"
           [(value)]="iconsValue"
           [color]="selectedColor()"
+          [disabled]="isDisabled()"
+          [options]="currentOptions()"
           [size]="selectedSize()"
-          [vertical]="isVertical()"
-          [disabled]="isDisabled()">
+          [vertical]="isVertical()">
         </app-toggle-group>
         <p class="hint-text">
           Selected: <strong>{{ iconsValue() || 'None' }}</strong>
@@ -65,12 +65,12 @@
     @if (selectedState() === 'vertical') {
       <div class="flex flex-col items-center gap-4">
         <app-toggle-group
-          [options]="currentOptions()"
           [(value)]="verticalValue"
           [color]="selectedColor()"
+          [disabled]="isDisabled()"
+          [options]="currentOptions()"
           [size]="selectedSize()"
-          [vertical]="true"
-          [disabled]="isDisabled()">
+          [vertical]="true">
         </app-toggle-group>
         <p class="hint-text">
           Selected: <strong>{{ verticalValue() || 'None' }}</strong>
@@ -86,9 +86,9 @@
         State Type
       </label>
       <app-toggle-group
-        [options]="stateOptions"
         [(value)]="selectedState"
-        class="w-full" />
+        [options]="stateOptions"
+        class="w-full"/>
     </div>
 
     <div class="mt-2">
@@ -97,9 +97,9 @@
         Color
       </label>
       <app-toggle-group
-        [options]="colorOptions"
         [(value)]="selectedColor"
-        class="w-full" />
+        [options]="colorOptions"
+        class="w-full"/>
     </div>
 
     <div class="mt-2">
@@ -108,9 +108,9 @@
         Size
       </label>
       <app-toggle-group
-        [options]="sizeOptions"
         [(value)]="selectedSize"
-        class="w-full" />
+        [options]="sizeOptions"
+        class="w-full"/>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">

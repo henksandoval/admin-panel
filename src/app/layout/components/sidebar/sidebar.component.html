@@ -23,11 +23,11 @@
           [class.parent-active]="isItemParentActive(item)"
           class="nav-icon-item">
           <button
-            mat-icon-button
-            [matTooltip]="item.title"
-            matTooltipPosition="right"
             (click)="onIconClick(item)"
-            (mouseenter)="onIconHover(item, $event)">
+            (mouseenter)="onIconHover(item, $event)"
+            [matTooltip]="item.title"
+            mat-icon-button
+            matTooltipPosition="right">
             <mat-icon>{{ item.icon }}</mat-icon>
             @if (item.badge) {
               <span class="nav-icon-badge">{{ item.badge.title }}</span>
@@ -42,20 +42,20 @@
 
     @if (showFloatingMenu()) {
       <app-nav-tree-floating
-        [topPosition]="hoveredIconTop()"
-        (closed)="onFloatingNavClosed()">
+        (closed)="onFloatingNavClosed()"
+        [topPosition]="hoveredIconTop()">
       </app-nav-tree-floating>
     }
   }
 
   <footer class="sidebar-footer">
-    <div class="sidebar-footer-content" [class.collapsed]="!isExpanded()">
+    <div [class.collapsed]="!isExpanded()" class="sidebar-footer-content">
       <button
-        mat-icon-button
         (click)="toggleCollapse()"
         [matTooltip]="isExpanded() ? 'Contraer' : 'Expandir'"
-        matTooltipPosition="right"
-        aria-label="Toggle sidebar">
+        aria-label="Toggle sidebar"
+        mat-icon-button
+        matTooltipPosition="right">
         <mat-icon>{{ isExpanded() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
       </button>
       <p [class.hidden]="!isExpanded()" class="sidebar-copyright">© 2025 Admin Panel</p>

@@ -1,12 +1,29 @@
-import { ChangeDetectorRef, Component, computed, DestroyRef, forwardRef, inject, input, isDevMode, AfterViewInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  DestroyRef,
+  forwardRef,
+  inject,
+  input,
+  isDevMode
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import { AppFormSelectConfig, APP_FORM_SELECT_DEFAULTS, SelectOption } from './app-form-select.model';
+import { APP_FORM_SELECT_DEFAULTS, AppFormSelectConfig, SelectOption } from './app-form-select.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -89,24 +106,9 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
   public ngControl: NgControl | null = null;
   public isRequired = false;
   public isDisabled = false;
-
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly destroyRef = inject(DestroyRef);
-  private hasCheckedConnection = false;
-
-  private onChange: (value: T | T[] | null) => void = () => {};
-  private onTouched: () => void = () => {};
-
-  private readonly defaultErrorMessages: Record<string, string> = {
-    required: 'This field is required',
-    minlength: 'Please select at least {requiredLength} options',
-    maxlength: 'Please select no more than {requiredLength} options'
-  };
-
   readonly hasGroups = computed(() => {
     return this.options().some(opt => opt.group !== undefined);
   });
-
   readonly groupedOptions = computed(() => {
     const groups = new Map<string, SelectOption<T>[]>();
     this.options().forEach(option => {
@@ -118,6 +120,14 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
     });
     return Array.from(groups.entries()).map(([name, options]) => ({ name, options }));
   });
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly destroyRef = inject(DestroyRef);
+  private hasCheckedConnection = false;
+  private readonly defaultErrorMessages: Record<string, string> = {
+    required: 'This field is required',
+    minlength: 'Please select at least {requiredLength} options',
+    maxlength: 'Please select no more than {requiredLength} options'
+  };
 
   constructor() {
     this.internalControl.valueChanges
@@ -125,6 +135,18 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
       .subscribe(value => {
         this.onChange(value);
       });
+  }
+
+  public get errorState(): ErrorState {
+    const control = this.ngControl?.control;
+    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
+    if (!shouldShow) return { shouldShow: false, message: '' };
+    const errors = control.errors;
+    if (!errors) return { shouldShow: false, message: '' };
+    const errorKey = Object.keys(errors)[0];
+    const customMessages = this.fullConfig().errorMessages || {};
+    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
+    return { shouldShow: true, message };
   }
 
   ngAfterViewInit(): void {
@@ -164,19 +186,6 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
     this.changeDetectorRef.detectChanges();
   }
 
-  public get errorState(): ErrorState {
-    const control = this.ngControl?.control;
-    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
-    if (!shouldShow) return { shouldShow: false, message: '' };
-    const errors = control.errors;
-    if (!errors) return { shouldShow: false, message: '' };
-    const errorKey = Object.keys(errors)[0];
-    const customMessages = this.fullConfig().errorMessages || {};
-    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
-    return { shouldShow: true, message };
-  }
-
-
   handleBlur(): void {
     this.onTouched();
   }
@@ -201,4 +210,8 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
       this.internalControl.enable({ emitEvent: false });
     }
   }
+
+  private onChange: (value: T | T[] | null) => void = () => {};
+
+  private onTouched: () => void = () => {};
 }

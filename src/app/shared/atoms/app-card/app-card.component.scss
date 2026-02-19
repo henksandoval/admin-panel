@@ -31,8 +31,8 @@ mat-expansion-panel {
 
 .mat-expansion-panel-header {
   color: var(
-    --mat-expansion-header-disabled-state-text-color,
-    color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent)
+      --mat-expansion-header-disabled-state-text-color,
+      color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent)
   );
 
   &.mat-expanded {

@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
-import { BADGE_DEFAULTS, BadgeVariant, BadgeColor, BadgePosition, BadgeSize } from './app-badge.model';
+import { BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeSize, BadgeVariant } from './app-badge.model';
 
 @Component({
   selector: 'app-badge',

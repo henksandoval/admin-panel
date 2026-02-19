@@ -1,13 +1,21 @@
-﻿import { Component, inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, computed } from '@angular/core';
+﻿import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationItem, NavigationService } from '../../../../../core/services/navigation.service';
 import { filter, Subscription } from 'rxjs';
-import {LayoutService} from '../../../../services/layout.service';
+import { LayoutService } from '../../../../services/layout.service';
 
 @Component({
   selector: 'app-nav-tree-inline',
@@ -27,12 +35,9 @@ export class NavTreeInlineComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private layoutService = inject(LayoutService);
   private navigationService = inject(NavigationService);
+  protected readonly data = computed(() => this.navigationService.getCurrentNavigation()());
   private changeDetector = inject(ChangeDetectorRef);
   private routerSubscription?: Subscription;
-
-  protected readonly data = computed(() => this.navigationService.getCurrentNavigation()());
-
-  protected readonly childrenAccessor = (node: NavigationItem): NavigationItem[] => node.children ?? [];
 
   public ngOnInit(): void {
     this.routerSubscription = this.router.events
@@ -48,6 +53,8 @@ export class NavTreeInlineComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.routerSubscription?.unsubscribe();
   }
+
+  protected readonly childrenAccessor = (node: NavigationItem): NavigationItem[] => node.children ?? [];
 
   protected navigate(node: NavigationItem): void {
     if (node.url) {

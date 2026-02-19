@@ -1,14 +1,14 @@
 <app-pds-page-layout
-  title="Radio Button Component Playground"
-  description="Mutually exclusive selection controls. A form-connected radio group with automatic validation and error handling."
-  componentTag="<app-form-radio-group>"
-  [code]="generatedCode()"
   [apiProperties]="API_PROPERTIES"
   [bestPractices]="BEST_PRACTICES"
+  [code]="generatedCode()"
+  [currentVariant]="selectedState()"
   [variantGuides]="RADIO_STATE_GUIDES"
-  [currentVariant]="selectedState()">
+  componentTag="<app-form-radio-group>"
+  description="Mutually exclusive selection controls. A form-connected radio group with automatic validation and error handling."
+  title="Radio Button Component Playground">
 
-  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+  <app-button (clicked)="goBack()" class="back-button mb-4" iconBefore="arrow_back" slot="header-action" variant="text">
     Back to PDS Index
   </app-button>
 
@@ -16,14 +16,14 @@
     <form [formGroup]="demoForm" class="max-w-md mx-auto">
       @if (selectedState() === 'basic') {
         <app-form-radio-group
-          formControlName="basicSelection"
-          [options]="currentOptions()"
           [config]="{
             label: showLabel() ? 'Select your gender' : '',
             hint: showHint() ? 'This helps us personalize your experience' : '',
             layout: 'vertical'
           }"
-          appFormRadioGroupConnector>
+          [options]="currentOptions()"
+          appFormRadioGroupConnector
+          formControlName="basicSelection">
         </app-form-radio-group>
         <p class="hint-text mt-4">
           Selected: <strong>{{ demoForm.get('basicSelection')?.value || 'None' }}</strong>
@@ -32,14 +32,14 @@
 
       @if (selectedState() === 'descriptions') {
         <app-form-radio-group
-          formControlName="descriptionsSelection"
-          [options]="currentOptions()"
           [config]="{
             label: showLabel() ? 'Notification preferences' : '',
             hint: showHint() ? 'Choose how you want to receive notifications' : '',
             layout: 'vertical'
           }"
-          appFormRadioGroupConnector>
+          [options]="currentOptions()"
+          appFormRadioGroupConnector
+          formControlName="descriptionsSelection">
         </app-form-radio-group>
         <p class="hint-text mt-4">
           Selected: <strong>{{ demoForm.get('descriptionsSelection')?.value || 'None' }}</strong>
@@ -48,14 +48,14 @@
 
       @if (selectedState() === 'horizontal') {
         <app-form-radio-group
-          formControlName="horizontalSelection"
-          [options]="currentOptions()"
           [config]="{
             label: showLabel() ? 'Select size' : '',
             hint: showHint() ? 'Choose your preferred size' : '',
             layout: 'horizontal'
           }"
-          appFormRadioGroupConnector>
+          [options]="currentOptions()"
+          appFormRadioGroupConnector
+          formControlName="horizontalSelection">
         </app-form-radio-group>
         <p class="hint-text mt-4">
           Selected: <strong>{{ demoForm.get('horizontalSelection')?.value || 'None' }}</strong>
@@ -64,14 +64,14 @@
 
       @if (selectedState() === 'disabled') {
         <app-form-radio-group
-          formControlName="disabledSelection"
-          [options]="currentOptions()"
           [config]="{
             label: showLabel() ? 'Payment method (Disabled)' : '',
             hint: showHint() ? 'Selection is currently disabled' : '',
             layout: 'vertical'
           }"
-          appFormRadioGroupConnector>
+          [options]="currentOptions()"
+          appFormRadioGroupConnector
+          formControlName="disabledSelection">
         </app-form-radio-group>
         <p class="hint-text mt-4">
           Selected: <strong>{{ demoForm.get('disabledSelection')?.value || 'None' }}</strong>
@@ -87,9 +87,9 @@
         State Type
       </label>
       <app-toggle-group
-        [options]="stateOptions"
         [(value)]="selectedState"
-        class="w-full" />
+        [options]="stateOptions"
+        class="w-full"/>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">

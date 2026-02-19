@@ -1,10 +1,31 @@
-import { ChangeDetectorRef, Component, computed, DestroyRef, forwardRef, inject, input, isDevMode, AfterViewInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  DestroyRef,
+  forwardRef,
+  inject,
+  input,
+  isDevMode
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
-import { AppFormCheckboxConfig, AppFormCheckboxConfigComplete, APP_FORM_CHECKBOX_DEFAULTS } from './app-form-checkbox.model';
+import {
+  APP_FORM_CHECKBOX_DEFAULTS,
+  AppFormCheckboxConfig,
+  AppFormCheckboxConfigComplete
+} from './app-form-checkbox.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -72,10 +93,6 @@ export class AppFormCheckboxComponent implements ControlValueAccessor, AfterView
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
   private hasCheckedConnection = false;
-
-  private onChange: (value: boolean) => void = () => {};
-  private onTouched: () => void = () => {};
-
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field must be checked',
     requiredTrue: 'You must accept this to continue'
@@ -87,6 +104,18 @@ export class AppFormCheckboxComponent implements ControlValueAccessor, AfterView
       .subscribe(value => {
         this.onChange(value ?? false);
       });
+  }
+
+  public get errorState(): ErrorState {
+    const control = this.ngControl?.control;
+    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
+    if (!shouldShow) return { shouldShow: false, message: '' };
+    const errors = control.errors;
+    if (!errors) return { shouldShow: false, message: '' };
+    const errorKey = Object.keys(errors)[0];
+    const customMessages = this.fullConfig().errorMessages || {};
+    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
+    return { shouldShow: true, message };
   }
 
   ngAfterViewInit(): void {
@@ -128,18 +157,6 @@ export class AppFormCheckboxComponent implements ControlValueAccessor, AfterView
     this.changeDetectorRef.detectChanges();
   }
 
-  public get errorState(): ErrorState {
-    const control = this.ngControl?.control;
-    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
-    if (!shouldShow) return { shouldShow: false, message: '' };
-    const errors = control.errors;
-    if (!errors) return { shouldShow: false, message: '' };
-    const errorKey = Object.keys(errors)[0];
-    const customMessages = this.fullConfig().errorMessages || {};
-    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
-    return { shouldShow: true, message };
-  }
-
   onCheckboxChange(checked: boolean): void {
     this.internalControl.setValue(checked);
     this.onTouched();
@@ -165,4 +182,8 @@ export class AppFormCheckboxComponent implements ControlValueAccessor, AfterView
       this.internalControl.enable({ emitEvent: false });
     }
   }
+
+  private onChange: (value: boolean) => void = () => {};
+
+  private onTouched: () => void = () => {};
 }

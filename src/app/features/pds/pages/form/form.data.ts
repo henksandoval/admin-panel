@@ -1,4 +1,6 @@
-import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import {
+  PdsApiReferencePropertyModel
+} from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
 
 export interface FieldExample {

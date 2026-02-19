@@ -87,11 +87,10 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
 })
 export class LayoutComponent {
   private layoutService = inject(LayoutService);
-  private settingsService = inject(SettingsService);
-
   protected readonly sidebarOpened = this.layoutService.sidebarOpened;
   protected readonly isMobile = this.layoutService.isMobile;
   protected readonly sidebarExpanded = this.layoutService.sidebarExpanded;
+  private settingsService = inject(SettingsService);
   protected readonly settingsPanelOpened = this.settingsService.panelOpen;
 
   onBackdropClick(): void {

@@ -1,14 +1,14 @@
-import {Component, inject, input, ChangeDetectionStrategy, signal, computed, OnInit, effect} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {NavigationItem, NavigationService} from '../../../core/services/navigation.service';
+import { NavigationItem, NavigationService } from '../../../core/services/navigation.service';
 import { LayoutService } from '../../services/layout.service';
-import {Router} from '@angular/router';
-import {NavTreeInlineComponent} from './components/nav-tree-inline/nav-tree-inline.component';
-import {NavTreeFloatingComponent} from './components/nav-tree-floating/nav-tree-floating.component';
-import {toSignal} from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { NavTreeInlineComponent } from './components/nav-tree-inline/nav-tree-inline.component';
+import { NavTreeFloatingComponent } from './components/nav-tree-floating/nav-tree-floating.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,18 +29,16 @@ import {toSignal} from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit {
-  private navigationService = inject(NavigationService);
-  private layoutService = inject(LayoutService);
-  private router = inject(Router);
-
   readonly isExpanded = input<boolean>(true);
-
   protected readonly hoveredIconTop = signal<number>(0);
+  private navigationService = inject(NavigationService);
   protected readonly showFloatingMenu = computed(() =>
     this.navigationService.getCurrentNavigation()().length > 0
   );
   protected readonly navigation = this.navigationService.getNavigation();
   protected readonly activeRootItemId = this.navigationService.getActiveRootItemId();
+  private layoutService = inject(LayoutService);
+  private router = inject(Router);
   private readonly routerUrl = toSignal(this.router.events);
 
   constructor() {

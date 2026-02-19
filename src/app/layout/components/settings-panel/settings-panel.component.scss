@@ -32,14 +32,13 @@
   cursor: pointer;
   background: transparent;
   transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &.active {
     transform: scale(1.1);
-    box-shadow:
-      0 0 0 3px var(--mat-sys-surface),
-      0 0 0 5px var(--mat-sys-primary),
-      0 4px 12px var(--overlay-shadow-25);
+    box-shadow: 0 0 0 3px var(--mat-sys-surface),
+    0 0 0 5px var(--mat-sys-primary),
+    0 4px 12px var(--overlay-shadow-25);
   }
 
   &:hover:not(.active) {

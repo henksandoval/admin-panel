@@ -1,12 +1,12 @@
-﻿<mat-tree #tree [dataSource]="data()" [childrenAccessor]="childrenAccessor" class="nav-tree">
-  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodeToggle
-    [cdkTreeNodeTypeaheadLabel]="node.title"
-    [class.parent-active]="isParentOfActive(node)">
-    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.title">
+﻿<mat-tree #tree [childrenAccessor]="childrenAccessor" [dataSource]="data()" class="nav-tree">
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" [cdkTreeNodeTypeaheadLabel]="node.title"
+                 [class.parent-active]="isParentOfActive(node)"
+                 matTreeNodeToggle>
+    <button [attr.aria-label]="'Toggle ' + node.title" mat-icon-button matTreeNodeToggle>
       <mat-icon>{{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
     </button>
-    <div class="tree-node-content"
-         [matTooltip]="node.title"
+    <div [matTooltip]="node.title"
+         class="tree-node-content"
          matTooltipPosition="right">
       @if (node.icon) {
         <mat-icon class="tree-node-icon">{{ node.icon }}</mat-icon>
@@ -19,18 +19,18 @@
   </mat-tree-node>
 
   <mat-tree-node *matTreeNodeDef="let node" [class.active]="isActive(node.url)">
-    <button mat-icon-button disabled class="tree-node-spacer"></button>
-    <div class="tree-node-content"
-         (click)="navigate(node)"
+    <button class="tree-node-spacer" disabled mat-icon-button></button>
+    <div (click)="navigate(node)"
          [matTooltip]="node.title"
+         class="tree-node-content"
          matTooltipPosition="right">
       @if (node.icon) {
         <mat-icon class="tree-node-icon">{{ node.icon }}</mat-icon>
       }
       <span class="tree-node-label">{{ node.title }}</span>
       @if (node.badge) {
-        <span class="app-badge"
-              [ngClass]="[node.badge.type, node.badge.indicator ? 'has-indicator' : '']">
+        <span [ngClass]="[node.badge.type, node.badge.indicator ? 'has-indicator' : '']"
+              class="app-badge">
           {{ node.badge.title }}
         </span>
       }

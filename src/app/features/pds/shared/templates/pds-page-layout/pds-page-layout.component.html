@@ -1,8 +1,9 @@
-<app-page-layout title="Test Page" description="Probando el layout dinámico" [preset]="preset()" [showEmptySlots]="true">
+<app-page-layout [preset]="preset()" [showEmptySlots]="true" description="Probando el layout dinámico"
+                 title="Test Page">
   <ng-template appSlot="header">
     <header class="mb-8 space-y-4">
       <div class="flex items-baseline justify-between border-b pb-6"
-        style="border-color: var(--mat-sys-outline-variant);">
+           style="border-color: var(--mat-sys-outline-variant);">
         <div class="max-w-3xl">
           <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
             {{ title() }}
@@ -12,7 +13,7 @@
           </p>
         </div>
         @if (componentTag()) {
-        <span class="inline-code px-3 py-1.5 rounded-full text-sm font-mono border shrink-0">
+          <span class="inline-code px-3 py-1.5 rounded-full text-sm font-mono border shrink-0">
           {{ componentTag() }}
         </span>
         }
@@ -21,72 +22,72 @@
   </ng-template>
   <ng-template appSlot="left">
     @if (showPreview()) {
-    <app-pds-preview-card>
-      <ng-content select="[slot=preview]"></ng-content>
-    </app-pds-preview-card>
+      <app-pds-preview-card>
+        <ng-content select="[slot=preview]"></ng-content>
+      </app-pds-preview-card>
     }
 
     @if (showControls()) {
-    <app-card title="Controls" icon="tune" class="mt-2">
-      <ng-content select="[slot=controls]"></ng-content>
-    </app-card>
+      <app-card class="mt-2" icon="tune" title="Controls">
+        <ng-content select="[slot=controls]"></ng-content>
+      </app-card>
     }
 
     @if (code()) {
-    <app-card title="Generated Code" icon="code" [isExpandable]="true" [expanded]="false" class="mt-2" >
-      <button mat-icon-button slot="header-actions" (click)="copyToClipboard(); $event.stopPropagation()"
-        matTooltip="Copiar código">
-        <mat-icon>content_copy</mat-icon>
-      </button>
-      <app-pds-code-block [code]="code()"></app-pds-code-block>
-    </app-card>
+      <app-card [expanded]="false" [isExpandable]="true" class="mt-2" icon="code" title="Generated Code">
+        <button (click)="copyToClipboard(); $event.stopPropagation()" mat-icon-button matTooltip="Copiar código"
+                slot="header-actions">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+        <app-pds-code-block [code]="code()"></app-pds-code-block>
+      </app-card>
     }
   </ng-template>
   <ng-template appSlot="right">
     @if (currentVariantGuide(); as guide) {
-    <app-card [customClass]="'overflow-hidden ' + getCardBorderClasses(guide.emphasis)">
-      <div class="p-6 pb-3">
-        <div class="flex items-center gap-2 mb-3">
+      <app-card [customClass]="'overflow-hidden ' + getCardBorderClasses(guide.emphasis)">
+        <div class="p-6 pb-3">
+          <div class="flex items-center gap-2 mb-3">
           <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
-            class="px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                class="px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
             {{ guide.emphasis }} emphasis
           </span>
-        </div>
-        <h2 class="page-title text-2xl font-bold mb-2">{{ guide.title }}</h2>
-        <p class="page-description text-base leading-relaxed">{{ guide.description }}</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-4 p-6 pt-0">
-        <div class="info-box rounded-lg p-4 border">
-          <h4 class="info-box-title font-bold text-sm mb-3 flex items-center gap-2">
-            <mat-icon class="success text-base">check_circle</mat-icon>
-            When to Use
-          </h4>
-          <ul class="space-y-2">
-            @for (use of guide.whenToUse; track use) {
-            <li class="info-box-content flex items-start gap-2 text-sm">
-              <mat-icon class="success text-sm mt-0.5 shrink-0">arrow_right</mat-icon>
-              <span>{{ use }}</span>
-            </li>
-            }
-          </ul>
+          </div>
+          <h2 class="page-title text-2xl font-bold mb-2">{{ guide.title }}</h2>
+          <p class="page-description text-base leading-relaxed">{{ guide.description }}</p>
         </div>
 
-        <div class="info-box rounded-lg p-4 border">
-          <h4 class="info-box-title font-bold text-sm mb-3 flex items-center gap-2">
-            <mat-icon class="info text-base">lightbulb</mat-icon>
-            Common Examples
-          </h4>
-          <div class="flex flex-wrap gap-2">
-            @for (example of guide.examples; track example) {
-            <span class="example-tag px-2.5 py-1 rounded border text-xs font-medium shadow-sm">
+        <div class="grid md:grid-cols-2 gap-4 p-6 pt-0">
+          <div class="info-box rounded-lg p-4 border">
+            <h4 class="info-box-title font-bold text-sm mb-3 flex items-center gap-2">
+              <mat-icon class="success text-base">check_circle</mat-icon>
+              When to Use
+            </h4>
+            <ul class="space-y-2">
+              @for (use of guide.whenToUse; track use) {
+                <li class="info-box-content flex items-start gap-2 text-sm">
+                  <mat-icon class="success text-sm mt-0.5 shrink-0">arrow_right</mat-icon>
+                  <span>{{ use }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+
+          <div class="info-box rounded-lg p-4 border">
+            <h4 class="info-box-title font-bold text-sm mb-3 flex items-center gap-2">
+              <mat-icon class="info text-base">lightbulb</mat-icon>
+              Common Examples
+            </h4>
+            <div class="flex flex-wrap gap-2">
+              @for (example of guide.examples; track example) {
+                <span class="example-tag px-2.5 py-1 rounded border text-xs font-medium shadow-sm">
               {{ example }}
             </span>
-            }
+              }
+            </div>
           </div>
         </div>
-      </div>
-    </app-card>
+      </app-card>
     }
 
     @if (showDocumentation()) {
@@ -96,7 +97,7 @@
     }
   </ng-template>
   <ng-template appSlot="footer">
-    <app-pds-documentation-tabs [componentTag]="componentTag()" [apiProperties]="apiProperties()"
-      [bestPractices]="bestPractices()" />
+    <app-pds-documentation-tabs [apiProperties]="apiProperties()" [bestPractices]="bestPractices()"
+                                [componentTag]="componentTag()"/>
   </ng-template>
 </app-page-layout>

@@ -1,10 +1,10 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
+import { MatFormFieldAppearance, MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
@@ -13,29 +13,43 @@ import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-togg
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import {
-  FIELD_EXAMPLES,
-  API_PROPERTIES,
-  BEST_PRACTICES
-} from './form.data';
+import { API_PROPERTIES, BEST_PRACTICES, FIELD_EXAMPLES } from './form.data';
 import { LayoutConfig } from '@shared/templates/app-page-layout/app-page-layout.model';
 import { PdsPageUtilitiesService } from '../../shared/templates/pds-page-layout/pds-page-utilities.service';
-import { PdsDocumentationTabsComponent } from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
+import {
+  PdsDocumentationTabsComponent
+} from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
-import { AppFormCheckboxConnectorDirective } from '@shared/molecules/app-form/app-form-checkbox/app-form-checkbox-connector.directive';
+import {
+  AppFormCheckboxConnectorDirective
+} from '@shared/molecules/app-form/app-form-checkbox/app-form-checkbox-connector.directive';
 import { AppFormCheckboxComponent } from '@shared/molecules/app-form/app-form-checkbox/app-form-checkbox.component';
-import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
-import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import { AppFormInputConnectorDirective } from '@shared/molecules/app-form/app-form-input/app-form-input-connector.directive';
+import {
+  AppFormDatepickerConnectorDirective
+} from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
+import {
+  AppFormDatepickerComponent
+} from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
+import {
+  AppFormInputConnectorDirective
+} from '@shared/molecules/app-form/app-form-input/app-form-input-connector.directive';
 import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@shared/molecules/app-form/app-form-input/app-form-input.model';
-import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
-import { AppFormRadioGroupComponent } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.component';
+import {
+  AppFormRadioGroupConnectorDirective
+} from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
+import {
+  AppFormRadioGroupComponent
+} from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.component';
 import { RadioOption } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.model';
-import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-form-select/app-form-select-connector.directive';
+import {
+  AppFormSelectConnectorDirective
+} from '@shared/molecules/app-form/app-form-select/app-form-select-connector.directive';
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
-import { AppFormTextareaConnectorDirective } from '@shared/molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
+import {
+  AppFormTextareaConnectorDirective
+} from '@shared/molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
 import { AppFormTextareaComponent } from '@shared/molecules/app-form/app-form-textarea/app-form-textarea.component';
 
 @Component({
@@ -74,17 +88,11 @@ import { AppFormTextareaComponent } from '@shared/molecules/app-form/app-form-te
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
-  private readonly pdsUtils = inject(PdsPageUtilitiesService);
-
   public galleryForm!: FormGroup;
-
   readonly globalAppearance = signal<MatFormFieldAppearance>('fill');
   readonly showIcons = signal<boolean>(true);
   readonly showHints = signal<boolean>(true);
   readonly showPrefixSuffix = signal<boolean>(false);
-
   readonly customLayout: LayoutConfig = {
     grid: {
       columns: '2fr 1fr',
@@ -97,22 +105,18 @@ export class FormComponent implements OnInit {
       { slotId: 'footer', colStart: 1, colEnd: 'full', rowStart: 3 }
     ]
   };
-
   genderOptions: RadioOption<string>[] = [
     { value: 'male', label: 'Male' },
     { value: 'female', label: 'Female' },
     { value: 'other', label: 'Other' },
     { value: 'prefer-not-to-say', label: 'Prefer not to say' }
   ];
-
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
-
   readonly appearanceOptions: ToggleOption[] = [
     { value: 'fill', label: 'Fill' },
     { value: 'outline', label: 'Outline' }
   ];
-
   readonly countryOptions = [
     { value: 'us', label: 'United States' },
     { value: 'uk', label: 'United Kingdom' },
@@ -123,7 +127,6 @@ export class FormComponent implements OnInit {
     { value: 'de', label: 'Germany' },
     { value: 'it', label: 'Italy' }
   ];
-
   readonly basicTextConfig = computed<AppFormInputOptions>(() => ({
     label: 'Full Name',
     placeholder: 'John Doe',
@@ -132,7 +135,6 @@ export class FormComponent implements OnInit {
     icon: this.showIcons() ? 'person' : '',
     hint: this.showHints() ? 'Enter your full name' : ''
   }));
-
   readonly emailConfig = computed<AppFormInputOptions>(() => ({
     label: 'Email Address',
     placeholder: 'your@email.com',
@@ -145,7 +147,6 @@ export class FormComponent implements OnInit {
       email: 'Please enter a valid email address'
     }
   }));
-
   readonly passwordConfig = computed<AppFormInputOptions>(() => ({
     label: 'Password',
     placeholder: 'Enter secure password',
@@ -159,7 +160,6 @@ export class FormComponent implements OnInit {
       minlength: 'Password must be at least 8 characters long'
     }
   }));
-
   readonly ageConfig = computed<AppFormInputOptions>(() => ({
     label: 'Age',
     placeholder: '18-99',
@@ -174,7 +174,6 @@ export class FormComponent implements OnInit {
       max: 'Please enter a valid age (maximum 99)'
     }
   }));
-
   readonly phoneConfig = computed<AppFormInputOptions>(() => ({
     label: 'Phone Number',
     placeholder: '(555) 123-4567',
@@ -187,7 +186,6 @@ export class FormComponent implements OnInit {
       required: 'Phone number is required'
     }
   }));
-
   readonly descriptionConfig = computed(() => ({
     label: 'Description',
     placeholder: 'Tell us about yourself...',
@@ -202,7 +200,6 @@ export class FormComponent implements OnInit {
       maxlength: 'Description cannot exceed 500 characters'
     }
   }));
-
   readonly birthDateConfig = computed(() => ({
     label: 'Birth Date',
     placeholder: 'MM/DD/YYYY',
@@ -215,7 +212,6 @@ export class FormComponent implements OnInit {
       matDatepickerMax: 'You must be at least 18 years old'
     }
   }));
-
   readonly genderConfig = computed(() => ({
     label: 'Gender',
     hint: this.showHints() ? 'Select your gender identity' : '',
@@ -225,13 +221,15 @@ export class FormComponent implements OnInit {
       required: 'Gender selection is required'
     }
   }));
-
   readonly formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
   readonly formValid = computed(() => this.galleryForm?.valid || false);
   readonly formTouched = computed(() => this.galleryForm?.touched || false);
   readonly formDirty = computed(() => this.galleryForm?.dirty || false);
-
   readonly completeFormCode = computed(() => this.generateCompleteFormCode());
+  readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+  private readonly pdsUtils = inject(PdsPageUtilitiesService);
 
   ngOnInit(): void {
     this.galleryForm = this.fb.group({
@@ -265,10 +263,12 @@ export class FormComponent implements OnInit {
     this.galleryForm.reset();
   }
 
-  readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
-
   copyToClipboard(): void {
     void this.pdsUtils.copyToClipboard(this.completeFormCode());
+  }
+
+  goBack(): void {
+    void this.router.navigate(['/pds/index']);
   }
 
   private generateCompleteFormCode(): string {
@@ -324,9 +324,5 @@ export class FormComponent implements OnInit {
     code += `</form>`;
 
     return code;
-  }
-
-  goBack(): void {
-    void this.router.navigate(['/pds/index']);
   }
 }

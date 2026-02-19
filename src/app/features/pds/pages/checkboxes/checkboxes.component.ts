@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,14 +7,14 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
+import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from '@shared/atoms/app-checkbox/app-checkbox.model';
 import {
-  STATE_GUIDES,
-  CHECKBOX_DEFAULTS,
-  CHECKBOX_COLORS,
-  CHECKBOX_SIZES,
+  API_PROPERTIES,
   BEST_PRACTICES,
-  API_PROPERTIES
+  CHECKBOX_COLORS,
+  CHECKBOX_DEFAULTS,
+  CHECKBOX_SIZES,
+  STATE_GUIDES
 } from './checkboxes.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
@@ -35,8 +35,6 @@ import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
   templateUrl: './checkboxes.component.html'
 })
 export default class CheckboxesComponent {
-  private readonly router = inject(Router);
-
   readonly selectedState = signal<'checked' | 'unchecked' | 'indeterminate'>('checked');
   readonly selectedColor = signal<CheckboxColor>(CHECKBOX_DEFAULTS.color);
   readonly size = signal<CheckboxSize>(CHECKBOX_DEFAULTS.size);
@@ -44,39 +42,32 @@ export default class CheckboxesComponent {
   readonly isDisabled = signal<boolean>(CHECKBOX_DEFAULTS.disabled);
   readonly isRequired = signal<boolean>(CHECKBOX_DEFAULTS.required);
   readonly checkboxLabel = signal<string>('Checkbox Label');
-
   readonly CHECKBOX_COLORS = CHECKBOX_COLORS;
   readonly CHECKBOX_SIZES = CHECKBOX_SIZES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly STATE_GUIDES = STATE_GUIDES;
-
   readonly stateOptions: ToggleOption[] = [
     { value: 'checked', label: 'Checked' },
     { value: 'unchecked', label: 'Unchecked' },
     { value: 'indeterminate', label: 'Indeterminate' }
   ];
-
   readonly colorOptions: ToggleOption[] = [
     { value: 'primary', label: 'Primary' },
     { value: 'secondary', label: 'Secondary' },
     { value: 'tertiary', label: 'Tertiary' }
   ];
-
   readonly sizeOptions: ToggleOption[] = [
     { value: 'small', label: 'S' },
     { value: 'medium', label: 'M' },
     { value: 'large', label: 'L' }
   ];
-
   readonly labelPositionOptions: ToggleOption[] = [
     { value: 'before', label: 'Before' },
     { value: 'after', label: 'After' }
   ];
-
   readonly isChecked = computed(() => this.selectedState() === 'checked');
   readonly isIndeterminate = computed(() => this.selectedState() === 'indeterminate');
-
   readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const color = this.selectedColor();
@@ -118,6 +109,7 @@ export default class CheckboxesComponent {
 
     return code;
   });
+  private readonly router = inject(Router);
 
   goBack(): void {
     void this.router.navigate(['/pds/index']);

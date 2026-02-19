@@ -19,12 +19,12 @@ $base-typography: (
 
 $theme-config: (
   'default': (primary: aurora-tech.$primary-palette, secondary: aurora-tech.$secondary-palette, tertiary: aurora-tech.$tertiary-palette),
-  'aurora-tech':   (primary: aurora-tech.$primary-palette, secondary: aurora-tech.$secondary-palette, tertiary: aurora-tech.$tertiary-palette),
+  'aurora-tech': (primary: aurora-tech.$primary-palette, secondary: aurora-tech.$secondary-palette, tertiary: aurora-tech.$tertiary-palette),
   'deep-ocean': (primary: deep-ocean.$primary-palette, secondary: deep-ocean.$secondary-palette, tertiary: deep-ocean.$tertiary-palette),
   'forest-growth': (primary: forest-growth.$primary-palette, secondary: forest-growth.$secondary-palette, tertiary: forest-growth.$tertiary-palette),
   'slate-minimal': (primary: slate-minimal.$primary-palette, secondary: slate-minimal.$secondary-palette, tertiary: slate-minimal.$tertiary-palette),
   'sunset-analytics': (primary: sunset-analytics.$primary-palette, secondary: sunset-analytics.$secondary-palette, tertiary: sunset-analytics.$tertiary-palette),
-  'royal-dashboard': (primary: royal-dashboard.$primary-palette, secondary: royal-dashboard.$secondary-palette,tertiary: royal-dashboard.$tertiary-palette)
+  'royal-dashboard': (primary: royal-dashboard.$primary-palette, secondary: royal-dashboard.$secondary-palette, tertiary: royal-dashboard.$tertiary-palette)
 );
 
 @mixin build-themes() {

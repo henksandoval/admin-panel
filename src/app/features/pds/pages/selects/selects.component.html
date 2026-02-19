@@ -1,30 +1,30 @@
 <app-pds-page-layout
-  title="Select Component Playground"
-  description="A wrapper around Material Select providing consistent styling, validation, and ergonomic API for single and multiple selection scenarios."
-  componentTag="<app-form-select>"
-  [code]="generatedCode()"
   [apiProperties]="API_PROPERTIES"
   [bestPractices]="BEST_PRACTICES"
+  [code]="generatedCode()"
+  [currentVariant]="selectedState()"
   [variantGuides]="SELECT_STATE_GUIDES"
-  [currentVariant]="selectedState()">
+  componentTag="<app-form-select>"
+  description="A wrapper around Material Select providing consistent styling, validation, and ergonomic API for single and multiple selection scenarios."
+  title="Select Component Playground">
 
-  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+  <app-button (clicked)="goBack()" class="back-button mb-4" iconBefore="arrow_back" slot="header-action" variant="text">
     Back to PDS Index
   </app-button>
 
-  <div slot="preview" class="w-full">
+  <div class="w-full" slot="preview">
     @if (selectedState() === 'single') {
       <div class="w-full max-w-sm">
         <app-form-select
           [(ngModel)]="singleValue"
-          [options]="currentOptions()"
           [config]="{
             label: 'Select a Country',
             placeholder: 'Choose one...',
             appearance: selectedAppearance(),
             icon: showIcon() ? 'public' : '',
             hint: showHint() ? 'Select your country from the list' : ''
-          }">
+          }"
+          [options]="currentOptions()">
         </app-form-select>
         <p class="hint-text">
           Selected: <strong>{{ singleValue() || 'None' }}</strong>
@@ -36,7 +36,6 @@
       <div class="w-full max-w-sm">
         <app-form-select
           [(ngModel)]="multipleValue"
-          [options]="currentOptions()"
           [config]="{
             label: 'Select Frameworks',
             placeholder: 'Choose multiple...',
@@ -44,7 +43,8 @@
             multiple: true,
             icon: showIcon() ? 'code' : '',
             hint: showHint() ? 'You can select multiple frameworks' : ''
-          }">
+          }"
+          [options]="currentOptions()">
         </app-form-select>
         <p class="hint-text">
           Selected: <strong>{{ multipleValue().join(', ') || 'None' }}</strong>
@@ -56,14 +56,14 @@
       <div class="w-full max-w-sm">
         <app-form-select
           [(ngModel)]="groupedValue"
-          [options]="currentOptions()"
           [config]="{
             label: 'Select Technology',
             placeholder: 'Choose from categories...',
             appearance: selectedAppearance(),
             icon: showIcon() ? 'category' : '',
             hint: showHint() ? 'Options are organized by category' : ''
-          }">
+          }"
+          [options]="currentOptions()">
         </app-form-select>
         <p class="hint-text">
           Selected: <strong>{{ groupedValue() || 'None' }}</strong>
@@ -75,15 +75,15 @@
       <div class="w-full max-w-sm">
         <app-form-select
           [(ngModel)]="singleValue"
-          [options]="currentOptions()"
-          [disabled]="true"
           [config]="{
             label: 'Disabled Select',
             placeholder: 'Cannot interact',
             appearance: selectedAppearance(),
             icon: showIcon() ? 'block' : '',
             hint: showHint() ? 'This field is disabled' : ''
-          }">
+          }"
+          [disabled]="true"
+          [options]="currentOptions()">
         </app-form-select>
       </div>
     }
@@ -96,9 +96,9 @@
         State Type
       </label>
       <app-toggle-group
-        [options]="stateOptions"
         [(ngModel)]="selectedState"
-        class="w-full" />
+        [options]="stateOptions"
+        class="w-full"/>
     </div>
 
     <div class="mt-2">
@@ -107,9 +107,9 @@
         Appearance
       </label>
       <app-toggle-group
-        [options]="appearanceOptions"
         [(ngModel)]="selectedAppearance"
-        class="w-full" />
+        [options]="appearanceOptions"
+        class="w-full"/>
     </div>
 
     <div class="mt-2">
@@ -118,9 +118,9 @@
         Size
       </label>
       <app-toggle-group
-        [options]="sizeOptions"
         [(ngModel)]="selectedSize"
-        class="w-full" />
+        [options]="sizeOptions"
+        class="w-full"/>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">

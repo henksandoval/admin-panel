@@ -1,8 +1,8 @@
 import { Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatButtonAppearance } from '@angular/material/button';
+import { MatButtonAppearance, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize, ButtonType} from './app-button.model';
+import { BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize, ButtonType } from './app-button.model';
 
 @Component({
   selector: 'app-button',

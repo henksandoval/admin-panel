@@ -1,12 +1,29 @@
-import { ChangeDetectorRef, Component, computed, DestroyRef, forwardRef, inject, input, isDevMode, AfterViewInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  DestroyRef,
+  forwardRef,
+  inject,
+  input,
+  isDevMode
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import { AppFormTextareaOptions, APP_FORM_TEXTAREA_DEFAULTS } from './app-form-textarea.model';
+import { APP_FORM_TEXTAREA_DEFAULTS, AppFormTextareaOptions } from './app-form-textarea.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -87,10 +104,6 @@ export class AppFormTextareaComponent implements ControlValueAccessor, AfterView
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
   private hasCheckedConnection = false;
-
-  private onChange: (value: string | null) => void = () => {};
-  private onTouched: () => void = () => {};
-
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field is required',
     minlength: 'The text is too short',
@@ -104,6 +117,18 @@ export class AppFormTextareaComponent implements ControlValueAccessor, AfterView
       .subscribe(value => {
         this.onChange(value);
       });
+  }
+
+  public get errorState(): ErrorState {
+    const control = this.ngControl?.control;
+    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
+    if (!shouldShow) return { shouldShow: false, message: '' };
+    const errors = control.errors;
+    if (!errors) return { shouldShow: false, message: '' };
+    const errorKey = Object.keys(errors)[0];
+    const customMessages = this.fullConfig().errorMessages || {};
+    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
+    return { shouldShow: true, message };
   }
 
   ngAfterViewInit(): void {
@@ -142,18 +167,6 @@ export class AppFormTextareaComponent implements ControlValueAccessor, AfterView
     this.changeDetectorRef.detectChanges();
   }
 
-  public get errorState(): ErrorState {
-    const control = this.ngControl?.control;
-    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
-    if (!shouldShow) return { shouldShow: false, message: '' };
-    const errors = control.errors;
-    if (!errors) return { shouldShow: false, message: '' };
-    const errorKey = Object.keys(errors)[0];
-    const customMessages = this.fullConfig().errorMessages || {};
-    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
-    return { shouldShow: true, message };
-  }
-
   handleBlur(): void {
     this.onTouched();
   }
@@ -177,4 +190,8 @@ export class AppFormTextareaComponent implements ControlValueAccessor, AfterView
       this.internalControl.enable({ emitEvent: false });
     }
   }
+
+  private onChange: (value: string | null) => void = () => {};
+
+  private onTouched: () => void = () => {};
 }

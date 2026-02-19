@@ -1,4 +1,4 @@
-import { Directive, inject, TemplateRef, Input } from "@angular/core";
+import { Directive, inject, Input, TemplateRef } from "@angular/core";
 
 @Directive({
   selector: '[appSlot]',

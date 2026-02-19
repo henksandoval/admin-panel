@@ -1,6 +1,7 @@
-<app-page-layout title="Form Field Gallery"
-  description="Complete reference with all field types and working validations" [layoutConfig]="customLayout"
-  [showEmptySlots]="true">
+<app-page-layout [layoutConfig]="customLayout"
+                 [showEmptySlots]="true"
+                 description="Complete reference with all field types and working validations"
+                 title="Form Field Gallery">
 
   <ng-template appSlot="header">
     <header class="mb-6">
@@ -12,7 +13,7 @@
             different visual configurations.
           </p>
         </div>
-        <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back">
+        <app-button (clicked)="goBack()" iconBefore="arrow_back" variant="text">
           Back to PDS
         </app-button>
       </div>
@@ -20,17 +21,17 @@
   </ng-template>
 
   <ng-template appSlot="left">
-    <app-card title="Complete Form Example" icon="description">
+    <app-card icon="description" title="Complete Form Example">
       <p class="card-description mb-6">
         All field types with real validations. Try entering invalid data to see errors.
       </p>
 
-      <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form (ngSubmit)="onSubmit()" [formGroup]="galleryForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <app-form-input formControlName="basicText" [config]="basicTextConfig()" appFormInputConnector>
+          <app-form-input [config]="basicTextConfig()" appFormInputConnector formControlName="basicText">
           </app-form-input>
 
-          <app-form-select formControlName="country" [options]="countryOptions" [config]="{
+          <app-form-select [config]="{
                 label: 'Select your country',
                 placeholder: 'Choose a country',
                 appearance: globalAppearance(),
@@ -39,68 +40,68 @@
                 errorMessages: {
                   required: 'Country selection is required for shipping'
                 }
-              }" appFormSelectConnector>
+              }" [options]="countryOptions" appFormSelectConnector formControlName="country">
           </app-form-select>
         </div>
 
         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <app-form-input formControlName="email" [config]="emailConfig()" appFormInputConnector>
+          <app-form-input [config]="emailConfig()" appFormInputConnector formControlName="email">
           </app-form-input>
 
-          <app-form-input formControlName="password" [config]="passwordConfig()" appFormInputConnector>
+          <app-form-input [config]="passwordConfig()" appFormInputConnector formControlName="password">
           </app-form-input>
         </div>
 
         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <app-form-input formControlName="age" [config]="ageConfig()" appFormInputConnector>
+          <app-form-input [config]="ageConfig()" appFormInputConnector formControlName="age">
           </app-form-input>
 
-          <app-form-input formControlName="phone" [config]="phoneConfig()" appFormInputConnector>
+          <app-form-input [config]="phoneConfig()" appFormInputConnector formControlName="phone">
           </app-form-input>
 
-          <app-form-datepicker formControlName="birthDate" [config]="birthDateConfig()"
-            appFormDatepickerConnector>
+          <app-form-datepicker [config]="birthDateConfig()" appFormDatepickerConnector
+                               formControlName="birthDate">
           </app-form-datepicker>
         </div>
 
         <div class="md:col-span-2">
-          <app-form-textarea formControlName="description" [config]="descriptionConfig()" appFormTextareaConnector>
+          <app-form-textarea [config]="descriptionConfig()" appFormTextareaConnector formControlName="description">
           </app-form-textarea>
         </div>
 
         <div class="md:col-span-2">
-          <app-form-radio-group formControlName="gender" [options]="genderOptions" [config]="genderConfig()"
-            appFormRadioGroupConnector>
+          <app-form-radio-group [config]="genderConfig()" [options]="genderOptions" appFormRadioGroupConnector
+                                formControlName="gender">
           </app-form-radio-group>
         </div>
 
         <div class="md:col-span-2">
-          <app-form-checkbox formControlName="acceptTerms" [config]="{
+          <app-form-checkbox [config]="{
                 color: 'primary',
                 errorMessages: {
                   required: 'You must accept the terms and conditions to continue',
                   requiredTrue: 'Please check this box to proceed'
                 }
-              }" appFormCheckboxConnector>
+              }" appFormCheckboxConnector formControlName="acceptTerms">
             <span class="terms-label">I accept the terms and conditions *</span>
           </app-form-checkbox>
         </div>
 
         <div class="md:col-span-2 flex justify-end gap-3">
-          <app-button type="button" variant="outlined" color="secondary" iconBefore="refresh" (clicked)="resetForm()">
+          <app-button (clicked)="resetForm()" color="secondary" iconBefore="refresh" type="button" variant="outlined">
             Reset
           </app-button>
 
-          <app-button type="submit" variant="filled" color="primary" iconBefore="send">
+          <app-button color="primary" iconBefore="send" type="submit" variant="filled">
             Submit Form
           </app-button>
         </div>
       </form>
     </app-card>
 
-    <app-card title="Generated Code" icon="code" [isExpandable]="true" [expanded]="false" class="mt-2">
-      <button mat-icon-button slot="header-actions" (click)="copyToClipboard(); $event.stopPropagation()"
-        matTooltip="Copiar código">
+    <app-card [expanded]="false" [isExpandable]="true" class="mt-2" icon="code" title="Generated Code">
+      <button (click)="copyToClipboard(); $event.stopPropagation()" mat-icon-button matTooltip="Copiar código"
+              slot="header-actions">
         <mat-icon>content_copy</mat-icon>
       </button>
       <pre class="code-block"><code>{{ completeFormCode() }}</code></pre>
@@ -108,7 +109,7 @@
   </ng-template>
 
   <ng-template appSlot="right">
-    <app-card title="Visual Controls" icon="tune">
+    <app-card icon="tune" title="Visual Controls">
       <p class="card-description mb-6">
         Change visual appearance of all fields (validations stay the same)
       </p>
@@ -118,7 +119,7 @@
           <mat-icon>style</mat-icon>
           Appearance Style
         </label>
-        <app-toggle-group [options]="appearanceOptions" [(value)]="globalAppearance" class="w-full" />
+        <app-toggle-group [(value)]="globalAppearance" [options]="appearanceOptions" class="w-full"/>
         <p class="helper-text mt-1">
           Changes the Material Design style of all fields
         </p>
@@ -176,9 +177,9 @@
         <div class="grid grid-cols-2 gap-3">
           <div class="flex flex-col gap-1">
             <span class="status-label">Status:</span>
-            <span class="status-value flex items-center gap-2"
-              [class.status-valid]="formStatus() === 'VALID'"
-              [class.status-invalid]="formStatus() === 'INVALID'">
+            <span [class.status-invalid]="formStatus() === 'INVALID'"
+                  [class.status-valid]="formStatus() === 'VALID'"
+                  class="status-value flex items-center gap-2">
               @if (formStatus() === 'VALID') {
                 <mat-icon>check_circle</mat-icon>
               } @else if (formStatus() === 'INVALID') {
@@ -205,8 +206,8 @@
   </ng-template>
 
   <ng-template appSlot="footer">
-    <app-pds-documentation-tabs componentTag="<app-form-input>" [apiProperties]="API_PROPERTIES"
-      [bestPractices]="BEST_PRACTICES">
+    <app-pds-documentation-tabs [apiProperties]="API_PROPERTIES" [bestPractices]="BEST_PRACTICES"
+                                componentTag="<app-form-input>">
     </app-pds-documentation-tabs>
   </ng-template>
 </app-page-layout>

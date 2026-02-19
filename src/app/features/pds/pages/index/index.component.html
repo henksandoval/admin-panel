@@ -1,13 +1,13 @@
-<app-page-layout title="Test Page" description="Probando el layout dinámico" preset="fullWidth" [showEmptySlots]="true">
+<app-page-layout [showEmptySlots]="true" description="Probando el layout dinámico" preset="fullWidth" title="Test Page">
   <ng-template appSlot="content">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      <app-card *ngFor="let item of showcaseItems" class="showcase-card" [title]="item.title" [icon]="item.icon"
-        contentPadding="p-0" (click)="navigateToShowcase(item.route)">
+      <app-card (click)="navigateToShowcase(item.route)" *ngFor="let item of showcaseItems" [icon]="item.icon" [title]="item.title"
+                class="showcase-card" contentPadding="p-0">
         <div class="p-4">
           <p class="showcase-description">{{ item.description }}</p>
         </div>
-        <div slot="footer" class="justify-end">
-          <button mat-button class="showcase-button">
+        <div class="justify-end" slot="footer">
+          <button class="showcase-button" mat-button>
             <mat-icon class="mr-1">arrow_forward</mat-icon>
             Explore
           </button>

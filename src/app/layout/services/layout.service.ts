@@ -1,4 +1,4 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Injectable({
@@ -9,11 +9,10 @@ export class LayoutService {
   private readonly STORAGE_KEY_SIDEBAR_DISPLAY_MODE = 'sidebar-display-mode';
 
   private readonly _sidebarOpened = signal(true);
-  private readonly _isMobile = signal(false);
-  private readonly _sidebarExpanded = signal(this.loadDisplayModeSidebar());
-
   readonly sidebarOpened = this._sidebarOpened.asReadonly();
+  private readonly _isMobile = signal(false);
   readonly isMobile = this._isMobile.asReadonly();
+  private readonly _sidebarExpanded = signal(this.loadDisplayModeSidebar());
   readonly sidebarExpanded = this._sidebarExpanded.asReadonly();
 
   constructor() {

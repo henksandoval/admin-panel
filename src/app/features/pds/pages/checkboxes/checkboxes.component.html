@@ -1,14 +1,14 @@
 <app-pds-page-layout
-  title="Checkbox Component Playground"
-  description="Experimenta con diferentes configuraciones del componente y observa cómo cambia la documentación en tiempo real."
-  componentTag="<app-checkbox>"
-  [code]="generatedCode()"
   [apiProperties]="API_PROPERTIES"
   [bestPractices]="BEST_PRACTICES"
+  [code]="generatedCode()"
+  [currentVariant]="selectedState()"
   [variantGuides]="STATE_GUIDES"
-  [currentVariant]="selectedState()">
+  componentTag="<app-checkbox>"
+  description="Experimenta con diferentes configuraciones del componente y observa cómo cambia la documentación en tiempo real."
+  title="Checkbox Component Playground">
 
-  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+  <app-button (clicked)="goBack()" class="back-button mb-4" iconBefore="arrow_back" slot="header-action" variant="text">
     Back to PDS Index
   </app-button>
 
@@ -16,11 +16,11 @@
     <app-checkbox
       [checked]="isChecked()"
       [color]="selectedColor()"
-      [size]="size()"
-      [labelPosition]="labelPosition()"
       [disabled]="isDisabled()"
       [indeterminate]="isIndeterminate()"
-      [required]="isRequired()">
+      [labelPosition]="labelPosition()"
+      [required]="isRequired()"
+      [size]="size()">
       {{ checkboxLabel() }}
     </app-checkbox>
   </div>
@@ -31,7 +31,7 @@
         <mat-icon>toggle_on</mat-icon>
         State
       </label>
-      <app-toggle-group [options]="stateOptions" [(value)]="selectedState" class="w-full" />
+      <app-toggle-group [(value)]="selectedState" [options]="stateOptions" class="w-full"/>
     </div>
 
     <div class="mt-2">
@@ -39,7 +39,7 @@
         <mat-icon>palette</mat-icon>
         Color
       </label>
-      <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
+      <app-toggle-group [(value)]="selectedColor" [options]="colorOptions" class="w-full"/>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 mt-2">
       <div>
@@ -47,7 +47,7 @@
           <mat-icon>straighten</mat-icon>
           Size
         </label>
-        <app-toggle-group [options]="sizeOptions" [(value)]="size" class="w-full" />
+        <app-toggle-group [(value)]="size" [options]="sizeOptions" class="w-full"/>
       </div>
 
       <div>
@@ -55,7 +55,7 @@
           <mat-icon>format_align_left</mat-icon>
           Label Position
         </label>
-        <app-toggle-group [options]="labelPositionOptions" [(value)]="labelPosition" class="w-full" />
+        <app-toggle-group [(value)]="labelPosition" [options]="labelPositionOptions" class="w-full"/>
       </div>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
@@ -65,16 +65,16 @@
   </div>
 
   <div slot="documentation">
-    <app-card title="Color Variations" icon="palette">
+    <app-card icon="palette" title="Color Variations">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (color of CHECKBOX_COLORS; track color.value) {
           <div class="color-variation-card">
             <app-checkbox
               [checked]="isChecked()"
-              [indeterminate]="isIndeterminate()"
               [color]="color.value"
-              [size]="size()"
-              [labelPosition]="labelPosition()">
+              [indeterminate]="isIndeterminate()"
+              [labelPosition]="labelPosition()"
+              [size]="size()">
               {{ color.label }}
             </app-checkbox>
             <code class="code-snippet">color="{{ color.value }}"</code>
@@ -83,16 +83,16 @@
       </div>
     </app-card>
 
-    <app-card title="Size Variations" icon="straighten" class="mt-2">
+    <app-card class="mt-2" icon="straighten" title="Size Variations">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (sizeOption of CHECKBOX_SIZES; track sizeOption.value) {
           <div class="color-variation-card">
             <app-checkbox
               [checked]="isChecked()"
-              [indeterminate]="isIndeterminate()"
               [color]="selectedColor()"
-              [size]="sizeOption.value"
-              [labelPosition]="labelPosition()">
+              [indeterminate]="isIndeterminate()"
+              [labelPosition]="labelPosition()"
+              [size]="sizeOption.value">
               {{ sizeOption.label }}
             </app-checkbox>
             <code class="code-snippet">size="{{ sizeOption.value }}"</code>

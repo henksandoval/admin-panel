@@ -1,29 +1,29 @@
 <div class="app-server-side-table">
   @if (filtersConfig()) {
     <app-simple-filters
+      (valuesChange)="onFiltersChange($event)"
       [config]="filtersConfig()!"
-      [values]="filterValues()"
-      (valuesChange)="onFiltersChange($event)">
+      [values]="filterValues()">
     </app-simple-filters>
   }
 
   <app-table
+    (actionClick)="actionClick.emit($event)"
+    (rowClick)="rowClick.emit($event)"
+    (sortChange)="onSortChange($event)"
+    [cellTemplateRef]="projectedCellTemplate()"
     [config]="tableConfig()"
     [data]="data()"
-    [sort]="currentSort()"
     [loading]="loading()"
-    [cellTemplateRef]="projectedCellTemplate()"
-    (sortChange)="onSortChange($event)"
-    (rowClick)="rowClick.emit($event)"
-    (actionClick)="actionClick.emit($event)">
-    <ng-content select="[cellTemplate]" />
+    [sort]="currentSort()">
+    <ng-content select="[cellTemplate]"/>
   </app-table>
 
   @if (paginationConfig()) {
     <app-pagination
+      (pageChange)="onPageChange($event)"
       [config]="paginationConfig()!"
-      [state]="paginationState()"
-      (pageChange)="onPageChange($event)">
+      [state]="paginationState()">
     </app-pagination>
   }
 </div>

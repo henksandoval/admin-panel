@@ -1,13 +1,13 @@
 <nav class="breadcrumb">
-    @for (item of navigationService.breadcrumbs(); track item.label; let last = $last) {
+  @for (item of navigationService.breadcrumbs(); track item.label; let last = $last) {
     @if (!last && item.route) {
-    <a [routerLink]="item.route">{{ item.label }}</a>
-    <span class="separator">/</span>
+      <a [routerLink]="item.route">{{ item.label }}</a>
+      <span class="separator">/</span>
     } @else {
-    <span class="current">{{ item.label }}</span>
-    @if (!last) {
-    <span class="separator">/</span>
+      <span class="current">{{ item.label }}</span>
+      @if (!last) {
+        <span class="separator">/</span>
+      }
     }
-    }
-    }
+  }
 </nav>

@@ -1,6 +1,6 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
@@ -8,17 +8,21 @@ import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-togg
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 
 import {
-  RADIO_STATE_GUIDES,
-  GENDER_OPTIONS,
-  SIZE_OPTIONS,
-  PAYMENT_OPTIONS,
-  NOTIFICATION_OPTIONS,
   API_PROPERTIES,
-  BEST_PRACTICES
+  BEST_PRACTICES,
+  GENDER_OPTIONS,
+  NOTIFICATION_OPTIONS,
+  PAYMENT_OPTIONS,
+  RADIO_STATE_GUIDES,
+  SIZE_OPTIONS
 } from './radios.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
-import { AppFormRadioGroupConnectorDirective } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
-import { AppFormRadioGroupComponent } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.component';
+import {
+  AppFormRadioGroupConnectorDirective
+} from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
+import {
+  AppFormRadioGroupComponent
+} from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.component';
 
 @Component({
   selector: 'app-radios',
@@ -37,26 +41,19 @@ import { AppFormRadioGroupComponent } from '@shared/molecules/app-form/app-form-
   templateUrl: './radios.component.html'
 })
 export default class RadiosComponent {
-  private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
-
   readonly selectedState = signal<'basic' | 'descriptions' | 'horizontal' | 'disabled'>('basic');
   readonly showLabel = signal<boolean>(true);
   readonly showHint = signal<boolean>(true);
-
   demoForm!: FormGroup;
-
   readonly RADIO_STATE_GUIDES = RADIO_STATE_GUIDES;
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
-
   stateOptions = [
     { value: 'basic', label: 'Basic' },
     { value: 'descriptions', label: 'With Descriptions' },
     { value: 'horizontal', label: 'Horizontal' },
     { value: 'disabled', label: 'Disabled' }
   ];
-
   readonly currentOptions = computed(() => {
     const state = this.selectedState();
     if (state === 'basic') return GENDER_OPTIONS;
@@ -65,16 +62,6 @@ export default class RadiosComponent {
     if (state === 'disabled') return PAYMENT_OPTIONS;
     return GENDER_OPTIONS;
   });
-
-  constructor() {
-    this.demoForm = this.fb.group({
-      basicSelection: ['male'],
-      descriptionsSelection: ['important'],
-      horizontalSelection: ['m'],
-      disabledSelection: [{ value: 'credit-card', disabled: true }]
-    });
-  }
-
   readonly generatedCode = computed(() => {
     const state = this.selectedState();
     const showLabel = this.showLabel();
@@ -116,6 +103,17 @@ export default class RadiosComponent {
 
     return `${tsCode}${htmlCode}`;
   });
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+
+  constructor() {
+    this.demoForm = this.fb.group({
+      basicSelection: ['male'],
+      descriptionsSelection: ['important'],
+      horizontalSelection: ['m'],
+      disabledSelection: [{ value: 'credit-card', disabled: true }]
+    });
+  }
 
   goBack(): void {
     void this.router.navigate(['/pds/index']);

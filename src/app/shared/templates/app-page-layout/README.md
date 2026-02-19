@@ -7,6 +7,7 @@
 ## 🎯 ¿Qué Hace?
 
 El componente permite:
+
 - Crear layouts de página con CSS Grid de manera declarativa
 - Usar presets predefinidos para casos comunes (2 columnas, dashboard, sidebar, etc.)
 - Configurar grids personalizados con control total sobre columnas, filas, gaps y alineación
@@ -155,44 +156,50 @@ layoutConfig: LayoutConfig = {
 
 ## 🎨 Presets Disponibles
 
-| Preset | Descripción | Casos de Uso |
-|--------|-------------|--------------|
-| `fullWidth` | Una columna completa | Páginas simples, formularios |
-| `twoColumn` | Dos columnas iguales | Comparaciones, vistas divididas |
-| `twoColumnWithFooter` | Dos columnas + footer | Contenido con acciones inferiores |
-| `mainWithSidebar` | Contenido principal (2/3) + sidebar (1/3) | Páginas de contenido con info adicional |
-| `sidebarWithMain` | Sidebar (1/3) + contenido principal (2/3) | Navegación lateral prominente |
-| `threeColumn` | Tres columnas iguales | Dashboards, galerías |
-| `dashboard` | Header + 2 columnas + footer | Dashboards complejos |
+| Preset                | Descripción                               | Casos de Uso                            |
+|-----------------------|-------------------------------------------|-----------------------------------------|
+| `fullWidth`           | Una columna completa                      | Páginas simples, formularios            |
+| `twoColumn`           | Dos columnas iguales                      | Comparaciones, vistas divididas         |
+| `twoColumnWithFooter` | Dos columnas + footer                     | Contenido con acciones inferiores       |
+| `mainWithSidebar`     | Contenido principal (2/3) + sidebar (1/3) | Páginas de contenido con info adicional |
+| `sidebarWithMain`     | Sidebar (1/3) + contenido principal (2/3) | Navegación lateral prominente           |
+| `threeColumn`         | Tres columnas iguales                     | Dashboards, galerías                    |
+| `dashboard`           | Header + 2 columnas + footer              | Dashboards complejos                    |
 
 ## ✅ Beneficios
 
 ### 1. **Reutilización y DRY**
+
 - Elimina código repetitivo de layouts
 - Centraliza la lógica de grid en un solo componente
 - Presets evitan reimplementar layouts comunes
 
 ### 2. **Flexibilidad**
+
 - Tres niveles de configuración (preset → layout → grid+cells)
 - Control granular sobre posicionamiento de celdas
 - Adaptable a cualquier necesidad de layout
 
 ### 3. **Mantenibilidad**
+
 - Configuración declarativa vs. imperativa
 - Separación clara entre estructura (layout) y contenido (slots)
 - Fácil de modificar y extender
 
 ### 4. **Type Safety**
+
 - TypeScript completo con interfaces bien definidas
 - `satisfies` operator para validar presets
 - Computed signals con tipado fuerte
 
 ### 5. **Performance**
+
 - Usa Signals de Angular (detección de cambios granular)
 - Computed signals se recalculan solo cuando cambian dependencias
 - CSS Grid es performante nativamente
 
 ### 6. **Developer Experience**
+
 - Presets documentados y autodescriptivos
 - Modo debug con `showEmptySlots`
 - API clara y consistente

@@ -1,6 +1,23 @@
-import { ChangeDetectorRef, Component, computed, DestroyRef, forwardRef, inject, input, isDevMode, AfterViewInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  DestroyRef,
+  forwardRef,
+  inject,
+  input,
+  isDevMode
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -8,7 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import { AppFormDatepickerOptions, APP_FORM_DATEPICKER_DEFAULTS } from './app-form-datepicker.model';
+import { APP_FORM_DATEPICKER_DEFAULTS, AppFormDatepickerOptions } from './app-form-datepicker.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -91,10 +108,6 @@ export class AppFormDatepickerComponent implements ControlValueAccessor, AfterVi
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
   private hasCheckedConnection = false;
-
-  private onChange: (value: Date | null) => void = () => {};
-  private onTouched: () => void = () => {};
-
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field is required',
     matDatepickerMin: 'Date is too early',
@@ -109,6 +122,18 @@ export class AppFormDatepickerComponent implements ControlValueAccessor, AfterVi
       .subscribe(value => {
         this.onChange(value);
       });
+  }
+
+  public get errorState(): ErrorState {
+    const control = this.ngControl?.control;
+    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
+    if (!shouldShow) return { shouldShow: false, message: '' };
+    const errors = control.errors;
+    if (!errors) return { shouldShow: false, message: '' };
+    const errorKey = Object.keys(errors)[0];
+    const customMessages = this.fullConfig().errorMessages || {};
+    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
+    return { shouldShow: true, message };
   }
 
   ngAfterViewInit(): void {
@@ -147,18 +172,6 @@ export class AppFormDatepickerComponent implements ControlValueAccessor, AfterVi
     this.changeDetectorRef.detectChanges();
   }
 
-  public get errorState(): ErrorState {
-    const control = this.ngControl?.control;
-    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
-    if (!shouldShow) return { shouldShow: false, message: '' };
-    const errors = control.errors;
-    if (!errors) return { shouldShow: false, message: '' };
-    const errorKey = Object.keys(errors)[0];
-    const customMessages = this.fullConfig().errorMessages || {};
-    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
-    return { shouldShow: true, message };
-  }
-
   handleBlur(): void {
     this.onTouched();
   }
@@ -182,4 +195,8 @@ export class AppFormDatepickerComponent implements ControlValueAccessor, AfterVi
       this.internalControl.enable({ emitEvent: false });
     }
   }
+
+  private onChange: (value: Date | null) => void = () => {};
+
+  private onTouched: () => void = () => {};
 }

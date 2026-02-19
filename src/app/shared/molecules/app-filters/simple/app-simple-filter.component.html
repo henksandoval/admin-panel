@@ -1,50 +1,50 @@
 <div class="filters-fields">
   @for (filter of config().fields; track filter.key) {
     <div
-      class="filter-field"
-      [style.width]="filter.width ?? 'auto'">
+      [style.width]="filter.width ?? 'auto'"
+      class="filter-field">
 
       @switch (filter.type) {
         @case ('text') {
           <app-form-input
-            [formControl]="getControl(filter.key)"
             [config]="{
                   type: 'text',
                   label: filter.label,
                   placeholder: filter.placeholder ?? '',
                   appearance: appearance()
-                }">
+                }"
+            [formControl]="getControl(filter.key)">
           </app-form-input>
         }
         @case ('number') {
           <app-form-input
-            [formControl]="getControl(filter.key)"
             [config]="{
                   type: 'number',
                   label: filter.label,
                   placeholder: filter.placeholder ?? '',
                   appearance: appearance()
-                }">
+                }"
+            [formControl]="getControl(filter.key)">
           </app-form-input>
         }
         @case ('select') {
           <app-form-select
-            [formControl]="getControl(filter.key)"
-            [options]="getSelectOptions(filter)"
             [config]="{
                   label: filter.label,
                   appearance: appearance()
-                }">
+                }"
+            [formControl]="getControl(filter.key)"
+            [options]="getSelectOptions(filter)">
           </app-form-select>
         }
         @case ('date') {
           <app-form-datepicker
-            [formControl]="getControl(filter.key)"
             [config]="{
                   label: filter.label,
                   placeholder: filter.placeholder ?? 'DD/MM/YYYY',
                   appearance: appearance()
-                }">
+                }"
+            [formControl]="getControl(filter.key)">
           </app-form-datepicker>
         }
       }
@@ -53,10 +53,10 @@
 </div>
 
 <app-filter-footer
-  [toggles]="toggles()"
+  (clearClick)="clearAllCriteria()"
+  (searchClick)="emitSearch()"
+  (toggleChange)="onToggleChange($event)"
   [showClearButton]="showClearButton()"
   [showSearchButton]="showSearchButton()"
-  (toggleChange)="onToggleChange($event)"
-  (clearClick)="clearAllCriteria()"
-  (searchClick)="emitSearch()">
+  [toggles]="toggles()">
 </app-filter-footer>

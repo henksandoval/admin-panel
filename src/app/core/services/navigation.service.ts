@@ -1,5 +1,5 @@
-import { Injectable, signal, inject, computed, Signal } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { computed, inject, Injectable, signal, Signal } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -491,34 +491,6 @@ export class NavigationService {
     return this.buildBreadcrumbs(url);
   });
 
-  private buildBreadcrumbs(url: string): BreadcrumbItem[] {
-    const path = this.findPathToUrl(this.navigationMenu(), url);
-
-    return path.map(item => ({
-      label: item.title,
-      route: item.url ?? null
-    }));
-  }
-
-  private findPathToUrl(items: NavigationItem[], targetUrl: string, path: NavigationItem[] = []): NavigationItem[] {
-    for (const item of items) {
-      const currentPath = [...path, item];
-
-      if (item.url === targetUrl) {
-        return currentPath;
-      }
-
-      if (item.children) {
-        const found = this.findPathToUrl(item.children, targetUrl, currentPath);
-        if (found.length > 0) {
-          return found;
-        }
-      }
-    }
-
-    return [];
-  }
-
   isRouteActive(url: string): boolean {
     return this.router.isActive(url, {
       paths: 'subset',
@@ -555,6 +527,34 @@ export class NavigationService {
     }
 
     this.setActiveRootItemId(null);
+  }
+
+  private buildBreadcrumbs(url: string): BreadcrumbItem[] {
+    const path = this.findPathToUrl(this.navigationMenu(), url);
+
+    return path.map(item => ({
+      label: item.title,
+      route: item.url ?? null
+    }));
+  }
+
+  private findPathToUrl(items: NavigationItem[], targetUrl: string, path: NavigationItem[] = []): NavigationItem[] {
+    for (const item of items) {
+      const currentPath = [...path, item];
+
+      if (item.url === targetUrl) {
+        return currentPath;
+      }
+
+      if (item.children) {
+        const found = this.findPathToUrl(item.children, targetUrl, currentPath);
+        if (found.length > 0) {
+          return found;
+        }
+      }
+    }
+
+    return [];
   }
 
   private setActiveRootItemId(itemId: string | null): void {

@@ -1,24 +1,24 @@
-    .breadcrumb {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1rem;
-        font-size: 0.875rem;
-    }
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  font-size: 0.875rem;
+}
 
-    a {
-        color: #3b82f6;
-        text-decoration: none;
-    }
+a {
+  color: #3b82f6;
+  text-decoration: none;
+}
 
-    a:hover {
-        text-decoration: underline;
-    }
+a:hover {
+  text-decoration: underline;
+}
 
-    .current {
-        color: #6b7280;
-    }
+.current {
+  color: #6b7280;
+}
 
-    .separator {
-        color: #d1d5db;
-    }
+.separator {
+  color: #d1d5db;
+}

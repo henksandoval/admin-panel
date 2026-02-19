@@ -1,10 +1,10 @@
 .preview-container {
-  background: linear-gradient(135deg, 
-    var(--mat-sys-surface-container-lowest) 0%, 
+  background: linear-gradient(135deg,
+    var(--mat-sys-surface-container-lowest) 0%,
     var(--mat-sys-surface-container) 100%);
   border: 1px solid var(--mat-sys-outline-variant);
   transition: all 0.2s ease;
-  
+
   &:hover {
     border-color: var(--mat-sys-outline);
   }

@@ -1,4 +1,4 @@
-import { Component, input, model, contentChild, Directive, computed } from '@angular/core';
+import { Component, computed, contentChild, Directive, input, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';

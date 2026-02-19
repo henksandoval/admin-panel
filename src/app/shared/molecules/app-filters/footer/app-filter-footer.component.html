@@ -5,8 +5,8 @@
     <div class="footer-toggles">
       @for (toggle of internalToggles(); track toggle.key) {
         <app-checkbox
-          [checked]="toggle.value"
-          (change)="onToggleChange(toggle.key, $event)">
+          (change)="onToggleChange(toggle.key, $event)"
+          [checked]="toggle.value">
           {{ toggle.label }}
         </app-checkbox>
       }

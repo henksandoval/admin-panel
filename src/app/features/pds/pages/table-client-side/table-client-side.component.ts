@@ -1,17 +1,10 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  inject,
-  signal,
-  computed,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { AppTableAction, AppTableSort } from '@shared/atoms/app-table/app-table.model';
-import { TableClientSideService, Employee } from './table-client-side.service';
+import { Employee, TableClientSideService } from './table-client-side.service';
 import { AppTableClientSideComponent } from '@shared/organisms/app-table-client-side/app-table-client-side.component';
 import { AppFiltersOutput, AppFilterValues } from '@shared/molecules/app-filters/app-filter.model';
 import { AppPageEvent } from '@shared/atoms/app-pagination/app-pagination.model';
@@ -40,27 +33,16 @@ interface EmployeeViewModel {
   templateUrl: './table-client-side.component.html'
 })
 export class TableClientSideComponent implements OnInit {
+  readonly useAdvancedFilters = signal(false);
+  readonly isLoading = signal(true);
+  readonly employees = signal<Employee[]>([]);
   private readonly service = inject(TableClientSideService);
+  readonly tableConfig = this.service.getTableConfig();
+  readonly paginationConfig = this.service.getPaginationConfig();
+  readonly filtersConfig = computed(() => this.service.getFiltersConfig(this.useAdvancedFilters()));
   private readonly snackBar = inject(MatSnackBar);
   private readonly currencyPipe = inject(CurrencyPipe);
   private readonly datePipe = inject(DatePipe);
-
-  readonly tableConfig = this.service.getTableConfig();
-  readonly paginationConfig = this.service.getPaginationConfig();
-  readonly useAdvancedFilters = signal(false);
-  readonly filtersConfig = computed(() => this.service.getFiltersConfig(this.useAdvancedFilters()));
-
-  readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>): EmployeeViewModel[] => {
-    let result = data;
-    if (!toggles['showInactive']) {
-      result = result.filter(e => e.status !== 'inactive');
-    }
-    return result;
-  };
-
-  readonly isLoading = signal(true);
-  readonly employees = signal<Employee[]>([]);
-
   readonly employeesViewModel = computed<EmployeeViewModel[]>(() =>
     this.employees().map(emp => ({
       id: emp.id,
@@ -76,6 +58,14 @@ export class TableClientSideComponent implements OnInit {
       hireDateFormatted: this.datePipe.transform(emp.hireDate, 'dd/MM/yyyy') ?? '',
     }))
   );
+
+  readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>): EmployeeViewModel[] => {
+    let result = data;
+    if (!toggles['showInactive']) {
+      result = result.filter(e => e.status !== 'inactive');
+    }
+    return result;
+  };
 
   ngOnInit(): void {
     void this.service.fetchEmployees(18).then(data => {

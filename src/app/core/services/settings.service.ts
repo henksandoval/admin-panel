@@ -1,4 +1,4 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 
 export type Theme = 'default' | 'aurora-tech' | 'deep-ocean' | 'forest-growth' | 'slate-minimal' | 'sunset-analytics' | 'royal-dashboard';
 export type Scheme = 'auto' | 'dark' | 'light';
@@ -15,9 +15,8 @@ export class SettingsService {
   private readonly STORAGE_KEY = 'app-settings';
 
   private readonly _config = signal<SettingsConfig>(this.loadSettings());
-  private readonly _panelOpen = signal<boolean>(false);
-
   readonly config = this._config.asReadonly();
+  private readonly _panelOpen = signal<boolean>(false);
   readonly panelOpen = this._panelOpen.asReadonly();
 
   constructor() {
@@ -30,6 +29,11 @@ export class SettingsService {
 
     this.applyTheme(this._config().theme);
     this.applyScheme(this._config().scheme);
+  }
+
+  get isDarkMode(): boolean {
+    return this._config().scheme === 'dark' ||
+      (this._config().scheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
 
   setTheme(theme: Theme): void {
@@ -105,10 +109,6 @@ export class SettingsService {
     } else {
       document.body.classList.add('light-theme');
     }
-  }
-  get isDarkMode(): boolean {
-    return this._config().scheme === 'dark' ||
-      (this._config().scheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
 }
 

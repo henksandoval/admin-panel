@@ -1,20 +1,9 @@
-import {
-  Component,
-  computed,
-  input,
-  output,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {
-  AppPaginationConfig,
-  AppPaginationState,
-  AppPageEvent,
-  PAGINATION_DEFAULTS,
-} from './app-pagination.model';
+import { AppPageEvent, AppPaginationConfig, AppPaginationState, PAGINATION_DEFAULTS, } from './app-pagination.model';
 import { AppButtonComponent } from "../app-button/app-button.component";
 import { AppFormSelectComponent } from "@shared/molecules/app-form/app-form-select/app-form-select.component";
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
@@ -50,7 +39,7 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
 
       <div class="navigation-buttons">
         @if (showFirstLastButtons()) {
-          <app-button 
+          <app-button
             [disabled]="isFirstPage()"
             [matTooltip]="firstPageLabel()"
             (click)="goToFirstPage()"
@@ -104,14 +93,13 @@ export class AppPaginationComponent {
   readonly lastPageLabel = computed(() => this.config().lastPageLabel ?? PAGINATION_DEFAULTS.lastPageLabel);
   readonly previousPageLabel = computed(() => this.config().previousPageLabel ?? PAGINATION_DEFAULTS.previousPageLabel);
   readonly nextPageLabel = computed(() => this.config().nextPageLabel ?? PAGINATION_DEFAULTS.nextPageLabel);
-
-  private readonly ofLabel = computed(() => this.config().ofLabel ?? PAGINATION_DEFAULTS.ofLabel);
-
   readonly totalPages = computed(() => {
     const { pageSize, totalItems } = this.state();
     return Math.ceil(totalItems / pageSize) || 1;
   });
-
+  readonly isFirstPage = computed(() => this.state().pageIndex === 0);
+  readonly isLastPage = computed(() => this.state().pageIndex >= this.totalPages() - 1);
+  private readonly ofLabel = computed(() => this.config().ofLabel ?? PAGINATION_DEFAULTS.ofLabel);
   readonly rangeLabel = computed(() => {
     const { pageIndex, pageSize, totalItems } = this.state();
     if (totalItems === 0) return `0 ${this.ofLabel()} 0`;
@@ -120,9 +108,6 @@ export class AppPaginationComponent {
     const endIndex = Math.min((pageIndex + 1) * pageSize, totalItems);
     return `${startIndex} - ${endIndex} ${this.ofLabel()} ${totalItems}`;
   });
-
-  readonly isFirstPage = computed(() => this.state().pageIndex === 0);
-  readonly isLastPage = computed(() => this.state().pageIndex >= this.totalPages() - 1);
 
   onPageSizeChange(newPageSize: number): void {
     const { pageIndex, pageSize } = this.state();

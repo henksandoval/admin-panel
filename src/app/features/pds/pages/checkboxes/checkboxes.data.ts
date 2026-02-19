@@ -1,5 +1,7 @@
-import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from '@shared/atoms/app-checkbox/app-checkbox.model';
-import { PdsApiReferencePropertyModel } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
+import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from '@shared/atoms/app-checkbox/app-checkbox.model';
+import {
+  PdsApiReferencePropertyModel
+} from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
 import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
 import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
 

@@ -1,26 +1,26 @@
 <app-pds-page-layout
-  title="Button Component Playground"
-  description="Experimenta con diferentes configuraciones del componente y observa cómo cambia la documentación en tiempo real."
-  componentTag="<app-button>"
-  [code]="generatedCode()"
   [apiProperties]="API_PROPERTIES"
   [bestPractices]="BEST_PRACTICES"
+  [code]="generatedCode()"
+  [currentVariant]="selectedVariant()"
   [variantGuides]="VARIANT_GUIDES"
-  [currentVariant]="selectedVariant()">
+  componentTag="<app-button>"
+  description="Experimenta con diferentes configuraciones del componente y observa cómo cambia la documentación en tiempo real."
+  title="Button Component Playground">
 
-  <app-button slot="header-action" variant="text" (clicked)="goBack()" iconBefore="arrow_back" class="back-button mb-4">
+  <app-button (clicked)="goBack()" class="back-button mb-4" iconBefore="arrow_back" slot="header-action" variant="text">
     Back to PDS Index
   </app-button>
 
   <div slot="preview">
     <app-button
-      [variant]="selectedVariant()"
       [color]="selectedColor()"
+      [disabled]="isDisabled()"
+      [iconAfter]="showIconAfter() ? 'arrow_forward' : ''"
+      [iconBefore]="showIconBefore() ? 'star' : ''"
       [shape]="shape()"
       [size]="size()"
-      [disabled]="isDisabled()"
-      [iconBefore]="showIconBefore() ? 'star' : ''"
-      [iconAfter]="showIconAfter() ? 'arrow_forward' : ''">
+      [variant]="selectedVariant()">
       {{ buttonLabel() }}
     </app-button>
   </div>
@@ -31,7 +31,7 @@
         <mat-icon>category</mat-icon>
         Variant
       </label>
-      <app-toggle-group [options]="variantOptions" [(value)]="selectedVariant" />
+      <app-toggle-group [(value)]="selectedVariant" [options]="variantOptions"/>
     </div>
 
     <div class="mt-2">
@@ -39,7 +39,7 @@
         <mat-icon>palette</mat-icon>
         Color
       </label>
-      <app-toggle-group [options]="colorOptions" [(value)]="selectedColor" class="w-full" />
+      <app-toggle-group [(value)]="selectedColor" [options]="colorOptions" class="w-full"/>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 mt-2">
@@ -48,14 +48,14 @@
           <mat-icon>crop_square</mat-icon>
           Shape
         </label>
-        <app-toggle-group [options]="shapeOptions" [(value)]="shape" />
+        <app-toggle-group [(value)]="shape" [options]="shapeOptions"/>
       </div>
       <div>
         <label class="section-label flex items-center gap-1.5 mb-1">
           <mat-icon>straighten</mat-icon>
           Size
         </label>
-        <app-toggle-group [options]="sizeOptions" [(value)]="size" class="w-full" />
+        <app-toggle-group [(value)]="size" [options]="sizeOptions" class="w-full"/>
       </div>
     </div>
 
@@ -67,18 +67,21 @@
   </div>
 
   <div slot="documentation">
-    <app-card title="Color Variations" icon="palette">
+    <app-card icon="palette" title="Color Variations">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="color-variation-card">
-          <app-button [variant]="selectedVariant()" color="primary" [shape]="shape()" [size]="size()">Primary</app-button>
+          <app-button [shape]="shape()" [size]="size()" [variant]="selectedVariant()" color="primary">Primary
+          </app-button>
           <code class="code-snippet">color="primary"</code>
         </div>
         <div class="color-variation-card">
-          <app-button [variant]="selectedVariant()" color="secondary" [shape]="shape()" [size]="size()">Secondary</app-button>
+          <app-button [shape]="shape()" [size]="size()" [variant]="selectedVariant()" color="secondary">Secondary
+          </app-button>
           <code class="code-snippet">color="secondary"</code>
         </div>
         <div class="color-variation-card">
-          <app-button [variant]="selectedVariant()" color="tertiary" [shape]="shape()" [size]="size()">Tertiary</app-button>
+          <app-button [shape]="shape()" [size]="size()" [variant]="selectedVariant()" color="tertiary">Tertiary
+          </app-button>
           <code class="code-snippet">color="tertiary"</code>
         </div>
       </div>

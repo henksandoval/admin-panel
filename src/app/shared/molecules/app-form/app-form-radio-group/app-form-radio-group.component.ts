@@ -1,10 +1,32 @@
-import { ChangeDetectorRef, Component, computed, DestroyRef, forwardRef, inject, input, isDevMode, AfterViewInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  DestroyRef,
+  forwardRef,
+  inject,
+  input,
+  isDevMode
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
 import { MatRadioModule } from '@angular/material/radio';
 import { AppRadioComponent } from '@shared/atoms/app-radio/app-radio.component';
-import { RadioOption, AppFormRadioGroupConfig, AppFormRadioGroupConfigComplete, APP_FORM_RADIO_GROUP_DEFAULTS } from './app-form-radio-group.model';
+import {
+  APP_FORM_RADIO_GROUP_DEFAULTS,
+  AppFormRadioGroupConfig,
+  AppFormRadioGroupConfigComplete,
+  RadioOption
+} from './app-form-radio-group.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -81,10 +103,6 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
   private hasCheckedConnection = false;
-
-  private onChange: (value: T | null) => void = () => {};
-  private onTouched: () => void = () => {};
-
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field is required'
   };
@@ -95,6 +113,27 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
       .subscribe(value => {
         this.onChange(value);
       });
+  }
+
+  public get errorState(): ErrorState {
+    const control = this.ngControl?.control;
+    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
+
+    if (!shouldShow) {
+      return { shouldShow: false, message: '' };
+    }
+
+    const errors = control.errors;
+
+    if (!errors) {
+      return { shouldShow: false, message: '' };
+    }
+
+    const errorKey = Object.keys(errors)[0];
+    const customMessages = this.fullConfig().errorMessages ?? {};
+    const message = customMessages[errorKey] ?? this.defaultErrorMessages[errorKey] ?? 'Validation error';
+
+    return { shouldShow: true, message };
   }
 
   ngAfterViewInit(): void {
@@ -134,27 +173,6 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
     this.changeDetectorRef.detectChanges();
   }
 
-  public get errorState(): ErrorState {
-    const control = this.ngControl?.control;
-    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
-
-    if (!shouldShow) {
-      return { shouldShow: false, message: '' };
-    }
-
-    const errors = control.errors;
-
-    if (!errors) {
-      return { shouldShow: false, message: '' };
-    }
-
-    const errorKey = Object.keys(errors)[0];
-    const customMessages = this.fullConfig().errorMessages ?? {};
-    const message = customMessages[errorKey] ?? this.defaultErrorMessages[errorKey] ?? 'Validation error';
-
-    return { shouldShow: true, message };
-  }
-
   writeValue(value: T | null): void {
     this.internalControl.setValue(value, { emitEvent: false });
   }
@@ -176,4 +194,8 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
       this.internalControl.enable({ emitEvent: false });
     }
   }
+
+  private onChange: (value: T | null) => void = () => {};
+
+  private onTouched: () => void = () => {};
 }

@@ -1,26 +1,22 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
+  contentChild,
   effect,
   input,
   output,
   signal,
-  WritableSignal,
-  ChangeDetectionStrategy,
-  contentChild,
   TemplateRef,
+  WritableSignal,
 } from '@angular/core';
 import { AppTableComponent } from '@shared/atoms/app-table/app-table.component';
-import {
-  AppTableConfig,
-  AppTableSort,
-  AppTableAction,
-} from '@shared/atoms/app-table/app-table.model';
+import { AppTableAction, AppTableConfig, AppTableSort, } from '@shared/atoms/app-table/app-table.model';
 import { AppPaginationComponent } from '@shared/atoms/app-pagination/app-pagination.component';
 import {
+  AppPageEvent,
   AppPaginationConfig,
   AppPaginationState,
-  AppPageEvent,
 } from '@shared/atoms/app-pagination/app-pagination.model';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
 import { AppFiltersConfig, AppFilterValues } from '@shared/molecules/app-filters/app-filter.model';

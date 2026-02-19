@@ -6,8 +6,8 @@
     </div>
 
     <mat-button-toggle-group
-      [value]="useAdvancedFilters()"
-      (change)="useAdvancedFilters.set($event.value)">
+      (change)="useAdvancedFilters.set($event.value)"
+      [value]="useAdvancedFilters()">
       <mat-button-toggle [value]="false">
         <mat-icon>filter_list</mat-icon>
         Filtros Simples
@@ -20,20 +20,20 @@
   </div>
 
   <app-table-client-side
-    [tableConfig]="tableConfig"
-    [filtersConfig]="filtersConfig()"
-    [useAdvancedFilters]="useAdvancedFilters()"
-    [paginationConfig]="paginationConfig"
-    [data]="employeesViewModel()"
-    [toggleFilterFn]="toggleFilter"
-    (sortChange)="onSort($event)"
+    (actionClick)="onAction($event)"
     (filtersChange)="onFilters($event)"
     (pageChange)="onPage($event)"
-    (actionClick)="onAction($event)">
-    <ng-template #cellTemplate let-row let-column="column" let-value="value">
+    (sortChange)="onSort($event)"
+    [data]="employeesViewModel()"
+    [filtersConfig]="filtersConfig()"
+    [paginationConfig]="paginationConfig"
+    [tableConfig]="tableConfig"
+    [toggleFilterFn]="toggleFilter"
+    [useAdvancedFilters]="useAdvancedFilters()">
+    <ng-template #cellTemplate let-column="column" let-row let-value="value">
       @switch (column.key) {
         @case ('statusLabel') {
-          <span class="badge" [class]="'badge--' + row.status">
+          <span [class]="'badge--' + row.status" class="badge">
             {{ value }}
           </span>
         }

@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,10 +11,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { AppPageLayoutComponent } from '@shared/templates/app-page-layout/app-page-layout.component';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
-import {AppButtonComponent} from '@shared/atoms/app-button/app-button.component';
-import {AppSlotContainerDirective} from '@shared/templates/app-page-layout/app-slot-container.directive';
-import {Router} from '@angular/router';
-import {MATERIAL_ICONS_LIST} from '@shared/types/material-icons.model';
+import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
+import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
+import { Router } from '@angular/router';
+import { MATERIAL_ICONS_LIST } from '@shared/types/material-icons.model';
 
 @Component({
   selector: 'app-icons-gallery',
@@ -39,26 +39,19 @@ import {MATERIAL_ICONS_LIST} from '@shared/types/material-icons.model';
   styleUrl: './icons-gallery.component.scss',
 })
 export default class IconsGalleryComponent {
-  private readonly router = inject(Router);
-  private readonly snackBar = inject(MatSnackBar);
-
   readonly searchQuery = signal<string>('');
   readonly selectedSize = signal<'small' | 'medium' | 'large'>('medium');
   readonly selectedStyle = signal<'filled' | 'outlined'>('filled');
-
   readonly allIcons = MATERIAL_ICONS_LIST;
-
   sizeOptions = [
     { value: 'small', label: 'Small (18px)' },
     { value: 'medium', label: 'Medium (24px)' },
     { value: 'large', label: 'Large (36px)' }
   ];
-
   styleOptions = [
     { value: 'filled', label: 'Filled' },
     { value: 'outlined', label: 'Outlined' }
   ];
-
   colorOptions = [
     { value: 'default', label: 'Default', class: 'text-gray-700' },
     { value: 'primary', label: 'Primary', class: 'text-primary-600' },
@@ -66,9 +59,7 @@ export default class IconsGalleryComponent {
     { value: 'warn', label: 'Warn', class: 'text-red-600' },
     { value: 'success', label: 'Success', class: 'text-green-600' }
   ];
-
   readonly selectedColor = signal<string>('default');
-
   readonly filteredIcons = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
     if (!query) return this.allIcons;
@@ -77,8 +68,9 @@ export default class IconsGalleryComponent {
       icon.toLowerCase().includes(query)
     );
   });
-
   readonly totalCount = computed(() => this.filteredIcons().length);
+  private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
 
   getSizeClass(): string {
     const size = this.selectedSize();

@@ -208,9 +208,17 @@ $layout-gap-compact: 1rem;
       grid-column: 1;
     }
 
-    .cell-col1 { order: 1; }
-    .cell-col2 { order: 2; }
-    .cell-col3 { order: 3; }
+    .cell-col1 {
+      order: 1;
+    }
+
+    .cell-col2 {
+      order: 2;
+    }
+
+    .cell-col3 {
+      order: 3;
+    }
   }
 }
 

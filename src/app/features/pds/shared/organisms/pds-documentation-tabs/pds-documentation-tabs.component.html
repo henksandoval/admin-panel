@@ -1,36 +1,36 @@
 @if (apiProperties().length > 0 || bestPractices().length > 0) {
   <app-card
     contentPadding="p-0">
-      <mat-tab-group animationDuration="300ms">
-        @if (apiProperties().length > 0) {
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon class="mr-2">api</mat-icon>
-              API Reference
-            </ng-template>
+    <mat-tab-group animationDuration="300ms">
+      @if (apiProperties().length > 0) {
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="mr-2">api</mat-icon>
+            API Reference
+          </ng-template>
 
-            <div class="p-6">
-              <app-pds-api-reference
-                [componentTag]="componentTag()"
-                [properties]="apiProperties()" />
-            </div>
-          </mat-tab>
-        }
+          <div class="p-6">
+            <app-pds-api-reference
+              [componentTag]="componentTag()"
+              [properties]="apiProperties()"/>
+          </div>
+        </mat-tab>
+      }
 
-        @if (bestPractices().length > 0) {
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon class="mr-2">tips_and_updates</mat-icon>
-              Best Practices
-            </ng-template>
+      @if (bestPractices().length > 0) {
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="mr-2">tips_and_updates</mat-icon>
+            Best Practices
+          </ng-template>
 
-            <div class="p-6">
-              <app-pds-best-practices
-                [componentTag]="componentTag()"
-                [practices]="bestPractices()" />
-            </div>
-          </mat-tab>
-        }
-      </mat-tab-group>
+          <div class="p-6">
+            <app-pds-best-practices
+              [componentTag]="componentTag()"
+              [practices]="bestPractices()"/>
+          </div>
+        </mat-tab>
+      }
+    </mat-tab-group>
   </app-card>
 }

@@ -1,14 +1,33 @@
-import { Component, ChangeDetectionStrategy, input, output, contentChild, TemplateRef, signal, computed, effect } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  contentChild,
+  effect,
+  input,
+  output,
+  signal,
+  TemplateRef
+} from "@angular/core";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 import { AppPaginationComponent } from "@shared/atoms/app-pagination/app-pagination.component";
-import { AppPaginationConfig, AppPageEvent, AppPaginationState } from "@shared/atoms/app-pagination/app-pagination.model";
+import {
+  AppPageEvent,
+  AppPaginationConfig,
+  AppPaginationState
+} from "@shared/atoms/app-pagination/app-pagination.model";
 import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
-import { AppTableConfig, AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
+import { AppTableAction, AppTableConfig, AppTableSort } from "@shared/atoms/app-table/app-table.model";
 import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
-import { AppFiltersConfig, AppFilterValues, AppFiltersOutput } from "@shared/molecules/app-filters/app-filter.model";
+import { AppFiltersConfig, AppFiltersOutput, AppFilterValues } from "@shared/molecules/app-filters/app-filter.model";
 import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator.utils";
 import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
-import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, AppTableSortFn } from "./app-table-client-side.model";
+import {
+  AppTableCriteriaFilterFn,
+  AppTableFilterFn,
+  AppTableSortFn,
+  AppTableToggleFilterFn
+} from "./app-table-client-side.model";
 
 @Component({
   selector: 'app-table-client-side',

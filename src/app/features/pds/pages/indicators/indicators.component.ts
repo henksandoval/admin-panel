@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,13 +11,13 @@ import { AppButtonComponent } from '@shared/atoms/app-button/app-button.componen
 import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
 import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
 import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import { BADGE_DEFAULTS, BadgeVariant, BadgeColor, BadgePosition } from '@shared/atoms/app-badge/app-badge.model';
+import { BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeVariant } from '@shared/atoms/app-badge/app-badge.model';
 import {
-  BADGE_VARIANT_GUIDES,
-  BADGE_POSITIONS,
-  INLINE_COLORS,
   API_PROPERTIES,
-  BEST_PRACTICES
+  BADGE_POSITIONS,
+  BADGE_VARIANT_GUIDES,
+  BEST_PRACTICES,
+  INLINE_COLORS
 } from './indicators.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
@@ -44,32 +44,25 @@ import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input
   templateUrl: './indicators.component.html'
 })
 export default class IndicatorsComponent {
-  private readonly router = inject(Router);
-
   readonly selectedVariant = signal<BadgeVariant>(BADGE_DEFAULTS.variant);
   readonly badgeContent = signal<string>('8');
-
   readonly overlayColor = signal<Extract<BadgeColor, 'primary' | 'secondary' | 'tertiary'>>(BADGE_DEFAULTS.overlayColor);
   readonly position = signal<BadgePosition>(BADGE_DEFAULTS.position);
   readonly overlap = signal<boolean>(BADGE_DEFAULTS.overlap);
   readonly hidden = signal<boolean>(BADGE_DEFAULTS.hidden);
-
   readonly inlineColor = signal<Extract<BadgeColor, 'normal' | 'info' | 'success' | 'warning' | 'error'>>(BADGE_DEFAULTS.inlineColor);
   readonly hasIndicator = signal<boolean>(BADGE_DEFAULTS.hasIndicator);
   readonly badgeLabel = signal<string>('Badge Text');
-
   readonly variantOptions: ToggleOption[] = [
     { value: 'overlay', label: 'Overlay' },
     { value: 'inline', label: 'Inline' }
   ];
-
   readonly positionOptions: ToggleOption[] = [
     { value: 'above after', label: 'Above After' },
     { value: 'above before', label: 'Above Before' },
     { value: 'below after', label: 'Below After' },
     { value: 'below before', label: 'Below Before' }
   ];
-
   readonly inlineColorOptions: ToggleOption[] = [
     { value: 'normal', label: 'Normal' },
     { value: 'info', label: 'Info' },
@@ -77,13 +70,11 @@ export default class IndicatorsComponent {
     { value: 'warning', label: 'Warning' },
     { value: 'error', label: 'Error' }
   ];
-
   readonly BADGE_POSITIONS = BADGE_POSITIONS;
   readonly INLINE_COLORS = INLINE_COLORS;
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BADGE_VARIANT_GUIDES = BADGE_VARIANT_GUIDES;
-
   readonly generatedCode = computed(() => {
     const variant = this.selectedVariant();
 
@@ -93,6 +84,11 @@ export default class IndicatorsComponent {
       return this.generateInlineCode();
     }
   });
+  private readonly router = inject(Router);
+
+  goBack(): void {
+    void this.router.navigate(['/pds/index']);
+  }
 
   private generateOverlayCode(): string {
     const color = this.overlayColor();
@@ -144,9 +140,5 @@ export default class IndicatorsComponent {
     code += `>\n  ${label}\n</app-badge>`;
 
     return code;
-  }
-
-  goBack(): void {
-    void this.router.navigate(['/pds/index']);
   }
 }

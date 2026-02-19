@@ -1,6 +1,6 @@
 <div
-  class="floating-nav"
+  (mouseleave)="onMouseLeave()"
   [style.top.px]="topPosition()"
-  (mouseleave)="onMouseLeave()">
+  class="floating-nav">
   <app-nav-tree-inline></app-nav-tree-inline>
 </div>

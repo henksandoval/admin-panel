@@ -1,14 +1,15 @@
-<app-page-layout preset="mainWithSidebar" [showEmptySlots]="true">
+<app-page-layout [showEmptySlots]="true" preset="mainWithSidebar">
   <ng-template appSlot="header">
     <header class="mb-6">
       <div class="flex items-center justify-between">
         <div>
           <h1 class="text-3xl font-bold mb-2">Material Icons Gallery</h1>
           <p class="text-lg text-gray-600">
-            Browse and copy {{ totalCount() }} Material Design icons. Search, filter by size and style, and copy icon names with a single click.
+            Browse and copy {{ totalCount() }} Material Design icons. Search, filter by size and style, and copy icon
+            names with a single click.
           </p>
         </div>
-        <app-button variant="text" (clicked)="goBack()" iconBefore="arrow_back">
+        <app-button (clicked)="goBack()" iconBefore="arrow_back" variant="text">
           Back to PDS
         </app-button>
       </div>
@@ -19,21 +20,21 @@
       <div class="p-6 space-y-6">
         <!-- Search Bar -->
         <div class="flex gap-4 items-start">
-          <mat-form-field class="flex-1" appearance="outline">
+          <mat-form-field appearance="outline" class="flex-1">
             <mat-label>Search icons</mat-label>
             <input
-              matInput
-              [(ngModel)]="searchQuery"
               (ngModelChange)="searchQuery.set($event)"
-              placeholder="e.g., home, search, settings..."
-              autocomplete="off">
+              [(ngModel)]="searchQuery"
+              autocomplete="off"
+              matInput
+              placeholder="e.g., home, search, settings...">
             <mat-icon matPrefix>search</mat-icon>
             @if (searchQuery()) {
               <button
-                matSuffix
-                mat-icon-button
                 (click)="clearSearch()"
-                aria-label="Clear search">
+                aria-label="Clear search"
+                mat-icon-button
+                matSuffix>
                 <mat-icon>close</mat-icon>
               </button>
             }
@@ -46,8 +47,8 @@
           <div class="flex-1 min-w-[200px]">
             <label class="block text-sm font-medium text-gray-700 mb-2">Icon Size</label>
             <app-toggle-group
-              [options]="sizeOptions"
-              [(value)]="selectedSize">
+              [(value)]="selectedSize"
+              [options]="sizeOptions">
             </app-toggle-group>
           </div>
 
@@ -55,8 +56,8 @@
           <div class="flex-1 min-w-[200px]">
             <label class="block text-sm font-medium text-gray-700 mb-2">Icon Style</label>
             <app-toggle-group
-              [options]="styleOptions"
-              [(value)]="selectedStyle">
+              [(value)]="selectedStyle"
+              [options]="styleOptions">
             </app-toggle-group>
           </div>
 
@@ -65,7 +66,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Color Preview</label>
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Select Color</mat-label>
-              <mat-select [(value)]="selectedColor" (valueChange)="selectedColor.set($event)">
+              <mat-select (valueChange)="selectedColor.set($event)" [(value)]="selectedColor">
                 @for (color of colorOptions; track color.value) {
                   <mat-option [value]="color.value">
                     <span [class]="color.class">{{ color.label }}</span>
@@ -87,9 +88,9 @@
           </p>
           @if (searchQuery()) {
             <button
-              mat-stroked-button
+              (click)="clearSearch()"
               color="primary"
-              (click)="clearSearch()">
+              mat-stroked-button>
               Clear search
             </button>
           }
@@ -104,12 +105,12 @@
           <div class="icon-grid">
             @for (icon of filteredIcons(); track icon) {
               <button
-                class="icon-item"
-                [class]="getSizeClass()"
                 (click)="copyIconName(icon)"
                 [attr.aria-label]="'Copy icon ' + icon"
+                [class]="getSizeClass()"
+                class="icon-item"
                 type="button">
-                <div class="icon-wrapper" [class]="getColorClass()">
+                <div [class]="getColorClass()" class="icon-wrapper">
                   <mat-icon class="icon">{{ getIconName(icon) }}</mat-icon>
                 </div>
                 <span class="icon-name">{{ icon }}</span>
@@ -123,7 +124,7 @@
             <p class="empty-description">
               Try adjusting your search query. We couldn't find any icons matching "{{ searchQuery() }}".
             </p>
-            <button mat-raised-button color="primary" (click)="clearSearch()">
+            <button (click)="clearSearch()" color="primary" mat-raised-button>
               Clear search
             </button>
           </div>

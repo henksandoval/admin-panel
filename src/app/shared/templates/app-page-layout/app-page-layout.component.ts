@@ -1,7 +1,7 @@
-import { Component, ContentChildren, QueryList, AfterContentInit, input, computed, signal } from '@angular/core';
+import { AfterContentInit, Component, computed, ContentChildren, input, QueryList, signal } from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { LayoutPreset, LayoutConfig, GridConfig, GridCell, LAYOUT_PRESETS } from './app-page-layout.model';
+import { GridCell, GridConfig, LAYOUT_PRESETS, LayoutConfig, LayoutPreset } from './app-page-layout.model';
 import { AppSlotContainerDirective } from './app-slot-container.directive';
 import { AppBreadCrumbComponent } from "@shared/molecules/app-bread-crumb/app-bread-crumb.component";
 
@@ -41,11 +41,6 @@ export class AppPageLayoutComponent implements AfterContentInit {
   readonly gridConfig = input<GridConfig | null>(null);
   readonly cells = input<GridCell[]>([]);
   readonly showEmptySlots = input<boolean>(false);
-
-  @ContentChildren(AppSlotContainerDirective)
-  private slotDirectives!: QueryList<AppSlotContainerDirective>;
-  private readonly slotsMap = signal<Map<string, AppSlotContainerDirective>>(new Map());
-
   readonly resolvedConfig = computed<LayoutConfig>(() => {
     const config = this.layoutConfig();
     if (config) return config;
@@ -63,10 +58,17 @@ export class AppPageLayoutComponent implements AfterContentInit {
 
     return LAYOUT_PRESETS.fullWidth;
   });
+  @ContentChildren(AppSlotContainerDirective)
+  private slotDirectives!: QueryList<AppSlotContainerDirective>;
+  private readonly slotsMap = signal<Map<string, AppSlotContainerDirective>>(new Map());
 
   ngAfterContentInit(): void {
     this.updateSlotsMap();
     this.slotDirectives.changes.subscribe(() => this.updateSlotsMap());
+  }
+
+  getSlotTemplate(slotId: string) {
+    return this.slotsMap().get(slotId)?.templateRef ?? null;
   }
 
   private updateSlotsMap(): void {
@@ -75,9 +77,5 @@ export class AppPageLayoutComponent implements AfterContentInit {
       map.set(slot.slotName, slot);
     });
     this.slotsMap.set(map);
-  }
-
-  getSlotTemplate(slotId: string) {
-    return this.slotsMap().get(slotId)?.templateRef ?? null;
   }
 }

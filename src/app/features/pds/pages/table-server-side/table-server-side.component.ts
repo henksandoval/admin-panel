@@ -31,13 +31,9 @@ import { AppTableServerParams } from '@shared/organisms/app-table-server-side/ap
   `,
 })
 export class TableServerSideComponent implements OnInit {
-  private snackBar = inject(MatSnackBar);
-  private tableServerSideService = inject(TableServerSideService);
-
   readonly employees = signal<Employee[]>([]);
   readonly totalEmployees = signal(0);
   readonly isLoading = signal(false);
-
   readonly tableConfig: AppTableConfig<Employee> = {
     columns: [
       { key: 'id', header: 'ID', width: '60px', sortable: true },
@@ -68,7 +64,6 @@ export class TableServerSideComponent implements OnInit {
     trackByKey: 'id',
     clickableRows: true,
   };
-
   readonly filtersConfig: AppFiltersConfig = {
     fields: [
       {
@@ -105,12 +100,13 @@ export class TableServerSideComponent implements OnInit {
     debounceMs: 300,
     showClearAll: true,
   };
-
   readonly paginationConfig: AppPaginationConfig = {
     pageSizeOptions: [10, 25, 50, 100],
     showFirstLastButtons: true,
     showPageSizeSelector: true,
   };
+  private snackBar = inject(MatSnackBar);
+  private tableServerSideService = inject(TableServerSideService);
 
   ngOnInit(): void {
     this.loadEmployees({

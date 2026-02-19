@@ -1,6 +1,13 @@
 import {
-  Component, ChangeDetectionStrategy, computed, effect, input,
-  output, signal, inject, DestroyRef
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  input,
+  output,
+  signal
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,15 +16,29 @@ import { togglesToRecord } from '../app-filter.utils';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
-import { AppFormDatepickerConnectorDirective } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
-import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import { AppFormInputConnectorDirective } from '@shared/molecules/app-form/app-form-input/app-form-input-connector.directive';
+import {
+  AppFormDatepickerConnectorDirective
+} from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
+import {
+  AppFormDatepickerComponent
+} from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
+import {
+  AppFormInputConnectorDirective
+} from '@shared/molecules/app-form/app-form-input/app-form-input-connector.directive';
 import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-form-select/app-form-select-connector.directive';
+import {
+  AppFormSelectConnectorDirective
+} from '@shared/molecules/app-form/app-form-select/app-form-select-connector.directive';
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
-import { AppFiltersConfig, AppFiltersOutput, AppFilterCriterion, DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-filter.model';
+import {
+  AppFilterCriterion,
+  AppFiltersConfig,
+  AppFiltersOutput,
+  DEFAULT_FILTER_OPERATORS,
+  FILTER_DEFAULTS
+} from '../app-filter.model';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
@@ -55,41 +76,13 @@ export class AppAdvancedFilterComponent {
 
   readonly criteria = signal<AppFilterCriterion[]>([]);
   readonly booleanOptions = BOOLEAN_OPTIONS;
-
-  private readonly fb = inject(FormBuilder);
-  private readonly destroyRef = inject(DestroyRef);
-  private criterionCounter = 0;
-
   readonly toggles = computed(() => this.config().toggles ?? []);
-
-  readonly builderForm = this.fb.nonNullable.group({
-    field: ['', Validators.required],
-    operator: ['', Validators.required],
-    value: '',
-  });
-
-  private readonly formState = toSignal(this.builderForm.valueChanges, {
-    initialValue: this.builderForm.getRawValue(),
-  });
-
   readonly operators = computed(() =>
     this.config().operators ?? DEFAULT_FILTER_OPERATORS
   );
-
   readonly fieldOptions = computed(() =>
     this.config().fields.map(f => ({ value: f.key, label: f.label }))
   );
-
-  readonly selectedField = computed(() => {
-    const key = this.formState().field;
-    return key ? this.config().fields.find(f => f.key === key) ?? null : null;
-  });
-
-  readonly selectedOperator = computed(() => {
-    const key = this.formState().operator;
-    return key ? this.operators().find(o => o.key === key) ?? null : null;
-  });
-
   readonly operatorOptions = computed(() => {
     const field = this.selectedField();
     if (!field) return [];
@@ -97,29 +90,15 @@ export class AppAdvancedFilterComponent {
       .filter(op => op.applicableTo.includes(field.type))
       .map(op => ({ value: op.key, label: op.label }));
   });
-
   readonly valueOptions = computed(() => {
     const field = this.selectedField();
     return field?.type === 'select' && field.options ? field.options : [];
   });
-
   readonly selectedFieldType = computed(() => this.selectedField()?.type ?? null);
   readonly isNoValueOperator = computed(() => this.selectedOperator()?.requiresValue === false);
   readonly hasCriteria = computed(() => this.criteria().length > 0);
-
-  readonly canAddCriterion = computed(() => {
-    const operator = this.selectedOperator();
-    if (!this.selectedField() || !operator) return false;
-    if (!operator.requiresValue) return true;
-    const value = this.formState().value;
-    return value !== null && value !== undefined && value !== '';
-  });
-
   readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
   readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
-  private readonly autoSearch = computed(() => this.config().autoSearch ?? FILTER_DEFAULTS.autoSearch);
-  private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
-
   readonly criteriaAreaClasses = computed(() => {
     const classes = ['app-filters-advanced-criteria'];
     if (this.hasCriteria()) {
@@ -127,6 +106,34 @@ export class AppAdvancedFilterComponent {
     }
     return classes.join(' ');
   });
+  private readonly fb = inject(FormBuilder);
+  readonly builderForm = this.fb.nonNullable.group({
+    field: ['', Validators.required],
+    operator: ['', Validators.required],
+    value: '',
+  });
+  private readonly destroyRef = inject(DestroyRef);
+  private criterionCounter = 0;
+  private readonly formState = toSignal(this.builderForm.valueChanges, {
+    initialValue: this.builderForm.getRawValue(),
+  });
+  readonly selectedField = computed(() => {
+    const key = this.formState().field;
+    return key ? this.config().fields.find(f => f.key === key) ?? null : null;
+  });
+  readonly selectedOperator = computed(() => {
+    const key = this.formState().operator;
+    return key ? this.operators().find(o => o.key === key) ?? null : null;
+  });
+  readonly canAddCriterion = computed(() => {
+    const operator = this.selectedOperator();
+    if (!this.selectedField() || !operator) return false;
+    if (!operator.requiresValue) return true;
+    const value = this.formState().value;
+    return value !== null && value !== undefined && value !== '';
+  });
+  private readonly autoSearch = computed(() => this.config().autoSearch ?? FILTER_DEFAULTS.autoSearch);
+  private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
 
   constructor() {
     this.setupFormCascade();
@@ -178,6 +185,11 @@ export class AppAdvancedFilterComponent {
     });
   }
 
+  onToggleChange(togglesRecord: Record<string, boolean>): void {
+    this.toggleChange.emit(togglesRecord);
+    this.emitAutoSearch();
+  }
+
   private setupFormCascade(): void {
     this.builderForm.controls.field.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -194,11 +206,6 @@ export class AppAdvancedFilterComponent {
           this.builderForm.controls.value.reset();
         }
       });
-  }
-
-  onToggleChange(togglesRecord: Record<string, boolean>): void {
-    this.toggleChange.emit(togglesRecord);
-    this.emitAutoSearch();
   }
 
   private emitAutoSearch(): void {

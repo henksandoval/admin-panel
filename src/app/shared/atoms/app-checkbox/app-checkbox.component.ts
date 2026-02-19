@@ -1,7 +1,7 @@
 import { Component, computed, input, model, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCheckboxModule, MatCheckboxChange } from '@angular/material/checkbox';
-import { CheckboxColor, CheckboxSize, CheckboxLabelPosition } from './app-checkbox.model';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from './app-checkbox.model';
 
 @Component({
   selector: 'app-checkbox',
