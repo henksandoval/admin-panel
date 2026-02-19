@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
-import { AppPaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
-import { AppFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
+import {Injectable} from '@angular/core';
+import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
+import {AppPaginationConfig} from '@shared/atoms/app-pagination/app-pagination.model';
+import {AppFiltersConfig} from '@shared/molecules/app-filters/app-filter.model';
 
 export interface Employee {
   id: number;
@@ -24,6 +24,12 @@ export class TableClientSideService {
   private readonly roles = ['Junior', 'Mid', 'Senior', 'Lead', 'Manager'];
   private readonly statuses: ('active' | 'inactive' | 'vacation')[] = ['active', 'inactive', 'vacation'];
 
+  readonly statusOptions = [
+    {value: 'active', label: 'Activo'},
+    {value: 'inactive', label: 'Inactivo'},
+    {value: 'vacation', label: 'Vacaciones'},
+  ] as const;
+
   readonly statusLabels: Record<string, string> = {
     active: 'Activo',
     inactive: 'Inactivo',
@@ -39,7 +45,7 @@ export class TableClientSideService {
   }
 
   generateEmployees(count: number): Employee[] {
-    return Array.from({ length: count }, (_, i) => this.generateEmployee(i + 1));
+    return Array.from({length: count}, (_, i) => this.generateEmployee(i + 1));
   }
 
   private generateEmployee(id: number): Employee {
@@ -53,81 +59,80 @@ export class TableClientSideService {
     const salary = 30000 + (id % 5) * 10000 + Math.floor(id / 5) * 1000;
     const hireDate = new Date(2020 + (id % 5), (id * 3) % 12, (id * 7) % 28 + 1);
 
-    return { id, name, email, department, role, status, salary, hireDate };
+    return {id, name, email, department, role, status, salary, hireDate};
   }
 
   getTableConfig(): AppTableConfig<any> {
     return {
       columns: [
-        { key: 'id', header: '#', width: '60px', align: 'center', sortable: true },
-        { key: 'name', header: 'Nombre', minWidth: '160px', sortable: true },
-        { key: 'email', header: 'Email', sortable: true },
-        { key: 'department', header: 'Departamento', sortable: true },
-        { key: 'role', header: 'Rol', sortable: true },
-        { key: 'statusLabel', header: 'Estado', align: 'center', sortable: true },
-        { key: 'salaryFormatted', header: 'Salario', align: 'right', sortable: true },
-        { key: 'hireDateFormatted', header: 'Fecha contratación', sortable: true },
+        {key: 'id', header: '#', width: '60px', align: 'center', sortable: true},
+        {key: 'name', header: 'Nombre', minWidth: '160px', sortable: true},
+        {key: 'email', header: 'Email', sortable: true},
+        {key: 'department', header: 'Departamento', sortable: true},
+        {key: 'role', header: 'Rol', sortable: true},
+        {key: 'statusLabel', header: 'Estado', align: 'center', sortable: true},
+        {key: 'salaryFormatted', header: 'Salario', align: 'right', sortable: true},
+        {key: 'hireDateFormatted', header: 'Fecha contratación', sortable: true},
       ],
       actions: [
-        { icon: 'edit', label: 'Editar', color: 'primary' },
-        { icon: 'delete', label: 'Eliminar', color: 'warn', disabled: (row) => row.status === 'active' },
+        {icon: 'edit', label: 'Editar', color: 'primary'},
+        {icon: 'delete', label: 'Eliminar', color: 'warn', disabled: (row) => row.status === 'active'},
       ],
       trackByKey: 'id',
       stickyHeader: true,
     };
   }
 
-  private getCommonFields() {
-    return [
-      {
-        key: 'department',
-        label: 'Departamento',
-        type: 'select' as const,
-        options: this.departments.map(d => ({ value: d, label: d }))
-      },
-      {
-        key: 'status',
-        label: 'Estado',
-        type: 'select' as const,
-        options: [
-          { value: 'active', label: 'Activo' },
-          { value: 'inactive', label: 'Inactivo' },
-          { value: 'vacation', label: 'Vacaciones' },
-        ]
-      },
-      { key: 'hireDate', label: 'Fecha contratación', type: 'date' as const },
-    ];
-  }
-
   getFiltersConfig(useAdvanced: boolean): AppFiltersConfig {
+    const departmentField = {
+      key: 'department',
+      label: 'Departamento',
+      type: 'select' as const,
+      options: this.departments.map(d => ({value: d, label: d}))
+    };
+
+    const statusField = {
+      key: 'status',
+      label: 'Estado',
+      type: 'select' as const,
+      options: this.statusOptions.map(opt => ({...opt}))
+    };
+
+    const hireDateField = {
+      key: 'hireDate',
+      label: 'Fecha contratación',
+      type: 'date' as const
+    };
+
+    const toggles = [
+      {key: 'showDeleted', label: 'Mostrar eliminados', value: false},
+      {key: 'showInactive', label: 'Mostrar inactivos', value: false}
+    ];
+
     if (useAdvanced) {
       return {
         fields: [
-          { key: 'name', label: 'Nombre', type: 'text' },
-          { key: 'email', label: 'Email', type: 'text' },
-          ...this.getCommonFields(),
-          { key: 'salary', label: 'Salario', type: 'number' },
+          {key: 'id', label: 'Identificador', type: 'number'},
+          {key: 'name', label: 'Nombre', type: 'text'},
+          {key: 'email', label: 'Email', type: 'text'},
+          departmentField,
+          statusField,
+          hireDateField,
+          {key: 'salary', label: 'Salario', type: 'number'},
         ],
-        maxCriteria: 10,
-        showClearButton: true,
-        showSearchButton: true,
+        toggles
       };
     }
 
     return {
       fields: [
-        { key: 'name', label: 'Nombre', type: 'text', placeholder: 'Buscar por nombre...' },
-        { key: 'id', label: 'ID', type: 'number', placeholder: 'ID del empleado' },
-        ...this.getCommonFields().map(f =>
-          f.key === 'hireDate' ? { ...f, placeholder: 'DD/MM/YYYY' } : f
-        ),
+        {key: 'id', label: 'ID', type: 'number', placeholder: 'ID del empleado'},
+        {key: 'name', label: 'Nombre', type: 'text', placeholder: 'Buscar por nombre...'},
+        departmentField,
+        statusField,
+        hireDateField,
       ],
-      toggles: [
-        { key: 'showDeleted', label: 'Mostrar eliminados', value: false },
-        { key: 'showInactive', label: 'Mostrar inactivos', value: false }
-      ],
-      showClearAll: true,
-      appearance: 'outline',
+      toggles
     };
   }
 

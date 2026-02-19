@@ -61,10 +61,9 @@ export class AppSimpleFilterComponent implements OnInit {
   readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
   readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
   readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
-  private readonly debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
-
   readonly toggles = computed(() => this.config().toggles ?? []);
 
+  private readonly debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
   private readonly formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
 
   constructor() {
