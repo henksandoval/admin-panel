@@ -39,6 +39,7 @@
 │   - MÍNIMO uso, preferir Material                    │
 └──────────────────────────────────────────────────────┘
 ```
+
 ---
 
 ## Reglas de Estilos
@@ -64,16 +65,16 @@
 
 Algunas clases Tailwind no son colores pero pueden generar dudas. Esta tabla define cómo tratarlas:
 
-| Clase | ¿Permitida? | Motivo |
-|-------|-------------|--------|
-| `opacity-*` | ✅ Sí | Controla transparencia, no define color |
-| `bg-transparent` | ✅ Sí | Reset visual, no asigna color |
-| `text-transparent` | ✅ Sí | Técnica para gradient text u ocultar texto accesible |
-| `divide-y`, `divide-x` | ⚠️ Con cuidado | Permitido sin color (`divide-y`). Prohibido con color (`divide-gray-200`) |
-| `ring-*` | ⚠️ Con cuidado | Permitido para tamaño (`ring-2`). Prohibido con color (`ring-blue-500`). Preferir focus nativo de Material |
-| `placeholder-*` | ❌ No | Gestionar via Material form field theming |
-| `accent-*` | ❌ No | Gestionar via Material theming |
-| `caret-*` | ❌ No | Gestionar via SCSS con tokens si es necesario |
+| Clase                  | ¿Permitida?    | Motivo                                                                                                     |
+|------------------------|----------------|------------------------------------------------------------------------------------------------------------|
+| `opacity-*`            | ✅ Sí           | Controla transparencia, no define color                                                                    |
+| `bg-transparent`       | ✅ Sí           | Reset visual, no asigna color                                                                              |
+| `text-transparent`     | ✅ Sí           | Técnica para gradient text u ocultar texto accesible                                                       |
+| `divide-y`, `divide-x` | ⚠️ Con cuidado | Permitido sin color (`divide-y`). Prohibido con color (`divide-gray-200`)                                  |
+| `ring-*`               | ⚠️ Con cuidado | Permitido para tamaño (`ring-2`). Prohibido con color (`ring-blue-500`). Preferir focus nativo de Material |
+| `placeholder-*`        | ❌ No           | Gestionar via Material form field theming                                                                  |
+| `accent-*`             | ❌ No           | Gestionar via Material theming                                                                             |
+| `caret-*`              | ❌ No           | Gestionar via SCSS con tokens si es necesario                                                              |
 
 Ante la duda, usar SCSS con tokens del proyecto.
 
@@ -252,11 +253,13 @@ emptyMessage = input<string>(TABLE_DEFAULTS.emptyMessage);
 La decisión no se basa en un conteo de líneas, sino en complejidad cognitiva. Usar la siguiente guía:
 
 **Inline cuando:**
+
 - El template o estilos se pueden leer y entender de un vistazo sin hacer scroll
 - No hay lógica condicional anidada (`@if` dentro de `@if`, `@for` con `@if` internos)
 - No se necesitan mixins ni tokens SCSS custom
 
 **Externo cuando:**
+
 - El template tiene bloques condicionales anidados o múltiples secciones lógicas
 - Los estilos requieren mixins, tokens SCSS, o estados complejos (`:host-context`, animaciones)
 - Un segundo desarrollador necesitaría más de 10 segundos para entender la estructura
@@ -330,12 +333,12 @@ private cleanValues(values: Record<string, any>) {
 
 Todo componente que dependa de datos asíncronos debe manejar estos estados:
 
-| Estado | Patrón | Responsable |
-|--------|--------|-------------|
-| Cargando | Skeleton o spinner via `app-loading` | Componente contenedor |
-| Vacío | Mensaje configurable via DEFAULTS | Componente de datos (`app-table`, `app-list`) |
-| Error | `app-error-state` con acción de reintentar | Componente contenedor |
-| Sin permisos | `app-empty-state` con mensaje apropiado | Guard o componente contenedor |
+| Estado       | Patrón                                     | Responsable                                   |
+|--------------|--------------------------------------------|-----------------------------------------------|
+| Cargando     | Skeleton o spinner via `app-loading`       | Componente contenedor                         |
+| Vacío        | Mensaje configurable via DEFAULTS          | Componente de datos (`app-table`, `app-list`) |
+| Error        | `app-error-state` con acción de reintentar | Componente contenedor                         |
+| Sin permisos | `app-empty-state` con mensaje apropiado    | Guard o componente contenedor                 |
 
 ```html
 <!-- Ejemplo de manejo de estados -->
@@ -424,19 +427,19 @@ $container-md: ($min-slot-width * 2) + $column-gap-px;
 
 ### Wrappers principales
 
-| Wrapper | Reemplaza (Material) |
-|---------|---------------------|
-| `<app-button>` | `<button mat-button>`, `<button mat-raised-button>` |
-| `<app-card>` | `<mat-card>` |
-| `<app-badge>` | `<mat-badge>`, elementos custom con badges |
-| `<app-checkbox>` | `<mat-checkbox>` |
-| `<app-radio>` | `<mat-radio-button>`, `<mat-radio-group>` |
-| `<app-table>` | `<table>` + Material styling |
-| `<app-toggle-group>` | `<mat-button-toggle-group>` |
-| `<app-form-*>` | `<mat-form-field>` |
-| `<app-loading>` | Spinners, skeletons |
-| `<app-empty-state>` | Mensajes de estado vacío |
-| `<app-error-state>` | Mensajes de error con retry |
+| Wrapper              | Reemplaza (Material)                                |
+|----------------------|-----------------------------------------------------|
+| `<app-button>`       | `<button mat-button>`, `<button mat-raised-button>` |
+| `<app-card>`         | `<mat-card>`                                        |
+| `<app-badge>`        | `<mat-badge>`, elementos custom con badges          |
+| `<app-checkbox>`     | `<mat-checkbox>`                                    |
+| `<app-radio>`        | `<mat-radio-button>`, `<mat-radio-group>`           |
+| `<app-table>`        | `<table>` + Material styling                        |
+| `<app-toggle-group>` | `<mat-button-toggle-group>`                         |
+| `<app-form-*>`       | `<mat-form-field>`                                  |
+| `<app-loading>`      | Spinners, skeletons                                 |
+| `<app-empty-state>`  | Mensajes de estado vacío                            |
+| `<app-error-state>`  | Mensajes de error con retry                         |
 
 ### Cuándo NO crear un wrapper
 
@@ -473,6 +476,7 @@ Si el wrapper existente no expone una feature de Material que se necesita:
 
 - **Props y defaults**: Ver archivo `.model.ts` de cada componente
 - **Ejemplos interactivos**: Navegar a `/pds` en el proyecto
+
 ---
 
 ## Reglas de Código Limpio
@@ -482,6 +486,7 @@ Si el wrapper existente no expone una feature de Material que se necesita:
 El código debe ser autodocumentado. Los nombres de variables, funciones y clases deben explicar su propósito. Sin embargo, hay contexto que el código no puede expresar por sí mismo.
 
 **Comentarios que sí aportan valor:**
+
 - Explicar *por qué* se tomó una decisión no obvia (regla de negocio, workaround, limitación técnica)
 - JSDoc en funciones públicas de librerías compartidas y wrappers
 - Referencias a issues cuando se usa un workaround temporal
@@ -502,6 +507,7 @@ setTimeout(() => this.recalculateLayout(), KEYBOARD_DISMISS_DELAY_MS);
 ```
 
 **Comentarios prohibidos:**
+
 - Describir *qué* hace el código cuando es evidente
 - Código comentado (eliminarlo; el historial de Git lo preserva)
 - Separadores visuales (`// ========`, `// --- sección ---`)
@@ -540,6 +546,7 @@ if (retryCount > MAX_RETRY_ATTEMPTS) { }
 ```
 
 **Excepciones válidas:**
+
 - `0`, `1`, `-1` en operaciones matemáticas obvias
 - Strings y números en archivos de test (datos de prueba)
 - Valores SCSS locales de un solo uso (ver sección "Variables SCSS: Cuándo extraer")

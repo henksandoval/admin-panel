@@ -1,7 +1,8 @@
 <app-page-layout [showEmptySlots]="true" description="Probando el layout dinámico" preset="fullWidth" title="Test Page">
   <ng-template appSlot="content">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      <app-card (click)="navigateToShowcase(item.route)" *ngFor="let item of showcaseItems" [icon]="item.icon" [title]="item.title"
+      <app-card (click)="navigateToShowcase(item.route)" *ngFor="let item of showcaseItems" [icon]="item.icon"
+                [title]="item.title"
                 class="showcase-card" contentPadding="p-0">
         <div class="p-4">
           <p class="showcase-description">{{ item.description }}</p>

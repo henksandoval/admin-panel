@@ -12,7 +12,8 @@
         <span [title]="criterion | criterionDisplay" class="app-filter-pill-value">
           {{ criterion | criterionDisplay }}
         </span>
-        <button (click)="removeCriterion(criterion.id)" [attr.aria-label]="'Eliminar filtro: ' + criterion.field.label + ' ' + criterion.operator.symbol + ' ' + (criterion | criterionDisplay)"
+        <button (click)="removeCriterion(criterion.id)"
+                [attr.aria-label]="'Eliminar filtro: ' + criterion.field.label + ' ' + criterion.operator.symbol + ' ' + (criterion | criterionDisplay)"
                 class="app-filter-pill-remove"
                 type="button">
           <mat-icon aria-hidden="true">close</mat-icon>

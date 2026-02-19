@@ -83,6 +83,16 @@ export class AppAdvancedFilterComponent {
   readonly fieldOptions = computed(() =>
     this.config().fields.map(f => ({ value: f.key, label: f.label }))
   );
+  readonly hasCriteria = computed(() => this.criteria().length > 0);
+  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
+  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
+  readonly criteriaAreaClasses = computed(() => {
+    const classes = ['app-filters-advanced-criteria'];
+    if (this.hasCriteria()) {
+      classes.push('app-filters-advanced-criteria--active');
+    }
+    return classes.join(' ');
+  });
   readonly operatorOptions = computed(() => {
     const field = this.selectedField();
     if (!field) return [];
@@ -96,16 +106,6 @@ export class AppAdvancedFilterComponent {
   });
   readonly selectedFieldType = computed(() => this.selectedField()?.type ?? null);
   readonly isNoValueOperator = computed(() => this.selectedOperator()?.requiresValue === false);
-  readonly hasCriteria = computed(() => this.criteria().length > 0);
-  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
-  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
-  readonly criteriaAreaClasses = computed(() => {
-    const classes = ['app-filters-advanced-criteria'];
-    if (this.hasCriteria()) {
-      classes.push('app-filters-advanced-criteria--active');
-    }
-    return classes.join(' ');
-  });
   private readonly fb = inject(FormBuilder);
   readonly builderForm = this.fb.nonNullable.group({
     field: ['', Validators.required],

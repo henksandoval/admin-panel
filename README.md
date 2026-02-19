@@ -20,11 +20,11 @@ Abre [http://localhost:4200](http://localhost:4200)
 
 ## Comandos
 
-| Comando | Descripción |
-|---------|-------------|
-| `npm start` | Servidor de desarrollo |
-| `npm run build` | Build de producción |
-| `npm test` | Ejecutar tests |
+| Comando         | Descripción            |
+|-----------------|------------------------|
+| `npm start`     | Servidor de desarrollo |
+| `npm run build` | Build de producción    |
+| `npm test`      | Ejecutar tests         |
 
 ## Estructura
 
@@ -52,6 +52,7 @@ Contiene las reglas de estilos, patrones de componentes y ejemplos.
 6 temas de color × 2 modos (light/dark) = 12 combinaciones.
 
 Cambio dinámico:
+
 ```typescript
 document.body.className = 'theme-azure dark-theme';
 ```

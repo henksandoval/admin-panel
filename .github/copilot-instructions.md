@@ -56,6 +56,7 @@ export class AppTableComponent<T> {
 ## Verificación
 
 Antes de generar código, confirma:
+
 - ¿Colores solo via Material?
 - ¿Layout solo via Tailwind?
 - ¿DEFAULTS definidos?
