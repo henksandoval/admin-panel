@@ -1,6 +1,5 @@
 import {
   Component,
-  computed,
   input,
   output,
   signal,
@@ -19,8 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
   AppFiltersConfig,
-  AppFilterValues,
-  FILTER_DEFAULTS,
+  AppFilterValues
 } from '../app-filter.model';
 import { createFilterTogglesHandlers } from '../app-filter-toggles.utils';
 import { createDefaultComputed } from '../app-filter-defaults.utils';
@@ -30,6 +28,9 @@ import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-
 import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
+import {MatDivider} from '@angular/material/list';
+import {AppButtonComponent} from '@shared/atoms/app-button/app-button.component';
+import {togglesToRecord} from '@shared/molecules/app-filters/app-filter.utils';
 
 @Component({
   selector: 'app-simple-filters',
@@ -45,6 +46,8 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
     MatIconModule,
     MatButtonModule,
     AppFormDatepickerComponent,
+    MatDivider,
+    AppButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-simple-filter.component.scss',
@@ -61,8 +64,8 @@ export class AppSimpleFilterComponent implements OnInit {
   toggleChange = output<Record<string, boolean>>();
 
   readonly appearance = createDefaultComputed(this.config, 'appearance');
-  readonly showClearAll = createDefaultComputed(this.config, 'showClearAll');
-  readonly clearAllLabel = createDefaultComputed(this.config, 'clearAllLabel');
+  readonly showClearButton = createDefaultComputed(this.config, 'showClearButton');
+  readonly showSearchButton = createDefaultComputed(this.config, 'showSearchButton');
   private readonly debounceMs = createDefaultComputed(this.config, 'debounceMs');
 
   private togglesHandlers = createFilterTogglesHandlers(
@@ -76,7 +79,6 @@ export class AppSimpleFilterComponent implements OnInit {
   private readonly formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
 
   constructor() {
-
     effect(() => {
       const externalValues = this.values();
       const form = this.formGroup();
@@ -127,17 +129,13 @@ export class AppSimpleFilterComponent implements OnInit {
     return [resetOption, ...(filter.options ?? [])];
   }
 
-  hasAnyValue(): boolean {
-    return Object.values(this.formGroup().value).some(
-      (value) => value !== null && value !== undefined && value !== '',
-    );
+  emitSearch(): void {
   }
 
-  clearAll(): void {
+  clearAllCriteria(): void {
     this.formGroup().reset();
     this.valuesChange.emit({});
   }
-
 
   private cleanValues(values: Record<string, unknown>): AppFilterValues {
     return Object.fromEntries(

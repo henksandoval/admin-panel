@@ -6,10 +6,9 @@ import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
 import { AppTableConfig, AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
 import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
 import { AppFiltersConfig, AppFilterValues, AppFiltersOutput } from "@shared/molecules/app-filters/app-filter.model";
-import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator";
+import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator.utils";
 import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
 import { AppTableFilterFn, AppTableCriteriaFilterFn, AppTableToggleFilterFn, AppTableSortFn } from "./app-table-client-side.model";
-
 
 @Component({
   selector: 'app-table-client-side',
