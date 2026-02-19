@@ -6,7 +6,6 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { togglesToRecord } from '../app-filter.utils';
-import { createDefaultComputed } from '../app-filter-defaults.utils';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
@@ -18,7 +17,7 @@ import { AppFormSelectConnectorDirective } from '@shared/molecules/app-form/app-
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
-import { AppFiltersConfig, AppFiltersOutput, AppFilterCriterion, DEFAULT_FILTER_OPERATORS } from '../app-filter.model';
+import { AppFiltersConfig, AppFiltersOutput, AppFilterCriterion, DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-filter.model';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
@@ -116,10 +115,10 @@ export class AppAdvancedFilterComponent {
     return value !== null && value !== undefined && value !== '';
   });
 
-  readonly showClearButton = createDefaultComputed(this.config, 'showClearButton');
-  readonly showSearchButton = createDefaultComputed(this.config, 'showSearchButton');
-  private readonly autoSearch = createDefaultComputed(this.config, 'autoSearch');
-  private readonly maxCriteria = createDefaultComputed(this.config, 'maxCriteria');
+  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
+  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
+  private readonly autoSearch = computed(() => this.config().autoSearch ?? FILTER_DEFAULTS.autoSearch);
+  private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
 
   readonly criteriaAreaClasses = computed(() => {
     const classes = ['app-filters-advanced-criteria'];

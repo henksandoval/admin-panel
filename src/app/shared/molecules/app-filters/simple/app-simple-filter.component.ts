@@ -19,9 +19,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
   AppFiltersConfig,
-  AppFilterValues
+  AppFilterValues,
+  FILTER_DEFAULTS
 } from '../app-filter.model';
-import { createDefaultComputed } from '../app-filter-defaults.utils';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppFormDatepickerComponent } from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
@@ -58,10 +58,10 @@ export class AppSimpleFilterComponent implements OnInit {
   filterChange = output<{ key: string; value: unknown }>();
   toggleChange = output<Record<string, boolean>>();
 
-  readonly appearance = createDefaultComputed(this.config, 'appearance');
-  readonly showClearButton = createDefaultComputed(this.config, 'showClearButton');
-  readonly showSearchButton = createDefaultComputed(this.config, 'showSearchButton');
-  private readonly debounceMs = createDefaultComputed(this.config, 'debounceMs');
+  readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
+  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
+  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
+  private readonly debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
 
   readonly toggles = computed(() => this.config().toggles ?? []);
 
