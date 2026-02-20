@@ -14,7 +14,7 @@ const LAST_NAMES = [
 
 const STATUSES: EmployeeStatus[] = ['active', 'inactive', 'vacation'];
 
-function generateEmployee(id: number): Employee {
+function generateEmployee(id: number, isDeleted = false): Employee {
   const firstName = FIRST_NAMES[id % FIRST_NAMES.length];
   const lastName = LAST_NAMES[Math.floor(id / FIRST_NAMES.length) % LAST_NAMES.length];
 
@@ -27,9 +27,13 @@ function generateEmployee(id: number): Employee {
     status: STATUSES[id % STATUSES.length],
     salary: 30000 + (id % 5) * 10000 + Math.floor(id / 5) * 1000,
     hireDate: new Date(2020 + (id % 5), (id * 3) % 12, (id * 7) % 28 + 1),
+    isDeleted: isDeleted
   };
 }
 
-export function generateEmployees(count: number): Employee[] {
-  return Array.from({length: count}, (_, i) => generateEmployee(i + 1));
+export function generateEmployees(count: number, deletedPercentage = 20): Employee[] {
+  return Array.from({length: count}, (_, i) => {
+    const shouldBeDeleted = Math.random() * 100 < deletedPercentage;
+    return generateEmployee(i + 1, shouldBeDeleted);
+  });
 }

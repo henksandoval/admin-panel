@@ -16,6 +16,7 @@ export interface EmployeeViewModel {
   salaryFormatted: string;
   hireDate: Date;
   hireDateFormatted: string;
+  isDeleted: boolean;
 }
 
 @Injectable()
@@ -51,6 +52,7 @@ export class TableClientSideService {
       salaryFormatted: this.currencyPipe.transform(emp.salary, 'EUR', 'symbol', '1.2-2') ?? '',
       hireDate: emp.hireDate,
       hireDateFormatted: this.datePipe.transform(emp.hireDate, 'dd/MM/yyyy') ?? '',
+      isDeleted: emp.isDeleted,
     };
   }
 }

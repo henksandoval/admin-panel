@@ -1,9 +1,10 @@
 import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
 import {AppPaginationConfig} from '@shared/atoms/app-pagination/app-pagination.model';
 import {AppFiltersConfig} from '@shared/molecules/app-filters/app-filter.model';
-import { Employee, EMPLOYEE_DEPARTMENTS, EMPLOYEE_STATUS_OPTIONS } from '../../contracts/employee.contract';
+import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_STATUS_OPTIONS } from '../../contracts/employee.contract';
+import { EmployeeViewModel } from './table-client-side.service';
 
-export function getTableConfig(): AppTableConfig<Employee> {
+export function getTableConfig(): AppTableConfig<EmployeeViewModel> {
   return {
     columns: [
       {key: 'id', header: '#', width: '60px', align: 'center', sortable: true},

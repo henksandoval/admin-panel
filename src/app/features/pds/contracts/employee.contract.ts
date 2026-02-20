@@ -7,6 +7,7 @@ export interface Employee {
   status: EmployeeStatus;
   salary: number;
   hireDate: Date;
+  isDeleted: boolean;
 }
 
 export type EmployeeStatus = 'active' | 'inactive' | 'vacation';

@@ -9,6 +9,8 @@ import { AppTableServerSideComponent } from '@shared/organisms/app-table-server-
 import { AppTableServerParams } from '@shared/organisms/app-table-server-side/app-table-server-side.model';
 import { Employee } from '../../contracts/employee.contract';
 
+type EmployeeWithLabel = Employee & { statusLabel: string };
+
 @Component({
   selector: 'app-table-server-side-pds',
   standalone: true,
@@ -31,10 +33,10 @@ import { Employee } from '../../contracts/employee.contract';
   `,
 })
 export class TableServerSideComponent implements OnInit {
-  readonly employees = signal<Employee[]>([]);
+  readonly employees = signal<EmployeeWithLabel[]>([]);
   readonly totalEmployees = signal(0);
   readonly isLoading = signal(false);
-  readonly tableConfig: AppTableConfig<Employee> = {
+  readonly tableConfig: AppTableConfig<EmployeeWithLabel> = {
     columns: [
       { key: 'id', header: 'ID', width: '60px', sortable: true },
       { key: 'name', header: 'Nombre', sortable: true },
@@ -47,7 +49,7 @@ export class TableServerSideComponent implements OnInit {
         header: 'Salario',
         sortable: true,
         align: 'right',
-        valueFormatter: (value) =>
+        valueFormatter: (value: number) =>
           new Intl.NumberFormat('es-ES', {
             style: 'currency',
             currency: 'EUR',
@@ -57,7 +59,7 @@ export class TableServerSideComponent implements OnInit {
         key: 'hireDate',
         header: 'Fecha Ingreso',
         sortable: true,
-        valueFormatter: (value) =>
+        valueFormatter: (value: Date) =>
           new Intl.DateTimeFormat('es-ES').format(new Date(value)),
       },
     ],
@@ -128,16 +130,15 @@ export class TableServerSideComponent implements OnInit {
           this.employees.set(response.data);
           this.totalEmployees.set(response.total);
         },
-        error: (error: unknown) => {
+        error: () => {
           this.snackBar.open('Error al cargar empleados', 'Cerrar', {
             duration: 3000,
           });
-          console.error('Error loading employees:', error);
         },
       });
   }
 
-  onRowClick(employee: Employee): void {
+  onRowClick(employee: EmployeeWithLabel): void {
     this.snackBar.open(
       `Seleccionado: ${employee.name} (${employee.email})`,
       'Cerrar',

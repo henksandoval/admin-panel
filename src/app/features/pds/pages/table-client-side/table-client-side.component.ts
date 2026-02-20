@@ -43,8 +43,7 @@ export class TableClientSideComponent implements OnInit {
         this.employees.set(data);
         this.isLoading.set(false);
       },
-      error: (err) => {
-        console.error('[TableClientSide]', err);
+      error: () => {
         this.isLoading.set(false);
       },
     });
@@ -54,15 +53,13 @@ export class TableClientSideComponent implements OnInit {
     this.snackBar.open(`Ordenar por: ${event.active} (${event.direction})`, '✕', {duration: 2500});
   }
 
-  onFilters(filters: AppFilterValues | AppFiltersOutput): void {
+  onFilters(_filters: AppFilterValues | AppFiltersOutput): void {
     const mode = this.useAdvancedFilters() ? 'avanzada' : 'simple';
     this.snackBar.open(`Búsqueda ${mode} aplicada`, '✕', {duration: 2500});
-    console.debug('[filters]', filters);
   }
 
   onPage(event: AppPageEvent): void {
     this.snackBar.open(`Página: ${event.pageIndex + 1} (items por página: ${event.pageSize})`, '✕', {duration: 2500});
-    console.debug('[page]', event);
   }
 
   onAction({action, row}: {action: AppTableAction<EmployeeViewModel>; row: EmployeeViewModel}): void {

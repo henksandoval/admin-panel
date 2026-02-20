@@ -4,32 +4,18 @@ import {
   AppTableServerResponse
 } from "@shared/organisms/app-table-server-side/app-table-server-side.model";
 import { Observable } from "rxjs";
+import { Employee, EMPLOYEE_STATUS_LABELS } from "../../contracts/employee.contract";
+import { generateEmployees } from "../../mocks/data/employees.data";
 
-interface Employee {
-  id: number;
-  name: string;
-  email: string;
-  department: string;
-  role: string;
-  status: 'active' | 'inactive' | 'vacation';
-  statusLabel: string;
-  salary: number;
-  hireDate: Date;
-}
+type EmployeeWithLabel = Employee & { statusLabel: string };
 
 @Injectable({providedIn: 'root'})
 export class TableServerSideService {
-  private readonly statusLabels = {
-    active: 'Activo',
-    inactive: 'Inactivo',
-    vacation: 'De vacaciones',
-  };
-
-  private mockData: Employee[] = this.generateMockData(250);
+  private mockData: EmployeeWithLabel[] = this.generateMockData(250);
 
   getEmployees(
     params: AppTableServerParams
-  ): Observable<AppTableServerResponse<Employee>> {
+  ): Observable<AppTableServerResponse<EmployeeWithLabel>> {
     return new Observable((observer) => {
       setTimeout(() => {
         try {
@@ -38,7 +24,7 @@ export class TableServerSideService {
           Object.entries(params.filters).forEach(([key, value]) => {
             if (value !== null && value !== undefined && value !== '') {
               filtered = filtered.filter((item) => {
-                const itemValue = item[key as keyof Employee];
+                const itemValue = item[key as keyof EmployeeWithLabel];
                 return String(itemValue)
                   .toLowerCase()
                   .includes(String(value).toLowerCase());
@@ -48,8 +34,8 @@ export class TableServerSideService {
 
           if (params.sort.active && params.sort.direction) {
             filtered.sort((a, b) => {
-              const aVal = a[params.sort.active as keyof Employee];
-              const bVal = b[params.sort.active as keyof Employee];
+              const aVal = a[params.sort.active as keyof EmployeeWithLabel];
+              const bVal = b[params.sort.active as keyof EmployeeWithLabel];
 
               let comparison = 0;
               if (aVal < bVal) comparison = -1;
@@ -79,39 +65,10 @@ export class TableServerSideService {
     });
   }
 
-  private generateMockData(count: number): Employee[] {
-    const departments = ['Engineering', 'Sales', 'Marketing', 'HR', 'Finance'];
-    const roles = [
-      'Manager',
-      'Senior',
-      'Mid-level',
-      'Junior',
-      'Lead',
-      'Director',
-    ];
-    const statuses: ('active' | 'inactive' | 'vacation')[] = [
-      'active',
-      'inactive',
-      'vacation',
-    ];
-
-    return Array.from({length: count}, (_, i) => {
-      const status = statuses[Math.floor(Math.random() * statuses.length)];
-      return {
-        id: i + 1,
-        name: `Empleado ${i + 1}`,
-        email: `empleado${i + 1}@company.com`,
-        department: departments[Math.floor(Math.random() * departments.length)],
-        role: roles[Math.floor(Math.random() * roles.length)],
-        status,
-        statusLabel: this.statusLabels[status],
-        salary: Math.floor(Math.random() * 100000) + 30000,
-        hireDate: new Date(
-          2020 + Math.floor(Math.random() * 5),
-          Math.floor(Math.random() * 12),
-          Math.floor(Math.random() * 28) + 1
-        ),
-      };
-    });
+  private generateMockData(count: number): EmployeeWithLabel[] {
+    return generateEmployees(count, 15).map(employee => ({
+      ...employee,
+      statusLabel: EMPLOYEE_STATUS_LABELS[employee.status]
+    }));
   }
 }
