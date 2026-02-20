@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "list": "find . \\( -path './node_modules' -o -path './.vscode' -o -path './.git' -o -path './.angular' -o -path './dist' \\) -prune -false -o -print | sed 's|^\\./||' | sort | awk -F/ '{indent=\"\"; for(i=1;i<NF;i++) indent=indent\"  \"; print indent $NF}'",
-    "list-tree": "tree -I 'node_modules|dist|.git|.vscode|.angular'",
+    "list:tree": "tree -I 'node_modules|dist|.git|.vscode|.angular'",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix"
   },

@@ -1,143 +1,56 @@
-import {Injectable} from '@angular/core';
-import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
-import {AppPaginationConfig} from '@shared/atoms/app-pagination/app-pagination.model';
-import {AppFiltersConfig} from '@shared/molecules/app-filters/app-filter.model';
+import { CurrencyPipe, DatePipe } from "@angular/common";
+import { Injectable, inject } from "@angular/core";
+import { Observable, map } from "rxjs";
+import { EmployeeStatus, Employee, EMPLOYEE_STATUS_LABELS } from "../../contracts/employee.contract";
+import { MockEmployeeService } from "../../mocks/mock-employee.service";
 
-export interface Employee {
+export interface EmployeeViewModel {
   id: number;
   name: string;
   email: string;
   department: string;
   role: string;
-  status: 'active' | 'inactive' | 'vacation';
+  status: EmployeeStatus;
+  statusLabel: string;
   salary: number;
+  salaryFormatted: string;
   hireDate: Date;
+  hireDateFormatted: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TableClientSideService {
-  readonly statusOptions = [
-    {value: 'active', label: 'Activo'},
-    {value: 'inactive', label: 'Inactivo'},
-    {value: 'vacation', label: 'Vacaciones'},
-  ] as const;
-  readonly statusLabels: Record<string, string> = {
-    active: 'Activo',
-    inactive: 'Inactivo',
-    vacation: 'Vacaciones',
-  };
-  private readonly firstNames = ['Ana', 'Carlos', 'María', 'Juan', 'Laura', 'Pedro', 'Sofía', 'Diego', 'Valentina', 'Andrés', 'Camila', 'Santiago', 'Isabella', 'Mateo', 'Lucía', 'Daniel', 'Emma', 'Sebastián'];
-  private readonly lastNames = ['García', 'López', 'Rodríguez', 'Martínez', 'Sánchez', 'Fernández', 'Gómez', 'Díaz', 'Torres', 'Ruiz', 'Vargas', 'Moreno', 'Castro', 'Jiménez', 'Romero', 'Herrera', 'Mendoza', 'Ortiz'];
-  private readonly departments = ['Ingeniería', 'Marketing', 'Ventas', 'RRHH', 'Finanzas'];
-  private readonly roles = ['Junior', 'Mid', 'Senior', 'Lead', 'Manager'];
-  private readonly statuses: ('active' | 'inactive' | 'vacation')[] = ['active', 'inactive', 'vacation'];
+  private readonly mockEmployees = inject(MockEmployeeService);
+  private readonly currencyPipe = inject(CurrencyPipe);
+  private readonly datePipe = inject(DatePipe);
 
-  fetchEmployees(count = 18): Promise<Employee[]> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.generateEmployees(count));
-      }, 800);
-    });
+  getEmployees(count: number): Observable<EmployeeViewModel[]> {
+    return this.mockEmployees.getEmployees(count).pipe(
+      map(employees => employees.map(emp => this.toViewModel(emp)))
+    );
   }
 
-  generateEmployees(count: number): Employee[] {
-    return Array.from({length: count}, (_, i) => this.generateEmployee(i + 1));
-  }
-
-  getTableConfig(): AppTableConfig<any> {
-    return {
-      columns: [
-        {key: 'id', header: '#', width: '60px', align: 'center', sortable: true},
-        {key: 'name', header: 'Nombre', minWidth: '160px', sortable: true},
-        {key: 'email', header: 'Email', sortable: true},
-        {key: 'department', header: 'Departamento', sortable: true},
-        {key: 'role', header: 'Rol', sortable: true},
-        {key: 'statusLabel', header: 'Estado', align: 'center', sortable: true},
-        {key: 'salaryFormatted', header: 'Salario', align: 'right', sortable: true},
-        {key: 'hireDateFormatted', header: 'Fecha contratación', sortable: true},
-      ],
-      actions: [
-        {icon: 'edit', label: 'Editar', color: 'primary'},
-        {icon: 'delete', label: 'Eliminar', color: 'warn', disabled: (row) => row.status === 'active'},
-      ],
-      trackByKey: 'id',
-      stickyHeader: true,
-    };
-  }
-
-  getFiltersConfig(useAdvanced: boolean): AppFiltersConfig {
-    const departmentField = {
-      key: 'department',
-      label: 'Departamento',
-      type: 'select' as const,
-      options: this.departments.map(d => ({value: d, label: d}))
-    };
-
-    const statusField = {
-      key: 'status',
-      label: 'Estado',
-      type: 'select' as const,
-      options: this.statusOptions.map(opt => ({...opt}))
-    };
-
-    const hireDateField = {
-      key: 'hireDate',
-      label: 'Fecha contratación',
-      type: 'date' as const
-    };
-
-    const toggles = [
-      {key: 'showDeleted', label: 'Mostrar eliminados', value: false},
-      {key: 'showInactive', label: 'Mostrar inactivos', value: false}
-    ];
-
-    if (useAdvanced) {
-      return {
-        fields: [
-          {key: 'id', label: 'Identificador', type: 'number'},
-          {key: 'name', label: 'Nombre', type: 'text'},
-          {key: 'email', label: 'Email', type: 'text'},
-          departmentField,
-          statusField,
-          hireDateField,
-          {key: 'salary', label: 'Salario', type: 'number'},
-        ],
-        toggles
-      };
+  filterByToggles(data: EmployeeViewModel[], toggles: Record<string, boolean>): EmployeeViewModel[] {
+    let result = data;
+    if (!toggles['showInactive']) {
+      result = result.filter(e => e.status !== 'inactive');
     }
-
-    return {
-      fields: [
-        {key: 'id', label: 'ID', type: 'number', placeholder: 'ID del empleado'},
-        {key: 'name', label: 'Nombre', type: 'text', placeholder: 'Buscar por nombre...'},
-        departmentField,
-        statusField,
-        hireDateField,
-      ],
-      toggles
-    };
+    return result;
   }
 
-  getPaginationConfig(): AppPaginationConfig {
+  private toViewModel(emp: Employee): EmployeeViewModel {
     return {
-      pageSizeOptions: [5, 10, 20],
-      showFirstLastButtons: true,
+      id: emp.id,
+      name: emp.name,
+      email: emp.email,
+      department: emp.department,
+      role: emp.role,
+      status: emp.status,
+      statusLabel: EMPLOYEE_STATUS_LABELS[emp.status],
+      salary: emp.salary,
+      salaryFormatted: this.currencyPipe.transform(emp.salary, 'EUR', 'symbol', '1.2-2') ?? '',
+      hireDate: emp.hireDate,
+      hireDateFormatted: this.datePipe.transform(emp.hireDate, 'dd/MM/yyyy') ?? '',
     };
-  }
-
-  private generateEmployee(id: number): Employee {
-    const firstName = this.firstNames[id % this.firstNames.length];
-    const lastName = this.lastNames[Math.floor(id / this.firstNames.length) % this.lastNames.length];
-    const name = `${firstName} ${lastName}`;
-    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@empresa.com`;
-    const department = this.departments[id % this.departments.length];
-    const role = this.roles[id % this.roles.length];
-    const status = this.statuses[id % this.statuses.length];
-    const salary = 30000 + (id % 5) * 10000 + Math.floor(id / 5) * 1000;
-    const hireDate = new Date(2020 + (id % 5), (id * 3) % 12, (id * 7) % 28 + 1);
-
-    return {id, name, email, department, role, status, salary, hireDate};
   }
 }

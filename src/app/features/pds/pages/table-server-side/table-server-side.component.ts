@@ -4,10 +4,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
 import { AppPaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
 import { TableServerSideService } from './table-server-side.service';
-import { Employee } from '../table-client-side/table-client-side.service';
 import { AppFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
 import { AppTableServerSideComponent } from '@shared/organisms/app-table-server-side/app-table-server-side.component';
 import { AppTableServerParams } from '@shared/organisms/app-table-server-side/app-table-server-side.model';
+import { Employee } from '../../contracts/employee.contract';
 
 @Component({
   selector: 'app-table-server-side-pds',
