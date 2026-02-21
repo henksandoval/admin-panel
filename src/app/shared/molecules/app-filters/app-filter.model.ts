@@ -42,23 +42,16 @@ export interface AppFilterToggle {
 
 export interface AppFiltersConfig {
   fields: AppFilterField[];
-  // Simple filter options
   debounceMs?: number;
   appearance?: 'fill' | 'outline';
   showClearAll?: boolean;
   clearAllLabel?: string;
-  // Advanced filter options
   operators?: AppFilterOperator[];
   toggles?: AppFilterToggle[];
   maxCriteria?: number;
   autoSearch?: boolean;
   showClearButton?: boolean;
   showSearchButton?: boolean;
-}
-
-export interface AppFiltersOutput {
-  criteria: AppFilterCriterion[];
-  toggles: Record<string, boolean>;
 }
 
 export const DEFAULT_FILTER_OPERATORS: AppFilterOperator[] = [

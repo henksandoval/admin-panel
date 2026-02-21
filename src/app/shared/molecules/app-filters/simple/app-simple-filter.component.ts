@@ -17,7 +17,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { AppFiltersConfig, AppFilterValues, FILTER_DEFAULTS } from '../app-filter.model';
+import {
+  AppFilterCriterion,
+  AppFiltersConfig,
+  AppFilterValues,
+  DEFAULT_FILTER_OPERATORS,
+  DEFAULT_OPERATOR_BY_TYPE,
+  FILTER_DEFAULTS
+} from '../app-filter.model';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
@@ -49,13 +56,15 @@ import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-for
 export class AppSimpleFilterComponent implements OnInit {
   readonly config = input.required<AppFiltersConfig>();
   readonly values = input<AppFilterValues>({});
-  valuesChange = output<AppFilterValues>();
-  filterChange = output<{ key: string; value: unknown }>();
+
+  criteriaChange = output<AppFilterCriterion[]>();
   toggleChange = output<Record<string, boolean>>();
+
   readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
   readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
   readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
   readonly toggles = computed(() => this.config().toggles ?? []);
+
   private readonly destroyRef = inject(DestroyRef);
   private readonly debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
   private readonly formGroup = signal(new FormGroup<Record<string, FormControl>>({}));
@@ -95,11 +104,13 @@ export class AppSimpleFilterComponent implements OnInit {
   }
 
   emitSearch(): void {
+    const cleaned = this.cleanValues(this.formGroup().getRawValue());
+    this.criteriaChange.emit(this.valuesToCriteria(cleaned));
   }
 
   clearAllCriteria(): void {
     this.formGroup().reset();
-    this.valuesChange.emit({});
+    this.criteriaChange.emit([]);
   }
 
   private initializeForm(): void {
@@ -120,7 +131,10 @@ export class AppSimpleFilterComponent implements OnInit {
         distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
         takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe((values) => this.valuesChange.emit(this.cleanValues(values)));
+      .subscribe((values) => {
+        const cleaned = this.cleanValues(values);
+        this.criteriaChange.emit(this.valuesToCriteria(cleaned));
+      });
   }
 
   private cleanValues(values: Record<string, unknown>): AppFilterValues {
@@ -129,5 +143,22 @@ export class AppSimpleFilterComponent implements OnInit {
         ([, value]) => value !== null && value !== undefined && value !== '',
       ),
     ) as AppFilterValues;
+  }
+
+  private valuesToCriteria(values: AppFilterValues): AppFilterCriterion[] {
+    const fields = this.config().fields;
+
+    return Object.entries(values).map(([key, value]) => {
+      const field = fields.find(f => f.key === key)!;
+      const operatorKey = field.defaultOperator ?? DEFAULT_OPERATOR_BY_TYPE[field.type];
+      const operator = DEFAULT_FILTER_OPERATORS.find(op => op.key === operatorKey)!;
+
+      return {
+        id: `simple_${key}`,
+        field,
+        operator,
+        value,
+      };
+    });
   }
 }

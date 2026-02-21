@@ -19,14 +19,10 @@ import {
 import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
 import { AppTableAction, AppTableConfig, AppTableSort } from "@shared/atoms/app-table/app-table.model";
 import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
-import { AppFiltersConfig, AppFiltersOutput, AppFilterValues } from "@shared/molecules/app-filters/app-filter.model";
+import { AppFilterCriterion, AppFiltersConfig } from "@shared/molecules/app-filters/app-filter.model";
 import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator.utils";
 import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
-import {
-  AppTableCriteriaFilterFn,
-  AppTableFilterFn,
-  AppTableSortFn
-} from "./app-table-client-side.model";
+import { AppTableFilterFn, AppTableSortFn } from "./app-table-client-side.model";
 
 @Component({
   selector: 'app-table-client-side',
@@ -53,40 +49,30 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   readonly loading = input(false);
 
   readonly filterFn = input<AppTableFilterFn<T>>();
-  readonly criteriaFilterFn = input<AppTableCriteriaFilterFn<T>>();
   readonly sortFn = input<AppTableSortFn<T>>();
 
   sortChange = output<AppTableSort>();
-  filtersChange = output<AppFilterValues | AppFiltersOutput>();
+  filtersChange = output<AppFilterCriterion[]>();
   pageChange = output<AppPageEvent>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
   readonly projectedCellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
-  readonly currentFilters = signal<AppFilterValues | AppFiltersOutput>({});
+  readonly currentFilters = signal<AppFilterCriterion[]>([]);
   readonly pageIndex = signal(0);
   readonly pageSize = signal(10);
 
-  readonly simpleFilterValues = computed(() => {
-    const filters = this.currentFilters();
-    return this.isAdvancedFilters(filters) ? {} : filters;
-  });
-
   private readonly filteredData = computed(() => {
     const data = this.data();
-    const filters = this.currentFilters();
-    const useAdvanced = this.useAdvancedFilters();
+    const criteria = this.currentFilters();
 
-    if (this.isEmptyFilters(filters)) {
-      return data;
-    }
+    if (criteria.length === 0) return data;
 
-    if (useAdvanced && this.isAdvancedFilters(filters)) {
-      return this.applyAdvancedFilters(data, filters);
-    }
-
-    return this.applySimpleFilters(data, filters as AppFilterValues);
+    const customFn = this.filterFn();
+    return customFn
+      ? customFn(data, criteria)
+      : evaluateCriteria(data, criteria);
   });
 
   private readonly sortedData = computed(() => {
@@ -124,10 +110,10 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     }
   });
 
-  onFiltersChange(filters: AppFilterValues | AppFiltersOutput): void {
-    this.currentFilters.set(filters);
+  onFiltersChange(criteria: AppFilterCriterion[]): void {
+    this.currentFilters.set(criteria);
     this.pageIndex.set(0);
-    this.filtersChange.emit(filters);
+    this.filtersChange.emit(criteria);
   }
 
   onSortChange(sort: AppTableSort): void {
@@ -140,65 +126,6 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     this.pageSize.set(event.pageSize);
     this.pageChange.emit(event);
   }
-
-  private isEmptyFilters(filters: AppFilterValues | AppFiltersOutput): boolean {
-    if (this.isAdvancedFilters(filters)) {
-      return filters.criteria.length === 0;
-    }
-    return Object.keys(filters).length === 0;
-  }
-
-  private isAdvancedFilters(filters: AppFilterValues | AppFiltersOutput): filters is AppFiltersOutput {
-    return 'criteria' in filters && 'toggles' in filters;
-  }
-
-  private applySimpleFilters(data: T[], filters: AppFilterValues): T[] {
-    const activeFilters = Object.entries(filters).filter(
-      ([, v]) => v !== null && v !== undefined && v !== '',
-    );
-    if (!activeFilters.length) return data;
-
-    const customFn = this.filterFn();
-    return customFn
-      ? customFn(data, filters)
-      : this.defaultSimpleFilter(data, filters);
-  }
-
-  private applyAdvancedFilters(data: T[], output: AppFiltersOutput): T[] {
-    let filtered = data;
-
-    if (output.criteria.length > 0) {
-      const customFn = this.criteriaFilterFn();
-      filtered = customFn
-        ? customFn(filtered, output.criteria)
-        : evaluateCriteria(filtered, output.criteria);
-    }
-
-    return filtered;
-  }
-
-  private defaultSimpleFilter(data: T[], filters: AppFilterValues): T[] {
-    const active = Object.entries(filters).filter(
-      ([, v]) => v !== null && v !== undefined && v !== '',
-    );
-    if (!active.length) return data;
-
-    return data.filter(item =>
-      active.every(([key, filterValue]) => {
-        const itemValue: unknown = item[key];
-        if (itemValue === null || itemValue === undefined) return false;
-
-        if (filterValue instanceof Date && itemValue instanceof Date) {
-          return itemValue.getTime() === filterValue.getTime();
-        }
-
-        return String(itemValue)
-          .toLowerCase()
-          .includes(String(filterValue).toLowerCase());
-      }),
-    );
-  }
-
 
   private defaultSort(data: T[], sort: AppTableSort): T[] {
     return [...data].sort((a, b) => {

@@ -1,7 +1,7 @@
 <div class="app-server-side-table">
   @if (filtersConfig()) {
     <app-simple-filters
-      (valuesChange)="onFiltersChange($event)"
+      (criteriaChange)="onFiltersChange($event)"
       [config]="filtersConfig()!"
       [values]="filterValues()">
     </app-simple-filters>

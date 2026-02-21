@@ -14,9 +14,8 @@
       </app-card>
     } @else {
       <app-simple-filters
-        (valuesChange)="onFiltersChange($event)"
-        [config]="filtersConfig()!"
-        [values]="simpleFilterValues()">
+        (criteriaChange)="onFiltersChange($event)"
+        [config]="filtersConfig()!">
       </app-simple-filters>
     }
   }

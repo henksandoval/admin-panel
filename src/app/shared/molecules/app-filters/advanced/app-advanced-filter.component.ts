@@ -12,7 +12,6 @@ import {
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { togglesToRecord } from '../app-filter.utils';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
@@ -35,7 +34,6 @@ import { CriterionDisplayPipe } from '../criterion-display.pipe';
 import {
   AppFilterCriterion,
   AppFiltersConfig,
-  AppFiltersOutput,
   DEFAULT_FILTER_OPERATORS,
   FILTER_DEFAULTS
 } from '../app-filter.model';
@@ -70,7 +68,7 @@ export class AppAdvancedFilterComponent {
   readonly config = input.required<AppFiltersConfig>();
   readonly initialCriteria = input<AppFilterCriterion[]>([]);
 
-  searchApplied = output<AppFiltersOutput>();
+  searchApplied = output<AppFilterCriterion[]>();
   criteriaChange = output<AppFilterCriterion[]>();
   toggleChange = output<Record<string, boolean>>();
 
@@ -138,7 +136,6 @@ export class AppAdvancedFilterComponent {
   constructor() {
     this.setupFormCascade();
 
-
     effect(() => {
       const initial = this.initialCriteria();
       if (initial.length > 0) {
@@ -179,10 +176,7 @@ export class AppAdvancedFilterComponent {
   }
 
   emitSearch(): void {
-    this.searchApplied.emit({
-      criteria: this.criteria(),
-      toggles: togglesToRecord(this.toggles()),
-    });
+    this.searchApplied.emit(this.criteria());
   }
 
   onToggleChange(togglesRecord: Record<string, boolean>): void {

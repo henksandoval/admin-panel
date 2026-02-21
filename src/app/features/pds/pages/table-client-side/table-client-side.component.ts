@@ -5,7 +5,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBarModule, MatSnackBar } from "@angular/material/snack-bar";
 import { AppPageEvent } from "@shared/atoms/app-pagination/app-pagination.model";
 import { AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
-import { AppFilterValues, AppFiltersOutput } from "@shared/molecules/app-filters/app-filter.model";
+import { AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
 import { AppTableClientSideComponent } from "@shared/organisms/app-table-client-side/app-table-client-side.component";
 import { MockEmployeeService } from "../../mocks/mock-employee.service";
 import { MockHttpService } from "../../mocks/mock-http.service";
@@ -48,7 +48,7 @@ export class TableClientSideComponent implements OnInit {
     this.snackBar.open(`Ordenar por: ${event.active} (${event.direction})`, '✕', {duration: 2500});
   }
 
-  onFilters(_filters: AppFilterValues | AppFiltersOutput): void {
+  onFilters(_filters: AppFilterCriterion[]): void {
     const mode = this.useAdvancedFilters() ? 'avanzada' : 'simple';
     this.snackBar.open(`Búsqueda ${mode} aplicada`, '✕', {duration: 2500});
   }

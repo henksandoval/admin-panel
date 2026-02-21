@@ -19,7 +19,7 @@ import {
   AppPaginationState,
 } from '@shared/atoms/app-pagination/app-pagination.model';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
-import { AppFiltersConfig, AppFilterValues } from '@shared/molecules/app-filters/app-filter.model';
+import { AppFiltersConfig, AppFilterValues, AppFilterCriterion } from '@shared/molecules/app-filters/app-filter.model';
 import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/app-simple-filter.component';
 
 @Component({
@@ -100,7 +100,8 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
     }
   });
 
-  onFiltersChange(values: AppFilterValues): void {
+  onFiltersChange(criteria: AppFilterCriterion[]): void {
+    const values = this.criteriaToValues(criteria);
     this.filterValues.set(values);
 
     if (this.resetPageOnFilter()) {
@@ -132,6 +133,13 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
 
   private emitParamsChange(): void {
     this.paramsChange.emit(this.currentParams());
+  }
+
+  private criteriaToValues(criteria: AppFilterCriterion[]): AppFilterValues {
+    return criteria.reduce((acc, criterion) => {
+      acc[criterion.field.key] = criterion.value;
+      return acc;
+    }, {} as AppFilterValues);
   }
 }
 
