@@ -1,9 +1,9 @@
 export type TableColumnAlign = 'left' | 'center' | 'right';
 export type TableSortDirection = 'asc' | 'desc' | '';
 
-export interface AppTableColumn<T = any> {
+export interface AppTableColumn<T = unknown> {
   key: string;
-  header: string;
+  header?: string;
   width?: string;
   minWidth?: string;
   align?: TableColumnAlign;
@@ -11,10 +11,11 @@ export interface AppTableColumn<T = any> {
   sticky?: 'start' | 'end';
   headerClass?: string;
   cellClass?: string | ((row: T) => string);
-  valueFormatter?: (value: any, row: T) => string;
+  valueFormatter?: (value: unknown, row: T) => string;
+  isHidden?: boolean;
 }
 
-export interface AppTableAction<T = any> {
+export interface AppTableAction<T = unknown> {
   icon: string;
   label: string;
   color?: 'primary' | 'accent' | 'warn';
@@ -27,7 +28,7 @@ export interface AppTableSort {
   direction: TableSortDirection;
 }
 
-export interface AppTableConfig<T = any> {
+export interface AppTableConfig<T = unknown> {
   columns: AppTableColumn<T>[];
   actions?: AppTableAction<T>[];
   trackByKey?: keyof T;

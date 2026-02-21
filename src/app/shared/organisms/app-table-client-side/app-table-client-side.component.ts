@@ -47,6 +47,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   readonly tableConfig = input.required<AppTableConfig<T>>();
   readonly filtersConfig = input<AppFiltersConfig>();
   readonly useAdvancedFilters = input<boolean>(false);
+  readonly showPagination = input<boolean>(true);
   readonly paginationConfig = input<AppPaginationConfig>();
 
   readonly data = input<T[]>([]);
@@ -84,7 +85,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     }
 
     if (useAdvanced && this.isAdvancedFilters(filters)) {
-      return this.applyAdvancedFilters(data, filters as AppFiltersOutput);
+      return this.applyAdvancedFilters(data, filters);
     }
 
     return this.applySimpleFilters(data, filters as AppFilterValues);
@@ -102,7 +103,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
 
   readonly displayData = computed(() => {
     const data = this.sortedData();
-    if (!this.paginationConfig()) return data;
+    if (!this.showPagination()) return data;
 
     const start = this.pageIndex() * this.pageSize();
     return data.slice(start, start + this.pageSize());

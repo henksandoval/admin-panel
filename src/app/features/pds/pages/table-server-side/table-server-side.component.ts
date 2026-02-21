@@ -49,18 +49,18 @@ export class TableServerSideComponent implements OnInit {
         header: 'Salario',
         sortable: true,
         align: 'right',
-        valueFormatter: (value: number) =>
+        valueFormatter: (value: unknown) =>
           new Intl.NumberFormat('es-ES', {
             style: 'currency',
             currency: 'EUR',
-          }).format(value),
+          }).format(value as number),
       },
       {
         key: 'hireDate',
         header: 'Fecha Ingreso',
         sortable: true,
-        valueFormatter: (value: Date) =>
-          new Intl.DateTimeFormat('es-ES').format(new Date(value)),
+        valueFormatter: (value: unknown) =>
+          new Intl.DateTimeFormat('es-ES').format(new Date(value as Date)),
       },
     ],
     trackByKey: 'id',

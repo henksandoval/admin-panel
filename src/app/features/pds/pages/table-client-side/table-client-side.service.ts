@@ -36,6 +36,9 @@ export class TableClientSideService {
     if (!toggles['showInactive']) {
       result = result.filter(e => e.status !== 'inactive');
     }
+    if (!toggles['showDeleted']) {
+      result = result.filter(e => !e.isDeleted);
+    }
     return result;
   }
 

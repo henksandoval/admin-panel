@@ -15,6 +15,7 @@ export function getTableConfig(): AppTableConfig<EmployeeViewModel> {
       {key: 'statusLabel', header: 'Estado', align: 'center', sortable: true},
       {key: 'salaryFormatted', header: 'Salario', align: 'right', sortable: true},
       {key: 'hireDateFormatted', header: 'Fecha contratación', sortable: true},
+      {key: 'isDeleted', isHidden: true},
     ],
     actions: [
       {icon: 'edit', label: 'Editar', color: 'primary'},
@@ -75,12 +76,5 @@ export function getFiltersConfig(useAdvanced: boolean): AppFiltersConfig {
       hireDateField,
     ],
     toggles,
-  };
-}
-
-export function getPaginationConfig(): AppPaginationConfig {
-  return {
-    pageSizeOptions: [5, 10, 20],
-    showFirstLastButtons: true,
   };
 }

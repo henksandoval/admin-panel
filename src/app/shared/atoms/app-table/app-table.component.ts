@@ -128,7 +128,9 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
   readonly hasCustomEmptyState = computed(() => !!this.emptyStateContent());
   readonly emptyMessage = computed(() => this.config().emptyMessage ?? TABLE_DEFAULTS.emptyMessage);
   readonly displayedColumns = computed(() => {
-    const cols = this.columns().map((c) => c.key);
+    const cols = this.columns()
+      .filter((c) => !c.isHidden)
+      .map((c) => c.key);
     if (this.hasActions()) cols.push('actions');
     return cols;
   });

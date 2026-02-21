@@ -9,7 +9,7 @@ import { AppFilterValues, AppFiltersOutput } from "@shared/molecules/app-filters
 import { AppTableClientSideComponent } from "@shared/organisms/app-table-client-side/app-table-client-side.component";
 import { MockEmployeeService } from "../../mocks/mock-employee.service";
 import { MockHttpService } from "../../mocks/mock-http.service";
-import { getTableConfig, getPaginationConfig, getFiltersConfig } from "./table-client-side.config";
+import { getTableConfig, getFiltersConfig } from "./table-client-side.config";
 import { TableClientSideService, EmployeeViewModel } from "./table-client-side.service";
 
 @Component({
@@ -30,7 +30,6 @@ export class TableClientSideComponent implements OnInit {
   readonly employees = signal<EmployeeViewModel[]>([]);
 
   readonly tableConfig = getTableConfig();
-  readonly paginationConfig = getPaginationConfig();
   readonly filtersConfig = computed(() => getFiltersConfig(this.useAdvancedFilters()));
 
   readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>): EmployeeViewModel[] => {

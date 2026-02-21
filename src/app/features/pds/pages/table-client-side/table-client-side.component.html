@@ -24,12 +24,11 @@
     (filtersChange)="onFilters($event)"
     (pageChange)="onPage($event)"
     (sortChange)="onSort($event)"
+    [useAdvancedFilters]="useAdvancedFilters()"
     [data]="employees()"
     [filtersConfig]="filtersConfig()"
-    [paginationConfig]="paginationConfig"
     [tableConfig]="tableConfig"
-    [toggleFilterFn]="toggleFilter"
-    [useAdvancedFilters]="useAdvancedFilters()">
+    [toggleFilterFn]="toggleFilter">
     <ng-template #cellTemplate let-column="column" let-row let-value="value">
       @switch (column.key) {
         @case ('statusLabel') {

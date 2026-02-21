@@ -33,7 +33,7 @@
     <ng-content/>
   </app-table>
 
-  @if (paginationConfig()) {
+  @if (showPagination()) {
     <app-pagination
       (pageChange)="onPageChange($event)"
       [config]="paginationConfig()!"
