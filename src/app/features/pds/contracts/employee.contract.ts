@@ -8,6 +8,7 @@ export interface Employee {
   salary: number;
   hireDate: Date;
   isDeleted: boolean;
+  isHidden: boolean;
 }
 
 export type EmployeeStatus = 'active' | 'inactive' | 'vacation';

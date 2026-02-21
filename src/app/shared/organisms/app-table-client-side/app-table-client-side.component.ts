@@ -25,8 +25,7 @@ import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/a
 import {
   AppTableCriteriaFilterFn,
   AppTableFilterFn,
-  AppTableSortFn,
-  AppTableToggleFilterFn
+  AppTableSortFn
 } from "./app-table-client-side.model";
 
 @Component({
@@ -55,7 +54,6 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
 
   readonly filterFn = input<AppTableFilterFn<T>>();
   readonly criteriaFilterFn = input<AppTableCriteriaFilterFn<T>>();
-  readonly toggleFilterFn = input<AppTableToggleFilterFn<T>>();
   readonly sortFn = input<AppTableSortFn<T>>();
 
   sortChange = output<AppTableSort>();
@@ -174,11 +172,6 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
       filtered = customFn
         ? customFn(filtered, output.criteria)
         : evaluateCriteria(filtered, output.criteria);
-    }
-
-    if (Object.keys(output.toggles).length > 0) {
-      const customFn = this.toggleFilterFn();
-      filtered = customFn ? customFn(filtered, output.toggles) : filtered;
     }
 
     return filtered;

@@ -1,5 +1,4 @@
 import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
-import {AppPaginationConfig} from '@shared/atoms/app-pagination/app-pagination.model';
 import {AppFiltersConfig} from '@shared/molecules/app-filters/app-filter.model';
 import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_STATUS_OPTIONS } from '../../contracts/employee.contract';
 import { EmployeeViewModel } from './table-client-side.service';
@@ -16,6 +15,7 @@ export function getTableConfig(): AppTableConfig<EmployeeViewModel> {
       {key: 'salaryFormatted', header: 'Salario', align: 'right', sortable: true},
       {key: 'hireDateFormatted', header: 'Fecha contratación', sortable: true},
       {key: 'isDeleted', isHidden: true},
+      {key: 'isHidden', isHidden: true},
     ],
     actions: [
       {icon: 'edit', label: 'Editar', color: 'primary'},
@@ -48,8 +48,8 @@ export function getFiltersConfig(useAdvanced: boolean): AppFiltersConfig {
   };
 
   const toggles = [
-    {key: 'showDeleted', label: 'Mostrar eliminados', value: false},
-    {key: 'showInactive', label: 'Mostrar inactivos', value: false},
+    {key: 'isDeleted', label: 'Mostrar eliminados', value: false},
+    {key: 'isHidden', label: 'Mostrar ocultos', value: false},
   ];
 
   if (useAdvanced) {

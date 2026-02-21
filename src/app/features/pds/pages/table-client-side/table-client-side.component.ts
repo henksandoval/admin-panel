@@ -32,10 +32,6 @@ export class TableClientSideComponent implements OnInit {
   readonly tableConfig = getTableConfig();
   readonly filtersConfig = computed(() => getFiltersConfig(this.useAdvancedFilters()));
 
-  readonly toggleFilter = (data: EmployeeViewModel[], toggles: Record<string, boolean>): EmployeeViewModel[] => {
-    return this.service.filterByToggles(data, toggles);
-  };
-
   ngOnInit(): void {
     this.service.getEmployees(45).subscribe({
       next: (data) => {

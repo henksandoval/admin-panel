@@ -27,8 +27,7 @@
     [useAdvancedFilters]="useAdvancedFilters()"
     [data]="employees()"
     [filtersConfig]="filtersConfig()"
-    [tableConfig]="tableConfig"
-    [toggleFilterFn]="toggleFilter">
+    [tableConfig]="tableConfig">
     <ng-template #cellTemplate let-column="column" let-row let-value="value">
       @switch (column.key) {
         @case ('statusLabel') {

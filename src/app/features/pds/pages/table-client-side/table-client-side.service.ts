@@ -17,6 +17,7 @@ export interface EmployeeViewModel {
   hireDate: Date;
   hireDateFormatted: string;
   isDeleted: boolean;
+  isHidden: boolean;
 }
 
 @Injectable()
@@ -56,6 +57,7 @@ export class TableClientSideService {
       hireDate: emp.hireDate,
       hireDateFormatted: this.datePipe.transform(emp.hireDate, 'dd/MM/yyyy') ?? '',
       isDeleted: emp.isDeleted,
+      isHidden: emp.isHidden,
     };
   }
 }
