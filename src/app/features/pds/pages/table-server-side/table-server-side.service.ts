@@ -1,59 +1,48 @@
-import { Injectable } from "@angular/core";
+import { CurrencyPipe, DatePipe } from "@angular/common";
+import { Injectable, inject } from "@angular/core";
 import {
   AppTableServerParams,
   AppTableServerResponse
 } from "@shared/organisms/app-table-server-side/app-table-server-side.model";
 import { Observable } from "rxjs";
-import { Employee, EMPLOYEE_STATUS_LABELS } from "../../contracts/employee.contract";
+import { Employee, EmployeeStatus, EMPLOYEE_STATUS_LABELS } from "../../contracts/employee.contract";
 import { generateEmployees } from "../../mocks/data/employees.data";
 
-type EmployeeWithLabel = Employee & { statusLabel: string };
+export interface EmployeeViewModel {
+  id: number;
+  name: string;
+  email: string;
+  department: string;
+  role: string;
+  status: EmployeeStatus;
+  statusLabel: string;
+  salary: number;
+  salaryFormatted: string;
+  hireDate: Date;
+  hireDateFormatted: string;
+  isDeleted: boolean;
+  isHidden: boolean;
+}
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class TableServerSideService {
-  private mockData: EmployeeWithLabel[] = this.generateMockData(250);
+  private readonly currencyPipe = inject(CurrencyPipe);
+  private readonly datePipe = inject(DatePipe);
+  private mockData: EmployeeViewModel[] = this.generateMockData(250);
 
   getEmployees(
     params: AppTableServerParams
-  ): Observable<AppTableServerResponse<EmployeeWithLabel>> {
+  ): Observable<AppTableServerResponse<EmployeeViewModel>> {
     return new Observable((observer) => {
       setTimeout(() => {
         try {
-          let filtered = [...this.mockData];
-
-          Object.entries(params.filters).forEach(([key, value]) => {
-            if (value !== null && value !== undefined && value !== '') {
-              filtered = filtered.filter((item) => {
-                const itemValue = item[key as keyof EmployeeWithLabel];
-                return String(itemValue)
-                  .toLowerCase()
-                  .includes(String(value).toLowerCase());
-              });
-            }
-          });
-
-          if (params.sort.active && params.sort.direction) {
-            filtered.sort((a, b) => {
-              const aVal = a[params.sort.active as keyof EmployeeWithLabel];
-              const bVal = b[params.sort.active as keyof EmployeeWithLabel];
-
-              let comparison = 0;
-              if (aVal < bVal) comparison = -1;
-              if (aVal > bVal) comparison = 1;
-
-              return params.sort.direction === 'asc' ? comparison : -comparison;
-            });
-          }
-
-          const total = filtered.length;
-
-          const start = params.pageIndex * params.pageSize;
-          const end = start + params.pageSize;
-          const page = filtered.slice(start, end);
+          const filtered = this.applyFilters(this.mockData, params.filters);
+          const sorted = this.applySort(filtered, params.sort);
+          const paginated = this.applyPagination(sorted, params.pageIndex, params.pageSize);
 
           observer.next({
-            data: page,
-            total: total,
+            data: paginated,
+            total: filtered.length,
             page: params.pageIndex,
             pageSize: params.pageSize,
           });
@@ -61,14 +50,73 @@ export class TableServerSideService {
         } catch (error) {
           observer.error(error);
         }
-      }, 2500);
+      }, 1500);
     });
   }
 
-  private generateMockData(count: number): EmployeeWithLabel[] {
-    return generateEmployees(count, 15).map(employee => ({
-      ...employee,
-      statusLabel: EMPLOYEE_STATUS_LABELS[employee.status]
-    }));
+  private applyFilters(
+    data: EmployeeViewModel[],
+    filters: Record<string, unknown>
+  ): EmployeeViewModel[] {
+    return data.filter((item) => {
+      return Object.entries(filters).every(([key, value]) => {
+        if (value === null || value === undefined || value === '') return true;
+        
+        const itemValue = item[key as keyof EmployeeViewModel];
+        return String(itemValue)
+          .toLowerCase()
+          .includes(String(value).toLowerCase());
+      });
+    });
+  }
+
+  private applySort(
+    data: EmployeeViewModel[],
+    sort: { active: string; direction: string }
+  ): EmployeeViewModel[] {
+    if (!sort.active || !sort.direction) return data;
+
+    return [...data].sort((a, b) => {
+      const aVal = a[sort.active as keyof EmployeeViewModel];
+      const bVal = b[sort.active as keyof EmployeeViewModel];
+
+      let comparison = 0;
+      if (aVal < bVal) comparison = -1;
+      if (aVal > bVal) comparison = 1;
+
+      return sort.direction === 'asc' ? comparison : -comparison;
+    });
+  }
+
+  private applyPagination(
+    data: EmployeeViewModel[],
+    pageIndex: number,
+    pageSize: number
+  ): EmployeeViewModel[] {
+    const start = pageIndex * pageSize;
+    const end = start + pageSize;
+    return data.slice(start, end);
+  }
+
+  private generateMockData(count: number): EmployeeViewModel[] {
+    return generateEmployees(count, 15).map(emp => this.toViewModel(emp));
+  }
+
+  private toViewModel(emp: Employee): EmployeeViewModel {
+    return {
+      id: emp.id,
+      name: emp.name,
+      email: emp.email,
+      department: emp.department,
+      role: emp.role,
+      status: emp.status,
+      statusLabel: EMPLOYEE_STATUS_LABELS[emp.status],
+      salary: emp.salary,
+      salaryFormatted: this.currencyPipe.transform(emp.salary, 'EUR', 'symbol', '1.2-2') ?? '',
+      hireDate: emp.hireDate,
+      hireDateFormatted: this.datePipe.transform(emp.hireDate, 'dd/MM/yyyy') ?? '',
+      isDeleted: emp.isDeleted,
+      isHidden: emp.isHidden,
+    };
   }
 }

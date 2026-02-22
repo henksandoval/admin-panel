@@ -1,0 +1,47 @@
+<div class="pds-page">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="mat-headline-large">Directorio de empleados</h1>
+      <p class="mat-body-medium">Ejemplo de tabla server-side con filtros simples y avanzados</p>
+    </div>
+
+    <mat-button-toggle-group
+      (change)="useAdvancedFilters.set($event.value)"
+      [value]="useAdvancedFilters()">
+      <mat-button-toggle [value]="false">
+        <mat-icon>filter_list</mat-icon>
+        Filtros Simples
+      </mat-button-toggle>
+      <mat-button-toggle [value]="true">
+        <mat-icon>tune</mat-icon>
+        Filtros Avanzados
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <app-table-server-side
+    [data]="employees()"
+    [totalItems]="totalEmployees()"
+    [loading]="isLoading()"
+    [tableConfig]="tableConfig"
+    [filtersConfig]="filtersConfig()"
+    [paginationConfig]="paginationConfig"
+    (paramsChange)="onParamsChange($event)"
+    (rowClick)="onRowClick($any($event))">
+    <ng-template #cellTemplate let-column="column" let-row let-value="value">
+      @switch (column.key) {
+        @case ('statusLabel') {
+          <span [class]="'badge--' + row.status" class="badge">
+            {{ value }}
+          </span>
+        }
+        @case ('salaryFormatted') {
+          <span class="salary">{{ value }}</span>
+        }
+        @default {
+          {{ value }}
+        }
+      }
+    </ng-template>
+  </app-table-server-side>
+</div>

@@ -1,117 +1,38 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject, signal, computed } from '@angular/core';
 import { finalize } from 'rxjs/operators';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { AppTableConfig } from '@shared/atoms/app-table/app-table.model';
-import { AppPaginationConfig } from '@shared/atoms/app-pagination/app-pagination.model';
-import { TableServerSideService } from './table-server-side.service';
-import { AppFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';import { CurrencyPipe, DatePipe } from '@angular/common';
 import { AppTableServerSideComponent } from '@shared/organisms/app-table-server-side/app-table-server-side.component';
 import { AppTableServerParams } from '@shared/organisms/app-table-server-side/app-table-server-side.model';
-import { Employee } from '../../contracts/employee.contract';
-
-type EmployeeWithLabel = Employee & { statusLabel: string };
+import { MockHttpService } from '../../mocks/mock-http.service';
+import { MockEmployeeService } from '../../mocks/mock-employee.service';
+import { getTableConfig, getFiltersConfig, getPaginationConfig } from './table-server-side.config';
+import { TableServerSideService, EmployeeViewModel } from './table-server-side.service';
 
 @Component({
   selector: 'app-table-server-side-pds',
   standalone: true,
-  imports: [AppTableServerSideComponent, MatSnackBarModule],
-  template: `
-    <div class="p-6">
-      <h1 class="mat-headline-large mb-6">Tabla Server-Side - Ejemplo</h1>
-
-      <app-table-server-side
-        [tableConfig]="tableConfig"
-        [data]="employees()"
-        [totalItems]="totalEmployees()"
-        [loading]="isLoading()"
-        [filtersConfig]="filtersConfig"
-        [paginationConfig]="paginationConfig"
-        (paramsChange)="loadEmployees($event)"
-        (rowClick)="onRowClick($event)"
-      />
-    </div>
-  `,
+  imports: [AppTableServerSideComponent, MatSnackBarModule, MatButtonToggleModule, MatIconModule],
+  providers: [CurrencyPipe, DatePipe, MockHttpService, MockEmployeeService, TableServerSideService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './table-server-side.component.scss',
+  templateUrl: './table-server-side.component.html',
 })
 export class TableServerSideComponent implements OnInit {
-  readonly employees = signal<EmployeeWithLabel[]>([]);
+  private readonly service = inject(TableServerSideService);
+  private readonly snackBar = inject(MatSnackBar);
+
+  readonly useAdvancedFilters = signal(false);
+  readonly employees = signal<EmployeeViewModel[]>([]);
   readonly totalEmployees = signal(0);
   readonly isLoading = signal(false);
-  readonly tableConfig: AppTableConfig<EmployeeWithLabel> = {
-    columns: [
-      { key: 'id', header: 'ID', width: '60px', sortable: true },
-      { key: 'name', header: 'Nombre', sortable: true },
-      { key: 'email', header: 'Email', sortable: true },
-      { key: 'department', header: 'Departamento', sortable: true },
-      { key: 'role', header: 'Rol' },
-      { key: 'statusLabel', header: 'Estado', sortable: true },
-      {
-        key: 'salary',
-        header: 'Salario',
-        sortable: true,
-        align: 'right',
-        valueFormatter: (value: unknown) =>
-          new Intl.NumberFormat('es-ES', {
-            style: 'currency',
-            currency: 'EUR',
-          }).format(value as number),
-      },
-      {
-        key: 'hireDate',
-        header: 'Fecha Ingreso',
-        sortable: true,
-        valueFormatter: (value: unknown) =>
-          new Intl.DateTimeFormat('es-ES').format(new Date(value as Date)),
-      },
-    ],
-    trackByKey: 'id',
-    clickableRows: true,
-  };
-  readonly filtersConfig: AppFiltersConfig = {
-    fields: [
-      {
-        key: 'name',
-        label: 'Nombre',
-        type: 'text',
-        placeholder: 'Buscar por nombre...',
-      },
-      {
-        key: 'department',
-        label: 'Departamento',
-        type: 'select',
-        placeholder: 'Todos los departamentos',
-        options: [
-          { value: 'Engineering', label: 'Ingeniería' },
-          { value: 'Sales', label: 'Ventas' },
-          { value: 'Marketing', label: 'Marketing' },
-          { value: 'HR', label: 'Recursos Humanos' },
-          { value: 'Finance', label: 'Finanzas' },
-        ],
-      },
-      {
-        key: 'status',
-        label: 'Estado',
-        type: 'select',
-        placeholder: 'Todos los estados',
-        options: [
-          { value: 'active', label: 'Activo' },
-          { value: 'inactive', label: 'Inactivo' },
-          { value: 'vacation', label: 'De vacaciones' },
-        ],
-      },
-    ],
-    debounceMs: 300,
-    showClearAll: true,
-  };
-  readonly paginationConfig: AppPaginationConfig = {
-    pageSizeOptions: [10, 25, 50, 100],
-    showFirstLastButtons: true,
-    showPageSizeSelector: true,
-  };
-  private snackBar = inject(MatSnackBar);
-  private tableServerSideService = inject(TableServerSideService);
+
+  readonly tableConfig = getTableConfig();
+  readonly filtersConfig = computed(() => getFiltersConfig(this.useAdvancedFilters()));
+  readonly paginationConfig = getPaginationConfig();
 
   ngOnInit(): void {
-    this.loadEmployees({
+    this.onParamsChange({
       filters: {},
       sort: { active: '', direction: '' },
       pageIndex: 0,
@@ -119,10 +40,10 @@ export class TableServerSideComponent implements OnInit {
     });
   }
 
-  loadEmployees(params: AppTableServerParams): void {
+  onParamsChange(params: AppTableServerParams): void {
     this.isLoading.set(true);
 
-    this.tableServerSideService
+    this.service
       .getEmployees(params)
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
@@ -131,18 +52,24 @@ export class TableServerSideComponent implements OnInit {
           this.totalEmployees.set(response.total);
         },
         error: () => {
-          this.snackBar.open('Error al cargar empleados', 'Cerrar', {
+          this.snackBar.open('Error al cargar empleados', '✕', {
             duration: 3000,
           });
         },
       });
   }
 
-  onRowClick(employee: EmployeeWithLabel): void {
+  /**
+   * Nota: TypeScript actualmente tiene limitaciones infiriendo el tipo genérico T desde
+   * output<T>() en componentes genéricos. El tipo EmployeeViewModel es correcto en runtime
+   * gracias al $any() en el template. Los errores de linter son falsos positivos.
+   * Ref: https://github.com/angular/angular/issues/49110
+   */
+  onRowClick(employee: EmployeeViewModel): void {
     this.snackBar.open(
       `Seleccionado: ${employee.name} (${employee.email})`,
-      'Cerrar',
-      { duration: 2000 }
+      '✕',
+      { duration: 2500 }
     );
   }
 }
