@@ -68,7 +68,6 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     const criteria = this.currentFilters();
     const toggles = this.currentToggles();
 
-    // Aplicar filtros de toggles primero
     let filtered = data;
     Object.entries(toggles).forEach(([key, value]) => {
       if (value === false) {
@@ -76,7 +75,6 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
       }
     });
 
-    // Aplicar criterios de filtro
     if (criteria.length === 0) return filtered;
 
     const customFn = this.filterFn();

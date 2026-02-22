@@ -44,20 +44,20 @@ export class TableClientSideComponent implements OnInit {
     });
   }
 
-  onSort(event: AppTableSort): void {
+  onSortChange(event: AppTableSort): void {
     this.snackBar.open(`Ordenar por: ${event.active} (${event.direction})`, '✕', {duration: 2500});
   }
 
-  onFilters(_filters: AppFilterCriterion[]): void {
+  onFiltersChange(_filters: AppFilterCriterion[]): void {
     const mode = this.useAdvancedFilters() ? 'avanzada' : 'simple';
     this.snackBar.open(`Búsqueda ${mode} aplicada`, '✕', {duration: 2500});
   }
 
-  onPage(event: AppPageEvent): void {
+  onPageChange(event: AppPageEvent): void {
     this.snackBar.open(`Página: ${event.pageIndex + 1} (items por página: ${event.pageSize})`, '✕', {duration: 2500});
   }
 
-  onAction({action, row}: {action: AppTableAction<EmployeeViewModel>; row: EmployeeViewModel}): void {
+  onActionClick({action, row}: {action: AppTableAction<EmployeeViewModel>; row: EmployeeViewModel}): void {
     this.snackBar.open(`${action.label}: ${row.name}`, '✕', {duration: 2500});
   }
 }

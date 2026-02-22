@@ -20,14 +20,14 @@
   </div>
 
   <app-table-client-side
-    (actionClick)="onAction($event)"
-    (filtersChange)="onFilters($event)"
-    (pageChange)="onPage($event)"
-    (sortChange)="onSort($event)"
-    [useAdvancedFilters]="useAdvancedFilters()"
     [data]="employees()"
+    [tableConfig]="tableConfig"
     [filtersConfig]="filtersConfig()"
-    [tableConfig]="tableConfig">
+    [useAdvancedFilters]="useAdvancedFilters()"
+    (actionClick)="onActionClick($event)"
+    (filtersChange)="onFiltersChange($event)"
+    (pageChange)="onPageChange($event)"
+    (sortChange)="onSortChange($event)">
     <ng-template #cellTemplate let-column="column" let-row let-value="value">
       @switch (column.key) {
         @case ('statusLabel') {
