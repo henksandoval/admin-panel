@@ -37,6 +37,7 @@ import {
   DEFAULT_FILTER_OPERATORS,
   FILTER_DEFAULTS
 } from '../app-filter.model';
+import { togglesToCriteria } from '../app-filter.utils';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   { value: true, label: 'Sí' },
@@ -69,9 +70,9 @@ export class AppAdvancedFilterComponent {
   readonly initialCriteria = input<AppFilterCriterion[]>([]);
 
   criteriaChange = output<AppFilterCriterion[]>();
-  toggleChange = output<Record<string, boolean>>();
 
   readonly criteria = signal<AppFilterCriterion[]>([]);
+  readonly currentToggles = signal<Record<string, boolean>>({});
   readonly booleanOptions = BOOLEAN_OPTIONS;
   readonly toggles = computed(() => this.config().toggles ?? []);
   readonly operators = computed(() =>
@@ -158,28 +159,29 @@ export class AppAdvancedFilterComponent {
     }]);
 
     this.builderForm.reset();
-    this.criteriaChange.emit(this.criteria());
+    this.emitAllCriteria();
     this.emitAutoSearch();
   }
 
   removeCriterion(id: string): void {
     this.criteria.update(current => current.filter(c => c.id !== id));
-    this.criteriaChange.emit(this.criteria());
+    this.emitAllCriteria();
     this.emitAutoSearch();
   }
 
   clearAllCriteria(): void {
     this.criteria.set([]);
-    this.criteriaChange.emit(this.criteria());
+    this.criteriaChange.emit(togglesToCriteria(this.currentToggles(), this.operators()));
     this.emitAutoSearch();
   }
 
   emitSearch(): void {
-    this.criteriaChange.emit(this.criteria());
+    this.emitAllCriteria();
   }
 
   onToggleChange(togglesRecord: Record<string, boolean>): void {
-    this.toggleChange.emit(togglesRecord);
+    this.currentToggles.set(togglesRecord);
+    this.emitAllCriteria();
     this.emitAutoSearch();
   }
 
@@ -203,7 +205,12 @@ export class AppAdvancedFilterComponent {
 
   private emitAutoSearch(): void {
     if (this.autoSearch()) {
-      this.criteriaChange.emit(this.criteria());
+      this.emitAllCriteria();
     }
+  }
+
+  private emitAllCriteria(): void {
+    const toggleCriteria = togglesToCriteria(this.currentToggles(), this.operators());
+    this.criteriaChange.emit([...this.criteria(), ...toggleCriteria]);
   }
 }

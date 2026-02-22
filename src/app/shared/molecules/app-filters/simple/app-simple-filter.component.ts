@@ -33,6 +33,7 @@ import {
 import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
+import { togglesToCriteria } from '../app-filter.utils';
 
 @Component({
   selector: 'app-simple-filters',
@@ -58,12 +59,12 @@ export class AppSimpleFilterComponent implements OnInit {
   readonly values = input<AppFilterValues>({});
 
   criteriaChange = output<AppFilterCriterion[]>();
-  toggleChange = output<Record<string, boolean>>();
 
   readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
   readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
   readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
   readonly toggles = computed(() => this.config().toggles ?? []);
+  readonly currentToggles = signal<Record<string, boolean>>({});
 
   private readonly destroyRef = inject(DestroyRef);
   private readonly debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
@@ -100,17 +101,24 @@ export class AppSimpleFilterComponent implements OnInit {
   }
 
   onToggleChange(togglesRecord: Record<string, boolean>): void {
-    this.toggleChange.emit(togglesRecord);
+    this.currentToggles.set(togglesRecord);
+    this.emitAllCriteria();
   }
 
   emitSearch(): void {
-    const cleaned = this.cleanValues(this.formGroup().getRawValue());
-    this.criteriaChange.emit(this.valuesToCriteria(cleaned));
+    this.emitAllCriteria();
   }
 
   clearAllCriteria(): void {
     this.formGroup().reset();
-    this.criteriaChange.emit([]);
+    this.criteriaChange.emit(togglesToCriteria(this.currentToggles()));
+  }
+
+  private emitAllCriteria(): void {
+    const cleaned = this.cleanValues(this.formGroup().getRawValue());
+    const fieldCriteria = this.valuesToCriteria(cleaned);
+    const toggleCriteria = togglesToCriteria(this.currentToggles());
+    this.criteriaChange.emit([...fieldCriteria, ...toggleCriteria]);
   }
 
   private initializeForm(): void {
@@ -131,9 +139,8 @@ export class AppSimpleFilterComponent implements OnInit {
         distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
         takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe((values) => {
-        const cleaned = this.cleanValues(values);
-        this.criteriaChange.emit(this.valuesToCriteria(cleaned));
+      .subscribe(() => {
+        this.emitAllCriteria();
       });
   }
 

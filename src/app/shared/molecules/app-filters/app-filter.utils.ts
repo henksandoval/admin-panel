@@ -1,4 +1,4 @@
-import { AppFilterCriterion, AppFilterToggle } from './app-filter.model';
+import { AppFilterCriterion, AppFilterOperator, AppFilterToggle, DEFAULT_FILTER_OPERATORS } from './app-filter.model';
 
 export function formatCriterionDisplayValue(criterion: AppFilterCriterion): string {
   const { value, field, operator } = criterion;
@@ -31,4 +31,33 @@ export function togglesToRecord(toggles: AppFilterToggle[]): Record<string, bool
     acc[toggle.key] = toggle.value;
     return acc;
   }, {});
+}
+
+export function togglesToCriteria(
+  toggles: Record<string, boolean>,
+  operators: AppFilterOperator[] = DEFAULT_FILTER_OPERATORS
+): AppFilterCriterion[] {
+  const eqOperator = operators.find(op => op.key === 'eq');
+
+  if (!eqOperator) {
+    return [];
+  }
+
+  return Object.entries(toggles)
+    .filter(([, value]) => value === false)
+    .map(([key]) => ({
+      id: `toggle_${key}`,
+      field: { key, label: key, type: 'boolean' as const },
+      operator: eqOperator,
+      value: false,
+    }));
+}
+
+export function combineWithToggleCriteria(
+  fieldCriteria: AppFilterCriterion[],
+  toggles: Record<string, boolean>,
+  operators?: AppFilterOperator[]
+): AppFilterCriterion[] {
+  const toggleCriteria = togglesToCriteria(toggles, operators);
+  return [...fieldCriteria, ...toggleCriteria];
 }

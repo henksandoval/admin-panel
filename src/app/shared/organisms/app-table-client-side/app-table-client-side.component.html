@@ -9,14 +9,12 @@
         title="Filtros avanzados">
         <app-filters-advanced
           (criteriaChange)="onFiltersChange($event)"
-          (toggleChange)="onTogglesChange($event)"
           [config]="filtersConfig()!">
         </app-filters-advanced>
       </app-card>
     } @else {
       <app-simple-filters
         (criteriaChange)="onFiltersChange($event)"
-        (toggleChange)="onTogglesChange($event)"
         [config]="filtersConfig()!">
       </app-simple-filters>
     }
