@@ -1,6 +1,6 @@
 import { AppFilterCriterion, AppFilterValue } from "./app-filter.model";
 
-export function evaluateCriteria<T extends Record<string, any>>(
+export function evaluateCriteria<T extends Record<string, unknown>>(
   data: T[],
   criteria: AppFilterCriterion[]
 ): T[] {
@@ -8,7 +8,7 @@ export function evaluateCriteria<T extends Record<string, any>>(
   return data.filter(item => criteria.every(c => evaluateOne(item, c)));
 }
 
-function evaluateOne<T extends Record<string, any>>(
+function evaluateOne<T extends Record<string, unknown>>(
   item: T,
   criterion: AppFilterCriterion
 ): boolean {

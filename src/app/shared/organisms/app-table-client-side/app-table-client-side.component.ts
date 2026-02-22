@@ -38,7 +38,7 @@ import { AppTableFilterFn, AppTableSortFn } from "./app-table-client-side.model"
   styleUrl: './app-table-client-side.component.scss',
   templateUrl: './app-table-client-side.component.html'
 })
-export class AppTableClientSideComponent<T extends Record<string, any> = Record<string, any>> {
+export class AppTableClientSideComponent<T extends Record<string, unknown> = Record<string, unknown>> {
   readonly tableConfig = input.required<AppTableConfig<T>>();
   readonly filtersConfig = input<AppFiltersConfig>();
   readonly useAdvancedFilters = input<boolean>(false);
@@ -56,7 +56,7 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
-  readonly projectedCellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
+  readonly projectedCellTemplate = contentChild<TemplateRef<unknown>>('cellTemplate');
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
   readonly currentFilters = signal<AppFilterCriterion[]>([]);
   readonly pageIndex = signal(0);
