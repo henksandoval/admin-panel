@@ -14,21 +14,42 @@ const LAST_NAMES = [
 
 const STATUSES: EmployeeStatus[] = ['active', 'inactive', 'vacation'];
 
+/**
+ * Retorna un elemento aleatorio de un array
+ */
+function randomItem<T>(array: readonly T[]): T {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+/**
+ * Retorna un número aleatorio entre min y max (inclusive)
+ */
+function randomInt(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * Retorna una fecha aleatoria entre dos fechas
+ */
+function randomDate(start: Date, end: Date): Date {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
 function generateEmployee(id: number, isDeleted = false, isHidden = false): Employee {
-  const firstName = FIRST_NAMES[id % FIRST_NAMES.length];
-  const lastName = LAST_NAMES[Math.floor(id / FIRST_NAMES.length) % LAST_NAMES.length];
+  const firstName = randomItem(FIRST_NAMES);
+  const lastName = randomItem(LAST_NAMES);
 
   return {
     id,
     name: `${firstName} ${lastName}`,
-    email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@empresa.com`,
-    department: EMPLOYEE_DEPARTMENTS[id % EMPLOYEE_DEPARTMENTS.length],
-    role: EMPLOYEE_ROLES[id % EMPLOYEE_ROLES.length],
-    status: STATUSES[id % STATUSES.length],
-    salary: 30000 + (id % 5) * 10000 + Math.floor(id / 5) * 1000,
-    hireDate: new Date(2020 + (id % 5), (id * 3) % 12, (id * 7) % 28 + 1),
-    isDeleted: isDeleted,
-    isHidden: isHidden
+    email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}.${id}@empresa.com`,
+    department: randomItem(EMPLOYEE_DEPARTMENTS),
+    role: randomItem(EMPLOYEE_ROLES),
+    status: randomItem(STATUSES),
+    salary: randomInt(30000, 120000),
+    hireDate: randomDate(new Date(2018, 0, 1), new Date()),
+    isDeleted,
+    isHidden
   };
 }
 
