@@ -1,5 +1,5 @@
 <div class="app-client-side-table">
-  @if (filtersConfig()) {
+  @if (safeFiltersConfig(); as config) {
     @if (useAdvancedFilters()) {
       <app-card
         [expanded]="false"
@@ -9,13 +9,13 @@
         title="Filtros avanzados">
         <app-filters-advanced
           (criteriaChange)="onFiltersChange($event)"
-          [config]="filtersConfig()!">
+          [config]="config">
         </app-filters-advanced>
       </app-card>
     } @else {
       <app-simple-filters
         (criteriaChange)="onFiltersChange($event)"
-        [config]="filtersConfig()!">
+        [config]="config">
       </app-simple-filters>
     }
   }
@@ -32,10 +32,10 @@
     <ng-content/>
   </app-table>
 
-  @if (showPagination()) {
+  @if (showPagination() && safePaginationConfig(); as config) {
     <app-pagination
       (pageChange)="onPageChange($event)"
-      [config]="paginationConfig()!"
+      [config]="config"
       [state]="paginationState()">
     </app-pagination>
   }

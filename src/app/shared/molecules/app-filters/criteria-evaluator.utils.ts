@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AppFilterCriterion, AppFilterValue } from "./app-filter.model";
 
-export function evaluateCriteria<T extends Record<string, unknown>>(
+export function evaluateCriteria<T extends Record<string, any>>(
   data: T[],
   criteria: AppFilterCriterion[]
 ): T[] {
@@ -8,7 +9,7 @@ export function evaluateCriteria<T extends Record<string, unknown>>(
   return data.filter(item => criteria.every(c => evaluateOne(item, c)));
 }
 
-function evaluateOne<T extends Record<string, unknown>>(
+function evaluateOne<T extends Record<string, any>>(
   item: T,
   criterion: AppFilterCriterion
 ): boolean {

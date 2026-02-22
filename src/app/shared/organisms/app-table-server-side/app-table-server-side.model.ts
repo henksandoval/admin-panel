@@ -20,5 +20,6 @@ export const TABLE_SERVER_SIDE_DEFAULTS = {
   initialPageSize: 10,
   resetPageOnFilter: true,
   resetPageOnSort: false,
+  showPagination: true,
 } as const;
 

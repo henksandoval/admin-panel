@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +8,8 @@ import {
   input,
   output,
   signal,
-  TemplateRef
+  TemplateRef,
+  WritableSignal,
 } from "@angular/core";
 import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
 import { AppPaginationComponent } from "@shared/atoms/app-pagination/app-pagination.component";
@@ -38,7 +40,7 @@ import { AppTableFilterFn, AppTableSortFn } from "./app-table-client-side.model"
   styleUrl: './app-table-client-side.component.scss',
   templateUrl: './app-table-client-side.component.html'
 })
-export class AppTableClientSideComponent<T extends Record<string, unknown>> {
+export class AppTableClientSideComponent<T extends Record<string, any>> {
   readonly tableConfig = input.required<AppTableConfig<T>>();
   readonly filtersConfig = input<AppFiltersConfig>();
   readonly useAdvancedFilters = input<boolean>(false);
@@ -50,6 +52,9 @@ export class AppTableClientSideComponent<T extends Record<string, unknown>> {
   readonly filterFn = input<AppTableFilterFn<T>>();
   readonly sortFn = input<AppTableSortFn<T>>();
 
+  readonly resetPageOnFilter = input(true);
+  readonly resetPageOnSort = input(false);
+
   sortChange = output<AppTableSort>();
   filtersChange = output<AppFilterCriterion[]>();
   pageChange = output<AppPageEvent>();
@@ -59,8 +64,11 @@ export class AppTableClientSideComponent<T extends Record<string, unknown>> {
   readonly projectedCellTemplate = contentChild<TemplateRef<unknown>>('cellTemplate');
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
   readonly currentFilters = signal<AppFilterCriterion[]>([]);
-  readonly pageIndex = signal(0);
-  readonly pageSize = signal(10);
+  readonly pageIndex: WritableSignal<number> = signal(0);
+  readonly pageSize: WritableSignal<number> = signal(10);
+
+  readonly safeFiltersConfig = computed(() => this.filtersConfig());
+  readonly safePaginationConfig = computed(() => this.paginationConfig());
 
   private readonly filteredData = computed(() => {
     const data = this.data();
@@ -111,12 +119,21 @@ export class AppTableClientSideComponent<T extends Record<string, unknown>> {
 
   onFiltersChange(criteria: AppFilterCriterion[]): void {
     this.currentFilters.set(criteria);
-    this.pageIndex.set(0);
+    
+    if (this.resetPageOnFilter()) {
+      this.pageIndex.set(0);
+    }
+    
     this.filtersChange.emit(criteria);
   }
 
   onSortChange(sort: AppTableSort): void {
     this.currentSort.set(sort);
+    
+    if (this.resetPageOnSort()) {
+      this.pageIndex.set(0);
+    }
+    
     this.sortChange.emit(sort);
   }
 

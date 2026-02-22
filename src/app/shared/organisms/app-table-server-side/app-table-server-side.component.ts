@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ChangeDetectionStrategy,
   Component,
@@ -34,46 +35,42 @@ import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/a
   styleUrl: './app-table-server-side.component.scss',
   templateUrl: './app-table-server-side.component.html',
 })
-export class AppTableServerSideComponent<T extends Record<string, any> = Record<string, any>> {
-  // Required inputs
+export class AppTableServerSideComponent<T extends Record<string, any>> {
   readonly tableConfig = input.required<AppTableConfig<T>>();
 
-  // Data inputs
   readonly data = input<T[]>([]);
   readonly totalItems = input<number>(0);
   readonly loading = input(false);
 
-  // Configuration inputs
   readonly filtersConfig = input<AppFiltersConfig>();
   readonly paginationConfig = input<AppPaginationConfig>();
+  readonly showPagination = input(TABLE_SERVER_SIDE_DEFAULTS.showPagination);
 
-  // Behavior inputs
   readonly resetPageOnFilter = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnFilter);
   readonly resetPageOnSort = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnSort);
 
-  // Outputs
-  filterChange = output<AppFilterValues>();
+  filtersChange = output<AppFilterValues>();
   sortChange = output<AppTableSort>();
   pageChange = output<AppPageEvent>();
   paramsChange = output<AppTableServerParams>();
   rowClick = output<T>();
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
-  // Content projection
-  readonly projectedCellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
+  readonly projectedCellTemplate = contentChild<TemplateRef<unknown>>('cellTemplate');
 
-  // Internal state
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
   readonly filterValues = signal<AppFilterValues>({});
   readonly pageIndex: WritableSignal<number> = signal(TABLE_SERVER_SIDE_DEFAULTS.initialPageIndex);
   readonly pageSize: WritableSignal<number> = signal(TABLE_SERVER_SIDE_DEFAULTS.initialPageSize);
 
-  // Computed state
   readonly paginationState = computed<AppPaginationState>(() => ({
     pageIndex: this.pageIndex(),
     pageSize: this.pageSize(),
     totalItems: this.totalItems(),
   }));
+
+  readonly safeFiltersConfig = computed(() => this.filtersConfig());
+  readonly safePaginationConfig = computed(() => this.paginationConfig());
 
   readonly currentParams = computed<AppTableServerParams>(() => ({
     filters: this.filterValues(),
@@ -82,10 +79,6 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
     pageSize: this.pageSize(),
   }));
 
-  /**
-   * Boundary guard: Previene que pageIndex esté fuera de rango
-   * cuando totalItems cambia (ej: después de filtrar en servidor).
-   */
   private readonly boundaryGuard = effect(() => {
     const total = this.totalItems();
     const pageSize = this.pageSize();
@@ -108,7 +101,7 @@ export class AppTableServerSideComponent<T extends Record<string, any> = Record<
       this.pageIndex.set(TABLE_SERVER_SIDE_DEFAULTS.initialPageIndex);
     }
 
-    this.filterChange.emit(values);
+    this.filtersChange.emit(values);
     this.emitParamsChange();
   }
 

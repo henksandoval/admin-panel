@@ -1,8 +1,8 @@
 <div class="app-server-side-table">
-  @if (filtersConfig()) {
+  @if (safeFiltersConfig(); as config) {
     <app-simple-filters
       (criteriaChange)="onFiltersChange($event)"
-      [config]="filtersConfig()!"
+      [config]="config"
       [values]="filterValues()">
     </app-simple-filters>
   }
@@ -19,10 +19,10 @@
     <ng-content select="[cellTemplate]"/>
   </app-table>
 
-  @if (paginationConfig()) {
+  @if (showPagination() && safePaginationConfig(); as config) {
     <app-pagination
       (pageChange)="onPageChange($event)"
-      [config]="paginationConfig()!"
+      [config]="config"
       [state]="paginationState()">
     </app-pagination>
   }
