@@ -68,7 +68,6 @@ export class AppAdvancedFilterComponent {
   readonly config = input.required<AppFiltersConfig>();
   readonly initialCriteria = input<AppFilterCriterion[]>([]);
 
-  searchApplied = output<AppFilterCriterion[]>();
   criteriaChange = output<AppFilterCriterion[]>();
   toggleChange = output<Record<string, boolean>>();
 
@@ -176,7 +175,7 @@ export class AppAdvancedFilterComponent {
   }
 
   emitSearch(): void {
-    this.searchApplied.emit(this.criteria());
+    this.criteriaChange.emit(this.criteria());
   }
 
   onToggleChange(togglesRecord: Record<string, boolean>): void {
@@ -187,14 +186,14 @@ export class AppAdvancedFilterComponent {
   private setupFormCascade(): void {
     this.builderForm.controls.field.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
+      .subscribe((): void => {
         this.builderForm.controls.operator.reset();
         this.builderForm.controls.value.reset();
       });
 
     this.builderForm.controls.operator.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(key => {
+      .subscribe((key: string): void => {
         const op = this.operators().find(o => o.key === key);
         if (op && !op.requiresValue) {
           this.builderForm.controls.value.reset();
@@ -204,7 +203,7 @@ export class AppAdvancedFilterComponent {
 
   private emitAutoSearch(): void {
     if (this.autoSearch()) {
-      this.emitSearch();
+      this.criteriaChange.emit(this.criteria());
     }
   }
 }

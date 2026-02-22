@@ -15,13 +15,13 @@ import { FILTER_FOOTER_DEFAULTS } from './app-filter-footer.model';
   styleUrl: './app-filter-footer.component.scss'
 })
 export class AppFilterFooterComponent {
-  toggles = input<AppFilterToggle[]>([]);
-  showClearButton = input<boolean>(FILTER_FOOTER_DEFAULTS.showClearButton);
-  showSearchButton = input<boolean>(FILTER_FOOTER_DEFAULTS.showSearchButton);
+  readonly toggles = input<AppFilterToggle[]>([]);
+  readonly showClearButton = input<boolean>(FILTER_FOOTER_DEFAULTS.showClearButton);
+  readonly showSearchButton = input<boolean>(FILTER_FOOTER_DEFAULTS.showSearchButton);
 
-  toggleChange = output<Record<string, boolean>>();
-  clearClick = output<void>();
-  searchClick = output<void>();
+  readonly toggleChange = output<Record<string, boolean>>();
+  readonly clearClick = output<void>();
+  readonly searchClick = output<void>();
 
   readonly internalToggles = signal<AppFilterToggle[]>([]);
 
@@ -31,12 +31,15 @@ export class AppFilterFooterComponent {
 
   constructor() {
     effect(() => {
-      this.internalToggles.set(this.toggles().map(t => ({ ...t })));
+      const toggles = this.toggles();
+      if (toggles.length > 0) {
+        this.internalToggles.set(toggles.map(t => ({ ...t })));
+        this.toggleChange.emit(togglesToRecord(toggles));
+      }
     });
   }
 
-  onToggleChange(key: string, event: Event): void {
-    const checked = (event.target as HTMLInputElement).checked;
+  onToggleChange(key: string, checked: boolean): void {
     this.internalToggles.update(current =>
       current.map(t => t.key === key ? { ...t, value: checked } : t)
     );

@@ -47,7 +47,6 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
 
   readonly data = input<T[]>([]);
   readonly loading = input(false);
-
   readonly filterFn = input<AppTableFilterFn<T>>();
   readonly sortFn = input<AppTableSortFn<T>>();
 
@@ -60,19 +59,30 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
   readonly projectedCellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
   readonly currentFilters = signal<AppFilterCriterion[]>([]);
+  readonly currentToggles = signal<Record<string, boolean>>({});
   readonly pageIndex = signal(0);
   readonly pageSize = signal(10);
 
   private readonly filteredData = computed(() => {
     const data = this.data();
     const criteria = this.currentFilters();
+    const toggles = this.currentToggles();
 
-    if (criteria.length === 0) return data;
+    // Aplicar filtros de toggles primero
+    let filtered = data;
+    Object.entries(toggles).forEach(([key, value]) => {
+      if (value === false) {
+        filtered = filtered.filter(item => !item[key]);
+      }
+    });
+
+    // Aplicar criterios de filtro
+    if (criteria.length === 0) return filtered;
 
     const customFn = this.filterFn();
     return customFn
-      ? customFn(data, criteria)
-      : evaluateCriteria(data, criteria);
+      ? customFn(filtered, criteria)
+      : evaluateCriteria(filtered, criteria);
   });
 
   private readonly sortedData = computed(() => {
@@ -114,6 +124,11 @@ export class AppTableClientSideComponent<T extends Record<string, any> = Record<
     this.currentFilters.set(criteria);
     this.pageIndex.set(0);
     this.filtersChange.emit(criteria);
+  }
+
+  onTogglesChange(toggles: Record<string, boolean>): void {
+    this.currentToggles.set(toggles);
+    this.pageIndex.set(0);
   }
 
   onSortChange(sort: AppTableSort): void {
