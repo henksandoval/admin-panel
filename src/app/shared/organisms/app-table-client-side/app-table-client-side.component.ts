@@ -38,7 +38,7 @@ import { AppTableFilterFn, AppTableSortFn } from "./app-table-client-side.model"
   styleUrl: './app-table-client-side.component.scss',
   templateUrl: './app-table-client-side.component.html'
 })
-export class AppTableClientSideComponent<T extends Record<string, unknown> = Record<string, unknown>> {
+export class AppTableClientSideComponent<T extends Record<string, unknown>> {
   readonly tableConfig = input.required<AppTableConfig<T>>();
   readonly filtersConfig = input<AppFiltersConfig>();
   readonly useAdvancedFilters = input<boolean>(false);
@@ -127,14 +127,17 @@ export class AppTableClientSideComponent<T extends Record<string, unknown> = Rec
   }
 
   private defaultSort(data: T[], sort: AppTableSort): T[] {
+    const key = sort.active as keyof T;
+    
     return [...data].sort((a, b) => {
-      const aVal = a[sort.active as keyof T];
-      const bVal = b[sort.active as keyof T];
-
-      let comparison = 0;
-      if (aVal < bVal) comparison = -1;
-      if (aVal > bVal) comparison = 1;
-
+      const aVal = a[key];
+      const bVal = b[key];
+      
+      if (aVal === bVal) return 0;
+      if (aVal == null) return 1;
+      if (bVal == null) return -1;
+      
+      const comparison = aVal < bVal ? -1 : 1;
       return sort.direction === 'asc' ? comparison : -comparison;
     });
   }
