@@ -2,8 +2,8 @@ import { Component, ChangeDetectionStrategy, OnInit, inject, signal, computed } 
 import { finalize } from 'rxjs/operators';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';import { CurrencyPipe, DatePipe } from '@angular/common';
-import { AppTableServerSideComponent } from '@shared/organisms/app-table-server-side/app-table-server-side.component';
-import { AppTableServerParams } from '@shared/organisms/app-table-server-side/app-table-server-side.model';
+import { AppTableServerSideComponent } from '@shared/organisms/app-tables/server-side/app-table-server-side.component';
+import { AppTableServerParams } from '@shared/organisms/app-tables/server-side/app-table-server-side.model';
 import { MockHttpService } from '../../mocks/mock-http.service';
 import { MockEmployeeService } from '../../mocks/mock-employee.service';
 import { getTableConfig, getFiltersConfig, getPaginationConfig } from './table-server-side.config';

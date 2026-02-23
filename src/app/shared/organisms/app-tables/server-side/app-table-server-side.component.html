@@ -1,4 +1,4 @@
-<div class="app-client-side-table">
+<div class="app-server-side-table">
   @if (filtersConfig(); as config) {
     @if (useAdvancedFilters()) {
       <app-card
@@ -29,7 +29,7 @@
     [data]="displayData()"
     [loading]="loading()"
     [sort]="currentSort()">
-    <ng-content/>
+    <ng-content select="[cellTemplate]"/>
   </app-table>
 
   @if (showPagination()) {
@@ -40,3 +40,4 @@
     </app-pagination>
   }
 </div>
+

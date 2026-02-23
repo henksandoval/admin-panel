@@ -6,7 +6,7 @@ import { AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.
 import { AppToggleGroupComponent } from "@shared/atoms/app-toggle-group/app-toggle-group.component";
 import { ToggleOption } from "@shared/atoms/app-toggle-group/app-toggle-group.model";
 import { AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
-import { AppTableClientSideComponent } from "@shared/organisms/app-table-client-side/app-table-client-side.component";
+import { AppTableClientSideComponent } from "@shared/organisms/app-tables/client-side/app-table-client-side.component";
 import { MockEmployeeService } from "../../mocks/mock-employee.service";
 import { MockHttpService } from "../../mocks/mock-http.service";
 import { getTableConfig, getFiltersConfig } from "./table-client-side.config";

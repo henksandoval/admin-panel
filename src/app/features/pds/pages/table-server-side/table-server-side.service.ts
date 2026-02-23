@@ -3,7 +3,7 @@ import { Injectable, inject } from "@angular/core";
 import {
   AppTableServerParams,
   AppTableServerResponse
-} from "@shared/organisms/app-table-server-side/app-table-server-side.model";
+} from "@shared/organisms/app-tables/server-side/app-table-server-side.model";
 import { Observable } from "rxjs";
 import { Employee, EmployeeStatus, EMPLOYEE_STATUS_LABELS } from "../../contracts/employee.contract";
 import { generateEmployees } from "../../mocks/data/employees.data";

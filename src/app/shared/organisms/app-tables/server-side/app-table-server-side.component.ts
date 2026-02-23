@@ -50,7 +50,7 @@ export class AppTableServerSideComponent<T extends AnyRecord> {
   readonly showPagination = input<boolean>(TABLE_SERVER_SIDE_DEFAULTS.showPagination);
   readonly paginationConfig = input<AppPaginationConfig>();
 
-  readonly data = input<T[]>([]);
+  readonly displayData = input<T[]>([]);
   readonly loading = input(false);
   readonly totalItems = input<number>(0);
 
