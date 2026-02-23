@@ -5,18 +5,10 @@
       <p class="mat-body-medium">Ejemplo de tabla client-side con filtros simples y avanzados</p>
     </div>
 
-    <mat-button-toggle-group
-      (change)="useAdvancedFilters.set($event.value)"
-      [value]="useAdvancedFilters()">
-      <mat-button-toggle [value]="false">
-        <mat-icon>filter_list</mat-icon>
-        Filtros Simples
-      </mat-button-toggle>
-      <mat-button-toggle [value]="true">
-        <mat-icon>tune</mat-icon>
-        Filtros Avanzados
-      </mat-button-toggle>
-    </mat-button-toggle-group>
+    <app-toggle-group
+      [options]="filterModeOptions"
+      [(value)]="filterModeValue">
+    </app-toggle-group>
   </div>
 
   <app-table-client-side

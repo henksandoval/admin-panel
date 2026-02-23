@@ -34,9 +34,8 @@ import {
           [attr.aria-label]="option.ariaLabel || option.label">
           @if (option.icon) {
             <mat-icon class="toggle-icon">{{ option.icon }}</mat-icon>
-          } @else {
-            {{ option.label }}
           }
+          {{ option.label }}
         </mat-button-toggle>
       }
     </mat-button-toggle-group>

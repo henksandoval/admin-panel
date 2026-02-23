@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ChangeDetectionStrategy,
   Component,
@@ -24,7 +23,10 @@ import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanc
 import { AppFilterCriterion, AppFiltersConfig } from "@shared/molecules/app-filters/app-filter.model";
 import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator.utils";
 import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
-import { AppTableFilterFn, AppTableSortFn } from "./app-table-client-side.model";
+import { AppTableFilterFn, AppTableSortFn, TABLE_CLIENT_SIDE_DEFAULTS } from "./app-table-client-side.model";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyRecord = Record<string, any>;
 
 @Component({
   selector: 'app-table-client-side',
@@ -40,11 +42,11 @@ import { AppTableFilterFn, AppTableSortFn } from "./app-table-client-side.model"
   styleUrl: './app-table-client-side.component.scss',
   templateUrl: './app-table-client-side.component.html'
 })
-export class AppTableClientSideComponent<T extends Record<string, any>> {
+export class AppTableClientSideComponent<T extends AnyRecord> {
   readonly tableConfig = input.required<AppTableConfig<T>>();
   readonly filtersConfig = input<AppFiltersConfig>();
-  readonly useAdvancedFilters = input<boolean>(false);
-  readonly showPagination = input<boolean>(true);
+  readonly useAdvancedFilters = input<boolean>(TABLE_CLIENT_SIDE_DEFAULTS.useAdvancedFilters);
+  readonly showPagination = input<boolean>(TABLE_CLIENT_SIDE_DEFAULTS.showPagination);
   readonly paginationConfig = input<AppPaginationConfig>();
 
   readonly data = input<T[]>([]);
@@ -52,8 +54,8 @@ export class AppTableClientSideComponent<T extends Record<string, any>> {
   readonly filterFn = input<AppTableFilterFn<T>>();
   readonly sortFn = input<AppTableSortFn<T>>();
 
-  readonly resetPageOnFilter = input(true);
-  readonly resetPageOnSort = input(false);
+  readonly resetPageOnFilter = input(TABLE_CLIENT_SIDE_DEFAULTS.resetPageOnFilter);
+  readonly resetPageOnSort = input(TABLE_CLIENT_SIDE_DEFAULTS.resetPageOnSort);
 
   sortChange = output<AppTableSort>();
   filtersChange = output<AppFilterCriterion[]>();
@@ -64,11 +66,9 @@ export class AppTableClientSideComponent<T extends Record<string, any>> {
   readonly projectedCellTemplate = contentChild<TemplateRef<unknown>>('cellTemplate');
   readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
   readonly currentFilters = signal<AppFilterCriterion[]>([]);
-  readonly pageIndex: WritableSignal<number> = signal(0);
-  readonly pageSize: WritableSignal<number> = signal(10);
+  readonly pageIndex: WritableSignal<number> = signal(TABLE_CLIENT_SIDE_DEFAULTS.initialPageIndex);
+  readonly pageSize: WritableSignal<number> = signal(TABLE_CLIENT_SIDE_DEFAULTS.initialPageSize);
 
-  readonly safeFiltersConfig = computed(() => this.filtersConfig());
-  readonly safePaginationConfig = computed(() => this.paginationConfig());
 
   private readonly filteredData = computed(() => {
     const data = this.data();
@@ -106,7 +106,7 @@ export class AppTableClientSideComponent<T extends Record<string, any>> {
     totalItems: this.sortedData().length,
   }));
 
-  private readonly _boundaryGuard = effect(() => {
+  private readonly boundaryGuard = effect(() => {
     const totalItems = this.sortedData().length;
     const pageSize = this.pageSize();
     const currentPage = this.pageIndex();
@@ -119,21 +119,21 @@ export class AppTableClientSideComponent<T extends Record<string, any>> {
 
   onFiltersChange(criteria: AppFilterCriterion[]): void {
     this.currentFilters.set(criteria);
-    
+
     if (this.resetPageOnFilter()) {
-      this.pageIndex.set(0);
+      this.pageIndex.set(TABLE_CLIENT_SIDE_DEFAULTS.initialPageIndex);
     }
-    
+
     this.filtersChange.emit(criteria);
   }
 
   onSortChange(sort: AppTableSort): void {
     this.currentSort.set(sort);
-    
+
     if (this.resetPageOnSort()) {
-      this.pageIndex.set(0);
+      this.pageIndex.set(TABLE_CLIENT_SIDE_DEFAULTS.initialPageIndex);
     }
-    
+
     this.sortChange.emit(sort);
   }
 
@@ -145,15 +145,15 @@ export class AppTableClientSideComponent<T extends Record<string, any>> {
 
   private defaultSort(data: T[], sort: AppTableSort): T[] {
     const key = sort.active as keyof T;
-    
+
     return [...data].sort((a, b) => {
       const aVal = a[key];
       const bVal = b[key];
-      
+
       if (aVal === bVal) return 0;
       if (aVal == null) return 1;
       if (bVal == null) return -1;
-      
+
       const comparison = aVal < bVal ? -1 : 1;
       return sort.direction === 'asc' ? comparison : -comparison;
     });
