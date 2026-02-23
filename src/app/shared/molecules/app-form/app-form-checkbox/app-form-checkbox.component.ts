@@ -20,7 +20,7 @@ import {
 } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
 import {
   APP_FORM_CHECKBOX_DEFAULTS,
   AppFormCheckboxConfig,

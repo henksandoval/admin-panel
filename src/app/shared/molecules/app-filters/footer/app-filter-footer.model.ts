@@ -1,4 +1,4 @@
-import { AppFilterToggle } from '../app-filter.model';
+import {AppFilterToggle} from '../app-filter.model';
 
 export const FILTER_FOOTER_DEFAULTS = {
   toggles: [] as AppFilterToggle[],

@@ -3,7 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { CommonModule } from "@angular/common";
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
+import { AppCardComponent } from '@atoms/app-card/app-card.component';
 import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
 import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
 

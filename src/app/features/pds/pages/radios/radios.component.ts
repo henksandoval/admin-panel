@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
-import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
-import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { AppButtonComponent } from '@atoms/app-button/app-button.component';
+import { AppToggleGroupComponent } from '@atoms/app-toggle-group/app-toggle-group.component';
+import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
 
 import {
   API_PROPERTIES,
@@ -19,10 +19,10 @@ import {
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import {
   AppFormRadioGroupConnectorDirective
-} from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
+} from '@molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
 import {
   AppFormRadioGroupComponent
-} from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.component';
+} from '@molecules/app-form/app-form-radio-group/app-form-radio-group.component';
 
 @Component({
   selector: 'app-radios',
@@ -68,7 +68,7 @@ export default class RadiosComponent {
     const showHint = this.showHint();
 
     let tsCode = `// TypeScript\n`;
-    tsCode += `import { RadioOption } from '@shared/molecules/app-form-radio-group/app-form-radio-group.model';\n\n`;
+    tsCode += `import { RadioOption } from '@molecules/app-form-radio-group/app-form-radio-group.model';\n\n`;
 
     tsCode += `options: RadioOption<string>[] = [\n`;
     const options = this.currentOptions();

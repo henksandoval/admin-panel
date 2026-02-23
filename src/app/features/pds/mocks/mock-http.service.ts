@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Observable, of, delay, switchMap, throwError} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { delay, Observable, of, switchMap, throwError } from 'rxjs';
 
 export interface MockHttpConfig {
   delayMs?: number;

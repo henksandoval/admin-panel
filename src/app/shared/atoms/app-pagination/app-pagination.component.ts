@@ -5,8 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppPageEvent, AppPaginationConfig, AppPaginationState, PAGINATION_DEFAULTS, } from './app-pagination.model';
 import { AppButtonComponent } from "../app-button/app-button.component";
-import { AppFormSelectComponent } from "@shared/molecules/app-form/app-form-select/app-form-select.component";
-import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
+import { AppFormSelectComponent } from "@molecules/app-form/app-form-select/app-form-select.component";
+import { SelectOption } from '@molecules/app-form/app-form-select/app-form-select.model';
 
 @Component({
   selector: 'app-pagination',

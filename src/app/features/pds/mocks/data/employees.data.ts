@@ -1,4 +1,4 @@
-import { EmployeeStatus, Employee, EMPLOYEE_DEPARTMENTS, EMPLOYEE_ROLES } from "../../contracts/employee.contract";
+import { Employee, EMPLOYEE_DEPARTMENTS, EMPLOYEE_ROLES, EmployeeStatus } from "../../contracts/employee.contract";
 
 const FIRST_NAMES = [
   'Ana', 'Carlos', 'María', 'Juan', 'Laura', 'Pedro', 'Sofía', 'Diego',

@@ -11,17 +11,17 @@
 
 Ambos organismos presentan una arquitectura sólida, correctamente fundamentada en el modelo reactivo de Angular Signals, con una separación clara de responsabilidades respecto al átomo `app-table`. Sin embargo, existen **5 áreas de mejora concretas** que afectan consistencia, mantenibilidad y alineación con la guía de estilos del proyecto.
 
-| Área | Client-Side | Server-Side |
-|---|---|---|
-| STYLE_GUIDE (CSS) | ⚠️ 1 hallazgo | ⚠️ 1 hallazgo |
-| SOLID | ✅ | ⚠️ 1 hallazgo |
-| GRASP | ✅ | ✅ |
-| DRY | ⚠️ Crítico | ⚠️ Crítico |
-| KISS | ✅ | ✅ |
-| Clean Code | ⚠️ 2 hallazgos | ⚠️ 2 hallazgos |
-| Modelo (.model.ts) | ⚠️ Incompleto | ✅ Correcto |
-| Tests | ❌ Ausentes | ❌ Ausentes |
-| Accesibilidad | ⚠️ | ⚠️ |
+| Área               | Client-Side    | Server-Side    |
+|--------------------|----------------|----------------|
+| STYLE_GUIDE (CSS)  | ⚠️ 1 hallazgo  | ⚠️ 1 hallazgo  |
+| SOLID              | ✅              | ⚠️ 1 hallazgo  |
+| GRASP              | ✅              | ✅              |
+| DRY                | ⚠️ Crítico     | ⚠️ Crítico     |
+| KISS               | ✅              | ✅              |
+| Clean Code         | ⚠️ 2 hallazgos | ⚠️ 2 hallazgos |
+| Modelo (.model.ts) | ⚠️ Incompleto  | ✅ Correcto     |
+| Tests              | ❌ Ausentes     | ❌ Ausentes     |
+| Accesibilidad      | ⚠️             | ⚠️             |
 
 ---
 
@@ -32,12 +32,23 @@ Ambos organismos presentan una arquitectura sólida, correctamente fundamentada 
 **Aplica a:** ambos componentes
 
 **Archivos:**
+
 - `app-table-client-side.component.scss` línea 6
 - `app-table-server-side.component.scss` línea 6
 
 ```scss
 // ❌ MAL — valor hexadecimal hardcoded como fallback
-border: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+border:
+
+1
+px solid
+
+var
+(
+--mat-sys-outline-variant, #e0e0e0
+
+)
+;
 ```
 
 La STYLE_GUIDE establece que **los colores siempre deben gestionarse a través de Material o tokens SCSS del proyecto**. Un valor hexadecimal hardcoded como fallback es un color manual que evade el sistema de theming. Si el token `--mat-sys-outline-variant` no está disponible, el problema está en la configuración del tema, no en el componente.
@@ -46,14 +57,39 @@ La STYLE_GUIDE establece que **los colores siempre deben gestionarse a través d
 
 ```scss
 // ✅ BIEN — sin fallback hardcoded
-border: 1px solid var(--mat-sys-outline-variant);
+border:
+
+1
+px solid
+
+var
+(
+--mat-sys-outline-variant
+
+)
+;
 ```
 
 O, si el fallback es semánticamente necesario, referenciar un token del proyecto:
 
 ```scss
 // ✅ BIEN — fallback via token del proyecto
-border: 1px solid var(--mat-sys-outline-variant, var(--overlay-dark-10));
+border:
+
+1
+px solid
+
+var
+(
+--mat-sys-outline-variant,
+
+var
+(
+--overlay-dark-10
+
+)
+)
+;
 ```
 
 ### 1.2 Prefijo de clase CSS del wrapper raíz
@@ -63,6 +99,7 @@ Las clases `.app-client-side-table` y `.app-server-side-table` respetan el prefi
 ### 1.3 Tailwind en HTML — `mb-4` en `app-card`
 
 ```html
+
 <app-card class="mb-4" ...>
 ```
 
@@ -75,6 +112,7 @@ La clase `mb-4` es spacing de Tailwind, lo que es **correcto** según la STYLE_G
 ### 2.1 Single Responsibility Principle (SRP) ✅
 
 Cada organismo tiene una responsabilidad clara y bien delimitada:
+
 - `app-table-client-side`: orquesta filtrado, ordenación y paginación **en memoria**.
 - `app-table-server-side`: orquesta la **emisión de parámetros** hacia el backend.
 
@@ -89,7 +127,13 @@ La extensibilidad mediante `filterFn` y `sortFn` en el componente client-side es
 **Aplica a:** `app-table-server-side`
 
 ```typescript
-private criteriaToValues(criteria: AppFilterCriterion[]): AppFilterValues {
+private
+criteriaToValues(criteria
+:
+AppFilterCriterion[]
+):
+AppFilterValues
+{
   return criteria.reduce((acc, criterion) => {
     acc[criterion.field.key] = criterion.value;
     return acc;
@@ -134,17 +178,17 @@ Ambos organismos presentan alta cohesión: cada signal, computed y método contr
 
 Ambos componentes comparten, byte a byte, los siguientes elementos:
 
-| Elemento duplicado | client-side | server-side |
-|---|---|---|
-| Inputs: `tableConfig`, `filtersConfig`, `useAdvancedFilters`, `showPagination`, `paginationConfig`, `data`, `loading` | ✅ | ✅ |
-| Outputs: `sortChange`, `pageChange`, `rowClick`, `actionClick`, `filtersChange` | ✅ | ✅ |
-| Signal: `currentSort`, `pageIndex`, `pageSize`, `projectedCellTemplate` | ✅ | ✅ |
-| Computed: `safeFiltersConfig`, `safePaginationConfig`, `paginationState` | ✅ | ✅ |
-| Effect: `boundaryGuard` | ✅ | ✅ |
-| Métodos: `onSortChange` (parcial), `onPageChange` | ✅ | ✅ |
-| Template del bloque de filtros | ✅ | ✅ |
-| Template del bloque de paginación | ✅ | ✅ |
-| SCSS completo | ✅ | ✅ |
+| Elemento duplicado                                                                                                    | client-side | server-side |
+|-----------------------------------------------------------------------------------------------------------------------|-------------|-------------|
+| Inputs: `tableConfig`, `filtersConfig`, `useAdvancedFilters`, `showPagination`, `paginationConfig`, `data`, `loading` | ✅           | ✅           |
+| Outputs: `sortChange`, `pageChange`, `rowClick`, `actionClick`, `filtersChange`                                       | ✅           | ✅           |
+| Signal: `currentSort`, `pageIndex`, `pageSize`, `projectedCellTemplate`                                               | ✅           | ✅           |
+| Computed: `safeFiltersConfig`, `safePaginationConfig`, `paginationState`                                              | ✅           | ✅           |
+| Effect: `boundaryGuard`                                                                                               | ✅           | ✅           |
+| Métodos: `onSortChange` (parcial), `onPageChange`                                                                     | ✅           | ✅           |
+| Template del bloque de filtros                                                                                        | ✅           | ✅           |
+| Template del bloque de paginación                                                                                     | ✅           | ✅           |
+| SCSS completo                                                                                                         | ✅           | ✅           |
 
 Esto representa una violación grave del principio DRY y genera un riesgo de **desincronización**: cualquier corrección de bug o mejora en uno debe replicarse manualmente en el otro.
 
@@ -174,7 +218,7 @@ export abstract class AppTableBase<T extends Record<string, any>> {
 
   // --- Estado común ---
   readonly projectedCellTemplate = contentChild<TemplateRef<unknown>>('cellTemplate');
-  readonly currentSort = signal<AppTableSort>({ active: '', direction: '' });
+  readonly currentSort = signal<AppTableSort>({active: '', direction: ''});
   readonly pageIndex: WritableSignal<number> = signal(0);
   readonly pageSize: WritableSignal<number> = signal(10);
 
@@ -230,8 +274,10 @@ export class AppTableServerSideComponent<T> extends AppTableBase<T> {
 ### 5.1 `safeFiltersConfig` y `safePaginationConfig`
 
 ```typescript
-readonly safeFiltersConfig = computed(() => this.filtersConfig());
-readonly safePaginationConfig = computed(() => this.paginationConfig());
+readonly
+safeFiltersConfig = computed(() => this.filtersConfig());
+readonly
+safePaginationConfig = computed(() => this.paginationConfig());
 ```
 
 Estos computeds son un pass-through puro que no añaden lógica. Su propósito es hacer el template más legible al usar el operador `as` de Angular (`@if (safeFiltersConfig(); as config)`). Es un patrón válido y simple. ✅
@@ -244,10 +290,12 @@ La implementación de `defaultSort` es correcta, con manejo de nulos y preservac
 
 ```typescript
 // client-side
-private readonly _boundaryGuard = effect(...)
+private readonly
+_boundaryGuard = effect(...)
 
 // server-side
-private readonly boundaryGuard = effect(...)
+private readonly
+boundaryGuard = effect(...)
 ```
 
 Una inconsistencia menor: el client-side usa prefijo `_` para indicar que la variable no se usa directamente, mientras que el server-side no. La guía de estilos no define explícitamente esta convención, pero la inconsistencia entre dos componentes tan similares genera ruido. Estandarizar a uno u otro.
@@ -268,6 +316,7 @@ El uso de `any` está justificado por la constraint genérica `T extends Record<
 
 // ✅ BIEN — solo en la línea que lo necesita
 export class AppTableClientSideComponent<T extends Record<string, any>> {
+
 //                                                           ^^^ aquí el any es inevitable
 ```
 
@@ -289,6 +338,7 @@ export interface AppTableServerResponse<T> {
 Esta interfaz está definida en el modelo pero **no se usa en ningún lugar del organismo ni del proyecto** (verificado mediante búsqueda en el workspace). Código no utilizado viola el principio de código limpio y genera confusión sobre su propósito.
 
 **Opciones:**
+
 1. Moverla al modelo de la capa de servicios/contratos si es un contrato de API.
 2. Eliminarla si no tiene uso previsto documentado.
 
@@ -304,8 +354,10 @@ Esta interfaz está definida en el modelo pero **no se usa en ningún lugar del 
 
 ```typescript
 // ❌ MAL — solo tipos, sin DEFAULTS
-export type AppTableFilterFn<T> = ...
-export type AppTableSortFn<T> = ...
+export type AppTableFilterFn<T> =
+...
+export type AppTableSortFn<T> =
+...
 ```
 
 La STYLE_GUIDE establece que **todos los inputs deben tener DEFAULTS obligatorios definidos en `.model.ts`**. El client-side tiene inputs con defaults inline (`input<boolean>(false)`, `input(true)`, `input(10)`) pero esos valores no están centralizados en el modelo como lo hace el server-side con `TABLE_SERVER_SIDE_DEFAULTS`.
@@ -314,8 +366,8 @@ La STYLE_GUIDE establece que **todos los inputs deben tener DEFAULTS obligatorio
 
 ```typescript
 // app-table-client-side.model.ts
-import { AppTableSort } from "@shared/atoms/app-table/app-table.model";
-import { AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
+import {AppTableSort} from "@atoms/app-table/app-table.model";
+import {AppFilterCriterion} from "@molecules/app-filters/app-filter.model";
 
 export type AppTableFilterFn<T> = (data: T[], criteria: AppFilterCriterion[]) => T[];
 export type AppTableSortFn<T> = (data: T[], sort: AppTableSort) => T[];
@@ -333,8 +385,10 @@ export const TABLE_CLIENT_SIDE_DEFAULTS = {
 Y en el componente:
 
 ```typescript
-readonly useAdvancedFilters = input<boolean>(TABLE_CLIENT_SIDE_DEFAULTS.useAdvancedFilters);
-readonly showPagination = input<boolean>(TABLE_CLIENT_SIDE_DEFAULTS.showPagination);
+readonly
+useAdvancedFilters = input<boolean>(TABLE_CLIENT_SIDE_DEFAULTS.useAdvancedFilters);
+readonly
+showPagination = input<boolean>(TABLE_CLIENT_SIDE_DEFAULTS.showPagination);
 // ...
 ```
 
@@ -352,24 +406,24 @@ No existe ningún archivo `.spec.ts` para estos organismos (solo existe `app.spe
 
 ### Escenarios mínimos recomendados para `app-table-client-side`:
 
-| Escenario | Tipo |
-|---|---|
-| Renderiza datos en la tabla | Unit |
+| Escenario                                                  | Tipo |
+|------------------------------------------------------------|------|
+| Renderiza datos en la tabla                                | Unit |
 | Filtrado con `evaluateCriteria` reduce los datos mostrados | Unit |
-| Filtrado con `filterFn` custom invoca la función provista | Unit |
-| Ordenación ascendente/descendente con `defaultSort` | Unit |
-| `resetPageOnFilter: true` resetea el índice de página | Unit |
-| `boundaryGuard` mueve la página al último índice válido | Unit |
-| Emite `filtersChange` al cambiar filtros | Unit |
-| Emite `paramsChange` correctamente (server-side) | Unit |
+| Filtrado con `filterFn` custom invoca la función provista  | Unit |
+| Ordenación ascendente/descendente con `defaultSort`        | Unit |
+| `resetPageOnFilter: true` resetea el índice de página      | Unit |
+| `boundaryGuard` mueve la página al último índice válido    | Unit |
+| Emite `filtersChange` al cambiar filtros                   | Unit |
+| Emite `paramsChange` correctamente (server-side)           | Unit |
 
 ### Escenarios mínimos para `app-table-server-side`:
 
-| Escenario | Tipo |
-|---|---|
-| `currentParams` computa correctamente con todos los valores | Unit |
+| Escenario                                                     | Tipo |
+|---------------------------------------------------------------|------|
+| `currentParams` computa correctamente con todos los valores   | Unit |
 | `criteriaToValues` mapea correctamente `AppFilterCriterion[]` | Unit |
-| `boundaryGuard` no ejecuta cuando `totalItems === 0` | Unit |
+| `boundaryGuard` no ejecuta cuando `totalItems === 0`          | Unit |
 | `paramsChange` se emite en cada cambio de filtros/sort/página | Unit |
 
 ---
@@ -394,18 +448,18 @@ El `ng-content` del template server-side usa `select="[cellTemplate]"` mientras 
 
 ## 10. Resumen de Hallazgos y Prioridades
 
-| # | Hallazgo | Severidad | Principio | Aplica a |
-|---|---|---|---|---|
-| 1 | **Duplicación estructural masiva** — no existe clase base compartida | 🔴 Alta | DRY | Ambos |
-| 2 | **DEFAULTS ausentes en client-side model** | 🔴 Alta | STYLE_GUIDE / Clean Code | Client-side |
-| 3 | **Ausencia total de tests** | 🔴 Alta | Clean Code | Ambos |
-| 4 | **`AppTableServerResponse<T>` sin uso** | 🟡 Media | Clean Code | Server-side |
-| 5 | **`criteriaToValues` debería vivir en utils de filtros** | 🟡 Media | DIP / SRP | Server-side |
-| 6 | **Color hardcoded `#e0e0e0` como fallback en SCSS** | 🟡 Media | STYLE_GUIDE | Ambos |
-| 7 | **`eslint-disable` global en lugar de localizado** | 🟡 Media | Clean Code | Ambos |
-| 8 | **`ng-content` inconsistente entre ambos templates** | 🟡 Media | Consistencia / Accesibilidad | Ambos |
-| 9 | **Convención `_boundaryGuard` inconsistente** | 🟢 Baja | Clean Code | Ambos |
-| 10 | **Trailing blank lines en server-side** | 🟢 Baja | Clean Code | Server-side |
+| #  | Hallazgo                                                             | Severidad | Principio                    | Aplica a    |
+|----|----------------------------------------------------------------------|-----------|------------------------------|-------------|
+| 1  | **Duplicación estructural masiva** — no existe clase base compartida | 🔴 Alta   | DRY                          | Ambos       |
+| 2  | **DEFAULTS ausentes en client-side model**                           | 🔴 Alta   | STYLE_GUIDE / Clean Code     | Client-side |
+| 3  | **Ausencia total de tests**                                          | 🔴 Alta   | Clean Code                   | Ambos       |
+| 4  | **`AppTableServerResponse<T>` sin uso**                              | 🟡 Media  | Clean Code                   | Server-side |
+| 5  | **`criteriaToValues` debería vivir en utils de filtros**             | 🟡 Media  | DIP / SRP                    | Server-side |
+| 6  | **Color hardcoded `#e0e0e0` como fallback en SCSS**                  | 🟡 Media  | STYLE_GUIDE                  | Ambos       |
+| 7  | **`eslint-disable` global en lugar de localizado**                   | 🟡 Media  | Clean Code                   | Ambos       |
+| 8  | **`ng-content` inconsistente entre ambos templates**                 | 🟡 Media  | Consistencia / Accesibilidad | Ambos       |
+| 9  | **Convención `_boundaryGuard` inconsistente**                        | 🟢 Baja   | Clean Code                   | Ambos       |
+| 10 | **Trailing blank lines en server-side**                              | 🟢 Baja   | Clean Code                   | Server-side |
 
 ---
 

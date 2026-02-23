@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
-import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
-import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
-import { BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize } from '@shared/atoms/app-button/app-button.model';
+import { AppButtonComponent } from '@atoms/app-button/app-button.component';
+import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
+import { AppToggleGroupComponent } from '@atoms/app-toggle-group/app-toggle-group.component';
+import { ToggleOption } from '@atoms/app-toggle-group/app-toggle-group.model';
+import { BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize } from '@atoms/app-button/app-button.model';
 import { MatButtonAppearance } from '@angular/material/button';
 import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES } from './buttons.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
-import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
+import { AppCardComponent } from "@atoms/app-card/app-card.component";
 
 @Component({
   selector: 'app-buttons',

@@ -1,16 +1,16 @@
 import { CurrencyPipe, DatePipe } from "@angular/common";
-import { Component, ChangeDetectionStrategy, OnInit, inject, signal, computed } from "@angular/core";
-import { MatSnackBarModule, MatSnackBar } from "@angular/material/snack-bar";
-import { AppPageEvent } from "@shared/atoms/app-pagination/app-pagination.model";
-import { AppTableSort, AppTableAction } from "@shared/atoms/app-table/app-table.model";
-import { AppToggleGroupComponent } from "@shared/atoms/app-toggle-group/app-toggle-group.component";
-import { ToggleOption } from "@shared/atoms/app-toggle-group/app-toggle-group.model";
-import { AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
-import { AppTableClientSideComponent } from "@shared/organisms/app-tables/client-side/app-table-client-side.component";
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from "@angular/core";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { AppPageEvent } from "@atoms/app-pagination/app-pagination.model";
+import { AppTableAction, AppTableSort } from "@atoms/app-table/app-table.model";
+import { AppToggleGroupComponent } from "@atoms/app-toggle-group/app-toggle-group.component";
+import { ToggleOption } from "@atoms/app-toggle-group/app-toggle-group.model";
+import { AppFilterCriterion } from "@molecules/app-filters/app-filter.model";
+import { AppTableClientSideComponent } from "@organisms/app-tables/client-side/app-table-client-side.component";
 import { MockEmployeeService } from "../../mocks/mock-employee.service";
 import { MockHttpService } from "../../mocks/mock-http.service";
-import { getTableConfig, getFiltersConfig } from "./table-client-side.config";
-import { TableClientSideService, EmployeeViewModel } from "./table-client-side.service";
+import { getFiltersConfig, getTableConfig } from "./table-client-side.config";
+import { EmployeeViewModel, TableClientSideService } from "./table-client-side.service";
 
 const FILTER_MODE_OPTIONS: ToggleOption[] = [
   { value: 'false', label: 'Filtros Simples', icon: 'filter_list' },
@@ -27,17 +27,15 @@ const FILTER_MODE_OPTIONS: ToggleOption[] = [
   templateUrl: './table-client-side.component.html'
 })
 export class TableClientSideComponent implements OnInit {
-  private readonly service = inject(TableClientSideService);
-  private readonly snackBar = inject(MatSnackBar);
-
   readonly filterModeOptions = FILTER_MODE_OPTIONS;
   readonly filterModeValue = signal('false');
   readonly useAdvancedFilters = computed(() => this.filterModeValue() === 'true');
   readonly isLoading = signal(true);
   readonly employees = signal<EmployeeViewModel[]>([]);
-
   readonly tableConfig = getTableConfig();
   readonly filtersConfig = computed(() => getFiltersConfig(this.useAdvancedFilters()));
+  private readonly service = inject(TableClientSideService);
+  private readonly snackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
     this.service.getEmployees(45).subscribe({

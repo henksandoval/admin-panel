@@ -20,15 +20,15 @@
   </div>
 
   <app-table-server-side
+    (paramsChange)="onParamsChange($event)"
+    (rowClick)="onRowClick($any($event))"
     [data]="employees()"
-    [tableConfig]="tableConfig"
     [filtersConfig]="filtersConfig()"
-    [useAdvancedFilters]="useAdvancedFilters()"
-    [totalItems]="totalEmployees()"
     [loading]="isLoading()"
     [paginationConfig]="paginationConfig"
-    (paramsChange)="onParamsChange($event)"
-    (rowClick)="onRowClick($any($event))">
+    [tableConfig]="tableConfig"
+    [totalItems]="totalEmployees()"
+    [useAdvancedFilters]="useAdvancedFilters()">
     <ng-template #cellTemplate let-column="column" let-row let-value="value">
       @switch (column.key) {
         @case ('statusLabel') {

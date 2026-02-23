@@ -8,11 +8,11 @@ import { MatFormFieldAppearance, MatFormFieldModule } from '@angular/material/fo
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
-import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
-import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
-import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
-import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
+import { AppButtonComponent } from '@atoms/app-button/app-button.component';
+import { AppToggleGroupComponent } from '@atoms/app-toggle-group/app-toggle-group.component';
+import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
+import { AppCardComponent } from '@atoms/app-card/app-card.component';
+import { ToggleOption } from '@atoms/app-toggle-group/app-toggle-group.model';
 import { API_PROPERTIES, BEST_PRACTICES, FIELD_EXAMPLES } from './form.data';
 import { LayoutConfig } from '@shared/templates/app-page-layout/app-page-layout.model';
 import { PdsPageUtilitiesService } from '../../shared/templates/pds-page-layout/pds-page-utilities.service';
@@ -23,34 +23,34 @@ import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-pa
 import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
 import {
   AppFormCheckboxConnectorDirective
-} from '@shared/molecules/app-form/app-form-checkbox/app-form-checkbox-connector.directive';
-import { AppFormCheckboxComponent } from '@shared/molecules/app-form/app-form-checkbox/app-form-checkbox.component';
+} from '@molecules/app-form/app-form-checkbox/app-form-checkbox-connector.directive';
+import { AppFormCheckboxComponent } from '@molecules/app-form/app-form-checkbox/app-form-checkbox.component';
 import {
   AppFormDatepickerConnectorDirective
-} from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
+} from '@molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
 import {
   AppFormDatepickerComponent
-} from '@shared/molecules/app-form/app-form-datepicker/app-form-datepicker.component';
+} from '@molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import {
   AppFormInputConnectorDirective
-} from '@shared/molecules/app-form/app-form-input/app-form-input-connector.directive';
-import { AppFormInputComponent } from '@shared/molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputOptions } from '@shared/molecules/app-form/app-form-input/app-form-input.model';
+} from '@molecules/app-form/app-form-input/app-form-input-connector.directive';
+import { AppFormInputComponent } from '@molecules/app-form/app-form-input/app-form-input.component';
+import { AppFormInputOptions } from '@molecules/app-form/app-form-input/app-form-input.model';
 import {
   AppFormRadioGroupConnectorDirective
-} from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
+} from '@molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
 import {
   AppFormRadioGroupComponent
-} from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.component';
-import { RadioOption } from '@shared/molecules/app-form/app-form-radio-group/app-form-radio-group.model';
+} from '@molecules/app-form/app-form-radio-group/app-form-radio-group.component';
+import { RadioOption } from '@molecules/app-form/app-form-radio-group/app-form-radio-group.model';
 import {
   AppFormSelectConnectorDirective
-} from '@shared/molecules/app-form/app-form-select/app-form-select-connector.directive';
-import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
+} from '@molecules/app-form/app-form-select/app-form-select-connector.directive';
+import { AppFormSelectComponent } from '@molecules/app-form/app-form-select/app-form-select.component';
 import {
   AppFormTextareaConnectorDirective
-} from '@shared/molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
-import { AppFormTextareaComponent } from '@shared/molecules/app-form/app-form-textarea/app-form-textarea.component';
+} from '@molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
+import { AppFormTextareaComponent } from '@molecules/app-form/app-form-textarea/app-form-textarea.component';
 
 @Component({
   selector: 'app-form-gallery',

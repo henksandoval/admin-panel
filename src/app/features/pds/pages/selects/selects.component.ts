@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
-import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
-import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
-import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
+import { AppButtonComponent } from '@atoms/app-button/app-button.component';
+import { AppToggleGroupComponent } from '@atoms/app-toggle-group/app-toggle-group.component';
+import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
+import { ToggleOption } from '@atoms/app-toggle-group/app-toggle-group.model';
 import {
   API_PROPERTIES,
   BEST_PRACTICES,
@@ -16,8 +16,8 @@ import {
   SELECT_STATE_GUIDES
 } from './selects.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
-import { AppFormSelectComponent } from '@shared/molecules/app-form/app-form-select/app-form-select.component';
-import { SelectOption } from '@shared/molecules/app-form/app-form-select/app-form-select.model';
+import { AppFormSelectComponent } from '@molecules/app-form/app-form-select/app-form-select.component';
+import { SelectOption } from '@molecules/app-form/app-form-select/app-form-select.model';
 
 @Component({
   selector: 'app-selects',

@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Employee } from "../contracts/employee.contract";
 import { generateEmployees } from "./data/employees.data";

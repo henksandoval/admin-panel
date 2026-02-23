@@ -20,7 +20,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
 import { MatRadioModule } from '@angular/material/radio';
-import { AppRadioComponent } from '@shared/atoms/app-radio/app-radio.component';
+import { AppRadioComponent } from '@atoms/app-radio/app-radio.component';
 import {
   APP_FORM_RADIO_GROUP_DEFAULTS,
   AppFormRadioGroupConfig,

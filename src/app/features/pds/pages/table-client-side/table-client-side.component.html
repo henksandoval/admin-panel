@@ -6,20 +6,20 @@
     </div>
 
     <app-toggle-group
-      [options]="filterModeOptions"
-      [(value)]="filterModeValue">
+      [(value)]="filterModeValue"
+      [options]="filterModeOptions">
     </app-toggle-group>
   </div>
 
   <app-table-client-side
-    [data]="employees()"
-    [tableConfig]="tableConfig"
-    [filtersConfig]="filtersConfig()"
-    [useAdvancedFilters]="useAdvancedFilters()"
     (actionClick)="onActionClick($event)"
     (filtersChange)="onFiltersChange($event)"
     (pageChange)="onPageChange($event)"
-    (sortChange)="onSortChange($event)">
+    (sortChange)="onSortChange($event)"
+    [data]="employees()"
+    [filtersConfig]="filtersConfig()"
+    [tableConfig]="tableConfig"
+    [useAdvancedFilters]="useAdvancedFilters()">
     <ng-template #cellTemplate let-column="column" let-row let-value="value">
       @switch (column.key) {
         @case ('statusLabel') {

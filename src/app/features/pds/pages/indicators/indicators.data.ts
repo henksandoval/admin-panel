@@ -1,4 +1,4 @@
-import { BadgeColor, BadgePosition, BadgeVariant } from '@shared/atoms/app-badge/app-badge.model';
+import { BadgeColor, BadgePosition, BadgeVariant } from '@atoms/app-badge/app-badge.model';
 import {
   PdsApiReferencePropertyModel
 } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';

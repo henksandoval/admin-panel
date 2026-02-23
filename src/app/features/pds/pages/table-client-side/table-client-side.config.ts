@@ -1,5 +1,5 @@
-import {AppTableConfig} from '@shared/atoms/app-table/app-table.model';
-import {AppFiltersConfig} from '@shared/molecules/app-filters/app-filter.model';
+import { AppTableConfig } from '@atoms/app-table/app-table.model';
+import { AppFiltersConfig } from '@molecules/app-filters/app-filter.model';
 import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_STATUS_OPTIONS } from '../../contracts/employee.contract';
 import { EmployeeViewModel } from './table-client-side.service';
 

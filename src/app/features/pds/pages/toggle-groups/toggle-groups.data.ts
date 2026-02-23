@@ -1,4 +1,4 @@
-import { ToggleOption } from '@shared/atoms/app-toggle-group/app-toggle-group.model';
+import { ToggleOption } from '@atoms/app-toggle-group/app-toggle-group.model';
 import {
   PdsApiReferencePropertyModel
 } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';

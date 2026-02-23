@@ -1,11 +1,11 @@
 import {
+  computed,
   contentChild,
   Directive,
   effect,
   input,
   output,
   signal,
-  computed,
   TemplateRef,
   WritableSignal,
 } from '@angular/core';
@@ -13,9 +13,9 @@ import {
   AppPageEvent,
   AppPaginationConfig,
   AppPaginationState,
-} from '@shared/atoms/app-pagination/app-pagination.model';
-import { AppTableAction, AppTableConfig, AppTableSort } from '@shared/atoms/app-table/app-table.model';
-import { AppFiltersConfig } from '@shared/molecules/app-filters/app-filter.model';
+} from '@atoms/app-pagination/app-pagination.model';
+import { AppTableAction, AppTableConfig, AppTableSort } from '@atoms/app-table/app-table.model';
+import { AppFiltersConfig } from '@molecules/app-filters/app-filter.model';
 import { AnyRecord, APP_TABLE_DEFAULTS } from './app-table.model';
 import { calcLastPage } from './app-table.utils';
 
@@ -47,10 +47,6 @@ export abstract class AppTableBase<T extends AnyRecord> {
     pageSize: this.pageSize(),
     totalItems: this.totalItemCount(),
   }));
-
-  protected abstract totalItemCount(): number;
-  protected abstract skipBoundaryGuard(): boolean;
-
   private readonly boundaryGuard = effect(() => {
     if (this.skipBoundaryGuard()) return;
     const lastPage = calcLastPage(this.totalItemCount(), this.pageSize());
@@ -72,4 +68,8 @@ export abstract class AppTableBase<T extends AnyRecord> {
     this.pageSize.set(event.pageSize);
     this.pageChange.emit(event);
   }
+
+  protected abstract totalItemCount(): number;
+
+  protected abstract skipBoundaryGuard(): boolean;
 }

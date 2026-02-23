@@ -13,16 +13,16 @@ Ambos organismos comparten una arquitectura sólida basada en Signals, `ChangeDe
 
 ## 2. Comparativa Estructural
 
-| Aspecto | ClientSide | ServerSide |
-|---|---|---|
-| `model.ts` con DEFAULTS | ⚠️ Parcial — sin defaults | ✅ `TABLE_SERVER_SIDE_DEFAULTS` completo |
-| Tipo interno de filtros | `AppFilterCriterion[]` (criteria) | `AppFilterValues` (values) |
-| Output de filtros | `filtersChange: AppFilterCriterion[]` | `filtersChange: AppFilterValues` |
-| Output unificado de params | ❌ No existe | ✅ `paramsChange: AppTableServerParams` |
-| `filterFn` / `sortFn` custom | ✅ Soportado | ❌ No aplica (délega al backend) |
-| `ng-content` en template | `<ng-content/>` (sin selector) | `<ng-content select="[cellTemplate]"/>` |
-| `AppTableServerResponse<T>` usado | — | ❌ Definido en model pero nunca consumido |
-| SCSS prefijo de clase | `.app-client-side-table` | `.app-server-side-table` |
+| Aspecto                           | ClientSide                            | ServerSide                               |
+|-----------------------------------|---------------------------------------|------------------------------------------|
+| `model.ts` con DEFAULTS           | ⚠️ Parcial — sin defaults             | ✅ `TABLE_SERVER_SIDE_DEFAULTS` completo  |
+| Tipo interno de filtros           | `AppFilterCriterion[]` (criteria)     | `AppFilterValues` (values)               |
+| Output de filtros                 | `filtersChange: AppFilterCriterion[]` | `filtersChange: AppFilterValues`         |
+| Output unificado de params        | ❌ No existe                           | ✅ `paramsChange: AppTableServerParams`   |
+| `filterFn` / `sortFn` custom      | ✅ Soportado                           | ❌ No aplica (délega al backend)          |
+| `ng-content` en template          | `<ng-content/>` (sin selector)        | `<ng-content select="[cellTemplate]"/>`  |
+| `AppTableServerResponse<T>` usado | —                                     | ❌ Definido en model pero nunca consumido |
+| SCSS prefijo de clase             | `.app-client-side-table`              | `.app-server-side-table`                 |
 
 ---
 
@@ -145,14 +145,14 @@ El server-side inicializa `pageSize` con `TABLE_SERVER_SIDE_DEFAULTS.initialPage
 
 ## 4. Matriz de Paridad
 
-| Funcionalidad | ClientSide | ServerSide | ¿Deberían ser iguales? |
-|---|:---:|:---:|---|
-| DEFAULTS en model.ts | ❌ | ✅ | Sí |
-| Output `filtersChange` con criterios ricos | ✅ | ❌ | Sí (unificar) |
-| Output `paramsChange` unificado | ❌ | ✅ | No (solo server-side lo necesita) |
-| `filterFn` / `sortFn` custom | ✅ | ❌ | No (solo client-side lo necesita) |
-| `ng-content select` consistente | ❌ | ✅ | Sí |
-| Nombrado `boundaryGuard` sin `_` | ❌ | ✅ | Sí |
+| Funcionalidad                              | ClientSide | ServerSide | ¿Deberían ser iguales?            |
+|--------------------------------------------|:----------:|:----------:|-----------------------------------|
+| DEFAULTS en model.ts                       |     ❌      |     ✅      | Sí                                |
+| Output `filtersChange` con criterios ricos |     ✅      |     ❌      | Sí (unificar)                     |
+| Output `paramsChange` unificado            |     ❌      |     ✅      | No (solo server-side lo necesita) |
+| `filterFn` / `sortFn` custom               |     ✅      |     ❌      | No (solo client-side lo necesita) |
+| `ng-content select` consistente            |     ❌      |     ✅      | Sí                                |
+| Nombrado `boundaryGuard` sin `_`           |     ❌      |     ✅      | Sí                                |
 
 ---
 

@@ -1,4 +1,4 @@
-import { AppFilterCriterion, AppFilterOperator, AppFilterToggle, DEFAULT_FILTER_OPERATORS } from './app-filter.model';
+import {AppFilterCriterion, AppFilterOperator, AppFilterToggle, DEFAULT_FILTER_OPERATORS} from './app-filter.model';
 
 export function formatCriterionDisplayValue(criterion: AppFilterCriterion): string {
   const { value, field, operator } = criterion;

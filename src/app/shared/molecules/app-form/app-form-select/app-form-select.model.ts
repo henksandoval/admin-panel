@@ -1,4 +1,4 @@
-import { MatFormFieldAppearance } from '@angular/material/form-field';
+import {MatFormFieldAppearance} from '@angular/material/form-field';
 
 export interface SelectOption<T = any> {
   value: T;

@@ -1,4 +1,4 @@
-import { MatFormFieldAppearance } from '@angular/material/form-field';
+import {MatFormFieldAppearance} from '@angular/material/form-field';
 
 interface AppFormTextareaConfig {
   label?: string;

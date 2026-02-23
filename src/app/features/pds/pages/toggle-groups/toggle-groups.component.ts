@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@shared/atoms/app-button/app-button.component';
-import { AppToggleGroupComponent } from '@shared/atoms/app-toggle-group/app-toggle-group.component';
-import { AppCheckboxComponent } from '@shared/atoms/app-checkbox/app-checkbox.component';
+import { AppButtonComponent } from '@atoms/app-button/app-button.component';
+import { AppToggleGroupComponent } from '@atoms/app-toggle-group/app-toggle-group.component';
+import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
 import {
   TOGGLE_GROUP_DEFAULTS,
   ToggleGroupColor,
   ToggleGroupSize,
   ToggleOption
-} from '@shared/atoms/app-toggle-group/app-toggle-group.model';
+} from '@atoms/app-toggle-group/app-toggle-group.model';
 import {
   ALIGNMENT_ICON_OPTIONS,
   ALIGNMENT_OPTIONS,
@@ -86,7 +86,7 @@ export default class ToggleGroupsComponent {
     const isMultiple = state === 'multiple';
 
     let tsCode = `// TypeScript\n`;
-    tsCode += `import { ToggleOption } from '@shared/atoms/app-toggle-group';\n\n`;
+    tsCode += `import { ToggleOption } from '@atoms/app-toggle-group';\n\n`;
 
     if (state === 'icons-gallery') {
       tsCode += `options: ToggleOption[] = [\n`;

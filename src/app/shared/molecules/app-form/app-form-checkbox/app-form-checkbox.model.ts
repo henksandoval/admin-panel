@@ -1,4 +1,4 @@
-import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from '@shared/atoms/app-checkbox/app-checkbox.model';
+import {CheckboxColor, CheckboxLabelPosition, CheckboxSize} from '@atoms/app-checkbox/app-checkbox.model';
 
 export interface AppFormCheckboxConfig {
   color?: CheckboxColor;

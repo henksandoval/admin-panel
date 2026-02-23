@@ -3,7 +3,7 @@ import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { GridCell, GridConfig, LAYOUT_PRESETS, LayoutConfig, LayoutPreset } from './app-page-layout.model';
 import { AppSlotContainerDirective } from './app-slot-container.directive';
-import { AppBreadCrumbComponent } from "@shared/molecules/app-bread-crumb/app-bread-crumb.component";
+import { AppBreadCrumbComponent } from "@molecules/app-bread-crumb/app-bread-crumb.component";
 
 @Component({
   selector: 'app-page-layout',

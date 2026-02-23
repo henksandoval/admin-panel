@@ -39,10 +39,10 @@ export class SettingsPanelComponent {
     { id: 'dark', label: 'Dark', icon: 'dark_mode' },
     { id: 'light', label: 'Light', icon: 'light_mode' }
   ];
-  protected readonly isThemeActive = computed(() =>
-    (themeId: Theme) => this.config().theme === themeId);
   private settingsService = inject(SettingsService);
   protected readonly config = this.settingsService.config;
+  protected readonly isThemeActive = computed(() =>
+    (themeId: Theme) => this.config().theme === themeId);
 
   closePanel(): void {
     this.settingsService.closePanel();

@@ -1,18 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  output,
-  signal,
-} from "@angular/core";
-import { AppCardComponent } from "@shared/atoms/app-card/app-card.component";
-import { AppPaginationComponent } from "@shared/atoms/app-pagination/app-pagination.component";
-import { AppTableComponent } from "@shared/atoms/app-table/app-table.component";
-import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanced/app-advanced-filter.component";
-import { AppFilterCriterion } from "@shared/molecules/app-filters/app-filter.model";
-import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator.utils";
-import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
+import { ChangeDetectionStrategy, Component, computed, input, output, signal, } from "@angular/core";
+import { AppCardComponent } from "@atoms/app-card/app-card.component";
+import { AppPaginationComponent } from "@atoms/app-pagination/app-pagination.component";
+import { AppTableComponent } from "@atoms/app-table/app-table.component";
+import { AppAdvancedFilterComponent } from "@molecules/app-filters/advanced/app-advanced-filter.component";
+import { AppFilterCriterion } from "@molecules/app-filters/app-filter.model";
+import { evaluateCriteria } from "@molecules/app-filters/criteria-evaluator.utils";
+import { AppSimpleFilterComponent } from "@molecules/app-filters/simple/app-simple-filter.component";
 import { AppTableBase } from "../app-table-base";
 import { AnyRecord } from "../app-table.model";
 import { defaultTableSort } from "../app-table.utils";
@@ -69,14 +62,6 @@ export class AppTableClientSideComponent<T extends AnyRecord> extends AppTableBa
     return data.slice(start, start + this.pageSize());
   });
 
-  protected override totalItemCount(): number {
-    return this.sortedData().length;
-  }
-
-  protected override skipBoundaryGuard(): boolean {
-    return false;
-  }
-
   onFiltersChange(criteria: AppFilterCriterion[]): void {
     this.currentFilters.set(criteria);
 
@@ -85,5 +70,13 @@ export class AppTableClientSideComponent<T extends AnyRecord> extends AppTableBa
     }
 
     this.filtersChange.emit(criteria);
+  }
+
+  protected override totalItemCount(): number {
+    return this.sortedData().length;
+  }
+
+  protected override skipBoundaryGuard(): boolean {
+    return false;
   }
 }

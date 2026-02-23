@@ -1,4 +1,4 @@
-import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from '@shared/atoms/app-checkbox/app-checkbox.model';
+import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from '@atoms/app-checkbox/app-checkbox.model';
 import {
   PdsApiReferencePropertyModel
 } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
