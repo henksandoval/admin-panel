@@ -22,6 +22,8 @@ import {
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
 import { AppFiltersConfig, AppFilterValues, AppFilterCriterion } from '@shared/molecules/app-filters/app-filter.model';
 import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/app-simple-filter.component';
+import { AppAdvancedFilterComponent } from '@shared/molecules/app-filters/advanced/app-advanced-filter.component';
+import { AppCardComponent } from '@shared/atoms/app-card/app-card.component';
 
 @Component({
   selector: 'app-table-server-side',
@@ -30,6 +32,8 @@ import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/a
     AppTableComponent,
     AppSimpleFilterComponent,
     AppPaginationComponent,
+    AppAdvancedFilterComponent,
+    AppCardComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-table-server-side.component.scss',
@@ -37,14 +41,14 @@ import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/a
 })
 export class AppTableServerSideComponent<T extends Record<string, any>> {
   readonly tableConfig = input.required<AppTableConfig<T>>();
+  readonly filtersConfig = input<AppFiltersConfig>();
+  readonly useAdvancedFilters = input<boolean>(false);
+  readonly showPagination = input<boolean>(true);
+  readonly paginationConfig = input<AppPaginationConfig>();
 
   readonly data = input<T[]>([]);
-  readonly totalItems = input<number>(0);
   readonly loading = input(false);
-
-  readonly filtersConfig = input<AppFiltersConfig>();
-  readonly paginationConfig = input<AppPaginationConfig>();
-  readonly showPagination = input(TABLE_SERVER_SIDE_DEFAULTS.showPagination);
+  readonly totalItems = input<number>(0);
 
   readonly resetPageOnFilter = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnFilter);
   readonly resetPageOnSort = input(TABLE_SERVER_SIDE_DEFAULTS.resetPageOnSort);

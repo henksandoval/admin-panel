@@ -1,10 +1,23 @@
 <div class="app-server-side-table">
   @if (safeFiltersConfig(); as config) {
-    <app-simple-filters
-      (criteriaChange)="onFiltersChange($event)"
-      [config]="config"
-      [values]="filterValues()">
-    </app-simple-filters>
+    @if (useAdvancedFilters()) {
+      <app-card
+        [expanded]="false"
+        [isExpandable]="true"
+        class="mb-4"
+        icon="filter_alt"
+        title="Filtros avanzados">
+        <app-filters-advanced
+          (criteriaChange)="onFiltersChange($event)"
+          [config]="config">
+        </app-filters-advanced>
+      </app-card>
+    } @else {
+      <app-simple-filters
+        (criteriaChange)="onFiltersChange($event)"
+        [config]="config">
+      </app-simple-filters>
+    }
   }
 
   <app-table

@@ -21,10 +21,11 @@
 
   <app-table-server-side
     [data]="employees()"
-    [totalItems]="totalEmployees()"
-    [loading]="isLoading()"
     [tableConfig]="tableConfig"
     [filtersConfig]="filtersConfig()"
+    [useAdvancedFilters]="useAdvancedFilters()"
+    [totalItems]="totalEmployees()"
+    [loading]="isLoading()"
     [paginationConfig]="paginationConfig"
     (paramsChange)="onParamsChange($event)"
     (rowClick)="onRowClick($any($event))">
