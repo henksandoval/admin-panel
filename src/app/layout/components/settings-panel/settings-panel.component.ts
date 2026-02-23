@@ -6,7 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Scheme, SettingsService, Theme } from '../../../core/services/settings.service';
+import { Density, Scheme, SettingsService, Theme } from '../../../core/services/settings.service';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
@@ -39,6 +39,11 @@ export class SettingsPanelComponent {
     { id: 'dark', label: 'Dark', icon: 'dark_mode' },
     { id: 'light', label: 'Light', icon: 'light_mode' }
   ];
+  protected readonly densities: { id: Density; label: string; icon: string }[] = [
+    { id: 'comfortable', label: 'Cómodo', icon: 'view_agenda' },
+    { id: 'compact', label: 'Compacto', icon: 'view_list' },
+    { id: 'dense', label: 'Denso', icon: 'density_small' }
+  ];
   private settingsService = inject(SettingsService);
   protected readonly config = this.settingsService.config;
   protected readonly isThemeActive = computed(() =>
@@ -56,9 +61,14 @@ export class SettingsPanelComponent {
     this.settingsService.setScheme(scheme);
   }
 
+  selectDensity(density: Density): void {
+    this.settingsService.setDensity(density);
+  }
+
   resetSettings(): void {
     this.settingsService.setTheme('aurora-tech');
     this.settingsService.setScheme('dark');
+    this.settingsService.setDensity('comfortable');
   }
 }
 

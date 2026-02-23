@@ -2,10 +2,12 @@ import { effect, Injectable, signal } from '@angular/core';
 
 export type Theme = 'default' | 'aurora-tech' | 'deep-ocean' | 'forest-growth' | 'slate-minimal' | 'sunset-analytics' | 'royal-dashboard';
 export type Scheme = 'auto' | 'dark' | 'light';
+export type Density = 'comfortable' | 'compact' | 'dense';
 
 export interface SettingsConfig {
   theme: Theme;
   scheme: Scheme;
+  density: Density;
 }
 
 @Injectable({
@@ -25,10 +27,12 @@ export class SettingsService {
       this.saveSettings(config);
       this.applyTheme(config.theme);
       this.applyScheme(config.scheme);
+      this.applyDensity(config.density);
     });
 
     this.applyTheme(this._config().theme);
     this.applyScheme(this._config().scheme);
+    this.applyDensity(this._config().density);
   }
 
   get isDarkMode(): boolean {
@@ -42,6 +46,10 @@ export class SettingsService {
 
   setScheme(scheme: Scheme): void {
     this._config.update(config => ({ ...config, scheme }));
+  }
+
+  setDensity(density: Density): void {
+    this._config.update(config => ({ ...config, density }));
   }
 
   togglePanel(): void {
@@ -70,7 +78,8 @@ export class SettingsService {
     }
     return {
       theme: 'default',
-      scheme: 'light'
+      scheme: 'light',
+      density: 'comfortable'
     };
   }
 
@@ -109,6 +118,12 @@ export class SettingsService {
     } else {
       document.body.classList.add('light-theme');
     }
+  }
+
+  private applyDensity(density: Density): void {
+    const densities: Density[] = ['comfortable', 'compact', 'dense'];
+    densities.forEach(d => document.body.classList.remove(`density-${d}`));
+    document.body.classList.add(`density-${density}`);
   }
 }
 

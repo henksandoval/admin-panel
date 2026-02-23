@@ -13,9 +13,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 11px;
+  padding: var(--density-badge-padding-y, 2px) var(--density-badge-padding-x, 8px);
+  border-radius: var(--density-badge-radius, 12px);
+  font-size: var(--density-badge-font-size, 11px);
   font-weight: 500;
   line-height: 1.2;
   white-space: nowrap;
@@ -39,7 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 9px;
+    font-size: var(--density-badge-indicator-size, 9px);
     font-weight: 900;
     line-height: 1;
     box-shadow: var(--badge-indicator-shadow);

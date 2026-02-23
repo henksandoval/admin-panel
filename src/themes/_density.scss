@@ -1,0 +1,145 @@
+@use '@angular/material' as mat;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Density System
+// Tres modos: comfortable (default MD3), compact (productividad equilibrada),
+// dense (máxima densidad, herramientas tipo Linear/Bloomberg).
+//
+// Uso: body.density-comfortable | body.density-compact | body.density-dense
+// ─────────────────────────────────────────────────────────────────────────────
+
+@mixin define-density-tokens() {
+  // Tokens de tipografía custom (componentes no-Material)
+  --density-font-size-sm:   0.875rem;  // labels, breadcrumb, paginación
+  --density-font-size-base: 1rem;      // texto general
+  --density-font-size-lg:   1.25rem;   // títulos de toolbar
+  --density-font-size-icon-sm:  18px;
+  --density-font-size-icon-md:  20px;
+  --density-font-size-icon-lg:  24px;
+
+  // Tokens de espaciado de contenedor
+  --density-page-padding:   1.5rem;
+  --density-section-gap:    2rem;
+  --density-card-padding:   1rem;
+
+  // Tokens de componentes custom
+  --density-badge-font-size:      11px;
+  --density-badge-indicator-size: 9px;
+  --density-badge-padding-x:      8px;
+  --density-badge-padding-y:      2px;
+  --density-badge-radius:         12px;
+
+  --density-pagination-font-size: 0.875rem;
+  --density-pagination-padding-y: 0.75rem;
+  --density-pagination-padding-x: 1rem;
+
+  --density-toolbar-title-size:   1.25rem;
+  --density-toolbar-menu-size:    0.875rem;
+  --density-toolbar-sub-size:     0.75rem;
+
+  --density-breadcrumb-font-size: 0.875rem;
+  --density-breadcrumb-padding:   1rem;
+
+  --density-filter-icon-size:     1.125rem;
+
+  --density-radio-label-size:     0.875rem;
+  --density-radio-hint-size:      0.75rem;
+  --density-radio-error-size:     0.875rem;
+}
+
+// ─── COMFORTABLE (MD3 por defecto) ───────────────────────────────────────────
+// Sin clase especial — es el comportamiento base de Material
+body.density-comfortable {
+  @include define-density-tokens();
+  // Material density = 0 es el default, no hace falta declararlo.
+  // Los tokens mantienen sus valores por defecto definidos arriba.
+}
+
+// ─── COMPACT (punto medio — Notion, Ant Design) ───────────────────────────────
+body.density-compact {
+  @include define-density-tokens();
+
+  @include mat.all-component-densities(-1);
+
+  // Tipografía ligeramente reducida
+  --density-font-size-sm:   0.8125rem;
+  --density-font-size-base: 0.9375rem;
+  --density-font-size-lg:   1.125rem;
+  --density-font-size-icon-sm:  16px;
+  --density-font-size-icon-md:  18px;
+  --density-font-size-icon-lg:  22px;
+
+  // Espaciado de contenedor reducido
+  --density-page-padding:   1.25rem;
+  --density-section-gap:    1.5rem;
+  --density-card-padding:   0.875rem;
+
+  // Componentes custom
+  --density-badge-font-size:      10px;
+  --density-badge-indicator-size: 8px;
+  --density-badge-padding-x:      7px;
+  --density-badge-padding-y:      2px;
+  --density-badge-radius:         10px;
+
+  --density-pagination-font-size: 0.8125rem;
+  --density-pagination-padding-y: 0.5rem;
+  --density-pagination-padding-x: 0.875rem;
+
+  --density-toolbar-title-size:   1.125rem;
+  --density-toolbar-menu-size:    0.8125rem;
+  --density-toolbar-sub-size:     0.6875rem;
+
+  --density-breadcrumb-font-size: 0.8125rem;
+  --density-breadcrumb-padding:   0.75rem;
+
+  --density-filter-icon-size:     1rem;
+
+  --density-radio-label-size:     0.8125rem;
+  --density-radio-hint-size:      0.6875rem;
+  --density-radio-error-size:     0.8125rem;
+}
+
+// ─── DENSE (máxima productividad — Linear, Bloomberg, AG Grid) ───────────────
+body.density-dense {
+  @include define-density-tokens();
+
+  @include mat.all-component-densities(-3);
+
+  // Tipografía comprimida al máximo útil
+  --density-font-size-sm:   0.75rem;
+  --density-font-size-base: 0.875rem;
+  --density-font-size-lg:   1rem;
+  --density-font-size-icon-sm:  14px;
+  --density-font-size-icon-md:  16px;
+  --density-font-size-icon-lg:  20px;
+
+  // Espaciado de contenedor mínimo
+  --density-page-padding:   1rem;
+  --density-section-gap:    1rem;
+  --density-card-padding:   0.75rem;
+
+  // Componentes custom
+  --density-badge-font-size:      9px;
+  --density-badge-indicator-size: 7px;
+  --density-badge-padding-x:      6px;
+  --density-badge-padding-y:      1px;
+  --density-badge-radius:         8px;
+
+  --density-pagination-font-size: 0.75rem;
+  --density-pagination-padding-y: 0.375rem;
+  --density-pagination-padding-x: 0.75rem;
+
+  --density-toolbar-title-size:   1rem;
+  --density-toolbar-menu-size:    0.75rem;
+  --density-toolbar-sub-size:     0.6875rem;
+
+  --density-breadcrumb-font-size: 0.75rem;
+  --density-breadcrumb-padding:   0.625rem;
+
+  --density-filter-icon-size:     0.875rem;
+
+  --density-radio-label-size:     0.75rem;
+  --density-radio-hint-size:      0.6875rem;
+  --density-radio-error-size:     0.75rem;
+}
+

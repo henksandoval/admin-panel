@@ -4,6 +4,7 @@
 @use './tokens';
 @use './material-overrides' as overrides;
 @use './badges' as badges;
+@use './density' as density;
 @use 'colors/aurora-tech' as aurora-tech;
 @use 'colors/deep-ocean' as deep-ocean;
 @use 'colors/forest-growth' as forest-growth;
@@ -37,6 +38,7 @@ $theme-config: (
     @include tokens.define-overlay-tokens();
     @include tokens.define-badge-tokens();
     @include tokens.define-typography-tokens();
+    @include density.define-density-tokens();
   }
 
   .dark-theme {

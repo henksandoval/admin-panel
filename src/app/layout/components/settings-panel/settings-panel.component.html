@@ -10,6 +10,23 @@
   </div>
   <div class="main-content flex-1 overflow-y-auto p-6">
     <div class="mb-8">
+      <h3 class="section-label m-0 mb-4">Densidad de información</h3>
+      <mat-button-toggle-group
+        (valueChange)="selectDensity($event)"
+        [value]="config().density"
+        aria-label="Densidad de la interfaz"
+        class="w-full"
+        name="density">
+        @for (density of densities; track density.id) {
+          <mat-button-toggle [value]="density.id" class="flex-1">
+            <mat-icon>{{ density.icon }}</mat-icon>
+            <span class="ml-2">{{ density.label }}</span>
+          </mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="mb-8">
       <h3 class="section-label m-0 mb-4">Modo</h3>
       <mat-button-toggle-group
         (valueChange)="selectScheme($event)"

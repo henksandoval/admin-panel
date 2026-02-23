@@ -43,7 +43,7 @@ import { LayoutService } from '../../services/layout.service';
     }
 
     .toolbar-title {
-      font-size: 1.25rem;
+      font-size: var(--density-toolbar-title-size, 1.25rem);
       font-weight: 600;
       margin: 0;
     }
@@ -59,19 +59,19 @@ import { LayoutService } from '../../services/layout.service';
     }
 
     .menu-header-title {
-      font-size: 0.875rem;
+      font-size: var(--density-toolbar-menu-size, 0.875rem);
       font-weight: 600;
       margin: 0;
     }
 
     .menu-header-subtitle {
-      font-size: 0.75rem;
+      font-size: var(--density-toolbar-sub-size, 0.75rem);
       margin: 0;
       opacity: 0.7;
     }
 
     .menu-item-text {
-      font-size: 0.875rem;
+      font-size: var(--density-toolbar-menu-size, 0.875rem);
     }
 
     .menu-divider {

@@ -160,9 +160,9 @@
 
   mat-icon {
     color: var(--mat-sys-primary);
-    font-size: 1.125rem;
-    width: 1.125rem;
-    height: 1.125rem;
+    font-size: var(--density-filter-icon-size, 1.125rem);
+    width: var(--density-filter-icon-size, 1.125rem);
+    height: var(--density-filter-icon-size, 1.125rem);
   }
 
   &:hover {

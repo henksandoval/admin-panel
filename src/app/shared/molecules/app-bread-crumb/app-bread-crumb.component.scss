@@ -2,12 +2,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem;
-  font-size: 0.875rem;
+  padding: var(--density-breadcrumb-padding, 1rem);
+  font-size: var(--density-breadcrumb-font-size, 0.875rem);
 }
 
 a {
-  color: #3b82f6;
+  color: var(--mat-sys-primary);
   text-decoration: none;
 }
 
@@ -16,9 +16,9 @@ a:hover {
 }
 
 .current {
-  color: #6b7280;
+  color: var(--mat-sys-on-surface-variant);
 }
 
 .separator {
-  color: #d1d5db;
+  color: var(--mat-sys-outline-variant);
 }

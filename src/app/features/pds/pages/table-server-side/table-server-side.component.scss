@@ -1,29 +1,23 @@
-h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0 0 1.5rem;
-}
-
 .badge {
   display: inline-block;
   padding: 0.1875rem 0.75rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: var(--density-badge-font-size, 0.75rem);
   font-weight: 600;
 
   &--active {
-    background: #e6f4ea;
-    color: #137333;
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
   }
 
   &--inactive {
-    background: #fce8e6;
-    color: #c5221f;
+    background: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
   }
 
   &--vacation {
-    background: #fef7e0;
-    color: #b05a00;
+    background: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
   }
 }
 

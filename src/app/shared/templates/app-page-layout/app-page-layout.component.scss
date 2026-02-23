@@ -1,6 +1,6 @@
 :host {
   display: block;
-  padding: 1.5rem;
+  padding: var(--density-page-padding, 1.5rem);
   container-type: inline-size;
 }
 
@@ -31,12 +31,12 @@ $layout-gap-compact: 1rem;
   align-items: center;
   justify-content: center;
   min-height: 100px;
-  border: 2px dashed var(--border-color, #ccc);
+  border: 2px dashed var(--mat-sys-outline-variant);
   border-radius: 8px;
-  background: var(--surface-variant, #f5f5f5);
-  color: var(--text-secondary, #666);
+  background: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-on-surface-variant);
   font-family: monospace;
-  font-size: 0.875rem;
+  font-size: var(--density-font-size-sm, 0.875rem);
 }
 
 .grid-full-width {
