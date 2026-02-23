@@ -8,6 +8,7 @@ $large-size-scale: 1.5;
   @include _button-overrides();
   @include _checkbox-overrides();
   @include _main-content-background();
+  @include mat.table-density(-3);
 }
 
 @mixin apply-component-overrides() {
