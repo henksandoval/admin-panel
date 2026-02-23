@@ -16,10 +16,11 @@ export interface AppTableServerResponse<T> {
 }
 
 export const TABLE_SERVER_SIDE_DEFAULTS = {
-  initialPageIndex: 0,
-  initialPageSize: 10,
+  useAdvancedFilters: false,
+  showPagination: true,
   resetPageOnFilter: true,
   resetPageOnSort: false,
-  showPagination: true,
+  initialPageIndex: 0,
+  initialPageSize: 10,
 } as const;
 

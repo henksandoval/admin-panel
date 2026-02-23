@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AppFilterCriterion, AppFilterValue } from "./app-filter.model";
+import { AppFilterCriterion, AppFilterValue, AppFilterValues } from "./app-filter.model";
 
 export function evaluateCriteria<T extends Record<string, any>>(
   data: T[],
@@ -78,4 +78,8 @@ function compareValues(a: unknown, b: AppFilterValue): number {
     return numA - numB;
   }
   return normalizeString(a).localeCompare(normalizeString(b));
+}
+
+export function criteriaToValues(criteria: AppFilterCriterion[]): AppFilterValues {
+  return Object.fromEntries(criteria.map(c => [c.field.key, c.value]));
 }

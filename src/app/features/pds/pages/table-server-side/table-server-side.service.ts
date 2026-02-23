@@ -58,16 +58,23 @@ export class TableServerSideService {
     data: EmployeeViewModel[],
     filters: Record<string, unknown>
   ): EmployeeViewModel[] {
-    return data.filter((item) => {
-      return Object.entries(filters).every(([key, value]) => {
+    return data.filter((item) =>
+      Object.entries(filters).every(([key, value]) => {
         if (value === null || value === undefined || value === '') return true;
-        
+
         const itemValue = item[key as keyof EmployeeViewModel];
-        return String(itemValue)
-          .toLowerCase()
-          .includes(String(value).toLowerCase());
-      });
-    });
+
+        if (typeof itemValue === 'string' && typeof value === 'string' && !this.isExactMatchField(key)) {
+          return itemValue.toLowerCase().includes(value.toLowerCase());
+        }
+
+        return String(itemValue).toLowerCase() === String(value).toLowerCase();
+      })
+    );
+  }
+
+  private isExactMatchField(key: string): boolean {
+    return ['status', 'department', 'id'].includes(key);
   }
 
   private applySort(

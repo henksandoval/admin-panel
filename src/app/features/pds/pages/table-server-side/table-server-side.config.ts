@@ -43,6 +43,11 @@ export function getFiltersConfig(useAdvanced: boolean): AppFiltersConfig {
     type: 'date' as const,
   };
 
+  const toggles = [
+    {key: 'isDeleted', label: 'Mostrar eliminados', value: false},
+    {key: 'isHidden', label: 'Mostrar ocultos', value: false},
+  ];
+
   if (useAdvanced) {
     return {
       fields: [
@@ -54,8 +59,7 @@ export function getFiltersConfig(useAdvanced: boolean): AppFiltersConfig {
         hireDateField,
         { key: 'salary', label: 'Salario', type: 'number' },
       ],
-      debounceMs: 300,
-      showClearAll: true,
+      toggles
     };
   }
 
@@ -67,8 +71,7 @@ export function getFiltersConfig(useAdvanced: boolean): AppFiltersConfig {
       statusField,
       hireDateField,
     ],
-    debounceMs: 300,
-    showClearAll: true,
+    toggles,
   };
 }
 

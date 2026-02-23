@@ -1,5 +1,5 @@
 <div class="app-server-side-table">
-  @if (safeFiltersConfig(); as config) {
+  @if (filtersConfig(); as config) {
     @if (useAdvancedFilters()) {
       <app-card
         [expanded]="false"
@@ -32,11 +32,12 @@
     <ng-content select="[cellTemplate]"/>
   </app-table>
 
-  @if (showPagination() && safePaginationConfig(); as config) {
+  @if (showPagination()) {
     <app-pagination
       (pageChange)="onPageChange($event)"
-      [config]="config"
+      [config]="paginationConfig() ?? {}"
       [state]="paginationState()">
     </app-pagination>
   }
 </div>
+
