@@ -26,7 +26,7 @@
     (sortChange)="onSortChange($event)"
     [cellTemplateRef]="projectedCellTemplate()"
     [config]="tableConfig()"
-    [data]="displayData()"
+    [data]="data()"
     [loading]="loading()"
     [sort]="currentSort()">
     <ng-content select="[cellTemplate]"/>
