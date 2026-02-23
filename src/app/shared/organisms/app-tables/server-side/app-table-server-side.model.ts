@@ -1,5 +1,6 @@
 import { AppTableSort } from '@shared/atoms/app-table/app-table.model';
 import { AppFilterValues } from '@shared/molecules/app-filters/app-filter.model';
+import { APP_TABLE_DEFAULTS } from '../app-table.model';
 
 export interface AppTableServerParams {
   filters: AppFilterValues;
@@ -15,12 +16,4 @@ export interface AppTableServerResponse<T> {
   pageSize: number;
 }
 
-export const TABLE_SERVER_SIDE_DEFAULTS = {
-  useAdvancedFilters: false,
-  showPagination: true,
-  resetPageOnFilter: true,
-  resetPageOnSort: false,
-  initialPageIndex: 0,
-  initialPageSize: 10,
-} as const;
-
+export const TABLE_SERVER_SIDE_DEFAULTS = APP_TABLE_DEFAULTS;

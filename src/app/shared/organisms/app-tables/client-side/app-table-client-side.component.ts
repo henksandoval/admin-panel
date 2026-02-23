@@ -23,10 +23,9 @@ import { AppAdvancedFilterComponent } from "@shared/molecules/app-filters/advanc
 import { AppFilterCriterion, AppFiltersConfig } from "@shared/molecules/app-filters/app-filter.model";
 import { evaluateCriteria } from "@shared/molecules/app-filters/criteria-evaluator.utils";
 import { AppSimpleFilterComponent } from "@shared/molecules/app-filters/simple/app-simple-filter.component";
+import { AnyRecord } from "../app-table.model";
+import { calcLastPage, defaultTableSort } from "../app-table.utils";
 import { AppTableFilterFn, AppTableSortFn, TABLE_CLIENT_SIDE_DEFAULTS } from "./app-table-client-side.model";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyRecord = Record<string, any>;
 
 @Component({
   selector: 'app-table-client-side',
@@ -89,7 +88,7 @@ export class AppTableClientSideComponent<T extends AnyRecord> {
     if (!sort.active || !sort.direction) return data;
 
     const customFn = this.sortFn();
-    return customFn ? customFn(data, sort) : this.defaultSort(data, sort);
+    return customFn ? customFn(data, sort) : defaultTableSort(data, sort);
   });
 
   readonly displayData = computed(() => {
@@ -107,14 +106,8 @@ export class AppTableClientSideComponent<T extends AnyRecord> {
   }));
 
   private readonly boundaryGuard = effect(() => {
-    const totalItems = this.sortedData().length;
-    const pageSize = this.pageSize();
-    const currentPage = this.pageIndex();
-    const lastPage = Math.max(0, Math.ceil(totalItems / pageSize) - 1);
-
-    if (currentPage > lastPage) {
-      this.pageIndex.set(lastPage);
-    }
+    const lastPage = calcLastPage(this.sortedData().length, this.pageSize());
+    if (this.pageIndex() > lastPage) this.pageIndex.set(lastPage);
   });
 
   onFiltersChange(criteria: AppFilterCriterion[]): void {
@@ -141,21 +134,5 @@ export class AppTableClientSideComponent<T extends AnyRecord> {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
     this.pageChange.emit(event);
-  }
-
-  private defaultSort(data: T[], sort: AppTableSort): T[] {
-    const key = sort.active as keyof T;
-
-    return [...data].sort((a, b) => {
-      const aVal = a[key];
-      const bVal = b[key];
-
-      if (aVal === bVal) return 0;
-      if (aVal == null) return 1;
-      if (bVal == null) return -1;
-
-      const comparison = aVal < bVal ? -1 : 1;
-      return sort.direction === 'asc' ? comparison : -comparison;
-    });
   }
 }

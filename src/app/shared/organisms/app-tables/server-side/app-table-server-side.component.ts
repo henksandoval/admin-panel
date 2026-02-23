@@ -23,10 +23,9 @@ import { AppAdvancedFilterComponent } from '@shared/molecules/app-filters/advanc
 import { AppFilterCriterion, AppFiltersConfig, AppFilterValues } from '@shared/molecules/app-filters/app-filter.model';
 import { criteriaToValues } from '@shared/molecules/app-filters/criteria-evaluator.utils';
 import { AppSimpleFilterComponent } from '@shared/molecules/app-filters/simple/app-simple-filter.component';
+import { AnyRecord } from '../app-table.model';
+import { calcLastPage } from '../app-table.utils';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyRecord = Record<string, any>;
 
 @Component({
   selector: 'app-table-server-side',
@@ -87,17 +86,9 @@ export class AppTableServerSideComponent<T extends AnyRecord> {
   }));
 
   private readonly boundaryGuard = effect(() => {
-    const total = this.totalItems();
-    const pageSize = this.pageSize();
-    const currentPage = this.pageIndex();
-
-    if (total === 0) return;
-
-    const lastPage = Math.max(0, Math.ceil(total / pageSize) - 1);
-
-    if (currentPage > lastPage) {
-      this.pageIndex.set(lastPage);
-    }
+    if (this.totalItems() === 0) return;
+    const lastPage = calcLastPage(this.totalItems(), this.pageSize());
+    if (this.pageIndex() > lastPage) this.pageIndex.set(lastPage);
   });
 
   onFiltersChange(criteria: AppFilterCriterion[]): void {
