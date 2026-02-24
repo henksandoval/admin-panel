@@ -19,6 +19,7 @@
       (sortChange)="onSortChange($event)"
       [data]="employees()"
       [filtersConfig]="filtersConfig()"
+      [loading]="isLoading()"
       [tableConfig]="tableConfig"
       [useAdvancedFilters]="useAdvancedFilters()">
       <ng-template #cellTemplate let-column="column" let-row let-value="value">
