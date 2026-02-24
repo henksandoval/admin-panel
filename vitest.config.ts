@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [angular()],
   test: {
     globals: true,
+    pool: 'forks',
     environment: 'jsdom',
     setupFiles: [
       '@analogjs/vite-plugin-angular/setup-vitest',
