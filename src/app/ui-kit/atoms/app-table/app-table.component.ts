@@ -5,6 +5,7 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEFAULTS, } from './app-table.model';
 
 @Component({
@@ -17,6 +18,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./app-table.component.scss'],
@@ -93,6 +95,12 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
           (click)="onRowClick(row)">
         </tr>
       </table>
+
+      @if (loading()) {
+        <div class="app-table-spinner-overlay">
+          <mat-spinner diameter="48"></mat-spinner>
+        </div>
+      }
 
       @if (!loading() && data().length === 0) {
         <div class="app-table-empty-state">
