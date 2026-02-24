@@ -1,111 +1,51 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips';
-import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
-import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-group.component';
-import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 import { Router } from '@angular/router';
-import { MATERIAL_ICONS_LIST } from '@ui-types/material-icons.model';
+import { AppTableClientSideComponent } from '@ui-organisms/app-tables/client-side/app-table-client-side.component';
+import { AppTableAction } from '@ui-atoms/app-table/app-table.model';
+import { buildIconViewModels, IconViewModel, ICONS_GALLERY_DEFAULTS } from './icons-gallery.model';
+import { getIconsFiltersConfig, getIconsTableConfig } from './icons-gallery.config';
 
 @Component({
   selector: 'app-icons-gallery',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
-    FormsModule,
     MatIconModule,
     MatSnackBarModule,
     MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatChipsModule,
-    AppPageLayoutComponent,
-    AppButtonComponent,
-    AppCardComponent,
-    AppToggleGroupComponent,
-    AppSlotContainerDirective
+    AppTableClientSideComponent,
   ],
   templateUrl: './icons-gallery.component.html',
   styleUrl: './icons-gallery.component.scss',
 })
 export default class IconsGalleryComponent {
-  readonly searchQuery = signal<string>('');
-  readonly selectedSize = signal<'small' | 'medium' | 'large'>('medium');
-  readonly selectedStyle = signal<'filled' | 'outlined'>('filled');
-  readonly allIcons = MATERIAL_ICONS_LIST;
-  sizeOptions = [
-    { value: 'small', label: 'Small (18px)' },
-    { value: 'medium', label: 'Medium (24px)' },
-    { value: 'large', label: 'Large (36px)' }
-  ];
-  styleOptions = [
-    { value: 'filled', label: 'Filled' },
-    { value: 'outlined', label: 'Outlined' }
-  ];
-  colorOptions = [
-    { value: 'default', label: 'Default', class: 'text-gray-700' },
-    { value: 'primary', label: 'Primary', class: 'text-primary-600' },
-    { value: 'accent', label: 'Accent', class: 'text-accent-600' },
-    { value: 'warn', label: 'Warn', class: 'text-red-600' },
-    { value: 'success', label: 'Success', class: 'text-green-600' }
-  ];
-  readonly selectedColor = signal<string>('default');
-  readonly filteredIcons = computed(() => {
-    const query = this.searchQuery().toLowerCase().trim();
-    if (!query) return this.allIcons;
+  readonly icons = signal<IconViewModel[]>(buildIconViewModels());
+  readonly tableConfig = getIconsTableConfig();
+  readonly filtersConfig = getIconsFiltersConfig();
+  readonly paginationConfig = {
+    pageSizeOptions: [10, 25, 50, 100],
+    pageSize: ICONS_GALLERY_DEFAULTS.pageSize,
+  };
 
-    return this.allIcons.filter(icon =>
-      icon.toLowerCase().includes(query)
-    );
-  });
-  readonly totalCount = computed(() => this.filteredIcons().length);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
-  getSizeClass(): string {
-    const size = this.selectedSize();
-    if (size === 'small') return 'icon-small';
-    if (size === 'large') return 'icon-large';
-    return 'icon-medium';
-  }
-
-  getIconName(icon: string): string {
-    const style = this.selectedStyle();
-    return style === 'outlined' ? `${icon}_outlined` : icon;
-  }
-
-  getColorClass(): string {
-    const color = this.selectedColor();
-    const option = this.colorOptions.find(opt => opt.value === color);
-    return option?.class ?? 'text-gray-700';
-  }
-
-  copyIconName(icon: string): void {
-    const iconName = this.getIconName(icon);
-    void navigator.clipboard.writeText(iconName).then(() => {
-      this.snackBar.open(`Icon "${iconName}" copied to clipboard!`, 'Close', {
-        duration: 2000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      });
-    });
-  }
-
-  clearSearch(): void {
-    this.searchQuery.set('');
-  }
-
   goBack(): void {
     void this.router.navigate(['/pds/index']);
+  }
+
+  onActionClick({ action, row }: { action: AppTableAction<IconViewModel>; row: IconViewModel }): void {
+    if (action.icon === 'content_copy') {
+      void navigator.clipboard.writeText(row.name).then(() => {
+        this.snackBar.open(`"${row.name}" copiado al portapapeles`, '✕', {
+          duration: 2500,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
+      });
+    }
   }
 }

@@ -1,135 +1,38 @@
-<app-page-layout [showEmptySlots]="true" preset="mainWithSidebar">
-  <ng-template appSlot="header">
-    <header class="mb-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <h1 class="text-3xl font-bold mb-2">Material Icons Gallery</h1>
-          <p class="text-lg text-gray-600">
-            Browse and copy {{ totalCount() }} Material Design icons. Search, filter by size and style, and copy icon
-            names with a single click.
-          </p>
-        </div>
-        <app-button (clicked)="goBack()" iconBefore="arrow_back" variant="text">
-          Back to PDS
-        </app-button>
-      </div>
-    </header>
-  </ng-template>
-  <ng-template appSlot="sidebar">
-    <app-card>
-      <div class="p-6 space-y-6">
-        <!-- Search Bar -->
-        <div class="flex gap-4 items-start">
-          <mat-form-field appearance="outline" class="flex-1">
-            <mat-label>Search icons</mat-label>
-            <input
-              (ngModelChange)="searchQuery.set($event)"
-              [(ngModel)]="searchQuery"
-              autocomplete="off"
-              matInput
-              placeholder="e.g., home, search, settings...">
-            <mat-icon matPrefix>search</mat-icon>
-            @if (searchQuery()) {
-              <button
-                (click)="clearSearch()"
-                aria-label="Clear search"
-                mat-icon-button
-                matSuffix>
-                <mat-icon>close</mat-icon>
-              </button>
-            }
-          </mat-form-field>
-        </div>
+<div class="icons-gallery-page">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="mat-headline-large">Material Icons Gallery</h1>
+      <p class="mat-body-large">Explora, filtra y copia los {{ icons().length }} iconos de Material Design disponibles en el kit.</p>
+    </div>
+    <button (click)="goBack()" mat-stroked-button>
+      <mat-icon>arrow_back</mat-icon>
+      Volver al PDS
+    </button>
+  </div>
 
-        <!-- Filters Row -->
-        <div class="flex flex-wrap gap-6">
-          <!-- Size Selection -->
-          <div class="flex-1 min-w-[200px]">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Icon Size</label>
-            <app-toggle-group
-              [(value)]="selectedSize"
-              [options]="sizeOptions">
-            </app-toggle-group>
-          </div>
-
-          <!-- Style Selection -->
-          <div class="flex-1 min-w-[200px]">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Icon Style</label>
-            <app-toggle-group
-              [(value)]="selectedStyle"
-              [options]="styleOptions">
-            </app-toggle-group>
-          </div>
-
-          <!-- Color Preview Toggle -->
-          <div class="flex-1 min-w-[200px]">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Color Preview</label>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Select Color</mat-label>
-              <mat-select (valueChange)="selectedColor.set($event)" [(value)]="selectedColor">
-                @for (color of colorOptions; track color.value) {
-                  <mat-option [value]="color.value">
-                    <span [class]="color.class">{{ color.label }}</span>
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <!-- Results Count -->
-        <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-          <p class="text-sm text-gray-600">
-            @if (searchQuery()) {
-              <span class="font-medium">{{ totalCount() }}</span> icons found
-            } @else {
-              <span class="font-medium">{{ totalCount() }}</span> total icons
-            }
-          </p>
-          @if (searchQuery()) {
-            <button
-              (click)="clearSearch()"
-              color="primary"
-              mat-stroked-button>
-              Clear search
-            </button>
-          }
-        </div>
-      </div>
-    </app-card>
-  </ng-template>
-  <ng-template appSlot="main">
-    <app-card>
-      <div class="p-6">
-        @if (totalCount() > 0) {
-          <div class="icon-grid">
-            @for (icon of filteredIcons(); track icon) {
-              <button
-                (click)="copyIconName(icon)"
-                [attr.aria-label]="'Copy icon ' + icon"
-                [class]="getSizeClass()"
-                class="icon-item"
-                type="button">
-                <div [class]="getColorClass()" class="icon-wrapper">
-                  <mat-icon class="icon">{{ getIconName(icon) }}</mat-icon>
-                </div>
-                <span class="icon-name">{{ icon }}</span>
-              </button>
-            }
-          </div>
-        } @else {
-          <div class="empty-state">
-            <mat-icon class="empty-icon">search_off</mat-icon>
-            <h3 class="empty-title">No icons found</h3>
-            <p class="empty-description">
-              Try adjusting your search query. We couldn't find any icons matching "{{ searchQuery() }}".
-            </p>
-            <button (click)="clearSearch()" color="primary" mat-raised-button>
-              Clear search
-            </button>
+  <app-table-client-side
+    (actionClick)="onActionClick($event)"
+    [data]="icons()"
+    [filtersConfig]="filtersConfig"
+    [paginationConfig]="paginationConfig"
+    [tableConfig]="tableConfig">
+    <ng-template #cellTemplate let-column="column" let-row let-value="value">
+      @switch (column.key) {
+        @case ('preview') {
+          <div class="icons-gallery-page__preview">
+            <mat-icon class="icons-gallery-page__icon">{{ row.name }}</mat-icon>
           </div>
         }
-      </div>
-    </app-card>
-  </ng-template>
-</app-page-layout>
+        @case ('name') {
+          <div class="icons-gallery-page__name-cell">
+            <span class="icons-gallery-page__name">{{ value }}</span>
+            <code class="icons-gallery-page__code">{{ value }}</code>
+          </div>
+        }
+        @default {
+          {{ value }}
+        }
+      }
+    </ng-template>
+  </app-table-client-side>
+</div>
