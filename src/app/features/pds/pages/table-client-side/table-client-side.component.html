@@ -1,39 +1,42 @@
-<div class="pds-page">
-  <div class="flex items-center justify-between mb-6">
-    <div>
-      <h1 class="mat-headline-large">Directorio de empleados</h1>
-      <p class="mat-body-medium">Ejemplo de tabla client-side con filtros simples y avanzados</p>
+<app-page-layout preset="fullWidth" [showEmptySlots]="true">
+  <ng-template appSlot="content">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="mat-headline-large">Directorio de empleados</h1>
+        <p class="mat-body-medium">Ejemplo de tabla client-side con filtros simples y avanzados</p>
+      </div>
+
+      <app-toggle-group
+        [(value)]="filterModeValue"
+        [options]="filterModeOptions">
+      </app-toggle-group>
     </div>
 
-    <app-toggle-group
-      [(value)]="filterModeValue"
-      [options]="filterModeOptions">
-    </app-toggle-group>
-  </div>
-
-  <app-table-client-side
-    (actionClick)="onActionClick($event)"
-    (filtersChange)="onFiltersChange($event)"
-    (pageChange)="onPageChange($event)"
-    (sortChange)="onSortChange($event)"
-    [data]="employees()"
-    [filtersConfig]="filtersConfig()"
-    [tableConfig]="tableConfig"
-    [useAdvancedFilters]="useAdvancedFilters()">
-    <ng-template #cellTemplate let-column="column" let-row let-value="value">
-      @switch (column.key) {
-        @case ('statusLabel') {
-          <span [class]="'badge--' + row.status" class="badge">
+    <app-table-client-side
+      (actionClick)="onActionClick($event)"
+      (filtersChange)="onFiltersChange($event)"
+      (pageChange)="onPageChange($event)"
+      (sortChange)="onSortChange($event)"
+      [data]="employees()"
+      [filtersConfig]="filtersConfig()"
+      [tableConfig]="tableConfig"
+      [useAdvancedFilters]="useAdvancedFilters()">
+      <ng-template #cellTemplate let-column="column" let-row let-value="value">
+        @switch (column.key) {
+          @case ('statusLabel') {
+            <span [class]="'badge--' + row.status" class="badge">
             {{ value }}
           </span>
+          }
+          @case ('salaryFormatted') {
+            <span class="salary">{{ value }}</span>
+          }
+          @default {
+            {{ value }}
+          }
         }
-        @case ('salaryFormatted') {
-          <span class="salary">{{ value }}</span>
-        }
-        @default {
-          {{ value }}
-        }
-      }
-    </ng-template>
-  </app-table-client-side>
-</div>
+      </ng-template>
+    </app-table-client-side>
+
+  </ng-template>
+<app-page-layout>

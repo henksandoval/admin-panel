@@ -1,38 +1,39 @@
-<div class="icons-gallery-page">
-  <div class="flex items-center justify-between mb-6">
-    <div>
-      <h1 class="mat-headline-large">Material Icons Gallery</h1>
-      <p class="mat-body-large">Explora, filtra y copia los {{ icons().length }} iconos de Material Design disponibles en el kit.</p>
-    </div>
-    <button (click)="goBack()" mat-stroked-button>
-      <mat-icon>arrow_back</mat-icon>
-      Volver al PDS
-    </button>
-  </div>
+<app-page-layout preset="fullWidth" [showEmptySlots]="true">
+  <ng-template appSlot="content">
+    <div class="icons-gallery-page">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="mat-headline-large">Material Icons Gallery</h1>
+          <p class="mat-body-large">Explora, filtra y copia los {{ icons().length }} iconos de Material Design
+            disponibles en el kit.</p>
+        </div>
+      </div>
 
-  <app-table-client-side
-    (actionClick)="onActionClick($event)"
-    [data]="icons()"
-    [filtersConfig]="filtersConfig"
-    [paginationConfig]="paginationConfig"
-    [tableConfig]="tableConfig">
-    <ng-template #cellTemplate let-column="column" let-row let-value="value">
-      @switch (column.key) {
-        @case ('preview') {
-          <div class="icons-gallery-page__preview">
-            <mat-icon class="icons-gallery-page__icon">{{ row.name }}</mat-icon>
-          </div>
-        }
-        @case ('name') {
-          <div class="icons-gallery-page__name-cell">
-            <span class="icons-gallery-page__name">{{ value }}</span>
-            <code class="icons-gallery-page__code">{{ value }}</code>
-          </div>
-        }
-        @default {
-          {{ value }}
-        }
-      }
-    </ng-template>
-  </app-table-client-side>
-</div>
+      <app-table-client-side
+        (actionClick)="onActionClick($event)"
+        [data]="icons()"
+        [filtersConfig]="filtersConfig"
+        [paginationConfig]="paginationConfig"
+        [tableConfig]="tableConfig">
+        <ng-template #cellTemplate let-column="column" let-row let-value="value">
+          @switch (column.key) {
+            @case ('preview') {
+              <div class="icons-gallery-page__preview">
+                <mat-icon class="icons-gallery-page__icon">{{ row.name }}</mat-icon>
+              </div>
+            }
+            @case ('name') {
+              <div class="icons-gallery-page__name-cell">
+                <span class="icons-gallery-page__name">{{ value }}</span>
+                <code class="icons-gallery-page__code">{{ value }}</code>
+              </div>
+            }
+            @default {
+              {{ value }}
+            }
+          }
+        </ng-template>
+      </app-table-client-side>
+    </div>
+  </ng-template>
+</app-page-layout>

@@ -7,6 +7,8 @@ import { AppTableClientSideComponent } from '@ui-organisms/app-tables/client-sid
 import { AppTableAction } from '@ui-atoms/app-table/app-table.model';
 import { buildIconViewModels, IconViewModel, ICONS_GALLERY_DEFAULTS } from './icons-gallery.model';
 import { getIconsFiltersConfig, getIconsTableConfig } from './icons-gallery.config';
+import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
+import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 
 @Component({
   selector: 'app-icons-gallery',
@@ -17,6 +19,8 @@ import { getIconsFiltersConfig, getIconsTableConfig } from './icons-gallery.conf
     MatSnackBarModule,
     MatButtonModule,
     AppTableClientSideComponent,
+    AppPageLayoutComponent,
+    AppSlotContainerDirective,
   ],
   templateUrl: './icons-gallery.component.html',
   styleUrl: './icons-gallery.component.scss',

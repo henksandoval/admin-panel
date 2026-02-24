@@ -1,48 +1,50 @@
-<div class="pds-page">
-  <div class="flex items-center justify-between mb-4">
-    <div>
-      <h1 class="mat-title-large m-0">Directorio de empleados</h1>
-      <p class="mat-body-medium m-0">Ejemplo de tabla server-side con filtros simples y avanzados</p>
+<app-page-layout preset="fullWidth" [showEmptySlots]="true">
+  <ng-template appSlot="content">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h1 class="mat-title-large m-0">Directorio de empleados</h1>
+        <p class="mat-body-medium m-0">Ejemplo de tabla server-side con filtros simples y avanzados</p>
+      </div>
+
+      <mat-button-toggle-group
+        (change)="useAdvancedFilters.set($event.value)"
+        [value]="useAdvancedFilters()">
+        <mat-button-toggle [value]="false">
+          <mat-icon>filter_list</mat-icon>
+          Filtros Simples
+        </mat-button-toggle>
+        <mat-button-toggle [value]="true">
+          <mat-icon>tune</mat-icon>
+          Filtros Avanzados
+        </mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
 
-    <mat-button-toggle-group
-      (change)="useAdvancedFilters.set($event.value)"
-      [value]="useAdvancedFilters()">
-      <mat-button-toggle [value]="false">
-        <mat-icon>filter_list</mat-icon>
-        Filtros Simples
-      </mat-button-toggle>
-      <mat-button-toggle [value]="true">
-        <mat-icon>tune</mat-icon>
-        Filtros Avanzados
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-
-  <app-table-server-side
-    (paramsChange)="onParamsChange($event)"
-    (rowClick)="onRowClick($any($event))"
-    [data]="employees()"
-    [filtersConfig]="filtersConfig()"
-    [loading]="isLoading()"
-    [paginationConfig]="paginationConfig"
-    [tableConfig]="tableConfig"
-    [totalItems]="totalEmployees()"
-    [useAdvancedFilters]="useAdvancedFilters()">
-    <ng-template #cellTemplate let-column="column" let-row let-value="value">
-      @switch (column.key) {
-        @case ('statusLabel') {
-          <span [class]="'badge--' + row.status" class="badge">
+    <app-table-server-side
+      (paramsChange)="onParamsChange($event)"
+      (rowClick)="onRowClick($any($event))"
+      [data]="employees()"
+      [filtersConfig]="filtersConfig()"
+      [loading]="isLoading()"
+      [paginationConfig]="paginationConfig"
+      [tableConfig]="tableConfig"
+      [totalItems]="totalEmployees()"
+      [useAdvancedFilters]="useAdvancedFilters()">
+      <ng-template #cellTemplate let-column="column" let-row let-value="value">
+        @switch (column.key) {
+          @case ('statusLabel') {
+            <span [class]="'badge--' + row.status" class="badge">
             {{ value }}
           </span>
+          }
+          @case ('salaryFormatted') {
+            <span class="salary">{{ value }}</span>
+          }
+          @default {
+            {{ value }}
+          }
         }
-        @case ('salaryFormatted') {
-          <span class="salary">{{ value }}</span>
-        }
-        @default {
-          {{ value }}
-        }
-      }
-    </ng-template>
-  </app-table-server-side>
-</div>
+      </ng-template>
+    </app-table-server-side>
+  </ng-template>
+<app-page-layout>

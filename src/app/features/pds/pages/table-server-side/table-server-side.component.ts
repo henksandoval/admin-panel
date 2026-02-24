@@ -10,11 +10,13 @@ import { MockHttpService } from '../../mocks/mock-http.service';
 import { MockEmployeeService } from '../../mocks/mock-employee.service';
 import { getFiltersConfig, getPaginationConfig, getTableConfig } from './table-server-side.config';
 import { EmployeeViewModel, TableServerSideService } from './table-server-side.service';
+import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
+import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 
 @Component({
   selector: 'app-table-server-side-pds',
   standalone: true,
-  imports: [AppTableServerSideComponent, MatSnackBarModule, MatButtonToggleModule, MatIconModule],
+  imports: [AppTableServerSideComponent, MatSnackBarModule, MatButtonToggleModule, MatIconModule, AppPageLayoutComponent, AppSlotContainerDirective],
   providers: [CurrencyPipe, DatePipe, MockHttpService, MockEmployeeService, TableServerSideService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './table-server-side.component.scss',

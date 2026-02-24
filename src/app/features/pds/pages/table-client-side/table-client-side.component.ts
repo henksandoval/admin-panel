@@ -11,6 +11,8 @@ import { MockEmployeeService } from "../../mocks/mock-employee.service";
 import { MockHttpService } from "../../mocks/mock-http.service";
 import { getFiltersConfig, getTableConfig } from "./table-client-side.config";
 import { EmployeeViewModel, TableClientSideService } from "./table-client-side.service";
+import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
+import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 
 const FILTER_MODE_OPTIONS: ToggleOption[] = [
   { value: 'false', label: 'Filtros Simples', icon: 'filter_list' },
@@ -20,7 +22,7 @@ const FILTER_MODE_OPTIONS: ToggleOption[] = [
 @Component({
   selector: 'app-table-client-side-client-side-pds',
   standalone: true,
-  imports: [MatSnackBarModule, AppTableClientSideComponent, AppToggleGroupComponent],
+  imports: [MatSnackBarModule, AppTableClientSideComponent, AppToggleGroupComponent, AppPageLayoutComponent, AppSlotContainerDirective],
   providers: [CurrencyPipe, DatePipe, MockHttpService, MockEmployeeService, TableClientSideService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './table-client-side.component.scss',
