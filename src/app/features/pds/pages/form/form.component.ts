@@ -8,49 +8,49 @@ import { MatFormFieldAppearance, MatFormFieldModule } from '@angular/material/fo
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@atoms/app-button/app-button.component';
-import { AppToggleGroupComponent } from '@atoms/app-toggle-group/app-toggle-group.component';
-import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
-import { AppCardComponent } from '@atoms/app-card/app-card.component';
-import { ToggleOption } from '@atoms/app-toggle-group/app-toggle-group.model';
+import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
+import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-group.component';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
+import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
+import { ToggleOption } from '@ui-atoms/app-toggle-group/app-toggle-group.model';
 import { API_PROPERTIES, BEST_PRACTICES, FIELD_EXAMPLES } from './form.data';
-import { LayoutConfig } from '@shared/templates/app-page-layout/app-page-layout.model';
+import { LayoutConfig } from '@ui-templates/app-page-layout/app-page-layout.model';
 import { PdsPageUtilitiesService } from '../../shared/templates/pds-page-layout/pds-page-utilities.service';
 import {
   PdsDocumentationTabsComponent
 } from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
-import { AppPageLayoutComponent } from "@shared/templates/app-page-layout/app-page-layout.component";
-import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
+import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-layout.component";
+import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 import {
   AppFormCheckboxConnectorDirective
-} from '@molecules/app-form/app-form-checkbox/app-form-checkbox-connector.directive';
-import { AppFormCheckboxComponent } from '@molecules/app-form/app-form-checkbox/app-form-checkbox.component';
+} from '@ui-molecules/app-form/app-form-checkbox/app-form-checkbox-connector.directive';
+import { AppFormCheckboxComponent } from '@ui-molecules/app-form/app-form-checkbox/app-form-checkbox.component';
 import {
   AppFormDatepickerConnectorDirective
-} from '@molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
+} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
 import {
   AppFormDatepickerComponent
-} from '@molecules/app-form/app-form-datepicker/app-form-datepicker.component';
+} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import {
   AppFormInputConnectorDirective
-} from '@molecules/app-form/app-form-input/app-form-input-connector.directive';
-import { AppFormInputComponent } from '@molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputOptions } from '@molecules/app-form/app-form-input/app-form-input.model';
+} from '@ui-molecules/app-form/app-form-input/app-form-input-connector.directive';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import {
   AppFormRadioGroupConnectorDirective
-} from '@molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
+} from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
 import {
   AppFormRadioGroupComponent
-} from '@molecules/app-form/app-form-radio-group/app-form-radio-group.component';
-import { RadioOption } from '@molecules/app-form/app-form-radio-group/app-form-radio-group.model';
+} from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.component';
+import { RadioOption } from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.model';
 import {
   AppFormSelectConnectorDirective
-} from '@molecules/app-form/app-form-select/app-form-select-connector.directive';
-import { AppFormSelectComponent } from '@molecules/app-form/app-form-select/app-form-select.component';
+} from '@ui-molecules/app-form/app-form-select/app-form-select-connector.directive';
+import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
 import {
   AppFormTextareaConnectorDirective
-} from '@molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
-import { AppFormTextareaComponent } from '@molecules/app-form/app-form-textarea/app-form-textarea.component';
+} from '@ui-molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
+import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea.component';
 
 @Component({
   selector: 'app-form-gallery',

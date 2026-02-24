@@ -6,11 +6,12 @@
     "baseUrl": "./",
     "paths": {
       "@core/*": ["src/app/core/*"],
-      "@shared/*": ["src/app/shared/*"],
       "@layout/*": ["src/app/layout/*"],
-      "@atoms/*": ["src/app/shared/atoms/*"],
-      "@molecules/*": ["src/app/shared/molecules/*"],
-      "@organisms/*": ["src/app/shared/organisms/*"],
+      "@ui-atoms/*": ["src/app/ui-kit/atoms/*"],
+      "@ui-molecules/*": ["src/app/ui-kit/molecules/*"],
+      "@ui-organisms/*": ["src/app/ui-kit/organisms/*"],
+      "@ui-templates/*": ["src/app/ui-kit/templates/*"],
+      "@ui-types/*": ["src/app/ui-kit/types/*"],
       "@env/*": ["src/environments/*"]
     },
     "outDir": "./dist/out-tsc",

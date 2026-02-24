@@ -1,6 +1,6 @@
-import { AppTableConfig } from '@atoms/app-table/app-table.model';
-import { AppFiltersConfig } from '@molecules/app-filters/app-filter.model';
-import { AppPaginationConfig } from '@atoms/app-pagination/app-pagination.model';
+import { AppTableConfig } from '@ui-atoms/app-table/app-table.model';
+import { AppFiltersConfig } from '@ui-molecules/app-filters/app-filter.model';
+import { AppPaginationConfig } from '@ui-atoms/app-pagination/app-pagination.model';
 import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_STATUS_OPTIONS } from '../../contracts/employee.contract';
 import { EmployeeViewModel } from './table-server-side.service';
 

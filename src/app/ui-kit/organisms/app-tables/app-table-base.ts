@@ -13,9 +13,9 @@ import {
   AppPageEvent,
   AppPaginationConfig,
   AppPaginationState,
-} from '@atoms/app-pagination/app-pagination.model';
-import { AppTableAction, AppTableConfig, AppTableSort } from '@atoms/app-table/app-table.model';
-import { AppFiltersConfig } from '@molecules/app-filters/app-filter.model';
+} from '@ui-atoms/app-pagination/app-pagination.model';
+import { AppTableAction, AppTableConfig, AppTableSort } from '@ui-atoms/app-table/app-table.model';
+import { AppFiltersConfig } from '@ui-molecules/app-filters/app-filter.model';
 import { AnyRecord, APP_TABLE_DEFAULTS } from './app-table.model';
 import { calcLastPage } from './app-table.utils';
 

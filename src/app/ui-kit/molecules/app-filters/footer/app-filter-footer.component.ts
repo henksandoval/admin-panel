@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
-import { AppButtonComponent } from '@atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
+import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
 import { AppFilterToggle } from '../app-filter.model';
 import { togglesToRecord } from '../app-filter.utils';
 import { FILTER_FOOTER_DEFAULTS } from './app-filter-footer.model';

@@ -1,4 +1,4 @@
-import { SelectOption } from '@molecules/app-form/app-form-select/app-form-select.model';
+import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
 import {
   PdsApiReferencePropertyModel
 } from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';

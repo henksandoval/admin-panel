@@ -6,12 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { AppBadgeComponent } from '@atoms/app-badge/app-badge.component';
-import { AppButtonComponent } from '@atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@atoms/app-checkbox/app-checkbox.component';
-import { AppToggleGroupComponent } from '@atoms/app-toggle-group/app-toggle-group.component';
-import { ToggleOption } from '@atoms/app-toggle-group/app-toggle-group.model';
-import { BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeVariant } from '@atoms/app-badge/app-badge.model';
+import { AppBadgeComponent } from '@ui-atoms/app-badge/app-badge.component';
+import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
+import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-group.component';
+import { ToggleOption } from '@ui-atoms/app-toggle-group/app-toggle-group.model';
+import { BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeVariant } from '@ui-atoms/app-badge/app-badge.model';
 import {
   API_PROPERTIES,
   BADGE_POSITIONS,
@@ -20,8 +20,8 @@ import {
   INLINE_COLORS
 } from './indicators.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
-import { AppCardComponent } from '@atoms/app-card/app-card.component';
-import { AppFormInputComponent } from '@molecules/app-form/app-form-input/app-form-input.component';
+import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 
 @Component({
   selector: 'app-indicators',

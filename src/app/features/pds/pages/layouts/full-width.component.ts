@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { AppPageLayoutComponent } from '@shared/templates/app-page-layout/app-page-layout.component';
+import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
 
 @Component({
   selector: 'app-full-width-example',

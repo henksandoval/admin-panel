@@ -8,13 +8,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { AppPageLayoutComponent } from '@shared/templates/app-page-layout/app-page-layout.component';
-import { AppCardComponent } from '@atoms/app-card/app-card.component';
-import { AppToggleGroupComponent } from '@atoms/app-toggle-group/app-toggle-group.component';
-import { AppButtonComponent } from '@atoms/app-button/app-button.component';
-import { AppSlotContainerDirective } from '@shared/templates/app-page-layout/app-slot-container.directive';
+import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
+import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
+import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-group.component';
+import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
+import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 import { Router } from '@angular/router';
-import { MATERIAL_ICONS_LIST } from '@shared/types/material-icons.model';
+import { MATERIAL_ICONS_LIST } from '@ui-types/material-icons.model';
 
 @Component({
   selector: 'app-icons-gallery',

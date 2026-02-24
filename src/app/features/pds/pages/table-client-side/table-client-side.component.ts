@@ -1,12 +1,12 @@
 import { CurrencyPipe, DatePipe } from "@angular/common";
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from "@angular/core";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { AppPageEvent } from "@atoms/app-pagination/app-pagination.model";
-import { AppTableAction, AppTableSort } from "@atoms/app-table/app-table.model";
-import { AppToggleGroupComponent } from "@atoms/app-toggle-group/app-toggle-group.component";
-import { ToggleOption } from "@atoms/app-toggle-group/app-toggle-group.model";
-import { AppFilterCriterion } from "@molecules/app-filters/app-filter.model";
-import { AppTableClientSideComponent } from "@organisms/app-tables/client-side/app-table-client-side.component";
+import { AppPageEvent } from "@ui-atoms/app-pagination/app-pagination.model";
+import { AppTableAction, AppTableSort } from "@ui-atoms/app-table/app-table.model";
+import { AppToggleGroupComponent } from "@ui-atoms/app-toggle-group/app-toggle-group.component";
+import { ToggleOption } from "@ui-atoms/app-toggle-group/app-toggle-group.model";
+import { AppFilterCriterion } from "@ui-molecules/app-filters/app-filter.model";
+import { AppTableClientSideComponent } from "@ui-organisms/app-tables/client-side/app-table-client-side.component";
 import { MockEmployeeService } from "../../mocks/mock-employee.service";
 import { MockHttpService } from "../../mocks/mock-http.service";
 import { getFiltersConfig, getTableConfig } from "./table-client-side.config";

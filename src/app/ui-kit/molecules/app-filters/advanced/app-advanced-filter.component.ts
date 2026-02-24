@@ -13,23 +13,23 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDivider } from "@angular/material/divider";
-import { AppButtonComponent } from '@atoms/app-button/app-button.component';
+import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
 import {
   AppFormDatepickerConnectorDirective
-} from '@molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
+} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
 import {
   AppFormDatepickerComponent
-} from '@molecules/app-form/app-form-datepicker/app-form-datepicker.component';
+} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import {
   AppFormInputConnectorDirective
-} from '@molecules/app-form/app-form-input/app-form-input-connector.directive';
-import { AppFormInputComponent } from '@molecules/app-form/app-form-input/app-form-input.component';
+} from '@ui-molecules/app-form/app-form-input/app-form-input-connector.directive';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import {
   AppFormSelectConnectorDirective
-} from '@molecules/app-form/app-form-select/app-form-select-connector.directive';
-import { AppFormSelectComponent } from '@molecules/app-form/app-form-select/app-form-select.component';
-import { SelectOption } from '@molecules/app-form/app-form-select/app-form-select.model';
+} from '@ui-molecules/app-form/app-form-select/app-form-select-connector.directive';
+import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
+import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
 import { AppFilterCriterion, AppFiltersConfig, DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-filter.model';
 import { togglesToCriteria } from '../app-filter.utils';
