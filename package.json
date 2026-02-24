@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "list": "find . \\( -path './node_modules' -o -path './.vscode' -o -path './.git' -o -path './.angular' -o -path './dist' \\) -prune -false -o -print | sed 's|^\\./||' | sort | awk -F/ '{indent=\"\"; for(i=1;i<NF;i++) indent=indent\"  \"; print indent $NF}'",
     "list:tree": "tree -I 'node_modules|dist|.git|.vscode|.angular'",
     "lint": "ng lint",
@@ -30,24 +32,22 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.2.3",
+    "@analogjs/vitest-angular": "^2.2.3",
     "@angular/build": "^20.3.6",
     "@angular/cli": "^20.3.6",
     "@angular/compiler-cli": "^20.3.0",
-    "@types/jasmine": "~5.1.0",
+    "@vitest/coverage-v8": "^4.0.18",
     "angular-eslint": "21.0.1",
     "autoprefixer": "^10.4.22",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-rxjs-x": "^0.9.4",
-    "jasmine-core": "~5.9.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
+    "jsdom": "^28.1.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18",
     "typescript": "~5.9.2",
-    "typescript-eslint": "8.46.4"
+    "typescript-eslint": "8.46.4",
+    "vitest": "^4.0.18"
   }
 }
