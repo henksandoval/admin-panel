@@ -2,12 +2,13 @@ import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Density, Scheme, SettingsService, Theme } from '../../../core/services/settings.service';
+import { Density, Scheme, SettingsService, Theme } from '@core/services/settings.service';
 import { MatTooltip } from '@angular/material/tooltip';
+import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-group.component';
+import { ToggleOption } from '@ui-atoms/app-toggle-group/app-toggle-group.model';
 
 @Component({
   selector: 'app-settings-panel',
@@ -16,11 +17,11 @@ import { MatTooltip } from '@angular/material/tooltip';
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    MatButtonToggleModule,
     MatRippleModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatTooltip
+    MatTooltip,
+    AppToggleGroupComponent,
   ],
   templateUrl: './settings-panel.component.html',
   styleUrl: './settings-panel.component.scss'
@@ -34,16 +35,19 @@ export class SettingsPanelComponent {
     { id: 'royal-dashboard', label: 'Royal Dashboard', color_primary: '#6200EA', color_tertiary: '#00BFA5' },
     { id: 'sunset-analytics', label: 'Sunset Analytics', color_primary: '#37474F', color_tertiary: '#FF4081' }
   ];
-  protected readonly schemes: { id: Scheme; label: string; icon: string }[] = [
-    { id: 'auto', label: 'Auto', icon: 'brightness_auto' },
-    { id: 'dark', label: 'Dark', icon: 'dark_mode' },
-    { id: 'light', label: 'Light', icon: 'light_mode' }
+
+  protected readonly schemeOptions: ToggleOption[] = [
+    { value: 'auto', label: 'Auto', icon: 'brightness_auto' },
+    { value: 'dark', label: 'Dark', icon: 'dark_mode' },
+    { value: 'light', label: 'Light', icon: 'light_mode' },
   ];
-  protected readonly densities: { id: Density; label: string; icon: string }[] = [
-    { id: 'comfortable', label: 'Cómodo', icon: 'view_agenda' },
-    { id: 'compact', label: 'Compacto', icon: 'view_list' },
-    { id: 'dense', label: 'Denso', icon: 'density_small' }
+
+  protected readonly densityOptions: ToggleOption[] = [
+    { value: 'comfortable', label: 'Cómodo', icon: 'view_agenda' },
+    { value: 'compact', label: 'Compacto', icon: 'view_list' },
+    { value: 'dense', label: 'Denso', icon: 'density_small' },
   ];
+
   private settingsService = inject(SettingsService);
   protected readonly config = this.settingsService.config;
   protected readonly isThemeActive = computed(() =>
@@ -57,12 +61,12 @@ export class SettingsPanelComponent {
     this.settingsService.setTheme(theme);
   }
 
-  selectScheme(scheme: Scheme): void {
-    this.settingsService.setScheme(scheme);
+  selectScheme(value: string | string[]): void {
+    this.settingsService.setScheme(value as Scheme);
   }
 
-  selectDensity(density: Density): void {
-    this.settingsService.setDensity(density);
+  selectDensity(value: string | string[]): void {
+    this.settingsService.setDensity(value as Density);
   }
 
   resetSettings(): void {

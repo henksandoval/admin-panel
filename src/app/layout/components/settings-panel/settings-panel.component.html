@@ -11,36 +11,24 @@
   <div class="main-content flex-1 overflow-y-auto p-6">
     <div class="mb-8">
       <h3 class="section-label m-0 mb-4">Densidad de información</h3>
-      <mat-button-toggle-group
-        (valueChange)="selectDensity($event)"
+      <app-toggle-group
+        [options]="densityOptions"
         [value]="config().density"
-        aria-label="Densidad de la interfaz"
+        ariaLabel="Densidad de la interfaz"
         class="w-full"
-        name="density">
-        @for (density of densities; track density.id) {
-          <mat-button-toggle [value]="density.id" class="flex-1">
-            <mat-icon>{{ density.icon }}</mat-icon>
-            <span class="ml-2">{{ density.label }}</span>
-          </mat-button-toggle>
-        }
-      </mat-button-toggle-group>
+        (changed)="selectDensity($event)">
+      </app-toggle-group>
     </div>
 
     <div class="mb-8">
       <h3 class="section-label m-0 mb-4">Modo</h3>
-      <mat-button-toggle-group
-        (valueChange)="selectScheme($event)"
+      <app-toggle-group
+        [options]="schemeOptions"
         [value]="config().scheme"
-        aria-label="Modo de visualización"
+        ariaLabel="Modo de visualización"
         class="w-full"
-        name="scheme">
-        @for (scheme of schemes; track scheme.id) {
-          <mat-button-toggle [value]="scheme.id" class="flex-1">
-            <mat-icon>{{ scheme.icon }}</mat-icon>
-            <span class="ml-2">{{ scheme.label }}</span>
-          </mat-button-toggle>
-        }
-      </mat-button-toggle-group>
+        (changed)="selectScheme($event)">
+      </app-toggle-group>
     </div>
 
     <div class="mb-8">
