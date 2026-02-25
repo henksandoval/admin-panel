@@ -24,6 +24,7 @@ export default defineConfig({
         'src/app/app.routes.ts',
         'src/app/app.config.ts',
         'src/main.ts',
+        'src/app/features/pds/**',
       ],
       thresholds: {
         statements: 70,
