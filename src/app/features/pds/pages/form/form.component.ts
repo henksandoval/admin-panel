@@ -13,7 +13,7 @@ import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-g
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
 import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
 import { ToggleOption } from '@ui-atoms/app-toggle-group/app-toggle-group.model';
-import { API_PROPERTIES, BEST_PRACTICES, FIELD_EXAMPLES } from './form.data';
+import { API_PROPERTIES, BEST_PRACTICES } from './form.data';
 import { LayoutConfig } from '@ui-templates/app-page-layout/app-page-layout.model';
 import { PdsPageUtilitiesService } from '../../shared/templates/pds-page-layout/pds-page-utilities.service';
 import {
@@ -51,6 +51,7 @@ import {
   AppFormTextareaConnectorDirective
 } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
 import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea.component';
+import { LoggingService } from '@core/services/logging.service';
 
 @Component({
   selector: 'app-form-gallery',
@@ -226,10 +227,10 @@ export class FormComponent implements OnInit {
   readonly formTouched = computed(() => this.galleryForm?.touched || false);
   readonly formDirty = computed(() => this.galleryForm?.dirty || false);
   readonly completeFormCode = computed(() => this.generateCompleteFormCode());
-  readonly FIELD_EXAMPLES = FIELD_EXAMPLES;
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
   private readonly pdsUtils = inject(PdsPageUtilitiesService);
+  private readonly log = inject(LoggingService);
 
   ngOnInit(): void {
     this.galleryForm = this.fb.group({
@@ -250,10 +251,10 @@ export class FormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.galleryForm.valid) {
-      console.log('✅ Form is valid!', this.galleryForm.value);
+      this.log.warn('✅ Form is valid!', this.galleryForm.value);
       alert('✅ Form submitted successfully! Check console for values.');
     } else {
-      console.log('❌ Form has errors', this.galleryForm.value);
+      this.log.warn('❌ Form has errors', this.galleryForm.value);
       this.galleryForm.markAllAsTouched();
       alert('❌ Please fix validation errors before submitting.');
     }

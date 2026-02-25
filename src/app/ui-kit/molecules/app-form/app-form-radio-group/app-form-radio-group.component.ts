@@ -27,6 +27,7 @@ import {
   AppFormRadioGroupConfigComplete,
   RadioOption
 } from './app-form-radio-group.model';
+import { LoggingService } from '@core/services/logging.service';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -102,6 +103,8 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
 
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly log = inject(LoggingService);
+
   private hasCheckedConnection = false;
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field is required'
@@ -138,7 +141,7 @@ export class AppFormRadioGroupComponent<T = any> implements ControlValueAccessor
 
   ngAfterViewInit(): void {
     if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
-      console.warn(
+      this.log.warn(
         `⚠️ AppFormRadioGroupComponent: No se detectó conexión con NgControl.\n\n` +
         `Si estás usando formControlName, asegúrate de agregar la directiva appFormRadioGroupConnector.\n\n` +
         `Uso correcto:\n` +

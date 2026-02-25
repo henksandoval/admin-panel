@@ -1,4 +1,5 @@
-import { effect, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { LoggingService } from '@core/services/logging.service';
 
 export type Theme = 'default' | 'aurora-tech' | 'deep-ocean' | 'forest-growth' | 'slate-minimal' | 'sunset-analytics' | 'royal-dashboard';
 export type Scheme = 'auto' | 'dark' | 'light';
@@ -15,6 +16,7 @@ export interface SettingsConfig {
 })
 export class SettingsService {
   private readonly STORAGE_KEY = 'app-settings';
+  private readonly log = inject(LoggingService);
 
   private readonly _config = signal<SettingsConfig>(this.loadSettings());
   readonly config = this._config.asReadonly();
@@ -73,7 +75,7 @@ export class SettingsService {
           return parsed;
         }
       } catch (e) {
-        console.error('Error loading settings:', e);
+        this.log.error('Error loading settings:', e);
       }
     }
     return {

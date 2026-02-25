@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
 import { APP_FORM_TEXTAREA_DEFAULTS, AppFormTextareaOptions } from './app-form-textarea.model';
+import { LoggingService } from '@core/services/logging.service';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -103,6 +104,8 @@ export class AppFormTextareaComponent implements ControlValueAccessor, AfterView
 
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly log = inject(LoggingService);
+
   private hasCheckedConnection = false;
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field is required',
@@ -133,7 +136,7 @@ export class AppFormTextareaComponent implements ControlValueAccessor, AfterView
 
   ngAfterViewInit(): void {
     if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
-      console.warn(
+      this.log.warn(
         `⚠️ AppFormTextareaComponent: No se detectó conexión con NgControl.\n\n` +
         `Si estás usando formControlName, asegúrate de agregar la directiva appFormTextareaConnector.\n\n` +
         `Uso correcto:\n` +

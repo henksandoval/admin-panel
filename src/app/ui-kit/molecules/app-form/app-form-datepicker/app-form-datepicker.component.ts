@@ -26,6 +26,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
 import { APP_FORM_DATEPICKER_DEFAULTS, AppFormDatepickerOptions } from './app-form-datepicker.model';
+import { LoggingService } from '@core/services/logging.service';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -107,6 +108,8 @@ export class AppFormDatepickerComponent implements ControlValueAccessor, AfterVi
 
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly log = inject(LoggingService);
+
   private hasCheckedConnection = false;
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field is required',
@@ -138,7 +141,7 @@ export class AppFormDatepickerComponent implements ControlValueAccessor, AfterVi
 
   ngAfterViewInit(): void {
     if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
-      console.warn(
+      this.log.warn(
         `⚠️ AppFormDatepickerComponent: No se detectó conexión con NgControl.\n\n` +
         `Si estás usando formControlName, asegúrate de agregar la directiva appFormDatepickerConnector.\n\n` +
         `Uso correcto:\n` +

@@ -26,6 +26,7 @@ import {
   AppFormCheckboxConfig,
   AppFormCheckboxConfigComplete
 } from './app-form-checkbox.model';
+import { LoggingService } from '@core/services/logging.service';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -92,6 +93,8 @@ export class AppFormCheckboxComponent implements ControlValueAccessor, AfterView
 
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly log = inject(LoggingService);
+
   private hasCheckedConnection = false;
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field must be checked',
@@ -120,7 +123,7 @@ export class AppFormCheckboxComponent implements ControlValueAccessor, AfterView
 
   ngAfterViewInit(): void {
     if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
-      console.warn(
+      this.log.warn(
         `⚠️ AppFormCheckboxComponent: No se detectó conexión con NgControl.\n\n` +
         `Si estás usando formControlName, asegúrate de agregar la directiva appFormCheckboxConnector.\n\n` +
         `Uso correcto:\n` +

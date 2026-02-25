@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
 import { AppFormInputConfig, AppFormInputOptions } from './app-form-input.model';
+import { LoggingService } from '@core/services/logging.service';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -91,6 +92,8 @@ export class AppFormInputComponent implements ControlValueAccessor, AfterViewIni
 
   private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
+  private readonly log = inject(LoggingService);
+
   private hasCheckedConnection = false;
   private readonly defaultErrorMessages: Record<string, string> = {
     required: 'This field is required',
@@ -125,9 +128,8 @@ export class AppFormInputComponent implements ControlValueAccessor, AfterViewIni
   onTouched: () => void = () => {};
 
   ngAfterViewInit(): void {
-    // Development warning if directive is missing
     if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
-      console.warn(
+      this.log.warn(
         `⚠️ FormFieldInputComponent: No se detectó conexión con NgControl.\n\n` +
         `Si estás usando formControlName, asegúrate de agregar la directiva appFormInputConnector.\n\n` +
         `Uso correcto:\n` +
