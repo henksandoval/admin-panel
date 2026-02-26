@@ -2,7 +2,7 @@
 @use '../../../../themes/density' as density;
 
 :host {
-  @include density.density-tokens(density.$density-scale-comfortable);
+  @include density.sidebar-reset();
 }
 
 .hidden {

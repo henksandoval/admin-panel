@@ -1,65 +1,103 @@
 @use '@angular/material' as mat;
 
-$density-scale-comfortable: 1.0;
-$density-scale-compact:     0.8;
-$density-scale-dense:       0.6;
+// ─── Sistema de Density ───────────────────────────────────────────────────────
+//
+// SEPARACIÓN DE RESPONSABILIDADES (alineado con M3 + Angular Material):
+//
+//   mat.all-component-densities($n)
+//     → controla la altura/padding de componentes Angular Material
+//     → es el sistema oficial de M3 para density
+//
+//   Tokens --density-*
+//     → controlan spacing y tipografía de componentes CUSTOM del ui-kit
+//     → sistema propio necesario porque M3 no cubre componentes custom
+//
+// DECISIÓN DE DISEÑO (basada en M3 spec):
+//   - Tipografía: NO escala con density (accesibilidad, legibilidad)
+//   - Spacing/padding/iconos: SÍ escala con density
+//
+// ─────────────────────────────────────────────────────────────────────────────
 
-@mixin density-tokens($scale) {
-  // Font sizes
-  --density-font-size-sm:          calc(0.875rem  * #{$scale});
-  --density-font-size-base:        calc(1rem       * #{$scale});
-  --density-font-size-lg:          calc(1.25rem    * #{$scale});
+// ── API pública del módulo ────────────────────────────────────────────────────
+// Importar con: @use 'src/themes/density' as density;
+// Usar como:    @include density.sidebar-reset();
 
-  // Icon sizes
-  --density-font-size-icon-sm:     calc(1.125rem   * #{$scale});
-  --density-font-size-icon-md:     calc(1.25rem    * #{$scale});
-  --density-font-size-icon-lg:     calc(1.5rem     * #{$scale});
+// Escala de espaciado por nivel (tipografía siempre en 1.0)
+$spacing-comfortable: 1.1;  // +10% más aire
+$spacing-compact:     1.0;  // base de referencia
+$spacing-dense:       0.85; // −15% más condensado
 
-  // Layout
-  --density-page-padding:          calc(1.5rem     * #{$scale});
-  --density-section-gap:           calc(2rem       * #{$scale});
-  --density-card-padding:          calc(1rem       * #{$scale});
+// Tipografía fija (no cambia entre niveles — decisión M3)
+$_text-scale: 1.0;
 
-  // Badge
-  --density-badge-font-size:       calc(0.6875rem  * #{$scale});
-  --density-badge-indicator-size:  calc(0.5625rem  * #{$scale});
-  --density-badge-padding-x:       calc(0.5rem     * #{$scale});
-  --density-badge-padding-y:       calc(0.125rem   * #{$scale});
-  --density-badge-radius:          calc(0.75rem    * #{$scale});
+@mixin density-tokens($spacing-scale) {
+  // ── Tipografía — FIJA independientemente del density ─────────────────────
+  // M3 no escala el tipo de letra por density. Solo varía la altura
+  // de los componentes interactivos (touch targets).
+  --density-font-size-sm:          calc(0.875rem * #{$_text-scale});  // 0.875rem
+  --density-font-size-base:        calc(1rem      * #{$_text-scale}); // 1rem
+  --density-font-size-lg:          calc(1.25rem   * #{$_text-scale}); // 1.25rem
 
-  // Pagination
-  --density-pagination-font-size:  calc(0.875rem   * #{$scale});
-  --density-pagination-padding-y:  calc(0.75rem    * #{$scale});
-  --density-pagination-padding-x:  calc(1rem       * #{$scale});
+  // ── Iconos — escalan con spacing (son parte del layout, no tipografía) ────
+  --density-font-size-icon-sm:     calc(1.125rem  * #{$spacing-scale});
+  --density-font-size-icon-md:     calc(1.25rem   * #{$spacing-scale});
+  --density-font-size-icon-lg:     calc(1.5rem    * #{$spacing-scale});
 
-  // Toolbar
-  --density-toolbar-title-size:    calc(1.25rem    * #{$scale});
-  --density-toolbar-menu-size:     calc(0.875rem   * #{$scale});
-  --density-toolbar-sub-size:      calc(0.75rem    * #{$scale});
+  // ── Layout ────────────────────────────────────────────────────────────────
+  --density-page-padding:          calc(1.5rem    * #{$spacing-scale});
+  --density-section-gap:           calc(2rem      * #{$spacing-scale});
+  --density-card-padding:          calc(1rem      * #{$spacing-scale});
 
-  // Breadcrumb
-  --density-breadcrumb-font-size:  calc(0.875rem   * #{$scale});
-  --density-breadcrumb-padding:    calc(1rem        * #{$scale});
+  // ── Badge ─────────────────────────────────────────────────────────────────
+  --density-badge-font-size:       calc(0.6875rem * #{$_text-scale});
+  --density-badge-indicator-size:  calc(0.5625rem * #{$spacing-scale});
+  --density-badge-padding-x:       calc(0.5rem    * #{$spacing-scale});
+  --density-badge-padding-y:       calc(0.125rem  * #{$spacing-scale});
+  --density-badge-radius:          calc(0.75rem   * #{$spacing-scale});
 
-  // Filters
-  --density-filter-icon-size:      calc(1.125rem   * #{$scale});
+  // ── Pagination ────────────────────────────────────────────────────────────
+  --density-pagination-font-size:  calc(0.875rem  * #{$_text-scale});
+  --density-pagination-padding-y:  calc(0.75rem   * #{$spacing-scale});
+  --density-pagination-padding-x:  calc(1rem      * #{$spacing-scale});
 
-  // Radio
-  --density-radio-label-size:      calc(0.875rem   * #{$scale});
-  --density-radio-hint-size:       calc(0.75rem    * #{$scale});
-  --density-radio-error-size:      calc(0.875rem   * #{$scale});
+  // ── Toolbar ───────────────────────────────────────────────────────────────
+  --density-toolbar-title-size:    calc(1.25rem   * #{$_text-scale});
+  --density-toolbar-menu-size:     calc(0.875rem  * #{$_text-scale});
+  --density-toolbar-sub-size:      calc(0.75rem   * #{$_text-scale});
+
+  // ── Breadcrumb ────────────────────────────────────────────────────────────
+  --density-breadcrumb-font-size:  calc(0.875rem  * #{$_text-scale});
+  --density-breadcrumb-padding:    calc(1rem      * #{$spacing-scale});
+
+  // ── Filters ───────────────────────────────────────────────────────────────
+  --density-filter-icon-size:      calc(1.125rem  * #{$spacing-scale});
+
+  // ── Radio ─────────────────────────────────────────────────────────────────
+  --density-radio-label-size:      calc(0.875rem  * #{$_text-scale});
+  --density-radio-hint-size:       calc(0.75rem   * #{$_text-scale});
+  --density-radio-error-size:      calc(0.875rem  * #{$_text-scale});
 }
 
+// ── Mixin público para aislar componentes de navegación ───────────────────────
+// Emite los tokens con la escala compact quemada en compile-time.
+// Úsalo en :host de componentes que NO deben verse afectados por el density.
+@mixin sidebar-reset() {
+  @include density-tokens($spacing-compact);
+}
+
+// ─── Density levels ───────────────────────────────────────────────────────────
+
 body.density-comfortable {
-  @include density-tokens($density-scale-comfortable);
+  @include density-tokens($spacing-comfortable);
+  // mat.all-component-densities no se aplica: comfortable = density 0 (default)
 }
 
 body.density-compact {
-  @include density-tokens($density-scale-compact);
+  @include density-tokens($spacing-compact);
   @include mat.all-component-densities(-1);
 }
 
 body.density-dense {
-  @include density-tokens($density-scale-dense);
+  @include density-tokens($spacing-dense);
   @include mat.all-component-densities(-2);
 }
