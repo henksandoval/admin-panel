@@ -103,7 +103,7 @@ body.density-compact {
 body.density-dense {
   @include define-density-tokens();
 
-  @include mat.all-component-densities(-3);
+  @include mat.all-component-densities(-2);
 
   // Tipografía comprimida al máximo útil
   --density-font-size-sm:   0.75rem;
@@ -131,7 +131,7 @@ body.density-dense {
 
   --density-toolbar-title-size:   1rem;
   --density-toolbar-menu-size:    0.75rem;
-  --density-toolbar-sub-size:     0.6875rem;
+  --density-toolbar-sub-size:     0.625rem;
 
   --density-breadcrumb-font-size: 0.75rem;
   --density-breadcrumb-padding:   0.625rem;

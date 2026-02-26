@@ -19,7 +19,7 @@ $layout-gap-compact: 1rem;
 
 .page-grid {
   display: grid;
-  gap: $layout-gap-default;
+  gap: var(--density-section-gap, 1.5rem);
 }
 
 .grid-cell {

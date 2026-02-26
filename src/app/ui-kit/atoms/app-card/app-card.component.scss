@@ -60,7 +60,7 @@ mat-expansion-panel {
 }
 
 .panel-header-title {
-  font-size: 0.875rem;
+  font-size: var(--density-font-size-sm, 0.875rem);
   font-weight: 600;
   letter-spacing: 0.025em;
 }
@@ -85,5 +85,5 @@ mat-icon {
 }
 
 .panel-body {
-  margin-top: 1rem;
+  margin-top: var(--density-card-padding, 1rem);
 }
