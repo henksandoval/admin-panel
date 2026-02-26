@@ -41,5 +41,5 @@ export interface AppTableConfig<T = unknown> {
 export const TABLE_DEFAULTS = {
   stickyHeader: false,
   clickableRows: false,
-  emptyMessage: 'No hay datos disponibles',
+  emptyMessage: 'No data available',
 } as const;

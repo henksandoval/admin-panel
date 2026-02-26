@@ -15,13 +15,13 @@
     <div class="footer-buttons">
       @if (showClearButton()) {
         <app-button (click)="onClear()" iconBefore="restart_alt">
-          Limpiar filtros
+          <ng-container i18n="Filters|Clear filters button@@filters.btn.clear">Clear filters</ng-container>
         </app-button>
       }
 
       @if (showSearchButton()) {
         <app-button (click)="onSearch()" iconBefore="search">
-          Buscar
+          <ng-container i18n="Filters|Search button@@filters.btn.search">Search</ng-container>
         </app-button>
       }
     </div>

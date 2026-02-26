@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en" trgLang="es">
+  <file id="ngi18n" original="ng.template">
+    <unit id="tableclient.title">
+      <notes>
+        <note category="description">Page title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee directory</source>
+        <target>Directorio de empleados</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.description">
+      <notes>
+        <note category="description">Page description</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Client-side table example with simple and advanced filters</source>
+        <target>Ejemplo de tabla client-side con filtros simples y avanzados</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.title">
+      <notes>
+        <note category="description">Page title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee directory</source>
+        <target>Directorio de empleados</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.description">
+      <notes>
+        <note category="description">Page description</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Server-side table example with simple and advanced filters</source>
+        <target>Ejemplo de tabla server-side con filtros simples y avanzados</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.btn.simpleFilters">
+      <notes>
+        <note category="description">Simple filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple Filters</source>
+        <target>Filtros Simples</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.btn.advancedFilters">
+      <notes>
+        <note category="description">Advanced filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced Filters</source>
+        <target>Filtros Avanzados</target>
+      </segment>
+    </unit>
+    <unit id="settings.title">
+      <notes>
+        <note category="description">Settings panel title</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Settings</source>
+        <target>Configuración</target>
+      </segment>
+    </unit>
+    <unit id="settings.btn.close">
+      <notes>
+        <note category="description">Button to close the settings panel</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Close settings</source>
+        <target>Cerrar configuración</target>
+      </segment>
+    </unit>
+    <unit id="settings.density.title">
+      <notes>
+        <note category="description">Density section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Information Density</source>
+        <target>Densidad de información</target>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.title">
+      <notes>
+        <note category="description">Mode section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Mode</source>
+        <target>Modo</target>
+      </segment>
+    </unit>
+    <unit id="settings.theme.title">
+      <notes>
+        <note category="description">Accent color section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Accent Color</source>
+        <target>Color de Acento</target>
+      </segment>
+    </unit>
+    <unit id="settings.btn.reset">
+      <notes>
+        <note category="description">Button to reset settings</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Reset to defaults</source>
+        <target>Restablecer valores</target>
+      </segment>
+    </unit>
+    <unit id="settings.density.comfortable">
+      <notes>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Comfortable</source>
+        <target>Cómodo</target>
+      </segment>
+    </unit>
+    <unit id="settings.density.compact">
+      <notes>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Compact</source>
+        <target>Compacto</target>
+      </segment>
+    </unit>
+    <unit id="settings.density.dense">
+      <notes>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Dense</source>
+        <target>Denso</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.appName">
+      <notes>
+        <note category="description">Application name</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Admin Panel</source>
+        <target>Panel de Administración</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.version">
+      <notes>
+        <note category="description">Application version</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Dashboard v1.0</source>
+        <target>Tablero v1.0</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.btn.toggle">
+      <notes>
+        <note category="description">Button to collapse/expand the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Toggle sidebar</source>
+        <target>Expandir/contraer barra lateral</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.copyright">
+      <notes>
+        <note category="description">Copyright</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>© 2025 Admin Panel</source>
+        <target>© 2025 Admin Panel</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.tooltip.collapse">
+      <notes>
+        <note category="description">Tooltip for collapsing the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Collapse</source>
+        <target>Contraer</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.tooltip.expand">
+      <notes>
+        <note category="description">Tooltip for expanding the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Expand</source>
+        <target>Expandir</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.toggleSidebar">
+      <notes>
+        <note category="description">Button to collapse/expand the sidebar</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Toggle sidebar</source>
+        <target>Expandir/contraer barra lateral</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.title">
+      <notes>
+        <note category="description">Main panel title</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Dashboard</source>
+        <target>Tablero</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.search">
+      <notes>
+        <note category="description">Search button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Search</source>
+        <target>Buscar</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.notifications">
+      <notes>
+        <note category="description">Notifications button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Notifications</source>
+        <target>Notificaciones</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.notifications.title">
+      <notes>
+        <note category="description">Notifications menu title</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Notifications</source>
+        <target>Notificaciones</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.update">
+      <notes>
+        <note category="description">Notification: new update</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>New update available</source>
+        <target>Nueva actualización disponible</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.taskDone">
+      <notes>
+        <note category="description">Notification: task completed</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Task completed</source>
+        <target>Tarea completada</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.warning">
+      <notes>
+        <note category="description">Notification: system warning</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>System warning</source>
+        <target>Advertencia del sistema</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.userMenu">
+      <notes>
+        <note category="description">User menu button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>User menu</source>
+        <target>Menú de usuario</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.name">
+      <notes>
+        <note category="description">User name in menu</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Admin User</source>
+        <target>Usuario Admin</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.profile">
+      <notes>
+        <note category="description">Menu option: profile</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>My Profile</source>
+        <target>Mi Perfil</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.settings">
+      <notes>
+        <note category="description">Menu option: settings</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Settings</source>
+        <target>Configuración</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.logout">
+      <notes>
+        <note category="description">Menu option: sign out</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Sign Out</source>
+        <target>Cerrar Sesión</target>
+      </segment>
+    </unit>
+    <unit id="filters.empty">
+      <notes>
+        <note category="description">No filters applied message</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>No filters applied</source>
+        <target>No hay filtros aplicados</target>
+      </segment>
+    </unit>
+    <unit id="filters.btn.add">
+      <notes>
+        <note category="description">Add criterion button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Add</source>
+        <target>Agregar</target>
+      </segment>
+    </unit>
+    <unit id="filters.btn.clear">
+      <notes>
+        <note category="description">Clear filters button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Clear filters</source>
+        <target>Limpiar filtros</target>
+      </segment>
+    </unit>
+    <unit id="filters.btn.search">
+      <notes>
+        <note category="description">Search button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Search</source>
+        <target>Buscar</target>
+      </segment>
+    </unit>
+    <unit id="filter.boolean.yes">
+      <notes>
+        <note category="description">Boolean yes option</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Yes</source>
+        <target>Sí</target>
+      </segment>
+    </unit>
+    <unit id="filter.boolean.no">
+      <notes>
+        <note category="description">Boolean no option</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>No</source>
+        <target>No</target>
+      </segment>
+    </unit>
+    <unit id="filter.select.allOption">
+      <notes>
+        <note category="description">Reset/all option in select</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>-- All --</source>
+        <target>-- Todos --</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.eq">
+      <notes>
+        <note category="description">Equals</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Equals</source>
+        <target>Igual a</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.neq">
+      <notes>
+        <note category="description">Not equal to</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Not equal to</source>
+        <target>Diferente de</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.contains">
+      <notes>
+        <note category="description">Contains</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Contains</source>
+        <target>Contiene</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.notContains">
+      <notes>
+        <note category="description">Does not contain</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Does not contain</source>
+        <target>No contiene</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.startsWith">
+      <notes>
+        <note category="description">Starts with</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Starts with</source>
+        <target>Empieza con</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.endsWith">
+      <notes>
+        <note category="description">Ends with</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Ends with</source>
+        <target>Termina con</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.gt">
+      <notes>
+        <note category="description">Greater than</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Greater than</source>
+        <target>Mayor que</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.gte">
+      <notes>
+        <note category="description">Greater or equal</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Greater or equal</source>
+        <target>Mayor o igual</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.lt">
+      <notes>
+        <note category="description">Less than</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Less than</source>
+        <target>Menor que</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.lte">
+      <notes>
+        <note category="description">Less or equal</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Less or equal</source>
+        <target>Menor o igual</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.isNull">
+      <notes>
+        <note category="description">Is empty</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Is empty</source>
+        <target>Es vacío</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.isNotNull">
+      <notes>
+        <note category="description">Is not empty</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Is not empty</source>
+        <target>No es vacío</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

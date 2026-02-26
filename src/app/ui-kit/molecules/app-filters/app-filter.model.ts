@@ -55,18 +55,18 @@ export interface AppFiltersConfig {
 }
 
 export const DEFAULT_FILTER_OPERATORS: AppFilterOperator[] = [
-  { key: 'eq', label: 'Igual a', symbol: '=', applicableTo: ['text', 'number', 'date', 'select', 'boolean'], requiresValue: true },
-  { key: 'neq', label: 'Diferente de', symbol: '≠', applicableTo: ['text', 'number', 'date', 'select'], requiresValue: true },
-  { key: 'contains', label: 'Contiene', symbol: '∋', applicableTo: ['text'], requiresValue: true },
-  { key: 'not_contains', label: 'No contiene', symbol: '∌', applicableTo: ['text'], requiresValue: true },
-  { key: 'starts_with', label: 'Empieza con', symbol: 'A…', applicableTo: ['text'], requiresValue: true },
-  { key: 'ends_with', label: 'Termina con', symbol: '…Z', applicableTo: ['text'], requiresValue: true },
-  { key: 'gt', label: 'Mayor que', symbol: '>', applicableTo: ['number', 'date'], requiresValue: true },
-  { key: 'gte', label: 'Mayor o igual', symbol: '≥', applicableTo: ['number', 'date'], requiresValue: true },
-  { key: 'lt', label: 'Menor que', symbol: '<', applicableTo: ['number', 'date'], requiresValue: true },
-  { key: 'lte', label: 'Menor o igual', symbol: '≤', applicableTo: ['number', 'date'], requiresValue: true },
-  { key: 'is_null', label: 'Es vacío', symbol: '∅', applicableTo: ['text', 'number', 'date', 'select'], requiresValue: false },
-  { key: 'is_not_null', label: 'No es vacío', symbol: '!∅', applicableTo: ['text', 'number', 'date', 'select'], requiresValue: false },
+  { key: 'eq',          label: $localize`:Filter operator|Equals@@filter.op.eq:Equals`,                symbol: '=',  applicableTo: ['text', 'number', 'date', 'select', 'boolean'], requiresValue: true  },
+  { key: 'neq',         label: $localize`:Filter operator|Not equal to@@filter.op.neq:Not equal to`,    symbol: '≠',  applicableTo: ['text', 'number', 'date', 'select'],             requiresValue: true  },
+  { key: 'contains',    label: $localize`:Filter operator|Contains@@filter.op.contains:Contains`,        symbol: '∋',  applicableTo: ['text'],                                         requiresValue: true  },
+  { key: 'not_contains',label: $localize`:Filter operator|Does not contain@@filter.op.notContains:Does not contain`, symbol: '∌', applicableTo: ['text'],                         requiresValue: true  },
+  { key: 'starts_with', label: $localize`:Filter operator|Starts with@@filter.op.startsWith:Starts with`,symbol: 'A…', applicableTo: ['text'],                                   requiresValue: true  },
+  { key: 'ends_with',   label: $localize`:Filter operator|Ends with@@filter.op.endsWith:Ends with`,    symbol: '…Z', applicableTo: ['text'],                                         requiresValue: true  },
+  { key: 'gt',          label: $localize`:Filter operator|Greater than@@filter.op.gt:Greater than`,    symbol: '>',  applicableTo: ['number', 'date'],                               requiresValue: true  },
+  { key: 'gte',         label: $localize`:Filter operator|Greater or equal@@filter.op.gte:Greater or equal`, symbol: '≥', applicableTo: ['number', 'date'],                      requiresValue: true  },
+  { key: 'lt',          label: $localize`:Filter operator|Less than@@filter.op.lt:Less than`,          symbol: '<',  applicableTo: ['number', 'date'],                               requiresValue: true  },
+  { key: 'lte',         label: $localize`:Filter operator|Less or equal@@filter.op.lte:Less or equal`, symbol: '≤', applicableTo: ['number', 'date'],                              requiresValue: true  },
+  { key: 'is_null',     label: $localize`:Filter operator|Is empty@@filter.op.isNull:Is empty`,        symbol: '∅',  applicableTo: ['text', 'number', 'date', 'select'],             requiresValue: false },
+  { key: 'is_not_null', label: $localize`:Filter operator|Is not empty@@filter.op.isNotNull:Is not empty`, symbol: '!∅', applicableTo: ['text', 'number', 'date', 'select'],      requiresValue: false },
 ];
 
 export const DEFAULT_OPERATOR_BY_TYPE: Record<AppFilterFieldType, string> = {
@@ -81,7 +81,7 @@ export const FILTER_DEFAULTS = {
   debounceMs: 300,
   appearance: 'outline' as const,
   showClearAll: true,
-  clearAllLabel: 'Limpiar filtros',
+  clearAllLabel: 'Clear filters',
   maxCriteria: 10,
   autoSearch: false,
   showClearButton: true,

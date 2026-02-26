@@ -35,8 +35,8 @@ import { AppFilterCriterion, AppFiltersConfig, DEFAULT_FILTER_OPERATORS, FILTER_
 import { togglesToCriteria } from '../app-filter.utils';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
-  { value: true, label: 'Sí' },
-  { value: false, label: 'No' },
+  { value: true,  label: $localize`:Filter|Boolean yes option@@filter.boolean.yes:Yes` },
+  { value: false, label: $localize`:Filter|Boolean no option@@filter.boolean.no:No` },
 ];
 
 @Component({

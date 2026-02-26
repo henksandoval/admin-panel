@@ -32,6 +32,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class SidebarComponent implements OnInit {
   readonly isExpanded = input<boolean>(true);
   protected readonly hoveredIconTop = signal<number>(0);
+  protected readonly collapseTooltip = computed(() =>
+    this.isExpanded()
+      ? $localize`:Sidebar|Tooltip for collapsing the sidebar@@sidebar.tooltip.collapse:Collapse`
+      : $localize`:Sidebar|Tooltip for expanding the sidebar@@sidebar.tooltip.expand:Expand`
+  );
   private navigationService = inject(NavigationService);
   protected readonly showFloatingMenu = computed(() =>
     this.navigationService.getCurrentNavigation()().length > 0

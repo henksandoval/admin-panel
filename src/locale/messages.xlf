@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
+  <file id="ngi18n" original="ng.template">
+    <unit id="tableclient.title">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.html:5,6</note>
+        <note category="description">Page title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee directory</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.description">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.html:6,10</note>
+        <note category="description">Page description</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Client-side table example with simple and advanced filters</source>
+      </segment>
+    </unit>
+    <unit id="tableserver.title">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.component.html:5,6</note>
+        <note category="description">Page title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee directory</source>
+      </segment>
+    </unit>
+    <unit id="tableserver.description">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.component.html:6,10</note>
+        <note category="description">Page description</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Server-side table example with simple and advanced filters</source>
+      </segment>
+    </unit>
+    <unit id="tableserver.btn.simpleFilters">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.component.html:14,16</note>
+        <note category="description">Simple filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple Filters</source>
+      </segment>
+    </unit>
+    <unit id="tableserver.btn.advancedFilters">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.component.html:18,20</note>
+        <note category="description">Advanced filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced Filters</source>
+      </segment>
+    </unit>
+    <unit id="settings.title">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:3,6</note>
+        <note category="description">Settings panel title</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Settings</source>
+      </segment>
+    </unit>
+    <unit id="settings.btn.close">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:6,7</note>
+        <note category="description">Button to close the settings panel</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Close settings</source>
+      </segment>
+    </unit>
+    <unit id="settings.density.title">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:14,16</note>
+        <note category="description">Density section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Information Density</source>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.title">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:25,27</note>
+        <note category="description">Mode section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Mode</source>
+      </segment>
+    </unit>
+    <unit id="settings.theme.title">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:36,38</note>
+        <note category="description">Accent color section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Accent Color</source>
+      </segment>
+    </unit>
+    <unit id="settings.btn.reset">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:61,65</note>
+        <note category="description">Button to reset settings</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Reset to defaults</source>
+      </segment>
+    </unit>
+    <unit id="settings.density.comfortable">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:46</note>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Comfortable</source>
+      </segment>
+    </unit>
+    <unit id="settings.density.compact">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:47</note>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Compact</source>
+      </segment>
+    </unit>
+    <unit id="settings.density.dense">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:48</note>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Dense</source>
+      </segment>
+    </unit>
+    <unit id="sidebar.appName">
+      <notes>
+        <note category="location">src/app/layout/components/sidebar/sidebar.component.html:8,9</note>
+        <note category="description">Application name</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Admin Panel</source>
+      </segment>
+    </unit>
+    <unit id="sidebar.version">
+      <notes>
+        <note category="location">src/app/layout/components/sidebar/sidebar.component.html:9,14</note>
+        <note category="description">Application version</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Dashboard v1.0</source>
+      </segment>
+    </unit>
+    <unit id="sidebar.btn.toggle">
+      <notes>
+        <note category="location">src/app/layout/components/sidebar/sidebar.component.html:56,57</note>
+        <note category="description">Button to collapse/expand the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Toggle sidebar</source>
+      </segment>
+    </unit>
+    <unit id="sidebar.copyright">
+      <notes>
+        <note category="location">src/app/layout/components/sidebar/sidebar.component.html:62,66</note>
+        <note category="description">Copyright</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>© 2025 Admin Panel</source>
+      </segment>
+    </unit>
+    <unit id="sidebar.tooltip.collapse">
+      <notes>
+        <note category="location">src/app/layout/components/sidebar/sidebar.component.ts:37</note>
+        <note category="description">Tooltip for collapsing the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Collapse</source>
+      </segment>
+    </unit>
+    <unit id="sidebar.tooltip.expand">
+      <notes>
+        <note category="location">src/app/layout/components/sidebar/sidebar.component.ts:38</note>
+        <note category="description">Tooltip for expanding the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Expand</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.toggleSidebar">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:5,6</note>
+        <note category="description">Button to collapse/expand the sidebar</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Toggle sidebar</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.title">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:12,15</note>
+        <note category="description">Main panel title</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Dashboard</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.search">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:18</note>
+        <note category="description">Search button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Search</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.notifications">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:25,26</note>
+        <note category="description">Notifications button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Notifications</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.notifications.title">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:33,36</note>
+        <note category="description">Notifications menu title</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Notifications</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.update">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:38,41</note>
+        <note category="description">Notification: new update</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>New update available</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.taskDone">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:42,45</note>
+        <note category="description">Notification: task completed</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Task completed</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.warning">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:46,51</note>
+        <note category="description">Notification: system warning</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>System warning</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.userMenu">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:52,53</note>
+        <note category="description">User menu button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>User menu</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.name">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:60,61</note>
+        <note category="description">User name in menu</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Admin User</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.profile">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:66,69</note>
+        <note category="description">Menu option: profile</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>My Profile</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.settings">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:70,72</note>
+        <note category="description">Menu option: settings</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Settings</source>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.logout">
+      <notes>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:75,80</note>
+        <note category="description">Menu option: sign out</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Sign Out</source>
+      </segment>
+    </unit>
+    <unit id="filters.empty">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.html:6,8</note>
+        <note category="description">No filters applied message</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>No filters applied</source>
+      </segment>
+    </unit>
+    <unit id="filters.btn.add">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.html:73,78</note>
+        <note category="description">Add criterion button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Add</source>
+      </segment>
+    </unit>
+    <unit id="filter.boolean.yes">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:38</note>
+        <note category="description">Boolean yes option</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Yes</source>
+      </segment>
+    </unit>
+    <unit id="filter.boolean.no">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:39</note>
+        <note category="description">Boolean no option</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>No</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.eq">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:58</note>
+        <note category="description">Equals</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Equals</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.neq">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:59</note>
+        <note category="description">Not equal to</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Not equal to</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.contains">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:60</note>
+        <note category="description">Contains</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Contains</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.notContains">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:61</note>
+        <note category="description">Does not contain</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Does not contain</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.startsWith">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:62</note>
+        <note category="description">Starts with</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Starts with</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.endsWith">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:63</note>
+        <note category="description">Ends with</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Ends with</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.gt">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:64</note>
+        <note category="description">Greater than</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Greater than</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.gte">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:65</note>
+        <note category="description">Greater or equal</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Greater or equal</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.lt">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:66</note>
+        <note category="description">Less than</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Less than</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.lte">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:67</note>
+        <note category="description">Less or equal</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Less or equal</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.isNull">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:68</note>
+        <note category="description">Is empty</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Is empty</source>
+      </segment>
+    </unit>
+    <unit id="filter.op.isNotNull">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:69</note>
+        <note category="description">Is not empty</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Is not empty</source>
+      </segment>
+    </unit>
+    <unit id="filters.btn.clear">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/footer/app-filter-footer.component.html:18,22</note>
+        <note category="description">Clear filters button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Clear filters</source>
+      </segment>
+    </unit>
+    <unit id="filters.btn.search">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/footer/app-filter-footer.component.html:24,27</note>
+        <note category="description">Search button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Search</source>
+      </segment>
+    </unit>
+    <unit id="filter.select.allOption">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/simple/app-simple-filter.component.ts:99</note>
+        <note category="description">Reset/all option in select</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>-- All --</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>
