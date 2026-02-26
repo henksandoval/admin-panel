@@ -282,6 +282,6 @@ $layout-gap-compact: 1rem;
   }
 
   :host {
-    padding: 1rem;
+    padding: var(--density-page-padding, 1.5rem);
   }
 }

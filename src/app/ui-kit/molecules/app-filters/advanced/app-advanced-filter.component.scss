@@ -5,8 +5,8 @@
 .app-filters-advanced-form {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr auto;
-  gap: 1rem;
-  padding: .5rem;
+  gap: var(--density-card-padding, 1rem);
+  padding: calc(var(--density-card-padding, 1rem) * 0.5);
   align-items: end;
 
   @media (max-width: 1024px) {

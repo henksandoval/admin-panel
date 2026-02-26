@@ -42,7 +42,7 @@ sidebar-header {
 }
 
 .app-logo-text {
-  font-size: 1.25rem;
+  font-size: var(--density-font-size-lg, 1.25rem);
   font-weight: 700;
 }
 
@@ -54,7 +54,7 @@ sidebar-header {
 }
 
 .sidebar-title {
-  font-size: 1.125rem;
+  font-size: var(--density-font-size-lg, 1.25rem);
   font-weight: 600;
   line-height: 1.25;
   overflow: hidden;
@@ -63,7 +63,7 @@ sidebar-header {
 }
 
 .sidebar-version {
-  font-size: 0.75rem;
+  font-size: var(--density-font-size-sm, 0.875rem);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -105,7 +105,7 @@ sidebar-header {
 }
 
 .sidebar-footer {
-  padding: 1rem;
+  padding: var(--density-card-padding, 1rem);
   flex-shrink: 0;
   border-top: 1px solid var(--mat-sys-outline-variant);
 }
@@ -122,5 +122,5 @@ sidebar-header {
 }
 
 .sidebar-copyright {
-  font-size: 0.75rem;
+  font-size: var(--density-font-size-sm, 0.875rem);
 }

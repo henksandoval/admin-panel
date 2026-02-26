@@ -54,9 +54,9 @@ mat-expansion-panel {
 }
 
 .panel-header-icon {
-  font-size: 1rem;
-  width: 1rem;
-  height: 1rem;
+  font-size: var(--density-font-size-icon-sm, 18px);
+  width: var(--density-font-size-icon-sm, 18px);
+  height: var(--density-font-size-icon-sm, 18px);
 }
 
 .panel-header-title {
