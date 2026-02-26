@@ -81,7 +81,7 @@ export class SettingsService {
     return {
       theme: 'default',
       scheme: 'light',
-      density: 'comfortable'
+      density: 'compact'
     };
   }
 
