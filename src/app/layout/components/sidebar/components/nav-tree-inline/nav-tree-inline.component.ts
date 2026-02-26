@@ -13,9 +13,10 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NavigationItem, NavigationService } from '../../../../../core/services/navigation.service';
+import { NavigationItem } from '@core/models/navigation.model';
+import { NavigationService } from '@core/services/navigation.service';
 import { filter, Subscription } from 'rxjs';
-import { LayoutService } from '../../../../services/layout.service';
+import { LayoutService } from '@layout/services/layout.service';
 
 @Component({
   selector: 'app-nav-tree-inline',
