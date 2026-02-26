@@ -38,7 +38,7 @@ $theme-config: (
     @include tokens.define-overlay-tokens();
     @include tokens.define-badge-tokens();
     @include tokens.define-typography-tokens();
-    @include density.define-density-tokens();
+    @include density.density-tokens(density.$density-scale-compact);
   }
 
   .dark-theme {

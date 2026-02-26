@@ -1,59 +1,65 @@
 @use '@angular/material' as mat;
 
+$density-scale-comfortable: 1.0;
+$density-scale-compact:     0.8;
+$density-scale-dense:       0.6;
 
-@mixin define-density-tokens() {
-  --density-base: 0.8;
-  --density-offset: 0;
-  --density-scale: calc(var(--density-base) + var(--density-offset));
+@mixin density-tokens($scale) {
+  // Font sizes
+  --density-font-size-sm:          calc(0.875rem  * #{$scale});
+  --density-font-size-base:        calc(1rem       * #{$scale});
+  --density-font-size-lg:          calc(1.25rem    * #{$scale});
 
-  --density-font-size-sm: calc(0.875rem * var(--density-scale));
-  --density-font-size-base: calc(1rem * var(--density-scale));
-  --density-font-size-lg: calc(1.25rem * var(--density-scale));
+  // Icon sizes
+  --density-font-size-icon-sm:     calc(1.125rem   * #{$scale});
+  --density-font-size-icon-md:     calc(1.25rem    * #{$scale});
+  --density-font-size-icon-lg:     calc(1.5rem     * #{$scale});
 
-  --density-font-size-icon-sm: calc(1.125rem * var(--density-scale));
-  --density-font-size-icon-md: calc(1.25rem * var(--density-scale));
-  --density-font-size-icon-lg: calc(1.5rem * var(--density-scale));
+  // Layout
+  --density-page-padding:          calc(1.5rem     * #{$scale});
+  --density-section-gap:           calc(2rem       * #{$scale});
+  --density-card-padding:          calc(1rem       * #{$scale});
 
-  --density-page-padding: calc(1.5rem * var(--density-scale));
-  --density-section-gap: calc(2rem * var(--density-scale));
-  --density-card-padding: calc(1rem * var(--density-scale));
+  // Badge
+  --density-badge-font-size:       calc(0.6875rem  * #{$scale});
+  --density-badge-indicator-size:  calc(0.5625rem  * #{$scale});
+  --density-badge-padding-x:       calc(0.5rem     * #{$scale});
+  --density-badge-padding-y:       calc(0.125rem   * #{$scale});
+  --density-badge-radius:          calc(0.75rem    * #{$scale});
 
-  --density-badge-font-size: calc(0.6875rem * var(--density-scale));
-  --density-badge-indicator-size: calc(0.5625rem * var(--density-scale));
-  --density-badge-padding-x: calc(0.5rem * var(--density-scale));
-  --density-badge-padding-y: calc(0.125rem * var(--density-scale));
-  --density-badge-radius: calc(0.75rem * var(--density-scale));
+  // Pagination
+  --density-pagination-font-size:  calc(0.875rem   * #{$scale});
+  --density-pagination-padding-y:  calc(0.75rem    * #{$scale});
+  --density-pagination-padding-x:  calc(1rem       * #{$scale});
 
-  --density-pagination-font-size: calc(0.875rem * var(--density-scale));
-  --density-pagination-padding-y: calc(0.75rem * var(--density-scale));
-  --density-pagination-padding-x: calc(1rem * var(--density-scale));
+  // Toolbar
+  --density-toolbar-title-size:    calc(1.25rem    * #{$scale});
+  --density-toolbar-menu-size:     calc(0.875rem   * #{$scale});
+  --density-toolbar-sub-size:      calc(0.75rem    * #{$scale});
 
-  --density-toolbar-title-size: calc(1.25rem * var(--density-scale));
-  --density-toolbar-menu-size: calc(0.875rem * var(--density-scale));
-  --density-toolbar-sub-size: calc(0.75rem * var(--density-scale));
+  // Breadcrumb
+  --density-breadcrumb-font-size:  calc(0.875rem   * #{$scale});
+  --density-breadcrumb-padding:    calc(1rem        * #{$scale});
 
-  --density-breadcrumb-font-size: calc(0.875rem * var(--density-scale));
-  --density-breadcrumb-padding: calc(1rem * var(--density-scale));
+  // Filters
+  --density-filter-icon-size:      calc(1.125rem   * #{$scale});
 
-  --density-filter-icon-size: calc(1.125rem * var(--density-scale));
-
-  --density-radio-label-size: calc(0.875rem * var(--density-scale));
-  --density-radio-hint-size: calc(0.75rem * var(--density-scale));
-  --density-radio-error-size: calc(0.875rem * var(--density-scale));
+  // Radio
+  --density-radio-label-size:      calc(0.875rem   * #{$scale});
+  --density-radio-hint-size:       calc(0.75rem    * #{$scale});
+  --density-radio-error-size:      calc(0.875rem   * #{$scale});
 }
 
 body.density-comfortable {
-  @include define-density-tokens();
-  --density-offset: 0.2;
+  @include density-tokens($density-scale-comfortable);
 }
 
 body.density-compact {
-  @include define-density-tokens();
+  @include density-tokens($density-scale-compact);
   @include mat.all-component-densities(-1);
 }
 
 body.density-dense {
-  @include define-density-tokens();
+  @include density-tokens($density-scale-dense);
   @include mat.all-component-densities(-2);
-  --density-offset: -0.1;
 }

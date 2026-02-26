@@ -1,4 +1,9 @@
 @use '../../../../themes/navigation' as nav;
+@use '../../../../themes/density' as density;
+
+:host {
+  @include density.density-tokens(density.$density-scale-comfortable);
+}
 
 .hidden {
   display: none;
@@ -42,7 +47,7 @@ sidebar-header {
 }
 
 .app-logo-text {
-  font-size: var(--density-font-size-lg, 1.25rem);
+  font-size: var(--density-font-size-lg);
   font-weight: 700;
 }
 
@@ -54,7 +59,7 @@ sidebar-header {
 }
 
 .sidebar-title {
-  font-size: var(--density-font-size-lg, 1.25rem);
+  font-size: var(--density-font-size-lg);
   font-weight: 600;
   line-height: 1.25;
   overflow: hidden;
@@ -63,7 +68,7 @@ sidebar-header {
 }
 
 .sidebar-version {
-  font-size: var(--density-font-size-sm, 0.875rem);
+  font-size: var(--density-font-size-sm);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -122,5 +127,5 @@ sidebar-header {
 }
 
 .sidebar-copyright {
-  font-size: var(--density-font-size-sm, 0.875rem);
+  font-size: var(--density-font-size-sm);
 }
