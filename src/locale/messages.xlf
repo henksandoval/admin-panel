@@ -471,6 +471,56 @@
         <source>No</source>
       </segment>
     </unit>
+    <unit id="filter.form.field">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:124</note>
+        <note category="description">Field selector label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Field</source>
+      </segment>
+    </unit>
+    <unit id="filter.form.operator">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:127</note>
+        <note category="description">Operator selector label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Operator</source>
+      </segment>
+    </unit>
+    <unit id="filter.form.value">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:130</note>
+        <note category="description">Value input label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Value</source>
+      </segment>
+    </unit>
+    <unit id="filter.form.date">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:133</note>
+        <note category="description">Date input label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Date</source>
+      </segment>
+    </unit>
+    <unit id="filter.pill.remove">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:180</note>
+        <note category="description">Remove criterion button</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Remove filter: <ph id="0" equiv="criteria" disp="criteria"/></source>
+      </segment>
+    </unit>
     <unit id="filter.op.eq">
       <notes>
         <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:58</note>
@@ -589,6 +639,16 @@
       </notes>
       <segment>
         <source>Is not empty</source>
+      </segment>
+    </unit>
+    <unit id="filters.btn.clearAll">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-filters/app-filter.model.ts:84</note>
+        <note category="description">Clear all button label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Clear filters</source>
       </segment>
     </unit>
     <unit id="filters.btn.clear">

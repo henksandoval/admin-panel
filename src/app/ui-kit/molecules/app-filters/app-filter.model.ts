@@ -81,7 +81,7 @@ export const FILTER_DEFAULTS = {
   debounceMs: 300,
   appearance: 'outline' as const,
   showClearAll: true,
-  clearAllLabel: 'Clear filters',
+  clearAllLabel: $localize`:Filter|Clear all button label@@filters.btn.clearAll:Clear filters`,
   maxCriteria: 10,
   autoSearch: false,
   showClearButton: true,
