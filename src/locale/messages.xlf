@@ -21,6 +21,224 @@
         <source>Client-side table example with simple and advanced filters</source>
       </segment>
     </unit>
+    <unit id="tableclient.btn.simpleFilters">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.ts:18</note>
+        <note category="description">Simple filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple Filters</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.btn.advancedFilters">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.ts:19</note>
+        <note category="description">Advanced filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced Filters</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.sort">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.ts:55</note>
+        <note category="description">Sort snackbar notification</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Sort by: <ph id="0" equiv="field" disp="event.active"/> (<ph id="1" equiv="direction" disp="event.direction"/>)</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.filterAdvanced">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.ts:61</note>
+        <note category="description">Advanced search applied snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced search applied</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.filterSimple">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.ts:62</note>
+        <note category="description">Simple search applied snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple search applied</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.page">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.ts:68</note>
+        <note category="description">Page change snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Page: <ph id="0" equiv="pageNum" disp="pageNum"/> (items per page: <ph id="1" equiv="pageSize" disp="event.pageSize"/>)</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.action">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.ts:73</note>
+        <note category="description">Action snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="action" disp="action.label"/>: <ph id="1" equiv="name" disp="row.name"/></source>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.name">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:10</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:59</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:73</note>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Name</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.email">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:11</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:60</note>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.department">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:12</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:32</note>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Department</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.role">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:13</note>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Role</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.status">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:14</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:39</note>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Status</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.salary">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:15</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:64</note>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Salary</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.hireDate">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:16</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:46</note>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Hire date</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.action.edit">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:21</note>
+        <note category="description">Row action</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Edit</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.action.delete">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:22</note>
+        <note category="description">Row action</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Delete</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.toggle.showDeleted">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:51</note>
+        <note category="description">Filter toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Show deleted</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.toggle.showHidden">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:52</note>
+        <note category="description">Filter toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Show hidden</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.field.id">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:58</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:72</note>
+        <note category="description">Filter field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>ID</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.placeholder.id">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:72</note>
+        <note category="description">Filter placeholder</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee ID</source>
+      </segment>
+    </unit>
+    <unit id="tableclient.placeholder.name">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:73</note>
+        <note category="description">Filter placeholder</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Search by name...</source>
+      </segment>
+    </unit>
     <unit id="tableserver.title">
       <notes>
         <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.component.html:5,6</note>
@@ -709,6 +927,17 @@
       </notes>
       <segment>
         <source>-- All --</source>
+      </segment>
+    </unit>
+    <unit id="table.advancedFilters.title">
+      <notes>
+        <note category="location">src/app/ui-kit/organisms/app-tables/client-side/app-table-client-side.component.ts:37</note>
+        <note category="location">src/app/ui-kit/organisms/app-tables/server-side/app-table-server-side.component.ts:38</note>
+        <note category="description">Advanced filters card title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced filters</source>
       </segment>
     </unit>
   </file>

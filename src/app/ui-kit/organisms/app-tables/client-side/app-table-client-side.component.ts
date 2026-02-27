@@ -34,6 +34,8 @@ export class AppTableClientSideComponent<T extends AnyRecord> extends AppTableBa
 
   readonly currentFilters = signal<AppFilterCriterion[]>([]);
 
+  readonly advancedFiltersTitle = $localize`:Table|Advanced filters card title@@table.advancedFilters.title:Advanced filters`;
+
   private readonly filteredData = computed(() => {
     const data = this.data();
     const criteria = this.currentFilters();

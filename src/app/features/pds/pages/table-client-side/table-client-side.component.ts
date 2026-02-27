@@ -15,8 +15,8 @@ import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-l
 import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 
 const FILTER_MODE_OPTIONS: ToggleOption[] = [
-  { value: 'false', label: 'Filtros Simples', icon: 'filter_list' },
-  { value: 'true',  label: 'Filtros Avanzados', icon: 'tune' },
+  { value: 'false', label: $localize`:Table|Simple filters toggle@@tableclient.btn.simpleFilters:Simple Filters`, icon: 'filter_list' },
+  { value: 'true',  label: $localize`:Table|Advanced filters toggle@@tableclient.btn.advancedFilters:Advanced Filters`, icon: 'tune' },
 ];
 
 @Component({
@@ -52,20 +52,26 @@ export class TableClientSideComponent implements OnInit {
   }
 
   onSortChange(event: AppTableSort): void {
-    this.snackBar.open(`Ordenar por: ${event.active} (${event.direction})`, '✕', { duration: 2500 });
+    const msg = $localize`:Table|Sort snackbar notification@@tableclient.notify.sort:Sort by: ${event.active}:field: (${event.direction}:direction:)`;
+    this.snackBar.open(msg, '✕', { duration: 2500 });
   }
 
   onFiltersChange(_filters: AppFilterCriterion[]): void {
-    const mode = this.useAdvancedFilters() ? 'avanzada' : 'simple';
-    this.snackBar.open(`Búsqueda ${mode} aplicada`, '✕', { duration: 2500 });
+    const msg = this.useAdvancedFilters()
+      ? $localize`:Table|Advanced search applied snackbar@@tableclient.notify.filterAdvanced:Advanced search applied`
+      : $localize`:Table|Simple search applied snackbar@@tableclient.notify.filterSimple:Simple search applied`;
+    this.snackBar.open(msg, '✕', { duration: 2500 });
   }
 
   onPageChange(event: AppPageEvent): void {
-    this.snackBar.open(`Página: ${event.pageIndex + 1} (items por página: ${event.pageSize})`, '✕', { duration: 2500 });
+    const pageNum = event.pageIndex + 1;
+    const msg = $localize`:Table|Page change snackbar@@tableclient.notify.page:Page: ${pageNum}:pageNum: (items per page: ${event.pageSize}:pageSize:)`;
+    this.snackBar.open(msg, '✕', { duration: 2500 });
   }
 
   onActionClick({ action, row }: { action: AppTableAction<EmployeeViewModel>; row: EmployeeViewModel }): void {
-    this.snackBar.open(`${action.label}: ${row.name}`, '✕', { duration: 2500 });
+    const msg = $localize`:Table|Action snackbar@@tableclient.notify.action:${action.label}:action:: ${row.name}:name:`;
+    this.snackBar.open(msg, '✕', { duration: 2500 });
   }
 }
 

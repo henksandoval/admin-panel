@@ -711,5 +711,225 @@
         <target>Claro</target>
       </segment>
     </unit>
+    <unit id="tableclient.btn.simpleFilters">
+      <notes>
+        <note category="description">Simple filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple Filters</source>
+        <target>Filtros Simples</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.btn.advancedFilters">
+      <notes>
+        <note category="description">Advanced filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced Filters</source>
+        <target>Filtros Avanzados</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.name">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Name</source>
+        <target>Nombre</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.email">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.department">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Department</source>
+        <target>Departamento</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.role">
+      <notes>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Role</source>
+        <target>Rol</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.status">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Status</source>
+        <target>Estado</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.salary">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Salary</source>
+        <target>Salario</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.col.hireDate">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Hire date</source>
+        <target>Fecha contratación</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.action.edit">
+      <notes>
+        <note category="description">Row action label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Edit</source>
+        <target>Editar</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.action.delete">
+      <notes>
+        <note category="description">Row action label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Delete</source>
+        <target>Eliminar</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.field.id">
+      <notes>
+        <note category="description">Filter field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>ID</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.toggle.showDeleted">
+      <notes>
+        <note category="description">Filter toggle label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Show deleted</source>
+        <target>Mostrar eliminados</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.toggle.showHidden">
+      <notes>
+        <note category="description">Filter toggle label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Show hidden</source>
+        <target>Mostrar ocultos</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.placeholder.id">
+      <notes>
+        <note category="description">Filter input placeholder</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee ID</source>
+        <target>ID del empleado</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.placeholder.name">
+      <notes>
+        <note category="description">Filter input placeholder</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Search by name...</source>
+        <target>Buscar por nombre...</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.sort">
+      <notes>
+        <note category="description">Sort snackbar notification</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Sort by: <ph id="0" equiv="field" disp="{$field}"/> (<ph id="1" equiv="direction" disp="{$direction}"/>)</source>
+        <target>Ordenar por: <ph id="0" equiv="field" disp="{$field}"/> (<ph id="1" equiv="direction" disp="{$direction}"/>)</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.filterSimple">
+      <notes>
+        <note category="description">Simple search applied snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple search applied</source>
+        <target>Búsqueda simple aplicada</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.filterAdvanced">
+      <notes>
+        <note category="description">Advanced search applied snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced search applied</source>
+        <target>Búsqueda avanzada aplicada</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.page">
+      <notes>
+        <note category="description">Page change snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Page: <ph id="0" equiv="pageNum" disp="{$pageNum}"/> (items per page: <ph id="1" equiv="pageSize" disp="{$pageSize}"/>)</source>
+        <target>Página: <ph id="0" equiv="pageNum" disp="{$pageNum}"/> (elementos por página: <ph id="1" equiv="pageSize" disp="{$pageSize}"/>)</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.action">
+      <notes>
+        <note category="description">Action snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="action" disp="{$action}"/>: <ph id="1" equiv="name" disp="{$name}"/></source>
+        <target><ph id="0" equiv="action" disp="{$action}"/>: <ph id="1" equiv="name" disp="{$name}"/></target>
+      </segment>
+    </unit>
+    <unit id="table.advancedFilters.title">
+      <notes>
+        <note category="description">Advanced filters card title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced filters</source>
+        <target>Filtros avanzados</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
