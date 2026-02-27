@@ -681,5 +681,35 @@
         <target>Limpiar filtros</target>
       </segment>
     </unit>
+    <unit id="settings.scheme.auto">
+      <notes>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Auto</source>
+        <target>Auto</target>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.dark">
+      <notes>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Dark</source>
+        <target>Oscuro</target>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.light">
+      <notes>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Light</source>
+        <target>Claro</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

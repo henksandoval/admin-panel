@@ -37,9 +37,9 @@ export class SettingsPanelComponent {
   ];
 
   protected readonly schemeOptions: ToggleOption[] = [
-    { value: 'auto', label: 'Auto', icon: 'brightness_auto' },
-    { value: 'dark', label: 'Dark', icon: 'dark_mode' },
-    { value: 'light', label: 'Light', icon: 'light_mode' },
+    { value: 'auto',  label: $localize`:Settings|Color scheme option@@settings.scheme.auto:Auto`,  icon: 'brightness_auto' },
+    { value: 'dark',  label: $localize`:Settings|Color scheme option@@settings.scheme.dark:Dark`,  icon: 'dark_mode' },
+    { value: 'light', label: $localize`:Settings|Color scheme option@@settings.scheme.light:Light`, icon: 'light_mode' },
   ];
 
   protected readonly densityOptions: ToggleOption[] = [

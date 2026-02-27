@@ -121,6 +121,36 @@
         <source>Reset to defaults</source>
       </segment>
     </unit>
+    <unit id="settings.scheme.auto">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:40</note>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Auto</source>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.dark">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:41</note>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Dark</source>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.light">
+      <notes>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:42</note>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Light</source>
+      </segment>
+    </unit>
     <unit id="settings.density.comfortable">
       <notes>
         <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:46</note>
