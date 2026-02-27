@@ -73,7 +73,7 @@
     </unit>
     <unit id="pds.form.checkbox.terms">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:88,92</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:79,83</note>
         <note category="description">Terms and conditions label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -83,7 +83,7 @@
     </unit>
     <unit id="pds.form.btn.reset">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:94,97</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:85,88</note>
         <note category="description">Reset button</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -93,7 +93,7 @@
     </unit>
     <unit id="pds.form.btn.submit">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:98,101</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:89,92</note>
         <note category="description">Submit button</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -103,7 +103,7 @@
     </unit>
     <unit id="pds.form.card.code">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:104</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:95</note>
         <note category="description">Generated code card title</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -113,7 +113,7 @@
     </unit>
     <unit id="pds.form.btn.copyCode">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:105,106</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:96,97</note>
         <note category="description">Copy code tooltip</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -123,7 +123,7 @@
     </unit>
     <unit id="pds.form.card.visualControls">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:115</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:106</note>
         <note category="description">Visual controls card title</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -133,7 +133,7 @@
     </unit>
     <unit id="pds.form.card.visualControls.description">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:117,121</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:108,112</note>
         <note category="description">Visual controls card description</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -143,7 +143,7 @@
     </unit>
     <unit id="pds.form.label.appearance">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:123,125</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:114,116</note>
         <note category="description">Appearance style label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -153,7 +153,7 @@
     </unit>
     <unit id="pds.form.hint.appearance">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:127,131</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:118,122</note>
         <note category="description">Appearance helper text</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -163,7 +163,7 @@
     </unit>
     <unit id="pds.form.label.showHide">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:136,139</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:127,130</note>
         <note category="description">Show/hide elements label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -173,7 +173,7 @@
     </unit>
     <unit id="pds.form.checkbox.showIcons">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:143,147</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:134,138</note>
         <note category="description">Show icons checkbox</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -183,7 +183,7 @@
     </unit>
     <unit id="pds.form.checkbox.showHints">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:150,154</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:141,145</note>
         <note category="description">Show hints checkbox</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -193,7 +193,7 @@
     </unit>
     <unit id="pds.form.checkbox.showPrefixSuffix">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:157,163</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:148,154</note>
         <note category="description">Show prefix/suffix checkbox</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -203,7 +203,7 @@
     </unit>
     <unit id="pds.form.info.tryItTitle">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:168,169</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:159,160</note>
         <note category="description">Try it title</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -213,7 +213,7 @@
     </unit>
     <unit id="pds.form.info.tryItDescription">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:170,175</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:161,166</note>
         <note category="description">Try it description</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -223,7 +223,7 @@
     </unit>
     <unit id="pds.form.status.title">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:179,181</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:170,172</note>
         <note category="description">Form status title</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -233,7 +233,7 @@
     </unit>
     <unit id="pds.form.status.status">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:182,183</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:173,174</note>
         <note category="description">Status label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -243,7 +243,7 @@
     </unit>
     <unit id="pds.form.status.valid">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:195,196</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:186,187</note>
         <note category="description">Valid label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -253,7 +253,7 @@
     </unit>
     <unit id="pds.form.status.touched">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:199,200</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:190,191</note>
         <note category="description">Touched label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -263,7 +263,7 @@
     </unit>
     <unit id="pds.form.status.dirty">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:203,204</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:194,195</note>
         <note category="description">Dirty label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -773,7 +773,7 @@
     </unit>
     <unit id="pds.form.field.gender.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:217</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:218</note>
         <note category="description">Gender field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -783,7 +783,7 @@
     </unit>
     <unit id="pds.form.field.gender.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:218</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:219</note>
         <note category="description">Gender hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -793,12 +793,52 @@
     </unit>
     <unit id="pds.form.field.gender.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:222</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:223</note>
         <note category="description">Gender required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
       <segment>
         <source>Gender selection is required</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:228</note>
+        <note category="description">Select country field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Country</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.placeholder">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:229</note>
+        <note category="description">Select country placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Choose a country</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:232</note>
+        <note category="description">Select country hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Select your country of residence</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.error.required">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:234</note>
+        <note category="description">Select country required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Country selection is required</source>
       </segment>
     </unit>
     <unit id="tableclient.title">

@@ -1751,5 +1751,45 @@
         <target>La selección de género es obligatoria</target>
       </segment>
     </unit>
+    <unit id="pds.form.field.country.label">
+      <notes>
+        <note category="description">Select country field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Country</source>
+        <target>País</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.placeholder">
+      <notes>
+        <note category="description">Select country placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Choose a country</source>
+        <target>Elige un país</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.hint">
+      <notes>
+        <note category="description">Select country hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Select your country of residence</source>
+        <target>Selecciona el país donde resides</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.error.required">
+      <notes>
+        <note category="description">Select country required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Country selection is required</source>
+        <target>La selección del país es obligatoria</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -213,6 +213,7 @@ export class FormComponent implements OnInit {
       matDatepickerMax: $localize`:Form Gallery|Birth date max error@@pds.form.field.birthDate.error.max:You must be at least 18 years old`
     }
   }));
+
   readonly genderConfig = computed(() => ({
     label: $localize`:Form Gallery|Gender field label@@pds.form.field.gender.label:Gender`,
     hint: this.showHints() ? $localize`:Form Gallery|Gender hint@@pds.form.field.gender.hint:Select your gender identity` : '',
@@ -222,6 +223,18 @@ export class FormComponent implements OnInit {
       required: $localize`:Form Gallery|Gender required error@@pds.form.field.gender.error.required:Gender selection is required`
     }
   }));
+
+  readonly selectCountryConfig = computed(() => ({
+    label: $localize`:Form Gallery|Select country field label@@pds.form.field.country.label:Country`,
+    placeholder: $localize`:Form Gallery|Select country placeholder@@pds.form.field.country.placeholder:Choose a country`,
+    appearance: this.globalAppearance(),
+    icon: this.showIcons() ? 'public' : '',
+    hint: this.showHints() ? $localize`:Form Gallery|Select country hint@@pds.form.field.country.hint:Select your country of residence` : '',
+    errorMessages: {
+      required: $localize`:Form Gallery|Select country required error@@pds.form.field.country.error.required:Country selection is required`
+    }
+  }));
+
   readonly formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');
   readonly formValid = computed(() => this.galleryForm?.valid || false);
   readonly formTouched = computed(() => this.galleryForm?.touched || false);

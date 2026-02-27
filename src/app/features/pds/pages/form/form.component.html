@@ -33,16 +33,7 @@
           <app-form-input [config]="basicTextConfig()" appFormInputConnector formControlName="basicText">
           </app-form-input>
 
-          <app-form-select [config]="{
-                label: 'Select your country',
-                placeholder: 'Choose a country',
-                appearance: globalAppearance(),
-                icon: showIcons() ? 'public' : '',
-                hint: showHints() ? 'Select the country where you reside' : '',
-                errorMessages: {
-                  required: 'Country selection is required for shipping'
-                }
-              }" [options]="countryOptions" appFormSelectConnector formControlName="country">
+          <app-form-select [config]="selectCountryConfig()" [options]="countryOptions" appFormSelectConnector formControlName="country">
           </app-form-select>
         </div>
 
