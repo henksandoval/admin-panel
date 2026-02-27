@@ -341,6 +341,26 @@
         <source>Sign Out</source>
       </segment>
     </unit>
+    <unit id="table.header.actions">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-table/app-table.component.ts:73,74</note>
+        <note category="description">Actions column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Actions</source>
+      </segment>
+    </unit>
+    <unit id="table.empty">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-table/app-table.model.ts:44</note>
+        <note category="description">Empty state message</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>No data available</source>
+      </segment>
+    </unit>
     <unit id="filters.empty">
       <notes>
         <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.html:6,8</note>

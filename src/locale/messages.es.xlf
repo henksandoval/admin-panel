@@ -531,5 +531,25 @@
         <target>No es vacío</target>
       </segment>
     </unit>
+    <unit id="table.header.actions">
+      <notes>
+        <note category="description">Actions column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Actions</source>
+        <target>Acciones</target>
+      </segment>
+    </unit>
+    <unit id="table.empty">
+      <notes>
+        <note category="description">Empty state message</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>No data available</source>
+        <target>No hay datos disponibles</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
