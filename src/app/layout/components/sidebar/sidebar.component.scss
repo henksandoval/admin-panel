@@ -2,7 +2,7 @@
 @use '../../../../themes/density' as density;
 
 :host {
-  @include density.sidebar-reset();
+  @include density.reset();
 }
 
 .hidden {
