@@ -1,28 +1,30 @@
 <app-page-layout [layoutConfig]="customLayout"
                  [showEmptySlots]="true"
                  description="Complete reference with all field types and working validations"
-                 title="Form Field Gallery">
+                 i18n-description="Form Gallery|Page layout description@@pds.form.layout.description"
+                 title="Form Field Gallery"
+                 i18n-title="Form Gallery|Page layout title@@pds.form.layout.title">
 
   <ng-template appSlot="header">
     <header class="mb-6">
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="page-title mb-2">Form Field Gallery</h1>
-          <p class="page-description">
+          <h1 class="page-title mb-2" i18n="Form Gallery|Page title@@pds.form.title">Form Field Gallery</h1>
+          <p class="page-description" i18n="Form Gallery|Page description@@pds.form.description">
             Complete reference with all field types and working validations. Test real-time validation and explore
             different visual configurations.
           </p>
         </div>
         <app-button (clicked)="goBack()" iconBefore="arrow_back" variant="text">
-          Back to PDS
+          <ng-container i18n="Form Gallery|Back to PDS button@@pds.form.btn.back">Back to PDS</ng-container>
         </app-button>
       </div>
     </header>
   </ng-template>
 
   <ng-template appSlot="left">
-    <app-card icon="description" title="Complete Form Example">
-      <p class="card-description mb-6">
+    <app-card icon="description" title="Complete Form Example" i18n-title="Form Gallery|Complete form card title@@pds.form.card.complete">
+      <p class="card-description mb-6" i18n="Form Gallery|Complete form card description@@pds.form.card.complete.description">
         All field types with real validations. Try entering invalid data to see errors.
       </p>
 
@@ -83,24 +85,25 @@
                   requiredTrue: 'Please check this box to proceed'
                 }
               }" appFormCheckboxConnector formControlName="acceptTerms">
-            <span class="terms-label">I accept the terms and conditions *</span>
+            <span class="terms-label" i18n="Form Gallery|Terms and conditions label@@pds.form.checkbox.terms">I accept the terms and conditions *</span>
           </app-form-checkbox>
         </div>
 
         <div class="md:col-span-2 flex justify-end gap-3">
           <app-button (clicked)="resetForm()" color="secondary" iconBefore="refresh" type="button" variant="outlined">
-            Reset
+            <ng-container i18n="Form Gallery|Reset button@@pds.form.btn.reset">Reset</ng-container>
           </app-button>
 
           <app-button color="primary" iconBefore="send" type="submit" variant="filled">
-            Submit Form
+            <ng-container i18n="Form Gallery|Submit button@@pds.form.btn.submit">Submit Form</ng-container>
           </app-button>
         </div>
       </form>
     </app-card>
 
-    <app-card [expanded]="false" [isExpandable]="true" class="mt-2" icon="code" title="Generated Code">
+    <app-card [expanded]="false" [isExpandable]="true" class="mt-2" icon="code" title="Generated Code" i18n-title="Form Gallery|Generated code card title@@pds.form.card.code">
       <button (click)="copyToClipboard(); $event.stopPropagation()" mat-icon-button matTooltip="Copiar código"
+              i18n-matTooltip="Form Gallery|Copy code tooltip@@pds.form.btn.copyCode"
               slot="header-actions">
         <mat-icon>content_copy</mat-icon>
       </button>
@@ -109,18 +112,18 @@
   </ng-template>
 
   <ng-template appSlot="right">
-    <app-card icon="tune" title="Visual Controls">
-      <p class="card-description mb-6">
+    <app-card icon="tune" title="Visual Controls" i18n-title="Form Gallery|Visual controls card title@@pds.form.card.visualControls">
+      <p class="card-description mb-6" i18n="Form Gallery|Visual controls card description@@pds.form.card.visualControls.description">
         Change visual appearance of all fields (validations stay the same)
       </p>
 
       <div class="mt-2">
         <label class="section-label flex items-center gap-1.5 mb-1">
           <mat-icon>style</mat-icon>
-          Appearance Style
+          <ng-container i18n="Form Gallery|Appearance style label@@pds.form.label.appearance">Appearance Style</ng-container>
         </label>
         <app-toggle-group [(value)]="globalAppearance" [options]="appearanceOptions" class="w-full"/>
-        <p class="helper-text mt-1">
+        <p class="helper-text mt-1" i18n="Form Gallery|Appearance helper text@@pds.form.hint.appearance">
           Changes the Material Design style of all fields
         </p>
       </div>
@@ -130,28 +133,28 @@
       <div class="mt-2">
         <label class="section-label flex items-center gap-1.5 mb-3">
           <mat-icon>visibility</mat-icon>
-          Show/Hide Elements
+          <ng-container i18n="Form Gallery|Show/hide elements label@@pds.form.label.showHide">Show/Hide Elements</ng-container>
         </label>
 
         <div class="checkbox-options grid grid-cols-1 gap-3">
           <app-checkbox [(checked)]="showIcons" color="primary">
             <div class="flex items-center gap-2">
               <mat-icon>insert_emoticon</mat-icon>
-              <span>Show Icons</span>
+              <span i18n="Form Gallery|Show icons checkbox@@pds.form.checkbox.showIcons">Show Icons</span>
             </div>
           </app-checkbox>
 
           <app-checkbox [(checked)]="showHints" color="primary">
             <div class="flex items-center gap-2">
               <mat-icon>info</mat-icon>
-              <span>Show Hints</span>
+              <span i18n="Form Gallery|Show hints checkbox@@pds.form.checkbox.showHints">Show Hints</span>
             </div>
           </app-checkbox>
 
           <app-checkbox [(checked)]="showPrefixSuffix" color="primary">
             <div class="flex items-center gap-2">
               <mat-icon>text_format</mat-icon>
-              <span>Show Prefix/Suffix</span>
+              <span i18n="Form Gallery|Show prefix/suffix checkbox@@pds.form.checkbox.showPrefixSuffix">Show Prefix/Suffix</span>
             </div>
           </app-checkbox>
         </div>
@@ -162,8 +165,8 @@
       <div class="info-card">
         <mat-icon>lightbulb</mat-icon>
         <div>
-          <h4 class="info-title mb-1">Try It!</h4>
-          <p class="helper-text">
+          <h4 class="info-title mb-1" i18n="Form Gallery|Try it title@@pds.form.info.tryItTitle">Try It!</h4>
+          <p class="helper-text" i18n="Form Gallery|Try it description@@pds.form.info.tryItDescription">
             Enter invalid data in the fields to see validation errors in real-time.
             The visual controls only affect appearance, not validations.
           </p>
@@ -173,10 +176,10 @@
 
     <app-card class="mt-2">
       <div class="form-status-card">
-        <h4 class="status-title mb-3">Form Status</h4>
+        <h4 class="status-title mb-3" i18n="Form Gallery|Form status title@@pds.form.status.title">Form Status</h4>
         <div class="grid grid-cols-2 gap-3">
           <div class="flex flex-col gap-1">
-            <span class="status-label">Status:</span>
+            <span class="status-label" i18n="Form Gallery|Status label@@pds.form.status.status">Status:</span>
             <span [class.status-invalid]="formStatus() === 'INVALID'"
                   [class.status-valid]="formStatus() === 'VALID'"
                   class="status-value flex items-center gap-2">
@@ -189,15 +192,15 @@
             </span>
           </div>
           <div class="flex flex-col gap-1">
-            <span class="status-label">Valid:</span>
+            <span class="status-label" i18n="Form Gallery|Valid label@@pds.form.status.valid">Valid:</span>
             <span class="status-value">{{ formValid() }}</span>
           </div>
           <div class="flex flex-col gap-1">
-            <span class="status-label">Touched:</span>
+            <span class="status-label" i18n="Form Gallery|Touched label@@pds.form.status.touched">Touched:</span>
             <span class="status-value">{{ formTouched() }}</span>
           </div>
           <div class="flex flex-col gap-1">
-            <span class="status-label">Dirty:</span>
+            <span class="status-label" i18n="Form Gallery|Dirty label@@pds.form.status.dirty">Dirty:</span>
             <span class="status-value">{{ formDirty() }}</span>
           </div>
         </div>

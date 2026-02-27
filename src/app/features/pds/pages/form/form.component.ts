@@ -107,119 +107,119 @@ export class FormComponent implements OnInit {
     ]
   };
   genderOptions: RadioOption<string>[] = [
-    { value: 'male', label: 'Male' },
-    { value: 'female', label: 'Female' },
-    { value: 'other', label: 'Other' },
-    { value: 'prefer-not-to-say', label: 'Prefer not to say' }
+    { value: 'male', label: $localize`:Form Gallery|Gender option male@@pds.form.gender.male:Male` },
+    { value: 'female', label: $localize`:Form Gallery|Gender option female@@pds.form.gender.female:Female` },
+    { value: 'other', label: $localize`:Form Gallery|Gender option other@@pds.form.gender.other:Other` },
+    { value: 'prefer-not-to-say', label: $localize`:Form Gallery|Gender option prefer not to say@@pds.form.gender.preferNotToSay:Prefer not to say` }
   ];
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly appearanceOptions: ToggleOption[] = [
-    { value: 'fill', label: 'Fill' },
-    { value: 'outline', label: 'Outline' }
+    { value: 'fill', label: $localize`:Form Gallery|Appearance option fill@@pds.form.appearance.fill:Fill` },
+    { value: 'outline', label: $localize`:Form Gallery|Appearance option outline@@pds.form.appearance.outline:Outline` }
   ];
   readonly countryOptions = [
-    { value: 'us', label: 'United States' },
-    { value: 'uk', label: 'United Kingdom' },
-    { value: 'ca', label: 'Canada' },
-    { value: 'mx', label: 'Mexico' },
-    { value: 'es', label: 'Spain' },
-    { value: 'fr', label: 'France' },
-    { value: 'de', label: 'Germany' },
-    { value: 'it', label: 'Italy' }
+    { value: 'us', label: $localize`:Form Gallery|Country United States@@pds.form.country.us:United States` },
+    { value: 'uk', label: $localize`:Form Gallery|Country United Kingdom@@pds.form.country.uk:United Kingdom` },
+    { value: 'ca', label: $localize`:Form Gallery|Country Canada@@pds.form.country.ca:Canada` },
+    { value: 'mx', label: $localize`:Form Gallery|Country Mexico@@pds.form.country.mx:Mexico` },
+    { value: 'es', label: $localize`:Form Gallery|Country Spain@@pds.form.country.es:Spain` },
+    { value: 'fr', label: $localize`:Form Gallery|Country France@@pds.form.country.fr:France` },
+    { value: 'de', label: $localize`:Form Gallery|Country Germany@@pds.form.country.de:Germany` },
+    { value: 'it', label: $localize`:Form Gallery|Country Italy@@pds.form.country.it:Italy` }
   ];
   readonly basicTextConfig = computed<AppFormInputOptions>(() => ({
-    label: 'Full Name',
-    placeholder: 'John Doe',
+    label: $localize`:Form Gallery|Full name field label@@pds.form.field.basicText.label:Full Name`,
+    placeholder: $localize`:Form Gallery|Full name placeholder@@pds.form.field.basicText.placeholder:John Doe`,
     type: 'text',
     appearance: this.globalAppearance(),
     icon: this.showIcons() ? 'person' : '',
-    hint: this.showHints() ? 'Enter your full name' : ''
+    hint: this.showHints() ? $localize`:Form Gallery|Full name hint@@pds.form.field.basicText.hint:Enter your full name` : ''
   }));
   readonly emailConfig = computed<AppFormInputOptions>(() => ({
-    label: 'Email Address',
-    placeholder: 'your@email.com',
+    label: $localize`:Form Gallery|Email field label@@pds.form.field.email.label:Email Address`,
+    placeholder: $localize`:Form Gallery|Email placeholder@@pds.form.field.email.placeholder:your@email.com`,
     type: 'email',
     appearance: this.globalAppearance(),
     icon: this.showIcons() ? 'email' : '',
-    hint: this.showHints() ? "We'll never share your email" : '',
+    hint: this.showHints() ? $localize`:Form Gallery|Email hint@@pds.form.field.email.hint:We'll never share your email` : '',
     errorMessages: {
-      required: 'Email address is required',
-      email: 'Please enter a valid email address'
+      required: $localize`:Form Gallery|Email required error@@pds.form.field.email.error.required:Email address is required`,
+      email: $localize`:Form Gallery|Email invalid error@@pds.form.field.email.error.email:Please enter a valid email address`
     }
   }));
   readonly passwordConfig = computed<AppFormInputOptions>(() => ({
-    label: 'Password',
-    placeholder: 'Enter secure password',
+    label: $localize`:Form Gallery|Password field label@@pds.form.field.password.label:Password`,
+    placeholder: $localize`:Form Gallery|Password placeholder@@pds.form.field.password.placeholder:Enter secure password`,
     type: 'password',
     appearance: this.globalAppearance(),
     icon: this.showIcons() ? 'lock' : '',
-    hint: this.showHints() ? 'Must be at least 8 characters' : '',
+    hint: this.showHints() ? $localize`:Form Gallery|Password hint@@pds.form.field.password.hint:Must be at least 8 characters` : '',
     prefix: this.showPrefixSuffix() ? '🔒 ' : '',
     errorMessages: {
-      required: 'Password is required',
-      minlength: 'Password must be at least 8 characters long'
+      required: $localize`:Form Gallery|Password required error@@pds.form.field.password.error.required:Password is required`,
+      minlength: $localize`:Form Gallery|Password minlength error@@pds.form.field.password.error.minlength:Password must be at least 8 characters long`
     }
   }));
   readonly ageConfig = computed<AppFormInputOptions>(() => ({
-    label: 'Age',
-    placeholder: '18-99',
+    label: $localize`:Form Gallery|Age field label@@pds.form.field.age.label:Age`,
+    placeholder: $localize`:Form Gallery|Age placeholder@@pds.form.field.age.placeholder:18-99`,
     type: 'number',
     appearance: this.globalAppearance(),
     icon: this.showIcons() ? 'cake' : '',
-    suffix: this.showPrefixSuffix() ? ' years' : '',
-    hint: this.showHints() ? 'You must be 18 or older' : '',
+    suffix: this.showPrefixSuffix() ? $localize`:Form Gallery|Age suffix@@pds.form.field.age.suffix: years` : '',
+    hint: this.showHints() ? $localize`:Form Gallery|Age hint@@pds.form.field.age.hint:You must be 18 or older` : '',
     errorMessages: {
-      required: 'Age is required',
-      min: 'You must be at least 18 years old',
-      max: 'Please enter a valid age (maximum 99)'
+      required: $localize`:Form Gallery|Age required error@@pds.form.field.age.error.required:Age is required`,
+      min: $localize`:Form Gallery|Age min error@@pds.form.field.age.error.min:You must be at least 18 years old`,
+      max: $localize`:Form Gallery|Age max error@@pds.form.field.age.error.max:Please enter a valid age (maximum 99)`
     }
   }));
   readonly phoneConfig = computed<AppFormInputOptions>(() => ({
-    label: 'Phone Number',
-    placeholder: '(555) 123-4567',
+    label: $localize`:Form Gallery|Phone field label@@pds.form.field.phone.label:Phone Number`,
+    placeholder: $localize`:Form Gallery|Phone placeholder@@pds.form.field.phone.placeholder:(555) 123-4567`,
     type: 'tel',
     appearance: this.globalAppearance(),
     icon: this.showIcons() ? 'phone' : '',
-    prefix: this.showPrefixSuffix() ? '+1 ' : '',
-    hint: this.showHints() ? 'US phone numbers only' : '',
+    prefix: this.showPrefixSuffix() ? $localize`:Form Gallery|Phone prefix@@pds.form.field.phone.prefix:+1 ` : '',
+    hint: this.showHints() ? $localize`:Form Gallery|Phone hint@@pds.form.field.phone.hint:US phone numbers only` : '',
     errorMessages: {
-      required: 'Phone number is required'
+      required: $localize`:Form Gallery|Phone required error@@pds.form.field.phone.error.required:Phone number is required`
     }
   }));
   readonly descriptionConfig = computed(() => ({
-    label: 'Description',
-    placeholder: 'Tell us about yourself...',
+    label: $localize`:Form Gallery|Description field label@@pds.form.field.description.label:Description`,
+    placeholder: $localize`:Form Gallery|Description placeholder@@pds.form.field.description.placeholder:Tell us about yourself...`,
     appearance: this.globalAppearance(),
     icon: this.showIcons() ? 'description' : '',
-    hint: this.showHints() ? 'Minimum 10 characters, maximum 500' : '',
+    hint: this.showHints() ? $localize`:Form Gallery|Description hint@@pds.form.field.description.hint:Minimum 10 characters, maximum 500` : '',
     rows: 4,
     maxRows: 8,
     errorMessages: {
-      required: 'Description is required',
-      minlength: 'Description must be at least 10 characters',
-      maxlength: 'Description cannot exceed 500 characters'
+      required: $localize`:Form Gallery|Description required error@@pds.form.field.description.error.required:Description is required`,
+      minlength: $localize`:Form Gallery|Description minlength error@@pds.form.field.description.error.minlength:Description must be at least 10 characters`,
+      maxlength: $localize`:Form Gallery|Description maxlength error@@pds.form.field.description.error.maxlength:Description cannot exceed 500 characters`
     }
   }));
   readonly birthDateConfig = computed(() => ({
-    label: 'Birth Date',
-    placeholder: 'MM/DD/YYYY',
+    label: $localize`:Form Gallery|Birth date field label@@pds.form.field.birthDate.label:Birth Date`,
+    placeholder: $localize`:Form Gallery|Birth date placeholder@@pds.form.field.birthDate.placeholder:MM/DD/YYYY`,
     appearance: this.globalAppearance(),
     icon: this.showIcons() ? 'cake' : '',
-    hint: this.showHints() ? 'You must be 18 or older' : '',
+    hint: this.showHints() ? $localize`:Form Gallery|Birth date hint@@pds.form.field.birthDate.hint:You must be 18 or older` : '',
     maxDate: new Date(new Date().getFullYear() - 18, 11, 31),
     errorMessages: {
-      required: 'Birth date is required',
-      matDatepickerMax: 'You must be at least 18 years old'
+      required: $localize`:Form Gallery|Birth date required error@@pds.form.field.birthDate.error.required:Birth date is required`,
+      matDatepickerMax: $localize`:Form Gallery|Birth date max error@@pds.form.field.birthDate.error.max:You must be at least 18 years old`
     }
   }));
   readonly genderConfig = computed(() => ({
-    label: 'Gender',
-    hint: this.showHints() ? 'Select your gender identity' : '',
+    label: $localize`:Form Gallery|Gender field label@@pds.form.field.gender.label:Gender`,
+    hint: this.showHints() ? $localize`:Form Gallery|Gender hint@@pds.form.field.gender.hint:Select your gender identity` : '',
     color: 'primary' as const,
     layout: 'horizontal' as const,
     errorMessages: {
-      required: 'Gender selection is required'
+      required: $localize`:Form Gallery|Gender required error@@pds.form.field.gender.error.required:Gender selection is required`
     }
   }));
   readonly formStatus = computed(() => this.galleryForm?.status || 'UNKNOWN');

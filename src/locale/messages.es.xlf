@@ -951,5 +951,805 @@
         <target>Filtros avanzados</target>
       </segment>
     </unit>
+    <unit id="pds.form.layout.description">
+      <notes>
+        <note category="description">Page layout description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Complete reference with all field types and working validations</source>
+        <target>Referencia completa con todos los tipos de campo y validaciones funcionales</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.layout.title">
+      <notes>
+        <note category="description">Page layout title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Field Gallery</source>
+        <target>Galería de Campos de Formulario</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.title">
+      <notes>
+        <note category="description">Page title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Field Gallery</source>
+        <target>Galería de Campos de Formulario</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.description">
+      <notes>
+        <note category="description">Page description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Complete reference with all field types and working validations. Test real-time validation and explore different visual configurations. </source>
+        <target> Referencia completa con todos los tipos de campo y validaciones funcionales. Prueba la validación en tiempo real y explora diferentes configuraciones visuales. </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.back">
+      <notes>
+        <note category="description">Back to PDS button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Back to PDS</source>
+        <target>Volver al PDS</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.complete">
+      <notes>
+        <note category="description">Complete form card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Complete Form Example</source>
+        <target>Ejemplo de Formulario Completo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.complete.description">
+      <notes>
+        <note category="description">Complete form card description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> All field types with real validations. Try entering invalid data to see errors. </source>
+        <target> Todos los tipos de campo con validaciones reales. Intenta ingresar datos inválidos para ver los errores. </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.terms">
+      <notes>
+        <note category="description">Terms and conditions label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>I accept the terms and conditions *</source>
+        <target>Acepto los términos y condiciones *</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.reset">
+      <notes>
+        <note category="description">Reset button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Reset</source>
+        <target>Restablecer</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.submit">
+      <notes>
+        <note category="description">Submit button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Submit Form</source>
+        <target>Enviar Formulario</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.code">
+      <notes>
+        <note category="description">Generated code card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Generated Code</source>
+        <target>Código Generado</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.copyCode">
+      <notes>
+        <note category="description">Copy code tooltip</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Copiar código</source>
+        <target>Copiar código</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.visualControls">
+      <notes>
+        <note category="description">Visual controls card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Visual Controls</source>
+        <target>Controles Visuales</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.visualControls.description">
+      <notes>
+        <note category="description">Visual controls card description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Change visual appearance of all fields (validations stay the same) </source>
+        <target> Cambia la apariencia visual de todos los campos (las validaciones permanecen igual) </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.label.appearance">
+      <notes>
+        <note category="description">Appearance style label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Appearance Style</source>
+        <target>Estilo de Apariencia</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.hint.appearance">
+      <notes>
+        <note category="description">Appearance helper text</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Changes the Material Design style of all fields </source>
+        <target> Cambia el estilo de Material Design de todos los campos </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.label.showHide">
+      <notes>
+        <note category="description">Show/hide elements label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show/Hide Elements</source>
+        <target>Mostrar/Ocultar Elementos</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showIcons">
+      <notes>
+        <note category="description">Show icons checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Icons</source>
+        <target>Mostrar Íconos</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showHints">
+      <notes>
+        <note category="description">Show hints checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Hints</source>
+        <target>Mostrar Sugerencias</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showPrefixSuffix">
+      <notes>
+        <note category="description">Show prefix/suffix checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Prefix/Suffix</source>
+        <target>Mostrar Prefijo/Sufijo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.info.tryItTitle">
+      <notes>
+        <note category="description">Try it title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Try It!</source>
+        <target>¡Pruébalo!</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.info.tryItDescription">
+      <notes>
+        <note category="description">Try it description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Enter invalid data in the fields to see validation errors in real-time. The visual controls only affect appearance, not validations. </source>
+        <target> Ingresa datos inválidos en los campos para ver los errores de validación en tiempo real. Los controles visuales solo afectan la apariencia, no las validaciones. </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.title">
+      <notes>
+        <note category="description">Form status title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Status</source>
+        <target>Estado del Formulario</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.status">
+      <notes>
+        <note category="description">Status label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Status:</source>
+        <target>Estado:</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.valid">
+      <notes>
+        <note category="description">Valid label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Valid:</source>
+        <target>Válido:</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.touched">
+      <notes>
+        <note category="description">Touched label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Touched:</source>
+        <target>Tocado:</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.dirty">
+      <notes>
+        <note category="description">Dirty label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Dirty:</source>
+        <target>Modificado:</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.male">
+      <notes>
+        <note category="description">Gender option male</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Male</source>
+        <target>Masculino</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.female">
+      <notes>
+        <note category="description">Gender option female</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Female</source>
+        <target>Femenino</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.other">
+      <notes>
+        <note category="description">Gender option other</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Other</source>
+        <target>Otro</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.preferNotToSay">
+      <notes>
+        <note category="description">Gender option prefer not to say</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Prefer not to say</source>
+        <target>Prefiero no decirlo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.appearance.fill">
+      <notes>
+        <note category="description">Appearance option fill</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Fill</source>
+        <target>Relleno</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.appearance.outline">
+      <notes>
+        <note category="description">Appearance option outline</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Outline</source>
+        <target>Contorno</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.us">
+      <notes>
+        <note category="description">Country United States</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>United States</source>
+        <target>Estados Unidos</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.uk">
+      <notes>
+        <note category="description">Country United Kingdom</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>United Kingdom</source>
+        <target>Reino Unido</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.ca">
+      <notes>
+        <note category="description">Country Canada</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Canada</source>
+        <target>Canadá</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.mx">
+      <notes>
+        <note category="description">Country Mexico</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Mexico</source>
+        <target>México</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.es">
+      <notes>
+        <note category="description">Country Spain</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Spain</source>
+        <target>España</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.fr">
+      <notes>
+        <note category="description">Country France</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>France</source>
+        <target>Francia</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.de">
+      <notes>
+        <note category="description">Country Germany</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Germany</source>
+        <target>Alemania</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.it">
+      <notes>
+        <note category="description">Country Italy</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Italy</source>
+        <target>Italia</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.label">
+      <notes>
+        <note category="description">Full name field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Full Name</source>
+        <target>Nombre Completo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.placeholder">
+      <notes>
+        <note category="description">Full name placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>John Doe</source>
+        <target>Juan García</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.hint">
+      <notes>
+        <note category="description">Full name hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Enter your full name</source>
+        <target>Introduce tu nombre completo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.label">
+      <notes>
+        <note category="description">Email field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Email Address</source>
+        <target>Correo Electrónico</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.placeholder">
+      <notes>
+        <note category="description">Email placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>your@email.com</source>
+        <target>tu@email.com</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.hint">
+      <notes>
+        <note category="description">Email hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>We'll never share your email</source>
+        <target>Nunca compartiremos tu correo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.error.required">
+      <notes>
+        <note category="description">Email required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Email address is required</source>
+        <target>El correo electrónico es obligatorio</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.error.email">
+      <notes>
+        <note category="description">Email invalid error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid email address</source>
+        <target>Por favor introduce una dirección de correo válida</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.label">
+      <notes>
+        <note category="description">Password field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password</source>
+        <target>Contraseña</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.placeholder">
+      <notes>
+        <note category="description">Password placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Enter secure password</source>
+        <target>Introduce una contraseña segura</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.hint">
+      <notes>
+        <note category="description">Password hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Must be at least 8 characters</source>
+        <target>Debe tener al menos 8 caracteres</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.error.required">
+      <notes>
+        <note category="description">Password required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password is required</source>
+        <target>La contraseña es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.error.minlength">
+      <notes>
+        <note category="description">Password minlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password must be at least 8 characters long</source>
+        <target>La contraseña debe tener al menos 8 caracteres</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.label">
+      <notes>
+        <note category="description">Age field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Age</source>
+        <target>Edad</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.placeholder">
+      <notes>
+        <note category="description">Age placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>18-99</source>
+        <target>18-99</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.suffix">
+      <notes>
+        <note category="description">Age suffix</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> years</source>
+        <target> años</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.hint">
+      <notes>
+        <note category="description">Age hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be 18 or older</source>
+        <target>Debes tener 18 años o más</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.required">
+      <notes>
+        <note category="description">Age required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Age is required</source>
+        <target>La edad es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.min">
+      <notes>
+        <note category="description">Age min error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be at least 18 years old</source>
+        <target>Debes tener al menos 18 años</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.max">
+      <notes>
+        <note category="description">Age max error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid age (maximum 99)</source>
+        <target>Por favor introduce una edad válida (máximo 99)</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.label">
+      <notes>
+        <note category="description">Phone field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Phone Number</source>
+        <target>Número de Teléfono</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.placeholder">
+      <notes>
+        <note category="description">Phone placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>(555) 123-4567</source>
+        <target>(555) 123-4567</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.prefix">
+      <notes>
+        <note category="description">Phone prefix</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>+1 </source>
+        <target>+34 </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.hint">
+      <notes>
+        <note category="description">Phone hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>US phone numbers only</source>
+        <target>Solo números de teléfono españoles</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.error.required">
+      <notes>
+        <note category="description">Phone required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Phone number is required</source>
+        <target>El número de teléfono es obligatorio</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.label">
+      <notes>
+        <note category="description">Description field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description</source>
+        <target>Descripción</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.placeholder">
+      <notes>
+        <note category="description">Description placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Tell us about yourself...</source>
+        <target>Cuéntanos sobre ti...</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.hint">
+      <notes>
+        <note category="description">Description hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Minimum 10 characters, maximum 500</source>
+        <target>Mínimo 10 caracteres, máximo 500</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.required">
+      <notes>
+        <note category="description">Description required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description is required</source>
+        <target>La descripción es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.minlength">
+      <notes>
+        <note category="description">Description minlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description must be at least 10 characters</source>
+        <target>La descripción debe tener al menos 10 caracteres</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.maxlength">
+      <notes>
+        <note category="description">Description maxlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description cannot exceed 500 characters</source>
+        <target>La descripción no puede superar los 500 caracteres</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.label">
+      <notes>
+        <note category="description">Birth date field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Birth Date</source>
+        <target>Fecha de Nacimiento</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.placeholder">
+      <notes>
+        <note category="description">Birth date placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>MM/DD/YYYY</source>
+        <target>DD/MM/AAAA</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.hint">
+      <notes>
+        <note category="description">Birth date hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be 18 or older</source>
+        <target>Debes tener 18 años o más</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.error.required">
+      <notes>
+        <note category="description">Birth date required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Birth date is required</source>
+        <target>La fecha de nacimiento es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.error.max">
+      <notes>
+        <note category="description">Birth date max error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be at least 18 years old</source>
+        <target>Debes tener al menos 18 años</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.label">
+      <notes>
+        <note category="description">Gender field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Gender</source>
+        <target>Género</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.hint">
+      <notes>
+        <note category="description">Gender hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Select your gender identity</source>
+        <target>Selecciona tu identidad de género</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.error.required">
+      <notes>
+        <note category="description">Gender required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Gender selection is required</source>
+        <target>La selección de género es obligatoria</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

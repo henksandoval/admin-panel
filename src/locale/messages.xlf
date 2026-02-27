@@ -1,6 +1,806 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
   <file id="ngi18n" original="ng.template">
+    <unit id="pds.form.layout.description">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:3,4</note>
+        <note category="description">Page layout description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Complete reference with all field types and working validations</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.layout.title">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:5,6</note>
+        <note category="description">Page layout title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Field Gallery</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.title">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:12,13</note>
+        <note category="description">Page title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Field Gallery</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.description">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:14,18</note>
+        <note category="description">Page description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Complete reference with all field types and working validations. Test real-time validation and explore different visual configurations. </source>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.back">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:19,22</note>
+        <note category="description">Back to PDS button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Back to PDS</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.complete">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:26</note>
+        <note category="description">Complete form card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Complete Form Example</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.complete.description">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:28,31</note>
+        <note category="description">Complete form card description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> All field types with real validations. Try entering invalid data to see errors. </source>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.terms">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:88,92</note>
+        <note category="description">Terms and conditions label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>I accept the terms and conditions *</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.reset">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:94,97</note>
+        <note category="description">Reset button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Reset</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.submit">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:98,101</note>
+        <note category="description">Submit button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Submit Form</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.code">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:104</note>
+        <note category="description">Generated code card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Generated Code</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.copyCode">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:105,106</note>
+        <note category="description">Copy code tooltip</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Copiar código</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.visualControls">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:115</note>
+        <note category="description">Visual controls card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Visual Controls</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.visualControls.description">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:117,121</note>
+        <note category="description">Visual controls card description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Change visual appearance of all fields (validations stay the same) </source>
+      </segment>
+    </unit>
+    <unit id="pds.form.label.appearance">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:123,125</note>
+        <note category="description">Appearance style label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Appearance Style</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.hint.appearance">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:127,131</note>
+        <note category="description">Appearance helper text</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Changes the Material Design style of all fields </source>
+      </segment>
+    </unit>
+    <unit id="pds.form.label.showHide">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:136,139</note>
+        <note category="description">Show/hide elements label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show/Hide Elements</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showIcons">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:143,147</note>
+        <note category="description">Show icons checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Icons</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showHints">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:150,154</note>
+        <note category="description">Show hints checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Hints</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showPrefixSuffix">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:157,163</note>
+        <note category="description">Show prefix/suffix checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Prefix/Suffix</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.info.tryItTitle">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:168,169</note>
+        <note category="description">Try it title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Try It!</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.info.tryItDescription">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:170,175</note>
+        <note category="description">Try it description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Enter invalid data in the fields to see validation errors in real-time. The visual controls only affect appearance, not validations. </source>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.title">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:179,181</note>
+        <note category="description">Form status title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Status</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.status">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:182,183</note>
+        <note category="description">Status label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Status:</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.valid">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:195,196</note>
+        <note category="description">Valid label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Valid:</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.touched">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:199,200</note>
+        <note category="description">Touched label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Touched:</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.dirty">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:203,204</note>
+        <note category="description">Dirty label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Dirty:</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.male">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:110</note>
+        <note category="description">Gender option male</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Male</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.female">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:111</note>
+        <note category="description">Gender option female</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Female</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.other">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:112</note>
+        <note category="description">Gender option other</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Other</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.preferNotToSay">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:113</note>
+        <note category="description">Gender option prefer not to say</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Prefer not to say</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.appearance.fill">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:118</note>
+        <note category="description">Appearance option fill</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Fill</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.appearance.outline">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:119</note>
+        <note category="description">Appearance option outline</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Outline</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.us">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:122</note>
+        <note category="description">Country United States</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>United States</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.uk">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:123</note>
+        <note category="description">Country United Kingdom</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>United Kingdom</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.ca">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:124</note>
+        <note category="description">Country Canada</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Canada</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.mx">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:125</note>
+        <note category="description">Country Mexico</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Mexico</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.es">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:126</note>
+        <note category="description">Country Spain</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Spain</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.fr">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:127</note>
+        <note category="description">Country France</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>France</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.de">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:128</note>
+        <note category="description">Country Germany</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Germany</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.it">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:129</note>
+        <note category="description">Country Italy</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Italy</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:132</note>
+        <note category="description">Full name field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Full Name</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.placeholder">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:133</note>
+        <note category="description">Full name placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>John Doe</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:137</note>
+        <note category="description">Full name hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Enter your full name</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:140</note>
+        <note category="description">Email field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Email Address</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.placeholder">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:141</note>
+        <note category="description">Email placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>your@email.com</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:145</note>
+        <note category="description">Email hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>We&apos;ll never share your email</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.error.required">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:147</note>
+        <note category="description">Email required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Email address is required</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.error.email">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:148</note>
+        <note category="description">Email invalid error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid email address</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:152</note>
+        <note category="description">Password field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.placeholder">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:153</note>
+        <note category="description">Password placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Enter secure password</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:157</note>
+        <note category="description">Password hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Must be at least 8 characters</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.error.required">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:160</note>
+        <note category="description">Password required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password is required</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.error.minlength">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:161</note>
+        <note category="description">Password minlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password must be at least 8 characters long</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:165</note>
+        <note category="description">Age field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Age</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.placeholder">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:166</note>
+        <note category="description">Age placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>18-99</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.suffix">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:170</note>
+        <note category="description">Age suffix</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> years</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:171</note>
+        <note category="description">Age hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be 18 or older</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.required">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:173</note>
+        <note category="description">Age required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Age is required</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.min">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:174</note>
+        <note category="description">Age min error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be at least 18 years old</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.max">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:175</note>
+        <note category="description">Age max error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid age (maximum 99)</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:179</note>
+        <note category="description">Phone field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Phone Number</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.placeholder">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:180</note>
+        <note category="description">Phone placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>(555) 123-4567</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.prefix">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:184</note>
+        <note category="description">Phone prefix</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>+1 </source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:185</note>
+        <note category="description">Phone hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>US phone numbers only</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.error.required">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:187</note>
+        <note category="description">Phone required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Phone number is required</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:191</note>
+        <note category="description">Description field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.placeholder">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:192</note>
+        <note category="description">Description placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Tell us about yourself...</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:195</note>
+        <note category="description">Description hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Minimum 10 characters, maximum 500</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.required">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:199</note>
+        <note category="description">Description required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description is required</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.minlength">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:200</note>
+        <note category="description">Description minlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description must be at least 10 characters</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.maxlength">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:201</note>
+        <note category="description">Description maxlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description cannot exceed 500 characters</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:205</note>
+        <note category="description">Birth date field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Birth Date</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.placeholder">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:206</note>
+        <note category="description">Birth date placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>MM/DD/YYYY</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:209</note>
+        <note category="description">Birth date hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be 18 or older</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.error.required">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:212</note>
+        <note category="description">Birth date required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Birth date is required</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.error.max">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:213</note>
+        <note category="description">Birth date max error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be at least 18 years old</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.label">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:217</note>
+        <note category="description">Gender field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Gender</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.hint">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:218</note>
+        <note category="description">Gender hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Select your gender identity</source>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.error.required">
+      <notes>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:222</note>
+        <note category="description">Gender required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Gender selection is required</source>
+      </segment>
+    </unit>
     <unit id="tableclient.title">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.component.html:5,6</note>
@@ -511,7 +1311,7 @@
     </unit>
     <unit id="toolbar.title">
       <notes>
-        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:12,15</note>
+        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:12,16</note>
         <note category="description">Main panel title</note>
         <note category="meaning">Toolbar</note>
       </notes>
