@@ -11,17 +11,6 @@
   </div>
   <div class="main-content flex-1 overflow-y-auto p-6">
     <div class="mb-8">
-      <h3 class="section-label m-0 mb-4" i18n="Settings|Density section@@settings.density.title">Information Density</h3>
-      <app-toggle-group
-        [options]="densityOptions"
-        [value]="config().density"
-        ariaLabel="Interface density"
-        class="w-full"
-        (changed)="selectDensity($event)">
-      </app-toggle-group>
-    </div>
-
-    <div class="mb-8">
       <h3 class="section-label m-0 mb-4" i18n="Settings|Mode section@@settings.scheme.title">Mode</h3>
       <app-toggle-group
         [options]="schemeOptions"

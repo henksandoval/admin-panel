@@ -3,38 +3,38 @@
 }
 
 ::ng-deep .toggle-icon {
-  font-size: var(--density-font-size-icon-sm, 18px);
-  width: var(--density-font-size-icon-sm, 18px);
-  height: var(--density-font-size-icon-sm, 18px);
-  line-height: var(--density-font-size-icon-sm, 18px);
+  font-size: var(--ui-font-size-icon-sm);
+  width: var(--ui-font-size-icon-sm);
+  height: var(--ui-font-size-icon-sm);
+  line-height: var(--ui-font-size-icon-sm);
 }
 
 ::ng-deep .toggle-size-small {
   mat-button-toggle {
-    font-size: var(--density-font-size-sm, 0.813rem);
+    font-size: var(--typ-label-size);
     min-height: 32px;
     padding: 0 12px;
 
     .toggle-icon {
-      font-size: var(--density-font-size-icon-sm, 16px);
-      width: var(--density-font-size-icon-sm, 16px);
-      height: var(--density-font-size-icon-sm, 16px);
-      line-height: var(--density-font-size-icon-sm, 16px);
+      font-size: var(--ui-font-size-icon-sm);
+      width: var(--ui-font-size-icon-sm);
+      height: var(--ui-font-size-icon-sm);
+      line-height: var(--ui-font-size-icon-sm);
     }
   }
 }
 
 ::ng-deep .toggle-size-large {
   mat-button-toggle {
-    font-size: var(--density-font-size-base, 1rem);
+    font-size: var(--typ-body-size);
     min-height: 48px;
     padding: 0 24px;
 
     .toggle-icon {
-      font-size: var(--density-font-size-icon-lg, 20px);
-      width: var(--density-font-size-icon-lg, 20px);
-      height: var(--density-font-size-icon-lg, 20px);
-      line-height: var(--density-font-size-icon-lg, 20px);
+      font-size: var(--ui-font-size-icon-lg);
+      width: var(--ui-font-size-icon-lg);
+      height: var(--ui-font-size-icon-lg);
+      line-height: var(--ui-font-size-icon-lg);
     }
   }
 }

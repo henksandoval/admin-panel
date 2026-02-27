@@ -10,7 +10,7 @@
 
 .footer-toggles {
   display: flex;
-  gap: var(--density-card-padding, 1rem);
+  gap: var(--ui-card-padding);
   align-items: center;
 
   @media (max-width: 640px) {

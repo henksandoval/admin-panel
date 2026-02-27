@@ -54,13 +54,13 @@ mat-expansion-panel {
 }
 
 .panel-header-icon {
-  font-size: var(--density-font-size-icon-sm, 18px);
-  width: var(--density-font-size-icon-sm, 18px);
-  height: var(--density-font-size-icon-sm, 18px);
+  font-size: var(--ui-font-size-icon-sm);
+  width: var(--ui-font-size-icon-sm);
+  height: var(--ui-font-size-icon-sm);
 }
 
 .panel-header-title {
-  font-size: var(--density-font-size-sm, 0.875rem);
+  font-size: var(--typ-label-size);
   font-weight: 600;
   letter-spacing: 0.025em;
 }
@@ -85,5 +85,5 @@ mat-icon {
 }
 
 .panel-body {
-  margin-top: var(--density-card-padding, 1rem);
+  margin-top: var(--ui-card-padding);
 }

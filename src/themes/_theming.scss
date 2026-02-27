@@ -38,12 +38,13 @@ $theme-config: (
     @include tokens.define-overlay-tokens();
     @include tokens.define-badge-tokens();
     @include tokens.define-typography-tokens();
-    @include density.density-tokens(density.$spacing-compact);
+    @include density.define-application-density();
   }
 
   .dark-theme {
     @include tokens.define-overlay-tokens-dark();
     @include tokens.define-badge-tokens-dark();
+    @include density.define-application-density();
   }
 }
 

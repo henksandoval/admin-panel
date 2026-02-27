@@ -6,8 +6,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: var(--density-card-padding, 1rem);
-  padding: var(--density-card-padding, 1rem);
+  gap: var(--ui-card-padding);
+  padding: var(--ui-card-padding);
   background-color: var(--overlay-light-02);
   border-bottom: 1px solid var(--overlay-light-12);
 }

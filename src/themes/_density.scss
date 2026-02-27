@@ -1,70 +1,42 @@
 @use '@angular/material' as mat;
 
-$spacing-comfortable: 1.2;
-$spacing-compact: 1.0;
-$spacing-dense: 0.8;
+@mixin define-application-density() {
+  @include _ui-tokens();
+  @include _apply-component-densities();
+}
 
-$_text-scale: 1.0;
-
-@mixin density-tokens($spacing-scale) {
-  --density-font-size-sm: calc(0.875rem * #{$_text-scale});
-  --density-font-size-base: calc(1rem * #{$_text-scale});
-  --density-font-size-lg: calc(1.25rem * #{$_text-scale});
-
+@mixin _ui-tokens() {
   // ── Iconos ────────────────────────────────────────────────────────────────
-  --density-font-size-icon-sm: calc(1.125rem * #{$spacing-scale});
-  --density-font-size-icon-md: calc(1.25rem * #{$spacing-scale});
-  --density-font-size-icon-lg: calc(1.5rem * #{$spacing-scale});
+  --ui-font-size-icon-sm: 1.125rem;
+  --ui-font-size-icon-md: 1.25rem;
+  --ui-font-size-icon-lg: 1.5rem;
 
   // ── Layout ────────────────────────────────────────────────────────────────
-  --density-page-padding: calc(1.5rem * #{$spacing-scale});
-  --density-section-gap: calc(2rem * #{$spacing-scale});
-  --density-card-padding: calc(1rem * #{$spacing-scale});
+  --ui-page-padding: 1.5rem;
+  --ui-section-gap: 2rem;
+  --ui-card-padding: 1rem;
 
   // ── Badge ─────────────────────────────────────────────────────────────────
-  --density-badge-font-size: calc(0.6875rem * #{$_text-scale});
-  --density-badge-indicator-size: calc(0.5625rem * #{$spacing-scale});
-  --density-badge-padding-x: calc(0.5rem * #{$spacing-scale});
-  --density-badge-padding-y: calc(0.125rem * #{$spacing-scale});
-  --density-badge-radius: calc(0.75rem * #{$spacing-scale});
+  --ui-badge-font-size: 0.6875rem;
+  --ui-badge-indicator-size: 0.5625rem;
+  --ui-badge-padding-x: 0.5rem;
+  --ui-badge-padding-y: 0.125rem;
+  --ui-badge-radius: 0.75rem;
 
   // ── Pagination ────────────────────────────────────────────────────────────
-  --density-pagination-font-size: calc(0.875rem * #{$_text-scale});
-  --density-pagination-padding-y: calc(0.75rem * #{$spacing-scale});
-  --density-pagination-padding-x: calc(1rem * #{$spacing-scale});
-
-  // ── Toolbar ───────────────────────────────────────────────────────────────
-  --density-toolbar-title-size: calc(1.25rem * #{$_text-scale});
-  --density-toolbar-menu-size: calc(0.875rem * #{$_text-scale});
-  --density-toolbar-sub-size: calc(0.75rem * #{$_text-scale});
+  --ui-pagination-padding-y: 0.75rem;
+  --ui-pagination-padding-x: 1rem;
 
   // ── Breadcrumb ────────────────────────────────────────────────────────────
-  --density-breadcrumb-font-size: calc(0.875rem * #{$_text-scale});
-  --density-breadcrumb-padding: calc(1rem * #{$spacing-scale});
+  --ui-breadcrumb-padding: 1rem;
 
   // ── Filters ───────────────────────────────────────────────────────────────
-  --density-filter-icon-size: calc(1.125rem * #{$spacing-scale});
-
-  // ── Radio ─────────────────────────────────────────────────────────────────
-  --density-radio-label-size: calc(0.875rem * #{$_text-scale});
-  --density-radio-hint-size: calc(0.75rem * #{$_text-scale});
-  --density-radio-error-size: calc(0.875rem * #{$_text-scale});
+  --ui-filter-icon-size: 1.125rem;
 }
 
-@mixin reset() {
-  @include density-tokens($spacing-compact);
-}
-
-body.density-comfortable {
-  @include density-tokens($spacing-comfortable);
-}
-
-body.density-compact {
-  @include density-tokens($spacing-compact);
-  @include mat.all-component-densities(-1);
-}
-
-body.density-dense {
-  @include density-tokens($spacing-dense);
-  @include mat.all-component-densities(-2);
+@mixin _apply-component-densities() {
+  @include mat.form-field-density(-1);
+  @include mat.select-density(-1);
+  @include mat.autocomplete-density(-1);
+  @include mat.chips-density(-1);
 }

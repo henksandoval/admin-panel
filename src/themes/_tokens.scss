@@ -106,18 +106,26 @@
 }
 
 @mixin define-typography-tokens() {
+  --typ-body-size: 1rem;
+  --typ-body-weight: 400;
+  --typ-body-line-height: 1.5rem;
+
+  --typ-title-size: 1.25rem;
+  --typ-title-weight: 600;
+  --typ-title-line-height: 1.75rem;
+
   --typ-label-size: 0.875rem;
   --typ-label-weight: 500;
   --typ-label-line-height: 1.25rem;
   --typ-label-tracking: 0.01rem;
 
-  --typ-code-size: 0.75rem;
-  --typ-code-weight: 400;
-  --typ-code-line-height: 1rem;
-  --typ-code-family: 'JetBrains Mono', 'Fira Code', monospace;
-
   --typ-caption-size: 0.75rem;
   --typ-caption-weight: 400;
   --typ-caption-line-height: 1rem;
   --typ-caption-tracking: 0.025rem;
+
+  --typ-code-size: 0.75rem;
+  --typ-code-weight: 400;
+  --typ-code-line-height: 1rem;
+  --typ-code-family: 'JetBrains Mono', 'Fira Code', monospace;
 }

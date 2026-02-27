@@ -11,7 +11,7 @@
 .radio-group-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: var(--density-radio-label-size, 0.875rem);
+  font-size: var(--typ-label-size);
   font-weight: 500;
 }
 
@@ -28,11 +28,11 @@
 
 .radio-group-hint {
   margin-top: 0.25rem;
-  font-size: var(--density-radio-hint-size, 0.75rem);
+  font-size: var(--typ-caption-size);
 }
 
 .radio-group-error {
   margin-top: 0.25rem;
-  font-size: var(--density-radio-error-size, 0.875rem);
+  font-size: var(--typ-label-size);
   color: var(--mat-sys-error);
 }

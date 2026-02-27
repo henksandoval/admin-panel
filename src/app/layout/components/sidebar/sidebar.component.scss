@@ -1,9 +1,4 @@
 @use '../../../../themes/navigation' as nav;
-@use '../../../../themes/density' as density;
-
-:host {
-  @include density.reset();
-}
 
 .hidden {
   display: none;
@@ -47,7 +42,7 @@ sidebar-header {
 }
 
 .app-logo-text {
-  font-size: var(--density-font-size-lg);
+  font-size: var(--typ-title-size);
   font-weight: 700;
 }
 
@@ -59,7 +54,7 @@ sidebar-header {
 }
 
 .sidebar-title {
-  font-size: var(--density-font-size-lg);
+  font-size: var(--typ-title-size);
   font-weight: 600;
   line-height: 1.25;
   overflow: hidden;
@@ -68,7 +63,7 @@ sidebar-header {
 }
 
 .sidebar-version {
-  font-size: var(--density-font-size-sm);
+  font-size: var(--typ-label-size);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -110,7 +105,7 @@ sidebar-header {
 }
 
 .sidebar-footer {
-  padding: var(--density-card-padding, 1rem);
+  padding: var(--ui-card-padding);
   flex-shrink: 0;
   border-top: 1px solid var(--mat-sys-outline-variant);
 }
@@ -127,5 +122,5 @@ sidebar-header {
 }
 
 .sidebar-copyright {
-  font-size: var(--density-font-size-sm);
+  font-size: var(--typ-label-size);
 }

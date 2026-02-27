@@ -5,8 +5,8 @@
 .app-filters-advanced-form {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr auto;
-  gap: var(--density-card-padding, 1rem);
-  padding: calc(var(--density-card-padding, 1rem) * 0.5);
+  gap: var(--ui-card-padding);
+  padding: calc(var(--ui-card-padding) * 0.5);
   align-items: end;
 
   @media (max-width: 1024px) {
@@ -160,9 +160,9 @@
 
   mat-icon {
     color: var(--mat-sys-primary);
-    font-size: var(--density-filter-icon-size, 1.125rem);
-    width: var(--density-filter-icon-size, 1.125rem);
-    height: var(--density-filter-icon-size, 1.125rem);
+    font-size: var(--ui-filter-icon-size);
+    width: var(--ui-filter-icon-size);
+    height: var(--ui-filter-icon-size);
   }
 
   &:hover {

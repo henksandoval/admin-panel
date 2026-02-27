@@ -19,8 +19,8 @@
 .tree-node-content {
   display: flex;
   align-items: center;
-  gap: var(--density-card-padding, 1rem);
-  padding: calc(var(--density-card-padding, 1rem) * 0.5) var(--density-card-padding, 1rem);
+  gap: var(--ui-card-padding);
+  padding: calc(var(--ui-card-padding) * 0.5) var(--ui-card-padding);
   flex: 1;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -28,14 +28,14 @@
 }
 
 .tree-node-icon {
-  font-size: var(--density-font-size-icon-md, 20px);
-  width: var(--density-font-size-icon-md, 20px);
-  height: var(--density-font-size-icon-md, 20px);
+  font-size: var(--ui-font-size-icon-md);
+  width: var(--ui-font-size-icon-md);
+  height: var(--ui-font-size-icon-md);
 }
 
 .tree-node-label {
   flex: 1;
-  font-size: var(--density-font-size-sm, 0.875rem);
+  font-size: var(--typ-label-size);
   display: -webkit-box;
   line-clamp: 2;
   -webkit-line-clamp: 2;
