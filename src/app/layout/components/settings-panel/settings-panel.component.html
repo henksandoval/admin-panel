@@ -1,38 +1,39 @@
 <div class="flex flex-col h-full">
   <div class="settings-header flex items-center justify-between px-6 py-4">
-    <h2 class="settings-title m-0">Configuración</h2>
+    <h2 class="settings-title m-0" i18n="Settings|Settings panel title@@settings.title">Settings</h2>
     <button
       (click)="closePanel()"
       aria-label="Close settings"
+      i18n-aria-label="Settings|Button to close the settings panel@@settings.btn.close"
       mat-icon-button>
       <mat-icon>close</mat-icon>
     </button>
   </div>
   <div class="main-content flex-1 overflow-y-auto p-6">
     <div class="mb-8">
-      <h3 class="section-label m-0 mb-4">Densidad de información</h3>
+      <h3 class="section-label m-0 mb-4" i18n="Settings|Density section@@settings.density.title">Information Density</h3>
       <app-toggle-group
         [options]="densityOptions"
         [value]="config().density"
-        ariaLabel="Densidad de la interfaz"
+        ariaLabel="Interface density"
         class="w-full"
         (changed)="selectDensity($event)">
       </app-toggle-group>
     </div>
 
     <div class="mb-8">
-      <h3 class="section-label m-0 mb-4">Modo</h3>
+      <h3 class="section-label m-0 mb-4" i18n="Settings|Mode section@@settings.scheme.title">Mode</h3>
       <app-toggle-group
         [options]="schemeOptions"
         [value]="config().scheme"
-        ariaLabel="Modo de visualización"
+        ariaLabel="Display mode"
         class="w-full"
         (changed)="selectScheme($event)">
       </app-toggle-group>
     </div>
 
     <div class="mb-8">
-      <h3 class="section-label m-0 mb-4">Color de Acento</h3>
+      <h3 class="section-label m-0 mb-4" i18n="Settings|Accent color section@@settings.theme.title">Accent Color</h3>
       <div class="flex gap-3 flex-wrap">
         @for (theme of themes; track theme.id) {
           <button
@@ -57,7 +58,7 @@
       (click)="resetSettings()"
       class="w-full"
       matButton="tonal">
-      Restablecer valores
+      <ng-container i18n="Settings|Button to reset settings@@settings.btn.reset">Reset to defaults</ng-container>
     </button>
   </div>
 </div>

@@ -35,8 +35,8 @@ import { AppFilterCriterion, AppFiltersConfig, DEFAULT_FILTER_OPERATORS, FILTER_
 import { togglesToCriteria } from '../app-filter.utils';
 
 const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
-  { value: true, label: 'Sí' },
-  { value: false, label: 'No' },
+  { value: true,  label: $localize`:Filter|Boolean yes option@@filter.boolean.yes:Yes` },
+  { value: false, label: $localize`:Filter|Boolean no option@@filter.boolean.no:No` },
 ];
 
 @Component({
@@ -59,6 +59,7 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app-advanced-filter.component.html',
   styleUrl: './app-advanced-filter.component.scss',
+  providers: [CriterionDisplayPipe],
 })
 export class AppAdvancedFilterComponent {
   readonly config = input.required<AppFiltersConfig>();
@@ -118,6 +119,20 @@ export class AppAdvancedFilterComponent {
     return key ? this.operators().find(o => o.key === key) ?? null : null;
   });
   readonly isNoValueOperator = computed(() => this.selectedOperator()?.requiresValue === false);
+
+  readonly fieldLabel = computed(() =>
+    $localize`:Filter|Field selector label@@filter.form.field:Field`
+  );
+  readonly operatorLabel = computed(() =>
+    $localize`:Filter|Operator selector label@@filter.form.operator:Operator`
+  );
+  readonly valueLabel = computed(() =>
+    $localize`:Filter|Value input label@@filter.form.value:Value`
+  );
+  readonly dateLabel = computed(() =>
+    $localize`:Filter|Date input label@@filter.form.date:Date`
+  );
+
   readonly canAddCriterion = computed(() => {
     const operator = this.selectedOperator();
     if (!this.selectedField() || !operator) return false;
@@ -127,6 +142,7 @@ export class AppAdvancedFilterComponent {
   });
   private readonly autoSearch = computed(() => this.config().autoSearch ?? FILTER_DEFAULTS.autoSearch);
   private readonly maxCriteria = computed(() => this.config().maxCriteria ?? FILTER_DEFAULTS.maxCriteria);
+  private readonly criterionDisplay = inject(CriterionDisplayPipe);
 
   constructor() {
     this.setupFormCascade();
@@ -156,6 +172,12 @@ export class AppAdvancedFilterComponent {
     this.builderForm.reset();
     this.emitAllCriteria();
     this.emitAutoSearch();
+  }
+
+  getRemoveLabel(criterion: AppFilterCriterion): string {
+    const displayValue = this.criterionDisplay.transform(criterion);
+    const criteria = `${criterion.field.label} ${criterion.operator.symbol} ${displayValue}`;
+    return $localize`:Filter|Remove criterion button@@filter.pill.remove:Remove filter: ${criteria}:criteria:`;
   }
 
   removeCriterion(id: string): void {

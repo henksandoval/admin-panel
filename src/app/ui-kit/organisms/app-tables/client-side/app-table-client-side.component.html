@@ -6,7 +6,7 @@
         [isExpandable]="true"
         class="mb-4"
         icon="filter_alt"
-        title="Filtros avanzados">
+        [title]="advancedFiltersTitle">
         <app-filters-advanced
           (criteriaChange)="onFiltersChange($event)"
           [config]="config">

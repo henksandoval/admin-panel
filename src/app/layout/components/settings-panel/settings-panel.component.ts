@@ -37,15 +37,15 @@ export class SettingsPanelComponent {
   ];
 
   protected readonly schemeOptions: ToggleOption[] = [
-    { value: 'auto', label: 'Auto', icon: 'brightness_auto' },
-    { value: 'dark', label: 'Dark', icon: 'dark_mode' },
-    { value: 'light', label: 'Light', icon: 'light_mode' },
+    { value: 'auto',  label: $localize`:Settings|Color scheme option@@settings.scheme.auto:Auto`,  icon: 'brightness_auto' },
+    { value: 'dark',  label: $localize`:Settings|Color scheme option@@settings.scheme.dark:Dark`,  icon: 'dark_mode' },
+    { value: 'light', label: $localize`:Settings|Color scheme option@@settings.scheme.light:Light`, icon: 'light_mode' },
   ];
 
   protected readonly densityOptions: ToggleOption[] = [
-    { value: 'comfortable', label: 'Cómodo', icon: 'view_agenda' },
-    { value: 'compact', label: 'Compacto', icon: 'view_list' },
-    { value: 'dense', label: 'Denso', icon: 'density_small' },
+    { value: 'comfortable', label: $localize`:Settings|Density option@@settings.density.comfortable:Comfortable`, icon: 'view_agenda' },
+    { value: 'compact', label: $localize`:Settings|Density option@@settings.density.compact:Compact`, icon: 'view_list' },
+    { value: 'dense', label: $localize`:Settings|Density option@@settings.density.dense:Dense`, icon: 'density_small' },
   ];
 
   private settingsService = inject(SettingsService);

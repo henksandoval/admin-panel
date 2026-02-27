@@ -96,7 +96,7 @@ export class AppSimpleFilterComponent implements OnInit {
   }
 
   getSelectOptions(filter: { options?: { value: unknown; label: string }[] }): SelectOption[] {
-    const resetOption: SelectOption = { value: null as unknown, label: '-- Todos --' };
+    const resetOption: SelectOption = { value: null as unknown, label: $localize`:Filter|Reset/all option in select@@filter.select.allOption:-- All --` };
     return [resetOption, ...(filter.options ?? [])];
   }
 

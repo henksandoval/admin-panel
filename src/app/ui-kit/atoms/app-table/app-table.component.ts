@@ -69,9 +69,8 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
 
         @if (hasActions()) {
           <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef class="app-table-actions-column sticky-end">
-              Acciones
-            </th>
+            <th mat-header-cell *matHeaderCellDef class="app-table-actions-column sticky-end"
+              i18n="Table|Actions column header@@table.header.actions">Actions</th>
             <td mat-cell *matCellDef="let row" class="app-table-actions-column sticky-end">
               @for (action of visibleActions(row); track action.label) {
                 <button
