@@ -341,6 +341,76 @@
         <source>Sign Out</source>
       </segment>
     </unit>
+    <unit id="pagination.label.itemsPerPage">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-pagination/app-pagination.model.ts:30</note>
+        <note category="description">Items per page label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Items per page:</source>
+      </segment>
+    </unit>
+    <unit id="pagination.label.page">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-pagination/app-pagination.model.ts:31</note>
+        <note category="description">Current page label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Page</source>
+      </segment>
+    </unit>
+    <unit id="pagination.label.of">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-pagination/app-pagination.model.ts:32</note>
+        <note category="description">Of separator label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>of</source>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.firstPage">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-pagination/app-pagination.model.ts:33</note>
+        <note category="description">First page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>First page</source>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.lastPage">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-pagination/app-pagination.model.ts:34</note>
+        <note category="description">Last page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Last page</source>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.prevPage">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-pagination/app-pagination.model.ts:35</note>
+        <note category="description">Previous page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Previous page</source>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.nextPage">
+      <notes>
+        <note category="location">src/app/ui-kit/atoms/app-pagination/app-pagination.model.ts:36</note>
+        <note category="description">Next page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Next page</source>
+      </segment>
+    </unit>
     <unit id="table.header.actions">
       <notes>
         <note category="location">src/app/ui-kit/atoms/app-table/app-table.component.ts:73,74</note>

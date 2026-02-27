@@ -551,5 +551,75 @@
         <target>No hay datos disponibles</target>
       </segment>
     </unit>
+    <unit id="pagination.label.itemsPerPage">
+      <notes>
+        <note category="description">Items per page label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Items per page:</source>
+        <target>Elementos por página:</target>
+      </segment>
+    </unit>
+    <unit id="pagination.label.page">
+      <notes>
+        <note category="description">Current page label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Page</source>
+        <target>Página</target>
+      </segment>
+    </unit>
+    <unit id="pagination.label.of">
+      <notes>
+        <note category="description">Of separator label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>of</source>
+        <target>de</target>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.firstPage">
+      <notes>
+        <note category="description">First page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>First page</source>
+        <target>Primera página</target>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.lastPage">
+      <notes>
+        <note category="description">Last page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Last page</source>
+        <target>Última página</target>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.prevPage">
+      <notes>
+        <note category="description">Previous page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Previous page</source>
+        <target>Página anterior</target>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.nextPage">
+      <notes>
+        <note category="description">Next page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Next page</source>
+        <target>Página siguiente</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
