@@ -1,5 +1,11 @@
+@use '@angular/material' as mat;
+
 :host {
   display: block;
+
+  ::ng-deep {
+    @include mat.button-density(-1);
+  }
 }
 
 .pagination-container {

@@ -1,5 +1,8 @@
+@use '@angular/material' as mat;
+
 :host {
   display: block;
+  @include mat.table-density(-2);
 }
 
 .app-table-wrapper {
