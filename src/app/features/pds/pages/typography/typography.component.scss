@@ -1,0 +1,158 @@
+:host {
+  display: block;
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+
+.page-heading {
+  color: var(--mat-sys-on-surface);
+}
+
+.page-subheading {
+  color: var(--mat-sys-on-surface-variant);
+  max-width: 72ch;
+}
+
+// ─── Usage boxes ──────────────────────────────────────────────────────────────
+
+.usage-box {
+  background-color: var(--mat-sys-surface-container-low);
+  border-color: var(--mat-sys-outline-variant);
+}
+
+.usage-box-bad {
+  background-color: var(--mat-sys-error-container);
+  border-color: var(--mat-sys-error);
+  opacity: 0.9;
+}
+
+.overline {
+  color: var(--mat-sys-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.overline-bad {
+  color: var(--mat-sys-on-error-container);
+  opacity: 1;
+}
+
+.code-pre {
+  font-family: var(--typ-code-family);
+  color: var(--mat-sys-on-surface);
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+.inline-code {
+  font-family: var(--typ-code-family);
+  font-size: var(--typ-code-size);
+  background-color: var(--mat-sys-surface-container);
+  padding: 0 0.3em;
+  border-radius: 3px;
+}
+
+.code-tag    { color: var(--mat-sys-tertiary); }
+.code-attr   { color: var(--mat-sys-secondary); }
+.code-string { color: var(--mat-sys-primary); }
+.code-bad    { color: var(--mat-sys-on-error-container); }
+
+// ─── Category card ────────────────────────────────────────────────────────────
+
+.category-description {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+// ─── Typography table ─────────────────────────────────────────────────────────
+
+.typ-table {
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.typ-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--mat-sys-surface-container);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+.col-header {
+  color: var(--mat-sys-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+}
+
+.col-header-meta {
+  text-align: right;
+}
+
+.typ-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 1.25rem;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  &.last-row {
+    border-bottom: none;
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+.sample-col {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  .sample-text {
+    display: block;
+    color: var(--mat-sys-on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.meta-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 260px;
+  flex-shrink: 0;
+
+  @media (max-width: 640px) {
+    min-width: unset;
+    width: 100%;
+  }
+}
+
+.class-chip {
+  font-family: var(--typ-code-family);
+  font-size: var(--typ-code-size);
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.tag-chip {
+  font-family: var(--typ-code-family);
+  font-size: var(--typ-code-size);
+  color: var(--mat-sys-on-surface-variant);
+  opacity: 0.6;
+}
+
+.usage-text {
+  color: var(--mat-sys-on-surface-variant);
+}

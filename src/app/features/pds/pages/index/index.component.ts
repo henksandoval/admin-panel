@@ -114,6 +114,13 @@ export class IndexComponent {
       description: 'Componente para mostrar información de estado o progreso',
       icon: 'edit_note',
       route: '/pds/indicators'
+    },
+    {
+      id: 'typography',
+      title: 'Tipografía',
+      description: 'Escala tipográfica completa de Material M3: las 15 clases CSS, cuándo usarlas y a qué elementos aplicarlas.',
+      icon: 'text_fields',
+      route: '/pds/typography'
     }
   ];
   private readonly router = inject(Router);

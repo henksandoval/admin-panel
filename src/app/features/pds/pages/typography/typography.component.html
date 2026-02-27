@@ -1,0 +1,59 @@
+<app-page-layout preset="fullWidth" title="Escala Tipográfica" description="Clases CSS de Angular Material M3">
+  <ng-template appSlot="content">
+
+    <header class="mb-10">
+      <h1 class="mat-display-small page-heading mb-3">Escala Tipográfica</h1>
+      <p class="mat-body-large page-subheading mb-8">
+        Angular Material M3 expone <strong>15 niveles tipográficos</strong> como clases CSS directas.
+        Aplícalas sobre cualquier elemento HTML — no es necesario definir <code class="inline-code">font-size</code>
+        ni <code class="inline-code">font-weight</code> en SCSS.
+      </p>
+
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="usage-box flex-1 rounded-xl p-5 border">
+          <span class="mat-label-small overline block mb-3">✅ USO CORRECTO</span>
+          <pre class="code-pre mat-body-small"><span class="code-tag">&lt;h2</span> <span class="code-attr">class=</span><span class="code-string">"mat-headline-medium"</span><span class="code-tag">&gt;</span>Título de sección<span class="code-tag">&lt;/h2&gt;</span>
+<span class="code-tag">&lt;p</span>  <span class="code-attr">class=</span><span class="code-string">"mat-body-large"</span><span class="code-tag">&gt;</span>Texto principal<span class="code-tag">&lt;/p&gt;</span>
+<span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-string">"mat-label-large"</span><span class="code-tag">&gt;</span>Etiqueta de botón<span class="code-tag">&lt;/span&gt;</span></pre>
+        </div>
+        <div class="usage-box-bad flex-1 rounded-xl p-5 border">
+          <span class="mat-label-small overline overline-bad block mb-3">❌ INCORRECTO</span>
+          <pre class="code-pre mat-body-small"><span class="code-bad">&lt;h2 class="text-2xl font-bold"&gt;Título&lt;/h2&gt;
+&lt;p  class="text-base leading-relaxed"&gt;Texto&lt;/p&gt;
+&lt;span style="font-size: 14px;"&gt;Etiqueta&lt;/span&gt;</span></pre>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid gap-6">
+      @for (category of categories; track category.name) {
+        <app-card [icon]="category.icon" [title]="category.name">
+          <p class="mat-body-medium category-description mb-5">{{ category.description }}</p>
+
+          <div class="typ-table">
+            <div class="typ-table-header">
+              <span class="mat-label-small col-header">Muestra</span>
+              <span class="mat-label-small col-header col-header-meta">Clase · Tag · Uso</span>
+            </div>
+
+            @for (entry of category.entries; track entry.matClass; let last = $last) {
+              <div [class.last-row]="last" class="typ-row">
+                <div class="sample-col">
+                  <span [class]="entry.matClass + ' sample-text'">{{ entry.sample }}</span>
+                </div>
+                <div class="meta-col">
+                  <code class="class-chip">.{{ entry.matClass }}</code>
+                  <div class="flex items-center gap-3 mt-1.5">
+                    <code class="tag-chip">&lt;{{ entry.suggestedTag }}&gt;</code>
+                    <span class="mat-label-small usage-text">{{ entry.usage }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </app-card>
+      }
+    </div>
+
+  </ng-template>
+</app-page-layout>

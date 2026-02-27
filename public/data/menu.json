@@ -126,6 +126,7 @@
       { "id": "pds-indicators",   "label": "Indicadores",  "icon": "edit_note" },
       { "id": "pds-selects",      "label": "Selects",      "icon": "arrow_drop_down_circle" },
       { "id": "pds-toggle-groups","label": "Toggle Groups","icon": "view_week" },
+      { "id": "pds-typography",   "label": "Tipografía",   "icon": "text_fields" },
       { "id": "pds-icons",        "label": "Iconos",       "icon": "insert_emoticon" }
     ]
   }

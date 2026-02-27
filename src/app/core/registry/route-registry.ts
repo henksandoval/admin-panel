@@ -105,6 +105,10 @@ export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
     path: 'icons-gallery',
     loader: () => import('@features/pds/pages/icons-gallery/icons-gallery.component'),
   },
+  'pds-typography': {
+    path: 'typography',
+    loader: () => import('@features/pds/pages/typography/typography.component'),
+  },
   'pds-layout':       { path: 'layout' },
   'pds-layout-dashboard': {
     path: 'dashboard',
