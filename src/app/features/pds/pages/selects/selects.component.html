@@ -26,7 +26,7 @@
           }"
           [options]="currentOptions()">
         </app-form-select>
-        <p class="hint-text">
+        <p class="hint-text mat-label-small">
           Selected: <strong>{{ singleValue() || 'None' }}</strong>
         </p>
       </div>
@@ -46,7 +46,7 @@
           }"
           [options]="currentOptions()">
         </app-form-select>
-        <p class="hint-text">
+        <p class="hint-text mat-label-small">
           Selected: <strong>{{ multipleValue().join(', ') || 'None' }}</strong>
         </p>
       </div>
@@ -65,7 +65,7 @@
           }"
           [options]="currentOptions()">
         </app-form-select>
-        <p class="hint-text">
+        <p class="hint-text mat-label-small">
           Selected: <strong>{{ groupedValue() || 'None' }}</strong>
         </p>
       </div>

@@ -63,7 +63,6 @@ import { LayoutService } from '../../services/layout.service';
     }
 
     .menu-header-subtitle {
-      font-size: var(--typ-caption-size);
       margin: 0;
       opacity: 0.7;
     }

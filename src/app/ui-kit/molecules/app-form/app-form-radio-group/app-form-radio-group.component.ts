@@ -64,7 +64,7 @@ interface ErrorState {
       </mat-radio-group>
 
       @if (fullConfig().hint) {
-        <div class="radio-group-hint">{{ fullConfig().hint }}</div>
+        <div class="radio-group-hint mat-label-small">{{ fullConfig().hint }}</div>
       }
 
       @if (fullConfig().showErrors && errorState.shouldShow) {

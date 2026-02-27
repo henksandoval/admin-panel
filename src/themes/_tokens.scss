@@ -106,11 +106,6 @@
 }
 
 @mixin define-typography-tokens() {
-  --typ-caption-size: 0.75rem;
-  --typ-caption-weight: 400;
-  --typ-caption-line-height: 1rem;
-  --typ-caption-tracking: 0.025rem;
-
   --typ-code-size: 0.75rem;
   --typ-code-weight: 400;
   --typ-code-line-height: 1rem;

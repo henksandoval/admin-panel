@@ -29,6 +29,11 @@ $theme-config: (
 );
 
 @mixin build-themes() {
+  $_typography-theme: mat.define-theme((
+    typography: $base-typography
+  ));
+
+  @include mat.typography-hierarchy($_typography-theme);
   @include _apply-all-themes();
   @include _customize-scrollbar();
   @include overrides.apply-material-overrides();

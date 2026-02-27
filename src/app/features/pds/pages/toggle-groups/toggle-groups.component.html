@@ -23,7 +23,7 @@
           [size]="selectedSize()"
           [vertical]="isVertical()">
         </app-toggle-group>
-        <p class="hint-text">
+        <p class="hint-text mat-label-small">
           Selected: <strong>{{ singleValue() || 'None' }}</strong>
         </p>
       </div>
@@ -40,7 +40,7 @@
           [size]="selectedSize()"
           [vertical]="isVertical()">
         </app-toggle-group>
-        <p class="hint-text">
+        <p class="hint-text mat-label-small">
           Selected: <strong>{{ multipleValue().join(', ') || 'None' }}</strong>
         </p>
       </div>
@@ -56,7 +56,7 @@
           [size]="selectedSize()"
           [vertical]="isVertical()">
         </app-toggle-group>
-        <p class="hint-text">
+        <p class="hint-text mat-label-small">
           Selected: <strong>{{ iconsValue() || 'None' }}</strong>
         </p>
       </div>
@@ -72,7 +72,7 @@
           [size]="selectedSize()"
           [vertical]="true">
         </app-toggle-group>
-        <p class="hint-text">
+        <p class="hint-text mat-label-small">
           Selected: <strong>{{ verticalValue() || 'None' }}</strong>
         </p>
       </div>
