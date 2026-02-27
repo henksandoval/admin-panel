@@ -3,15 +3,10 @@
 }
 
 .settings-title {
-  font-size: var(--typ-title-size);
   font-weight: 600;
 }
 
 .section-label {
-  font-size: var(--typ-label-size);
-  font-weight: var(--typ-label-weight);
-  line-height: var(--typ-label-line-height);
-  letter-spacing: var(--typ-label-tracking);
   text-transform: uppercase;
   color: var(--mat-sys-on-surface-variant);
   opacity: 0.6;

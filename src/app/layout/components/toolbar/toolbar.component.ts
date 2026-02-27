@@ -43,7 +43,6 @@ import { LayoutService } from '../../services/layout.service';
     }
 
     .toolbar-title {
-      font-size: var(--typ-title-size);
       font-weight: 600;
       margin: 0;
     }
@@ -59,7 +58,6 @@ import { LayoutService } from '../../services/layout.service';
     }
 
     .menu-header-title {
-      font-size: var(--typ-label-size);
       font-weight: 600;
       margin: 0;
     }
@@ -71,7 +69,6 @@ import { LayoutService } from '../../services/layout.service';
     }
 
     .menu-item-text {
-      font-size: var(--typ-label-size);
     }
 
     .menu-divider {

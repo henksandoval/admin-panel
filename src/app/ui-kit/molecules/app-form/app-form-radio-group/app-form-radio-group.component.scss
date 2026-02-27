@@ -11,8 +11,6 @@
 .radio-group-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: var(--typ-label-size);
-  font-weight: 500;
 }
 
 .radio-group-options {
@@ -33,6 +31,5 @@
 
 .radio-group-error {
   margin-top: 0.25rem;
-  font-size: var(--typ-label-size);
   color: var(--mat-sys-error);
 }

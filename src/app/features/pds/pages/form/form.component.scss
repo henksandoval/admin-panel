@@ -1,11 +1,8 @@
 .page-title {
-  font-size: 1.875rem;
-  font-weight: 700;
   color: var(--mat-sys-on-surface);
 }
 
 .page-description {
-  font-size: 1.125rem;
   color: var(--mat-sys-on-surface-variant);
 }
 
@@ -18,10 +15,6 @@
 }
 
 .section-label {
-  font-size: var(--typ-label-size);
-  font-weight: var(--typ-label-weight);
-  line-height: var(--typ-label-line-height);
-  letter-spacing: var(--typ-label-tracking);
   color: var(--mat-sys-on-surface);
 
   mat-icon {

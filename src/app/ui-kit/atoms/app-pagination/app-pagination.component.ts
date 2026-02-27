@@ -25,7 +25,7 @@ import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-se
     <div class="pagination-container">
       @if (showPageSizeSelector()) {
         <div class="page-size-selector">
-          <span class="page-size-label">{{ itemsPerPageLabel() }}</span>
+          <span class="page-size-label mat-label-large">{{ itemsPerPageLabel() }}</span>
           <app-form-select
             class="page-size-select"
             [ngModel]="state().pageSize"
@@ -35,7 +35,7 @@ import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-se
         </div>
       }
 
-      <div class="range-info">{{ rangeLabel() }}</div>
+      <div class="range-info mat-label-large">{{ rangeLabel() }}</div>
 
       <div class="navigation-buttons">
         @if (showFirstLastButtons()) {

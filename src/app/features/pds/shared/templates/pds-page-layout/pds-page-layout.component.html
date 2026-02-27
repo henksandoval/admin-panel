@@ -5,15 +5,15 @@
       <div class="flex items-baseline justify-between border-b pb-6"
            style="border-color: var(--mat-sys-outline-variant);">
         <div class="max-w-3xl">
-          <h1 class="page-title text-3xl md:text-4xl font-bold mb-3 tracking-tight">
+          <h1 class="page-title mat-display-small mb-3">
             {{ title() }}
           </h1>
-          <p class="page-description text-lg leading-relaxed">
+          <p class="page-description mat-body-large">
             {{ description() }}
           </p>
         </div>
         @if (componentTag()) {
-          <span class="inline-code px-3 py-1.5 rounded-full text-sm font-mono border shrink-0">
+          <span class="inline-code mat-label-small px-3 py-1.5 rounded-full border shrink-0">
           {{ componentTag() }}
         </span>
         }
@@ -49,24 +49,24 @@
         <div class="p-6 pb-3">
           <div class="flex items-center gap-2 mb-3">
           <span [class]="getEmphasisBadgeClasses(guide.emphasis)"
-                class="px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                class="mat-label-small px-2 py-0.5 rounded-full">
             {{ guide.emphasis }} emphasis
           </span>
           </div>
-          <h2 class="page-title text-2xl font-bold mb-2">{{ guide.title }}</h2>
-          <p class="page-description text-base leading-relaxed">{{ guide.description }}</p>
+          <h2 class="page-title mat-headline-small mb-2">{{ guide.title }}</h2>
+          <p class="page-description mat-body-medium">{{ guide.description }}</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-4 p-6 pt-0">
           <div class="info-box rounded-lg p-4 border">
-            <h4 class="info-box-title font-bold text-sm mb-3 flex items-center gap-2">
-              <mat-icon class="success text-base">check_circle</mat-icon>
+            <h4 class="info-box-title mat-label-large mb-3 flex items-center gap-2">
+              <mat-icon class="success shrink-0">check_circle</mat-icon>
               When to Use
             </h4>
             <ul class="space-y-2">
               @for (use of guide.whenToUse; track use) {
-                <li class="info-box-content flex items-start gap-2 text-sm">
-                  <mat-icon class="success text-sm mt-0.5 shrink-0">arrow_right</mat-icon>
+                <li class="info-box-content mat-body-small flex items-start gap-2">
+                  <mat-icon class="success shrink-0 mt-0.5">arrow_right</mat-icon>
                   <span>{{ use }}</span>
                 </li>
               }
@@ -74,13 +74,13 @@
           </div>
 
           <div class="info-box rounded-lg p-4 border">
-            <h4 class="info-box-title font-bold text-sm mb-3 flex items-center gap-2">
-              <mat-icon class="info text-base">lightbulb</mat-icon>
+            <h4 class="info-box-title mat-label-large mb-3 flex items-center gap-2">
+              <mat-icon class="info shrink-0">lightbulb</mat-icon>
               Common Examples
             </h4>
             <div class="flex flex-wrap gap-2">
               @for (example of guide.examples; track example) {
-                <span class="example-tag px-2.5 py-1 rounded border text-xs font-medium shadow-sm">
+                <span class="example-tag mat-label-small px-2.5 py-1 rounded border shadow-sm">
               {{ example }}
             </span>
               }

@@ -2,11 +2,11 @@
   <div class="sidebar-header">
     <div class="sidebar-header-content">
       <div class="app-logo">
-        <span class="app-logo-text">A</span>
+        <span class="app-logo-text mat-title-large">A</span>
       </div>
       <div [class.hidden]="!isExpanded()" class="sidebar-title-group">
-        <h1 class="sidebar-title" i18n="Sidebar|Application name@@sidebar.appName">Admin Panel</h1>
-        <p class="sidebar-version" i18n="Sidebar|Application version@@sidebar.version">Dashboard v1.0</p>
+        <h1 class="sidebar-title mat-title-large" i18n="Sidebar|Application name@@sidebar.appName">Admin Panel</h1>
+        <p class="sidebar-version mat-label-large" i18n="Sidebar|Application version@@sidebar.version">Dashboard v1.0</p>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
         matTooltipPosition="right">
         <mat-icon>{{ isExpanded() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
       </button>
-      <p [class.hidden]="!isExpanded()" class="sidebar-copyright" i18n="Sidebar|Copyright@@sidebar.copyright">© 2025 Admin Panel</p>
+      <p [class.hidden]="!isExpanded()" class="sidebar-copyright mat-label-large" i18n="Sidebar|Copyright@@sidebar.copyright">© 2025 Admin Panel</p>
     </div>
   </footer>
 </div>

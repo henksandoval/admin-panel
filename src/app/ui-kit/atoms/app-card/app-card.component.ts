@@ -32,7 +32,7 @@ export class AppCardFooterActionsDirective {}
                   <mat-icon class="panel-header-icon">{{ icon() }}</mat-icon>
                 }
                 @if (title()) {
-                  <span class="panel-header-title">{{ title() }}</span>
+                  <span class="panel-header-title mat-label-large">{{ title() }}</span>
                 }
               </div>
 

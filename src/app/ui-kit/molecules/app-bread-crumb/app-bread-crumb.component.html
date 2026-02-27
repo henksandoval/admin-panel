@@ -1,4 +1,4 @@
-<nav class="breadcrumb">
+<nav class="breadcrumb mat-label-large">
   @for (item of navigationService.breadcrumbs(); track item.label; let last = $last) {
     @if (!last && item.route) {
       <a [routerLink]="item.route">{{ item.label }}</a>

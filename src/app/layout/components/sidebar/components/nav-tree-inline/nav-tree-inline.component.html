@@ -11,7 +11,7 @@
       @if (node.icon) {
         <mat-icon class="tree-node-icon">{{ node.icon }}</mat-icon>
       }
-      <span class="tree-node-label">{{ node.title }}</span>
+      <span class="tree-node-label mat-label-large">{{ node.title }}</span>
       @if (getTotalBadgeCount(node) > 0 && !tree.isExpanded(node)) {
         <span class="app-badge normal">{{ getTotalBadgeCount(node) }}</span>
       }
@@ -27,7 +27,7 @@
       @if (node.icon) {
         <mat-icon class="tree-node-icon">{{ node.icon }}</mat-icon>
       }
-      <span class="tree-node-label">{{ node.title }}</span>
+      <span class="tree-node-label mat-label-large">{{ node.title }}</span>
       @if (node.badge) {
         <span [ngClass]="[node.badge.type, node.badge.indicator ? 'has-indicator' : '']"
               class="app-badge">

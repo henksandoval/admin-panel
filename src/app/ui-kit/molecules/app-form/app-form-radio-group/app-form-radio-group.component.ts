@@ -41,7 +41,7 @@ interface ErrorState {
   template: `
     <div class="form-radio-group-wrapper">
       @if (fullConfig().label) {
-        <label class="radio-group-label">
+        <label class="radio-group-label mat-label-large">
           {{ fullConfig().label }}
           @if (isRequired) {
             <span>*</span>
@@ -68,7 +68,7 @@ interface ErrorState {
       }
 
       @if (fullConfig().showErrors && errorState.shouldShow) {
-        <div class="radio-group-error" role="alert">
+        <div class="radio-group-error mat-label-large" role="alert">
           {{ errorState.message }}
         </div>
       }
