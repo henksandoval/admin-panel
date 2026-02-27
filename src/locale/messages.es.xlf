@@ -731,7 +731,7 @@
         <target>Filtros Avanzados</target>
       </segment>
     </unit>
-    <unit id="tableclient.col.name">
+    <unit id="employee.col.name">
       <notes>
         <note category="description">Column header / field label</note>
         <note category="meaning">Table</note>
@@ -741,7 +741,7 @@
         <target>Nombre</target>
       </segment>
     </unit>
-    <unit id="tableclient.col.email">
+    <unit id="employee.col.email">
       <notes>
         <note category="description">Column header / field label</note>
         <note category="meaning">Table</note>
@@ -751,7 +751,7 @@
         <target>Email</target>
       </segment>
     </unit>
-    <unit id="tableclient.col.department">
+    <unit id="employee.col.department">
       <notes>
         <note category="description">Column header / field label</note>
         <note category="meaning">Table</note>
@@ -761,7 +761,7 @@
         <target>Departamento</target>
       </segment>
     </unit>
-    <unit id="tableclient.col.role">
+    <unit id="employee.col.role">
       <notes>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
@@ -771,7 +771,7 @@
         <target>Rol</target>
       </segment>
     </unit>
-    <unit id="tableclient.col.status">
+    <unit id="employee.col.status">
       <notes>
         <note category="description">Column header / field label</note>
         <note category="meaning">Table</note>
@@ -781,7 +781,7 @@
         <target>Estado</target>
       </segment>
     </unit>
-    <unit id="tableclient.col.salary">
+    <unit id="employee.col.salary">
       <notes>
         <note category="description">Column header / field label</note>
         <note category="meaning">Table</note>
@@ -791,7 +791,7 @@
         <target>Salario</target>
       </segment>
     </unit>
-    <unit id="tableclient.col.hireDate">
+    <unit id="employee.col.hireDate">
       <notes>
         <note category="description">Column header / field label</note>
         <note category="meaning">Table</note>
@@ -801,7 +801,7 @@
         <target>Fecha contratación</target>
       </segment>
     </unit>
-    <unit id="tableclient.action.edit">
+    <unit id="employee.action.edit">
       <notes>
         <note category="description">Row action label</note>
         <note category="meaning">Table</note>
@@ -811,7 +811,7 @@
         <target>Editar</target>
       </segment>
     </unit>
-    <unit id="tableclient.action.delete">
+    <unit id="employee.action.delete">
       <notes>
         <note category="description">Row action label</note>
         <note category="meaning">Table</note>
@@ -821,7 +821,7 @@
         <target>Eliminar</target>
       </segment>
     </unit>
-    <unit id="tableclient.field.id">
+    <unit id="employee.field.id">
       <notes>
         <note category="description">Filter field label</note>
         <note category="meaning">Table</note>
@@ -831,7 +831,7 @@
         <target>ID</target>
       </segment>
     </unit>
-    <unit id="tableclient.toggle.showDeleted">
+    <unit id="employee.toggle.showDeleted">
       <notes>
         <note category="description">Filter toggle label</note>
         <note category="meaning">Table</note>
@@ -841,7 +841,7 @@
         <target>Mostrar eliminados</target>
       </segment>
     </unit>
-    <unit id="tableclient.toggle.showHidden">
+    <unit id="employee.toggle.showHidden">
       <notes>
         <note category="description">Filter toggle label</note>
         <note category="meaning">Table</note>
@@ -851,7 +851,7 @@
         <target>Mostrar ocultos</target>
       </segment>
     </unit>
-    <unit id="tableclient.placeholder.id">
+    <unit id="employee.placeholder.id">
       <notes>
         <note category="description">Filter input placeholder</note>
         <note category="meaning">Table</note>
@@ -861,7 +861,7 @@
         <target>ID del empleado</target>
       </segment>
     </unit>
-    <unit id="tableclient.placeholder.name">
+    <unit id="employee.placeholder.name">
       <notes>
         <note category="description">Filter input placeholder</note>
         <note category="meaning">Table</note>
@@ -919,6 +919,26 @@
       <segment>
         <source><ph id="0" equiv="action" disp="{$action}"/>: <ph id="1" equiv="name" disp="{$name}"/></source>
         <target><ph id="0" equiv="action" disp="{$action}"/>: <ph id="1" equiv="name" disp="{$name}"/></target>
+      </segment>
+    </unit>
+    <unit id="tableserver.notify.loadError">
+      <notes>
+        <note category="description">Load error snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Error loading employees</source>
+        <target>Error al cargar empleados</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.notify.rowClick">
+      <notes>
+        <note category="description">Row click snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Selected: <ph id="0" equiv="name" disp="{$name}"/> (<ph id="1" equiv="email" disp="{$email}"/>)</source>
+        <target>Seleccionado: <ph id="0" equiv="name" disp="{$name}"/> (<ph id="1" equiv="email" disp="{$email}"/>)</target>
       </segment>
     </unit>
     <unit id="table.advancedFilters.title">

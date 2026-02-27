@@ -91,11 +91,14 @@
         <source><ph id="0" equiv="action" disp="action.label"/>: <ph id="1" equiv="name" disp="row.name"/></source>
       </segment>
     </unit>
-    <unit id="tableclient.col.name">
+    <unit id="employee.col.name">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:10</note>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:59</note>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:73</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:11</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:55</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:69</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -103,10 +106,12 @@
         <source>Name</source>
       </segment>
     </unit>
-    <unit id="tableclient.col.email">
+    <unit id="employee.col.email">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:11</note>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:60</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:12</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:56</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -114,10 +119,12 @@
         <source>Email</source>
       </segment>
     </unit>
-    <unit id="tableclient.col.department">
+    <unit id="employee.col.department">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:12</note>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:32</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:13</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:28</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -125,9 +132,10 @@
         <source>Department</source>
       </segment>
     </unit>
-    <unit id="tableclient.col.role">
+    <unit id="employee.col.role">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:13</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:14</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -135,10 +143,12 @@
         <source>Role</source>
       </segment>
     </unit>
-    <unit id="tableclient.col.status">
+    <unit id="employee.col.status">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:14</note>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:39</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:15</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:35</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -146,10 +156,12 @@
         <source>Status</source>
       </segment>
     </unit>
-    <unit id="tableclient.col.salary">
+    <unit id="employee.col.salary">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:15</note>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:64</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:16</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:60</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -157,10 +169,12 @@
         <source>Salary</source>
       </segment>
     </unit>
-    <unit id="tableclient.col.hireDate">
+    <unit id="employee.col.hireDate">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:16</note>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:46</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:17</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:42</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -168,7 +182,7 @@
         <source>Hire date</source>
       </segment>
     </unit>
-    <unit id="tableclient.action.edit">
+    <unit id="employee.action.edit">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:21</note>
         <note category="description">Row action</note>
@@ -178,7 +192,7 @@
         <source>Edit</source>
       </segment>
     </unit>
-    <unit id="tableclient.action.delete">
+    <unit id="employee.action.delete">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:22</note>
         <note category="description">Row action</note>
@@ -188,9 +202,10 @@
         <source>Delete</source>
       </segment>
     </unit>
-    <unit id="tableclient.toggle.showDeleted">
+    <unit id="employee.toggle.showDeleted">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:51</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:47</note>
         <note category="description">Filter toggle</note>
         <note category="meaning">Table</note>
       </notes>
@@ -198,9 +213,10 @@
         <source>Show deleted</source>
       </segment>
     </unit>
-    <unit id="tableclient.toggle.showHidden">
+    <unit id="employee.toggle.showHidden">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:52</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:48</note>
         <note category="description">Filter toggle</note>
         <note category="meaning">Table</note>
       </notes>
@@ -208,10 +224,12 @@
         <source>Show hidden</source>
       </segment>
     </unit>
-    <unit id="tableclient.field.id">
+    <unit id="employee.field.id">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:58</note>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:72</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:54</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:68</note>
         <note category="description">Filter field label</note>
         <note category="meaning">Table</note>
       </notes>
@@ -219,9 +237,10 @@
         <source>ID</source>
       </segment>
     </unit>
-    <unit id="tableclient.placeholder.id">
+    <unit id="employee.placeholder.id">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:72</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:68</note>
         <note category="description">Filter placeholder</note>
         <note category="meaning">Table</note>
       </notes>
@@ -229,9 +248,10 @@
         <source>Employee ID</source>
       </segment>
     </unit>
-    <unit id="tableclient.placeholder.name">
+    <unit id="employee.placeholder.name">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:73</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:69</note>
         <note category="description">Filter placeholder</note>
         <note category="meaning">Table</note>
       </notes>
@@ -277,6 +297,26 @@
       </notes>
       <segment>
         <source>Advanced Filters</source>
+      </segment>
+    </unit>
+    <unit id="tableserver.notify.loadError">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.component.ts:58</note>
+        <note category="description">Load error snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Error loading employees</source>
+      </segment>
+    </unit>
+    <unit id="tableserver.notify.rowClick">
+      <notes>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.component.ts:73</note>
+        <note category="description">Row click snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Selected: <ph id="0" equiv="name" disp="employee.name"/> (<ph id="1" equiv="email" disp="employee.email"/>)</source>
       </segment>
     </unit>
     <unit id="settings.title">
