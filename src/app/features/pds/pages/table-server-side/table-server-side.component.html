@@ -2,8 +2,8 @@
   <ng-template appSlot="content">
     <div class="flex items-center justify-between mb-4">
       <div>
-        <h1 class="mat-title-large m-0">Directorio de empleados</h1>
-        <p class="mat-body-medium m-0">Ejemplo de tabla server-side con filtros simples y avanzados</p>
+        <h1 class="mat-title-large m-0" i18n="Table|Page title@@tableserver.title">Employee directory</h1>
+        <p class="mat-body-medium m-0" i18n="Table|Page description@@tableserver.description">Server-side table example with simple and advanced filters</p>
       </div>
 
       <mat-button-toggle-group
@@ -11,11 +11,11 @@
         [value]="useAdvancedFilters()">
         <mat-button-toggle [value]="false">
           <mat-icon>filter_list</mat-icon>
-          Filtros Simples
+          <ng-container i18n="Table|Simple filters toggle@@tableserver.btn.simpleFilters">Simple Filters</ng-container>
         </mat-button-toggle>
         <mat-button-toggle [value]="true">
           <mat-icon>tune</mat-icon>
-          Filtros Avanzados
+          <ng-container i18n="Table|Advanced filters toggle@@tableserver.btn.advancedFilters">Advanced Filters</ng-container>
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>

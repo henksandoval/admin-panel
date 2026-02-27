@@ -3,17 +3,19 @@
     <button
       (click)="toggleSidebar()"
       aria-label="Toggle sidebar"
+      i18n-aria-label="Toolbar|Button to collapse/expand the sidebar@@toolbar.btn.toggleSidebar"
       mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
 
     <div class="toolbar-title-area">
-      <h1 class="toolbar-title">Dashboard</h1>
+      <h1 class="toolbar-title" i18n="Toolbar|Main panel title@@toolbar.title">Dashboard</h1>
     </div>
 
     <div class="toolbar-actions">
       <button
         aria-label="Search"
+        i18n-aria-label="Toolbar|Search button@@toolbar.btn.search"
         mat-icon-button>
         <mat-icon>search</mat-icon>
       </button>
@@ -21,54 +23,56 @@
       <button
         [matMenuTriggerFor]="notificationsMenu"
         aria-label="Notifications"
+        i18n-aria-label="Toolbar|Notifications button@@toolbar.btn.notifications"
         mat-icon-button>
         <mat-icon [matBadge]="5" matBadgeColor="warn" matBadgeSize="small">notifications</mat-icon>
       </button>
 
       <mat-menu #notificationsMenu="matMenu">
         <div class="menu-header">
-          <h3 class="menu-header-title">Notificaciones</h3>
+          <h3 class="menu-header-title" i18n="Toolbar|Notifications menu title@@toolbar.menu.notifications.title">Notifications</h3>
         </div>
         <mat-divider></mat-divider>
         <button mat-menu-item>
           <mat-icon color="primary">info</mat-icon>
-          <span class="menu-item-text">Nueva actualización disponible</span>
+          <span class="menu-item-text" i18n="Toolbar|Notification: new update@@toolbar.notification.update">New update available</span>
         </button>
         <button mat-menu-item>
           <mat-icon color="secondary">check_circle</mat-icon>
-          <span class="menu-item-text">Tarea completada</span>
+          <span class="menu-item-text" i18n="Toolbar|Notification: task completed@@toolbar.notification.taskDone">Task completed</span>
         </button>
         <button mat-menu-item>
           <mat-icon color="tertiary">warning</mat-icon>
-          <span class="menu-item-text">Advertencia del sistema</span>
+          <span class="menu-item-text" i18n="Toolbar|Notification: system warning@@toolbar.notification.warning">System warning</span>
         </button>
       </mat-menu>
 
       <button
         [matMenuTriggerFor]="userMenu"
         aria-label="User menu"
+        i18n-aria-label="Toolbar|User menu button@@toolbar.btn.userMenu"
         mat-icon-button>
         <mat-icon>account_circle</mat-icon>
       </button>
 
       <mat-menu #userMenu="matMenu">
         <div class="menu-header">
-          <p class="menu-header-title">Admin User</p>
+          <p class="menu-header-title" i18n="Toolbar|User name in menu@@toolbar.menu.user.name">Admin User</p>
           <p class="menu-header-subtitle">admin&#64;example.com</p>
         </div>
         <mat-divider></mat-divider>
         <button mat-menu-item>
           <mat-icon>person</mat-icon>
-          <span>Mi Perfil</span>
+          <span i18n="Toolbar|Menu option: profile@@toolbar.menu.user.profile">My Profile</span>
         </button>
         <button mat-menu-item>
           <mat-icon>settings</mat-icon>
-          <span>Configuración</span>
+          <span i18n="Toolbar|Menu option: settings@@toolbar.menu.user.settings">Settings</span>
         </button>
         <mat-divider class="menu-divider"></mat-divider>
         <button mat-menu-item>
           <mat-icon>logout</mat-icon>
-          <span>Cerrar Sesión</span>
+          <span i18n="Toolbar|Menu option: sign out@@toolbar.menu.user.logout">Sign Out</span>
         </button>
       </mat-menu>
     </div>

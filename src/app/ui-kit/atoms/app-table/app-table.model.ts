@@ -41,5 +41,5 @@ export interface AppTableConfig<T = unknown> {
 export const TABLE_DEFAULTS = {
   stickyHeader: false,
   clickableRows: false,
-  emptyMessage: 'No hay datos disponibles',
+  emptyMessage: $localize`:Table|Empty state message@@table.empty:No data available`,
 } as const;

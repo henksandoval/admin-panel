@@ -1,0 +1,1795 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en" trgLang="es">
+  <file id="ngi18n" original="ng.template">
+    <unit id="tableclient.title">
+      <notes>
+        <note category="description">Page title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee directory</source>
+        <target>Directorio de empleados</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.description">
+      <notes>
+        <note category="description">Page description</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Client-side table example with simple and advanced filters</source>
+        <target>Ejemplo de tabla client-side con filtros simples y avanzados</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.title">
+      <notes>
+        <note category="description">Page title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee directory</source>
+        <target>Directorio de empleados</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.description">
+      <notes>
+        <note category="description">Page description</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Server-side table example with simple and advanced filters</source>
+        <target>Ejemplo de tabla server-side con filtros simples y avanzados</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.btn.simpleFilters">
+      <notes>
+        <note category="description">Simple filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple Filters</source>
+        <target>Filtros Simples</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.btn.advancedFilters">
+      <notes>
+        <note category="description">Advanced filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced Filters</source>
+        <target>Filtros Avanzados</target>
+      </segment>
+    </unit>
+    <unit id="settings.title">
+      <notes>
+        <note category="description">Settings panel title</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Settings</source>
+        <target>Configuración</target>
+      </segment>
+    </unit>
+    <unit id="settings.btn.close">
+      <notes>
+        <note category="description">Button to close the settings panel</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Close settings</source>
+        <target>Cerrar configuración</target>
+      </segment>
+    </unit>
+    <unit id="settings.density.title">
+      <notes>
+        <note category="description">Density section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Information Density</source>
+        <target>Densidad de información</target>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.title">
+      <notes>
+        <note category="description">Mode section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Mode</source>
+        <target>Modo</target>
+      </segment>
+    </unit>
+    <unit id="settings.theme.title">
+      <notes>
+        <note category="description">Accent color section</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Accent Color</source>
+        <target>Color de Acento</target>
+      </segment>
+    </unit>
+    <unit id="settings.btn.reset">
+      <notes>
+        <note category="description">Button to reset settings</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Reset to defaults</source>
+        <target>Restablecer valores</target>
+      </segment>
+    </unit>
+    <unit id="settings.density.comfortable">
+      <notes>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Comfortable</source>
+        <target>Cómodo</target>
+      </segment>
+    </unit>
+    <unit id="settings.density.compact">
+      <notes>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Compact</source>
+        <target>Compacto</target>
+      </segment>
+    </unit>
+    <unit id="settings.density.dense">
+      <notes>
+        <note category="description">Density option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Dense</source>
+        <target>Denso</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.appName">
+      <notes>
+        <note category="description">Application name</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Admin Panel</source>
+        <target>Panel de Administración</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.version">
+      <notes>
+        <note category="description">Application version</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Dashboard v1.0</source>
+        <target>Tablero v1.0</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.btn.toggle">
+      <notes>
+        <note category="description">Button to collapse/expand the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Toggle sidebar</source>
+        <target>Expandir/contraer barra lateral</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.copyright">
+      <notes>
+        <note category="description">Copyright</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>© 2025 Admin Panel</source>
+        <target>© 2025 Admin Panel</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.tooltip.collapse">
+      <notes>
+        <note category="description">Tooltip for collapsing the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Collapse</source>
+        <target>Contraer</target>
+      </segment>
+    </unit>
+    <unit id="sidebar.tooltip.expand">
+      <notes>
+        <note category="description">Tooltip for expanding the sidebar</note>
+        <note category="meaning">Sidebar</note>
+      </notes>
+      <segment>
+        <source>Expand</source>
+        <target>Expandir</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.toggleSidebar">
+      <notes>
+        <note category="description">Button to collapse/expand the sidebar</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Toggle sidebar</source>
+        <target>Expandir/contraer barra lateral</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.title">
+      <notes>
+        <note category="description">Main panel title</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Dashboard</source>
+        <target>Tablero</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.search">
+      <notes>
+        <note category="description">Search button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Search</source>
+        <target>Buscar</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.notifications">
+      <notes>
+        <note category="description">Notifications button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Notifications</source>
+        <target>Notificaciones</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.notifications.title">
+      <notes>
+        <note category="description">Notifications menu title</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Notifications</source>
+        <target>Notificaciones</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.update">
+      <notes>
+        <note category="description">Notification: new update</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>New update available</source>
+        <target>Nueva actualización disponible</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.taskDone">
+      <notes>
+        <note category="description">Notification: task completed</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Task completed</source>
+        <target>Tarea completada</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.notification.warning">
+      <notes>
+        <note category="description">Notification: system warning</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>System warning</source>
+        <target>Advertencia del sistema</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.btn.userMenu">
+      <notes>
+        <note category="description">User menu button</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>User menu</source>
+        <target>Menú de usuario</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.name">
+      <notes>
+        <note category="description">User name in menu</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Admin User</source>
+        <target>Usuario Admin</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.profile">
+      <notes>
+        <note category="description">Menu option: profile</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>My Profile</source>
+        <target>Mi Perfil</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.settings">
+      <notes>
+        <note category="description">Menu option: settings</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Settings</source>
+        <target>Configuración</target>
+      </segment>
+    </unit>
+    <unit id="toolbar.menu.user.logout">
+      <notes>
+        <note category="description">Menu option: sign out</note>
+        <note category="meaning">Toolbar</note>
+      </notes>
+      <segment>
+        <source>Sign Out</source>
+        <target>Cerrar Sesión</target>
+      </segment>
+    </unit>
+    <unit id="filters.empty">
+      <notes>
+        <note category="description">No filters applied message</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>No filters applied</source>
+        <target>No hay filtros aplicados</target>
+      </segment>
+    </unit>
+    <unit id="filters.btn.add">
+      <notes>
+        <note category="description">Add criterion button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Add</source>
+        <target>Agregar</target>
+      </segment>
+    </unit>
+    <unit id="filters.btn.clear">
+      <notes>
+        <note category="description">Clear filters button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Clear filters</source>
+        <target>Limpiar filtros</target>
+      </segment>
+    </unit>
+    <unit id="filters.btn.search">
+      <notes>
+        <note category="description">Search button</note>
+        <note category="meaning">Filters</note>
+      </notes>
+      <segment>
+        <source>Search</source>
+        <target>Buscar</target>
+      </segment>
+    </unit>
+    <unit id="filter.boolean.yes">
+      <notes>
+        <note category="description">Boolean yes option</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Yes</source>
+        <target>Sí</target>
+      </segment>
+    </unit>
+    <unit id="filter.boolean.no">
+      <notes>
+        <note category="description">Boolean no option</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>No</source>
+        <target>No</target>
+      </segment>
+    </unit>
+    <unit id="filter.select.allOption">
+      <notes>
+        <note category="description">Reset/all option in select</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>-- All --</source>
+        <target>-- Todos --</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.eq">
+      <notes>
+        <note category="description">Equals</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Equals</source>
+        <target>Igual a</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.neq">
+      <notes>
+        <note category="description">Not equal to</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Not equal to</source>
+        <target>Diferente de</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.contains">
+      <notes>
+        <note category="description">Contains</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Contains</source>
+        <target>Contiene</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.notContains">
+      <notes>
+        <note category="description">Does not contain</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Does not contain</source>
+        <target>No contiene</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.startsWith">
+      <notes>
+        <note category="description">Starts with</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Starts with</source>
+        <target>Empieza con</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.endsWith">
+      <notes>
+        <note category="description">Ends with</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Ends with</source>
+        <target>Termina con</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.gt">
+      <notes>
+        <note category="description">Greater than</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Greater than</source>
+        <target>Mayor que</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.gte">
+      <notes>
+        <note category="description">Greater or equal</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Greater or equal</source>
+        <target>Mayor o igual</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.lt">
+      <notes>
+        <note category="description">Less than</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Less than</source>
+        <target>Menor que</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.lte">
+      <notes>
+        <note category="description">Less or equal</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Less or equal</source>
+        <target>Menor o igual</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.isNull">
+      <notes>
+        <note category="description">Is empty</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Is empty</source>
+        <target>Es vacío</target>
+      </segment>
+    </unit>
+    <unit id="filter.op.isNotNull">
+      <notes>
+        <note category="description">Is not empty</note>
+        <note category="meaning">Filter operator</note>
+      </notes>
+      <segment>
+        <source>Is not empty</source>
+        <target>No es vacío</target>
+      </segment>
+    </unit>
+    <unit id="table.header.actions">
+      <notes>
+        <note category="description">Actions column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Actions</source>
+        <target>Acciones</target>
+      </segment>
+    </unit>
+    <unit id="table.empty">
+      <notes>
+        <note category="description">Empty state message</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>No data available</source>
+        <target>No hay datos disponibles</target>
+      </segment>
+    </unit>
+    <unit id="pagination.label.itemsPerPage">
+      <notes>
+        <note category="description">Items per page label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Items per page:</source>
+        <target>Elementos por página:</target>
+      </segment>
+    </unit>
+    <unit id="pagination.label.page">
+      <notes>
+        <note category="description">Current page label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Page</source>
+        <target>Página</target>
+      </segment>
+    </unit>
+    <unit id="pagination.label.of">
+      <notes>
+        <note category="description">Of separator label</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>of</source>
+        <target>de</target>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.firstPage">
+      <notes>
+        <note category="description">First page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>First page</source>
+        <target>Primera página</target>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.lastPage">
+      <notes>
+        <note category="description">Last page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Last page</source>
+        <target>Última página</target>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.prevPage">
+      <notes>
+        <note category="description">Previous page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Previous page</source>
+        <target>Página anterior</target>
+      </segment>
+    </unit>
+    <unit id="pagination.btn.nextPage">
+      <notes>
+        <note category="description">Next page button</note>
+        <note category="meaning">Pagination</note>
+      </notes>
+      <segment>
+        <source>Next page</source>
+        <target>Página siguiente</target>
+      </segment>
+    </unit>
+    <unit id="filter.form.field">
+      <notes>
+        <note category="description">Field selector label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Field</source>
+        <target>Campo</target>
+      </segment>
+    </unit>
+    <unit id="filter.form.operator">
+      <notes>
+        <note category="description">Operator selector label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Operator</source>
+        <target>Operador</target>
+      </segment>
+    </unit>
+    <unit id="filter.form.value">
+      <notes>
+        <note category="description">Value input label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Value</source>
+        <target>Valor</target>
+      </segment>
+    </unit>
+    <unit id="filter.form.date">
+      <notes>
+        <note category="description">Date input label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Date</source>
+        <target>Fecha</target>
+      </segment>
+    </unit>
+    <unit id="filter.pill.remove">
+      <notes>
+        <note category="description">Remove criterion button</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Remove filter: <ph id="0" equiv="criteria" disp="{$criteria}"/></source>
+        <target>Eliminar filtro: <ph id="0" equiv="criteria" disp="{$criteria}"/></target>
+      </segment>
+    </unit>
+    <unit id="filters.btn.clearAll">
+      <notes>
+        <note category="description">Clear all button label</note>
+        <note category="meaning">Filter</note>
+      </notes>
+      <segment>
+        <source>Clear filters</source>
+        <target>Limpiar filtros</target>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.auto">
+      <notes>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Auto</source>
+        <target>Auto</target>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.dark">
+      <notes>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Dark</source>
+        <target>Oscuro</target>
+      </segment>
+    </unit>
+    <unit id="settings.scheme.light">
+      <notes>
+        <note category="description">Color scheme option</note>
+        <note category="meaning">Settings</note>
+      </notes>
+      <segment>
+        <source>Light</source>
+        <target>Claro</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.btn.simpleFilters">
+      <notes>
+        <note category="description">Simple filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple Filters</source>
+        <target>Filtros Simples</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.btn.advancedFilters">
+      <notes>
+        <note category="description">Advanced filters toggle</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced Filters</source>
+        <target>Filtros Avanzados</target>
+      </segment>
+    </unit>
+    <unit id="employee.col.name">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Name</source>
+        <target>Nombre</target>
+      </segment>
+    </unit>
+    <unit id="employee.col.email">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="employee.col.department">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Department</source>
+        <target>Departamento</target>
+      </segment>
+    </unit>
+    <unit id="employee.col.role">
+      <notes>
+        <note category="description">Column header</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Role</source>
+        <target>Rol</target>
+      </segment>
+    </unit>
+    <unit id="employee.col.status">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Status</source>
+        <target>Estado</target>
+      </segment>
+    </unit>
+    <unit id="employee.col.salary">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Salary</source>
+        <target>Salario</target>
+      </segment>
+    </unit>
+    <unit id="employee.col.hireDate">
+      <notes>
+        <note category="description">Column header / field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Hire date</source>
+        <target>Fecha contratación</target>
+      </segment>
+    </unit>
+    <unit id="employee.action.edit">
+      <notes>
+        <note category="description">Row action label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Edit</source>
+        <target>Editar</target>
+      </segment>
+    </unit>
+    <unit id="employee.action.delete">
+      <notes>
+        <note category="description">Row action label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Delete</source>
+        <target>Eliminar</target>
+      </segment>
+    </unit>
+    <unit id="employee.field.id">
+      <notes>
+        <note category="description">Filter field label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>ID</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="employee.toggle.showDeleted">
+      <notes>
+        <note category="description">Filter toggle label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Show deleted</source>
+        <target>Mostrar eliminados</target>
+      </segment>
+    </unit>
+    <unit id="employee.toggle.showHidden">
+      <notes>
+        <note category="description">Filter toggle label</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Show hidden</source>
+        <target>Mostrar ocultos</target>
+      </segment>
+    </unit>
+    <unit id="employee.placeholder.id">
+      <notes>
+        <note category="description">Filter input placeholder</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Employee ID</source>
+        <target>ID del empleado</target>
+      </segment>
+    </unit>
+    <unit id="employee.placeholder.name">
+      <notes>
+        <note category="description">Filter input placeholder</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Search by name...</source>
+        <target>Buscar por nombre...</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.sort">
+      <notes>
+        <note category="description">Sort snackbar notification</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Sort by: <ph id="0" equiv="field" disp="{$field}"/> (<ph id="1" equiv="direction" disp="{$direction}"/>)</source>
+        <target>Ordenar por: <ph id="0" equiv="field" disp="{$field}"/> (<ph id="1" equiv="direction" disp="{$direction}"/>)</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.filterSimple">
+      <notes>
+        <note category="description">Simple search applied snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Simple search applied</source>
+        <target>Búsqueda simple aplicada</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.filterAdvanced">
+      <notes>
+        <note category="description">Advanced search applied snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced search applied</source>
+        <target>Búsqueda avanzada aplicada</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.page">
+      <notes>
+        <note category="description">Page change snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Page: <ph id="0" equiv="pageNum" disp="{$pageNum}"/> (items per page: <ph id="1" equiv="pageSize" disp="{$pageSize}"/>)</source>
+        <target>Página: <ph id="0" equiv="pageNum" disp="{$pageNum}"/> (elementos por página: <ph id="1" equiv="pageSize" disp="{$pageSize}"/>)</target>
+      </segment>
+    </unit>
+    <unit id="tableclient.notify.action">
+      <notes>
+        <note category="description">Action snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="action" disp="{$action}"/>: <ph id="1" equiv="name" disp="{$name}"/></source>
+        <target><ph id="0" equiv="action" disp="{$action}"/>: <ph id="1" equiv="name" disp="{$name}"/></target>
+      </segment>
+    </unit>
+    <unit id="tableserver.notify.loadError">
+      <notes>
+        <note category="description">Load error snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Error loading employees</source>
+        <target>Error al cargar empleados</target>
+      </segment>
+    </unit>
+    <unit id="tableserver.notify.rowClick">
+      <notes>
+        <note category="description">Row click snackbar</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Selected: <ph id="0" equiv="name" disp="{$name}"/> (<ph id="1" equiv="email" disp="{$email}"/>)</source>
+        <target>Seleccionado: <ph id="0" equiv="name" disp="{$name}"/> (<ph id="1" equiv="email" disp="{$email}"/>)</target>
+      </segment>
+    </unit>
+    <unit id="table.advancedFilters.title">
+      <notes>
+        <note category="description">Advanced filters card title</note>
+        <note category="meaning">Table</note>
+      </notes>
+      <segment>
+        <source>Advanced filters</source>
+        <target>Filtros avanzados</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.layout.description">
+      <notes>
+        <note category="description">Page layout description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Complete reference with all field types and working validations</source>
+        <target>Referencia completa con todos los tipos de campo y validaciones funcionales</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.layout.title">
+      <notes>
+        <note category="description">Page layout title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Field Gallery</source>
+        <target>Galería de Campos de Formulario</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.title">
+      <notes>
+        <note category="description">Page title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Field Gallery</source>
+        <target>Galería de Campos de Formulario</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.description">
+      <notes>
+        <note category="description">Page description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Complete reference with all field types and working validations. Test real-time validation and explore different visual configurations. </source>
+        <target> Referencia completa con todos los tipos de campo y validaciones funcionales. Prueba la validación en tiempo real y explora diferentes configuraciones visuales. </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.back">
+      <notes>
+        <note category="description">Back to PDS button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Back to PDS</source>
+        <target>Volver al PDS</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.complete">
+      <notes>
+        <note category="description">Complete form card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Complete Form Example</source>
+        <target>Ejemplo de Formulario Completo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.complete.description">
+      <notes>
+        <note category="description">Complete form card description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> All field types with real validations. Try entering invalid data to see errors. </source>
+        <target> Todos los tipos de campo con validaciones reales. Intenta ingresar datos inválidos para ver los errores. </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.terms">
+      <notes>
+        <note category="description">Terms and conditions label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>I accept the terms and conditions *</source>
+        <target>Acepto los términos y condiciones *</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.reset">
+      <notes>
+        <note category="description">Reset button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Reset</source>
+        <target>Restablecer</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.submit">
+      <notes>
+        <note category="description">Submit button</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Submit Form</source>
+        <target>Enviar Formulario</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.code">
+      <notes>
+        <note category="description">Generated code card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Generated Code</source>
+        <target>Código Generado</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.btn.copyCode">
+      <notes>
+        <note category="description">Copy code tooltip</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Copiar código</source>
+        <target>Copiar código</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.visualControls">
+      <notes>
+        <note category="description">Visual controls card title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Visual Controls</source>
+        <target>Controles Visuales</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.card.visualControls.description">
+      <notes>
+        <note category="description">Visual controls card description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Change visual appearance of all fields (validations stay the same) </source>
+        <target> Cambia la apariencia visual de todos los campos (las validaciones permanecen igual) </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.label.appearance">
+      <notes>
+        <note category="description">Appearance style label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Appearance Style</source>
+        <target>Estilo de Apariencia</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.hint.appearance">
+      <notes>
+        <note category="description">Appearance helper text</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Changes the Material Design style of all fields </source>
+        <target> Cambia el estilo de Material Design de todos los campos </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.label.showHide">
+      <notes>
+        <note category="description">Show/hide elements label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show/Hide Elements</source>
+        <target>Mostrar/Ocultar Elementos</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showIcons">
+      <notes>
+        <note category="description">Show icons checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Icons</source>
+        <target>Mostrar Íconos</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showHints">
+      <notes>
+        <note category="description">Show hints checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Hints</source>
+        <target>Mostrar Sugerencias</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.checkbox.showPrefixSuffix">
+      <notes>
+        <note category="description">Show prefix/suffix checkbox</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Show Prefix/Suffix</source>
+        <target>Mostrar Prefijo/Sufijo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.info.tryItTitle">
+      <notes>
+        <note category="description">Try it title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Try It!</source>
+        <target>¡Pruébalo!</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.info.tryItDescription">
+      <notes>
+        <note category="description">Try it description</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> Enter invalid data in the fields to see validation errors in real-time. The visual controls only affect appearance, not validations. </source>
+        <target> Ingresa datos inválidos en los campos para ver los errores de validación en tiempo real. Los controles visuales solo afectan la apariencia, no las validaciones. </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.title">
+      <notes>
+        <note category="description">Form status title</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Form Status</source>
+        <target>Estado del Formulario</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.status">
+      <notes>
+        <note category="description">Status label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Status:</source>
+        <target>Estado:</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.valid">
+      <notes>
+        <note category="description">Valid label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Valid:</source>
+        <target>Válido:</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.touched">
+      <notes>
+        <note category="description">Touched label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Touched:</source>
+        <target>Tocado:</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.status.dirty">
+      <notes>
+        <note category="description">Dirty label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Dirty:</source>
+        <target>Modificado:</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.male">
+      <notes>
+        <note category="description">Gender option male</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Male</source>
+        <target>Masculino</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.female">
+      <notes>
+        <note category="description">Gender option female</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Female</source>
+        <target>Femenino</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.other">
+      <notes>
+        <note category="description">Gender option other</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Other</source>
+        <target>Otro</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.gender.preferNotToSay">
+      <notes>
+        <note category="description">Gender option prefer not to say</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Prefer not to say</source>
+        <target>Prefiero no decirlo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.appearance.fill">
+      <notes>
+        <note category="description">Appearance option fill</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Fill</source>
+        <target>Relleno</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.appearance.outline">
+      <notes>
+        <note category="description">Appearance option outline</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Outline</source>
+        <target>Contorno</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.us">
+      <notes>
+        <note category="description">Country United States</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>United States</source>
+        <target>Estados Unidos</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.uk">
+      <notes>
+        <note category="description">Country United Kingdom</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>United Kingdom</source>
+        <target>Reino Unido</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.ca">
+      <notes>
+        <note category="description">Country Canada</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Canada</source>
+        <target>Canadá</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.mx">
+      <notes>
+        <note category="description">Country Mexico</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Mexico</source>
+        <target>México</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.es">
+      <notes>
+        <note category="description">Country Spain</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Spain</source>
+        <target>España</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.fr">
+      <notes>
+        <note category="description">Country France</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>France</source>
+        <target>Francia</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.de">
+      <notes>
+        <note category="description">Country Germany</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Germany</source>
+        <target>Alemania</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.country.it">
+      <notes>
+        <note category="description">Country Italy</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Italy</source>
+        <target>Italia</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.label">
+      <notes>
+        <note category="description">Full name field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Full Name</source>
+        <target>Nombre Completo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.placeholder">
+      <notes>
+        <note category="description">Full name placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>John Doe</source>
+        <target>Juan García</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.basicText.hint">
+      <notes>
+        <note category="description">Full name hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Enter your full name</source>
+        <target>Introduce tu nombre completo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.label">
+      <notes>
+        <note category="description">Email field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Email Address</source>
+        <target>Correo Electrónico</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.placeholder">
+      <notes>
+        <note category="description">Email placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>your@email.com</source>
+        <target>tu@email.com</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.hint">
+      <notes>
+        <note category="description">Email hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>We'll never share your email</source>
+        <target>Nunca compartiremos tu correo</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.error.required">
+      <notes>
+        <note category="description">Email required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Email address is required</source>
+        <target>El correo electrónico es obligatorio</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.email.error.email">
+      <notes>
+        <note category="description">Email invalid error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid email address</source>
+        <target>Por favor introduce una dirección de correo válida</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.label">
+      <notes>
+        <note category="description">Password field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password</source>
+        <target>Contraseña</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.placeholder">
+      <notes>
+        <note category="description">Password placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Enter secure password</source>
+        <target>Introduce una contraseña segura</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.hint">
+      <notes>
+        <note category="description">Password hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Must be at least 8 characters</source>
+        <target>Debe tener al menos 8 caracteres</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.error.required">
+      <notes>
+        <note category="description">Password required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password is required</source>
+        <target>La contraseña es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.password.error.minlength">
+      <notes>
+        <note category="description">Password minlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Password must be at least 8 characters long</source>
+        <target>La contraseña debe tener al menos 8 caracteres</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.label">
+      <notes>
+        <note category="description">Age field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Age</source>
+        <target>Edad</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.placeholder">
+      <notes>
+        <note category="description">Age placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>18-99</source>
+        <target>18-99</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.suffix">
+      <notes>
+        <note category="description">Age suffix</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source> years</source>
+        <target> años</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.hint">
+      <notes>
+        <note category="description">Age hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be 18 or older</source>
+        <target>Debes tener 18 años o más</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.required">
+      <notes>
+        <note category="description">Age required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Age is required</source>
+        <target>La edad es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.min">
+      <notes>
+        <note category="description">Age min error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be at least 18 years old</source>
+        <target>Debes tener al menos 18 años</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.age.error.max">
+      <notes>
+        <note category="description">Age max error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid age (maximum 99)</source>
+        <target>Por favor introduce una edad válida (máximo 99)</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.label">
+      <notes>
+        <note category="description">Phone field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Phone Number</source>
+        <target>Número de Teléfono</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.placeholder">
+      <notes>
+        <note category="description">Phone placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>(555) 123-4567</source>
+        <target>(555) 123-4567</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.prefix">
+      <notes>
+        <note category="description">Phone prefix</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>+1 </source>
+        <target>+34 </target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.hint">
+      <notes>
+        <note category="description">Phone hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>US phone numbers only</source>
+        <target>Solo números de teléfono españoles</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.phone.error.required">
+      <notes>
+        <note category="description">Phone required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Phone number is required</source>
+        <target>El número de teléfono es obligatorio</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.label">
+      <notes>
+        <note category="description">Description field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description</source>
+        <target>Descripción</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.placeholder">
+      <notes>
+        <note category="description">Description placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Tell us about yourself...</source>
+        <target>Cuéntanos sobre ti...</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.hint">
+      <notes>
+        <note category="description">Description hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Minimum 10 characters, maximum 500</source>
+        <target>Mínimo 10 caracteres, máximo 500</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.required">
+      <notes>
+        <note category="description">Description required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description is required</source>
+        <target>La descripción es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.minlength">
+      <notes>
+        <note category="description">Description minlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description must be at least 10 characters</source>
+        <target>La descripción debe tener al menos 10 caracteres</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.description.error.maxlength">
+      <notes>
+        <note category="description">Description maxlength error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Description cannot exceed 500 characters</source>
+        <target>La descripción no puede superar los 500 caracteres</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.label">
+      <notes>
+        <note category="description">Birth date field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Birth Date</source>
+        <target>Fecha de Nacimiento</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.placeholder">
+      <notes>
+        <note category="description">Birth date placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>MM/DD/YYYY</source>
+        <target>DD/MM/AAAA</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.hint">
+      <notes>
+        <note category="description">Birth date hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be 18 or older</source>
+        <target>Debes tener 18 años o más</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.error.required">
+      <notes>
+        <note category="description">Birth date required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Birth date is required</source>
+        <target>La fecha de nacimiento es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.birthDate.error.max">
+      <notes>
+        <note category="description">Birth date max error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>You must be at least 18 years old</source>
+        <target>Debes tener al menos 18 años</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.label">
+      <notes>
+        <note category="description">Gender field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Gender</source>
+        <target>Género</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.hint">
+      <notes>
+        <note category="description">Gender hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Select your gender identity</source>
+        <target>Selecciona tu identidad de género</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.gender.error.required">
+      <notes>
+        <note category="description">Gender required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Gender selection is required</source>
+        <target>La selección de género es obligatoria</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.label">
+      <notes>
+        <note category="description">Select country field label</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Country</source>
+        <target>País</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.placeholder">
+      <notes>
+        <note category="description">Select country placeholder</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Choose a country</source>
+        <target>Elige un país</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.hint">
+      <notes>
+        <note category="description">Select country hint</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Select your country of residence</source>
+        <target>Selecciona el país donde resides</target>
+      </segment>
+    </unit>
+    <unit id="pds.form.field.country.error.required">
+      <notes>
+        <note category="description">Select country required error</note>
+        <note category="meaning">Form Gallery</note>
+      </notes>
+      <segment>
+        <source>Country selection is required</source>
+        <target>La selección del país es obligatoria</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

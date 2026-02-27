@@ -35,6 +35,8 @@ export class AppTableServerSideComponent<T extends AnyRecord> extends AppTableBa
 
   readonly filterValues = signal<AppFilterValues>({});
 
+  readonly advancedFiltersTitle = $localize`:Table|Advanced filters card title@@table.advancedFilters.title:Advanced filters`;
+
   readonly currentParams = computed<AppTableServerParams>(() => ({
     filters: this.filterValues(),
     sort: this.currentSort(),

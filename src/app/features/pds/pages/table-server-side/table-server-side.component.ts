@@ -54,9 +54,11 @@ export class TableServerSideComponent implements OnInit {
           this.totalEmployees.set(response.total);
         },
         error: () => {
-          this.snackBar.open('Error al cargar empleados', '✕', {
-            duration: 3000,
-          });
+          this.snackBar.open(
+            $localize`:Table|Load error snackbar@@tableserver.notify.loadError:Error loading employees`,
+            '✕',
+            { duration: 3000 },
+          );
         },
       });
   }
@@ -68,11 +70,8 @@ export class TableServerSideComponent implements OnInit {
    * Ref: https://github.com/angular/angular/issues/49110
    */
   onRowClick(employee: EmployeeViewModel): void {
-    this.snackBar.open(
-      `Seleccionado: ${employee.name} (${employee.email})`,
-      '✕',
-      { duration: 2500 }
-    );
+    const msg = $localize`:Table|Row click snackbar@@tableserver.notify.rowClick:Selected: ${employee.name}:name: (${employee.email}:email:)`;
+    this.snackBar.open(msg, '✕', { duration: 2500 });
   }
 }
 

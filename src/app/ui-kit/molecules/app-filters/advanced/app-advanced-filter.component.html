@@ -1,9 +1,9 @@
-<div [class]="criteriaAreaClasses()" aria-label="Filtros activos" aria-live="polite"
+<div [class]="criteriaAreaClasses()" aria-label="Active filters" aria-live="polite"
      class="flex flex-wrap gap-2 p-3.5 min-h-[52px] items-center" role="list">
 
   @if (!hasCriteria()) {
     <mat-icon>filter_list</mat-icon>
-    <span>No hay filtros aplicados</span>
+    <span i18n="Filters|No filters applied message@@filters.empty">No filters applied</span>
   } @else {
     @for (criterion of criteria(); track criterion.id) {
       <div [attr.data-type]="criterion.field.type" class="app-filter-pill" role="listitem">
@@ -13,7 +13,7 @@
           {{ criterion | criterionDisplay }}
         </span>
         <button (click)="removeCriterion(criterion.id)"
-                [attr.aria-label]="'Eliminar filtro: ' + criterion.field.label + ' ' + criterion.operator.symbol + ' ' + (criterion | criterionDisplay)"
+                [attr.aria-label]="getRemoveLabel(criterion)"
                 class="app-filter-pill-remove"
                 type="button">
           <mat-icon aria-hidden="true">close</mat-icon>
@@ -27,13 +27,13 @@
 
 <div [formGroup]="builderForm" class="app-filters-advanced-form">
   <div>
-    <app-form-select [config]="{ label: 'Campo' }" [options]="fieldOptions()" appFormSelectConnector
+    <app-form-select [config]="{ label: fieldLabel() }" [options]="fieldOptions()" appFormSelectConnector
                      formControlName="field">
     </app-form-select>
   </div>
 
   <div>
-    <app-form-select [config]="{ label: 'Operador' }" [options]="operatorOptions()" appFormSelectConnector
+    <app-form-select [config]="{ label: operatorLabel() }" [options]="operatorOptions()" appFormSelectConnector
                      formControlName="operator">
     </app-form-select>
   </div>
@@ -42,25 +42,25 @@
     <div>
       @switch (selectedFieldType()) {
         @case ('select') {
-          <app-form-select [config]="{ label: 'Valor' }" [options]="valueOptions()" appFormSelectConnector
+          <app-form-select [config]="{ label: valueLabel() }" [options]="valueOptions()" appFormSelectConnector
                            formControlName="value">
           </app-form-select>
         }
         @case ('date') {
-          <app-form-datepicker [config]="{ label: 'Fecha' }" appFormDatepickerConnector
+          <app-form-datepicker [config]="{ label: dateLabel() }" appFormDatepickerConnector
                                formControlName="value"></app-form-datepicker>
         }
         @case ('number') {
-          <app-form-input [config]="{ label: 'Valor' }" appFormInputConnector formControlName="value"
+          <app-form-input [config]="{ label: valueLabel() }" appFormInputConnector formControlName="value"
                           type="number"></app-form-input>
         }
         @case ('boolean') {
-          <app-form-select [config]="{ label: 'Valor' }" [options]="booleanOptions" appFormSelectConnector
+          <app-form-select [config]="{ label: valueLabel() }" [options]="booleanOptions" appFormSelectConnector
                            formControlName="value">
           </app-form-select>
         }
         @default {
-          <app-form-input [config]="{ label: 'Valor' }" appFormInputConnector formControlName="value"></app-form-input>
+          <app-form-input [config]="{ label: valueLabel() }" appFormInputConnector formControlName="value"></app-form-input>
         }
       }
     </div>
@@ -70,7 +70,7 @@
 
   <div class="app-filters-advanced-form-button">
     <app-button (click)="addCriterion()" [disabled]="!canAddCriterion()" iconBefore="add">
-      Agregar
+      <ng-container i18n="Filters|Add criterion button@@filters.btn.add">Add</ng-container>
     </app-button>
   </div>
 </div>
