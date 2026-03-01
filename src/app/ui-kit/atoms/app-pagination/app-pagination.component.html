@@ -1,0 +1,50 @@
+<div class="pagination-container">
+    @if (showPageSizeSelector()) {
+    <div class="page-size-selector">
+        <span class="page-size-label mat-label-large">{{ itemsPerPageLabel() }}</span>
+        <app-form-select
+        class="page-size-select"
+        [ngModel]="state().pageSize"
+        (ngModelChange)="onPageSizeChange($event)"
+        [config]="{ density: -3 }"
+        [options]="pageSizeSelectOptions()">
+        </app-form-select>
+    </div>
+    }
+
+    <div class="range-info mat-label-large">{{ rangeLabel() }}</div>
+
+    <div class="navigation-buttons">
+    @if (showFirstLastButtons()) {
+        <app-button
+        [disabled]="isFirstPage()"
+        [matTooltip]="firstPageLabel()"
+        (click)="goToFirstPage()"
+        iconBefore="first_page">
+        </app-button>
+    }
+
+    <app-button
+        [disabled]="isFirstPage()"
+        [matTooltip]="previousPageLabel()"
+        (click)="goToPreviousPage()"
+        iconBefore="chevron_left">
+    </app-button>
+
+    <app-button
+        [disabled]="isLastPage()"
+        [matTooltip]="nextPageLabel()"
+        (click)="goToNextPage()"
+        iconBefore="chevron_right">
+    </app-button>
+
+    @if (showFirstLastButtons()) {
+        <app-button
+        [disabled]="isLastPage()"
+        [matTooltip]="lastPageLabel()"
+        (click)="goToLastPage()"
+        iconBefore="last_page">
+        </app-button>
+    }
+    </div>
+</div>

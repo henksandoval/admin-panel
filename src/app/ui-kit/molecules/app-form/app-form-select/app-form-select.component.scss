@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+
+:host.app-form-select--density-0 {
+  ::ng-deep {
+    @include mat.form-field-density(0);
+    @include mat.select-density(0);
+  }
+}
+
+:host.app-form-select--density-n2 {
+  ::ng-deep {
+    @include mat.form-field-density(-2);
+    @include mat.select-density(-2);
+
+    // At -2, Material hides the floating label via CSS but Angular still
+    // adds mat-form-field-hide-placeholder (it detects the <mat-label> in DOM),
+    // which makes the placeholder rgba(0,0,0,0). Restore it explicitly.
+    &.mat-form-field-hide-placeholder .mat-mdc-select-placeholder {
+      color: var(--mat-select-placeholder-text-color, var(--mat-sys-on-surface-variant));
+      -webkit-text-fill-color: unset;
+    }
+  }
+}
+
+:host.app-form-select--density-n3 {
+  ::ng-deep {
+    @include mat.form-field-density(-3);
+    @include mat.select-density(-3);
+
+    &.mat-form-field-hide-placeholder .mat-mdc-select-placeholder {
+      color: var(--mat-select-placeholder-text-color, var(--mat-sys-on-surface-variant));
+      -webkit-text-fill-color: unset;
+    }
+  }
+}

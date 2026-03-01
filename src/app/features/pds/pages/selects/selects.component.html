@@ -18,11 +18,12 @@
         <app-form-select
           [(ngModel)]="singleValue"
           [config]="{
-            label: 'Select a Country',
-            placeholder: 'Choose one...',
+            label: 'Country',
+            placeholder: 'Select a country',
             appearance: selectedAppearance(),
             icon: showIcon() ? 'public' : '',
-            hint: showHint() ? 'Select your country from the list' : ''
+            hint: showHint() ? 'Select your country from the list' : '',
+            density: densityValue()
           }"
           [options]="currentOptions()">
         </app-form-select>
@@ -42,7 +43,8 @@
             appearance: selectedAppearance(),
             multiple: true,
             icon: showIcon() ? 'code' : '',
-            hint: showHint() ? 'You can select multiple frameworks' : ''
+            hint: showHint() ? 'You can select multiple frameworks' : '',
+            density: densityValue()
           }"
           [options]="currentOptions()">
         </app-form-select>
@@ -61,7 +63,8 @@
             placeholder: 'Choose from categories...',
             appearance: selectedAppearance(),
             icon: showIcon() ? 'category' : '',
-            hint: showHint() ? 'Options are organized by category' : ''
+            hint: showHint() ? 'Options are organized by category' : '',
+            density: densityValue()
           }"
           [options]="currentOptions()">
         </app-form-select>
@@ -80,7 +83,8 @@
             placeholder: 'Cannot interact',
             appearance: selectedAppearance(),
             icon: showIcon() ? 'block' : '',
-            hint: showHint() ? 'This field is disabled' : ''
+            hint: showHint() ? 'This field is disabled' : '',
+            density: densityValue()
           }"
           [disabled]="true"
           [options]="currentOptions()">
@@ -109,6 +113,17 @@
       <app-toggle-group
         [(ngModel)]="selectedAppearance"
         [options]="appearanceOptions"
+        class="w-full"/>
+    </div>
+
+    <div class="mt-2">
+      <label class="section-label mat-label-large flex items-center gap-1.5 mb-1">
+        <mat-icon>density_medium</mat-icon>
+        Density
+      </label>
+      <app-toggle-group
+        [(ngModel)]="selectedDensity"
+        [options]="densityOptions"
         class="w-full"/>
     </div>
 

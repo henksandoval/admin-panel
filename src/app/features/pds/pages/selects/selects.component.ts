@@ -17,7 +17,7 @@ import {
 } from './selects.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
-import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
+import { SelectOption, SelectDensity } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
 
 @Component({
   selector: 'app-selects',
@@ -38,6 +38,8 @@ export default class SelectsComponent {
   readonly selectedState = signal<'single' | 'multiple' | 'grouped' | 'disabled'>('single');
   readonly selectedAppearance = signal<'fill' | 'outline'>('fill');
   readonly selectedSize = signal<'small' | 'medium' | 'large'>('medium');
+  readonly selectedDensity = signal<string>('-1');
+  readonly densityValue = computed<SelectDensity>(() => Number(this.selectedDensity()) as SelectDensity);
   readonly showIcon = signal<boolean>(false);
   readonly showHint = signal<boolean>(false);
   readonly isRequired = signal<boolean>(false);
@@ -52,6 +54,12 @@ export default class SelectsComponent {
     { value: 'multiple', label: 'Multiple' },
     { value: 'grouped', label: 'Grouped' },
     { value: 'disabled', label: 'Disabled' }
+  ];
+  readonly densityOptions: ToggleOption[] = [
+    { value: '0',  label: 'Comfortable' },
+    { value: '-1', label: 'Compact' },
+    { value: '-2', label: 'Dense' },
+    { value: '-3', label: 'Ultra' }
   ];
   readonly appearanceOptions: ToggleOption[] = [
     { value: 'fill', label: 'Fill' },
@@ -75,6 +83,7 @@ export default class SelectsComponent {
     const showIcon = this.showIcon();
     const showHint = this.showHint();
     const _required = this.isRequired();
+    const density = this.densityValue();
 
     let tsCode = `// TypeScript\n`;
     tsCode += `import { SelectOption } from '@shared/form-controls/app-form-select/app-form-select.model';\n\n`;
@@ -110,6 +119,9 @@ export default class SelectsComponent {
     }
     if (showHint) {
       htmlCode += `,\n    hint: 'Helper text here'`;
+    }
+    if (density !== -1) {
+      htmlCode += `,\n    density: ${density}`;
     }
 
     htmlCode += `\n  }">\n`;

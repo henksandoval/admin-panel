@@ -21,57 +21,7 @@ import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-se
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-pagination.component.scss',
-  template: `
-    <div class="pagination-container">
-      @if (showPageSizeSelector()) {
-        <div class="page-size-selector">
-          <span class="page-size-label mat-label-large">{{ itemsPerPageLabel() }}</span>
-          <app-form-select
-            class="page-size-select"
-            [ngModel]="state().pageSize"
-            (ngModelChange)="onPageSizeChange($event)"
-            [options]="pageSizeSelectOptions()">
-          </app-form-select>
-        </div>
-      }
-
-      <div class="range-info mat-label-large">{{ rangeLabel() }}</div>
-
-      <div class="navigation-buttons">
-        @if (showFirstLastButtons()) {
-          <app-button
-            [disabled]="isFirstPage()"
-            [matTooltip]="firstPageLabel()"
-            (click)="goToFirstPage()"
-            iconBefore="first_page">
-          </app-button>
-        }
-
-        <app-button
-          [disabled]="isFirstPage()"
-          [matTooltip]="previousPageLabel()"
-          (click)="goToPreviousPage()"
-          iconBefore="chevron_left">
-      </app-button>
-
-        <app-button
-          [disabled]="isLastPage()"
-          [matTooltip]="nextPageLabel()"
-          (click)="goToNextPage()"
-          iconBefore="chevron_right">
-        </app-button>
-
-        @if (showFirstLastButtons()) {
-          <app-button
-            [disabled]="isLastPage()"
-            [matTooltip]="lastPageLabel()"
-            (click)="goToLastPage()"
-            iconBefore="last_page">
-          </app-button>
-        }
-      </div>
-    </div>
-  `,
+  templateUrl: './app-pagination.component.html'
 })
 export class AppPaginationComponent {
   readonly config = input<AppPaginationConfig>({});

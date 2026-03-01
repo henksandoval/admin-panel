@@ -23,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
-import { APP_FORM_SELECT_DEFAULTS, AppFormSelectConfig, SelectOption } from './app-form-select.model';
+import { APP_FORM_SELECT_DEFAULTS, AppFormSelectConfig, SelectDensity, SelectOption } from './app-form-select.model';
 import { LoggingService } from '@core/services/logging.service';
 
 interface ErrorState {
@@ -35,52 +35,11 @@ interface ErrorState {
   selector: 'app-form-select',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule],
-  template: `
-    <mat-form-field class="w-full" [appearance]="fullConfig().appearance">
-      @if(fullConfig().label) {
-        <mat-label>{{ fullConfig().label }}</mat-label>
-      }
-
-      @if(fullConfig().icon) {
-        <mat-icon matPrefix>{{ fullConfig().icon }}</mat-icon>
-      }
-
-      <mat-select
-        [formControl]="internalControl"
-        [placeholder]="fullConfig().placeholder"
-        [multiple]="fullConfig().multiple"
-        [attr.aria-label]="fullConfig().ariaLabel"
-        [panelClass]="fullConfig().panelClass || ''"
-        (blur)="handleBlur()">
-
-        @if (hasGroups()) {
-          @for (group of groupedOptions(); track group.name) {
-            <mat-optgroup [label]="group.name">
-              @for (option of group.options; track option.value) {
-                <mat-option [value]="option.value" [disabled]="option.disabled || false">
-                  {{ option.label }}
-                </mat-option>
-              }
-            </mat-optgroup>
-          }
-        } @else {
-          @for (option of options(); track option.value) {
-            <mat-option [value]="option.value" [disabled]="option.disabled || false">
-              {{ option.label }}
-            </mat-option>
-          }
-        }
-      </mat-select>
-
-      @if(fullConfig().hint) {
-        <mat-hint>{{ fullConfig().hint }}</mat-hint>
-      }
-
-      @if(fullConfig().showErrors && errorState.shouldShow) {
-        <mat-error>{{ errorState.message }}</mat-error>
-      }
-    </mat-form-field>
-  `,
+  templateUrl: './app-form-select.component.html',
+  styleUrl: './app-form-select.component.scss',
+  host: {
+    '[class]': 'densityClass()'
+  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -109,6 +68,15 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
   public isDisabled = false;
   readonly hasGroups = computed(() => {
     return this.options().some(opt => opt.group !== undefined);
+  });
+  readonly densityClass = computed(() => {
+    const densityMap: Record<SelectDensity, string> = {
+      0:  'app-form-select--density-0',
+      '-1': 'app-form-select--density-n1',
+      '-2': 'app-form-select--density-n2',
+      '-3': 'app-form-select--density-n3',
+    };
+    return densityMap[this.fullConfig().density];
   });
   readonly groupedOptions = computed(() => {
     const groups = new Map<string, SelectOption<T>[]>();

@@ -7,6 +7,8 @@ export interface SelectOption<T = any> {
   group?: string;
 }
 
+export type SelectDensity = 0 | -1 | -2 | -3;
+
 export interface AppFormSelectConfig {
   label?: string;
   placeholder?: string;
@@ -18,10 +20,12 @@ export interface AppFormSelectConfig {
   panelClass?: string | string[];
   errorMessages?: Record<string, string>;
   showErrors?: boolean;
+  density?: SelectDensity;
 }
 
 export const APP_FORM_SELECT_DEFAULTS: Required<Omit<AppFormSelectConfig, 'label' | 'placeholder' | 'hint' | 'icon' | 'ariaLabel' | 'panelClass' | 'errorMessages'>> = {
   appearance: 'fill',
   multiple: false,
-  showErrors: true
+  showErrors: true,
+  density: -1
 };
