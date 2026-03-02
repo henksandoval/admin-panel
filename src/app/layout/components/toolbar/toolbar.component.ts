@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
 import { LayoutService } from '../../services/layout.service';
+import { AppBreadCrumbComponent } from '@ui-molecules/app-bread-crumb/app-bread-crumb.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -18,7 +19,8 @@ import { LayoutService } from '../../services/layout.service';
     MatButtonModule,
     MatMenuModule,
     MatBadgeModule,
-    MatDividerModule
+    MatDividerModule,
+    AppBreadCrumbComponent
   ],
   templateUrl: './toolbar.component.html',
   styles: `
@@ -38,13 +40,8 @@ import { LayoutService } from '../../services/layout.service';
       flex: 1;
     }
 
-    .toolbar-title-area {
-      flex: 1;
-    }
-
-    .toolbar-title {
-      font-weight: 600;
-      margin: 0;
+    .spacer {
+      flex: 1 1 auto;
     }
 
     .toolbar-actions {

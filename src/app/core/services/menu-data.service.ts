@@ -65,7 +65,7 @@ export class MenuDataService {
           id: item.id,
           title: item.label,
           icon: item.icon ?? NAVIGATION_DEFAULTS.icon,
-          url: definition.loader && !hasChildren ? fullPath : undefined,
+          url: definition.loader ? fullPath : undefined,
           badge,
           children: hasChildren
             ? this.buildNavigationItems(item.children!, fullPath)

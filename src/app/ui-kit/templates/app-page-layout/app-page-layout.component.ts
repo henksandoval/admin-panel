@@ -3,7 +3,6 @@ import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { GridCell, GridConfig, LAYOUT_PRESETS, LayoutConfig, LayoutPreset } from './app-page-layout.model';
 import { AppSlotContainerDirective } from './app-slot-container.directive';
-import { AppBreadCrumbComponent } from "@ui-molecules/app-bread-crumb/app-bread-crumb.component";
 
 @Component({
   selector: 'app-page-layout',
@@ -11,11 +10,9 @@ import { AppBreadCrumbComponent } from "@ui-molecules/app-bread-crumb/app-bread-
   imports: [
     CommonModule,
     NgTemplateOutlet,
-    MatIconModule,
-    AppBreadCrumbComponent
+    MatIconModule
   ],
   template: `
-    <app-bread-crumb></app-bread-crumb>
     <div class="page-grid" [class]="resolvedConfig().grid.gridClass ?? ''">
       @for (cell of resolvedConfig().cells; track cell.slotId) {
         <div

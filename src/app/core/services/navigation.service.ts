@@ -65,6 +65,7 @@ export class NavigationService {
   private buildBreadcrumbs(menu: NavigationItem[], url: string): BreadcrumbItem[] {
     return this.findPathToUrl(menu, url).map((item) => ({
       label: item.title,
+      icon: item.icon,
       route: item.url ?? null,
     }));
   }
