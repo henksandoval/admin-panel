@@ -1,25 +1,19 @@
-<nav class="breadcrumb mat-label-large">
+<nav class="app-bread-crumb mat-label-large">
   @for (item of navigationService.breadcrumbs(); track item.label; let last = $last) {
-    @if (!last && item.route) {
-      <a [routerLink]="item.route" class="pill">
+    @if (last || !item.route) {
+      <a class="app-bread-crumb-pill no-route">
         <mat-icon>{{ item.icon }}</mat-icon>
         <span>{{ item.label }}</span>
       </a>
-    } @else if (!last && !item.route) {
-      <span class="pill pill--no-route">
+    }
+    @else {
+      <a [routerLink]="item.route" class="app-bread-crumb-pill">
         <mat-icon>{{ item.icon }}</mat-icon>
         <span>{{ item.label }}</span>
-      </span>
-    } @else {
-      <span class="pill pill--active">
-        <mat-icon>{{ item.icon }}</mat-icon>
-        <span>{{ item.label }}</span>
-      </span>
+      </a>
     }
     @if (!last) {
-      <svg class="separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="9 18 15 12 9 6"></polyline>
-      </svg>
+      <mat-icon class="app-bread-crumb-separator" aria-hidden="true">chevron_right</mat-icon>
     }
   }
 </nav>
