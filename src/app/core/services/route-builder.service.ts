@@ -3,6 +3,7 @@ import { Route } from '@angular/router';
 import { ApiMenuItem } from '@core/contracts/api-menu-item.model';
 import { ROUTE_REGISTRY, RouteDefinition } from '@core/registry/route-registry';
 import { LoggingService } from '@core/services/logging.service';
+import { authGuard, roleGuard } from '@auth/guards/auth.guard';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,18 @@ export class RouteBuilderService {
     }
 
     const hasChildren = !!item.children?.length;
+    const route = this.buildBaseRoute(definition, hasChildren, item);
 
+    if (!route) return null;
+
+    return this.applyAuthGuards(route, definition);
+  }
+
+  private buildBaseRoute(
+    definition: RouteDefinition,
+    hasChildren: boolean,
+    item: ApiMenuItem,
+  ): Route | null {
     if (definition.loader && !hasChildren) {
       return { path: definition.path, loadComponent: definition.loader };
     }
@@ -51,6 +63,24 @@ export class RouteBuilderService {
       `[RouteBuilderService] id '${item.id}' no tiene loader ni hijos. Se omite.`,
     );
     return null;
+  }
+
+  private applyAuthGuards(route: Route, definition: RouteDefinition): Route {
+    if (!definition.requiresAuth) return route;
+
+    const hasRoles = !!definition.roles?.length;
+
+    return {
+      ...route,
+      canActivate: hasRoles ? [authGuard, roleGuard] : [authGuard],
+      ...(hasRoles && {
+        data: {
+          ...route.data,
+          roles:      definition.roles,
+          requireAll: definition.requireAllRoles ?? false,
+        },
+      }),
+    };
   }
 }
 
