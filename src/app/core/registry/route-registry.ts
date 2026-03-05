@@ -9,6 +9,9 @@ export type LazyComponentLoader = () => Promise<Type<unknown> | DefaultExport<Ty
 export interface RouteDefinition {
   readonly path: string;
   readonly loader?: LazyComponentLoader;
+  readonly requiresAuth?: boolean;
+  readonly roles?: string[];
+  readonly requireAllRoles?: boolean;
 }
 
 export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
