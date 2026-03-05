@@ -14,8 +14,8 @@
 @use '@angular/material' as mat;
 
 $base-typography: (
-  brand-family: 'Poppins, Inter, sans-serif',
-  plain-family: 'Plus Jakarta Sans, Inter, sans-serif',
+  brand-family: '"Plus Jakarta Sans", sans-serif',
+  plain-family: '"Inter", sans-serif',
 );
 
 $theme-config: (
