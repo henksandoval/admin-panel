@@ -7,6 +7,9 @@ import {
   AuthStatus,
   AuthUser,
   LoginCredentials,
+  PasswordResetConfirm,
+  PasswordResetRequest,
+  RegisterCredentials,
   TokenResponse,
 } from '@auth/models/auth.model';
 
@@ -62,6 +65,18 @@ export class AuthService {
         return EMPTY;
       }),
     );
+  }
+
+  register(credentials: RegisterCredentials): Observable<void> {
+    return this.provider.register(credentials);
+  }
+
+  requestPasswordReset(request: PasswordResetRequest): Observable<void> {
+    return this.provider.requestPasswordReset(request);
+  }
+
+  confirmPasswordReset(confirm: PasswordResetConfirm): Observable<void> {
+    return this.provider.confirmPasswordReset(confirm);
   }
 
   logout(): Observable<void> {

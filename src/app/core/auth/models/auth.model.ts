@@ -23,6 +23,21 @@ export interface LoginCredentials {
   readonly password: string;
 }
 
+export interface RegisterCredentials {
+  readonly displayName: string;
+  readonly email: string;
+  readonly password: string;
+}
+
+export interface PasswordResetRequest {
+  readonly email: string;
+}
+
+export interface PasswordResetConfirm {
+  readonly token: string;
+  readonly password: string;
+}
+
 export interface TokenResponse {
   readonly accessToken: string;
   readonly expiresInSeconds: number;
@@ -35,6 +50,9 @@ export interface IAuthProvider {
   refreshAccessToken(): Observable<TokenResponse>;
   getUser(accessToken: string): Observable<AuthUser>;
   isTokenExpired(session: AuthSession): boolean;
+  register(credentials: RegisterCredentials): Observable<void>;
+  requestPasswordReset(request: PasswordResetRequest): Observable<void>;
+  confirmPasswordReset(confirm: PasswordResetConfirm): Observable<void>;
 }
 
 export const AUTH_DEFAULTS = {

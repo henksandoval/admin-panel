@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-import { LAYOUT_STATIC_CHILDREN } from '../../app.routes';
+import { AUTH_ROUTES, LAYOUT_STATIC_CHILDREN } from '../../app.routes';
 import { MenuDataService } from '@core/services/menu-data.service';
 import { RouteBuilderService } from '@core/services/route-builder.service';
 import { LoggingService } from '@core/services/logging.service';
@@ -27,23 +27,7 @@ export class InitializationService {
       const dynamicRoutes = this.routeBuilder.buildRoutes(this.menuDataService.menuItems());
 
       const freshRoutes: Routes = [
-        {
-          path: 'auth',
-          loadComponent: () =>
-            import('../../features/auth/shared/auth-layout.component').then(
-              (m) => m.AuthLayoutComponent,
-            ),
-          children: [
-            {
-              path: 'login',
-              loadComponent: () =>
-                import('../../features/auth/login/login.component').then(
-                  (m) => m.LoginComponent,
-                ),
-            },
-            { path: '', redirectTo: 'login', pathMatch: 'full' },
-          ],
-        },
+        ...AUTH_ROUTES,
         {
           path: '',
           component: LayoutComponent,

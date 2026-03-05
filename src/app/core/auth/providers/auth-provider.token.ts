@@ -5,6 +5,9 @@ import {
   AuthUser,
   IAuthProvider,
   LoginCredentials,
+  PasswordResetConfirm,
+  PasswordResetRequest,
+  RegisterCredentials,
   TokenResponse,
 } from '../models/auth.model';
 
@@ -34,6 +37,18 @@ export class NullAuthProvider implements IAuthProvider {
   isTokenExpired(_session: AuthSession): boolean {
     return true;
   }
+
+  register(_credentials: RegisterCredentials): Observable<void> {
+    return throwError(() => new Error(this.errorMsg('register')));
+  }
+
+  requestPasswordReset(_request: PasswordResetRequest): Observable<void> {
+    return throwError(() => new Error(this.errorMsg('requestPasswordReset')));
+  }
+
+  confirmPasswordReset(_confirm: PasswordResetConfirm): Observable<void> {
+    return throwError(() => new Error(this.errorMsg('confirmPasswordReset')));
+  }
 }
 
 export const AUTH_PROVIDER = new InjectionToken<IAuthProvider>('AUTH_PROVIDER', {
@@ -43,3 +58,4 @@ export const AUTH_PROVIDER = new InjectionToken<IAuthProvider>('AUTH_PROVIDER', 
 export const AUTH_PUBLIC_URLS = new InjectionToken<string[]>('AUTH_PUBLIC_URLS', {
   factory: () => [],
 });
+

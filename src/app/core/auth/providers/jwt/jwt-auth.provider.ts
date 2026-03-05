@@ -7,6 +7,9 @@ import {
   AuthUser,
   IAuthProvider,
   LoginCredentials,
+  PasswordResetConfirm,
+  PasswordResetRequest,
+  RegisterCredentials,
   TokenResponse,
 } from '@auth/models/auth.model';
 
@@ -18,27 +21,15 @@ export class JwtAuthProvider implements IAuthProvider {
   private readonly apiBase = inject(API_BASE_URL);
 
   login(credentials: LoginCredentials): Observable<TokenResponse> {
-    return this.http.post<TokenResponse>(
-      `${this.apiBase}/auth/login`,
-      credentials,
-      { withCredentials: true },
-    );
+    return this.http.post<TokenResponse>(`${this.apiBase}/auth/login`, credentials, { withCredentials: true });
   }
 
   logout(): Observable<void> {
-    return this.http.post<void>(
-      `${this.apiBase}/auth/logout`,
-      {},
-      { withCredentials: true },
-    );
+    return this.http.post<void>(`${this.apiBase}/auth/logout`, {}, { withCredentials: true });
   }
 
   refreshAccessToken(): Observable<TokenResponse> {
-    return this.http.post<TokenResponse>(
-      `${this.apiBase}/auth/refresh`,
-      {},
-      { withCredentials: true },
-    );
+    return this.http.post<TokenResponse>(`${this.apiBase}/auth/refresh`, {}, { withCredentials: true });
   }
 
   getUser(accessToken: string): Observable<AuthUser> {
@@ -48,9 +39,18 @@ export class JwtAuthProvider implements IAuthProvider {
   }
 
   isTokenExpired(session: AuthSession): boolean {
-    return (
-      Date.now() >=
-      session.accessTokenExpiresAt - AUTH_DEFAULTS.tokenRefreshThresholdMs
-    );
+    return Date.now() >= session.accessTokenExpiresAt - AUTH_DEFAULTS.tokenRefreshThresholdMs;
+  }
+
+  register(credentials: RegisterCredentials): Observable<void> {
+    return this.http.post<void>(`${this.apiBase}/auth/register`, credentials);
+  }
+
+  requestPasswordReset(request: PasswordResetRequest): Observable<void> {
+    return this.http.post<void>(`${this.apiBase}/auth/password-reset/request`, request);
+  }
+
+  confirmPasswordReset(confirm: PasswordResetConfirm): Observable<void> {
+    return this.http.post<void>(`${this.apiBase}/auth/password-reset/confirm`, confirm);
   }
 }

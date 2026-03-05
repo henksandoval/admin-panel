@@ -5,6 +5,9 @@ import {
   AuthUser,
   IAuthProvider,
   LoginCredentials,
+  PasswordResetConfirm,
+  PasswordResetRequest,
+  RegisterCredentials,
   TokenResponse,
 } from '@auth/models/auth.model';
 
@@ -45,6 +48,18 @@ export class MockAuthProvider implements IAuthProvider {
 
   isTokenExpired(_session: AuthSession): boolean {
     return false;
+  }
+
+  register(_credentials: RegisterCredentials): Observable<void> {
+    return of(undefined as unknown as void);
+  }
+
+  requestPasswordReset(_request: PasswordResetRequest): Observable<void> {
+    return of(undefined as unknown as void);
+  }
+
+  confirmPasswordReset(_confirm: PasswordResetConfirm): Observable<void> {
+    return of(undefined as unknown as void);
   }
 }
 
