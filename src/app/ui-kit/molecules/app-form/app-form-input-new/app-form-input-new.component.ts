@@ -1,11 +1,10 @@
-import { Component, computed, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AppFormInputConfig, AppFormInputOptions, FORM_INPUT_DEFAULT_ERROR_MESSAGES } from './app-form-input-new.model';
+import { AppFormInputConfig, AppFormInputOptions, FORM_INPUT_DEFAULT_ERROR_MESSAGES, FORM_INPUT_DEFAULTS } from './app-form-input-new.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -51,24 +50,20 @@ export class AppFormInputNewComponent {
   readonly control = input.required<FormControl<string>>();
   readonly config = input<AppFormInputOptions>({});
 
-  private readonly destroyRef = inject(DestroyRef);
-
   private readonly controlEventTick = signal(0);
 
   constructor() {
-    effect(() => {
-      const ctrl = this.control();
-      ctrl.events
-        .pipe(takeUntilDestroyed(this.destroyRef))
+    effect((onCleanup) => {
+      const sub = this.control().events
         .subscribe(() => this.controlEventTick.update(v => v + 1));
+      onCleanup(() => sub.unsubscribe());
     });
   }
 
   readonly fullConfig = computed<AppFormInputConfig>(() => ({
-    appearance: 'fill', type: 'text', label: '', placeholder: '', hint: '',
-    icon: '', prefix: '', suffix: '', ariaLabel: '', errorMessages: {},
+    ...FORM_INPUT_DEFAULTS,
     ...this.config()
-  }));
+  }) as AppFormInputConfig);
 
   readonly isRequired = computed(() => {
     this.controlEventTick();

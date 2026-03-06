@@ -17,6 +17,19 @@ export interface AppFormInputConfig {
 
 export type AppFormInputOptions = Partial<AppFormInputConfig>;
 
+export const FORM_INPUT_DEFAULTS: AppFormInputConfig = {
+  appearance: 'fill',
+  type: 'text',
+  label: '',
+  placeholder: '',
+  hint: '',
+  icon: '',
+  prefix: '',
+  suffix: '',
+  ariaLabel: '',
+  errorMessages: {},
+};
+
 export const FORM_INPUT_DEFAULT_ERROR_MESSAGES: Record<string, string> = {
   required: $localize`:FormInput|Required error@@formInput.error.required:This field is required`,
   email: $localize`:FormInput|Email error@@formInput.error.email:Please enter a valid email address`,

@@ -107,6 +107,5 @@ describe('AppFormInputNewComponent', () => {
 
     expect(component.errorState().shouldShow).toBe(true);
   });
-
 });
 
