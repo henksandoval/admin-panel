@@ -7,6 +7,7 @@ import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { FORGOT_PASSWORD_DEFAULTS, ForgotPasswordStatus } from './forgot-password.model';
+import { AppAuthLayoutComponent } from '@features/auth/shared/components';
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,6 +18,7 @@ import { FORGOT_PASSWORD_DEFAULTS, ForgotPasswordStatus } from './forgot-passwor
     MatIconModule,
     AppButtonComponent,
     AppFormInputComponent,
+    AppAuthLayoutComponent,
   ],
   styleUrls: ['./forgot-password.component.scss'],
   templateUrl: './forgot-password.component.html',

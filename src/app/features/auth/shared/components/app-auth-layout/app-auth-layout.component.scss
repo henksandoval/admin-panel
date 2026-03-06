@@ -1,0 +1,88 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+}
+
+.app-auth-layout {
+  &__wrapper {
+    width: 100%;
+    border-radius: 8px;
+    overflow: visible;
+    box-shadow:
+      0 4px 6px -1px var(--overlay-shadow-10),
+      0 12px 28px -4px var(--overlay-shadow-20);
+    background-color: var(--mat-sys-surface);
+    position: relative;
+  }
+
+  &__header {
+    background-color: var(--mat-sys-primary);
+    border-radius: 8px 8px 0 0;
+    overflow: visible;
+    position: relative;
+  }
+
+  &__brand-name {
+    font-size: 2.6rem;
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: -1px;
+    line-height: 1.05;
+    color: var(--mat-sys-on-primary);
+  }
+
+  &__brand-sub {
+    opacity: 0.65;
+    color: var(--mat-sys-on-primary);
+    margin-top: -0.1rem;
+    padding-left: 0.15rem;
+  }
+
+  &__signin-tab {
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+    padding: 0.85rem 1.5rem;
+    border-radius: 6px 6px 0 0;
+    margin-right: 1.5rem;
+    position: relative;
+    bottom: -4px;
+    box-shadow:
+      0 -3px 12px var(--overlay-shadow-15),
+      inset 0 1px 0 var(--overlay-on-primary-15);
+    outline: 2px solid var(--overlay-on-primary-08);
+    outline-offset: -2px;
+  }
+
+  &__header-label {
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+
+  &__header-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__header-accent {
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      var(--mat-sys-tertiary) 0%,
+      var(--mat-sys-primary) 60%,
+      var(--mat-sys-primary-container) 100%
+    );
+  }
+
+  &__card {
+    padding: 2rem 2.25rem 2.25rem;
+    border-radius: 0 0 8px 8px;
+    background-color: var(--mat-sys-surface);
+    position: relative;
+    z-index: 0;
+    box-shadow:
+      0 4px 6px -1px var(--overlay-shadow-10),
+      0 12px 28px -4px var(--overlay-shadow-20);
+  }
+}

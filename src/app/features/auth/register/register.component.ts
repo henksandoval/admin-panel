@@ -9,6 +9,7 @@ import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { passwordMatchValidator } from '../shared/validators/password-match.validator';
 import { REGISTER_DEFAULTS, RegisterStatus } from './register.model';
+import { AppAuthLayoutComponent } from '@features/auth/shared/components';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +21,7 @@ import { REGISTER_DEFAULTS, RegisterStatus } from './register.model';
     AppButtonComponent,
     AppCheckboxComponent,
     AppFormInputComponent,
+    AppAuthLayoutComponent,
   ],
   styleUrls: ['./register.component.scss'],
   templateUrl: './register.component.html',
