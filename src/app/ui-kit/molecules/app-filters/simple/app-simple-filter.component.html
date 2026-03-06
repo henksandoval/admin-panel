@@ -6,26 +6,26 @@
 
       @switch (filter.type) {
         @case ('text') {
-          <app-form-input
+          <app-form-input-new
             [config]="{
                   type: 'text',
                   label: filter.label,
                   placeholder: filter.placeholder ?? '',
                   appearance: appearance()
                 }"
-            [formControl]="getControl(filter.key)">
-          </app-form-input>
+            [control]="getControl(filter.key)">
+          </app-form-input-new>
         }
         @case ('number') {
-          <app-form-input
+          <app-form-input-new
             [config]="{
                   type: 'number',
                   label: filter.label,
                   placeholder: filter.placeholder ?? '',
                   appearance: appearance()
                 }"
-            [formControl]="getControl(filter.key)">
-          </app-form-input>
+            [control]="getControl(filter.key)">
+          </app-form-input-new>
         }
         @case ('select') {
           <app-form-select

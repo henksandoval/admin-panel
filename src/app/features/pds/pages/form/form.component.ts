@@ -31,11 +31,8 @@ import {
 import {
   AppFormDatepickerComponent
 } from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import {
-  AppFormInputConnectorDirective
-} from '@ui-molecules/app-form/app-form-input/app-form-input-connector.directive';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
+import { AppFormInputNewComponent } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.component';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.model';
 import {
   AppFormRadioGroupConnectorDirective
 } from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
@@ -65,8 +62,7 @@ import { LoggingService } from '@core/services/logging.service';
     MatFormFieldModule,
     MatSelectModule,
     MatCheckboxModule,
-    AppFormInputComponent,
-    AppFormInputConnectorDirective,
+    AppFormInputNewComponent,
     AppFormTextareaComponent,
     AppFormTextareaConnectorDirective,
     AppFormDatepickerComponent,
@@ -305,11 +301,10 @@ export class FormComponent implements OnInit {
     code += `// HTML Template\n`;
     code += `<form [formGroup]="form" (ngSubmit)="onSubmit()">\n`;
     code += `  <!-- Custom Components -->\n`;
-    code += `  <app-form-input\n`;
-    code += `    formControlName="basicText"\n`;
-    code += `    [config]="basicTextConfig"\n`;
-    code += `    appFormInputConnector>\n`;
-    code += `  </app-form-input>\n\n`;
+    code += `  <app-form-input-new\n`;
+    code += `    [control]="form.controls.basicText"\n`;
+    code += `    [config]="basicTextConfig">\n`;
+    code += `  </app-form-input-new>\n\n`;
 
     code += `  <app-select\n`;
     code += `    formControlName="country"\n`;
