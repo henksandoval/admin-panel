@@ -1,7 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
@@ -9,6 +10,7 @@ import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app
 import { AppFormInputConnectorDirective } from '@ui-molecules/app-form/app-form-input/app-form-input-connector.directive';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-login',
@@ -21,14 +23,21 @@ import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
     AppCheckboxComponent,
     AppFormInputComponent,
     AppFormInputConnectorDirective,
+    MatDivider,
   ],
-  styleUrls: ['./login.component.scss'],
+  styleUrl: './login.component.scss',
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly route = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
+
+  constructor() {
+    const iconRegistry = inject(MatIconRegistry);
+    const sanitizer = inject(DomSanitizer);
+    iconRegistry.addSvgIcon('google', sanitizer.bypassSecurityTrustResourceUrl('icons/google.svg'));
+  }
 
   protected readonly status = signal<LoginStatus>(LOGIN_DEFAULTS.status);
   protected readonly errorMessage = signal<string>(LOGIN_DEFAULTS.errorMessage);
@@ -60,7 +69,7 @@ export class LoginComponent {
 
   protected readonly isLoading = computed(() => this.status() === 'loading');
 
-  protected readonly form = this.fb.group({
+  protected readonly formGroupLogin = this.fb.group({
     email: this.fb.nonNullable.control('', [
       Validators.required,
       Validators.email,
@@ -76,12 +85,12 @@ export class LoginComponent {
   }
 
   protected onSubmit(): void {
-    if (this.form.invalid || this.isLoading()) return;
+    if (this.formGroupLogin.invalid || this.isLoading()) return;
 
     this.status.set('loading');
     this.errorMessage.set('');
 
-    const { email, password } = this.form.getRawValue();
+    const { email, password } = this.formGroupLogin.getRawValue();
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? undefined;
 
     this.authService.login({ email, password }, returnUrl).subscribe({

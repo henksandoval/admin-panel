@@ -121,9 +121,10 @@
   }
 
   &__divider-line {
-    display: block;
-    height: 1px;
-    background-color: var(--mat-sys-outline-variant);
+    // mat-divider is display:block by default; align-self ensures it
+    // stretches to fill its flex track (height) correctly
+    align-self: center;
+    min-width: 0; // allow flex shrink below content size
   }
 
   &__divider-text {
@@ -164,6 +165,7 @@
   &__google-icon {
     width: 20px;
     height: 20px;
+    font-size: 20px;
     flex-shrink: 0;
   }
 

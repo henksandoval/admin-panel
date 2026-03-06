@@ -69,14 +69,14 @@ describe('LoginComponent', () => {
     });
 
     it('calls authService when form is valid', () => {
-      component['form'].setValue({ email: 'user@example.com', password: 'password123' });
+      component['formGroupLogin'].setValue({ email: 'user@example.com', password: 'password123' });
       const spy = vi.spyOn(authServiceMock, 'login').mockReturnValue(of(undefined));
       component['onSubmit']();
       expect(spy).toHaveBeenCalled();
     });
 
     it('sets status to error and errorMessage on login failure', () => {
-      component['form'].setValue({ email: 'user@example.com', password: 'password123' });
+      component['formGroupLogin'].setValue({ email: 'user@example.com', password: 'password123' });
       vi.spyOn(authServiceMock, 'login').mockReturnValue(throwError(() => new Error('Credenciales inválidas')));
 
       component['onSubmit']();
@@ -86,7 +86,7 @@ describe('LoginComponent', () => {
     });
 
     it('uses fallback error message for non-Error objects', () => {
-      component['form'].setValue({ email: 'user@example.com', password: 'password123' });
+      component['formGroupLogin'].setValue({ email: 'user@example.com', password: 'password123' });
       vi.spyOn(authServiceMock, 'login').mockReturnValue(throwError(() => 'unknown'));
 
       component['onSubmit']();
