@@ -1,25 +1,39 @@
-import {MatFormFieldAppearance} from '@angular/material/form-field';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
-interface AppFormTextareaConfig {
-  label?: string;
-  placeholder?: string;
-  hint?: string;
-  icon?: string;
-  appearance?: MatFormFieldAppearance;
-  rows?: number;
-  maxRows?: number;
-  ariaLabel?: string;
-  errorMessages?: Record<string, string>;
-  showErrors?: boolean;
-  prefix?: string;
-  suffix?: string;
+export interface AppFormTextareaNewConfig {
+  label: string;
+  placeholder: string;
+  hint: string;
+  icon: string;
+  prefix: string;
+  suffix: string;
+  appearance: MatFormFieldAppearance;
+  ariaLabel: string;
+  errorMessages: Record<string, string>;
+  rows: number;
+  maxRows: number;
 }
 
-export type AppFormTextareaOptions = Partial<AppFormTextareaConfig>;
+export type AppFormTextareaNewOptions = Partial<AppFormTextareaNewConfig>;
 
-export const APP_FORM_TEXTAREA_DEFAULTS: Required<Omit<AppFormTextareaConfig, 'label' | 'placeholder' | 'hint' | 'icon' | 'ariaLabel' | 'errorMessages' | 'prefix' | 'suffix'>> = {
+export const FORM_TEXTAREA_NEW_DEFAULTS: AppFormTextareaNewConfig = {
   appearance: 'fill',
+  label: '',
+  placeholder: '',
+  hint: '',
+  icon: '',
+  prefix: '',
+  suffix: '',
+  ariaLabel: '',
+  errorMessages: {},
   rows: 3,
   maxRows: 10,
-  showErrors: true
 };
+
+export const FORM_TEXTAREA_NEW_DEFAULT_ERROR_MESSAGES: Record<string, string> = {
+  required: $localize`:FormTextarea|Required error@@formTextarea.error.required:This field is required`,
+  minlength: $localize`:FormTextarea|Min length error@@formTextarea.error.minlength:The text is too short`,
+  maxlength: $localize`:FormTextarea|Max length error@@formTextarea.error.maxlength:The text is too long`,
+  pattern: $localize`:FormTextarea|Pattern error@@formTextarea.error.pattern:The format is not valid`,
+};
+

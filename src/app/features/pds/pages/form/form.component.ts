@@ -44,9 +44,6 @@ import {
   AppFormSelectConnectorDirective
 } from '@ui-molecules/app-form/app-form-select/app-form-select-connector.directive';
 import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
-import {
-  AppFormTextareaConnectorDirective
-} from '@ui-molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
 import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea.component';
 import { LoggingService } from '@core/services/logging.service';
 
@@ -64,7 +61,6 @@ import { LoggingService } from '@core/services/logging.service';
     MatCheckboxModule,
     AppFormInputComponent,
     AppFormTextareaComponent,
-    AppFormTextareaConnectorDirective,
     AppFormDatepickerComponent,
     AppFormDatepickerConnectorDirective,
     AppFormRadioGroupComponent,
