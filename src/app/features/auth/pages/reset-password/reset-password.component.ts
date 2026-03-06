@@ -9,7 +9,7 @@ import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { passwordMatchValidator } from '../../shared/validators/password-match.validator';
 import { RESET_PASSWORD_DEFAULTS, ResetPasswordStatus } from './reset-password.model';
-import { AuthPageLayoutComponent } from '@features/auth/shared/components';
+import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
 
 @Component({
   selector: 'app-reset-password',

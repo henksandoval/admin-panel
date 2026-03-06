@@ -7,7 +7,7 @@ import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { FORGOT_PASSWORD_DEFAULTS, ForgotPasswordStatus } from './forgot-password.model';
-import { AuthPageLayoutComponent } from '@features/auth/shared/components';
+import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
 
 @Component({
   selector: 'app-forgot-password',
