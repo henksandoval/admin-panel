@@ -86,7 +86,7 @@ import { LoggingService } from '@core/services/logging.service';
     PdsDocumentationTabsComponent
 ],
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrl: './form.component.scss'
 })
 export class FormComponent implements OnInit {
   public galleryForm!: FormGroup;

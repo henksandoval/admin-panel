@@ -1820,5 +1820,338 @@
         <source>Advanced filters</source>
       </segment>
     </unit>
+    <unit id="login.heading">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.html</note>
+        <note category="description">Page heading</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Welcome</source>
+      </segment>
+    </unit>
+    <unit id="login.subheading">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.html</note>
+        <note category="description">Page subheading</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Sign in to continue</source>
+      </segment>
+    </unit>
+    <unit id="login.field.email.label">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.ts</note>
+        <note category="description">Email field label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+      </segment>
+    </unit>
+    <unit id="login.field.email.placeholder">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.ts</note>
+        <note category="description">Email field placeholder</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>user@example.com</source>
+      </segment>
+    </unit>
+    <unit id="login.field.email.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.ts</note>
+        <note category="description">Email required error</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Email is required</source>
+      </segment>
+    </unit>
+    <unit id="login.field.email.error.email">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.ts</note>
+        <note category="description">Email invalid error</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Enter a valid email</source>
+      </segment>
+    </unit>
+    <unit id="login.field.password.label">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.html</note>
+        <note category="description">Password field label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Password</source>
+      </segment>
+    </unit>
+    <unit id="login.field.password.checkbox.label">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.html</note>
+        <note category="description">Show password checkbox label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Show password</source>
+      </segment>
+    </unit>
+    <unit id="login.field.password.checkbox.ariaLabel">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.html</note>
+        <note category="description">Show password checkbox aria-label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Show password</source>
+      </segment>
+    </unit>
+    <unit id="login.field.password.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.ts</note>
+        <note category="description">Password required error</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Password is required</source>
+      </segment>
+    </unit>
+    <unit id="login.field.password.error.minlength">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.ts</note>
+        <note category="description">Password minlength error</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Minimum <ph id="0" equiv="minLength" disp="minPasswordLength"/> characters</source>
+      </segment>
+    </unit>
+    <unit id="login.btn.submit">
+      <notes>
+        <note category="location">src/app/features/auth/login/login.component.html</note>
+        <note category="description">Submit button</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Sign in</source>
+      </segment>
+    </unit>
+    <unit id="login.forgot.link">
+      <notes>
+        <note category="description">Forgot password link</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment><source>Forgot password?</source></segment>
+    </unit>
+    <unit id="login.register.text">
+      <notes>
+        <note category="description">Register prompt text</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment><source>Don't have an account?</source></segment>
+    </unit>
+    <unit id="login.register.link">
+      <notes>
+        <note category="description">Register link</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment><source>Create one</source></segment>
+    </unit>
+    <unit id="register.heading">
+      <notes><note category="description">Page heading</note><note category="meaning">Register</note></notes>
+      <segment><source>Create account</source></segment>
+    </unit>
+    <unit id="register.subheading">
+      <notes><note category="description">Page subheading</note><note category="meaning">Register</note></notes>
+      <segment><source>Fill in your details to get started</source></segment>
+    </unit>
+    <unit id="register.field.name.label">
+      <notes><note category="description">Name field label</note><note category="meaning">Register</note></notes>
+      <segment><source>Full name</source></segment>
+    </unit>
+    <unit id="register.field.name.placeholder">
+      <notes><note category="description">Name field placeholder</note><note category="meaning">Register</note></notes>
+      <segment><source>John Doe</source></segment>
+    </unit>
+    <unit id="register.field.name.error.required">
+      <notes><note category="description">Name required error</note><note category="meaning">Register</note></notes>
+      <segment><source>Full name is required</source></segment>
+    </unit>
+    <unit id="register.field.email.label">
+      <notes><note category="description">Email field label</note><note category="meaning">Register</note></notes>
+      <segment><source>Email</source></segment>
+    </unit>
+    <unit id="register.field.email.placeholder">
+      <notes><note category="description">Email field placeholder</note><note category="meaning">Register</note></notes>
+      <segment><source>user@example.com</source></segment>
+    </unit>
+    <unit id="register.field.email.error.required">
+      <notes><note category="description">Email required error</note><note category="meaning">Register</note></notes>
+      <segment><source>Email is required</source></segment>
+    </unit>
+    <unit id="register.field.email.error.email">
+      <notes><note category="description">Email invalid error</note><note category="meaning">Register</note></notes>
+      <segment><source>Enter a valid email</source></segment>
+    </unit>
+    <unit id="register.field.password.label">
+      <notes><note category="description">Password field label</note><note category="meaning">Register</note></notes>
+      <segment><source>Password</source></segment>
+    </unit>
+    <unit id="register.field.password.error.required">
+      <notes><note category="description">Password required error</note><note category="meaning">Register</note></notes>
+      <segment><source>Password is required</source></segment>
+    </unit>
+    <unit id="register.field.password.error.minlength">
+      <notes><note category="description">Password minlength error</note><note category="meaning">Register</note></notes>
+      <segment><source>Minimum <ph id="0" equiv="minLength" disp="minPasswordLength"/> characters</source></segment>
+    </unit>
+    <unit id="register.field.confirm.label">
+      <notes><note category="description">Confirm password label</note><note category="meaning">Register</note></notes>
+      <segment><source>Confirm password</source></segment>
+    </unit>
+    <unit id="register.field.confirm.error.required">
+      <notes><note category="description">Confirm password required</note><note category="meaning">Register</note></notes>
+      <segment><source>Please confirm your password</source></segment>
+    </unit>
+    <unit id="register.field.confirm.error.mismatch">
+      <notes><note category="description">Password mismatch error</note><note category="meaning">Register</note></notes>
+      <segment><source>Passwords do not match</source></segment>
+    </unit>
+    <unit id="register.field.password.checkbox.label">
+      <notes><note category="description">Show password checkbox label</note><note category="meaning">Register</note></notes>
+      <segment><source>Show password</source></segment>
+    </unit>
+    <unit id="register.field.password.checkbox.ariaLabel">
+      <notes><note category="description">Show password checkbox aria-label</note><note category="meaning">Register</note></notes>
+      <segment><source>Show password</source></segment>
+    </unit>
+    <unit id="register.btn.submit">
+      <notes><note category="description">Submit button</note><note category="meaning">Register</note></notes>
+      <segment><source>Create account</source></segment>
+    </unit>
+    <unit id="register.login.text">
+      <notes><note category="description">Login prompt text</note><note category="meaning">Register</note></notes>
+      <segment><source>Already have an account?</source></segment>
+    </unit>
+    <unit id="register.login.link">
+      <notes><note category="description">Login link</note><note category="meaning">Register</note></notes>
+      <segment><source>Sign in</source></segment>
+    </unit>
+    <unit id="register.error.generic">
+      <notes><note category="description">Generic registration error</note><note category="meaning">Register</note></notes>
+      <segment><source>Registration failed. Please try again.</source></segment>
+    </unit>
+    <unit id="forgot.heading">
+      <notes><note category="description">Page heading</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Forgot your password?</source></segment>
+    </unit>
+    <unit id="forgot.subheading">
+      <notes><note category="description">Page subheading</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Enter your email and we'll send you a reset link</source></segment>
+    </unit>
+    <unit id="forgot.field.email.label">
+      <notes><note category="description">Email field label</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Email</source></segment>
+    </unit>
+    <unit id="forgot.field.email.placeholder">
+      <notes><note category="description">Email field placeholder</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>user@example.com</source></segment>
+    </unit>
+    <unit id="forgot.field.email.error.required">
+      <notes><note category="description">Email required error</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Email is required</source></segment>
+    </unit>
+    <unit id="forgot.field.email.error.email">
+      <notes><note category="description">Email invalid error</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Enter a valid email</source></segment>
+    </unit>
+    <unit id="forgot.btn.submit">
+      <notes><note category="description">Submit button</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Send reset link</source></segment>
+    </unit>
+    <unit id="forgot.success">
+      <notes><note category="description">Success message</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Check your inbox — a reset link is on its way.</source></segment>
+    </unit>
+    <unit id="forgot.login.link">
+      <notes><note category="description">Back to login link</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Back to sign in</source></segment>
+    </unit>
+    <unit id="forgot.error.generic">
+      <notes><note category="description">Generic error</note><note category="meaning">ForgotPassword</note></notes>
+      <segment><source>Something went wrong. Please try again.</source></segment>
+    </unit>
+    <unit id="reset.heading">
+      <notes><note category="description">Page heading</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Set new password</source></segment>
+    </unit>
+    <unit id="reset.subheading">
+      <notes><note category="description">Page subheading</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Choose a strong password for your account</source></segment>
+    </unit>
+    <unit id="reset.field.password.label">
+      <notes><note category="description">Password field label</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>New password</source></segment>
+    </unit>
+    <unit id="reset.field.password.error.required">
+      <notes><note category="description">Password required error</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Password is required</source></segment>
+    </unit>
+    <unit id="reset.field.password.error.minlength">
+      <notes><note category="description">Password minlength error</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Minimum <ph id="0" equiv="minLength" disp="minPasswordLength"/> characters</source></segment>
+    </unit>
+    <unit id="reset.field.confirm.label">
+      <notes><note category="description">Confirm password label</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Confirm new password</source></segment>
+    </unit>
+    <unit id="reset.field.confirm.error.required">
+      <notes><note category="description">Confirm password required</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Please confirm your password</source></segment>
+    </unit>
+    <unit id="reset.field.confirm.error.mismatch">
+      <notes><note category="description">Password mismatch error</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Passwords do not match</source></segment>
+    </unit>
+    <unit id="reset.field.password.checkbox.label">
+      <notes><note category="description">Show password label</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Show password</source></segment>
+    </unit>
+    <unit id="reset.field.password.checkbox.ariaLabel">
+      <notes><note category="description">Show password aria-label</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Show password</source></segment>
+    </unit>
+    <unit id="reset.btn.submit">
+      <notes><note category="description">Submit button</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Update password</source></segment>
+    </unit>
+    <unit id="reset.btn.login">
+      <notes><note category="description">Go to login button</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Go to sign in</source></segment>
+    </unit>
+    <unit id="reset.btn.requestNew">
+      <notes><note category="description">Request new link button</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Request a new link</source></segment>
+    </unit>
+    <unit id="reset.success">
+      <notes><note category="description">Success message</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Your password has been updated. You can now sign in.</source></segment>
+    </unit>
+    <unit id="reset.error.invalidToken">
+      <notes><note category="description">Invalid token error</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>This reset link is invalid or has expired.</source></segment>
+    </unit>
+    <unit id="reset.error.generic">
+      <notes><note category="description">Generic error</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Something went wrong. Please try again.</source></segment>
+    </unit>
+    <unit id="reset.login.link">
+      <notes><note category="description">Back to login link</note><note category="meaning">ResetPassword</note></notes>
+      <segment><source>Back to sign in</source></segment>
+    </unit>
   </file>
 </xliff>

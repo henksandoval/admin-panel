@@ -6,6 +6,7 @@
     "baseUrl": "./",
     "paths": {
       "@core/*": ["src/app/core/*"],
+      "@auth/*": ["src/app/core/auth/*"],
       "@features/*": ["src/app/features/*"],
       "@layout/*": ["src/app/layout/*"],
       "@ui-atoms/*": ["src/app/ui-kit/atoms/*"],

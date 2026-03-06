@@ -28,7 +28,7 @@ export const TABLE_DEFAULTS = {
 @Component({
   selector: 'app-table',
   standalone: true,
-  styleUrls: ['./app-table.component.scss'],
+  styleUrl: './app-table.component.scss',
   template: `...`
 })
 export class AppTableComponent<T> {

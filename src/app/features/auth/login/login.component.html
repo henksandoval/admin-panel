@@ -1,0 +1,70 @@
+<div class="app-login__wrapper">
+  <div class="app-login__header">
+    <div class="app-login__header-inner flex items-end justify-between">
+      <div class="app-login__brand flex flex-col items-start pb-4 pl-8">
+        <span class="app-login__brand-name">admin</span>
+        <span class="app-login__brand-sub mat-body-medium"
+              i18n="Login|Brand subtitle@@login.brand.subtitle">panel</span>
+      </div>
+    </div>
+    <div class="app-login__header-accent"></div>
+  </div>
+  <div class="app-login__card">
+    @if (status() === 'error') {
+      <div class="app-login__error flex items-center gap-2 mb-5">
+        <mat-icon>error_outline</mat-icon>
+        <span class="mat-body-medium">{{ errorMessage() }}</span>
+      </div>
+    }
+    <form [formGroup]="formGroupLogin" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+      <app-form-input [config]="emailFieldConfig" appFormInputConnector formControlName="email" />
+      <app-form-input [config]="passwordFieldConfig()" appFormInputConnector formControlName="password"/>
+      <div class="flex items-center justify-between">
+        <app-checkbox
+          [checked]="showPassword()"
+          (changed)="onShowPasswordChange($event)"
+          ariaLabel="Show password"
+          i18n-ariaLabel="Login|Show password checkbox aria-label@@login.field.password.checkbox.ariaLabel">
+          <span class="mat-body-medium"
+                i18n="Login|Show password checkbox label@@login.field.password.checkbox.label">
+            Show password
+          </span>
+        </app-checkbox>
+        <app-button
+          variant="filled"
+          color="primary"
+          type="submit"
+          [disabled]="isLoading()"
+          [iconBefore]="isLoading() ? 'hourglass_empty' : 'login'"
+        >
+          <ng-container i18n="Login|Submit button@@login.btn.submit">Sign In</ng-container>
+        </app-button>
+      </div>
+      <div class="app-login__divider flex items-center gap-3">
+        <mat-divider class="app-login__divider-line flex-1"></mat-divider>
+        <span class="mat-body-small app-login__divider-text"
+              i18n="Login|Divider OR label@@login.divider.or">OR</span>
+        <mat-divider class="app-login__divider-line flex-1"></mat-divider>
+      </div>
+
+      <button
+        type="button"
+        class="app-login__social-btn"
+        (click)="onGoogleLogin()"
+        [disabled]="isLoading()"
+        i18n-aria-label="Login|Google login aria-label@@login.google.ariaLabel"
+        aria-label="Connect with Google">
+        <mat-icon svgIcon="google" class="app-login__google-icon" aria-hidden="true"></mat-icon>
+        <span class="mat-label-large"
+              i18n="Login|Google login button@@login.google.btn">Connect with Google</span>
+      </button>
+
+      <p class="mat-body-small m-0 text-center">
+        <span i18n="Login|Register link text@@login.register.text">Don't have an account yet?</span>
+        &nbsp;
+        <a routerLink="/auth/register" class="app-login__link"
+           i18n="Login|Register link@@login.register.link">Sign Up!</a>
+      </p>
+    </form>
+  </div>
+</div>

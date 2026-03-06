@@ -8,6 +8,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
 import { LayoutService } from '../../services/layout.service';
 import { AppBreadCrumbComponent } from '@ui-molecules/app-bread-crumb/app-bread-crumb.component';
+import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -73,10 +74,17 @@ import { AppBreadCrumbComponent } from '@ui-molecules/app-bread-crumb/app-bread-
   `
 })
 export class ToolbarComponent {
-  private layoutService = inject(LayoutService);
+  private readonly layoutService = inject(LayoutService);
+  private readonly authService   = inject(AuthService);
+
+  readonly currentUser = this.authService.currentUser;
 
   toggleSidebar(): void {
     this.layoutService.toggleSidebar();
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe();
   }
 }
 

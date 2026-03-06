@@ -21,7 +21,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
     MatProgressSpinnerModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./app-table.component.scss'],
+  styleUrl: './app-table.component.scss',
   template: `
     <div class="app-table-wrapper" [class.loading]="loading()">
       <table
