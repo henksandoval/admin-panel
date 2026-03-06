@@ -1,0 +1,162 @@
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  AppFormInputConnectorNewDirective
+} from '@ui-molecules/app-form/app-form-input-new/app-form-input-connector-new.directive';
+import { AppFormInputNewComponent } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.component';
+
+function mockNgControl(control: FormControl): NgControl {
+  return { control, valueAccessor: null } as unknown as NgControl;
+}
+
+@Component({
+  standalone: true,
+  imports: [ReactiveFormsModule, AppFormInputNewComponent, AppFormInputConnectorNewDirective],
+  template: `
+    <form [formGroup]="form">
+      <app-form-input-new formControlName="email" appFormInputConnector />
+    </form>
+  `,
+})
+class HostComponent {
+  form = new FormGroup({
+    email: new FormControl('', Validators.required),
+  });
+}
+
+describe('AppFormInputNewComponent', () => {
+  let fixture: ComponentFixture<AppFormInputNewComponent>;
+  let component: AppFormInputNewComponent;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppFormInputNewComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AppFormInputNewComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('writeValue sets internalControl without triggering onChange', () => {
+    const onChangeSpy = vi.fn();
+    component.registerOnChange(onChangeSpy);
+
+    component.writeValue('hello');
+
+    expect(component.internalControl.value).toBe('hello');
+    expect(onChangeSpy).not.toHaveBeenCalled();
+  });
+
+  it('writeValue with null sets internalControl to null without triggering onChange', () => {
+    const onChangeSpy = vi.fn();
+    component.registerOnChange(onChangeSpy);
+
+    component.writeValue(null);
+
+    expect(component.internalControl.value).toBeNull();
+    expect(onChangeSpy).not.toHaveBeenCalled();
+  });
+
+  it('internalControl value change propagates to onChange', () => {
+    const onChangeSpy = vi.fn();
+    component.registerOnChange(onChangeSpy);
+
+    component.internalControl.setValue('typed text');
+
+    expect(onChangeSpy).toHaveBeenCalledWith('typed text');
+  });
+
+  it('handleBlur calls onTouched', () => {
+    const onTouchedSpy = vi.fn();
+    component.registerOnTouched(onTouchedSpy);
+
+    component.handleBlur();
+
+    expect(onTouchedSpy).toHaveBeenCalledOnce();
+  });
+
+  it('errorState does not show error when control has not been touched', () => {
+    const control = new FormControl('', Validators.required);
+    component.connectControl(mockNgControl(control));
+
+    expect(component.errorState.shouldShow).toBe(false);
+  });
+
+  it('errorState uses config errorMessages first, then defaults, then fallback', () => {
+    const control = new FormControl('', Validators.required);
+    control.markAsTouched();
+    component.connectControl(mockNgControl(control));
+
+    expect(component.errorState.message).toBe('This field is required');
+
+    fixture.componentRef.setInput('config', {
+      errorMessages: { required: 'Custom message' },
+    });
+
+    expect(component.errorState.message).toBe('Custom message');
+
+    control.setErrors({ unknownError: true });
+    fixture.componentRef.setInput('config', { errorMessages: {} });
+
+    expect(component.errorState.message).toBe('Validation error');
+  });
+
+  it('connectControl sets isRequired to true when Validators.required is present', () => {
+    const control = new FormControl('', Validators.required);
+    component.connectControl(mockNgControl(control));
+
+    expect(component.isRequired).toBe(true);
+  });
+
+  it('setDisabledState disables and re-enables internalControl', () => {
+    component.setDisabledState(true);
+    expect(component.internalControl.disabled).toBe(true);
+
+    component.setDisabledState(false);
+    expect(component.internalControl.enabled).toBe(true);
+  });
+});
+
+describe('AppFormInputConnectorDirective — integration', () => {
+  let fixture: ComponentFixture<HostComponent>;
+  let host: HostComponent;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HostComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HostComponent);
+    host = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('FormGroup starts with empty string and invalid, becomes valid when text is entered', () => {
+    expect(host.form.value.email).toBe('');
+    expect(host.form.invalid).toBe(true);
+
+    const inputComponent = fixture.debugElement
+      .query(By.directive(AppFormInputNewComponent))
+      .componentInstance as AppFormInputNewComponent;
+
+    inputComponent.internalControl.setValue('test@example.com');
+
+    expect(host.form.value.email).toBe('test@example.com');
+    expect(host.form.valid).toBe(true);
+  });
+
+  it('disabling the FormControl from the FormGroup disables internalControl', () => {
+    host.form.get('email')!.disable();
+    fixture.detectChanges();
+
+    const inputComponent = fixture.debugElement
+      .query(By.directive(AppFormInputNewComponent))
+      .componentInstance as AppFormInputNewComponent;
+
+    expect(inputComponent.internalControl.disabled).toBe(true);
+  });
+});
+
