@@ -5,7 +5,6 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
@@ -20,7 +19,6 @@ import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
     RouterLink,
     MatIconModule,
     AppButtonComponent,
-    AppCheckboxComponent,
     AppFormInputComponent,
     MatDivider,
     AuthPageLayoutComponent,
@@ -59,8 +57,9 @@ export class LoginComponent {
   protected readonly passwordFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:Login|Password field label@@login.field.password.label:Password`,
     type: this.showPassword() ? 'text' : 'password',
-    icon: 'key',
+    icon: this.showPassword() ? 'visibility_off' : 'visibility',
     appearance: 'outline',
+    onIconClick: () => this.showPassword.update(v => !v),
     errorMessages: {
       required: $localize`:Login|Password required error@@login.field.password.error.required:Password is required`,
       minlength: $localize`:Login|Password minlength error@@login.field.password.error.minlength:Minimum ${this.minPasswordLength}:minLength: characters`,
@@ -80,9 +79,6 @@ export class LoginComponent {
     ]),
   });
 
-  protected onShowPasswordChange(checked: boolean): void {
-    this.showPassword.set(checked);
-  }
 
   protected onSubmit(): void {
     if (this.formGroupLogin.invalid || this.isLoading()) return;
