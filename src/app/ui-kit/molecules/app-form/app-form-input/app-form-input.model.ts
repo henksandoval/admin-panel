@@ -1,6 +1,7 @@
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 export type InputFieldType = 'text' | 'email' | 'password' | 'number' | 'tel';
+export type IconClickHandler = (event: MouseEvent) => void;
 
 export interface AppFormInputConfig {
   label: string;
@@ -13,6 +14,7 @@ export interface AppFormInputConfig {
   appearance: MatFormFieldAppearance;
   ariaLabel: string;
   errorMessages: Record<string, string>;
+  onIconClick?: IconClickHandler;
 }
 
 export type AppFormInputOptions = Partial<AppFormInputConfig>;

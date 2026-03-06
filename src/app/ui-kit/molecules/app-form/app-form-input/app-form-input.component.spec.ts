@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 
 describe('AppFormInputNewComponent', () => {
@@ -106,6 +107,23 @@ describe('AppFormInputNewComponent', () => {
     fixture.detectChanges();
 
     expect(component.errorState().shouldShow).toBe(true);
+  });
+
+  it('TC-09 — emits event when clicking the icon', () => {
+    const control = new FormControl('');
+    const onIconClickSpy = vi.fn();
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('config', { icon: 'visibility', onIconClick: onIconClickSpy });
+    fixture.detectChanges();
+
+    const iconEl = fixture.debugElement.query(By.css('mat-icon'));
+    expect(iconEl).not.toBeNull();
+
+    const event = new MouseEvent('click');
+    iconEl.nativeElement.dispatchEvent(event);
+    fixture.detectChanges();
+
+    expect(onIconClickSpy).toHaveBeenCalledWith(expect.any(MouseEvent));
   });
 });
 

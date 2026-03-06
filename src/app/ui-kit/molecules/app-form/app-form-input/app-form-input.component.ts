@@ -15,6 +15,7 @@ interface ErrorState {
   selector: 'app-form-input',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  styleUrl: './app-form-input.component.scss',
   template: `
     <mat-form-field class="w-full" [appearance]="fullConfig().appearance">
       @if (fullConfig().label) {
@@ -35,7 +36,7 @@ interface ErrorState {
         <span matTextSuffix>{{ fullConfig().suffix }}</span>
       }
       @if (fullConfig().icon) {
-        <mat-icon matSuffix>{{ fullConfig().icon }}</mat-icon>
+        <mat-icon matSuffix [ngClass]="{ 'app-form-input-icon-clickable': isIconClickable() }" (click)="onIconClick($event)">{{ fullConfig().icon }}</mat-icon>
       }
       @if (fullConfig().hint) {
         <mat-hint>{{ fullConfig().hint }}</mat-hint>
@@ -82,4 +83,14 @@ export class AppFormInputComponent {
     const message = customMessages[errorKey] ?? FORM_INPUT_DEFAULT_ERROR_MESSAGES[errorKey] ?? 'Validation error';
     return { shouldShow: true, message };
   });
+
+  readonly isIconClickable = computed(() => {
+    return !!this.fullConfig().icon && !!this.fullConfig().onIconClick;
+  });
+
+  onIconClick(event: MouseEvent): void {
+    if (this.isIconClickable()) {
+      this.fullConfig().onIconClick?.(event);
+    }
+  }
 }
