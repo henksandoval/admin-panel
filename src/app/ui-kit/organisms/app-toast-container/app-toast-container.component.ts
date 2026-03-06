@@ -10,7 +10,7 @@ import { AppToastComponent } from '../app-toast/app-toast.component';
     standalone: true,
     imports: [CommonModule, AppToastComponent],
     templateUrl: './app-toast-container.component.html',
-    styleUrls: ['./app-toast-container.component.scss']
+    styleUrl: './app-toast-container.component.scss'
 })
 export class AppToastContainerComponent implements OnInit, OnDestroy {
     toasts: Toast[] = [];

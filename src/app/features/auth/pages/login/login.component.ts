@@ -10,7 +10,7 @@ import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
 import { MatDivider } from '@angular/material/divider';
-import { AppAuthLayoutComponent } from '@features/auth/shared/components/app-auth-layout';
+import { AuthPageLayoutComponent } from '@features/auth/shared/components';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ import { AppAuthLayoutComponent } from '@features/auth/shared/components/app-aut
     AppCheckboxComponent,
     AppFormInputComponent,
     MatDivider,
-    AppAuthLayoutComponent,
+    AuthPageLayoutComponent,
   ],
   styleUrl: './login.component.scss',
   templateUrl: './login.component.html',

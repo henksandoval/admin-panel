@@ -7,7 +7,7 @@ import { SettingsService } from '@core/services/settings.service';
 import { SettingsPanelComponent } from '@layout/components/settings-panel/settings-panel.component';
 
 @Component({
-  selector: 'app-auth-layout',
+  selector: 'auth-layout',
   standalone: true,
   imports: [RouterOutlet, MatSidenavModule, MatButtonModule, MatIconModule, SettingsPanelComponent],
   styles: `

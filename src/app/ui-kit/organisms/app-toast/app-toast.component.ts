@@ -2,14 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Toast } from '../../../core/models/notification.model';
+import { Toast } from '@core/models/notification.model';
 
 @Component({
     selector: 'app-toast',
     standalone: true,
     imports: [CommonModule, MatIconModule, MatButtonModule],
     templateUrl: './app-toast.component.html',
-    styleUrls: ['./app-toast.component.scss']
+    styleUrl: './app-toast.component.scss'
 })
 export class AppToastComponent {
     @Input({ required: true }) toast!: Toast;

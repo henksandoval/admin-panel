@@ -1,2 +1,2 @@
-export * from './app-auth-layout';
+export * from './auth-page-layout';
 

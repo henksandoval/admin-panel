@@ -7,9 +7,9 @@ import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
-import { passwordMatchValidator } from '../shared/validators/password-match.validator';
+import { passwordMatchValidator } from '../../shared/validators/password-match.validator';
 import { RESET_PASSWORD_DEFAULTS, ResetPasswordStatus } from './reset-password.model';
-import { AppAuthLayoutComponent } from '@features/auth/shared/components';
+import { AuthPageLayoutComponent } from '@features/auth/shared/components';
 
 @Component({
   selector: 'app-reset-password',
@@ -20,9 +20,9 @@ import { AppAuthLayoutComponent } from '@features/auth/shared/components';
     AppButtonComponent,
     AppCheckboxComponent,
     AppFormInputComponent,
-    AppAuthLayoutComponent,
+    AuthPageLayoutComponent,
   ],
-  styleUrls: ['./reset-password.component.scss'],
+  styleUrl: './reset-password.component.scss',
   templateUrl: './reset-password.component.html',
 })
 export class ResetPasswordComponent implements OnInit {
