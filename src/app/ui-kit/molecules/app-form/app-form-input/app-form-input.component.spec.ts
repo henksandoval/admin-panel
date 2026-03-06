@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AppFormInputNewComponent } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.component';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 
 describe('AppFormInputNewComponent', () => {
-  let fixture: ComponentFixture<AppFormInputNewComponent>;
-  let component: AppFormInputNewComponent;
+  let fixture: ComponentFixture<AppFormInputComponent>;
+  let component: AppFormInputComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppFormInputNewComponent],
+      imports: [AppFormInputComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AppFormInputNewComponent);
+    fixture = TestBed.createComponent(AppFormInputComponent);
     component = fixture.componentInstance;
   });
 

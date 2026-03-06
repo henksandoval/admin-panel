@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppFormInputNewComponent } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.component';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.model';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { FORGOT_PASSWORD_DEFAULTS, ForgotPasswordStatus } from './forgot-password.model';
 
 @Component({
@@ -16,7 +16,7 @@ import { FORGOT_PASSWORD_DEFAULTS, ForgotPasswordStatus } from './forgot-passwor
     RouterLink,
     MatIconModule,
     AppButtonComponent,
-    AppFormInputNewComponent,
+    AppFormInputComponent,
   ],
   styleUrls: ['./forgot-password.component.scss'],
   templateUrl: './forgot-password.component.html',

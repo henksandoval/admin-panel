@@ -30,7 +30,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   AppFormDatepickerComponent
 } from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import { AppFormInputNewComponent } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.component';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
 import { togglesToCriteria } from '../app-filter.utils';
@@ -40,7 +40,7 @@ import { togglesToCriteria } from '../app-filter.utils';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    AppFormInputNewComponent,
+    AppFormInputComponent,
     AppFormSelectComponent,
     AppFilterFooterComponent,
     MatFormFieldModule,

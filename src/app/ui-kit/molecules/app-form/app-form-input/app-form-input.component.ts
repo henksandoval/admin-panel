@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { AppFormInputConfig, AppFormInputOptions, FORM_INPUT_DEFAULT_ERROR_MESSAGES, FORM_INPUT_DEFAULTS } from './app-form-input-new.model';
+import { AppFormInputConfig, AppFormInputOptions, FORM_INPUT_DEFAULT_ERROR_MESSAGES, FORM_INPUT_DEFAULTS } from './app-form-input.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -12,7 +12,7 @@ interface ErrorState {
 }
 
 @Component({
-  selector: 'app-form-input-new',
+  selector: 'app-form-input',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
   template: `
@@ -46,7 +46,7 @@ interface ErrorState {
     </mat-form-field>
   `,
 })
-export class AppFormInputNewComponent {
+export class AppFormInputComponent {
   readonly control = input.required<FormControl<string>>();
   readonly config = input<AppFormInputOptions>({});
 

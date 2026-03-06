@@ -13,23 +13,23 @@
   }
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <app-form-input-new
+    <app-form-input
       [control]="form.controls.displayName"
       [config]="nameFieldConfig"
     />
 
-    <app-form-input-new
+    <app-form-input
       [control]="form.controls.email"
       [config]="emailFieldConfig"
     />
 
     <div class="app-register__password-group">
-      <app-form-input-new
+      <app-form-input
         [control]="form.controls.password"
         [config]="passwordFieldConfig()"
       />
 
-      <app-form-input-new
+      <app-form-input
         [control]="form.controls.confirm"
         [config]="confirmFieldConfig()"
       />

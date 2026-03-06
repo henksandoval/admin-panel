@@ -51,8 +51,8 @@
                                formControlName="value"></app-form-datepicker>
         }
         @case ('number') {
-        <app-form-input-new [config]="{ label: valueLabel(), type: 'number' }" [control]="builderForm.controls.value">
-          </app-form-input-new>
+        <app-form-input [config]="{ label: valueLabel(), type: 'number' }" [control]="builderForm.controls.value">
+          </app-form-input>
         }
         @case ('boolean') {
           <app-form-select [config]="{ label: valueLabel() }" [options]="booleanOptions" appFormSelectConnector
@@ -60,7 +60,7 @@
           </app-form-select>
         }
         @default {
-          <app-form-input-new [config]="{ label: valueLabel() }" [control]="builderForm.controls.value"></app-form-input-new>
+          <app-form-input [config]="{ label: valueLabel() }" [control]="builderForm.controls.value"></app-form-input>
         }
       }
     </div>

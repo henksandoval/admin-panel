@@ -21,7 +21,7 @@ import {
 import {
   AppFormDatepickerComponent
 } from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import { AppFormInputNewComponent } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.component';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import {
   AppFormSelectConnectorDirective
 } from '@ui-molecules/app-form/app-form-select/app-form-select-connector.directive';
@@ -46,7 +46,7 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
     AppFilterFooterComponent,
     AppFormSelectComponent,
     AppFormSelectConnectorDirective,
-    AppFormInputNewComponent,
+    AppFormInputComponent,
     AppFormDatepickerComponent,
     AppFormDatepickerConnectorDirective,
     CriterionDisplayPipe,

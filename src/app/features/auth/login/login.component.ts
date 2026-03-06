@@ -6,8 +6,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
-import { AppFormInputNewComponent } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.component';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.model';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
 import { MatDivider } from '@angular/material/divider';
 
@@ -20,7 +20,7 @@ import { MatDivider } from '@angular/material/divider';
     MatIconModule,
     AppButtonComponent,
     AppCheckboxComponent,
-    AppFormInputNewComponent,
+    AppFormInputComponent,
     MatDivider,
   ],
   styleUrl: './login.component.scss',
