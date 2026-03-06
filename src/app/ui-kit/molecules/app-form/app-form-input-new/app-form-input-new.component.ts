@@ -1,30 +1,11 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  computed,
-  DestroyRef,
-  forwardRef,
-  inject,
-  input,
-  isDevMode
-} from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { startWith } from 'rxjs/operators';
-import { AppFormInputConfig, AppFormInputOptions } from './app-form-input-new.model';
-import { LoggingService } from '@core/services/logging.service';
+import { AppFormInputConfig, AppFormInputOptions, FORM_INPUT_DEFAULT_ERROR_MESSAGES } from './app-form-input-new.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -34,155 +15,76 @@ interface ErrorState {
 @Component({
   selector: 'app-form-input-new',
   standalone: true,
-  imports: [
-    CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
   template: `
     <mat-form-field class="w-full" [appearance]="fullConfig().appearance">
-      @if(fullConfig().label) {
+      @if (fullConfig().label) {
         <mat-label>{{ fullConfig().label }}</mat-label>
       }
-      @if(fullConfig().prefix) {
+      @if (fullConfig().prefix) {
         <span matTextPrefix>{{ fullConfig().prefix }}&nbsp;</span>
       }
       <input
         matInput
         [type]="fullConfig().type"
-        [formControl]="internalControl"
-        (blur)="handleBlur()"
+        [formControl]="control()"
         [placeholder]="fullConfig().placeholder"
         [attr.aria-label]="fullConfig().ariaLabel"
-        [required]="isRequired"
+        [required]="isRequired()"
       >
-      @if(fullConfig().suffix) {
+      @if (fullConfig().suffix) {
         <span matTextSuffix>{{ fullConfig().suffix }}</span>
       }
-      @if(fullConfig().icon) {
+      @if (fullConfig().icon) {
         <mat-icon matSuffix>{{ fullConfig().icon }}</mat-icon>
       }
-      @if(fullConfig().hint) {
+      @if (fullConfig().hint) {
         <mat-hint>{{ fullConfig().hint }}</mat-hint>
       }
-      @if(errorState.shouldShow) {
-        <mat-error>
-          {{ errorState.message }}
-        </mat-error>
+      @if (errorState().shouldShow) {
+        <mat-error>{{ errorState().message }}</mat-error>
       }
     </mat-form-field>
   `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AppFormInputNewComponent),
-      multi: true
-    }
-  ]
 })
-export class AppFormInputNewComponent implements ControlValueAccessor, AfterViewInit {
+export class AppFormInputNewComponent {
+  readonly control = input.required<FormControl<string>>();
   readonly config = input<AppFormInputOptions>({});
+
+  private readonly destroyRef = inject(DestroyRef);
+
+  private readonly controlEventTick = signal(0);
+
+  constructor() {
+    effect(() => {
+      const ctrl = this.control();
+      ctrl.events
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => this.controlEventTick.update(v => v + 1));
+    });
+  }
+
   readonly fullConfig = computed<AppFormInputConfig>(() => ({
     appearance: 'fill', type: 'text', label: '', placeholder: '', hint: '',
     icon: '', prefix: '', suffix: '', ariaLabel: '', errorMessages: {},
     ...this.config()
   }));
 
-  internalControl = new FormControl('');
-  public ngControl: NgControl | null = null;
-  public isRequired = false;
+  readonly isRequired = computed(() => {
+    this.controlEventTick();
+    return this.control().hasValidator(Validators.required);
+  });
 
-  private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
-  private readonly destroyRef: DestroyRef = inject(DestroyRef);
-  private readonly log = inject(LoggingService);
-
-  private hasCheckedConnection = false;
-  private readonly defaultErrorMessages: Record<string, string> = {
-    required: 'This field is required',
-    email: 'Please enter a valid email address',
-    minlength: 'The value is too short',
-    maxlength: 'The value is too long',
-    pattern: 'The format is not valid'
-  };
-
-  constructor() {
-    this.internalControl.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(value => {
-        this.onChange(value);
-      });
-  }
-
-  public get errorState(): ErrorState {
-    const control = this.ngControl?.control;
-    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
+  readonly errorState = computed<ErrorState>(() => {
+    this.controlEventTick();
+    const ctrl = this.control();
+    const shouldShow = ctrl.invalid && ctrl.touched;
     if (!shouldShow) return { shouldShow: false, message: '' };
-    const errors = control.errors;
+    const errors = ctrl.errors;
     if (!errors) return { shouldShow: false, message: '' };
     const errorKey = Object.keys(errors)[0];
-    const customMessages = this.fullConfig().errorMessages || {};
-    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
+    const customMessages = this.fullConfig().errorMessages ?? {};
+    const message = customMessages[errorKey] ?? FORM_INPUT_DEFAULT_ERROR_MESSAGES[errorKey] ?? 'Validation error';
     return { shouldShow: true, message };
-  }
-
-  onChange: (value: string | null) => void = () => {};
-
-  onTouched: () => void = () => {};
-
-  ngAfterViewInit(): void {
-    if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
-      this.log.warn(
-        `⚠️ FormFieldInputComponent: No se detectó conexión con NgControl.\n\n` +
-        `Si estás usando formControlName, asegúrate de agregar la directiva appFormInputConnector.\n\n` +
-        `Uso correcto:\n` +
-        `<app-form-input formControlName="email" [config]="config" appFormInputConnector>\n` +
-        `</app-form-input>\n\n` +
-        `Sin la directiva, los validadores del FormGroup padre NO se sincronizarán con este componente.`
-      );
-      this.hasCheckedConnection = true;
-    }
-  }
-
-  public connectControl(ngControl: NgControl): void {
-    this.hasCheckedConnection = true;
-    this.ngControl = ngControl;
-    this.ngControl.valueAccessor = this;
-    const parentControl = this.ngControl.control;
-
-    if (parentControl) {
-      this.isRequired = parentControl.hasValidator(Validators.required);
-      this.internalControl.setValidators(parentControl.validator);
-      this.internalControl.updateValueAndValidity({ emitEvent: false });
-
-      parentControl.statusChanges.pipe(
-        startWith(parentControl.status),
-        takeUntilDestroyed(this.destroyRef)
-      ).subscribe(() => {
-        this.changeDetectorRef.markForCheck();
-      });
-    }
-    this.changeDetectorRef.detectChanges();
-  }
-
-  handleBlur(): void {
-    this.onTouched();
-  }
-
-  writeValue(value: string | null): void {
-    this.internalControl.setValue(value, { emitEvent: false });
-  }
-
-  registerOnChange(fn: (value: string | null) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.internalControl.disable({ emitEvent: false });
-    } else {
-      this.internalControl.enable({ emitEvent: false });
-    }
-  }
+  });
 }

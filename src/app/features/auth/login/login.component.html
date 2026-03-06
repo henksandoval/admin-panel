@@ -17,8 +17,8 @@
       </div>
     }
     <form [formGroup]="formGroupLogin" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
-      <app-form-input [config]="emailFieldConfig" appFormInputConnector formControlName="email" />
-      <app-form-input [config]="passwordFieldConfig()" appFormInputConnector formControlName="password"/>
+      <app-form-input-new [config]="emailFieldConfig" [control]="formGroupLogin.controls.email" />
+      <app-form-input-new [config]="passwordFieldConfig()" [control]="formGroupLogin.controls.password" />
       <div class="flex items-center justify-between">
         <app-checkbox
           [checked]="showPassword()"
