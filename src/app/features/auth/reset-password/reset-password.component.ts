@@ -5,9 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputConnectorDirective } from '@ui-molecules/app-form/app-form-input/app-form-input-connector.directive';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
+import { AppFormInputNewComponent } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.component';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input-new/app-form-input-new.model';
 import { passwordMatchValidator } from '../shared/validators/password-match.validator';
 import { RESET_PASSWORD_DEFAULTS, ResetPasswordStatus } from './reset-password.model';
 
@@ -19,8 +18,7 @@ import { RESET_PASSWORD_DEFAULTS, ResetPasswordStatus } from './reset-password.m
     MatIconModule,
     AppButtonComponent,
     AppCheckboxComponent,
-    AppFormInputComponent,
-    AppFormInputConnectorDirective,
+    AppFormInputNewComponent,
   ],
   styleUrls: ['./reset-password.component.scss'],
   templateUrl: './reset-password.component.html',
