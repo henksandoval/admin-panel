@@ -27,14 +27,12 @@
 
 <div [formGroup]="builderForm" class="app-filters-advanced-form">
   <div>
-    <app-form-select [config]="{ label: fieldLabel() }" [options]="fieldOptions()" appFormSelectConnector
-                     formControlName="field">
+    <app-form-select [config]="{ label: fieldLabel() }" [options]="fieldOptions()" [control]="$any(builderForm.controls.field)">
     </app-form-select>
   </div>
 
   <div>
-    <app-form-select [config]="{ label: operatorLabel() }" [options]="operatorOptions()" appFormSelectConnector
-                     formControlName="operator">
+    <app-form-select [config]="{ label: operatorLabel() }" [options]="operatorOptions()" [control]="$any(builderForm.controls.operator)">
     </app-form-select>
   </div>
 
@@ -42,21 +40,18 @@
     <div>
       @switch (selectedFieldType()) {
         @case ('select') {
-          <app-form-select [config]="{ label: valueLabel() }" [options]="valueOptions()" appFormSelectConnector
-                           formControlName="value">
+          <app-form-select [config]="{ label: valueLabel() }" [options]="valueOptions()" [control]="$any(builderForm.controls.value)">
           </app-form-select>
         }
         @case ('date') {
-          <app-form-datepicker [config]="{ label: dateLabel() }" appFormDatepickerConnector
-                               formControlName="value"></app-form-datepicker>
+          <app-form-datepicker [config]="{ label: dateLabel() }" [control]="$any(builderForm.controls.value)"></app-form-datepicker>
         }
         @case ('number') {
         <app-form-input [config]="{ label: valueLabel(), type: 'number' }" [control]="builderForm.controls.value">
           </app-form-input>
         }
         @case ('boolean') {
-          <app-form-select [config]="{ label: valueLabel() }" [options]="booleanOptions" appFormSelectConnector
-                           formControlName="value">
+          <app-form-select [config]="{ label: valueLabel() }" [options]="booleanOptions" [control]="$any(builderForm.controls.value)">
           </app-form-select>
         }
         @default {

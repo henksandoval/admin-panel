@@ -23,23 +23,14 @@ import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-l
 import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 import { AppFormCheckboxComponent } from '@ui-molecules/app-form/app-form-checkbox/app-form-checkbox.component';
 import {
-  AppFormDatepickerConnectorDirective
-} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
-import {
   AppFormDatepickerComponent
 } from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import {
-  AppFormRadioGroupConnectorDirective
-} from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
-import {
   AppFormRadioGroupComponent
 } from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.component';
 import { RadioOption } from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.model';
-import {
-  AppFormSelectConnectorDirective
-} from '@ui-molecules/app-form/app-form-select/app-form-select-connector.directive';
 import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
 import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea.component';
 import { LoggingService } from '@core/services/logging.service';
@@ -59,15 +50,12 @@ import { LoggingService } from '@core/services/logging.service';
     AppFormInputComponent,
     AppFormTextareaComponent,
     AppFormDatepickerComponent,
-    AppFormDatepickerConnectorDirective,
     AppFormRadioGroupComponent,
-    AppFormRadioGroupConnectorDirective,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
     AppFormCheckboxComponent,
     AppFormSelectComponent,
-    AppFormSelectConnectorDirective,
     AppCardComponent,
     AppPageLayoutComponent,
     AppSlotContainerDirective,

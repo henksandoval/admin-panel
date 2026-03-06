@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, input, output, } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -12,7 +12,7 @@ import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-se
   selector: 'app-pagination',
   standalone: true,
   imports: [
-    FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
@@ -28,6 +28,8 @@ export class AppPaginationComponent {
   readonly state = input.required<AppPaginationState>();
 
   pageChange = output<AppPageEvent>();
+
+  readonly pageSizeControl = signal(new FormControl(10));
 
   readonly pageSizeOptions = computed(() => this.config()?.pageSizeOptions ?? PAGINATION_DEFAULTS.pageSizeOptions);
   readonly pageSizeSelectOptions = computed<SelectOption<number>[]>(() =>
@@ -63,6 +65,7 @@ export class AppPaginationComponent {
     const { pageIndex, pageSize } = this.state();
     const currentFirstItemIndex = pageIndex * pageSize;
     const newPageIndex = Math.floor(currentFirstItemIndex / newPageSize);
+    this.pageSizeControl().setValue(newPageSize, { emitEvent: false });
     this.emitPageChange(newPageIndex, newPageSize);
   }
 

@@ -18,9 +18,6 @@ import {
 } from './radios.data';
 import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
 import {
-  AppFormRadioGroupConnectorDirective
-} from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
-import {
   AppFormRadioGroupComponent
 } from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.component';
 
@@ -35,7 +32,6 @@ import {
     AppToggleGroupComponent,
     AppCheckboxComponent,
     AppFormRadioGroupComponent,
-    AppFormRadioGroupConnectorDirective,
     PdsPageLayoutComponent
   ],
   templateUrl: './radios.component.html'

@@ -1,30 +1,10 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  computed,
-  DestroyRef,
-  forwardRef,
-  inject,
-  input,
-  isDevMode
-} from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { startWith } from 'rxjs/operators';
-import { APP_FORM_SELECT_DEFAULTS, AppFormSelectConfig, SelectDensity, SelectOption } from './app-form-select.model';
-import { LoggingService } from '@core/services/logging.service';
+import { AppFormSelectConfig, AppFormSelectOptions, FORM_SELECT_DEFAULT_ERROR_MESSAGES, FORM_SELECT_DEFAULTS, SelectDensity, SelectOption } from './app-form-select.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -39,45 +19,47 @@ interface ErrorState {
   styleUrl: './app-form-select.component.scss',
   host: {
     '[class]': 'densityClass()'
-  },
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AppFormSelectComponent),
-      multi: true
-    }
-  ]
+  }
 })
-export class AppFormSelectComponent<T = any> implements ControlValueAccessor, AfterViewInit {
+export class AppFormSelectComponent<T = any> {
+  readonly control = input.required<FormControl<T | T[] | null>>();
   readonly options = input.required<SelectOption<T>[]>();
-  readonly config = input<AppFormSelectConfig>({});
+  readonly config = input<AppFormSelectOptions>({});
 
-  readonly fullConfig = computed(() => ({
-    label: '',
-    placeholder: '',
-    hint: '',
-    icon: '',
-    errorMessages: {},
-    ...APP_FORM_SELECT_DEFAULTS,
+  private readonly controlEventTick = signal(0);
+
+  constructor() {
+    effect((onCleanup) => {
+      const sub = this.control().events
+        .subscribe(() => this.controlEventTick.update(v => v + 1));
+      onCleanup(() => sub.unsubscribe());
+    });
+  }
+
+  readonly fullConfig = computed<AppFormSelectConfig>(() => ({
+    ...FORM_SELECT_DEFAULTS,
     ...this.config()
-  }));
+  }) as AppFormSelectConfig);
 
-  internalControl = new FormControl<T | T[] | null>(null);
-  public ngControl: NgControl | null = null;
-  public isRequired = false;
-  public isDisabled = false;
+  readonly isRequired = computed(() => {
+    this.controlEventTick();
+    return this.control().hasValidator(Validators.required);
+  });
+
   readonly hasGroups = computed(() => {
     return this.options().some(opt => opt.group !== undefined);
   });
+
   readonly densityClass = computed(() => {
     const densityMap: Record<SelectDensity, string> = {
-      0:  'app-form-select--density-0',
+      0: 'app-form-select--density-0',
       '-1': 'app-form-select--density-n1',
       '-2': 'app-form-select--density-n2',
       '-3': 'app-form-select--density-n3',
     };
     return densityMap[this.fullConfig().density];
   });
+
   readonly groupedOptions = computed(() => {
     const groups = new Map<string, SelectOption<T>[]>();
     this.options().forEach(option => {
@@ -89,100 +71,18 @@ export class AppFormSelectComponent<T = any> implements ControlValueAccessor, Af
     });
     return Array.from(groups.entries()).map(([name, options]) => ({ name, options }));
   });
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly log = inject(LoggingService);
 
-  private hasCheckedConnection = false;
-  private readonly defaultErrorMessages: Record<string, string> = {
-    required: 'This field is required',
-    minlength: 'Please select at least {requiredLength} options',
-    maxlength: 'Please select no more than {requiredLength} options'
-  };
-
-  constructor() {
-    this.internalControl.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(value => {
-        this.onChange(value);
-      });
-  }
-
-  public get errorState(): ErrorState {
-    const control = this.ngControl?.control;
-    const shouldShow = !!(control && control.invalid && (control.touched || control.dirty));
+  readonly errorState = computed<ErrorState>(() => {
+    this.controlEventTick();
+    const ctrl = this.control();
+    const shouldShow = ctrl.invalid && ctrl.touched;
     if (!shouldShow) return { shouldShow: false, message: '' };
-    const errors = control.errors;
+    const errors = ctrl.errors;
     if (!errors) return { shouldShow: false, message: '' };
     const errorKey = Object.keys(errors)[0];
-    const customMessages = this.fullConfig().errorMessages || {};
-    const message = customMessages[errorKey] || this.defaultErrorMessages[errorKey] || 'Validation error';
+    const customMessages = this.fullConfig().errorMessages ?? {};
+    const message = customMessages[errorKey] ?? FORM_SELECT_DEFAULT_ERROR_MESSAGES[errorKey] ?? 'Validation error';
     return { shouldShow: true, message };
-  }
-
-  ngAfterViewInit(): void {
-    if (isDevMode() && !this.ngControl && !this.hasCheckedConnection) {
-      this.log.warn(
-        `⚠️ AppFormSelectComponent: No se detectó conexión con NgControl.\n\n` +
-        `Si estás usando formControlName, asegúrate de agregar la directiva appFormSelectConnector.\n\n` +
-        `Uso correcto:\n` +
-        `<app-form-select formControlName="country" [options]="countries" appFormSelectConnector>\n` +
-        `</app-form-select>\n\n` +
-        `Sin la directiva, los validadores del FormGroup padre NO se sincronizarán con este componente.`
-      );
-      this.hasCheckedConnection = true;
-    }
-  }
-
-  public connectControl(ngControl: NgControl): void {
-    this.hasCheckedConnection = true;
-    this.ngControl = ngControl;
-    this.ngControl.valueAccessor = this;
-
-    const parentControl = this.ngControl.control;
-
-    if (parentControl) {
-      this.isRequired = parentControl.hasValidator(Validators.required);
-      this.internalControl.setValidators(parentControl.validator);
-      this.internalControl.updateValueAndValidity({ emitEvent: false });
-
-      parentControl.statusChanges.pipe(
-        startWith(parentControl.status),
-        takeUntilDestroyed(this.destroyRef)
-      ).subscribe(() => {
-        this.changeDetectorRef.markForCheck();
-      });
-    }
-
-    this.changeDetectorRef.detectChanges();
-  }
-
-  handleBlur(): void {
-    this.onTouched();
-  }
-
-  writeValue(value: T | T[] | null): void {
-    this.internalControl.setValue(value, { emitEvent: false });
-  }
-
-  registerOnChange(fn: (value: T | T[] | null) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
-    if (isDisabled) {
-      this.internalControl.disable({ emitEvent: false });
-    } else {
-      this.internalControl.enable({ emitEvent: false });
-    }
-  }
-
-  private onChange: (value: T | T[] | null) => void = () => {};
-
-  private onTouched: () => void = () => {};
+  });
 }
+

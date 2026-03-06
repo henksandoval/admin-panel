@@ -33,7 +33,7 @@
           <app-form-input [config]="basicTextConfig()" [control]="$any(galleryForm.get('basicText'))">
           </app-form-input>
 
-          <app-form-select [config]="selectCountryConfig()" [options]="countryOptions" appFormSelectConnector formControlName="country">
+          <app-form-select [config]="selectCountryConfig()" [options]="countryOptions" [control]="$any(galleryForm.get('country'))">
           </app-form-select>
         </div>
 
@@ -52,8 +52,7 @@
           <app-form-input [config]="phoneConfig()" [control]="$any(galleryForm.get('phone'))">
           </app-form-input>
 
-          <app-form-datepicker [config]="birthDateConfig()" appFormDatepickerConnector
-                               formControlName="birthDate">
+          <app-form-datepicker [config]="birthDateConfig()" [control]="$any(galleryForm.get('birthDate'))">
           </app-form-datepicker>
         </div>
 
@@ -63,8 +62,7 @@
         </div>
 
         <div class="md:col-span-2">
-          <app-form-radio-group [config]="genderConfig()" [options]="genderOptions" appFormRadioGroupConnector
-                                formControlName="gender">
+          <app-form-radio-group [config]="genderConfig()" [options]="genderOptions" [control]="$any(galleryForm.get('gender'))">
           </app-form-radio-group>
         </div>
 

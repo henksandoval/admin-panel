@@ -1,6 +1,6 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
@@ -24,6 +24,7 @@ import { SelectOption, SelectDensity } from '@ui-molecules/app-form/app-form-sel
   standalone: true,
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     MatIconModule,
     AppFormSelectComponent,
@@ -43,12 +44,23 @@ export default class SelectsComponent {
   readonly showIcon = signal<boolean>(false);
   readonly showHint = signal<boolean>(false);
   readonly isRequired = signal<boolean>(false);
-  readonly singleValue = signal<string | null>(null);
-  readonly multipleValue = signal<string[]>([]);
-  readonly groupedValue = signal<string | null>(null);
+  readonly singleControl = new FormControl<string | null>(null);
+  readonly multipleControl = new FormControl<string[]>([]);
+  readonly groupedControl = new FormControl<string | null>(null);
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly SELECT_STATE_GUIDES = SELECT_STATE_GUIDES;
+
+  constructor() {
+    effect(() => {
+      if (this.selectedState() === 'disabled') {
+        this.singleControl.disable({ emitEvent: false });
+      } else {
+        this.singleControl.enable({ emitEvent: false });
+      }
+    });
+  }
+
   readonly stateOptions: ToggleOption[] = [
     { value: 'single', label: 'Single' },
     { value: 'multiple', label: 'Multiple' },

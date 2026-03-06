@@ -5,17 +5,24 @@ export interface RadioOption<T = any> {
 }
 
 export interface AppFormRadioGroupConfig {
-  label?: string;
-  hint?: string;
-  ariaLabel?: string;
-  errorMessages?: Record<string, string>;
-  showErrors?: boolean;
-  layout?: 'horizontal' | 'vertical';
+  label: string;
+  hint: string;
+  ariaLabel: string;
+  errorMessages: Record<string, string>;
+  layout: 'horizontal' | 'vertical';
 }
 
-export type AppFormRadioGroupConfigComplete = Required<Omit<AppFormRadioGroupConfig, 'label' | 'hint' | 'ariaLabel' | 'errorMessages'>>;
+export type AppFormRadioGroupOptions = Partial<AppFormRadioGroupConfig>;
 
-export const APP_FORM_RADIO_GROUP_DEFAULTS: AppFormRadioGroupConfigComplete = {
-  showErrors: true,
-  layout: 'vertical'
+export const FORM_RADIO_GROUP_DEFAULTS: AppFormRadioGroupConfig = {
+  label: '',
+  hint: '',
+  ariaLabel: '',
+  errorMessages: {},
+  layout: 'vertical',
 };
+
+export const FORM_RADIO_GROUP_DEFAULT_ERROR_MESSAGES: Record<string, string> = {
+  required: $localize`:FormRadioGroup|Required error@@formRadioGroup.error.required:This field is required`,
+};
+

@@ -22,8 +22,7 @@
             layout: 'vertical'
           }"
           [options]="currentOptions()"
-          appFormRadioGroupConnector
-          formControlName="basicSelection">
+          [control]="$any(demoForm.get('basicSelection'))">
         </app-form-radio-group>
         <p class="hint-text mat-label-small mt-4">
           Selected: <strong>{{ demoForm.get('basicSelection')?.value || 'None' }}</strong>
@@ -38,8 +37,7 @@
             layout: 'vertical'
           }"
           [options]="currentOptions()"
-          appFormRadioGroupConnector
-          formControlName="descriptionsSelection">
+          [control]="$any(demoForm.get('descriptionsSelection'))">
         </app-form-radio-group>
         <p class="hint-text mat-label-small mt-4">
           Selected: <strong>{{ demoForm.get('descriptionsSelection')?.value || 'None' }}</strong>
@@ -54,8 +52,7 @@
             layout: 'horizontal'
           }"
           [options]="currentOptions()"
-          appFormRadioGroupConnector
-          formControlName="horizontalSelection">
+          [control]="$any(demoForm.get('horizontalSelection'))">
         </app-form-radio-group>
         <p class="hint-text mat-label-small mt-4">
           Selected: <strong>{{ demoForm.get('horizontalSelection')?.value || 'None' }}</strong>
@@ -70,8 +67,7 @@
             layout: 'vertical'
           }"
           [options]="currentOptions()"
-          appFormRadioGroupConnector
-          formControlName="disabledSelection">
+          [control]="$any(demoForm.get('disabledSelection'))">
         </app-form-radio-group>
         <p class="hint-text mat-label-small mt-4">
           Selected: <strong>{{ demoForm.get('disabledSelection')?.value || 'None' }}</strong>

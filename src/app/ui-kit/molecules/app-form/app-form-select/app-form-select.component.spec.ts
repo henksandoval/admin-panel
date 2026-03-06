@@ -1,186 +1,263 @@
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { AppFormSelectComponent } from './app-form-select.component';
-import { AppFormSelectConnectorDirective } from './app-form-select-connector.directive';
 import { SelectOption } from './app-form-select.model';
 
-const OPTIONS: SelectOption<string>[] = [
-  { value: 'a', label: 'Option A' },
-  { value: 'b', label: 'Option B' },
-];
-
-const GROUPED_OPTIONS: SelectOption<string>[] = [
-  { value: 'a', label: 'Option A', group: 'Group 1' },
-  { value: 'b', label: 'Option B', group: 'Group 2' },
-];
-
-function mockNgControl(control: FormControl): NgControl {
-  return { control, valueAccessor: null } as unknown as NgControl;
-}
-
-@Component({
-  standalone: true,
-  imports: [ReactiveFormsModule, AppFormSelectComponent, AppFormSelectConnectorDirective],
-  template: `
-    <form [formGroup]="form">
-      <app-form-select
-        formControlName="country"
-        [options]="options"
-        appFormSelectConnector />
-    </form>
-  `,
-})
-class HostComponent {
-  options = OPTIONS;
-  form = new FormGroup({
-    country: new FormControl<string | null>(null, Validators.required),
-  });
-}
-
 describe('AppFormSelectComponent', () => {
-  let fixture: ComponentFixture<AppFormSelectComponent<string>>;
-  let component: AppFormSelectComponent<string>;
+  let fixture: ComponentFixture<AppFormSelectComponent>;
+  let component: AppFormSelectComponent;
+
+  const countryOptions: SelectOption<string>[] = [
+    { value: 'us', label: 'United States' },
+    { value: 'uk', label: 'United Kingdom' },
+    { value: 'ca', label: 'Canada' },
+  ];
+
+  const groupedOptions: SelectOption<string>[] = [
+    { value: 'us', label: 'United States', group: 'North America' },
+    { value: 'ca', label: 'Canada', group: 'North America' },
+    { value: 'mx', label: 'Mexico', group: 'North America' },
+    { value: 'uk', label: 'United Kingdom', group: 'Europe' },
+    { value: 'fr', label: 'France', group: 'Europe' },
+    { value: 'de', label: 'Germany', group: 'Europe' },
+  ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppFormSelectComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AppFormSelectComponent<string>);
+    fixture = TestBed.createComponent(AppFormSelectComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('options', OPTIONS);
+  });
+
+  it('TC-01 — renders the initial FormControl value in the select', () => {
+    const control = new FormControl('us');
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
     fixture.detectChanges();
+
+    const select = fixture.debugElement.query(By.css('mat-select'));
+    expect(select.componentInstance.value).toBe('us');
   });
 
-  it('writeValue sets internalControl without triggering onChange', () => {
-    const onChangeSpy = vi.fn();
-    component.registerOnChange(onChangeSpy);
+  it('TC-02 — updates the FormControl when an option is selected', () => {
+    const control = new FormControl<string | null>(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.detectChanges();
 
-    component.writeValue('a');
-
-    expect(component.internalControl.value).toBe('a');
-    expect(onChangeSpy).not.toHaveBeenCalled();
+    component.control().setValue('uk');
+    expect(control.value).toBe('uk');
   });
 
-  it('writeValue accepts arrays for multiple selection without triggering onChange', () => {
-    const onChangeSpy = vi.fn();
-    component.registerOnChange(onChangeSpy);
+  it('TC-03 — shows the error when the control is invalid and has been touched', async () => {
+    const control = new FormControl(null, Validators.required);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.detectChanges();
 
-    component.writeValue(['a', 'b']);
-
-    expect(component.internalControl.value).toEqual(['a', 'b']);
-    expect(onChangeSpy).not.toHaveBeenCalled();
-  });
-
-  it('internalControl value change propagates to onChange', () => {
-    const onChangeSpy = vi.fn();
-    component.registerOnChange(onChangeSpy);
-
-    component.internalControl.setValue('b');
-
-    expect(onChangeSpy).toHaveBeenCalledWith('b');
-  });
-
-  it('handleBlur calls onTouched', () => {
-    const onTouchedSpy = vi.fn();
-    component.registerOnTouched(onTouchedSpy);
-
-    component.handleBlur();
-
-    expect(onTouchedSpy).toHaveBeenCalledOnce();
-  });
-
-  it('errorState does not show error when control has not been touched', () => {
-    const control = new FormControl<string | null>(null, Validators.required);
-    component.connectControl(mockNgControl(control));
-
-    expect(component.errorState.shouldShow).toBe(false);
-  });
-
-  it('errorState uses config errorMessages first, then defaults, then fallback', () => {
-    const control = new FormControl<string | null>(null, Validators.required);
     control.markAsTouched();
-    component.connectControl(mockNgControl(control));
+    fixture.detectChanges();
 
-    expect(component.errorState.message).toBe('This field is required');
-
-    fixture.componentRef.setInput('config', {
-      errorMessages: { required: 'Custom message' },
-    });
-
-    expect(component.errorState.message).toBe('Custom message');
-
-    control.setErrors({ unknownError: true });
-    fixture.componentRef.setInput('config', { errorMessages: {} });
-
-    expect(component.errorState.message).toBe('Validation error');
+    const error = fixture.debugElement.query(By.css('mat-error'));
+    expect(error).not.toBeNull();
+    expect(error.nativeElement.textContent.trim()).toBe('This field is required');
   });
 
-  it('connectControl sets isRequired to true when Validators.required is present', () => {
-    const control = new FormControl<string | null>(null, Validators.required);
-    component.connectControl(mockNgControl(control));
+  it('TC-04 — does not show error when the control is invalid but untouched', () => {
+    const control = new FormControl(null, Validators.required);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.detectChanges();
 
-    expect(component.isRequired).toBe(true);
+    const error = fixture.debugElement.query(By.css('mat-error'));
+    expect(error).toBeNull();
   });
 
-  it('setDisabledState disables and re-enables internalControl', () => {
-    component.setDisabledState(true);
-    expect(component.isDisabled).toBe(true);
-    expect(component.internalControl.disabled).toBe(true);
+  it('TC-05 — config errorMessages overrides the default error message', () => {
+    const control = new FormControl(null, Validators.required);
+    control.markAsTouched();
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.componentRef.setInput('config', { errorMessages: { required: 'Please select a country' } });
+    fixture.detectChanges();
 
-    component.setDisabledState(false);
-    expect(component.isDisabled).toBe(false);
-    expect(component.internalControl.enabled).toBe(true);
+    const error = fixture.debugElement.query(By.css('mat-error'));
+    expect(error.nativeElement.textContent.trim()).toBe('Please select a country');
   });
 
-  it('hasGroups returns false for flat options and true when any option has a group', () => {
-    expect(component.hasGroups()).toBe(false);
+  it('TC-06 — disables the select when the FormControl is disabled', () => {
+    const control = new FormControl({ value: 'us', disabled: true });
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.detectChanges();
 
-    fixture.componentRef.setInput('options', GROUPED_OPTIONS);
+    const select = fixture.debugElement.query(By.css('mat-select'));
+    expect(select.componentInstance.disabled).toBe(true);
+  });
+
+  it('TC-07 — isRequired is true when Validators.required is set', () => {
+    const control = new FormControl(null, Validators.required);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.detectChanges();
+
+    expect(component.isRequired()).toBe(true);
+  });
+
+  it('TC-08 — renders the label when provided in config', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.componentRef.setInput('config', { label: 'Country' });
+    fixture.detectChanges();
+
+    const label = fixture.debugElement.query(By.css('mat-label'));
+    expect(label).not.toBeNull();
+    expect(label.nativeElement.textContent.trim()).toBe('Country');
+  });
+
+  it('TC-09 — renders the hint when provided in config', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.componentRef.setInput('config', { hint: 'Select your country of residence' });
+    fixture.detectChanges();
+
+    const hint = fixture.debugElement.query(By.css('mat-hint'));
+    expect(hint).not.toBeNull();
+    expect(hint.nativeElement.textContent.trim()).toBe('Select your country of residence');
+  });
+
+  it('TC-10 — renders all options', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.detectChanges();
+
+    const options = fixture.debugElement.queryAll(By.css('mat-option'));
+    expect(options.length).toBe(3);
+  });
+
+  it('TC-11 — renders grouped options when group property is present', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', groupedOptions);
+    fixture.detectChanges();
 
     expect(component.hasGroups()).toBe(true);
-  });
-});
-
-describe('AppFormSelectConnectorDirective — integration', () => {
-  let fixture: ComponentFixture<HostComponent>;
-  let host: HostComponent;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HostComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(HostComponent);
-    host = fixture.componentInstance;
-    fixture.detectChanges();
+    const optgroups = fixture.debugElement.queryAll(By.css('mat-optgroup'));
+    expect(optgroups.length).toBe(2);
   });
 
-  it('FormGroup starts with null and invalid, becomes valid when an option is selected', () => {
-    expect(host.form.value.country).toBeNull();
-    expect(host.form.invalid).toBe(true);
-
-    const selectComponent = fixture.debugElement
-      .query(By.directive(AppFormSelectComponent))
-      .componentInstance as AppFormSelectComponent<string>;
-
-    selectComponent.internalControl.setValue('a');
-
-    expect(host.form.value.country).toBe('a');
-    expect(host.form.valid).toBe(true);
-  });
-
-  it('disabling the FormControl from the FormGroup disables internalControl', () => {
-    host.form.get('country')!.disable();
+  it('TC-12 — renders options without groups when group property is not present', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
     fixture.detectChanges();
 
-    const selectComponent = fixture.debugElement
-      .query(By.directive(AppFormSelectComponent))
-      .componentInstance as AppFormSelectComponent<string>;
+    expect(component.hasGroups()).toBe(false);
+    const optgroups = fixture.debugElement.queryAll(By.css('mat-optgroup'));
+    expect(optgroups.length).toBe(0);
+  });
 
-    expect(selectComponent.internalControl.disabled).toBe(true);
+  it('TC-13 — supports multiple selection when configured', () => {
+    const control = new FormControl<string[]>(['us', 'uk']);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.componentRef.setInput('config', { multiple: true });
+    fixture.detectChanges();
+
+    const select = fixture.debugElement.query(By.css('mat-select'));
+    expect(select.componentInstance.multiple).toBe(true);
+  });
+
+  it('TC-14 — applies the icon when provided in config', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.componentRef.setInput('config', { icon: 'public' });
+    fixture.detectChanges();
+
+    const icon = fixture.debugElement.query(By.css('mat-icon'));
+    expect(icon).not.toBeNull();
+    expect(icon.nativeElement.textContent.trim()).toBe('public');
+  });
+
+  it('TC-15 — renders with default appearance', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.detectChanges();
+
+    const formField = fixture.debugElement.query(By.css('mat-form-field'));
+    expect(formField.componentInstance.appearance).toBe('fill');
+  });
+
+  it('TC-16 — applies custom appearance from config', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.componentRef.setInput('config', { appearance: 'outline' });
+    fixture.detectChanges();
+
+    const formField = fixture.debugElement.query(By.css('mat-form-field'));
+    expect(formField.componentInstance.appearance).toBe('outline');
+  });
+
+  it('TC-17 — disables individual options', () => {
+    const optionsWithDisabled: SelectOption<string>[] = [
+      { value: 'us', label: 'United States' },
+      { value: 'uk', label: 'United Kingdom', disabled: true },
+      { value: 'ca', label: 'Canada' },
+    ];
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', optionsWithDisabled);
+    fixture.detectChanges();
+
+    const options = fixture.debugElement.queryAll(By.css('mat-option'));
+    expect(options[0].componentInstance.disabled).toBe(false);
+    expect(options[1].componentInstance.disabled).toBe(true);
+    expect(options[2].componentInstance.disabled).toBe(false);
+  });
+
+  it('TC-18 — handles generic types correctly', () => {
+    const numberOptions: SelectOption<number>[] = [
+      { value: 1, label: 'Option 1' },
+      { value: 2, label: 'Option 2' },
+    ];
+    const control = new FormControl<number | null>(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', numberOptions);
+    fixture.detectChanges();
+
+    component.control().setValue(2);
+    expect(component.control().value).toBe(2);
+  });
+
+  it('TC-19 — applies density class to host element', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', countryOptions);
+    fixture.componentRef.setInput('config', { density: -2 });
+    fixture.detectChanges();
+
+    expect(component.densityClass()).toContain('app-form-select--density-n2');
+  });
+
+  it('TC-20 — groups options correctly by group name', () => {
+    const control = new FormControl(null);
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('options', groupedOptions);
+    fixture.detectChanges();
+
+    const grouped = component.groupedOptions();
+    expect(grouped.length).toBe(2);
+    expect(grouped[0].options.length).toBe(3);
+    expect(grouped[1].options.length).toBe(3);
   });
 });
 
