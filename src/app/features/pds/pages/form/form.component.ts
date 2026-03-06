@@ -21,9 +21,6 @@ import {
 } from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-layout.component";
 import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
-import {
-  AppFormCheckboxConnectorDirective
-} from '@ui-molecules/app-form/app-form-checkbox/app-form-checkbox-connector.directive';
 import { AppFormCheckboxComponent } from '@ui-molecules/app-form/app-form-checkbox/app-form-checkbox.component';
 import {
   AppFormDatepickerConnectorDirective
@@ -69,7 +66,6 @@ import { LoggingService } from '@core/services/logging.service';
     AppToggleGroupComponent,
     AppCheckboxComponent,
     AppFormCheckboxComponent,
-    AppFormCheckboxConnectorDirective,
     AppFormSelectComponent,
     AppFormSelectConnectorDirective,
     AppCardComponent,
