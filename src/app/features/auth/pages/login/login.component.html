@@ -8,13 +8,22 @@
   <form [formGroup]="formGroupLogin" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
     <app-form-input [config]="emailFieldConfig" [control]="formGroupLogin.controls.email" />
     <app-form-input [config]="passwordFieldConfig()" [control]="formGroupLogin.controls.password" />
-    <div class="flex items-center justify-end">
+    <div class="flex items-center justify-between -mt-7">
+      <app-checkbox [(checked)]="rememberMe"
+                    i18n-ariaLabel="Login|Remember me aria@@login.rememberMe.ariaLabel"
+                    ariaLabel="Remember me">
+        <span class="mat-label-medium"
+              i18n="Login|Remember me label@@login.rememberMe.label">Remember me</span>
+      </app-checkbox>
+      <a routerLink="/auth/forgot-password" class="app-login__link mat-label-medium"
+         i18n="Login|Forgot password link@@login.forgotPassword.link">Forgot password?</a>
+    </div>
+    <div class="w-full">
       <app-button
-        variant="filled"
-        color="primary"
         type="submit"
         [disabled]="isLoading()"
         [iconBefore]="isLoading() ? 'hourglass_empty' : 'login'"
+        class="app-login__submit-btn"
       >
         <ng-container i18n="Login|Submit button@@login.btn.submit">Sign In</ng-container>
       </app-button>
@@ -26,23 +35,24 @@
       <mat-divider class="app-login__divider-line flex-1"></mat-divider>
     </div>
 
-    <button
-      type="button"
-      class="app-login__social-btn"
-      (click)="onGoogleLogin()"
-      [disabled]="isLoading()"
-      i18n-aria-label="Login|Google login aria-label@@login.google.ariaLabel"
-      aria-label="Connect with Google">
-      <mat-icon svgIcon="google" class="app-login__google-icon" aria-hidden="true"></mat-icon>
-      <span class="mat-label-large"
-            i18n="Login|Google login button@@login.google.btn">Connect with Google</span>
-    </button>
+    <div class="w-full">
+      <app-button
+        variant="tonal"
+        (click)="onGoogleLogin()"
+        class="app-login__submit-btn"
+        i18n-aria-label="Login|Google login aria-label@@login.google.ariaLabel"
+        aria-label="Connect with Google"
+      >
+        <span class="app-login__google-btn-content">
+          <mat-icon svgIcon="google" class="app-login__google-icon" aria-hidden="true"></mat-icon>
+          <span i18n="Login|Google login button@@login.google.btn">Connect with Google</span>
+        </span>
+      </app-button>
+    </div>
 
-    <p class="mat-body-small m-0 text-center">
-      <span i18n="Login|Register link text@@login.register.text">Don't have an account yet?</span>
-      &nbsp;
-      <a routerLink="/auth/register" class="app-login__link"
-         i18n="Login|Register link@@login.register.link">Sign Up!</a>
+    <p class="m-0 flex items-center justify-center gap-1">
+      <span class="mat-label-medium" i18n="Login|Register link text@@login.register.text">Don't have an account yet?</span>
+      <a routerLink="/auth/register" class="app-login__link mat-label-medium" i18n="Login|Register link@@login.register.link">Sign Up!</a>
     </p>
   </form>
 </auth-page-layout>

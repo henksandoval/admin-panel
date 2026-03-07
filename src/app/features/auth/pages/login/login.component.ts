@@ -5,6 +5,7 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
@@ -19,6 +20,7 @@ import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
     RouterLink,
     MatIconModule,
     AppButtonComponent,
+    AppCheckboxComponent,
     AppFormInputComponent,
     MatDivider,
     AuthPageLayoutComponent,
@@ -40,6 +42,7 @@ export class LoginComponent {
   protected readonly status = signal<LoginStatus>(LOGIN_DEFAULTS.status);
   protected readonly errorMessage = signal<string>(LOGIN_DEFAULTS.errorMessage);
   protected readonly showPassword = signal(false);
+  protected readonly rememberMe = signal(LOGIN_DEFAULTS.rememberMe);
   protected readonly minPasswordLength = LOGIN_DEFAULTS.passwordMinLength;
 
   protected readonly emailFieldConfig: AppFormInputOptions = {

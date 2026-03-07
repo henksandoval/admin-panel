@@ -11,5 +11,6 @@ export const LOGIN_DEFAULTS = {
   status:           'idle' as LoginStatus,
   errorMessage:     '',
   passwordMinLength: 8,
+  rememberMe:       false,
 } as const;
 
