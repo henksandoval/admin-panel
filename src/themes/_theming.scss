@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use "sass:string";
 @use './variables';
 @use './semantic-colors';
 @use './tokens';
@@ -13,9 +14,20 @@
 @use 'colors/royal-dashboard' as royal-dashboard;
 @use '@angular/material' as mat;
 
+// Uncomment one option to test:
+// $app-font: '"Nunito Sans", sans-serif';  // Opción 1: Nunito Sans  – profesional
+// $app-font: '"Inter", sans-serif';         // Opción 2: Inter        – estándar moderno
+// $app-font: '"IBM Plex Sans", sans-serif'; // Opción 3: IBM Plex Sans – técnica, densa
+// $app-font: '"Public Sans", sans-serif';   // Opción 4: Public Sans  – neutra, tablas
+$app-font-brain: '"Outfit", sans-serif';
+$app-font-plain: '"Inter", system-ui';
+
 $base-typography: (
-  brand-family: '"Plus Jakarta Sans", sans-serif',
-  plain-family: '"Inter", sans-serif',
+  brand-family: string.unquote($app-font-brain),
+  plain-family: string.unquote($app-font-plain),
+  bold-weight: 700,
+  medium-weight: 500,
+  regular-weight: 400,
 );
 
 $theme-config: (
