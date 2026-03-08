@@ -24,7 +24,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authReq = token ? addTokenHeader(req, token) : req;
 
   return next(authReq).pipe(
-    catchError((error) => {
+    catchError((error: any) => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         return handle401(req, next, authService, authProvider);
       }
@@ -58,7 +58,7 @@ function handle401(
         refreshTokenSubject.next(tokenResponse.accessToken);
         return next(addTokenHeader(req, tokenResponse.accessToken));
       }),
-      catchError((error) => {
+      catchError((error: any) => {
         isRefreshing = false;
         // Logout silencioso: limpia estado y redirige a login
         authService.logout().subscribe();

@@ -6,8 +6,8 @@ export interface AuthUser {
   readonly id: string;
   readonly email: string;
   readonly displayName: string;
-  readonly roles: ReadonlyArray<string>;
-  readonly permissions: ReadonlyArray<string>;
+  readonly roles: readonly string[];
+  readonly permissions: readonly string[];
   readonly avatarUrl?: string;
   readonly metadata?: Record<string, unknown>;
 }

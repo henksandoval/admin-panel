@@ -68,7 +68,7 @@ export class MenuDataService {
           url: definition.loader ? fullPath : undefined,
           badge,
           children: hasChildren
-            ? this.buildNavigationItems(item.children!, fullPath)
+            ? this.buildNavigationItems(item.children, fullPath)
             : undefined,
         };
       })

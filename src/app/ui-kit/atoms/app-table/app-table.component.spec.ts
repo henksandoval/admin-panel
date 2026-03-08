@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppTableComponent } from './app-table.component';
 import { TABLE_DEFAULTS } from './app-table.model';
 
-type Row = { id: number; name: string };
+interface Row { id: number; name: string }
 
 const baseConfig = {
   columns: [
