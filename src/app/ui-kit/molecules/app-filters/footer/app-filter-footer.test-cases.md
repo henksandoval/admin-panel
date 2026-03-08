@@ -1,0 +1,10 @@
+# Test Cases — AppFilterFooterComponent
+
+| ID del Test | Tipo | Escenario / Propósito | Precondiciones | Pasos clave | Resultado Esperado | Justificación de Valor |
+|---|---|---|---|---|---|---|
+| TC-ShowFooterDefault | Componente | `showFooter` es `true` por defecto porque `showClearButton` y `showSearchButton` son `true` | — | 1. Instanciar sin inputs. 2. Leer `showFooter()`. | Retorna `true`. | El footer de filtros debe ser visible por defecto para habilitar las acciones principales. |
+| TC-ShowFooterAllHidden | Componente | `showFooter` es `false` cuando todos los controles de visibilidad están en `false` | — | 1. Setear `showClearButton = false`, `showSearchButton = false` y `toggles = {}`. 2. Leer `showFooter()`. | Retorna `false`. | Evita renderizar un footer vacío que ocupa espacio sin aportar valor. |
+| TC-ShowFooterWithTogglesOnly | Componente | `showFooter` es `true` cuando los botones están ocultos pero hay toggles | `showClearButton = false`, `showSearchButton = false`, `toggles` con al menos una entrada | 1. Setear la configuración. 2. Leer `showFooter()`. | Retorna `true`. | Los toggles son controles funcionales y deben mostrar el footer aunque no haya botones. |
+| TC-ToggleChangeEmit | Componente | `onToggleChange` actualiza el toggle correcto y emite el record completo | Múltiples toggles configurados | 1. Llamar `onToggleChange` para un toggle específico. 2. Escuchar `toggleChange`. | El toggle cambia de valor y `toggleChange` emite el objeto completo con el nuevo estado. | Garantiza que el padre recibe el estado actualizado de todos los toggles. |
+| TC-ClearClickEmit | Componente | Emite `clearClick` cuando se llama `onClear` | — | 1. Suscribirse a `clearClick`. 2. Llamar `onClear()`. | `clearClick` emite. | Garantiza que el botón limpiar comunique la acción al componente de filtros padre. |
+| TC-SearchClickEmit | Componente | Emite `searchClick` cuando se llama `onSearch` | — | 1. Suscribirse a `searchClick`. 2. Llamar `onSearch()`. | `searchClick` emite. | Garantiza que el botón buscar comunique la acción al componente de filtros padre. |
