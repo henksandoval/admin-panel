@@ -15,6 +15,7 @@ import { BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize, ButtonType } fro
       [disabled]="disabled()"
       [attr.color]="color()"
       [attr.aria-label]="ariaLabel()"
+      [attr.data-testid]="testId() ?? null"
       [class]="buttonClasses()"
       (click)="clicked.emit($event)">
       @if (iconBefore()) {
@@ -52,6 +53,7 @@ export class AppButtonComponent {
   readonly iconBefore = input<string>();
   readonly iconAfter = input<string>();
   readonly ariaLabel = input<string>();
+  readonly testId = input<string>();
 
   clicked = output<MouseEvent>();
 

@@ -17,7 +17,11 @@
     "list": "find . \\( -path './node_modules' -o -path './.vscode' -o -path './.git' -o -path './.angular' -o -path './dist' \\) -prune -false -o -print | sed 's|^\\./||' | sort | awk -F/ '{indent=\"\"; for(i=1;i<NF;i++) indent=indent\"  \"; print indent $NF}'",
     "list:tree": "tree -I 'node_modules|dist|.git|.vscode|.angular'",
     "lint": "ng lint",
-    "lint:fix": "ng lint --fix"
+    "lint:fix": "ng lint --fix",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "e2e:debug": "playwright test --debug",
+    "e2e:report": "playwright show-report"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +47,8 @@
     "@angular/build": "^20.3.6",
     "@angular/cli": "^20.3.6",
     "@angular/compiler-cli": "^20.3.0",
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^25.3.5",
     "@vitest/coverage-v8": "^4.0.18",
     "angular-eslint": "21.0.1",
     "autoprefixer": "^10.4.22",
