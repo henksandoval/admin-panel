@@ -17,10 +17,10 @@ import { testConfig } from '../../config/test.config';
 
 test.describe('TC-LoginHappyPath — Successful login redirects user', () => {
   test('redirects to default protected route after successful login', async ({ loginPage }) => {
-    await loginPage.getByLabel('Email').fill(testConfig.credentials.email);
-    await loginPage.getByLabel('Password').fill(testConfig.credentials.password);
+    await loginPage.getByTestId('login-email-input').fill(testConfig.credentials.email);
+    await loginPage.getByTestId('login-password-input').fill(testConfig.credentials.password);
 
-    await loginPage.getByRole('button', { name: /sign in/i }).click();
+    await loginPage.getByTestId('login-submit-button').click();
 
     await loginPage.waitForURL(`**${testConfig.expectedDefaultRedirect}`, { timeout: 10_000 });
 
@@ -32,10 +32,10 @@ test.describe('TC-LoginHappyPath — Successful login redirects user', () => {
 
     await loginPage.goto(`/auth/login?returnUrl=${encodeURIComponent(returnUrl)}`);
 
-    await loginPage.getByLabel('Email').fill(testConfig.credentials.email);
-    await loginPage.getByLabel('Password').fill(testConfig.credentials.password);
+    await loginPage.getByTestId('login-email-input').fill(testConfig.credentials.email);
+    await loginPage.getByTestId('login-password-input').fill(testConfig.credentials.password);
 
-    await loginPage.getByRole('button', { name: /sign in/i }).click();
+    await loginPage.getByTestId('login-submit-button').click();
 
     await loginPage.waitForURL(`**${returnUrl}`, { timeout: 10_000 });
 

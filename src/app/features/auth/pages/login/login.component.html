@@ -1,13 +1,13 @@
 <auth-page-layout>
   @if (status() === 'error') {
-    <div class="app-login__error flex items-center gap-2 mb-5">
+    <div class="app-login__error flex items-center gap-2 mb-5" data-testid="login-error-message">
       <mat-icon>error_outline</mat-icon>
       <span class="mat-body-medium">{{ errorMessage() }}</span>
     </div>
   }
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
-    <app-form-input [config]="emailFieldConfig" [control]="form.controls.email" />
-    <app-form-input [config]="passwordFieldConfig()" [control]="form.controls.password" />
+    <app-form-input [config]="emailFieldConfig" [control]="form.controls.email" testId="login-email-input" />
+    <app-form-input [config]="passwordFieldConfig()" [control]="form.controls.password" testId="login-password-input" />
     <div class="flex items-center justify-between -mt-7">
       <app-checkbox [(checked)]="rememberMe"
                     i18n-ariaLabel="Login|Remember me aria@@login.rememberMe.ariaLabel"
@@ -23,6 +23,7 @@
         type="submit"
         [disabled]="isLoading()"
         [iconBefore]="isLoading() ? 'hourglass_empty' : 'login'"
+        testId="login-submit-button"
         class="app-login__submit-btn"
       >
         <ng-container i18n="Login|Submit button@@login.btn.submit">Sign In</ng-container>

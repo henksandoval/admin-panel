@@ -30,6 +30,7 @@ interface ErrorState {
         [formControl]="control()"
         [placeholder]="fullConfig().placeholder"
         [attr.aria-label]="fullConfig().ariaLabel"
+        [attr.data-testid]="testId() ?? null"
         [required]="isRequired()"
       >
       @if (fullConfig().suffix) {
@@ -50,6 +51,7 @@ interface ErrorState {
 export class AppFormInputComponent {
   readonly control = input.required<FormControl<string>>();
   readonly config = input<AppFormInputOptions>({});
+  readonly testId = input<string>();
 
   private readonly controlEventTick = signal(0);
 
