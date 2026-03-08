@@ -38,6 +38,18 @@ async function interceptAuthMe(page: Page): Promise<void> {
   });
 }
 
+async function interceptConfirmPasswordReset(page: Page): Promise<void> {
+  const confirmUrl = `${testConfig.apiBaseUrl}/auth/password-reset/confirm`;
+
+  await page.route(confirmUrl, (route: Route) => {
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({}),
+    });
+  });
+}
+
 export interface AuthFixtures {
   /**
    * Navigates to the login page with all required network interception
@@ -49,6 +61,16 @@ export interface AuthFixtures {
    *   });
    */
   loginPage: Page;
+  /**
+   * Navigates to the reset-password page with a valid token query param and
+   * all required network interception already configured.
+   *
+   * Usage:
+   *   test('...', async ({ resetPasswordPage }) => {
+   *     // page is already at /auth/reset-password?token=... and mocks are active (if useMock)
+   *   });
+   */
+  resetPasswordPage: Page;
 }
 
 /**
@@ -71,6 +93,15 @@ export const test = base.extend<AuthFixtures>({
     }
 
     await page.goto('/auth/login');
+    await use(page);
+  },
+
+  resetPasswordPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptConfirmPasswordReset(page);
+    }
+
+    await page.goto(`/auth/reset-password?token=${testConfig.resetPasswordToken}`);
     await use(page);
   },
 });

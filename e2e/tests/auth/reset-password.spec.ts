@@ -1,0 +1,18 @@
+import { test, expect } from '../../fixtures/auth.fixture';
+
+const VALID_PASSWORD = 'NewPassword123';
+
+test.describe('ResetPasswordComponent — Happy path', () => {
+  test('shows success message and go-to-login button after submitting valid passwords', async ({ resetPasswordPage }) => {
+    await resetPasswordPage.getByTestId('reset-password-password-input').fill(VALID_PASSWORD);
+    await resetPasswordPage.getByTestId('reset-password-confirm-input').fill(VALID_PASSWORD);
+
+    await resetPasswordPage.getByTestId('reset-password-submit-button').click();
+
+    await resetPasswordPage.waitForSelector('[data-testid="reset-password-success-message"]', { timeout: 10_000 });
+
+    expect(await resetPasswordPage.getByTestId('reset-password-success-message').isVisible()).toBe(true);
+    expect(await resetPasswordPage.getByTestId('reset-password-go-to-login-button').isVisible()).toBe(true);
+    expect(await resetPasswordPage.getByRole('form').isVisible()).toBe(false);
+  });
+});

@@ -39,6 +39,7 @@ export interface E2ETestConfig {
   readonly apiBaseUrl: string;
   readonly credentials: LoginTestCredentials;
   readonly expectedDefaultRedirect: string;
+  readonly resetPasswordToken: string;
   readonly mockResponses: {
     readonly loginToken: MockTokenResponse;
     readonly user: MockUserResponse;
@@ -56,6 +57,8 @@ export const testConfig: E2ETestConfig = {
   },
 
   expectedDefaultRedirect: '/dashboard',
+
+  resetPasswordToken: 'e2e-valid-reset-token',
 
   mockResponses: {
     loginToken: {
