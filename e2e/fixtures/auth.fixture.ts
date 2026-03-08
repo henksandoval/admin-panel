@@ -51,40 +51,10 @@ async function interceptConfirmPasswordReset(page: Page): Promise<void> {
 }
 
 export interface AuthFixtures {
-  /**
-   * Navigates to the login page with all required network interception
-   * already configured according to the active test.config.ts.
-   *
-   * Usage:
-   *   test('...', async ({ loginPage }) => {
-   *     // page is already at /auth/login and mocks are active (if useMock)
-   *   });
-   */
   loginPage: Page;
-  /**
-   * Navigates to the reset-password page with a valid token query param and
-   * all required network interception already configured.
-   *
-   * Usage:
-   *   test('...', async ({ resetPasswordPage }) => {
-   *     // page is already at /auth/reset-password?token=... and mocks are active (if useMock)
-   *   });
-   */
   resetPasswordPage: Page;
 }
 
-/**
- * Extended Playwright test fixture that provides a pre-configured page for
- * authentication tests.
- *
- * Network interception is activated only when testConfig.useMock === true.
- * When useMock is false the HTTP calls reach the real API defined in
- * testConfig.apiBaseUrl.
- *
- * No test file should import `test` from @playwright/test directly; import
- * from this fixture instead so that the interception logic is always applied
- * consistently.
- */
 export const test = base.extend<AuthFixtures>({
   loginPage: async ({ page }, use) => {
     if (testConfig.useMock) {
