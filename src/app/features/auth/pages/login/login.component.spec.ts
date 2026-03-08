@@ -1,7 +1,7 @@
-import { NO_ERRORS_SCHEMA, Signal } from '@angular/core';
+import { Component, InputSignal, input, output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink, convertToParamMap } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Subject, throwError } from 'rxjs';
@@ -10,19 +10,75 @@ import { type Mock, describe, expect, it, vi } from 'vitest';
 import { LoginComponent } from './login.component';
 import { AuthService } from '@auth/services/auth.service';
 import { LoggingService } from '@core/services/logging.service';
-import { LoginStatus } from './login.model';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 
 const VALID_EMAIL = 'user@example.com';
 const VALID_PASSWORD = 'password123';
 
-interface LoginTestSurface {
-  form: { setValue(v: { email: string; password: string }): void; invalid: boolean };
-  status: Signal<LoginStatus>;
-  errorMessage: Signal<string>;
-  isLoading: Signal<boolean>;
-  passwordFieldConfig: Signal<{ type: string; icon: string; onIconClick(): void }>;
-  onSubmit(): void;
+@Component({
+  selector: 'auth-page-layout',
+  standalone: true,
+  template: '<ng-content />',
+})
+class AuthPageLayoutStubComponent {}
+
+@Component({
+  selector: 'app-checkbox',
+  standalone: true,
+  template: '<ng-content />',
+})
+class AppCheckboxStubComponent {
+  readonly checked: InputSignal<boolean> = input(false);
+  readonly checkedChange = output<boolean>();
 }
+
+@Component({
+  selector: 'app-button',
+  standalone: true,
+  template: `
+    <button [attr.data-testid]="testId()" [attr.type]="type()" [disabled]="disabled()">
+      <ng-content />
+    </button>
+  `,
+})
+class AppButtonStubComponent {
+  readonly disabled: InputSignal<boolean> = input(false);
+  readonly iconBefore: InputSignal<string | null> = input<string | null>(null);
+  readonly testId: InputSignal<string | null> = input<string | null>(null);
+  readonly variant: InputSignal<string | null> = input<string | null>(null);
+  readonly type: InputSignal<'button' | 'submit'> = input<'button' | 'submit'>('button');
+}
+
+@Component({
+  selector: 'app-form-input',
+  standalone: true,
+  imports: [ReactiveFormsModule],
+  template: `
+    <input [attr.data-testid]="testId()" [type]="config()?.type ?? 'text'" [formControl]="control()" />
+    <button type="button" (click)="config()?.onIconClick?.()">icon</button>
+  `,
+})
+class AppFormInputStubComponent {
+  readonly config: InputSignal<AppFormInputOptions | null> = input<AppFormInputOptions | null>(null);
+  readonly control: InputSignal<FormControl<string>> = input(new FormControl<string>(''));
+  readonly testId: InputSignal<string | null> = input<string | null>(null);
+}
+
+@Component({
+  selector: 'mat-icon',
+  standalone: true,
+  template: '<ng-content />',
+})
+class MatIconStubComponent {
+  readonly svgIcon: InputSignal<string | null> = input<string | null>(null);
+}
+
+@Component({
+  selector: 'mat-divider',
+  standalone: true,
+  template: '',
+})
+class MatDividerStubComponent {}
 
 function buildHarness(returnUrl?: string): {
   fixture: ComponentFixture<LoginComponent>;
@@ -50,7 +106,18 @@ function buildHarness(returnUrl?: string): {
       },
     ],
   }).overrideComponent(LoginComponent, {
-    set: { imports: [ReactiveFormsModule], schemas: [NO_ERRORS_SCHEMA] },
+    set: {
+      imports: [
+        ReactiveFormsModule,
+        RouterLink,
+        MatIconStubComponent,
+        MatDividerStubComponent,
+        AppButtonStubComponent,
+        AppCheckboxStubComponent,
+        AppFormInputStubComponent,
+        AuthPageLayoutStubComponent,
+      ],
+    },
   });
 
   const fixture = TestBed.createComponent(LoginComponent);
@@ -60,53 +127,86 @@ function buildHarness(returnUrl?: string): {
 }
 
 describe('LoginComponent', () => {
-  it('does not invoke authService.login and leaves the form invalid when submitted empty', () => {
-    const { fixture, authServiceMock } = buildHarness();
-    const component = fixture.componentInstance as LoginTestSurface;
+  const fillLoginForm = (nativeEl: HTMLElement): void => {
+    const emailInput = nativeEl.querySelector<HTMLInputElement>('input[data-testid="login-email-input"]');
+    const passwordInput = nativeEl.querySelector<HTMLInputElement>('input[data-testid="login-password-input"]');
 
-    component.onSubmit();
+    expect(emailInput).not.toBeNull();
+    expect(passwordInput).not.toBeNull();
+
+    emailInput!.value = VALID_EMAIL;
+    emailInput!.dispatchEvent(new Event('input'));
+    passwordInput!.value = VALID_PASSWORD;
+    passwordInput!.dispatchEvent(new Event('input'));
+  };
+
+  it('does not invoke authService.login when submitted with an empty form', () => {
+    const { fixture, authServiceMock } = buildHarness();
+    const nativeEl = fixture.nativeElement as HTMLElement;
+    const form = nativeEl.querySelector('form');
+
+    expect(form).not.toBeNull();
+    form!.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
 
     expect(authServiceMock.login).not.toHaveBeenCalled();
-    expect(component.form.invalid).toBe(true);
   });
 
-  it('sets status to error and renders the API error message in the template', () => {
+  it('renders the API error message when login fails', () => {
     const { fixture, authServiceMock } = buildHarness();
     authServiceMock.login.mockReturnValue(
       throwError(() => new Error('Invalid credentials')),
     );
+    const nativeEl = fixture.nativeElement as HTMLElement;
 
-    const component = fixture.componentInstance as LoginTestSurface;
-    component.form.setValue({ email: VALID_EMAIL, password: VALID_PASSWORD });
-    component.onSubmit();
+    fillLoginForm(nativeEl);
     fixture.detectChanges();
 
-    expect(component.status()).toBe('error');
-    const errorBlock = (fixture.nativeElement as HTMLElement).querySelector('.app-login__error');
+    const form = nativeEl.querySelector('form');
+    expect(form).not.toBeNull();
+
+    form!.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
+
+    const errorBlock = nativeEl.querySelector('[data-testid="login-error-message"]');
     expect(errorBlock).not.toBeNull();
     expect(errorBlock!.textContent).toContain('Invalid credentials');
   });
 
-  it('keeps isLoading true and ignores repeated submissions while the request is in flight', () => {
+  it('keeps submit action disabled and ignores repeated submissions while loading', () => {
     const { fixture, authServiceMock } = buildHarness();
     authServiceMock.login.mockReturnValue(new Subject<void>().asObservable());
+    const nativeEl = fixture.nativeElement as HTMLElement;
 
-    const component = fixture.componentInstance as LoginTestSurface;
-    component.form.setValue({ email: VALID_EMAIL, password: VALID_PASSWORD });
-    component.onSubmit();
-    component.onSubmit();
+    fillLoginForm(nativeEl);
+    fixture.detectChanges();
 
-    expect(component.isLoading()).toBe(true);
+    const form = nativeEl.querySelector('form');
+    expect(form).not.toBeNull();
+
+    form!.dispatchEvent(new Event('submit'));
+    form!.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
+
+    const submitButton = nativeEl.querySelector<HTMLButtonElement>('button[data-testid="login-submit-button"]');
+    expect(submitButton).not.toBeNull();
+
+    expect(submitButton!.disabled).toBe(true);
     expect(authServiceMock.login).toHaveBeenCalledTimes(1);
   });
 
   it('forwards the returnUrl query param as the second argument to authService.login', () => {
     const { fixture, authServiceMock } = buildHarness('/dashboard');
     authServiceMock.login.mockReturnValue(new Subject<void>().asObservable());
+    const nativeEl = fixture.nativeElement as HTMLElement;
 
-    const component = fixture.componentInstance as LoginTestSurface;
-    component.form.setValue({ email: VALID_EMAIL, password: VALID_PASSWORD });
-    component.onSubmit();
+    fillLoginForm(nativeEl);
+    fixture.detectChanges();
+
+    const form = nativeEl.querySelector('form');
+    expect(form).not.toBeNull();
+
+    form!.dispatchEvent(new Event('submit'));
 
     expect(authServiceMock.login).toHaveBeenCalledWith(
       { email: VALID_EMAIL, password: VALID_PASSWORD },
@@ -114,16 +214,21 @@ describe('LoginComponent', () => {
     );
   });
 
-  it('changes the password field type to text and icon to visibility_off after the icon is clicked', () => {
+  it('changes the password input type to text after clicking the password visibility toggle', () => {
     const { fixture } = buildHarness();
-    const component = fixture.componentInstance as LoginTestSurface;
+    const nativeEl = fixture.nativeElement as HTMLElement;
+    const passwordInput = nativeEl.querySelector<HTMLInputElement>('input[data-testid="login-password-input"]');
+    const passwordInputHost = nativeEl.querySelector('app-form-input[testid="login-password-input"]');
+    const toggleButton = passwordInputHost?.querySelector<HTMLButtonElement>('button');
 
-    expect(component.passwordFieldConfig().type).toBe('password');
+    expect(passwordInput).not.toBeNull();
+    expect(toggleButton).not.toBeNull();
 
-    component.passwordFieldConfig().onIconClick();
+    expect(passwordInput!.type).toBe('password');
+
+    toggleButton!.click();
     fixture.detectChanges();
 
-    expect(component.passwordFieldConfig().type).toBe('text');
-    expect(component.passwordFieldConfig().icon).toBe('visibility_off');
+    expect(passwordInput!.type).toBe('text');
   });
 });
