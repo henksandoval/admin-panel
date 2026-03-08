@@ -1,0 +1,9 @@
+# Test Cases — AppCheckboxComponent
+
+| ID del Test | Tipo | Escenario / Propósito | Precondiciones | Pasos clave | Resultado Esperado | Justificación de Valor |
+|---|---|---|---|---|---|---|
+| TC-DefaultValues | Componente | Crea el componente con todos los valores por defecto | — | 1. Instanciar sin inputs. 2. Detectar cambios. | `checked = false`, `color = 'primary'`, `size = 'medium'`, `labelPosition = 'after'`, `disabled = false`, `indeterminate = false`, `required = false`. | Verifica el contrato de la API pública del componente. |
+| TC-CheckboxClassesDefault | Componente | `checkboxClasses` retorna cadena vacía cuando `size` es el default | — | 1. No configurar `size`. 2. Leer `checkboxClasses()`. | Retorna `''`. | Evita añadir clases CSS innecesarias cuando el default ya es correcto. |
+| TC-CheckboxClassesCustom | Componente | `checkboxClasses` añade `checkbox-size-*` cuando `size` difiere del default | — | 1. Setear `size = 'small'`. 2. Leer `checkboxClasses()`. | Retorna `'checkbox-size-small'`. | Garantiza que el resize visual del checkbox se aplique correctamente. |
+| TC-OnChangeUpdatesModel | Componente | `onCheckboxChange` actualiza el modelo `checked` y emite `changed` | — | 1. Simular cambio del checkbox nativo a `true`. 2. Verificar modelo y output. | `checked()` es `true` y el output `changed` emite `true`. | Happy path crítico: el estado del checkbox debe sincronizarse con los consumidores. |
+| TC-DisabledNoEmit | Componente | No emite `changed` cuando el checkbox está deshabilitado | `disabled = true` | 1. Intentar disparar el evento de cambio. | El output `changed` no emite. | Edge case: acciones de UI no deben ejecutarse en estado deshabilitado. |

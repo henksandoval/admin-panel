@@ -1,0 +1,9 @@
+# Test Cases — AppToggleGroupComponent
+
+| ID del Test | Tipo | Escenario / Propósito | Precondiciones | Pasos clave | Resultado Esperado | Justificación de Valor |
+|---|---|---|---|---|---|---|
+| TC-DefaultValues | Componente | Crea el componente con todos los valores por defecto | — | 1. Instanciar sin inputs. 2. Detectar cambios. | `color = 'primary'`, `size = 'medium'`, `appearance = 'fill'`, `disabled = false`, `multiple = false`, `value = null`. | Verifica el contrato de la API pública del componente. |
+| TC-ToggleGroupClassesDefault | Componente | `toggleGroupClasses` retorna cadena vacía con size y appearance defaults | — | 1. No configurar `size` ni `appearance`. 2. Leer `toggleGroupClasses()`. | Retorna `''`. | Evita añadir clases CSS innecesarias cuando los defaults ya son correctos. |
+| TC-ToggleGroupClassesCustom | Componente | `toggleGroupClasses` añade ambas clases cuando `size` y `appearance` difieren de los defaults | — | 1. Setear `size = 'small'` y `appearance = 'outline'`. 2. Leer `toggleGroupClasses()`. | Retorna las clases de tamaño y apariencia correspondientes. | Garantiza la personalización visual del grupo de toggles. |
+| TC-OnToggleChangeUpdatesAll | Componente | `onToggleChange` actualiza el modelo, llama `onChange`/`onTouched` y emite `changed` | FormControl externo subscrito | 1. Registrar callbacks CVA. 2. Simular cambio de toggle. | El modelo `value()` se actualiza, se llaman los callbacks CVA y `changed` emite el nuevo valor. | Happy path crítico: garantiza la sincronización completa entre el toggle y el formulario. |
+| TC-WriteValueCVA | Componente | `writeValue` actualiza el modelo `value` | — | 1. Llamar `writeValue('opcion-1')`. | El modelo `value()` refleja el valor escrito. | Garantiza la compatibilidad CVA para uso dentro de formularios reactivos. |

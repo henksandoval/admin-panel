@@ -1,0 +1,13 @@
+# Test Cases — AppCardComponent
+
+| ID del Test | Tipo | Escenario / Propósito | Precondiciones | Pasos clave | Resultado Esperado | Justificación de Valor |
+|---|---|---|---|---|---|---|
+| TC-DefaultValues | Componente | Crea el componente con todos los valores por defecto | — | 1. Instanciar sin inputs. 2. Detectar cambios. | `variant = 'outlined'`, `isExpandable = false`, `expanded = true`, `customClass = ''`. | Verifica el contrato de la API pública del componente. |
+| TC-PanelClassOutlined | Componente | `panelClass` retorna la clase `mat-mdc-card-outlined` para la variante `outlined` | — | 1. Setear `variant = 'outlined'`. 2. Leer `panelClass()`. | Contiene `mat-mdc-card-outlined`. | Garantiza que la variante outlined se aplique al atributo de Material. |
+| TC-PanelClassRaised | Componente | `panelClass` retorna cadena vacía para la variante `raised` | — | 1. Setear `variant = 'raised'`. 2. Leer `panelClass()`. | No contiene la clase de outlined. | Previene que clases de outlined se apliquen a variantes que no las requieren. |
+| TC-PanelClassCombined | Componente | `panelClass` combina la clase de variante con `customClass` | — | 1. Setear `variant = 'outlined'` y `customClass = 'mi-clase'`. 2. Leer `panelClass()`. | Contiene tanto la clase de variante como `mi-clase`. | Permite personalización adicional sin perder las clases base. |
+| TC-HasHeaderFalse | Componente | `hasHeader` es `false` cuando no se provee `title` ni `icon` | — | 1. No setear `title` ni `icon`. 2. Leer `hasHeader()`. | Retorna `false`. | Evita que se renderice un header vacío que ocupe espacio innecesario. |
+| TC-HasHeaderTitle | Componente | `hasHeader` es `true` cuando se provee `title` | — | 1. Setear `title = 'Mi Tarjeta'`. 2. Leer `hasHeader()`. | Retorna `true`. | Garantiza que el header se muestre cuando hay contenido para renderizar. |
+| TC-HasHeaderIcon | Componente | `hasHeader` es `true` cuando se provee solo `icon` | — | 1. Setear `icon = 'settings'`. 2. Leer `hasHeader()`. | Retorna `true`. | Cubre el caso donde el header lleva solo icono sin título. |
+| TC-HeaderVisible | Componente | Renderiza el header con el título cuando `title` está configurado | — | 1. Setear `title = 'Usuarios'`. 2. Detectar cambios. 3. Consultar el DOM. | El elemento del header contiene el texto `'Usuarios'`. | Verifica la proyección de contenido crítica del componente. |
+| TC-ToggleIconRotation | Componente | Muestra el icono de colapso con rotación según el estado de `expanded` | `isExpandable = true` | 1. Setear `expanded = false`. 2. Detectar cambios. 3. Verificar clase del icono. | La clase de rotación refleja el estado colapsado. | Garantiza el feedback visual correcto del estado expandido/colapsado. |
