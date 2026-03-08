@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 
-describe('AppFormInputNewComponent', () => {
+describe('AppFormInputComponent', () => {
   let fixture: ComponentFixture<AppFormInputComponent>;
   let component: AppFormInputComponent;
 

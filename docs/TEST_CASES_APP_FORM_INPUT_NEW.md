@@ -1,4 +1,4 @@
-# Test Cases: AppFormInputNewComponent (patrón `control` input)
+# Test Cases: AppFormInputComponent (patrón `control` input)
 
 > Componente: `app-form-input-new`  
 > Arquitectura objetivo: el componente **no implementa CVA**. Recibe un `FormControl` directamente como `input.required<FormControl>()`.
