@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/auth.fixture';
-import { testConfig } from '../config/test.config';
+import { test, expect } from '../../fixtures/auth.fixture';
+import { testConfig } from '../../config/test.config';
 
 /**
  * TC-LoginHappyPath
