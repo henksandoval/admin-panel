@@ -13,7 +13,7 @@
                   placeholder: filter.placeholder ?? '',
                   appearance: appearance()
                 }"
-            [formControl]="getControl(filter.key)">
+            [control]="getControl(filter.key)">
           </app-form-input>
         }
         @case ('number') {
@@ -24,7 +24,7 @@
                   placeholder: filter.placeholder ?? '',
                   appearance: appearance()
                 }"
-            [formControl]="getControl(filter.key)">
+            [control]="getControl(filter.key)">
           </app-form-input>
         }
         @case ('select') {
@@ -33,7 +33,7 @@
                   label: filter.label,
                   appearance: appearance()
                 }"
-            [formControl]="getControl(filter.key)"
+            [control]="getControl(filter.key)"
             [options]="getSelectOptions(filter)">
           </app-form-select>
         }
@@ -44,7 +44,7 @@
                   placeholder: filter.placeholder ?? 'DD/MM/YYYY',
                   appearance: appearance()
                 }"
-            [formControl]="getControl(filter.key)">
+            [control]="getControl(filter.key)">
           </app-form-datepicker>
         }
       }

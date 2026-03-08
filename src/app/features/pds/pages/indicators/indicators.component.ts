@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -28,7 +28,7 @@ import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -46,6 +46,7 @@ import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app
 export default class IndicatorsComponent {
   readonly selectedVariant = signal<BadgeVariant>(BADGE_DEFAULTS.variant);
   readonly badgeContent = signal<string>('8');
+  readonly badgeContentControl = new FormControl<string>('8', { nonNullable: true });
   readonly overlayColor = signal<Extract<BadgeColor, 'primary' | 'secondary' | 'tertiary'>>(BADGE_DEFAULTS.overlayColor);
   readonly position = signal<BadgePosition>(BADGE_DEFAULTS.position);
   readonly overlap = signal<boolean>(BADGE_DEFAULTS.overlap);
@@ -53,6 +54,12 @@ export default class IndicatorsComponent {
   readonly inlineColor = signal<Extract<BadgeColor, 'normal' | 'info' | 'success' | 'warning' | 'error'>>(BADGE_DEFAULTS.inlineColor);
   readonly hasIndicator = signal<boolean>(BADGE_DEFAULTS.hasIndicator);
   readonly badgeLabel = signal<string>('Badge Text');
+  readonly badgeLabelControl = new FormControl<string>('Badge Text', { nonNullable: true });
+
+  constructor() {
+    this.badgeContentControl.valueChanges.subscribe(v => this.badgeContent.set(v));
+    this.badgeLabelControl.valueChanges.subscribe(v => this.badgeLabel.set(v));
+  }
   readonly variantOptions: ToggleOption[] = [
     { value: 'overlay', label: 'Overlay' },
     { value: 'inline', label: 'Inline' }

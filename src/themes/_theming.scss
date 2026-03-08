@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use "sass:string";
 @use './variables';
 @use './semantic-colors';
 @use './tokens';
@@ -13,9 +14,15 @@
 @use 'colors/royal-dashboard' as royal-dashboard;
 @use '@angular/material' as mat;
 
+$app-font-brain: '"Outfit", sans-serif';
+$app-font-plain: '"Inter", system-ui';
+
 $base-typography: (
-  brand-family: '"Plus Jakarta Sans", sans-serif',
-  plain-family: '"Inter", sans-serif',
+  brand-family: string.unquote($app-font-brain),
+  plain-family: string.unquote($app-font-plain),
+  bold-weight: 700,
+  medium-weight: 500,
+  regular-weight: 400,
 );
 
 $theme-config: (

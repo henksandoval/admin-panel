@@ -1,46 +1,44 @@
 <mat-form-field class="w-full" [appearance]="fullConfig().appearance">
-    @if(fullConfig().label) {
+  @if(fullConfig().label) {
     <mat-label>{{ fullConfig().label }}</mat-label>
-    }
+  }
 
-    @if(fullConfig().icon) {
+  @if(fullConfig().icon) {
     <mat-icon matPrefix>{{ fullConfig().icon }}</mat-icon>
-    }
+  }
 
-    <mat-select
-    [formControl]="internalControl"
+  <mat-select
+    [formControl]="control()"
     [placeholder]="fullConfig().placeholder"
     [multiple]="fullConfig().multiple"
     [attr.aria-label]="fullConfig().ariaLabel"
-    [panelClass]="fullConfig().panelClass || ''"
-    (blur)="handleBlur()">
+    [panelClass]="fullConfig().panelClass || ''">
 
     @if (hasGroups()) {
-        @for (group of groupedOptions(); track group.name) {
+      @for (group of groupedOptions(); track group.name) {
         <mat-optgroup [label]="group.name">
-            @for (option of group.options; track option.value) {
+          @for (option of group.options; track option.value) {
             <mat-option [value]="option.value" [disabled]="option.disabled || false">
-                {{ option.label }}
+              {{ option.label }}
             </mat-option>
-            }
+          }
         </mat-optgroup>
-        }
+      }
     } @else {
-        @for (option of options(); track option.value) {
+      @for (option of options(); track option.value) {
         <mat-option [value]="option.value" [disabled]="option.disabled || false">
-            {{ option.label }}
+          {{ option.label }}
         </mat-option>
-        }
+      }
     }
-    </mat-select>
+  </mat-select>
 
-    @if(fullConfig().hint) {
+  @if(fullConfig().hint) {
     <mat-hint>{{ fullConfig().hint }}</mat-hint>
-    }
+  }
 
-    @if(fullConfig().showErrors && errorState.shouldShow) {
-    <mat-error>{{ errorState.message }}</mat-error>
-    }
+  @if (errorState().shouldShow) {
+    <mat-error>{{ errorState().message }}</mat-error>
+  }
 </mat-form-field>
 
-    

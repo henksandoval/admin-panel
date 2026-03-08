@@ -57,8 +57,8 @@
 
       <mat-menu #userMenu="matMenu">
         <div class="menu-header">
-          <p class="menu-header-title mat-label-large" i18n="Toolbar|User name in menu@@toolbar.menu.user.name">Admin User</p>
-          <p class="menu-header-subtitle mat-label-small">admin&#64;example.com</p>
+          <p class="menu-header-title mat-label-large">{{ currentUser()?.displayName ?? 'Usuario' }}</p>
+          <p class="menu-header-subtitle mat-label-small">{{ currentUser()?.email ?? '' }}</p>
         </div>
         <mat-divider></mat-divider>
         <button mat-menu-item>
@@ -70,7 +70,7 @@
           <span i18n="Toolbar|Menu option: settings@@toolbar.menu.user.settings">Settings</span>
         </button>
         <mat-divider class="menu-divider"></mat-divider>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span i18n="Toolbar|Menu option: sign out@@toolbar.menu.user.logout">Sign Out</span>
         </button>

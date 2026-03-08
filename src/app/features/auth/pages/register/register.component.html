@@ -1,0 +1,64 @@
+<auth-page-layout>
+  <div class="flex flex-col items-center gap-2 mb-8">
+    <mat-icon class="app-register__logo" color="primary">person_add</mat-icon>
+    <h1 class="mat-headline-medium m-0" i18n="Register|Page heading@@register.heading">Create account</h1>
+    <p class="mat-body-medium m-0" i18n="Register|Page subheading@@register.subheading">Fill in your details to get started</p>
+  </div>
+
+  @if (status() === 'error') {
+    <div class="app-register__error flex items-center gap-2 mb-4">
+      <mat-icon>error_outline</mat-icon>
+      <span class="mat-body-medium">{{ errorMessage() }}</span>
+    </div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <app-form-input
+      [control]="form.controls.displayName"
+      [config]="nameFieldConfig"
+    />
+
+    <app-form-input
+      [control]="form.controls.email"
+      [config]="emailFieldConfig"
+    />
+
+    <div class="app-register__password-group">
+      <app-form-input
+        [control]="form.controls.password"
+        [config]="passwordFieldConfig()"
+      />
+
+      <app-form-input
+        [control]="form.controls.confirm"
+        [config]="confirmFieldConfig()"
+      />
+
+      <app-checkbox
+        [checked]="showPassword()"
+        (changed)="onShowPasswordChange($event)"
+        i18n-ariaLabel="Register|Show password aria-label@@register.field.password.checkbox.ariaLabel"
+        ariaLabel="Show password"
+      >
+        <span i18n="Register|Show password label@@register.field.password.checkbox.label">Show password</span>
+      </app-checkbox>
+    </div>
+
+    <app-button
+      variant="filled"
+      color="primary"
+      type="submit"
+      class="w-full"
+      [disabled]="isLoading()"
+    >
+      <ng-container i18n="Register|Submit button@@register.btn.submit">Create account</ng-container>
+    </app-button>
+
+    <p class="mat-body-small m-0 text-center">
+      <span i18n="Register|Login link text@@register.login.text">Already have an account?</span>
+      &nbsp;
+      <a routerLink="/auth/login" class="app-register__link" i18n="Register|Login link@@register.login.link">Sign in</a>
+    </p>
+  </form>
+</auth-page-layout>
+

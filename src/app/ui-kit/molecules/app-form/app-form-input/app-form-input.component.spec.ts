@@ -1,28 +1,8 @@
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AppFormInputComponent } from './app-form-input.component';
-import { AppFormInputConnectorDirective } from './app-form-input-connector.directive';
-
-function mockNgControl(control: FormControl): NgControl {
-  return { control, valueAccessor: null } as unknown as NgControl;
-}
-
-@Component({
-  standalone: true,
-  imports: [ReactiveFormsModule, AppFormInputComponent, AppFormInputConnectorDirective],
-  template: `
-    <form [formGroup]="form">
-      <app-form-input formControlName="email" appFormInputConnector />
-    </form>
-  `,
-})
-class HostComponent {
-  form = new FormGroup({
-    email: new FormControl('', Validators.required),
-  });
-}
+import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 
 describe('AppFormInputComponent', () => {
   let fixture: ComponentFixture<AppFormInputComponent>;
@@ -35,126 +15,115 @@ describe('AppFormInputComponent', () => {
 
     fixture = TestBed.createComponent(AppFormInputComponent);
     component = fixture.componentInstance;
+  });
+
+  it('TC-01 — renders the initial FormControl value in the native input', () => {
+    const control = new FormControl('admin@empresa.com');
+    fixture.componentRef.setInput('control', control);
     fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    expect(input.value).toBe('admin@empresa.com');
   });
 
-  it('writeValue sets internalControl without triggering onChange', () => {
-    const onChangeSpy = vi.fn();
-    component.registerOnChange(onChangeSpy);
+  it('TC-02 — updates the FormControl when the user types in the input', () => {
+    const control = new FormControl('');
+    fixture.componentRef.setInput('control', control);
+    fixture.detectChanges();
 
-    component.writeValue('hello');
+    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    inputEl.value = 'nuevo@valor.com';
+    inputEl.dispatchEvent(new Event('input'));
 
-    expect(component.internalControl.value).toBe('hello');
-    expect(onChangeSpy).not.toHaveBeenCalled();
+    expect(control.value).toBe('nuevo@valor.com');
   });
 
-  it('writeValue with null sets internalControl to null without triggering onChange', () => {
-    const onChangeSpy = vi.fn();
-    component.registerOnChange(onChangeSpy);
-
-    component.writeValue(null);
-
-    expect(component.internalControl.value).toBeNull();
-    expect(onChangeSpy).not.toHaveBeenCalled();
-  });
-
-  it('internalControl value change propagates to onChange', () => {
-    const onChangeSpy = vi.fn();
-    component.registerOnChange(onChangeSpy);
-
-    component.internalControl.setValue('typed text');
-
-    expect(onChangeSpy).toHaveBeenCalledWith('typed text');
-  });
-
-  it('handleBlur calls onTouched', () => {
-    const onTouchedSpy = vi.fn();
-    component.registerOnTouched(onTouchedSpy);
-
-    component.handleBlur();
-
-    expect(onTouchedSpy).toHaveBeenCalledOnce();
-  });
-
-  it('errorState does not show error when control has not been touched', () => {
+  it('TC-03 — shows the error when the control is invalid and has been touched', async () => {
     const control = new FormControl('', Validators.required);
-    component.connectControl(mockNgControl(control));
+    fixture.componentRef.setInput('control', control);
+    fixture.detectChanges();
 
-    expect(component.errorState.shouldShow).toBe(false);
+    control.markAsTouched();
+    fixture.detectChanges();
+
+    const matError = fixture.debugElement.query(By.css('mat-error'));
+    expect(matError).not.toBeNull();
+    expect(matError.nativeElement.textContent.trim()).toBe('This field is required');
   });
 
-  it('errorState uses config errorMessages first, then defaults, then fallback', () => {
+  it('TC-04 — does not show error when the control is invalid but untouched', () => {
+    const control = new FormControl('', Validators.required);
+    fixture.componentRef.setInput('control', control);
+    fixture.detectChanges();
+
+    const matError = fixture.debugElement.query(By.css('mat-error'));
+    expect(matError).toBeNull();
+  });
+
+  it('TC-05 — config errorMessages overrides the default error message', () => {
     const control = new FormControl('', Validators.required);
     control.markAsTouched();
-    component.connectControl(mockNgControl(control));
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('config', { errorMessages: { required: 'Email is required' } });
+    fixture.detectChanges();
 
-    expect(component.errorState.message).toBe('This field is required');
-
-    fixture.componentRef.setInput('config', {
-      errorMessages: { required: 'Custom message' },
-    });
-
-    expect(component.errorState.message).toBe('Custom message');
-
-    control.setErrors({ unknownError: true });
-    fixture.componentRef.setInput('config', { errorMessages: {} });
-
-    expect(component.errorState.message).toBe('Validation error');
+    const matError = fixture.debugElement.query(By.css('mat-error'));
+    expect(matError.nativeElement.textContent.trim()).toBe('Email is required');
   });
 
-  it('connectControl sets isRequired to true when Validators.required is present', () => {
+  it('TC-06 — disables the native input when the FormControl is disabled', () => {
+    const control = new FormControl({ value: '', disabled: true });
+    fixture.componentRef.setInput('control', control);
+    fixture.detectChanges();
+
+    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    expect(inputEl.disabled).toBe(true);
+  });
+
+  it('TC-07 — isRequired is true and the input has required attribute when Validators.required is set', () => {
     const control = new FormControl('', Validators.required);
-    component.connectControl(mockNgControl(control));
-
-    expect(component.isRequired).toBe(true);
-  });
-
-  it('setDisabledState disables and re-enables internalControl', () => {
-    component.setDisabledState(true);
-    expect(component.internalControl.disabled).toBe(true);
-
-    component.setDisabledState(false);
-    expect(component.internalControl.enabled).toBe(true);
-  });
-});
-
-describe('AppFormInputConnectorDirective — integration', () => {
-  let fixture: ComponentFixture<HostComponent>;
-  let host: HostComponent;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HostComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(HostComponent);
-    host = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('FormGroup starts with empty string and invalid, becomes valid when text is entered', () => {
-    expect(host.form.value.email).toBe('');
-    expect(host.form.invalid).toBe(true);
-
-    const inputComponent = fixture.debugElement
-      .query(By.directive(AppFormInputComponent))
-      .componentInstance as AppFormInputComponent;
-
-    inputComponent.internalControl.setValue('test@example.com');
-
-    expect(host.form.value.email).toBe('test@example.com');
-    expect(host.form.valid).toBe(true);
-  });
-
-  it('disabling the FormControl from the FormGroup disables internalControl', () => {
-    host.form.get('email')!.disable();
+    fixture.componentRef.setInput('control', control);
     fixture.detectChanges();
 
-    const inputComponent = fixture.debugElement
-      .query(By.directive(AppFormInputComponent))
-      .componentInstance as AppFormInputComponent;
+    expect(component.isRequired()).toBe(true);
 
-    expect(inputComponent.internalControl.disabled).toBe(true);
+    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    expect(inputEl.required).toBe(true);
+  });
+
+  it('TC-08 — does not show error while typing (dirty only), shows error after blur (touched)', () => {
+    const control = new FormControl('', Validators.email);
+    fixture.componentRef.setInput('control', control);
+    fixture.detectChanges();
+
+    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    inputEl.value = 'invalid-text';
+    inputEl.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(component.errorState().shouldShow).toBe(false);
+
+    inputEl.dispatchEvent(new Event('blur'));
+    fixture.detectChanges();
+
+    expect(component.errorState().shouldShow).toBe(true);
+  });
+
+  it('TC-09 — emits event when clicking the icon', () => {
+    const control = new FormControl('');
+    const onIconClickSpy = vi.fn();
+    fixture.componentRef.setInput('control', control);
+    fixture.componentRef.setInput('config', { icon: 'visibility', onIconClick: onIconClickSpy });
+    fixture.detectChanges();
+
+    const iconEl = fixture.debugElement.query(By.css('mat-icon'));
+    expect(iconEl).not.toBeNull();
+
+    const event = new MouseEvent('click');
+    iconEl.nativeElement.dispatchEvent(event);
+    fixture.detectChanges();
+
+    expect(onIconClickSpy).toHaveBeenCalledWith(expect.any(MouseEvent));
   });
 });
 

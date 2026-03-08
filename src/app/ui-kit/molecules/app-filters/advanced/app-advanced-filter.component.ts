@@ -16,18 +16,9 @@ import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
 import {
-  AppFormDatepickerConnectorDirective
-} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
-import {
   AppFormDatepickerComponent
 } from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import {
-  AppFormInputConnectorDirective
-} from '@ui-molecules/app-form/app-form-input/app-form-input-connector.directive';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import {
-  AppFormSelectConnectorDirective
-} from '@ui-molecules/app-form/app-form-select/app-form-select-connector.directive';
 import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
 import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
@@ -48,11 +39,8 @@ const BOOLEAN_OPTIONS: SelectOption<boolean>[] = [
     AppButtonComponent,
     AppFilterFooterComponent,
     AppFormSelectComponent,
-    AppFormSelectConnectorDirective,
     AppFormInputComponent,
-    AppFormInputConnectorDirective,
     AppFormDatepickerComponent,
-    AppFormDatepickerConnectorDirective,
     CriterionDisplayPipe,
     MatDivider
   ],

@@ -1,34 +1,32 @@
-:host {
-  display: block;
-}
-
-.form-radio-group-wrapper {
+// app-form-radio-group component styles
+.app-form-radio-group-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 12px;
 }
 
-.radio-group-label {
-  display: block;
-  margin-bottom: 0.5rem;
+.app-form-radio-group-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.radio-group-options {
+.app-form-radio-group-options {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 12px;
 
-  &.layout-horizontal {
+  &.app-form-radio-group-layout-horizontal {
     flex-direction: row;
-    gap: 1rem;
+    gap: 24px;
   }
 }
 
-.radio-group-hint {
-  margin-top: 0.25rem;
+.app-form-radio-group-hint {
+  opacity: 0.7;
 }
 
-.radio-group-error {
-  margin-top: 0.25rem;
+.app-form-radio-group-error {
   color: var(--mat-sys-error);
 }
+

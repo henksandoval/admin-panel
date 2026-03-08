@@ -47,6 +47,12 @@ module.exports = tseslint.config(
           style: "camelCase",
         },
       ],
+      "@typescript-eslint/unbound-method": [
+        "error",
+        {
+          "ignoreStatic": true
+        }
+      ],
       "@angular-eslint/component-selector": [
         "error",
         {

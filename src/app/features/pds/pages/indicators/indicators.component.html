@@ -44,7 +44,7 @@
     @if (selectedVariant() === 'overlay') {
       <div class="mt-2">
         <app-form-input
-          [(ngModel)]="badgeContent"
+          [control]="badgeContentControl"
           [config]="{
             label: 'Content',
             placeholder: 'Badge content',
@@ -68,7 +68,7 @@
     } @else {
       <div class="mt-2">
         <app-form-input
-          [(ngModel)]="badgeLabel"
+          [control]="badgeLabelControl"
           [config]="{
             label: 'Label',
             placeholder: 'Badge label',

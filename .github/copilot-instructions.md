@@ -12,6 +12,10 @@ Lee y sigue [STYLE_GUIDE.md](../docs/STYLE_GUIDE.md) para todas las decisiones d
 6. Prefijo `app-{componente}-` en todas las clases CSS.
 7. Computed signals para lógica de clases dinámicas.
 8. Código funcional (filter/map) sobre bucles imperativos.
+9. **Todo el código en inglés** (variables, funciones, clases, tests).
+10. **Sin comentarios que describen qué hace el código.** Si el nombre no es autodescriptivo, renombrar.
+11. **Strings visibles al usuario siempre con `$localize` y ID `@@`**.
+12. **Componentes de formulario usan patrón `control` input, no CVA.**
 
 ## Estructura de Componente
 
@@ -28,7 +32,7 @@ export const TABLE_DEFAULTS = {
 @Component({
   selector: 'app-table',
   standalone: true,
-  styleUrls: ['./app-table.component.scss'],
+  styleUrl: './app-table.component.scss',
   template: `...`
 })
 export class AppTableComponent<T> {
@@ -61,3 +65,7 @@ Antes de generar código, confirma:
 - ¿Layout solo via Tailwind?
 - ¿DEFAULTS definidos?
 - ¿Clases con prefijo?
+- ¿Código en inglés?
+- ¿Sin comentarios descriptivos?
+- ¿Strings de UI con `$localize`?
+- ¿Formularios usan `control` input, no CVA?

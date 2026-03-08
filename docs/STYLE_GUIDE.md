@@ -565,6 +565,84 @@ const activeUsers = users.filter(user => user.isActive);
 const handleSaveButtonClick = () => { };
 ```
 
+### Idioma del código
+
+Todo el código debe estar en inglés: nombres de variables, funciones, clases, interfaces, constantes, tests y descripciones de specs.
+
+```typescript
+// ❌ MAL
+const usuarioActivo = getUsuario();
+it('muestra el error cuando el campo es inválido', () => { });
+
+// ✅ BIEN
+const activeUser = getUser();
+it('shows the error when the field is invalid', () => { });
+```
+
+**Excepción válida:** strings de UI visibles al usuario, que deben ir en el idioma apropiado vía `$localize`.
+
+### i18n: strings visibles al usuario
+
+Todo string que el usuario final puede leer debe usar `$localize` con un ID de traducción explícito (`@@`). Nunca hardcodear strings en el idioma base sin registrarlos en el catálogo.
+
+```typescript
+// ❌ MAL: hardcoded, no traducible
+required: 'This field is required'
+
+// ✅ BIEN: registrado en el catálogo de traducción
+required: $localize`:FormInput|Required error@@formInput.error.required:This field is required`
+```
+
+El formato del ID sigue el patrón: `contexto.elemento.estado` (todo en camelCase, separado por puntos).
+
+### Componentes de formulario: patrón `control` input
+
+Los componentes de formulario del ui-kit **no implementan `ControlValueAccessor`**. En su lugar, reciben el `FormControl` directamente como `input.required<FormControl>()`.
+
+```typescript
+// ❌ MAL: CVA con NG_VALUE_ACCESSOR, forwardRef y connector directive
+@Component({
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AppFormInputComponent), multi: true }]
+})
+export class AppFormInputComponent implements ControlValueAccessor { }
+
+// ✅ BIEN: control input directo
+@Component({ /* sin providers CVA */ })
+export class AppFormInputComponent {
+  readonly control = input.required<FormControl<string>>();
+}
+```
+
+```html
+<!-- ❌ MAL -->
+<app-form-input formControlName="email" appFormInputConnector />
+
+<!-- ✅ BIEN -->
+<app-form-input [control]="form.controls.email" />
+```
+
+**Ventajas:** elimina la circularidad NG0200, el warning de WebStorm, y las connector directives. Type safety total al pasar `FormControl<T>` tipado.
+
+**Reactividad de estado:** usar `ctrl.events` + un `signal` como ticker para que los `computed` reaccionen a cambios de `touched`/`dirty`/`status`, que son propiedades planas (no signals) del `FormControl`.
+
+```typescript
+private readonly controlEventTick = signal(0);
+
+constructor() {
+  effect(() => {
+    this.control().events
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.controlEventTick.update(v => v + 1));
+  });
+}
+```
+
+**Cuándo mostrar errores:** solo cuando el control es `touched` (no `dirty`). El error aparece al salir del campo, no mientras se escribe.
+
+```typescript
+const shouldShow = ctrl.invalid && ctrl.touched;
+```
+
 ---
 
 ## Árbol de Decisión
@@ -609,6 +687,9 @@ const handleSaveButtonClick = () => { };
 - [ ] Sin comentarios que describen *qué* hace el código
 - [ ] Sin código comentado
 - [ ] Sin TODOs sin ticket
+- [ ] Todo el código (variables, funciones, clases, tests) está en inglés
+- [ ] Strings visibles al usuario usan `$localize` con ID de traducción (`@@`)
+- [ ] Componentes de formulario usan patrón `control` input, no CVA
 - [ ] `ng build` pasa sin errores
 - [ ] Tests pasan (`ng test`)
 

@@ -40,7 +40,7 @@ import {
       }
     </mat-button-toggle-group>
   `,
-  styleUrls: ['./app-toggle-group.component.scss'],
+  styleUrl: './app-toggle-group.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

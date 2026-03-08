@@ -31,7 +31,7 @@ import { BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeSize, BadgeVariant } fr
       </div>
     }
   `,
-  styleUrls: ['./app-badge.component.scss']
+  styleUrl: './app-badge.component.scss'
 })
 export class AppBadgeComponent {
   readonly variant = input<BadgeVariant>(BADGE_DEFAULTS.variant);

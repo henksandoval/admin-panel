@@ -30,41 +30,39 @@
 
       <form (ngSubmit)="onSubmit()" [formGroup]="galleryForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <app-form-input [config]="basicTextConfig()" appFormInputConnector formControlName="basicText">
+          <app-form-input [config]="basicTextConfig()" [control]="$any(galleryForm.get('basicText'))">
           </app-form-input>
 
-          <app-form-select [config]="selectCountryConfig()" [options]="countryOptions" appFormSelectConnector formControlName="country">
+          <app-form-select [config]="selectCountryConfig()" [options]="countryOptions" [control]="$any(galleryForm.get('country'))">
           </app-form-select>
         </div>
 
         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <app-form-input [config]="emailConfig()" appFormInputConnector formControlName="email">
+          <app-form-input [config]="emailConfig()" [control]="$any(galleryForm.get('email'))">
           </app-form-input>
 
-          <app-form-input [config]="passwordConfig()" appFormInputConnector formControlName="password">
+          <app-form-input [config]="passwordConfig()" [control]="$any(galleryForm.get('password'))">
           </app-form-input>
         </div>
 
         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <app-form-input [config]="ageConfig()" appFormInputConnector formControlName="age">
+          <app-form-input [config]="ageConfig()" [control]="$any(galleryForm.get('age'))">
           </app-form-input>
 
-          <app-form-input [config]="phoneConfig()" appFormInputConnector formControlName="phone">
+          <app-form-input [config]="phoneConfig()" [control]="$any(galleryForm.get('phone'))">
           </app-form-input>
 
-          <app-form-datepicker [config]="birthDateConfig()" appFormDatepickerConnector
-                               formControlName="birthDate">
+          <app-form-datepicker [config]="birthDateConfig()" [control]="$any(galleryForm.get('birthDate'))">
           </app-form-datepicker>
         </div>
 
         <div class="md:col-span-2">
-          <app-form-textarea [config]="descriptionConfig()" appFormTextareaConnector formControlName="description">
+          <app-form-textarea [config]="descriptionConfig()" [control]="$any(galleryForm.get('description'))">
           </app-form-textarea>
         </div>
 
         <div class="md:col-span-2">
-          <app-form-radio-group [config]="genderConfig()" [options]="genderOptions" appFormRadioGroupConnector
-                                formControlName="gender">
+          <app-form-radio-group [config]="genderConfig()" [options]="genderOptions" [control]="$any(galleryForm.get('gender'))">
           </app-form-radio-group>
         </div>
 
@@ -75,7 +73,7 @@
                   required: 'You must accept the terms and conditions to continue',
                   requiredTrue: 'Please check this box to proceed'
                 }
-              }" appFormCheckboxConnector formControlName="acceptTerms">
+              }" [control]="$any(galleryForm.get('acceptTerms'))">
             <span class="terms-label" i18n="Form Gallery|Terms and conditions label@@pds.form.checkbox.terms">I accept the terms and conditions *</span>
           </app-form-checkbox>
         </div>

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppTableServerSideComponent } from './app-table-server-side.component';
 
-type Row = { id: number; name: string };
+interface Row { id: number; name: string }
 
 const tableConfig = {
   columns: [

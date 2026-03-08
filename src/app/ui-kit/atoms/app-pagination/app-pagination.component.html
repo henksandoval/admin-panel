@@ -4,8 +4,7 @@
         <span class="page-size-label mat-label-large">{{ itemsPerPageLabel() }}</span>
         <app-form-select
         class="page-size-select"
-        [ngModel]="state().pageSize"
-        (ngModelChange)="onPageSizeChange($event)"
+        [control]="pageSizeControl()"
         [config]="{ density: -3 }"
         [options]="pageSizeSelectOptions()">
         </app-form-select>

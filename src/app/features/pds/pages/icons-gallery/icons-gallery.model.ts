@@ -10,7 +10,7 @@ export const ICONS_GALLERY_DEFAULTS = {
   emptyMessage: 'No se encontraron iconos con los filtros aplicados.',
 } as const;
 
-const CATEGORY_PATTERNS: Array<{ pattern: RegExp; category: string }> = [
+const CATEGORY_PATTERNS: { pattern: RegExp; category: string }[] = [
   { category: 'Navigation', pattern: /^(arrow|chevron|expand|unfold|north|south|east|west|navigate|first_page|last_page|fullscreen|menu|close|cancel|home|apps|more_|double_arrow|subdirectory|switch_|refresh)/ },
   { category: 'AV', pattern: /^(play|pause|stop|fast_|rewind|skip_|volume|mic|headphone|speaker|earbuds|music|audio|movie|video|replay|loop|shuffle|queue|library_music|album|equalizer|fiber_|hd|sd|4k|slow_motion|surround)/ },
   { category: 'Communication', pattern: /^(phone|call|chat|email|message|contact|inbox|send|sms|voicemail|ring|dialpad|rss|wifi_calling|import_contacts|co_present|present_|screen_share|duo|people|person|group|qr_code|comment|announcement|alternate_email|mail)/ },

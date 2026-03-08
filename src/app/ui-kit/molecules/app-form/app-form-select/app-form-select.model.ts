@@ -1,4 +1,4 @@
-import {MatFormFieldAppearance} from '@angular/material/form-field';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 export interface SelectOption<T = any> {
   value: T;
@@ -10,22 +10,36 @@ export interface SelectOption<T = any> {
 export type SelectDensity = 0 | -1 | -2 | -3;
 
 export interface AppFormSelectConfig {
-  label?: string;
-  placeholder?: string;
-  hint?: string;
-  icon?: string;
-  appearance?: MatFormFieldAppearance;
-  multiple?: boolean;
-  ariaLabel?: string;
-  panelClass?: string | string[];
-  errorMessages?: Record<string, string>;
-  showErrors?: boolean;
-  density?: SelectDensity;
+  label: string;
+  placeholder: string;
+  hint: string;
+  icon: string;
+  appearance: MatFormFieldAppearance;
+  multiple: boolean;
+  ariaLabel: string;
+  panelClass: string | string[] | null;
+  errorMessages: Record<string, string>;
+  density: SelectDensity;
 }
 
-export const APP_FORM_SELECT_DEFAULTS: Required<Omit<AppFormSelectConfig, 'label' | 'placeholder' | 'hint' | 'icon' | 'ariaLabel' | 'panelClass' | 'errorMessages'>> = {
+export type AppFormSelectOptions = Partial<AppFormSelectConfig>;
+
+export const FORM_SELECT_DEFAULTS: AppFormSelectConfig = {
   appearance: 'fill',
+  label: '',
+  placeholder: '',
+  hint: '',
+  icon: '',
   multiple: false,
-  showErrors: true,
-  density: -1
+  ariaLabel: '',
+  panelClass: null,
+  errorMessages: {},
+  density: -1,
 };
+
+export const FORM_SELECT_DEFAULT_ERROR_MESSAGES: Record<string, string> = {
+  required: $localize`:FormSelect|Required error@@formSelect.error.required:This field is required`,
+  minlength: $localize`:FormSelect|Min length error@@formSelect.error.minlength:Please select at least {requiredLength} options`,
+  maxlength: $localize`:FormSelect|Max length error@@formSelect.error.maxlength:Please select no more than {requiredLength} options`,
+};
+

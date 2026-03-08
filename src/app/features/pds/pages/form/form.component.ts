@@ -21,35 +21,17 @@ import {
 } from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
 import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-layout.component";
 import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
-import {
-  AppFormCheckboxConnectorDirective
-} from '@ui-molecules/app-form/app-form-checkbox/app-form-checkbox-connector.directive';
 import { AppFormCheckboxComponent } from '@ui-molecules/app-form/app-form-checkbox/app-form-checkbox.component';
-import {
-  AppFormDatepickerConnectorDirective
-} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker-connector.directive';
 import {
   AppFormDatepickerComponent
 } from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import {
-  AppFormInputConnectorDirective
-} from '@ui-molecules/app-form/app-form-input/app-form-input-connector.directive';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
-import {
-  AppFormRadioGroupConnectorDirective
-} from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group-connector.directive';
 import {
   AppFormRadioGroupComponent
 } from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.component';
 import { RadioOption } from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.model';
-import {
-  AppFormSelectConnectorDirective
-} from '@ui-molecules/app-form/app-form-select/app-form-select-connector.directive';
 import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
-import {
-  AppFormTextareaConnectorDirective
-} from '@ui-molecules/app-form/app-form-textarea/app-form-textarea-connector.directive';
 import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea.component';
 import { LoggingService } from '@core/services/logging.service';
 
@@ -66,27 +48,21 @@ import { LoggingService } from '@core/services/logging.service';
     MatSelectModule,
     MatCheckboxModule,
     AppFormInputComponent,
-    AppFormInputConnectorDirective,
     AppFormTextareaComponent,
-    AppFormTextareaConnectorDirective,
     AppFormDatepickerComponent,
-    AppFormDatepickerConnectorDirective,
     AppFormRadioGroupComponent,
-    AppFormRadioGroupConnectorDirective,
     AppButtonComponent,
     AppToggleGroupComponent,
     AppCheckboxComponent,
     AppFormCheckboxComponent,
-    AppFormCheckboxConnectorDirective,
     AppFormSelectComponent,
-    AppFormSelectConnectorDirective,
     AppCardComponent,
     AppPageLayoutComponent,
     AppSlotContainerDirective,
     PdsDocumentationTabsComponent
 ],
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrl: './form.component.scss'
 })
 export class FormComponent implements OnInit {
   public galleryForm!: FormGroup;
@@ -306,9 +282,8 @@ export class FormComponent implements OnInit {
     code += `<form [formGroup]="form" (ngSubmit)="onSubmit()">\n`;
     code += `  <!-- Custom Components -->\n`;
     code += `  <app-form-input\n`;
-    code += `    formControlName="basicText"\n`;
-    code += `    [config]="basicTextConfig"\n`;
-    code += `    appFormInputConnector>\n`;
+    code += `    [control]="form.controls.basicText"\n`;
+    code += `    [config]="basicTextConfig">\n`;
     code += `  </app-form-input>\n\n`;
 
     code += `  <app-select\n`;
