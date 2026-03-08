@@ -5,7 +5,9 @@
       <span class="mat-body-medium">{{ errorMessage() }}</span>
     </div>
   }
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-5"
+        i18n-aria-label="Login|Form aria-label@@login.form.ariaLabel"
+        aria-label="Sign in">
     <app-form-input [config]="emailFieldConfig" [control]="form.controls.email" testId="login-email-input" />
     <app-form-input [config]="passwordFieldConfig()" [control]="form.controls.password" testId="login-password-input" />
     <div class="flex items-center justify-between -mt-7">

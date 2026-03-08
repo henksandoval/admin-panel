@@ -1,10 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, convertToParamMap } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Subject, throwError } from 'rxjs';
-import { type Mock, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { LoginComponent } from './login.component';
 import { AuthService } from '@auth/services/auth.service';
 import { LoggingService } from '@core/services/logging.service';
@@ -18,14 +19,21 @@ import { AuthPageLayoutStubComponent } from '@stubs/auth/auth-page-layout.stub';
 const VALID_EMAIL = 'user@example.com';
 const VALID_PASSWORD = 'password123';
 
-function buildHarness(returnUrl?: string): {
-  fixture: ComponentFixture<LoginComponent>;
-  authServiceMock: { login: Mock<AuthService['login']> };
-} {
+async function renderLoginComponent(returnUrl?: string) {
   const authServiceMock = { login: vi.fn<AuthService['login']>() };
 
-  TestBed.configureTestingModule({
-    imports: [LoginComponent],
+  const { fixture } = await render(LoginComponent, {
+    componentImports: [
+      ReactiveFormsModule,
+      RouterLink,
+      MatIconStubComponent,
+      MatDividerStubComponent,
+      AppButtonStubComponent,
+      AppCheckboxStubComponent,
+      AppFormInputStubComponent,
+      AuthPageLayoutStubComponent,
+    ],
+    imports: [RouterLink],
     providers: [
       { provide: AuthService, useValue: authServiceMock },
       { provide: LoggingService, useValue: { error: vi.fn(), warn: vi.fn() } },
@@ -43,108 +51,75 @@ function buildHarness(returnUrl?: string): {
         useValue: { bypassSecurityTrustResourceUrl: vi.fn().mockReturnValue('') },
       },
     ],
-  }).overrideComponent(LoginComponent, {
-    set: {
-      imports: [
-        ReactiveFormsModule,
-        RouterLink,
-        MatIconStubComponent,
-        MatDividerStubComponent,
-        AppButtonStubComponent,
-        AppCheckboxStubComponent,
-        AppFormInputStubComponent,
-        AuthPageLayoutStubComponent,
-      ],
-    },
   });
 
-  const fixture = TestBed.createComponent(LoginComponent);
-  fixture.detectChanges();
-
-  return { fixture, authServiceMock };
+  return { authServiceMock, fixture };
 }
 
 describe('LoginComponent', () => {
-  const fillLoginForm = (nativeEl: HTMLElement): void => {
-    const emailInput = nativeEl.querySelector<HTMLInputElement>('input[data-testid="login-email-input"]');
-    const passwordInput = nativeEl.querySelector<HTMLInputElement>('input[data-testid="login-password-input"]');
+  it('does not invoke authService.login when submitted with an empty form', async () => {
+    const { authServiceMock } = await renderLoginComponent();
+    const form = screen.getByRole('form');
 
-    expect(emailInput).not.toBeNull();
-    expect(passwordInput).not.toBeNull();
-
-    emailInput!.value = VALID_EMAIL;
-    emailInput!.dispatchEvent(new Event('input'));
-    passwordInput!.value = VALID_PASSWORD;
-    passwordInput!.dispatchEvent(new Event('input'));
-  };
-
-  it('does not invoke authService.login when submitted with an empty form', () => {
-    const { fixture, authServiceMock } = buildHarness();
-    const nativeEl = fixture.nativeElement as HTMLElement;
-    const form = nativeEl.querySelector('form');
-
-    expect(form).not.toBeNull();
-    form!.dispatchEvent(new Event('submit'));
-    fixture.detectChanges();
+    form.dispatchEvent(new Event('submit'));
 
     expect(authServiceMock.login).not.toHaveBeenCalled();
   });
 
-  it('renders the API error message when login fails', () => {
-    const { fixture, authServiceMock } = buildHarness();
-    authServiceMock.login.mockReturnValue(
-      throwError(() => new Error('Invalid credentials')),
-    );
-    const nativeEl = fixture.nativeElement as HTMLElement;
+  it('renders the API error message when login fails', async () => {
+    const { authServiceMock, fixture } = await renderLoginComponent();
+    authServiceMock.login.mockReturnValue(throwError(() => new Error('Invalid credentials')));
 
-    fillLoginForm(nativeEl);
+    const emailInput = screen.getByTestId('login-email-input');
+    const passwordInput = screen.getByTestId('login-password-input');
+    const user = userEvent.setup();
+
+    await user.type(emailInput, VALID_EMAIL);
+    await user.type(passwordInput, VALID_PASSWORD);
+
+    const form = screen.getByRole('form');
+    form.dispatchEvent(new Event('submit'));
     fixture.detectChanges();
 
-    const form = nativeEl.querySelector('form');
-    expect(form).not.toBeNull();
-
-    form!.dispatchEvent(new Event('submit'));
-    fixture.detectChanges();
-
-    const errorBlock = nativeEl.querySelector('[data-testid="login-error-message"]');
-    expect(errorBlock).not.toBeNull();
-    expect(errorBlock!.textContent).toContain('Invalid credentials');
+    const errorBlock = screen.getByTestId('login-error-message');
+    expect(errorBlock.textContent).toContain('Invalid credentials');
   });
 
-  it('keeps submit action disabled and ignores repeated submissions while loading', () => {
-    const { fixture, authServiceMock } = buildHarness();
+  it('keeps submit action disabled and ignores repeated submissions while loading', async () => {
+    const { authServiceMock, fixture } = await renderLoginComponent();
     authServiceMock.login.mockReturnValue(new Subject<void>().asObservable());
-    const nativeEl = fixture.nativeElement as HTMLElement;
 
-    fillLoginForm(nativeEl);
+    const emailInput = screen.getByTestId('login-email-input');
+    const passwordInput = screen.getByTestId('login-password-input');
+    const user = userEvent.setup();
+
+    await user.type(emailInput, VALID_EMAIL);
+    await user.type(passwordInput, VALID_PASSWORD);
+
+    const form = screen.getByRole('form');
+    form.dispatchEvent(new Event('submit'));
+    form.dispatchEvent(new Event('submit'));
     fixture.detectChanges();
 
-    const form = nativeEl.querySelector('form');
-    expect(form).not.toBeNull();
+    const submitButton = screen.getByTestId<HTMLButtonElement>('login-submit-button');
 
-    form!.dispatchEvent(new Event('submit'));
-    form!.dispatchEvent(new Event('submit'));
-    fixture.detectChanges();
-
-    const submitButton = nativeEl.querySelector<HTMLButtonElement>('button[data-testid="login-submit-button"]');
-    expect(submitButton).not.toBeNull();
-
-    expect(submitButton!.disabled).toBe(true);
+    expect(submitButton.disabled).toBe(true);
     expect(authServiceMock.login).toHaveBeenCalledTimes(1);
   });
 
-  it('forwards the returnUrl query param as the second argument to authService.login', () => {
-    const { fixture, authServiceMock } = buildHarness('/dashboard');
+  it('forwards the returnUrl query param as the second argument to authService.login', async () => {
+    const { authServiceMock } = await renderLoginComponent('/dashboard');
     authServiceMock.login.mockReturnValue(new Subject<void>().asObservable());
-    const nativeEl = fixture.nativeElement as HTMLElement;
 
-    fillLoginForm(nativeEl);
-    fixture.detectChanges();
+    const emailInput = screen.getByTestId('login-email-input');
+    const passwordInput = screen.getByTestId('login-password-input');
+    const user = userEvent.setup();
 
-    const form = nativeEl.querySelector('form');
-    expect(form).not.toBeNull();
+    await user.type(emailInput, VALID_EMAIL);
+    await user.type(passwordInput, VALID_PASSWORD);
 
-    form!.dispatchEvent(new Event('submit'));
+    const form = screen.getByRole('form');
+    form.dispatchEvent(new Event('submit'));
 
     expect(authServiceMock.login).toHaveBeenCalledWith(
       { email: VALID_EMAIL, password: VALID_PASSWORD },
@@ -152,21 +127,22 @@ describe('LoginComponent', () => {
     );
   });
 
-  it('changes the password input type to text after clicking the password visibility toggle', () => {
-    const { fixture } = buildHarness();
-    const nativeEl = fixture.nativeElement as HTMLElement;
-    const passwordInput = nativeEl.querySelector<HTMLInputElement>('input[data-testid="login-password-input"]');
-    const passwordInputHost = nativeEl.querySelector('app-form-input[testid="login-password-input"]');
+  it('changes the password input type to text after clicking the password visibility toggle', async () => {
+    await renderLoginComponent();
+
+    const passwordInput = screen.getByTestId<HTMLInputElement>('login-password-input');
+    const passwordInputHost = screen
+      .getByTestId('login-password-input')
+      .closest('app-form-input');
     const toggleButton = passwordInputHost?.querySelector<HTMLButtonElement>('button');
+    const user = userEvent.setup();
 
-    expect(passwordInput).not.toBeNull();
-    expect(toggleButton).not.toBeNull();
+    expect(passwordInput.type).toBe('password');
 
-    expect(passwordInput!.type).toBe('password');
+    if (toggleButton) {
+      await user.click(toggleButton);
+    }
 
-    toggleButton!.click();
-    fixture.detectChanges();
-
-    expect(passwordInput!.type).toBe('text');
+    expect(passwordInput.type).toBe('text');
   });
 });

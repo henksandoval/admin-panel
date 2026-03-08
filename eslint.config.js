@@ -93,7 +93,13 @@ module.exports = tseslint.config(
       "rxjs-x/no-unsafe-takeuntil": "warn",
     },
   },
-
+  // Test files — relax rules that add friction without value
+  {
+    files: ["**/*.spec.ts"],
+    rules: {
+      "@typescript-eslint/explicit-function-return-type": "off",
+    },
+  },
   // HTML template files configuration
   {
     files: ["**/*.html"],
