@@ -1,9 +1,9 @@
 import { Component, computed, effect, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
+import { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
 import { AppFormInputConfig, AppFormInputOptions, FORM_INPUT_DEFAULT_ERROR_MESSAGES, FORM_INPUT_DEFAULTS } from './app-form-input.model';
 
 interface ErrorState {
@@ -14,7 +14,7 @@ interface ErrorState {
 @Component({
   selector: 'app-form-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  imports: [NgClass, ReactiveFormsModule, MatFormField, MatLabel, MatPrefix, MatInput, MatSuffix, MatIcon, MatHint, MatError],
   styleUrl: './app-form-input.component.scss',
   template: `
     <mat-form-field class="w-full" [appearance]="fullConfig().appearance">
