@@ -5,9 +5,9 @@
       <span class="mat-body-medium">{{ errorMessage() }}</span>
     </div>
   }
-  <form [formGroup]="formGroupLogin" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
-    <app-form-input [config]="emailFieldConfig" [control]="formGroupLogin.controls.email" />
-    <app-form-input [config]="passwordFieldConfig()" [control]="formGroupLogin.controls.password" />
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+    <app-form-input [config]="emailFieldConfig" [control]="form.controls.email" />
+    <app-form-input [config]="passwordFieldConfig()" [control]="form.controls.password" />
     <div class="flex items-center justify-between -mt-7">
       <app-checkbox [(checked)]="rememberMe"
                     i18n-ariaLabel="Login|Remember me aria@@login.rememberMe.ariaLabel"

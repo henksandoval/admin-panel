@@ -11,9 +11,10 @@ import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-f
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
 import { MatDivider } from '@angular/material/divider';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
+import { LoggingService } from '@core/services/logging.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-auth-login',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -29,6 +30,7 @@ import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
+  private readonly logging = inject(LoggingService);
   private readonly authService = inject(AuthService);
   private readonly route = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
@@ -71,7 +73,7 @@ export class LoginComponent {
 
   protected readonly isLoading = computed(() => this.status() === 'loading');
 
-  protected readonly formGroupLogin = this.fb.group({
+  protected readonly form = this.fb.group({
     email: this.fb.nonNullable.control('', [
       Validators.required,
       Validators.email,
@@ -84,25 +86,26 @@ export class LoginComponent {
 
 
   protected onSubmit(): void {
-    if (this.formGroupLogin.invalid || this.isLoading()) return;
+    if (this.form.invalid || this.isLoading()) return;
 
     this.status.set('loading');
     this.errorMessage.set('');
 
-    const { email, password } = this.formGroupLogin.getRawValue();
+    const { email, password } = this.form.getRawValue();
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? undefined;
 
     this.authService.login({ email, password }, returnUrl).subscribe({
-      error: (err) => {
+      error: (err: unknown) => {
         this.status.set('error');
         this.errorMessage.set(this.resolveErrorMessage(err));
+        this.logging.error('Login error', err);
       },
     });
   }
 
   protected onGoogleLogin(): void {
     // TODO: integrate Google OAuth provider
-    console.warn('Google login not yet implemented.');
+    this.logging.warn('Google login not yet implemented.');
   }
 
   private resolveErrorMessage(err: unknown): string {
