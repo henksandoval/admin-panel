@@ -37,6 +37,7 @@ import { SettingsPanelComponent } from '@layout/components/settings-panel/settin
             mat-mini-fab
             color="primary"
             (click)="toggleSettingsPanel()"
+            data-testid="settings-toggle-button"
             aria-label="Settings">
             <mat-icon>settings</mat-icon>
           </button>
@@ -49,11 +50,11 @@ export class AuthLayoutComponent {
   private settingsService = inject(SettingsService);
   protected readonly settingsPanelOpened = this.settingsService.panelOpen;
 
-  onSettingsPanelClose(): void {
+  protected onSettingsPanelClose(): void {
     this.settingsService.closePanel();
   }
 
-  toggleSettingsPanel(): void {
+  protected toggleSettingsPanel(): void {
     this.settingsService.togglePanel();
   }
 }
