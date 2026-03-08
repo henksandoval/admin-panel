@@ -9,6 +9,8 @@
       "@auth/*": ["src/app/core/auth/*"],
       "@features/*": ["src/app/features/*"],
       "@layout/*": ["src/app/layout/*"],
+      "@stubs/*": ["src/tests/stubs/*"],
+      "@tests/*": ["src/tests/*"],
       "@ui-atoms/*": ["src/app/ui-kit/atoms/*"],
       "@ui-molecules/*": ["src/app/ui-kit/molecules/*"],
       "@ui-organisms/*": ["src/app/ui-kit/organisms/*"],

@@ -40,6 +40,8 @@ export default defineConfig({
       '@auth': resolve(__dirname, 'src/app/core/auth'),
       '@features': resolve(__dirname, 'src/app/features'),
       '@layout': resolve(__dirname, 'src/app/layout'),
+      '@stubs': resolve(__dirname, 'src/tests/stubs'),
+      '@tests': resolve(__dirname, 'src/tests'),
       '@ui-atoms': resolve(__dirname, 'src/app/ui-kit/atoms'),
       '@ui-molecules': resolve(__dirname, 'src/app/ui-kit/molecules'),
       '@ui-organisms': resolve(__dirname, 'src/app/ui-kit/organisms'),

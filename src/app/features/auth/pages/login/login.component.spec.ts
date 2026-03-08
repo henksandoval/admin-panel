@@ -1,84 +1,22 @@
-import { Component, InputSignal, input, output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, convertToParamMap } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Subject, throwError } from 'rxjs';
 import { type Mock, describe, expect, it, vi } from 'vitest';
-
 import { LoginComponent } from './login.component';
 import { AuthService } from '@auth/services/auth.service';
 import { LoggingService } from '@core/services/logging.service';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
+import { MatDividerStubComponent } from '@stubs/material/mat-divider.stub';
+import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
+import { AppButtonStubComponent } from '@stubs/ui-kit/app-button.stub';
+import { AppFormInputStubComponent } from '@stubs/ui-kit/app-form-input.stub';
+import { AppCheckboxStubComponent } from '@stubs/ui-kit/app-checkbox.stub';
+import { AuthPageLayoutStubComponent } from '@stubs/auth/auth-page-layout.stub';
 
 const VALID_EMAIL = 'user@example.com';
 const VALID_PASSWORD = 'password123';
-
-@Component({
-  selector: 'auth-page-layout',
-  standalone: true,
-  template: '<ng-content />',
-})
-class AuthPageLayoutStubComponent {}
-
-@Component({
-  selector: 'app-checkbox',
-  standalone: true,
-  template: '<ng-content />',
-})
-class AppCheckboxStubComponent {
-  readonly checked: InputSignal<boolean> = input(false);
-  readonly checkedChange = output<boolean>();
-}
-
-@Component({
-  selector: 'app-button',
-  standalone: true,
-  template: `
-    <button [attr.data-testid]="testId()" [attr.type]="type()" [disabled]="disabled()">
-      <ng-content />
-    </button>
-  `,
-})
-class AppButtonStubComponent {
-  readonly disabled: InputSignal<boolean> = input(false);
-  readonly iconBefore: InputSignal<string | null> = input<string | null>(null);
-  readonly testId: InputSignal<string | null> = input<string | null>(null);
-  readonly variant: InputSignal<string | null> = input<string | null>(null);
-  readonly type: InputSignal<'button' | 'submit'> = input<'button' | 'submit'>('button');
-}
-
-@Component({
-  selector: 'app-form-input',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  template: `
-    <input [attr.data-testid]="testId()" [type]="config()?.type ?? 'text'" [formControl]="control()" />
-    <button type="button" (click)="config()?.onIconClick?.()">icon</button>
-  `,
-})
-class AppFormInputStubComponent {
-  readonly config: InputSignal<AppFormInputOptions | null> = input<AppFormInputOptions | null>(null);
-  readonly control: InputSignal<FormControl<string>> = input(new FormControl<string>(''));
-  readonly testId: InputSignal<string | null> = input<string | null>(null);
-}
-
-@Component({
-  selector: 'mat-icon',
-  standalone: true,
-  template: '<ng-content />',
-})
-class MatIconStubComponent {
-  readonly svgIcon: InputSignal<string | null> = input<string | null>(null);
-}
-
-@Component({
-  selector: 'mat-divider',
-  standalone: true,
-  template: '',
-})
-class MatDividerStubComponent {}
 
 function buildHarness(returnUrl?: string): {
   fixture: ComponentFixture<LoginComponent>;
