@@ -1,59 +1,16 @@
-import { Component, InputSignal, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, convertToParamMap } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
 import { type Mock, describe, expect, it, vi } from 'vitest';
-
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { AuthService } from '@auth/services/auth.service';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
+import { AuthPageLayoutStubComponent } from '@stubs/auth/auth-page-layout.stub';
+import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
+import { AppButtonStubComponent } from '@stubs/ui-kit/app-button.stub';
+import { AppFormInputStubComponent } from '@stubs/ui-kit/app-form-input.stub';
 
 const VALID_EMAIL = 'user@example.com';
-
-@Component({
-  selector: 'auth-page-layout',
-  standalone: true,
-  template: '<ng-content />',
-})
-class AuthPageLayoutStubComponent {}
-
-@Component({
-  selector: 'app-button',
-  standalone: true,
-  template: `
-    <button [attr.data-testid]="testId()" [attr.type]="type()" [disabled]="disabled()">
-      <ng-content />
-    </button>
-  `,
-})
-class AppButtonStubComponent {
-  readonly disabled: InputSignal<boolean> = input(false);
-  readonly testId: InputSignal<string | null> = input<string | null>(null);
-  readonly variant: InputSignal<string | null> = input<string | null>(null);
-  readonly type: InputSignal<'button' | 'submit'> = input<'button' | 'submit'>('button');
-}
-
-@Component({
-  selector: 'app-form-input',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  template: `
-    <input [attr.data-testid]="testId()" [type]="config()?.type ?? 'text'" [formControl]="control()" />
-  `,
-})
-class AppFormInputStubComponent {
-  readonly config: InputSignal<AppFormInputOptions | null> = input<AppFormInputOptions | null>(null);
-  readonly control: InputSignal<FormControl<string>> = input(new FormControl<string>(''));
-  readonly testId: InputSignal<string | null> = input<string | null>(null);
-}
-
-@Component({
-  selector: 'mat-icon',
-  standalone: true,
-  template: '<ng-content />',
-})
-class MatIconStubComponent {}
 
 function buildHarness(): {
   fixture: ComponentFixture<ForgotPasswordComponent>;
