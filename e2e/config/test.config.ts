@@ -20,6 +20,12 @@ export interface LoginTestCredentials {
   readonly password: string;
 }
 
+export interface RegisterTestCredentials {
+  readonly displayName: string;
+  readonly email: string;
+  readonly password: string;
+}
+
 export interface MockTokenResponse {
   readonly accessToken: string;
   readonly expiresInSeconds: number;
@@ -38,7 +44,9 @@ export interface E2ETestConfig {
   readonly useMock: boolean;
   readonly apiBaseUrl: string;
   readonly credentials: LoginTestCredentials;
+  readonly registerCredentials: RegisterTestCredentials;
   readonly expectedDefaultRedirect: string;
+  readonly resetPasswordToken: string;
   readonly mockResponses: {
     readonly loginToken: MockTokenResponse;
     readonly user: MockUserResponse;
@@ -55,7 +63,15 @@ export const testConfig: E2ETestConfig = {
     password: 'Password1234',
   },
 
+  registerCredentials: {
+    displayName: 'E2E Test User',
+    email: 'newuser@example.com',
+    password: 'RegisterPass1234',
+  },
+
   expectedDefaultRedirect: '/dashboard',
+
+  resetPasswordToken: 'e2e-valid-reset-token',
 
   mockResponses: {
     loginToken: {

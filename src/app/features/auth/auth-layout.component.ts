@@ -38,6 +38,7 @@ import { SettingsPanelComponent } from '@layout/components/settings-panel/settin
             mat-mini-fab
             color="primary"
             (click)="toggleSettingsPanel()"
+            data-testid="settings-toggle-button"
             aria-label="Settings">
             <mat-icon>settings</mat-icon>
           </button>

@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
@@ -16,7 +16,8 @@ import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatIconModule,
+    RouterLink,
+    MatIcon,
     AppButtonComponent,
     AppCheckboxComponent,
     AppFormInputComponent,

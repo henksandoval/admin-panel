@@ -38,31 +38,63 @@ async function interceptAuthMe(page: Page): Promise<void> {
   });
 }
 
+async function interceptConfirmPasswordReset(page: Page): Promise<void> {
+  const confirmUrl = `${testConfig.apiBaseUrl}/auth/password-reset/confirm`;
+
+  await page.route(confirmUrl, (route: Route) => {
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({}),
+    });
+  });
+}
+
+async function interceptPasswordReset(page: Page): Promise<void> {
+  const resetUrl = `${testConfig.apiBaseUrl}/auth/password-reset/request`;
+
+  await page.route(resetUrl, (route: Route) => {
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({}),
+    });
+  });
+}
+
+async function interceptAuthRegister(page: Page): Promise<void> {
+  const registerUrl = `${testConfig.apiBaseUrl}/auth/register`;
+
+  await page.route(registerUrl, (route: Route) => {
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({}),
+    });
+  });
+}
+
 export interface AuthFixtures {
+  loginPage: Page;
   /**
-   * Navigates to the login page with all required network interception
+   * Navigates to the forgot-password page with all required network interception
    * already configured according to the active test.config.ts.
    *
    * Usage:
-   *   test('...', async ({ loginPage }) => {
-   *     // page is already at /auth/login and mocks are active (if useMock)
+   *   test('...', async ({ forgotPasswordPage }) => {
+   *     // page is already at /auth/forgot-password and mocks are active (if useMock)
    *   });
    */
-  loginPage: Page;
+  forgotPasswordPage: Page;
+
+  /**
+   * Navigates to the register page with all required network interception
+   * already configured according to the active test.config.ts.
+   */
+  registerPage: Page;
+  resetPasswordPage: Page;
 }
 
-/**
- * Extended Playwright test fixture that provides a pre-configured page for
- * authentication tests.
- *
- * Network interception is activated only when testConfig.useMock === true.
- * When useMock is false the HTTP calls reach the real API defined in
- * testConfig.apiBaseUrl.
- *
- * No test file should import `test` from @playwright/test directly; import
- * from this fixture instead so that the interception logic is always applied
- * consistently.
- */
 export const test = base.extend<AuthFixtures>({
   loginPage: async ({ page }, use) => {
     if (testConfig.useMock) {
@@ -71,6 +103,33 @@ export const test = base.extend<AuthFixtures>({
     }
 
     await page.goto('/auth/login');
+    await use(page);
+  },
+
+  resetPasswordPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptConfirmPasswordReset(page);
+    }
+
+    await page.goto(`/auth/reset-password?token=${testConfig.resetPasswordToken}`);
+    await use(page);
+  },
+
+  forgotPasswordPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptPasswordReset(page);
+    }
+
+    await page.goto('/auth/forgot-password');
+    await use(page);
+  },
+
+  registerPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptAuthRegister(page);
+    }
+
+    await page.goto('/auth/register');
     await use(page);
   },
 });
