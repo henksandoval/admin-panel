@@ -70,15 +70,8 @@ describe('LoginComponent', () => {
     const { authServiceMock, fixture } = await renderLoginComponent();
     authServiceMock.login.mockReturnValue(throwError(() => new Error('Invalid credentials')));
 
-    const emailInput = screen.getByTestId('login-email-input');
-    const passwordInput = screen.getByTestId('login-password-input');
-    const user = userEvent.setup();
+    await sendSubmitEvent();
 
-    await user.type(emailInput, VALID_EMAIL);
-    await user.type(passwordInput, VALID_PASSWORD);
-
-    const form = screen.getByRole('form');
-    form.dispatchEvent(new Event('submit'));
     fixture.detectChanges();
 
     const errorBlock = screen.getByTestId('login-error-message');
@@ -89,15 +82,8 @@ describe('LoginComponent', () => {
     const { authServiceMock, fixture } = await renderLoginComponent();
     authServiceMock.login.mockReturnValue(new Subject<void>().asObservable());
 
-    const emailInput = screen.getByTestId('login-email-input');
-    const passwordInput = screen.getByTestId('login-password-input');
-    const user = userEvent.setup();
+    const form = await sendSubmitEvent();
 
-    await user.type(emailInput, VALID_EMAIL);
-    await user.type(passwordInput, VALID_PASSWORD);
-
-    const form = screen.getByRole('form');
-    form.dispatchEvent(new Event('submit'));
     form.dispatchEvent(new Event('submit'));
     fixture.detectChanges();
 
@@ -111,15 +97,7 @@ describe('LoginComponent', () => {
     const { authServiceMock } = await renderLoginComponent('/dashboard');
     authServiceMock.login.mockReturnValue(new Subject<void>().asObservable());
 
-    const emailInput = screen.getByTestId('login-email-input');
-    const passwordInput = screen.getByTestId('login-password-input');
-    const user = userEvent.setup();
-
-    await user.type(emailInput, VALID_EMAIL);
-    await user.type(passwordInput, VALID_PASSWORD);
-
-    const form = screen.getByRole('form');
-    form.dispatchEvent(new Event('submit'));
+    await sendSubmitEvent();
 
     expect(authServiceMock.login).toHaveBeenCalledWith(
       { email: VALID_EMAIL, password: VALID_PASSWORD },
@@ -145,4 +123,18 @@ describe('LoginComponent', () => {
 
     expect(passwordInput.type).toBe('text');
   });
+
+  async function sendSubmitEvent() : Promise<HTMLElement> {
+    const emailInput = screen.getByTestId('login-email-input');
+    const passwordInput = screen.getByTestId('login-password-input');
+    const user = userEvent.setup();
+
+    await user.type(emailInput, VALID_EMAIL);
+    await user.type(passwordInput, VALID_PASSWORD);
+
+    const form = screen.getByRole('form');
+    form.dispatchEvent(new Event('submit'));
+
+    return form;
+  }
 });
