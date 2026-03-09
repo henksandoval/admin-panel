@@ -6,7 +6,7 @@
   </div>
 
   @if (status() === 'error') {
-    <div class="app-register__error flex items-center gap-2 mb-4" data-testid="register-error-message">
+    <div class="app-auth__error flex items-center gap-2 mb-4" data-testid="register-error-message">
       <mat-icon>error_outline</mat-icon>
       <span class="mat-body-medium">{{ errorMessage() }}</span>
     </div>
@@ -18,7 +18,7 @@
     <app-form-input [control]="form.controls.displayName" [config]="nameFieldConfig" testId="register-name-input" />
     <app-form-input [control]="form.controls.email" [config]="emailFieldConfig" testId="register-email-input" />
 
-    <div class="app-register__password-group">
+    <div class="app-auth__password-group">
       <app-form-input [config]="passwordFieldConfig()" [control]="form.controls.password" testId="register-password-input" />
       <app-form-input [config]="confirmFieldConfig()" [control]="form.controls.confirm" testId="register-confirm-input" />
     </div>
@@ -28,7 +28,7 @@
         variant="filled"
         color="primary"
         type="submit"
-        class="app-register__submit-btn"
+        class="app-auth__submit-btn"
         [disabled]="isLoading()"
         testId="register-submit-button"
       >
@@ -38,7 +38,7 @@
 
     <p class="m-0 flex items-center justify-center gap-1">
       <span class="mat-label-medium" i18n="Register|Login link text@@register.login.text">Already have an account?</span>
-      <a routerLink="/auth/login" class="app-register__link mat-label-medium" i18n="Login|Register link@@login.register.link">Sign in!</a>
+      <a routerLink="/auth/login" class="app-auth__link mat-label-medium" i18n="Login|Register link@@login.register.link">Sign in!</a>
     </p>
   </form>
 </app-auth-page-layout>

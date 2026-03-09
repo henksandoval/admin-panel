@@ -1,6 +1,6 @@
 <app-auth-page-layout>
   @if (status() === 'error') {
-    <div class="app-login__error flex items-center gap-2 mb-5" data-testid="login-error-message">
+    <div class="app-auth__error flex items-center gap-2 mb-5" data-testid="login-error-message">
       <mat-icon>error_outline</mat-icon>
       <span class="mat-body-medium">{{ errorMessage() }}</span>
     </div>
@@ -17,7 +17,7 @@
         <span class="mat-label-medium"
               i18n="Login|Remember me label@@login.rememberMe.label">Remember me</span>
       </app-checkbox>
-      <a routerLink="/auth/forgot-password" class="app-login__link mat-label-medium"
+      <a routerLink="/auth/forgot-password" class="app-auth__link mat-label-medium"
          i18n="Login|Forgot password link@@login.forgotPassword.link">Forgot password?</a>
     </div>
     <div class="w-full">
@@ -26,7 +26,7 @@
         [disabled]="isLoading()"
         [iconBefore]="isLoading() ? 'hourglass_empty' : 'login'"
         testId="login-submit-button"
-        class="app-login__submit-btn"
+        class="app-auth__submit-btn"
       >
         <ng-container i18n="Login|Submit button@@login.btn.submit">Sign In</ng-container>
       </app-button>
@@ -42,7 +42,7 @@
       <app-button
         variant="tonal"
         (click)="onGoogleLogin()"
-        class="app-login__submit-btn"
+        class="app-auth__submit-btn"
         i18n-aria-label="Login|Google login aria-label@@login.google.ariaLabel"
         aria-label="Connect with Google"
       >
@@ -55,7 +55,7 @@
 
     <p class="m-0 flex items-center justify-center gap-1">
       <span class="mat-label-medium" i18n="Login|Register link text@@login.register.text">Don't have an account yet?</span>
-      <a routerLink="/auth/register" class="app-login__link mat-label-medium" i18n="Login|Register link@@login.register.link">Sign Up!</a>
+      <a routerLink="/auth/register" class="app-auth__link mat-label-medium" i18n="Login|Register link@@login.register.link">Sign Up!</a>
     </p>
   </form>
 </app-auth-page-layout>
