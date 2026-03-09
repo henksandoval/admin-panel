@@ -1,7 +1,0 @@
-# Test Cases: AuthLayoutComponent
-
-| ID del Test | Tipo | Escenario / Propósito | Precondiciones | Pasos clave | Resultado Esperado | Justificación de Valor |
-|---|---|---|---|---|---|---|
-| TC-ToggleSettingsPanel | Componente | El botón de ajustes abre el panel lateral de configuración | Componente renderizado con `SettingsService` mock (`panelOpen = false`) | 1. Hacer clic en el botón `mat-mini-fab` de settings. 2. Verificar que `settingsService.togglePanel()` es invocado. 3. Verificar que `mat-sidenav` recibe `[opened]="true"` | El sidenav de settings se abre correctamente | Es el único flujo de interacción del componente; sin este test el comportamiento del panel queda sin validar |
-| TC-CloseSettingsPanel | Componente | El evento `closedStart` del sidenav cierra el panel mediante el servicio | `panelOpen = true` en `SettingsService` mock | 1. Emitir el evento `(closedStart)` del `mat-sidenav`. 2. Verificar que `settingsService.closePanel()` es invocado | `closePanel()` es llamado exactamente una vez | Garantiza que el estado del panel se sincroniza cuando el usuario lo cierra con el gesto nativo del sidenav |
-| TC-RouterOutletRendered | Componente | El `router-outlet` está presente para renderizar las páginas de auth | Componente renderizado | 1. Inspeccionar el DOM del `mat-sidenav-content`. | El elemento `<router-outlet>` existe en el template | Valida que la estructura de enrutamiento es correcta; su ausencia rompería toda la navegación del módulo auth |
