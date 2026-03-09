@@ -50,6 +50,18 @@ async function interceptPasswordReset(page: Page): Promise<void> {
   });
 }
 
+async function interceptAuthRegister(page: Page): Promise<void> {
+  const registerUrl = `${testConfig.apiBaseUrl}/auth/register`;
+
+  await page.route(registerUrl, (route: Route) => {
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({}),
+    });
+  });
+}
+
 export interface AuthFixtures {
   /**
    * Navigates to the login page with all required network interception
@@ -71,6 +83,12 @@ export interface AuthFixtures {
    *   });
    */
   forgotPasswordPage: Page;
+
+  /**
+   * Navigates to the register page with all required network interception
+   * already configured according to the active test.config.ts.
+   */
+  registerPage: Page;
 }
 
 /**
@@ -102,6 +120,15 @@ export const test = base.extend<AuthFixtures>({
     }
 
     await page.goto('/auth/forgot-password');
+    await use(page);
+  },
+
+  registerPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptAuthRegister(page);
+    }
+
+    await page.goto('/auth/register');
     await use(page);
   },
 });
