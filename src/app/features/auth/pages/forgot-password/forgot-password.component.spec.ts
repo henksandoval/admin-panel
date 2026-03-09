@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, convertToParamMap } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
-import { type Mock, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { AuthService } from '@auth/services/auth.service';
 import { AuthPageLayoutStubComponent } from '@stubs/auth/auth-page-layout.stub';
@@ -12,14 +13,18 @@ import { AppFormInputStubComponent } from '@stubs/ui-kit/app-form-input.stub';
 
 const VALID_EMAIL = 'user@example.com';
 
-function buildHarness(): {
-  fixture: ComponentFixture<ForgotPasswordComponent>;
-  authServiceMock: { requestPasswordReset: Mock<AuthService['requestPasswordReset']> };
-} {
+async function renderForgotPasswordComponent() {
   const authServiceMock = { requestPasswordReset: vi.fn<AuthService['requestPasswordReset']>() };
 
-  TestBed.configureTestingModule({
-    imports: [ForgotPasswordComponent],
+  const { fixture } = await render(ForgotPasswordComponent, {
+    componentImports: [
+      ReactiveFormsModule,
+      RouterLink,
+      MatIconStubComponent,
+      AppButtonStubComponent,
+      AppFormInputStubComponent,
+      AuthPageLayoutStubComponent,
+    ],
     providers: [
       { provide: AuthService, useValue: authServiceMock },
       {
@@ -27,93 +32,56 @@ function buildHarness(): {
         useValue: { snapshot: { queryParamMap: convertToParamMap({}) } },
       },
     ],
-  }).overrideComponent(ForgotPasswordComponent, {
-    set: {
-      imports: [
-        ReactiveFormsModule,
-        RouterLink,
-        MatIconStubComponent,
-        AppButtonStubComponent,
-        AppFormInputStubComponent,
-        AuthPageLayoutStubComponent,
-      ],
-    },
   });
 
-  const fixture = TestBed.createComponent(ForgotPasswordComponent);
-  fixture.detectChanges();
-
-  return { fixture, authServiceMock };
+  return { authServiceMock, fixture };
 }
 
 describe('ForgotPasswordComponent', () => {
-  const fillEmailInput = (nativeEl: HTMLElement, email: string): void => {
-    const emailInput = nativeEl.querySelector<HTMLInputElement>('input[data-testid="forgot-password-email-input"]');
+  it('does not invoke authService.requestPasswordReset when submitted with an invalid email', async () => {
+    const { authServiceMock, fixture } = await renderForgotPasswordComponent();
+    const user = userEvent.setup();
 
-    expect(emailInput).not.toBeNull();
+    await user.type(screen.getByTestId('forgot-password-email-input'), 'notanemail');
 
-    emailInput!.value = email;
-    emailInput!.dispatchEvent(new Event('input'));
-  };
-
-  it('does not invoke authService.requestPasswordReset when submitted with an invalid email', () => {
-    const { fixture, authServiceMock } = buildHarness();
-    const nativeEl = fixture.nativeElement as HTMLElement;
-
-    fillEmailInput(nativeEl, 'notanemail');
-    fixture.detectChanges();
-
-    const form = nativeEl.querySelector('form');
-    expect(form).not.toBeNull();
-
-    form!.dispatchEvent(new Event('submit'));
+    const form = screen.getByRole('form');
+    form.dispatchEvent(new Event('submit'));
     fixture.detectChanges();
 
     expect(authServiceMock.requestPasswordReset).not.toHaveBeenCalled();
   });
 
-  it('renders the API error message and keeps the form visible when the request fails', () => {
-    const { fixture, authServiceMock } = buildHarness();
-    authServiceMock.requestPasswordReset.mockReturnValue(
-      throwError(() => new Error('User not found')),
-    );
-    const nativeEl = fixture.nativeElement as HTMLElement;
+  it('renders the API error message and keeps the form visible when the request fails', async () => {
+    const { authServiceMock, fixture } = await renderForgotPasswordComponent();
+    authServiceMock.requestPasswordReset.mockReturnValue(throwError(() => new Error('User not found')));
+    const user = userEvent.setup();
 
-    fillEmailInput(nativeEl, VALID_EMAIL);
+    await user.type(screen.getByTestId('forgot-password-email-input'), VALID_EMAIL);
+
+    const form = screen.getByRole('form');
+    form.dispatchEvent(new Event('submit'));
     fixture.detectChanges();
 
-    const form = nativeEl.querySelector('form');
-    expect(form).not.toBeNull();
+    const errorBlock = screen.getByTestId('forgot-password-error-message');
+    expect(errorBlock.textContent).toContain('User not found');
 
-    form!.dispatchEvent(new Event('submit'));
-    fixture.detectChanges();
-
-    const errorBlock = nativeEl.querySelector('[data-testid="forgot-password-error-message"]');
-    expect(errorBlock).not.toBeNull();
-    expect(errorBlock!.textContent).toContain('User not found');
-
-    expect(nativeEl.querySelector('[data-testid="forgot-password-form"]')).not.toBeNull();
+    expect(screen.getByTestId('forgot-password-form')).toBeTruthy();
   });
 
-  it('disables the submit button while the request is in progress', () => {
-    const { fixture, authServiceMock } = buildHarness();
+  it('disables the submit button and ignores repeated submissions while loading', async () => {
+    const { authServiceMock, fixture } = await renderForgotPasswordComponent();
     authServiceMock.requestPasswordReset.mockReturnValue(new Subject<void>().asObservable());
-    const nativeEl = fixture.nativeElement as HTMLElement;
+    const user = userEvent.setup();
 
-    fillEmailInput(nativeEl, VALID_EMAIL);
+    await user.type(screen.getByTestId('forgot-password-email-input'), VALID_EMAIL);
+
+    const form = screen.getByRole('form');
+    form.dispatchEvent(new Event('submit'));
+    form.dispatchEvent(new Event('submit'));
     fixture.detectChanges();
 
-    const form = nativeEl.querySelector('form');
-    expect(form).not.toBeNull();
-
-    form!.dispatchEvent(new Event('submit'));
-    form!.dispatchEvent(new Event('submit'));
-    fixture.detectChanges();
-
-    const submitButton = nativeEl.querySelector<HTMLButtonElement>('button[data-testid="forgot-password-submit-button"]');
-    expect(submitButton).not.toBeNull();
-
-    expect(submitButton!.disabled).toBe(true);
+    const submitButton = screen.getByTestId<HTMLButtonElement>('forgot-password-submit-button');
+    expect(submitButton.disabled).toBe(true);
     expect(authServiceMock.requestPasswordReset).toHaveBeenCalledTimes(1);
   });
 });
