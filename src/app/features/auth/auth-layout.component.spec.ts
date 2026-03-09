@@ -1,42 +1,41 @@
-import { RouterOutlet } from '@angular/router';
-import { provideRouter } from '@angular/router';
 import { signal } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { RouterOutlet, provideRouter } from '@angular/router';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { MatMiniFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { render, screen } from '@testing-library/angular';
 import { describe, it, expect, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { AuthLayoutComponent } from './auth-layout.component';
 import { SettingsService } from '@core/services/settings.service';
-import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
-import {
-  MatSidenavContainerStubComponent,
-  MatSidenavStubComponent,
-  MatSidenavContentStubComponent,
-} from '@stubs/material/mat-sidenav.stub';
 import { SettingsPanelStubComponent } from '@stubs/layout/settings-panel.stub';
 
-function createSettingsServiceMock(initialPanelOpen = false) {
-  const panelOpenSignal = signal(initialPanelOpen);
+function createSettingsServiceMock(panelOpen = false) {
   return {
-    panelOpen: panelOpenSignal.asReadonly(),
-    togglePanel: vi.fn().mockImplementation(() => panelOpenSignal.update(v => !v)),
-    closePanel: vi.fn().mockImplementation(() => panelOpenSignal.set(false)),
+    panelOpen: signal(panelOpen).asReadonly(),
+    togglePanel: vi.fn<SettingsService['togglePanel']>(),
+    closePanel: vi.fn<SettingsService['closePanel']>(),
   };
 }
 
-async function renderAuthLayout(initialPanelOpen = false) {
-  const settingsServiceMock = createSettingsServiceMock(initialPanelOpen);
+async function renderAuthLayoutComponent(panelOpen = false) {
+  const settingsServiceMock = createSettingsServiceMock(panelOpen);
 
   const { fixture } = await render(AuthLayoutComponent, {
     componentImports: [
       RouterOutlet,
-      MatIconStubComponent,
-      MatSidenavContainerStubComponent,
-      MatSidenavStubComponent,
-      MatSidenavContentStubComponent,
+      MatSidenavContainer,
+      MatSidenav,
+      MatSidenavContent,
+      MatMiniFabButton,
+      MatIcon,
       SettingsPanelStubComponent,
     ],
     providers: [
       provideRouter([]),
+      provideNoopAnimations(),
       { provide: SettingsService, useValue: settingsServiceMock },
     ],
   });
@@ -46,35 +45,26 @@ async function renderAuthLayout(initialPanelOpen = false) {
 
 describe('AuthLayoutComponent', () => {
   it('calls settingsService.togglePanel when the settings button is clicked', async () => {
-    const { settingsServiceMock } = await renderAuthLayout();
+    const { settingsServiceMock } = await renderAuthLayoutComponent();
     const user = userEvent.setup();
 
-    await user.click(screen.getByTestId('settings-toggle-button'));
+    await user.click(screen.getByTestId('auth-layout-settings-button'));
 
     expect(settingsServiceMock.togglePanel).toHaveBeenCalledTimes(1);
   });
 
-  it('opens the sidenav after the settings toggle button is clicked', async () => {
-    const { fixture, settingsServiceMock } = await renderAuthLayout();
-    const user = userEvent.setup();
+  it('calls settingsService.closePanel when the sidenav emits closedStart', async () => {
+    const { fixture, settingsServiceMock } = await renderAuthLayoutComponent(true);
 
-    await user.click(screen.getByTestId('settings-toggle-button'));
+    const sidenavDebugEl = fixture.debugElement.query(By.css('mat-sidenav'));
+    sidenavDebugEl.triggerEventHandler('closedStart', null);
     fixture.detectChanges();
-
-    expect(settingsServiceMock.panelOpen()).toBe(true);
-  });
-
-  it('calls settingsService.closePanel when the sidenav closedStart event fires', async () => {
-    const { settingsServiceMock } = await renderAuthLayout(true);
-    const user = userEvent.setup();
-
-    await user.click(screen.getByTestId('sidenav-close-trigger'));
 
     expect(settingsServiceMock.closePanel).toHaveBeenCalledTimes(1);
   });
 
-  it('renders the router-outlet element for auth page navigation', async () => {
-    await renderAuthLayout();
+  it('renders the router-outlet inside the sidenav content', async () => {
+    await renderAuthLayoutComponent();
 
     expect(document.querySelector('router-outlet')).not.toBeNull();
   });

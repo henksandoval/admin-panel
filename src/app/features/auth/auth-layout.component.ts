@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { MatMiniFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { SettingsService } from '@core/services/settings.service';
 import { SettingsPanelComponent } from '@layout/components/settings-panel/settings-panel.component';
 
 @Component({
   selector: 'auth-layout',
   standalone: true,
-  imports: [RouterOutlet, MatSidenavModule, MatButtonModule, MatIconModule, SettingsPanelComponent],
+  imports: [RouterOutlet, MatSidenavContainer, MatSidenav, MatSidenavContent, MatMiniFabButton, MatIcon, SettingsPanelComponent],
   styles: `
     :host {
       display: flex;
@@ -33,6 +33,7 @@ import { SettingsPanelComponent } from '@layout/components/settings-panel/settin
         </div>
         <div class="fixed bottom-6 right-6 max-sm:bottom-4 max-sm:right-4">
           <button
+            data-testid="auth-layout-settings-button"
             class="shadow-lg transition-transform duration-200 hover:scale-110 active:scale-95"
             mat-mini-fab
             color="primary"
