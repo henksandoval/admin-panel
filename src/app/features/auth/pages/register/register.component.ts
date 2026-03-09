@@ -4,7 +4,6 @@ import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
 import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
 import { passwordMatchValidator } from '../../shared/validators/password-match.validator';
@@ -19,7 +18,6 @@ import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
     RouterLink,
     MatIcon,
     AppButtonComponent,
-    AppCheckboxComponent,
     AppFormInputComponent,
     AuthPageLayoutComponent,
   ],
@@ -34,6 +32,7 @@ export class RegisterComponent {
   protected readonly status = signal<RegisterStatus>(REGISTER_DEFAULTS.status);
   protected readonly errorMessage = signal<string>(REGISTER_DEFAULTS.errorMessage);
   protected readonly showPassword = signal(false);
+  protected readonly showPasswordConfirm = signal(false);
   protected readonly minPasswordLength = REGISTER_DEFAULTS.passwordMinLength;
 
   protected readonly nameFieldConfig: AppFormInputOptions = {
@@ -41,7 +40,6 @@ export class RegisterComponent {
     type: 'text',
     placeholder: $localize`:Register|Name field placeholder@@register.field.name.placeholder:John Doe`,
     icon: 'person_outline',
-    appearance: 'outline',
     errorMessages: {
       required: $localize`:Register|Name required error@@register.field.name.error.required:Full name is required`,
     },
@@ -52,7 +50,6 @@ export class RegisterComponent {
     type: 'email',
     placeholder: $localize`:Register|Email field placeholder@@register.field.email.placeholder:user@example.com`,
     icon: 'mail_outline',
-    appearance: 'outline',
     errorMessages: {
       required: $localize`:Register|Email required error@@register.field.email.error.required:Email is required`,
       email: $localize`:Register|Email invalid error@@register.field.email.error.email:Enter a valid email`,
@@ -62,8 +59,8 @@ export class RegisterComponent {
   protected readonly passwordFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:Register|Password field label@@register.field.password.label:Password`,
     type: this.showPassword() ? 'text' : 'password',
-    icon: 'key',
-    appearance: 'outline',
+    icon: this.showPassword() ? 'visibility_off' : 'visibility',
+    onIconClick: () => this.showPassword.update(v => !v),
     errorMessages: {
       required: $localize`:Register|Password required error@@register.field.password.error.required:Password is required`,
       minlength: $localize`:Register|Password minlength error@@register.field.password.error.minlength:Minimum ${this.minPasswordLength}:minLength: characters`,
@@ -72,9 +69,9 @@ export class RegisterComponent {
 
   protected readonly confirmFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:Register|Confirm password field label@@register.field.confirm.label:Confirm password`,
-    type: this.showPassword() ? 'text' : 'password',
-    icon: 'key',
-    appearance: 'outline',
+    type: this.showPasswordConfirm() ? 'text' : 'password',
+    icon: this.showPasswordConfirm() ? 'visibility_off' : 'visibility',
+    onIconClick: () => this.showPasswordConfirm.update(v => !v),
     errorMessages: {
       required: $localize`:Register|Confirm password required error@@register.field.confirm.error.required:Please confirm your password`,
       passwordMismatch: $localize`:Register|Password mismatch error@@register.field.confirm.error.mismatch:Passwords do not match`,
@@ -92,10 +89,6 @@ export class RegisterComponent {
     },
     { validators: passwordMatchValidator },
   );
-
-  protected onShowPasswordChange(checked: boolean): void {
-    this.showPassword.set(checked);
-  }
 
   protected onSubmit(): void {
     if (this.form.invalid || this.isLoading()) return;

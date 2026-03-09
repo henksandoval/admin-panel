@@ -52,7 +52,6 @@ export class LoginComponent {
     type: 'email',
     placeholder: $localize`:Login|Email field placeholder@@login.field.email.placeholder:user@example.com`,
     icon: 'mail_outline',
-    appearance: 'outline',
     errorMessages: {
       required: $localize`:Login|Email required error@@login.field.email.error.required:Email is required`,
       email: $localize`:Login|Email invalid error@@login.field.email.error.email:Enter a valid email`,
@@ -63,7 +62,6 @@ export class LoginComponent {
     label: $localize`:Login|Password field label@@login.field.password.label:Password`,
     type: this.showPassword() ? 'text' : 'password',
     icon: this.showPassword() ? 'visibility_off' : 'visibility',
-    appearance: 'outline',
     onIconClick: () => this.showPassword.update(v => !v),
     errorMessages: {
       required: $localize`:Login|Password required error@@login.field.password.error.required:Password is required`,

@@ -1,4 +1,4 @@
-<auth-page-layout>
+<app-auth-page-layout>
   @if (status() === 'error') {
     <div class="app-login__error flex items-center gap-2 mb-5" data-testid="login-error-message">
       <mat-icon>error_outline</mat-icon>
@@ -58,4 +58,4 @@
       <a routerLink="/auth/register" class="app-login__link mat-label-medium" i18n="Login|Register link@@login.register.link">Sign Up!</a>
     </p>
   </form>
-</auth-page-layout>
+</app-auth-page-layout>

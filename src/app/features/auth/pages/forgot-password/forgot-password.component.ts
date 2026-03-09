@@ -35,7 +35,6 @@ export class ForgotPasswordComponent {
     type: 'email',
     placeholder: $localize`:ForgotPassword|Email field placeholder@@forgot.field.email.placeholder:user@example.com`,
     icon: 'mail_outline',
-    appearance: 'outline',
     errorMessages: {
       required: $localize`:ForgotPassword|Email required error@@forgot.field.email.error.required:Email is required`,
       email: $localize`:ForgotPassword|Email invalid error@@forgot.field.email.error.email:Enter a valid email`,
