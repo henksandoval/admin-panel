@@ -1,13 +1,13 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatRadioModule } from '@angular/material/radio';
+import { MatRadioButton } from '@angular/material/radio';
 
 @Component({
   selector: 'app-radio',
   standalone: true,
-  imports: [CommonModule, MatRadioModule],
+  imports: [MatRadioButton],
   template: `
     <mat-radio-button
+      data-testid="radio-button"
       [value]="value()"
       [disabled]="disabled()"
       [attr.aria-label]="ariaLabel()">
