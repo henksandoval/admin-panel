@@ -11,7 +11,7 @@
     </div>
     }
 
-    <div class="app-pagination-range-info mat-label-large">{{ rangeLabel() }}</div>
+    <div class="app-pagination-range-info mat-label-large" data-testid="pagination-range-info">{{ rangeLabel() }}</div>
 
     <div class="app-pagination-nav">
     @if (showFirstLastButtons()) {
@@ -19,7 +19,8 @@
         [disabled]="isFirstPage()"
         [matTooltip]="firstPageLabel()"
         (click)="goToFirstPage()"
-        iconBefore="first_page">
+        iconBefore="first_page"
+        testId="pagination-first-page-button">
         </app-button>
     }
 
@@ -27,14 +28,16 @@
         [disabled]="isFirstPage()"
         [matTooltip]="previousPageLabel()"
         (click)="goToPreviousPage()"
-        iconBefore="chevron_left">
+        iconBefore="chevron_left"
+        testId="pagination-prev-button">
     </app-button>
 
     <app-button
         [disabled]="isLastPage()"
         [matTooltip]="nextPageLabel()"
         (click)="goToNextPage()"
-        iconBefore="chevron_right">
+        iconBefore="chevron_right"
+        testId="pagination-next-button">
     </app-button>
 
     @if (showFirstLastButtons()) {
@@ -42,7 +45,8 @@
         [disabled]="isLastPage()"
         [matTooltip]="lastPageLabel()"
         (click)="goToLastPage()"
-        iconBefore="last_page">
+        iconBefore="last_page"
+        testId="pagination-last-page-button">
         </app-button>
     }
     </div>
