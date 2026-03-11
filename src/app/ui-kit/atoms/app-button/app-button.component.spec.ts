@@ -1,81 +1,90 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { render, screen } from '@testing-library/angular';
+import { describe, it, expect, vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import { AppButtonComponent } from './app-button.component';
 import { BUTTON_DEFAULTS } from './app-button.model';
 
+async function renderButton(inputs: Record<string, unknown> = {}) {
+  return render(AppButtonComponent, { componentInputs: inputs });
+}
+
 describe('AppButtonComponent', () => {
-  let fixture: ComponentFixture<AppButtonComponent>;
-  let component: AppButtonComponent;
+  it('renders with default type, color, and non-disabled state', async () => {
+    await renderButton();
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppButtonComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppButtonComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('creates with all default values', () => {
-    expect(component.variant()).toBe(BUTTON_DEFAULTS.variant);
-    expect(component.color()).toBe(BUTTON_DEFAULTS.color);
-    expect(component.shape()).toBe(BUTTON_DEFAULTS.shape);
-    expect(component.size()).toBe(BUTTON_DEFAULTS.size);
-    expect(component.type()).toBe(BUTTON_DEFAULTS.type);
-    expect(component.disabled()).toBe(BUTTON_DEFAULTS.disabled);
+    const button = screen.getByRole('button') as HTMLButtonElement;
+    expect(button.getAttribute('type')).toBe(BUTTON_DEFAULTS.type);
+    expect(button.getAttribute('color')).toBe(BUTTON_DEFAULTS.color);
+    expect(button.disabled).toBe(false);
   });
 
   describe('buttonClasses', () => {
-    it('returns empty string when shape and size are defaults', () => {
-      expect(component.buttonClasses()).toBe('');
+    it('renders without shape or size CSS classes when using default values', async () => {
+      await renderButton();
+
+      const button = screen.getByRole('button');
+      expect(button.className).not.toContain('btn-shape-');
+      expect(button.className).not.toContain('btn-size-');
     });
 
-    it('returns both classes when shape and size differ from defaults', () => {
-      fixture.componentRef.setInput('shape', 'square');
-      fixture.componentRef.setInput('size', 'large');
+    it('applies shape and size CSS classes when they differ from defaults', async () => {
+      await renderButton({ shape: 'square', size: 'small' });
 
-      const classes = component.buttonClasses();
-      expect(classes).toContain('btn-shape-square');
-      expect(classes).toContain('btn-size-large');
+      const button = screen.getByRole('button');
+      expect(button.classList.contains('btn-shape-square')).toBe(true);
+      expect(button.classList.contains('btn-size-small')).toBe(true);
     });
   });
 
   describe('icons', () => {
-    it('renders no icons when iconBefore and iconAfter are not provided', () => {
-      expect(fixture.debugElement.queryAll(By.css('mat-icon')).length).toBe(0);
+    it('renders no icons when iconBefore and iconAfter are not provided', async () => {
+      const { container } = await renderButton();
+
+      expect(container.querySelectorAll('mat-icon').length).toBe(0);
     });
 
-    it('renders mat-icon before content when iconBefore is provided', () => {
-      fixture.componentRef.setInput('iconBefore', 'add');
-      fixture.detectChanges();
-      const icons = fixture.debugElement.queryAll(By.css('mat-icon'));
+    it('renders an icon before the content when iconBefore is provided', async () => {
+      const { container } = await renderButton({ iconBefore: 'add' });
+
+      const icons = container.querySelectorAll('mat-icon');
       expect(icons.length).toBe(1);
-      expect(icons[0].nativeElement.textContent.trim()).toBe('add');
+      expect(icons[0].textContent?.trim()).toBe('add');
     });
 
-    it('renders mat-icon after content when iconAfter is provided', () => {
-      fixture.componentRef.setInput('iconAfter', 'arrow_forward');
-      fixture.detectChanges();
-      const icons = fixture.debugElement.queryAll(By.css('mat-icon'));
+    it('renders an icon after the content when iconAfter is provided', async () => {
+      const { container } = await renderButton({ iconAfter: 'arrow_forward' });
+
+      const icons = container.querySelectorAll('mat-icon');
       expect(icons.length).toBe(1);
-      expect(icons[0].nativeElement.textContent.trim()).toBe('arrow_forward');
+      expect(icons[0].textContent?.trim()).toBe('arrow_forward');
     });
   });
 
   describe('clicked output', () => {
-    it('emits clicked on click', () => {
-      const emitSpy = vi.spyOn(component.clicked, 'emit');
-      fixture.debugElement.query(By.css('button')).nativeElement.click();
-      expect(emitSpy).toHaveBeenCalledOnce();
+    it('emits clicked when the button is clicked', async () => {
+      const clickedSpy = vi.fn();
+      const user = userEvent.setup();
+
+      await render('<app-button (clicked)="handleClick($event)">Click</app-button>', {
+        imports: [AppButtonComponent],
+        componentProperties: { handleClick: clickedSpy },
+      });
+
+      await user.click(screen.getByRole('button'));
+      expect(clickedSpy).toHaveBeenCalledOnce();
     });
 
-    it('does not emit clicked when disabled', () => {
-      fixture.componentRef.setInput('disabled', true);
-      fixture.detectChanges();
-      const emitSpy = vi.spyOn(component.clicked, 'emit');
-      fixture.debugElement.query(By.css('button')).nativeElement.click();
-      expect(emitSpy).not.toHaveBeenCalled();
+    it('does not emit clicked when the button is disabled', async () => {
+      const clickedSpy = vi.fn();
+      const user = userEvent.setup({ pointerEventsCheck: 0 });
+
+      await render('<app-button [disabled]="true" (clicked)="handleClick($event)">Click</app-button>', {
+        imports: [AppButtonComponent],
+        componentProperties: { handleClick: clickedSpy },
+      });
+
+      await user.click(screen.getByRole('button'));
+      expect(clickedSpy).not.toHaveBeenCalled();
     });
   });
 });
