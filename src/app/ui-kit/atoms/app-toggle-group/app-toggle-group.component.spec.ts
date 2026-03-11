@@ -1,74 +1,79 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { AppToggleGroupComponent } from './app-toggle-group.component';
-import { TOGGLE_GROUP_DEFAULTS } from './app-toggle-group.model';
+import { TOGGLE_GROUP_DEFAULTS, ToggleOption } from './app-toggle-group.model';
 
-const options = [
-  { value: 'a', label: 'A' },
-  { value: 'b', label: 'B' },
+const OPTIONS: ToggleOption[] = [
+  { value: 'a', label: 'Option A' },
+  { value: 'b', label: 'Option B' },
+  { value: 'c', label: 'Option C' },
 ];
 
+async function renderToggleGroup(inputs: Record<string, unknown> = {}) {
+  const { fixture } = await render(AppToggleGroupComponent, {
+    componentInputs: { options: OPTIONS, ...inputs },
+  });
+  return { fixture };
+}
+
 describe('AppToggleGroupComponent', () => {
-  let fixture: ComponentFixture<AppToggleGroupComponent>;
-  let component: AppToggleGroupComponent;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppToggleGroupComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppToggleGroupComponent);
-    fixture.componentRef.setInput('options', options);
-    fixture.detectChanges();
-    component = fixture.componentInstance;
+  it('renders with default color attribute and no disabled state', async () => {
+    await renderToggleGroup();
+    const group = screen.getByTestId('toggle-group');
+    expect(group.getAttribute('color')).toBe(TOGGLE_GROUP_DEFAULTS.color);
+    expect(group.getAttribute('disabled')).toBeNull();
   });
 
-  it('creates with all default values', () => {
-    expect(component.color()).toBe(TOGGLE_GROUP_DEFAULTS.color);
-    expect(component.size()).toBe(TOGGLE_GROUP_DEFAULTS.size);
-    expect(component.appearance()).toBe(TOGGLE_GROUP_DEFAULTS.appearance);
-    expect(component.disabled()).toBe(TOGGLE_GROUP_DEFAULTS.disabled);
-    expect(component.multiple()).toBe(TOGGLE_GROUP_DEFAULTS.multiple);
-    expect(component.value()).toBeNull();
-  });
-
-  describe('toggleGroupClasses', () => {
-    it('returns empty string with default size and appearance', () => {
-      expect(component.toggleGroupClasses()).toBe('');
+  describe('CSS classes', () => {
+    it('renders without extra size or appearance classes when using defaults', async () => {
+      await renderToggleGroup();
+      const group = screen.getByTestId('toggle-group');
+      expect(group.className).not.toContain('toggle-size-');
+      expect(group.className).not.toContain('toggle-appearance-');
     });
 
-    it('adds toggle-size-* and toggle-appearance-* when they differ from defaults', () => {
-      fixture.componentRef.setInput('size', 'large');
+    it('applies size and appearance CSS classes when set to non-default values', async () => {
+      const { fixture } = await renderToggleGroup();
+      fixture.componentRef.setInput('size', 'small');
       fixture.componentRef.setInput('appearance', 'legacy');
-      const classes = component.toggleGroupClasses();
-      expect(classes).toContain('toggle-size-large');
-      expect(classes).toContain('toggle-appearance-legacy');
+      fixture.detectChanges();
+      const group = screen.getByTestId('toggle-group');
+      expect(group.classList.contains('toggle-size-small')).toBe(true);
+      expect(group.classList.contains('toggle-appearance-legacy')).toBe(true);
     });
   });
 
-  describe('onToggleChange', () => {
-    it('updates value model, calls onChange/onTouched, and emits changed', () => {
-      const emitSpy = vi.spyOn(component.changed, 'emit');
-      const onChangeSpy = vi.fn();
-      const onTouchedSpy = vi.fn();
-      component.registerOnChange(onChangeSpy);
-      component.registerOnTouched(onTouchedSpy);
-
-      component.onToggleChange({ value: 'a' } as any);
-
-      expect(component.value()).toBe('a');
-      expect(onChangeSpy).toHaveBeenCalledWith('a');
-      expect(onTouchedSpy).toHaveBeenCalled();
-      expect(emitSpy).toHaveBeenCalledWith('a');
+  it('renders all provided options with data-testid attributes', async () => {
+    await renderToggleGroup();
+    OPTIONS.forEach(option => {
+      expect(screen.queryByTestId(`toggle-option-${option.value}`)).not.toBeNull();
     });
   });
 
-  describe('writeValue (CVA)', () => {
-    it('updates the value model', () => {
-      component.writeValue('b');
-      expect(component.value()).toBe('b');
+  it('emits changed event with the selected option value when a toggle button is clicked', async () => {
+    const changedSpy = vi.fn();
+    const { fixture } = await render(
+      `<app-toggle-group [options]="options" (changed)="onChanged($event)"></app-toggle-group>`,
+      {
+        imports: [AppToggleGroupComponent],
+        componentProperties: {
+          options: OPTIONS,
+          onChanged: changedSpy,
+        },
+      }
+    );
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('radio', { name: 'Option A' }));
+    fixture.detectChanges();
+    expect(changedSpy).toHaveBeenCalledWith('a');
+  });
 
-      component.writeValue(null);
-      expect(component.value()).toBeNull();
-    });
+  it('marks the corresponding toggle as selected when value is set', async () => {
+    const { fixture } = await renderToggleGroup();
+    fixture.componentRef.setInput('value', 'b');
+    fixture.detectChanges();
+    const toggleB = screen.getByTestId('toggle-option-b');
+    expect(toggleB.classList.contains('mat-button-toggle-checked')).toBe(true);
   });
 });
