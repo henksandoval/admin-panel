@@ -1,71 +1,55 @@
-# Instrucciones para IA
+# Instrucciones — Admin Panel
 
-Lee y sigue [STYLE_GUIDE.md](../docs/STYLE_GUIDE.md) para todas las decisiones de código.
+> Referencia completa para developers: `docs/STYLE_GUIDE.md`
 
 ## Reglas Absolutas
 
-1. **Material gestiona colores. Tailwind gestiona layout.**
-2. Nunca uses `bg-*`, `text-*`, `border-{color}-*` de Tailwind.
-3. Nunca uses `dark:*` de Tailwind.
-4. Cada componente tiene: `.component.ts`, `.component.scss`, `.model.ts`
-5. DEFAULTS obligatorios en `.model.ts` para todos los inputs.
+### Estilos
+1. **Material gestiona colores y tipografía. Tailwind gestiona layout.**
+2. Prohibido: `bg-{color}-*`, `text-{color}-*`, `border-{color}-*`, `dark:*` de Tailwind.
+3. Tipografía via clases `mat-*` de Material. Prohibido: `text-sm`, `font-bold` de Tailwind.
+
+### Componentes
+4. Archivos por componente: `.component.ts`, `.component.html|scss`, `.component.spec.ts`, `.model.ts`.
+5. `export const X_DEFAULTS = { ... } as const` en `.model.ts` para todos los inputs.
 6. Prefijo `app-{componente}-` en todas las clases CSS.
-7. Computed signals para lógica de clases dinámicas.
-8. Código funcional (filter/map) sobre bucles imperativos.
-9. **Todo el código en inglés** (variables, funciones, clases, tests).
-10. **Sin comentarios que describen qué hace el código.** Si el nombre no es autodescriptivo, renombrar.
-11. **Strings visibles al usuario siempre con `$localize` y ID `@@`**.
-12. **Componentes de formulario usan patrón `control` input, no CVA.**
+7. Computed signals para clases dinámicas. Prohibido: métodos que se reevalúan en cada change detection.
+8. Código funcional (`filter`/`map`) sobre bucles imperativos.
+9. **Todo el código en inglés** — variables, funciones, clases, tests.
+10. **Sin comentarios que describen qué hace el código.** Renombrar si el nombre no es autodescriptivo.
+11. **Strings visibles al usuario con `$localize` y ID `@@`.** Nunca strings de UI hardcodeados.
+12. **Formularios: `control = input.required<FormControl>()`, no CVA.**
+13. Wrappers del PDS (`app-button`, `app-card`, etc.) sobre componentes Material directos cuando existan.
+14. Miembros del componente usados solo por el template: declarar como `protected`, no `public`.
 
-## Estructura de Componente
+### Tests (componente e integración)
+15. **Caja negra:** prohibido acceder a `fixture.componentInstance`. Solo interacción DOM con `userEvent` y aserciones `@testing-library/jest-dom`.
+16. Selectores: **siempre `data-testid`**. Si el template no los tiene, agregarlos.
+17. Verificar `src/tests/stubs/` antes de crear un stub o mock local.
+18. `it()` descriptivos en inglés. Prohibido prefijos `TC-`.
 
-```typescript
-// component.model.ts
-export interface AppTableConfig<T> { }
+### Tests E2E
+19. Sin hardcodear URLs, credenciales ni timeouts en `.spec.ts`. Usar `e2e/config/test.config.ts`.
+20. Usar fixtures de `e2e/fixtures/` para setup y teardown.
+21. Esperas explícitas (`waitForURL`, `waitForSelector`). Prohibido `waitForTimeout()`.
 
-export const TABLE_DEFAULTS = {
-  emptyMessage: 'No hay datos disponibles',
-  stickyHeader: false,
-} as const;
+## Árbol de Decisión
 
-// component.ts
-@Component({
-  selector: 'app-table',
-  standalone: true,
-  styleUrl: './app-table.component.scss',
-  template: `...`
-})
-export class AppTableComponent<T> {
-  emptyMessage = input<string>(TABLE_DEFAULTS.emptyMessage);
-  
-  tableClasses = computed(() => {
-    const classes = ['app-table'];
-    if (this.stickyHeader()) classes.push('sticky-header');
-    return classes.join(' ');
-  });
-}
+```
+¿Layout/spacing?  → Tailwind (flex, p-6, gap-4)
+¿Color?           → Material color="primary" o token SCSS
+¿Tipografía?      → Clase mat-* de Material
+¿Componente UI?   → Wrapper PDS si existe
+¿Z-index?         → $z-index-* de _tokens.scss
+¿Resto?           → SCSS con tokens del proyecto
 ```
 
-## Ejemplo Correcto
+## Verificación Pre-Código
 
-```html
-<div class="flex items-center gap-4 p-6">
-  <button mat-raised-button color="primary">Guardar</button>
-  <mat-card appearance="outlined" class="rounded-lg">
-    <mat-icon color="primary">check</mat-icon>
-  </mat-card>
-</div>
-```
-
-## Verificación
-
-Antes de generar código, confirma:
-
-- ¿Colores solo via Material?
-- ¿Layout solo via Tailwind?
-- ¿DEFAULTS definidos?
-- ¿Clases con prefijo?
-- ¿Código en inglés?
-- ¿Sin comentarios descriptivos?
-- ¿Strings de UI con `$localize`?
-- ¿Formularios usan `control` input, no CVA?
+- [ ] Sin Tailwind de color o tipografía
+- [ ] DEFAULTS definidos en `.model.ts`
+- [ ] Clases CSS con prefijo `app-{componente}-`
+- [ ] Código en inglés, strings de UI con `$localize`
+- [ ] Formularios con `control` input, no CVA
+- [ ] Tests vía DOM/`data-testid`, no vía `componentInstance`
+- [ ] Stubs: verificar `src/tests/stubs/` antes de crear uno nuevo

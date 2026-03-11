@@ -645,6 +645,98 @@ const shouldShow = ctrl.invalid && ctrl.touched;
 
 ---
 
+## Testing
+
+### Filosofía: Caja Negra
+
+Los tests verifican comportamiento observable, no implementación interna. **Prohibido:** acceder a `fixture.componentInstance` para leer estado o invocar métodos. **Correcto:** interactuar con el DOM via `userEvent` y hacer aserciones con `@testing-library/jest-dom`.
+
+```typescript
+// ❌ MAL: acceso a internos
+component.submitForm();
+expect(component.isLoading).toBe(true);
+
+// ✅ BIEN: caja negra
+await user.click(screen.getByTestId('submit-button'));
+expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
+```
+
+### Selectores: `data-testid`
+
+El único selector válido en tests es `data-testid`. Ni clases CSS, ni IDs, ni texto visible. Si el template no tiene `data-testid`, agregarlos al implementar el test.
+
+```html
+<!-- ✅ BIEN -->
+<button data-testid="submit-button" mat-raised-button color="primary">Guardar</button>
+```
+
+```typescript
+// ❌ MAL
+screen.getByText('Guardar');
+container.querySelector('.submit-btn');
+
+// ✅ BIEN
+screen.getByTestId('submit-button');
+```
+
+### Visibilidad `protected`
+
+Los miembros del componente usados exclusivamente por el template deben declararse `protected`, no `public`. Esto expresa que forman parte de la API de presentación, no de la API pública del componente.
+
+```typescript
+// ❌ MAL
+isLoading = signal(false);
+handleSubmit() { }
+
+// ✅ BIEN
+protected isLoading = signal(false);
+protected handleSubmit() { }
+```
+
+**Excepción:** miembros accedidos desde tests directamente o desde componentes padre deben ser `public`.
+
+### Stubs reutilizables
+
+Antes de crear un stub o mock local en un test, verificar si ya existe uno en `src/tests/stubs/`. No duplicar stubs entre archivos de test.
+
+```typescript
+import { MatIconStub } from '@tests/stubs/material/mat-icon.stub';
+```
+
+### Nomenclatura de tests
+
+Los bloques `it()` deben ser descriptivos en inglés. Prohibido prefijos del tipo `TC-`.
+
+```typescript
+// ❌ MAL
+it('TC-01 - login', () => { });
+it('muestra error', () => { });
+
+// ✅ BIEN
+it('shows error message when credentials are invalid', () => { });
+it('redirects to dashboard after successful login', () => { });
+```
+
+### E2E (Playwright)
+
+**Configuración centralizada:** Prohibido hardcodear URLs, credenciales o timeouts en los `.spec.ts`. Usar `e2e/config/test.config.ts`.
+
+**Fixtures:** Reutilizar las fixtures de `e2e/fixtures/` para setup y teardown. No repetir lógica de navegación o autenticación entre specs.
+
+**Esperas:** Usar `waitForURL` o `waitForSelector`. Nunca esperas estáticas (`waitForTimeout()`).
+
+```typescript
+// ❌ MAL
+await page.goto('http://localhost:4200/auth/login');
+await page.waitForTimeout(2000);
+
+// ✅ BIEN
+import { testConfig } from '../../config/test.config';
+await page.waitForURL(`**${testConfig.routes.dashboard}`);
+```
+
+---
+
 ## Árbol de Decisión
 
 ```
@@ -690,6 +782,12 @@ const shouldShow = ctrl.invalid && ctrl.touched;
 - [ ] Todo el código (variables, funciones, clases, tests) está en inglés
 - [ ] Strings visibles al usuario usan `$localize` con ID de traducción (`@@`)
 - [ ] Componentes de formulario usan patrón `control` input, no CVA
+- [ ] Miembros usados solo por el template son `protected`
+- [ ] Templates con elementos interactivos tienen `data-testid`
+- [ ] Tests acceden al DOM vía `data-testid`, no vía `componentInstance`
+- [ ] No hay stubs duplicados (verificar `src/tests/stubs/`)
+- [ ] `it()` descriptivos en inglés, sin prefijos `TC-`
+- [ ] Tests E2E sin URLs, credenciales ni timeouts hardcodeados
 - [ ] `ng build` pasa sin errores
 - [ ] Tests pasan (`ng test`)
 
