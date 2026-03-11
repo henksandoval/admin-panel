@@ -1,19 +1,19 @@
-<div class="pagination-container">
+<div class="app-pagination-container">
     @if (showPageSizeSelector()) {
-    <div class="page-size-selector">
-        <span class="page-size-label mat-label-large">{{ itemsPerPageLabel() }}</span>
+    <div class="app-pagination-size-selector">
+        <span class="app-pagination-size-label mat-label-large">{{ itemsPerPageLabel() }}</span>
         <app-form-select
-        class="page-size-select"
-        [control]="pageSizeControl()"
-        [config]="{ density: -3 }"
-        [options]="pageSizeSelectOptions()">
+            class="app-pagination-size-select"
+            [control]="pageSizeControl"
+            [config]="{ density: -3 }"
+            [options]="pageSizeSelectOptions()">
         </app-form-select>
     </div>
     }
 
-    <div class="range-info mat-label-large">{{ rangeLabel() }}</div>
+    <div class="app-pagination-range-info mat-label-large">{{ rangeLabel() }}</div>
 
-    <div class="navigation-buttons">
+    <div class="app-pagination-nav">
     @if (showFirstLastButtons()) {
         <app-button
         [disabled]="isFirstPage()"
