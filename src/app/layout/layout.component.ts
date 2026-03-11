@@ -83,6 +83,18 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
       border-radius: 0;
       border-right: none;
     }
+
+    ::ng-deep .mat-drawer-content {
+      display: flex !important;
+      flex-direction: column;
+      overflow: hidden !important;
+    }
+
+    main {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+    }
   `
 })
 export class LayoutComponent {
