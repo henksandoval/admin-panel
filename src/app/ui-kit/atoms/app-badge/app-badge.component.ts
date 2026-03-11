@@ -1,12 +1,12 @@
 import { Component, computed, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeSize, BadgeVariant } from './app-badge.model';
 
 @Component({
   selector: 'app-badge',
   standalone: true,
-  imports: [CommonModule, MatBadgeModule],
+  imports: [NgTemplateOutlet, MatBadgeModule],
   template: `
     <ng-template #contentTemplate>
       <ng-content></ng-content>
@@ -14,12 +14,14 @@ import { BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeSize, BadgeVariant } fr
 
     @if (variant() === 'inline') {
       <span
+        data-testid="badge-inline"
         [class]="inlineClasses()"
         [attr.aria-label]="ariaLabel()">
         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
       </span>
     } @else {
       <div
+        data-testid="badge-overlay"
         [matBadge]="content()"
         [matBadgeColor]="overlayColor()"
         [matBadgePosition]="position()"
@@ -46,7 +48,7 @@ export class AppBadgeComponent {
   readonly overlap = input<boolean>(true);
   readonly hidden = input<boolean>(false);
 
-  readonly inlineClasses = computed(() => {
+  protected readonly inlineClasses = computed(() => {
     const classes: string[] = ['app-badge'];
 
     classes.push(this.color());
@@ -62,7 +64,7 @@ export class AppBadgeComponent {
     return classes.join(' ');
   });
 
-  readonly overlayColor = computed(() => {
+  protected readonly overlayColor = computed(() => {
     const color = this.color();
     if (color === 'primary' || color === 'accent' || color === 'warn') {
       return color;
@@ -70,7 +72,7 @@ export class AppBadgeComponent {
     return 'primary';
   });
 
-  readonly matBadgeSize = computed(() => {
+  protected readonly matBadgeSize = computed(() => {
     const size = this.size();
     if (size === BADGE_DEFAULTS.size) {
       return BADGE_DEFAULTS.size;

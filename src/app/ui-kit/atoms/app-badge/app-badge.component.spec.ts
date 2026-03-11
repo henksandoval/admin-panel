@@ -1,106 +1,106 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { render, screen } from '@testing-library/angular';
+import { describe, expect, it } from 'vitest';
 import { AppBadgeComponent } from './app-badge.component';
 import { BADGE_DEFAULTS } from './app-badge.model';
 
+async function renderBadge(inputs: Record<string, unknown> = {}) {
+  return render(AppBadgeComponent, { inputs });
+}
+
 describe('AppBadgeComponent', () => {
-  let fixture: ComponentFixture<AppBadgeComponent>;
-  let component: AppBadgeComponent;
+  it('renders the inline element with all default styles applied', async () => {
+    await renderBadge();
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppBadgeComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppBadgeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    const badge = screen.getByTestId('badge-inline');
+    expect(badge.classList.contains('app-badge')).toBe(true);
+    expect(badge.classList.contains(BADGE_DEFAULTS.inlineColor)).toBe(true);
   });
 
-  it('creates with all default values', () => {
-    expect(component.variant()).toBe(BADGE_DEFAULTS.variant);
-    expect(component.color()).toBe(BADGE_DEFAULTS.inlineColor);
-    expect(component.size()).toBe(BADGE_DEFAULTS.size);
-    expect(component.content()).toBe(BADGE_DEFAULTS.content);
-    expect(component.position()).toBe(BADGE_DEFAULTS.position);
-    expect(component.overlap()).toBe(BADGE_DEFAULTS.overlap);
-    expect(component.hidden()).toBe(BADGE_DEFAULTS.hidden);
-    expect(component.hasIndicator()).toBe(BADGE_DEFAULTS.hasIndicator);
-  });
+  describe('inline variant', () => {
+    it('renders a span and no overlay element', async () => {
+      await renderBadge({ variant: 'inline' });
 
-  describe('inlineClasses', () => {
-    it('always includes app-badge and current color', () => {
-      const classes = component.inlineClasses();
-      expect(classes).toContain('app-badge');
-      expect(classes).toContain(BADGE_DEFAULTS.inlineColor);
+      expect(screen.getByTestId('badge-inline').tagName.toLowerCase()).toBe('span');
+      expect(screen.queryByTestId('badge-overlay')).toBeNull();
     });
 
-    it('adds has-indicator when hasIndicator is true', () => {
-      fixture.componentRef.setInput('hasIndicator', true);
-      expect(component.inlineClasses()).toContain('has-indicator');
+    it('includes app-badge and the given color class', async () => {
+      await renderBadge({ color: 'accent' });
+
+      const badge = screen.getByTestId('badge-inline');
+      expect(badge.classList.contains('app-badge')).toBe(true);
+      expect(badge.classList.contains('accent')).toBe(true);
     });
 
-    it('does not add has-indicator when hasIndicator is false', () => {
-      expect(component.inlineClasses()).not.toContain('has-indicator');
+    it('adds has-indicator class when hasIndicator is true', async () => {
+      await renderBadge({ hasIndicator: true });
+
+      expect(screen.getByTestId('badge-inline').classList.contains('has-indicator')).toBe(true);
     });
 
-    it('adds badge-size-* only when size differs from default', () => {
-      expect(component.inlineClasses()).not.toContain('badge-size-');
+    it('does not add has-indicator class when hasIndicator is false', async () => {
+      await renderBadge({ hasIndicator: false });
 
-      fixture.componentRef.setInput('size', 'large');
-      expect(component.inlineClasses()).toContain('badge-size-large');
-    });
-  });
-
-  describe('overlayColor', () => {
-    it('returns the color when it is a valid Material color', () => {
-      fixture.componentRef.setInput('color', 'accent');
-      expect(component.overlayColor()).toBe('accent');
-
-      fixture.componentRef.setInput('color', 'warn');
-      expect(component.overlayColor()).toBe('warn');
+      expect(screen.getByTestId('badge-inline').classList.contains('has-indicator')).toBe(false);
     });
 
-    it('falls back to primary for non-Material colors', () => {
-      for (const color of ['normal', 'info', 'success', 'warning', 'error'] as const) {
-        fixture.componentRef.setInput('color', color);
-        expect(component.overlayColor()).toBe('primary');
-      }
+    it('adds badge-size-small class when size is small', async () => {
+      await renderBadge({ size: 'small' });
+
+      expect(screen.getByTestId('badge-inline').classList.contains('badge-size-small')).toBe(true);
+    });
+
+    it('does not add any badge-size class when size is the default', async () => {
+      await renderBadge();
+
+      expect(screen.getByTestId('badge-inline').className).not.toContain('badge-size-');
+    });
+
+    it('applies the aria-label attribute when provided', async () => {
+      await renderBadge({ ariaLabel: 'Nuevos mensajes' });
+
+      expect(screen.getByTestId('badge-inline').getAttribute('aria-label')).toBe('Nuevos mensajes');
     });
   });
 
-  describe('matBadgeSize', () => {
-    it('returns medium when size is the default', () => {
-      expect(component.matBadgeSize()).toBe(BADGE_DEFAULTS.size);
+  describe('overlay variant', () => {
+    it('renders a div and no inline element', async () => {
+      await renderBadge({ variant: 'overlay' });
+
+      expect(screen.getByTestId('badge-overlay').tagName.toLowerCase()).toBe('div');
+      expect(screen.queryByTestId('badge-inline')).toBeNull();
     });
 
-    it('returns the actual size when it differs from default', () => {
-      fixture.componentRef.setInput('size', 'small');
-      expect(component.matBadgeSize()).toBe('small');
+    it('passes a valid Material color directly to the badge', async () => {
+      await renderBadge({ variant: 'overlay', color: 'accent' });
 
-      fixture.componentRef.setInput('size', 'large');
-      expect(component.matBadgeSize()).toBe('large');
-    });
-  });
-
-  describe('template variant', () => {
-    it('renders a span for inline variant', () => {
-      expect(fixture.debugElement.query(By.css('span'))).toBeTruthy();
-      expect(fixture.debugElement.query(By.css('div[ng-reflect-mat-badge]'))).toBeNull();
+      expect(screen.getByTestId('badge-overlay').classList.contains('mat-badge-accent')).toBe(true);
     });
 
-    it('renders a div with matBadge for overlay variant', () => {
-      fixture.componentRef.setInput('variant', 'overlay');
-      fixture.detectChanges();
-      expect(fixture.debugElement.query(By.css('div'))).toBeTruthy();
-      expect(fixture.debugElement.query(By.css('span'))).toBeNull();
+    it('falls back to primary when the color is not a valid Material badge color', async () => {
+      await renderBadge({ variant: 'overlay', color: 'success' });
+
+      expect(screen.getByTestId('badge-overlay').classList.contains('mat-badge-primary')).toBe(true);
     });
 
-    it('applies aria-label attribute when provided', () => {
-      fixture.componentRef.setInput('ariaLabel', 'notifications');
-      fixture.detectChanges();
-      const el = fixture.debugElement.query(By.css('span'));
-      expect(el.nativeElement.getAttribute('aria-label')).toBe('notifications');
+    it('uses medium as the badge size when size is the default', async () => {
+      await renderBadge({ variant: 'overlay' });
+
+      expect(screen.getByTestId('badge-overlay').classList.contains('mat-badge-medium')).toBe(true);
+    });
+
+    it('uses the custom size when size differs from the default', async () => {
+      await renderBadge({ variant: 'overlay', size: 'small' });
+
+      expect(screen.getByTestId('badge-overlay').classList.contains('mat-badge-small')).toBe(true);
+    });
+
+    it('applies the aria-label attribute when provided', async () => {
+      await renderBadge({ variant: 'overlay', ariaLabel: 'notifications' });
+
+      expect(screen.getByTestId('badge-overlay').getAttribute('aria-label')).toBe('notifications');
     });
   });
 });
+
+
