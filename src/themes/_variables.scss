@@ -14,4 +14,5 @@
   --transition-duration-slow: 300ms;
   --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: var(--transition-duration-fast) var(--transition-timing);
+  --transition-slow: var(--transition-duration-slow) var(--transition-timing);
 }

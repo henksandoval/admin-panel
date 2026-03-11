@@ -28,10 +28,23 @@ import { AuthService } from '@auth/services/auth.service';
     .toolbar {
       height: var(--toolbar-height);
       padding-inline: 1rem;
-      position: relative;
+      position: sticky;
+      top: 0;
       z-index: var(--z-toolbar);
-      transition: all var(--transition-slow);
-      box-shadow: 0 2px 10px var(--overlay-shadow-15);
+      animation: toolbar-compact linear both;
+      animation-timeline: scroll(nearest);
+      animation-range: 4px 48px;
+    }
+
+    @keyframes toolbar-compact {
+      from {
+        height: var(--toolbar-height);
+        box-shadow: 0 1px 0 var(--overlay-shadow-10);
+      }
+      to {
+        height: 48px;
+        box-shadow: 0 4px 24px var(--overlay-shadow-20);
+      }
     }
 
     .toolbar-content {
