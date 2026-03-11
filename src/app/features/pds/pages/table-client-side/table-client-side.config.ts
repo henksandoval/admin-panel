@@ -23,6 +23,7 @@ export function getTableConfig(): AppTableConfig<EmployeeViewModel> {
     ],
     trackByKey: 'id',
     stickyHeader: true,
+    maxHeight: '560px',
   };
 }
 

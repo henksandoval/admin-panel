@@ -36,6 +36,35 @@
   }
 }
 
+:host ::ng-deep .app-table.scrollable-body {
+  thead {
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+  }
+
+  thead tr,
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  tbody {
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    max-height: var(--app-table-max-height);
+  }
+}
+
 .app-table-cell {
   &.sticky-start {
     position: sticky;

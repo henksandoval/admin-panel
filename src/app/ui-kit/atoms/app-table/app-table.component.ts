@@ -23,7 +23,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-table.component.scss',
   template: `
-    <div class="app-table-wrapper" [class.loading]="loading()">
+    <div class="app-table-wrapper" [class.loading]="loading()" [style.--app-table-max-height]="wrapperMaxHeight()">
       <table
         mat-table
         [dataSource]="data()"
@@ -153,9 +153,11 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
     return classes.join(' ');
   });
   private readonly stickyHeader = computed(() => this.config().stickyHeader ?? TABLE_DEFAULTS.stickyHeader);
+  readonly wrapperMaxHeight = computed(() => this.config().maxHeight ?? null);
   readonly tableClasses = computed(() => {
     const classes = ['app-table'];
     if (this.stickyHeader()) classes.push('sticky-header');
+    if (this.wrapperMaxHeight()) classes.push('scrollable-body');
     return classes.join(' ');
   });
   private readonly clickableRows = computed(() => this.config().clickableRows ?? TABLE_DEFAULTS.clickableRows);

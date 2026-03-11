@@ -33,6 +33,7 @@ export interface AppTableConfig<T = unknown> {
   actions?: AppTableAction<T>[];
   trackByKey?: keyof T;
   stickyHeader?: boolean;
+  maxHeight?: string;
   rowClass?: string | ((row: T) => string);
   emptyMessage?: string;
   clickableRows?: boolean;
