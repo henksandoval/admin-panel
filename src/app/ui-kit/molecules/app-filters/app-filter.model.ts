@@ -79,7 +79,7 @@ export const DEFAULT_OPERATOR_BY_TYPE: Record<AppFilterFieldType, string> = {
 
 export const FILTER_DEFAULTS = {
   debounceMs: 300,
-  appearance: 'outline' as const,
+  appearance: 'fill' as const,
   showClearAll: true,
   clearAllLabel: $localize`:Filter|Clear all button label@@filters.btn.clearAll:Clear filters`,
   maxCriteria: 10,
