@@ -1,35 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { render, screen } from '@testing-library/angular';
+import { describe, expect, it } from 'vitest';
 import { AppRadioComponent } from './app-radio.component';
 
+async function renderRadioComponent(inputs: { value: unknown; disabled?: boolean; ariaLabel?: string }) {
+  return render(AppRadioComponent, {
+    componentInputs: {
+      value: inputs.value,
+      disabled: inputs.disabled ?? false,
+      ariaLabel: inputs.ariaLabel ?? '',
+    },
+  });
+}
+
 describe('AppRadioComponent', () => {
-  let fixture: ComponentFixture<AppRadioComponent>;
-  let component: AppRadioComponent;
+  it('renders a mat-radio-button element in the DOM', async () => {
+    await renderRadioComponent({ value: 'option1' });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppRadioComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppRadioComponent);
-    fixture.componentRef.setInput('value', 'option1');
-    fixture.detectChanges();
-    component = fixture.componentInstance;
+    expect(screen.getByTestId('radio-button')).toBeTruthy();
   });
 
-  it('creates with default values', () => {
-    expect(component.disabled()).toBe(false);
-    expect(component.ariaLabel()).toBe('');
+  it('renders the radio button as enabled and without aria-label by default', async () => {
+    await renderRadioComponent({ value: 'option1' });
+
+    expect((screen.getByRole('radio') as HTMLInputElement).disabled).toBe(false);
+    expect(screen.getByTestId('radio-button').getAttribute('aria-label')).toBeNull();
   });
 
-  it('renders a mat-radio-button in the DOM', () => {
-    expect(fixture.debugElement.query(By.css('mat-radio-button'))).toBeTruthy();
-  });
+  it('disables the radio button when disabled input is true', async () => {
+    await renderRadioComponent({ value: 'option1', disabled: true });
 
-  it('disables the radio button when disabled is true', () => {
-    fixture.componentRef.setInput('disabled', true);
-    fixture.detectChanges();
-    const input = fixture.debugElement.query(By.css('input[type=radio]'));
-    expect(input.nativeElement.disabled).toBe(true);
+    expect((screen.getByRole('radio') as HTMLInputElement).disabled).toBe(true);
   });
 });
