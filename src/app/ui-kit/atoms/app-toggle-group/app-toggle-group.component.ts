@@ -1,5 +1,4 @@
 import { Component, computed, forwardRef, input, model, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,9 +13,10 @@ import {
 @Component({
   selector: 'app-toggle-group',
   standalone: true,
-  imports: [CommonModule, MatButtonToggleModule, MatIconModule, FormsModule],
+  imports: [MatButtonToggleModule, MatIconModule, FormsModule],
   template: `
     <mat-button-toggle-group
+      data-testid="toggle-group"
       [value]="value()"
       [disabled]="disabled()"
       [multiple]="multiple()"
@@ -31,7 +31,8 @@ import {
         <mat-button-toggle
           [value]="option.value"
           [disabled]="option.disabled || false"
-          [attr.aria-label]="option.ariaLabel || option.label">
+          [attr.aria-label]="option.ariaLabel || option.label"
+          [attr.data-testid]="'toggle-option-' + option.value">
           @if (option.icon) {
             <mat-icon class="toggle-icon">{{ option.icon }}</mat-icon>
           }
@@ -65,7 +66,7 @@ export class AppToggleGroupComponent implements ControlValueAccessor {
 
   changed = output<string | string[]>();
 
-  readonly toggleGroupClasses = computed(() => {
+  protected readonly toggleGroupClasses = computed(() => {
     const classes: string[] = [];
 
     if (this.size() !== TOGGLE_GROUP_DEFAULTS.size) {
@@ -91,7 +92,7 @@ export class AppToggleGroupComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  onToggleChange(event: MatButtonToggleChange): void {
+  protected onToggleChange(event: MatButtonToggleChange): void {
     const newValue = event.value as string | string[];
     this.value.set(newValue);
     this.onChange(newValue);
