@@ -1,86 +1,120 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
 import { AppPaginationComponent } from './app-pagination.component';
+import { AppPageEvent, AppPaginationConfig, AppPaginationState, PAGINATION_DEFAULTS } from './app-pagination.model';
+import { AppButtonStubComponent } from '@stubs/ui-kit/app-button.stub';
+import { AppFormSelectStubComponent } from '@stubs/ui-kit/app-form-select.stub';
+import { MatTooltipStubDirective } from '@stubs/material/mat-tooltip.stub';
 
-const defaultState = { pageIndex: 0, pageSize: 10, totalItems: 100 };
+async function renderPaginationComponent(
+  state: AppPaginationState = { pageIndex: 0, pageSize: 10, totalItems: 100 },
+  config: AppPaginationConfig = {},
+) {
+  const pageChangeMock = vi.fn<(event: AppPageEvent) => void>();
+
+  await render(AppPaginationComponent, {
+    componentInputs: { state, config },
+    componentImports: [ReactiveFormsModule, AppButtonStubComponent, AppFormSelectStubComponent, MatTooltipStubDirective],
+    on: { pageChange: pageChangeMock },
+  });
+
+  return { pageChangeMock };
+}
 
 describe('AppPaginationComponent', () => {
-  let fixture: ComponentFixture<AppPaginationComponent>;
-  let component: AppPaginationComponent;
+  describe('range label', () => {
+    it('displays zero range when total items is zero', async () => {
+      await renderPaginationComponent({ pageIndex: 0, pageSize: 10, totalItems: 0 });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppPaginationComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppPaginationComponent);
-    fixture.componentRef.setInput('state', defaultState);
-    fixture.detectChanges();
-    component = fixture.componentInstance;
-  });
-
-  describe('rangeLabel', () => {
-    it('returns 0 de 0 when totalItems is 0', () => {
-      fixture.componentRef.setInput('state', { pageIndex: 0, pageSize: 10, totalItems: 0 });
-      expect(component.rangeLabel()).toBe('0 de 0');
+      const rangeInfo = screen.getByTestId('pagination-range-info');
+      expect(rangeInfo.textContent?.trim()).toBe(`0 ${PAGINATION_DEFAULTS.ofLabel} 0`);
     });
 
-    it('calculates the correct range for a middle page', () => {
-      fixture.componentRef.setInput('state', { pageIndex: 1, pageSize: 10, totalItems: 100 });
-      expect(component.rangeLabel()).toBe('11 - 20 de 100');
+    it('calculates the correct range for a middle page', async () => {
+      await renderPaginationComponent({ pageIndex: 2, pageSize: 10, totalItems: 100 });
+
+      const rangeInfo = screen.getByTestId('pagination-range-info');
+      expect(rangeInfo.textContent?.trim()).toBe(`21 - 30 ${PAGINATION_DEFAULTS.ofLabel} 100`);
     });
 
-    it('clamps end index to totalItems on the last page', () => {
-      fixture.componentRef.setInput('state', { pageIndex: 2, pageSize: 10, totalItems: 25 });
-      expect(component.rangeLabel()).toBe('21 - 25 de 25');
+    it('clamps end index to totalItems on the last page', async () => {
+      await renderPaginationComponent({ pageIndex: 9, pageSize: 10, totalItems: 95 });
+
+      const rangeInfo = screen.getByTestId('pagination-range-info');
+      expect(rangeInfo.textContent?.trim()).toBe(`91 - 95 ${PAGINATION_DEFAULTS.ofLabel} 95`);
     });
   });
 
-  describe('isFirstPage / isLastPage', () => {
-    it('is first page when pageIndex is 0, last page when pageIndex equals totalPages - 1', () => {
-      expect(component.isFirstPage()).toBe(true);
-      expect(component.isLastPage()).toBe(false);
+  describe('navigation buttons disabled state', () => {
+    it('disables first and previous buttons when on the first page', async () => {
+      await renderPaginationComponent({ pageIndex: 0, pageSize: 10, totalItems: 100 });
 
-      fixture.componentRef.setInput('state', { pageIndex: 9, pageSize: 10, totalItems: 100 });
-      expect(component.isFirstPage()).toBe(false);
-      expect(component.isLastPage()).toBe(true);
+      expect(screen.getByTestId<HTMLButtonElement>('pagination-first-page-button').disabled).toBe(true);
+      expect(screen.getByTestId<HTMLButtonElement>('pagination-prev-button').disabled).toBe(true);
+      expect(screen.getByTestId<HTMLButtonElement>('pagination-next-button').disabled).toBe(false);
+      expect(screen.getByTestId<HTMLButtonElement>('pagination-last-page-button').disabled).toBe(false);
+    });
+
+    it('disables next and last buttons when on the last page', async () => {
+      await renderPaginationComponent({ pageIndex: 9, pageSize: 10, totalItems: 100 });
+
+      expect(screen.getByTestId<HTMLButtonElement>('pagination-first-page-button').disabled).toBe(false);
+      expect(screen.getByTestId<HTMLButtonElement>('pagination-prev-button').disabled).toBe(false);
+      expect(screen.getByTestId<HTMLButtonElement>('pagination-next-button').disabled).toBe(true);
+      expect(screen.getByTestId<HTMLButtonElement>('pagination-last-page-button').disabled).toBe(true);
     });
   });
 
-  describe('navigation', () => {
-    it('emits correct pageChange event on goToNextPage and goToPreviousPage', () => {
-      const emitSpy = vi.spyOn(component.pageChange, 'emit');
+  describe('page navigation', () => {
+    it('emits pageChange with incremented index when the next button is clicked', async () => {
+      const { pageChangeMock } = await renderPaginationComponent({ pageIndex: 0, pageSize: 10, totalItems: 100 });
+      const user = userEvent.setup();
 
-      component.goToNextPage();
-      expect(emitSpy).toHaveBeenCalledWith({ pageIndex: 1, pageSize: 10, previousPageIndex: 0 });
+      await user.click(screen.getByTestId('pagination-next-button'));
 
-      fixture.componentRef.setInput('state', { pageIndex: 1, pageSize: 10, totalItems: 100 });
-      component.goToPreviousPage();
-      expect(emitSpy).toHaveBeenCalledWith({ pageIndex: 0, pageSize: 10, previousPageIndex: 1 });
+      expect(pageChangeMock).toHaveBeenCalledWith({ pageIndex: 1, pageSize: 10, previousPageIndex: 0 });
     });
 
-    it('does not emit when already on the first or last page', () => {
-      const emitSpy = vi.spyOn(component.pageChange, 'emit');
+    it('emits pageChange with decremented index when the previous button is clicked', async () => {
+      const { pageChangeMock } = await renderPaginationComponent({ pageIndex: 2, pageSize: 10, totalItems: 100 });
+      const user = userEvent.setup();
 
-      component.goToPreviousPage();
-      component.goToFirstPage();
-      expect(emitSpy).not.toHaveBeenCalled();
+      await user.click(screen.getByTestId('pagination-prev-button'));
 
-      fixture.componentRef.setInput('state', { pageIndex: 9, pageSize: 10, totalItems: 100 });
-      component.goToNextPage();
-      component.goToLastPage();
-      expect(emitSpy).not.toHaveBeenCalled();
+      expect(pageChangeMock).toHaveBeenCalledWith({ pageIndex: 1, pageSize: 10, previousPageIndex: 2 });
+    });
+
+    it('does not emit when clicking disabled buttons on the first page', async () => {
+      const { pageChangeMock } = await renderPaginationComponent({ pageIndex: 0, pageSize: 10, totalItems: 100 });
+      const user = userEvent.setup();
+
+      await user.click(screen.getByTestId('pagination-first-page-button'));
+      await user.click(screen.getByTestId('pagination-prev-button'));
+
+      expect(pageChangeMock).not.toHaveBeenCalled();
+    });
+
+    it('does not emit when clicking disabled buttons on the last page', async () => {
+      const { pageChangeMock } = await renderPaginationComponent({ pageIndex: 9, pageSize: 10, totalItems: 100 });
+      const user = userEvent.setup();
+
+      await user.click(screen.getByTestId('pagination-next-button'));
+      await user.click(screen.getByTestId('pagination-last-page-button'));
+
+      expect(pageChangeMock).not.toHaveBeenCalled();
     });
   });
 
-  describe('onPageSizeChange', () => {
-    it('recalculates pageIndex to keep the current first item visible', () => {
-      fixture.componentRef.setInput('state', { pageIndex: 2, pageSize: 10, totalItems: 100 });
-      const emitSpy = vi.spyOn(component.pageChange, 'emit');
+  describe('page size change', () => {
+    it('recalculates page index to keep the first visible item stable after size change', async () => {
+      const { pageChangeMock } = await renderPaginationComponent({ pageIndex: 2, pageSize: 10, totalItems: 100 });
+      const user = userEvent.setup();
 
-      component.onPageSizeChange(25);
+      await user.selectOptions(screen.getByRole('combobox'), ['25']);
 
-      // First item on page 2 (index 2) with size 10 is item 20 → floor(20/25) = 0
-      expect(emitSpy).toHaveBeenCalledWith({ pageIndex: 0, pageSize: 25, previousPageIndex: 2 });
+      expect(pageChangeMock).toHaveBeenCalledWith({ pageIndex: 0, pageSize: 25, previousPageIndex: 2 });
     });
   });
 });
