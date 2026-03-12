@@ -2,11 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { AuthService } from '@auth/services/auth.service';
-import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
-import { passwordMatchValidator } from '../../shared/validators/password-match.validator';
+import { AuthService } from '@auth/services';
+import { AppButtonComponent } from '@ui-atoms/app-button';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
+import { passwordMatchValidator } from '@features/auth/shared/validators';
 import { REGISTER_DEFAULTS, RegisterStatus } from './register.model';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
 

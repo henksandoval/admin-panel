@@ -2,12 +2,12 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { AuthService } from '@auth/services/auth.service';
-import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
-import { passwordMatchValidator } from '../../shared/validators/password-match.validator';
+import { AuthService } from '@auth/services';
+import { AppButtonComponent } from '@ui-atoms/app-button';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
+import { passwordMatchValidator } from '@features/auth/shared/validators';
 import { RESET_PASSWORD_DEFAULTS, ResetPasswordStatus } from './reset-password.model';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
 

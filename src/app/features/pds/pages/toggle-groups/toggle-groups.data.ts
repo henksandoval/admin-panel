@@ -1,9 +1,9 @@
-import { ToggleOption } from '@ui-atoms/app-toggle-group/app-toggle-group.model';
+import { ToggleOption } from '@ui-atoms/app-toggle-group';
 import {
   PdsApiReferencePropertyModel
-} from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
-import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
+} from '@features/pds/shared/molecules/pds-api-reference';
+import { PdsBestPracticeItemModel } from '@features/pds/shared/molecules/pds-best-practices';
+import { PdsVariantGuideModel } from '@features/pds/shared/templates/pds-page-layout';
 
 export interface ToggleGroupStateGuide extends PdsVariantGuideModel {
   readonly variant: 'single' | 'multiple' | 'icons-gallery' | 'vertical';

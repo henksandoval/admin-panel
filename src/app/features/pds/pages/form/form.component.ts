@@ -8,32 +8,32 @@ import { MatFormFieldAppearance, MatFormFieldModule } from '@angular/material/fo
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-group.component';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
-import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
-import { ToggleOption } from '@ui-atoms/app-toggle-group/app-toggle-group.model';
+import { AppButtonComponent } from '@ui-atoms/app-button';
+import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
+import { AppCardComponent } from '@ui-atoms/app-card';
+import { ToggleOption } from '@ui-atoms/app-toggle-group';
 import { API_PROPERTIES, BEST_PRACTICES } from './form.data';
 import { LayoutConfig } from '@ui-templates/app-page-layout/app-page-layout.model';
-import { PdsPageUtilitiesService } from '../../shared/templates/pds-page-layout/pds-page-utilities.service';
+import { PdsPageUtilitiesService } from '@features/pds/shared/templates/pds-page-layout';
 import {
   PdsDocumentationTabsComponent
-} from '../../shared/organisms/pds-documentation-tabs/pds-documentation-tabs.component';
+} from '@features/pds/shared/organisms/pds-documentation-tabs';
 import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-layout.component";
 import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
-import { AppFormCheckboxComponent } from '@ui-molecules/app-form/app-form-checkbox/app-form-checkbox.component';
+import { AppFormCheckboxComponent } from '@ui-molecules/app-form/app-form-checkbox';
 import {
   AppFormDatepickerComponent
-} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
+} from '@ui-molecules/app-form/app-form-datepicker';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
 import {
   AppFormRadioGroupComponent
-} from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.component';
-import { RadioOption } from '@ui-molecules/app-form/app-form-radio-group/app-form-radio-group.model';
-import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
-import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea.component';
-import { LoggingService } from '@core/services/logging.service';
+} from '@ui-molecules/app-form/app-form-radio-group';
+import { RadioOption } from '@ui-molecules/app-form/app-form-radio-group';
+import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select';
+import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea';
+import { LoggingService } from '@core/services';
 
 @Component({
   selector: 'app-form-gallery',

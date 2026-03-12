@@ -29,10 +29,10 @@ import { AppFilterFooterComponent } from '../footer/app-filter-footer.component'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   AppFormDatepickerComponent
-} from '@ui-molecules/app-form/app-form-datepicker/app-form-datepicker.component';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
-import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
+} from '@ui-molecules/app-form/app-form-datepicker';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
+import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select';
+import { SelectOption } from '@ui-molecules/app-form/app-form-select';
 import { togglesToCriteria } from '../app-filter.utils';
 
 @Component({

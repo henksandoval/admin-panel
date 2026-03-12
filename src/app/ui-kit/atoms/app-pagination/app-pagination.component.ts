@@ -6,7 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppPageEvent, AppPaginationConfig, AppPaginationState, PAGINATION_DEFAULTS, } from './app-pagination.model';
 import { AppButtonComponent } from "../app-button/app-button.component";
 import { AppFormSelectComponent } from "@ui-molecules/app-form/app-form-select/app-form-select.component";
-import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
+import { SelectOption } from '@ui-molecules/app-form/app-form-select';
 
 @Component({
   selector: 'app-pagination',

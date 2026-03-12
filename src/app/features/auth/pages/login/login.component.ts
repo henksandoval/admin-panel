@@ -3,15 +3,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AuthService } from '@auth/services/auth.service';
-import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
+import { AuthService } from '@auth/services';
+import { AppButtonComponent } from '@ui-atoms/app-button';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
+import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
 import { MatDivider } from '@angular/material/divider';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
-import { LoggingService } from '@core/services/logging.service';
+import { LoggingService } from '@core/services';
 
 @Component({
   selector: 'app-auth-login',

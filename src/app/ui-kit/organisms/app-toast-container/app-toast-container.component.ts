@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { NotificationService } from '../../../core/services/notification.service';
-import { Toast } from '../../../core/models/notification.model';
-import { AppToastComponent } from '../app-toast/app-toast.component';
+import { NotificationService } from '@core/services';
+import { Toast } from '@core/models';
+import { AppToastComponent } from '@ui-organisms/app-toast';
 
 @Component({
     selector: 'app-toast-container',

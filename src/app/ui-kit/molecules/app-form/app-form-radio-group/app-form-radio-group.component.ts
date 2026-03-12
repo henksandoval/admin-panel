@@ -1,7 +1,7 @@
 import { Component, computed, effect, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
-import { AppRadioComponent } from '@ui-atoms/app-radio/app-radio.component';
+import { AppRadioComponent } from '@ui-atoms/app-radio';
 import { AppFormRadioGroupConfig, AppFormRadioGroupOptions, FORM_RADIO_GROUP_DEFAULT_ERROR_MESSAGES, FORM_RADIO_GROUP_DEFAULTS, RadioOption } from './app-form-radio-group.model';
 
 interface ErrorState {

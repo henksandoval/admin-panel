@@ -2,8 +2,8 @@ import { computed, inject, Injectable, signal, Signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationItem, BreadcrumbItem } from '@core/models/navigation.model';
-import { MenuDataService } from '@core/services/menu-data.service';
+import { NavigationItem, BreadcrumbItem } from '@core/models';
+import { MenuDataService } from './menu-data.service';
 
 @Injectable({
   providedIn: 'root',

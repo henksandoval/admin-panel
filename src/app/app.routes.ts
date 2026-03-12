@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from '@layout/layout.component';
-import { authGuard } from '@auth/guards/auth.guard';
+import { authGuard } from '@auth/guards';
 
 export const LAYOUT_STATIC_CHILDREN: Routes = [
   {

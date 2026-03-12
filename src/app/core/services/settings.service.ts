@@ -1,5 +1,5 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
-import { LoggingService } from '@core/services/logging.service';
+import { LoggingService } from './logging.service';
 
 export type Theme = 'default' | 'aurora-tech' | 'deep-ocean' | 'forest-growth' | 'slate-minimal' | 'sunset-analytics' | 'royal-dashboard';
 export type Scheme = 'auto' | 'dark' | 'light';

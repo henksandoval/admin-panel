@@ -14,13 +14,13 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
 import { routes } from './app.routes';
-import { InitializationService } from '@core/services/initialization.service';
-import { authInterceptor } from '@auth/interceptors/auth.interceptor';
-import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
-import { API_BASE_URL, JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.provider';
-import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
+import { InitializationService } from '@core/services';
+import { authInterceptor } from '@auth/interceptors';
+import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers';
+import { API_BASE_URL, JwtAuthProvider } from '@auth/providers';
+import { MockAuthProvider } from '@auth/providers';
 import { environment } from '@env/environtment.development';
-import { errorInterceptor } from '@core/interceptors/error.interceptor';
+import { errorInterceptor } from '@core/interceptors';
 
 registerLocaleData(localeEs);
 

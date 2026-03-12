@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-group.component';
-import { ToggleOption } from '@ui-atoms/app-toggle-group/app-toggle-group.model';
-import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from '@ui-atoms/app-checkbox/app-checkbox.model';
+import { AppButtonComponent } from '@ui-atoms/app-button';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
+import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
+import { ToggleOption } from '@ui-atoms/app-toggle-group';
+import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from '@ui-atoms/app-checkbox';
 import {
   API_PROPERTIES,
   BEST_PRACTICES,
@@ -16,8 +16,8 @@ import {
   CHECKBOX_SIZES,
   STATE_GUIDES
 } from './checkboxes.data';
-import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
-import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
+import { PdsPageLayoutComponent } from '@features/pds/shared/templates/pds-page-layout';
+import { AppCardComponent } from '@ui-atoms/app-card';
 
 @Component({
   selector: 'app-checkboxes',

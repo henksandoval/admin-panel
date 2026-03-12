@@ -1,11 +1,11 @@
 import { Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference/pds-api-reference-property.model';
-import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices/pds-best-practice-item.model';
+import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference';
+import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices';
 import { PdsVariantGuideModel } from './pds-variant-guide.model';
-import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card/pds-preview-card.component';
-import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs/pds-documentation-tabs.component';
+import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card';
+import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs';
 import { PdsPageUtilitiesService } from './pds-page-utilities.service';
 import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-layout.component";
 import { AppCardComponent } from "@ui-atoms/app-card/app-card.component";
