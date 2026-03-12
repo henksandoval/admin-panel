@@ -1,112 +1,144 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular';
+import { describe, expect, it, vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import { AppTableComponent } from './app-table.component';
-import { TABLE_DEFAULTS } from './app-table.model';
+import { AppTableConfig, TABLE_DEFAULTS } from './app-table.model';
 
 interface Row { id: number; name: string }
 
-const baseConfig = {
+const baseConfig: AppTableConfig<Row> = {
   columns: [
     { key: 'id', header: 'ID' },
     { key: 'name', header: 'Name' },
   ],
 };
 
+const rows: Row[] = [
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' },
+];
+
+async function renderTable(
+  config: AppTableConfig<Row> = baseConfig,
+  data: Row[] = [],
+  on: Record<string, (value: any) => void> = {},
+) {
+  return render(AppTableComponent<Row>, { componentInputs: { config, data }, on: on as any });
+}
+
 describe('AppTableComponent', () => {
-  let fixture: ComponentFixture<AppTableComponent<Row>>;
-  let component: AppTableComponent<Row>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppTableComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppTableComponent<Row>);
-    fixture.componentRef.setInput('config', baseConfig);
-    fixture.detectChanges();
-    component = fixture.componentInstance;
-  });
-
-  describe('displayedColumns', () => {
-    it('returns only visible column keys', () => {
-      fixture.componentRef.setInput('config', {
+  describe('displayed columns', () => {
+    it('does not render header for columns marked as hidden', async () => {
+      await renderTable({
         columns: [
           { key: 'id', header: 'ID' },
           { key: 'name', header: 'Name', isHidden: true },
         ],
       });
-      expect(component.displayedColumns()).toEqual(['id']);
+
+      expect(screen.getByTestId('app-table-header-id')).toBeTruthy();
+      expect(screen.queryByTestId('app-table-header-name')).toBeNull();
     });
 
-    it('appends actions column when actions are defined', () => {
-      fixture.componentRef.setInput('config', {
-        ...baseConfig,
-        actions: [{ icon: 'edit', label: 'Edit' }],
+    it('renders the actions column header when actions are defined', async () => {
+      await renderTable({ ...baseConfig, actions: [{ icon: 'edit', label: 'Edit' }] });
+
+      expect(screen.getByText('Actions')).toBeTruthy();
+    });
+  });
+
+  describe('cell formatting', () => {
+    it('renders an empty cell when the row value is null or undefined', async () => {
+      await render(AppTableComponent<any>, {
+        componentInputs: {
+          config: { columns: [{ key: 'value', header: 'Value' }] },
+          data: [{ value: null }, { value: undefined }],
+        },
       });
-      expect(component.displayedColumns()).toContain('actions');
+
+      const cells = screen.getAllByTestId('app-table-cell-value');
+      cells.forEach(cell => expect(cell.textContent?.trim()).toBe(''));
+    });
+
+    it('renders the valueFormatter output instead of the raw value', async () => {
+      await render(AppTableComponent<any>, {
+        componentInputs: {
+          config: { columns: [{ key: 'id', header: 'ID', valueFormatter: (v) => `#${v}` }] },
+          data: [{ id: 42 }],
+        },
+      });
+
+      expect(screen.getByText('#42')).toBeTruthy();
     });
   });
 
-  describe('formatCellValue', () => {
-    it('returns empty string for null or undefined values', () => {
-      expect(component.formatCellValue({ key: 'name' }, { id: 1, name: null as any })).toBe('');
-      expect(component.formatCellValue({ key: 'name' }, { id: 1, name: undefined as any })).toBe('');
-    });
-
-    it('uses valueFormatter when provided', () => {
-      const column = { key: 'id', valueFormatter: (v: unknown) => `#${v}` };
-      expect(component.formatCellValue(column, { id: 42, name: 'Alice' })).toBe('#42');
-    });
-  });
-
-  describe('visibleActions', () => {
-    it('filters actions using the visible function', () => {
+  describe('visible actions', () => {
+    it('renders only the actions whose visible predicate returns true for each row', async () => {
       const actions = [
         { icon: 'edit', label: 'Edit', visible: (r: Row) => r.id === 1 },
         { icon: 'delete', label: 'Delete' },
       ];
-      fixture.componentRef.setInput('config', { ...baseConfig, actions });
-      const row: Row = { id: 2, name: 'Bob' };
-      expect(component.visibleActions(row).map(a => a.label)).toEqual(['Delete']);
+      await renderTable({ ...baseConfig, actions }, rows);
+
+      expect(screen.getAllByTestId('app-table-action-edit')).toHaveLength(1);
+      expect(screen.getAllByTestId('app-table-action-delete')).toHaveLength(2);
     });
   });
 
-  describe('onRowClick', () => {
-    it('emits rowClick only when clickableRows is true', () => {
-      const emitSpy = vi.spyOn(component.rowClick, 'emit');
-      const row: Row = { id: 1, name: 'Alice' };
+  describe('row click', () => {
+    it('emits rowClick when clickableRows is true and a row is clicked', async () => {
+      const rowClickSpy = vi.fn();
+      const user = userEvent.setup();
+      await renderTable({ ...baseConfig, clickableRows: true }, rows, { rowClick: rowClickSpy });
 
-      component.onRowClick(row);
-      expect(emitSpy).not.toHaveBeenCalled();
+      await user.click(screen.getAllByTestId('app-table-row')[0]);
 
-      fixture.componentRef.setInput('config', { ...baseConfig, clickableRows: true });
-      component.onRowClick(row);
-      expect(emitSpy).toHaveBeenCalledWith(row);
+      expect(rowClickSpy).toHaveBeenCalledWith(rows[0]);
+    });
+
+    it('does not emit rowClick when clickableRows is false and a row is clicked', async () => {
+      const rowClickSpy = vi.fn();
+      const user = userEvent.setup();
+      await renderTable({ ...baseConfig, clickableRows: false }, rows, { rowClick: rowClickSpy });
+
+      await user.click(screen.getAllByTestId('app-table-row')[0]);
+
+      expect(rowClickSpy).not.toHaveBeenCalled();
     });
   });
 
-  describe('onActionClick', () => {
-    it('emits actionClick and stops event propagation', () => {
-      const emitSpy = vi.spyOn(component.actionClick, 'emit');
-      const stopSpy = vi.fn();
-      const event = { stopPropagation: stopSpy } as unknown as Event;
-      const action = { icon: 'edit', label: 'Edit' };
-      const row: Row = { id: 1, name: 'Alice' };
+  describe('action click', () => {
+    it('emits actionClick and does not propagate the click to the row handler', async () => {
+      const rowClickSpy = vi.fn();
+      const actionClickSpy = vi.fn();
+      const actions = [{ icon: 'edit', label: 'Edit' }];
+      const user = userEvent.setup();
+      await renderTable(
+        { ...baseConfig, clickableRows: true, actions },
+        rows,
+        { rowClick: rowClickSpy, actionClick: actionClickSpy },
+      );
 
-      component.onActionClick(event, action, row);
+      await user.click(screen.getAllByTestId('app-table-action-edit')[0]);
 
-      expect(stopSpy).toHaveBeenCalled();
-      expect(emitSpy).toHaveBeenCalledWith({ action, row });
+      expect(actionClickSpy).toHaveBeenCalledWith({ action: actions[0], row: rows[0] });
+      expect(rowClickSpy).not.toHaveBeenCalled();
     });
   });
 
-  describe('emptyMessage', () => {
-    it('uses TABLE_DEFAULTS.emptyMessage when not set in config', () => {
-      expect(component.emptyMessage()).toBe(TABLE_DEFAULTS.emptyMessage);
+  describe('empty state', () => {
+    it('displays the default empty message when no emptyMessage is provided in config', async () => {
+      await renderTable(baseConfig, []);
+
+      expect(screen.getByTestId('app-table-empty-message').textContent?.trim())
+        .toBe(TABLE_DEFAULTS.emptyMessage);
     });
 
-    it('uses config emptyMessage when provided', () => {
-      fixture.componentRef.setInput('config', { ...baseConfig, emptyMessage: 'Sin resultados' });
-      expect(component.emptyMessage()).toBe('Sin resultados');
+    it('displays the custom empty message when emptyMessage is set in config', async () => {
+      await renderTable({ ...baseConfig, emptyMessage: 'Sin registros disponibles' }, []);
+
+      expect(screen.getByTestId('app-table-empty-message').textContent?.trim())
+        .toBe('Sin registros disponibles');
     });
   });
 });

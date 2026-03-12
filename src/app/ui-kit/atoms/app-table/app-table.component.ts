@@ -39,6 +39,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
             <th
               mat-header-cell
               *matHeaderCellDef
+              [attr.data-testid]="'app-table-header-' + column.key"
               [mat-sort-header]="sortHeaderId(column)"
               [disabled]="!column.sortable"
               [class]="column.headerClass ?? ''"
@@ -52,6 +53,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
             <td
               mat-cell
               *matCellDef="let row"
+              [attr.data-testid]="'app-table-cell-' + column.key"
               [class]="cellClasses()(column, row)"
               [style.width]="column.width"
               [style.min-width]="column.minWidth"
@@ -75,6 +77,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
               @for (action of visibleActions(row); track action.label) {
                 <button
                   mat-icon-button
+                  [attr.data-testid]="'app-table-action-' + action.label.toLowerCase()"
                   [color]="action.color ?? 'primary'"
                   [disabled]="isActionDisabled(action, row)"
                   [matTooltip]="action.label"
@@ -89,6 +92,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
         <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
         <tr
           mat-row
+          data-testid="app-table-row"
           *matRowDef="let row; columns: displayedColumns()"
           [class]="rowClasses()(row)"
           (click)="onRowClick(row)">
@@ -96,7 +100,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
       </table>
 
       @if (loading()) {
-        <div class="app-table-spinner-overlay">
+        <div class="app-table-spinner-overlay" data-testid="app-table-spinner-overlay">
           <mat-spinner diameter="48"></mat-spinner>
         </div>
       }
@@ -105,7 +109,7 @@ import { AppTableAction, AppTableColumn, AppTableConfig, AppTableSort, TABLE_DEF
         <div class="app-table-empty-state">
           <ng-content select="[emptyState]" />
           @if (!hasCustomEmptyState()) {
-            <p>{{ emptyMessage() }}</p>
+            <p data-testid="app-table-empty-message">{{ emptyMessage() }}</p>
           }
         </div>
       }
@@ -124,24 +128,24 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
   actionClick = output<{ action: AppTableAction<T>; row: T }>();
 
   readonly cellTemplateRef = input<TemplateRef<any> | undefined>(undefined);
-  readonly cellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
-  readonly resolvedCellTemplate = computed(
+  protected readonly cellTemplate = contentChild<TemplateRef<any>>('cellTemplate');
+  protected readonly resolvedCellTemplate = computed(
     () => this.cellTemplateRef() ?? this.cellTemplate()
   );
-  readonly emptyStateContent = contentChild<TemplateRef<any>>('emptyState');
+  protected readonly emptyStateContent = contentChild<TemplateRef<any>>('emptyState');
 
-  readonly columns = computed(() => this.config().columns);
-  readonly hasActions = computed(() => !!this.config().actions?.length);
-  readonly hasCustomEmptyState = computed(() => !!this.emptyStateContent());
-  readonly emptyMessage = computed(() => this.config().emptyMessage ?? TABLE_DEFAULTS.emptyMessage);
-  readonly displayedColumns = computed(() => {
+  protected readonly columns = computed(() => this.config().columns);
+  protected readonly hasActions = computed(() => !!this.config().actions?.length);
+  protected readonly hasCustomEmptyState = computed(() => !!this.emptyStateContent());
+  protected readonly emptyMessage = computed(() => this.config().emptyMessage ?? TABLE_DEFAULTS.emptyMessage);
+  protected readonly displayedColumns = computed(() => {
     const cols = this.columns()
       .filter((c) => !c.isHidden)
       .map((c) => c.key);
     if (this.hasActions()) cols.push('actions');
     return cols;
   });
-  readonly cellClasses = computed(() => (column: AppTableColumn<T>, row: T) => {
+  protected readonly cellClasses = computed(() => (column: AppTableColumn<T>, row: T) => {
     const classes = ['app-table-cell'];
     if (column.sticky === 'start') classes.push('sticky-start');
     if (column.sticky === 'end') classes.push('sticky-end');
@@ -153,15 +157,15 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
     return classes.join(' ');
   });
   private readonly stickyHeader = computed(() => this.config().stickyHeader ?? TABLE_DEFAULTS.stickyHeader);
-  readonly wrapperMaxHeight = computed(() => this.config().maxHeight ?? null);
-  readonly tableClasses = computed(() => {
+  protected readonly wrapperMaxHeight = computed(() => this.config().maxHeight ?? null);
+  protected readonly tableClasses = computed(() => {
     const classes = ['app-table'];
     if (this.stickyHeader()) classes.push('sticky-header');
     if (this.wrapperMaxHeight()) classes.push('scrollable-body');
     return classes.join(' ');
   });
   private readonly clickableRows = computed(() => this.config().clickableRows ?? TABLE_DEFAULTS.clickableRows);
-  readonly rowClasses = computed(() => (row: T) => {
+  protected readonly rowClasses = computed(() => (row: T) => {
     const classes = ['app-table-row'];
     if (this.clickableRows()) classes.push('clickable');
 
@@ -173,42 +177,42 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
     return classes.join(' ');
   });
 
-  trackByFn = (index: number, row: T): any => {
+  protected trackByFn = (index: number, row: T): any => {
     const key = this.config().trackByKey;
     return key ? row[key] : index;
   };
 
-  sortHeaderId(column: AppTableColumn<T>): string {
+  protected sortHeaderId(column: AppTableColumn<T>): string {
     return column.sortable ? column.key : '';
   }
 
-  formatCellValue(column: AppTableColumn<T>, row: T): string {
+  protected formatCellValue(column: AppTableColumn<T>, row: T): string {
     const value = row[column.key];
     if (column.valueFormatter) return column.valueFormatter(value, row);
     return value == null ? '' : String(value);
   }
 
-  getCellValue(column: AppTableColumn<T>, row: T): any {
+  protected getCellValue(column: AppTableColumn<T>, row: T): any {
     return row[column.key];
   }
 
-  visibleActions(row: T): AppTableAction<T>[] {
+  protected visibleActions(row: T): AppTableAction<T>[] {
     return this.config().actions?.filter((a) => !a.visible || a.visible(row)) ?? [];
   }
 
-  isActionDisabled(action: AppTableAction<T>, row: T): boolean {
+  protected isActionDisabled(action: AppTableAction<T>, row: T): boolean {
     return action.disabled ? action.disabled(row) : false;
   }
 
-  onSortChange(sort: Sort): void {
+  protected onSortChange(sort: Sort): void {
     this.sortChange.emit({ active: sort.active, direction: sort.direction });
   }
 
-  onRowClick(row: T): void {
+  protected onRowClick(row: T): void {
     if (this.clickableRows()) this.rowClick.emit(row);
   }
 
-  onActionClick(event: Event, action: AppTableAction<T>, row: T): void {
+  protected onActionClick(event: Event, action: AppTableAction<T>, row: T): void {
     event.stopPropagation();
     this.actionClick.emit({ action, row });
   }
