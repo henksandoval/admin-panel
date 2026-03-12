@@ -57,7 +57,7 @@ export class AppButtonComponent {
 
   clicked = output<MouseEvent>();
 
-  readonly buttonClasses = computed(() => {
+  protected readonly buttonClasses = computed(() => {
     const classes: string[] = [];
 
     if (this.shape() !== BUTTON_DEFAULTS.shape) {
