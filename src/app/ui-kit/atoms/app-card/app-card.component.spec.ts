@@ -1,75 +1,98 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { describe, expect, it } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { AppCardComponent } from './app-card.component';
 
+async function renderAppCard(inputs: Partial<{
+  title: string;
+  icon: string;
+  variant: 'outlined' | 'raised';
+  customClass: string;
+  isExpandable: boolean;
+  expanded: boolean;
+}> = {}) {
+  return render(AppCardComponent, { inputs });
+}
+
 describe('AppCardComponent', () => {
-  let fixture: ComponentFixture<AppCardComponent>;
-  let component: AppCardComponent;
+  it('renders the card body and applies outlined variant class by default', async () => {
+    await renderAppCard();
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppCardComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('creates with all default values', () => {
-    expect(component.variant()).toBe('outlined');
-    expect(component.customClass()).toBe('');
-    expect(component.isExpandable()).toBe(false);
-    expect(component.expanded()).toBe(true);
+    const panel = screen.getByTestId('app-card-panel');
+    expect(screen.getByTestId('app-card-body')).toBeTruthy();
+    expect(panel.classList.contains('mat-mdc-card-outlined')).toBe(true);
   });
 
   describe('panelClass', () => {
-    it('returns mat-mdc-card-outlined for outlined and empty for raised', () => {
-      expect(component.panelClass()).toBe('mat-mdc-card-outlined');
+    it('applies mat-mdc-card-outlined class for outlined variant', async () => {
+      await renderAppCard({ variant: 'outlined' });
 
-      fixture.componentRef.setInput('variant', 'raised');
-      expect(component.panelClass()).toBe('');
+      expect(screen.getByTestId('app-card-panel').classList.contains('mat-mdc-card-outlined')).toBe(true);
     });
 
-    it('combines variant class and customClass', () => {
-      fixture.componentRef.setInput('customClass', 'my-custom-card');
-      const cls = component.panelClass();
-      expect(cls).toContain('mat-mdc-card-outlined');
-      expect(cls).toContain('my-custom-card');
+    it('does not apply mat-mdc-card-outlined class for raised variant', async () => {
+      await renderAppCard({ variant: 'raised' });
+
+      expect(screen.getByTestId('app-card-panel').classList.contains('mat-mdc-card-outlined')).toBe(false);
     });
-  });
 
-  describe('hasHeader', () => {
-    it('is false without title or icon, true when either is provided', () => {
-      expect(component.hasHeader()).toBe(false);
+    it('applies both variant class and customClass to the panel', async () => {
+      await renderAppCard({ variant: 'outlined', customClass: 'my-custom-card' });
 
-      fixture.componentRef.setInput('title', 'My Title');
-      expect(component.hasHeader()).toBe(true);
+      const panelClassList = screen.getByTestId('app-card-panel').classList;
+      expect(panelClassList.contains('mat-mdc-card-outlined')).toBe(true);
+      expect(panelClassList.contains('my-custom-card')).toBe(true);
     });
   });
 
-  describe('template', () => {
-    it('renders the header with title and hides it when absent', () => {
-      expect(fixture.debugElement.query(By.css('mat-expansion-panel-header'))).toBeNull();
+  describe('header visibility', () => {
+    it('does not render the header when neither title nor icon is provided', async () => {
+      await renderAppCard();
 
-      fixture.componentRef.setInput('title', 'Card Title');
-      fixture.detectChanges();
-      const header = fixture.debugElement.query(By.css('mat-expansion-panel-header'));
-      expect(header).toBeTruthy();
-      expect(header.nativeElement.textContent).toContain('Card Title');
+      expect(screen.queryByTestId('app-card-header')).toBeNull();
     });
 
-    it('shows toggle icon with rotated state based on expanded input', () => {
-      fixture.componentRef.setInput('title', 'Card');
-      fixture.componentRef.setInput('isExpandable', true);
+    it('renders the header when title is provided', async () => {
+      await renderAppCard({ title: 'My Card' });
 
-      fixture.componentRef.setInput('expanded', false);
-      fixture.detectChanges();
-      expect(fixture.debugElement.query(By.css('.toggle-icon.rotated'))).toBeNull();
+      expect(screen.getByTestId('app-card-header')).toBeTruthy();
+    });
 
-      fixture.componentRef.setInput('expanded', true);
-      fixture.detectChanges();
-      expect(fixture.debugElement.query(By.css('.toggle-icon.rotated'))).toBeTruthy();
+    it('renders the header when only icon is provided', async () => {
+      await renderAppCard({ icon: 'settings' });
+
+      expect(screen.getByTestId('app-card-header')).toBeTruthy();
+    });
+
+    it('displays the title text in the header', async () => {
+      await renderAppCard({ title: 'Usuarios' });
+
+      expect(screen.getByTestId('app-card-title').textContent).toContain('Usuarios');
+    });
+  });
+
+  describe('expandable toggle icon', () => {
+    it('does not apply rotated class to toggle icon when card is collapsed', async () => {
+      await renderAppCard({ title: 'Card', isExpandable: true, expanded: false });
+
+      expect(screen.getByTestId('app-card-toggle-icon').classList.contains('rotated')).toBe(false);
+    });
+
+    it('applies rotated class to toggle icon when card is expanded', async () => {
+      await renderAppCard({ title: 'Card', isExpandable: true, expanded: true });
+
+      expect(screen.getByTestId('app-card-toggle-icon').classList.contains('rotated')).toBe(true);
+    });
+
+    it('toggles expanded state and rotated class when header is clicked', async () => {
+      await renderAppCard({ title: 'Card', isExpandable: true, expanded: true });
+      const user = userEvent.setup();
+
+      expect(screen.getByTestId('app-card-toggle-icon').classList.contains('rotated')).toBe(true);
+
+      await user.click(screen.getByTestId('app-card-header'));
+
+      expect(screen.getByTestId('app-card-toggle-icon').classList.contains('rotated')).toBe(false);
     });
   });
 });

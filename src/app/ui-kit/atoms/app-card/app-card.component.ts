@@ -1,7 +1,7 @@
 import { Component, computed, contentChild, Directive, input, model } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
+import { NgClass } from '@angular/common';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatAccordion } from '@angular/material/expansion';
+import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
 
 @Directive({ selector: '[appSlotHeaderActions]', standalone: true })
@@ -13,10 +13,11 @@ export class AppCardFooterActionsDirective {}
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [CommonModule, MatExpansionModule, MatIconModule, MatDivider],
+  imports: [NgClass, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatIcon, MatDivider],
   template: `
     <mat-accordion displayMode="flat">
       <mat-expansion-panel
+        data-testid="app-card-panel"
         [expanded]="expanded()"
         (opened)="expanded.set(true)"
         (closed)="expanded.set(false)"
@@ -25,21 +26,21 @@ export class AppCardFooterActionsDirective {}
         hideToggle
       >
         @if (hasHeader()) {
-          <mat-expansion-panel-header>
+          <mat-expansion-panel-header data-testid="app-card-header">
             <div class="panel-header-content">
               <div class="panel-header-left">
                 @if (icon()) {
-                  <mat-icon class="panel-header-icon">{{ icon() }}</mat-icon>
+                  <mat-icon class="panel-header-icon" data-testid="app-card-icon">{{ icon() }}</mat-icon>
                 }
                 @if (title()) {
-                  <span class="panel-header-title mat-label-large">{{ title() }}</span>
+                  <span class="panel-header-title mat-label-large" data-testid="app-card-title">{{ title() }}</span>
                 }
               </div>
 
               <div class="panel-header-right">
                 <ng-content select="[slot=header-actions]"></ng-content>
                 @if (isExpandable()) {
-                  <mat-icon class="toggle-icon" [class.rotated]="expanded()">
+                  <mat-icon class="toggle-icon" [class.rotated]="expanded()" data-testid="app-card-toggle-icon">
                     expand_more
                   </mat-icon>
                 }
@@ -52,7 +53,7 @@ export class AppCardFooterActionsDirective {}
           <mat-divider></mat-divider>
         }
 
-        <div class="panel-body">
+        <div class="panel-body" data-testid="app-card-body">
           <ng-content></ng-content>
         </div>
 
@@ -76,13 +77,13 @@ export class AppCardComponent {
   readonly headerActions = contentChild(AppCardHeaderActionsDirective);
   readonly footerContent = contentChild(AppCardFooterActionsDirective);
 
-  readonly hasHeader = computed(() => {
+  protected readonly hasHeader = computed(() => {
     return Boolean(this.title()) || Boolean(this.icon()) || Boolean(this.headerActions());
   });
 
-  readonly hasFooter = computed(() => Boolean(this.footerContent()));
+  protected readonly hasFooter = computed(() => Boolean(this.footerContent()));
 
-  readonly panelClass = computed(() => {
+  protected readonly panelClass = computed(() => {
     const variant = this.variant() === 'outlined' ? 'mat-mdc-card-outlined' : '';
     const custom = this.customClass();
     return [variant, custom].filter(Boolean).join(' ');
