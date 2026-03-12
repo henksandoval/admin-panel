@@ -9,6 +9,7 @@ import { CheckboxColor, CheckboxLabelPosition, CheckboxSize } from './app-checkb
   imports: [CommonModule, MatCheckboxModule],
   template: `
     <mat-checkbox
+      data-testid="app-checkbox"
       [checked]="checked()"
       [disabled]="disabled()"
       [indeterminate]="indeterminate()"
@@ -34,7 +35,7 @@ export class AppCheckboxComponent {
 
   changed = output<boolean>();
 
-  readonly checkboxClasses = computed(() => {
+  protected readonly checkboxClasses = computed(() => {
     const classes: string[] = [];
 
     if (this.size() !== 'medium') {
@@ -44,7 +45,7 @@ export class AppCheckboxComponent {
     return classes.join(' ');
   });
 
-  onCheckboxChange(event: MatCheckboxChange): void {
+  protected onCheckboxChange(event: MatCheckboxChange): void {
     this.checked.set(event.checked);
     this.changed.emit(event.checked);
   }

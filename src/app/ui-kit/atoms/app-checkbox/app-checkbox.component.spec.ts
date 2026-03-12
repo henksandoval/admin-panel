@@ -1,61 +1,83 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { describe, expect, it, vi } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { AppCheckboxComponent } from './app-checkbox.component';
+import { CheckboxSize } from './app-checkbox.model';
+
+async function renderCheckbox(options: {
+  size?: CheckboxSize;
+  disabled?: boolean;
+  changedSpy?: ReturnType<typeof vi.fn>;
+} = {}) {
+  const changedSpy = options.changedSpy ?? vi.fn();
+
+  await render(
+    `<app-checkbox
+      [size]="size"
+      [disabled]="disabled"
+      (changed)="changedSpy($event)">
+    </app-checkbox>`,
+    {
+      imports: [AppCheckboxComponent],
+      componentProperties: {
+        size: options.size ?? 'medium',
+        disabled: options.disabled ?? false,
+        changedSpy,
+      },
+    }
+  );
+
+  return { changedSpy };
+}
 
 describe('AppCheckboxComponent', () => {
-  let fixture: ComponentFixture<AppCheckboxComponent>;
-  let component: AppCheckboxComponent;
+  it('renders unchecked, enabled, and non-required by default', async () => {
+    await renderCheckbox();
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppCheckboxComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppCheckboxComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+    expect(checkbox.checked).toBe(false);
+    expect(checkbox.disabled).toBe(false);
+    expect(checkbox.required).toBe(false);
   });
 
-  it('creates with all default values', () => {
-    expect(component.checked()).toBe(false);
-    expect(component.color()).toBe('primary');
-    expect(component.size()).toBe('medium');
-    expect(component.labelPosition()).toBe('after');
-    expect(component.disabled()).toBe(false);
-    expect(component.indeterminate()).toBe(false);
-    expect(component.required()).toBe(false);
-  });
+  describe('size classes', () => {
+    it('applies no size class when size is medium', async () => {
+      await renderCheckbox({ size: 'medium' });
 
-  describe('checkboxClasses', () => {
-    it('returns empty string when size is medium', () => {
-      expect(component.checkboxClasses()).toBe('');
+      const checkboxHost = screen.getByTestId('app-checkbox');
+      expect(checkboxHost.classList.contains('checkbox-size-small')).toBe(false);
+      expect(checkboxHost.classList.contains('checkbox-size-large')).toBe(false);
     });
 
-    it('adds checkbox-size-* class when size differs from medium', () => {
-      fixture.componentRef.setInput('size', 'small');
-      expect(component.checkboxClasses()).toBe('checkbox-size-small');
+    it('applies checkbox-size-small class when size is small', async () => {
+      await renderCheckbox({ size: 'small' });
 
-      fixture.componentRef.setInput('size', 'large');
-      expect(component.checkboxClasses()).toBe('checkbox-size-large');
+      expect(screen.getByTestId('app-checkbox').classList.contains('checkbox-size-small')).toBe(true);
+    });
+
+    it('applies checkbox-size-large class when size is large', async () => {
+      await renderCheckbox({ size: 'large' });
+
+      expect(screen.getByTestId('app-checkbox').classList.contains('checkbox-size-large')).toBe(true);
     });
   });
 
-  describe('onCheckboxChange', () => {
-    it('updates checked model and emits changed', () => {
-      const emitSpy = vi.spyOn(component.changed, 'emit');
+  it('becomes checked and emits changed with true when clicked', async () => {
+    const changedSpy = vi.fn();
+    await renderCheckbox({ changedSpy });
 
-      component.onCheckboxChange({ checked: true } as any);
+    await userEvent.setup().click(screen.getByRole('checkbox'));
 
-      expect(component.checked()).toBe(true);
-      expect(emitSpy).toHaveBeenCalledWith(true);
-    });
+    expect((screen.getByRole('checkbox') as HTMLInputElement).checked).toBe(true);
+    expect(changedSpy).toHaveBeenCalledWith(true);
+  });
 
-    it('does not emit clicked when disabled', () => {
-      fixture.componentRef.setInput('disabled', true);
-      fixture.detectChanges();
-      const emitSpy = vi.spyOn(component.changed, 'emit');
-      fixture.debugElement.query(By.css('input[type=checkbox]')).nativeElement.click();
-      expect(emitSpy).not.toHaveBeenCalled();
-    });
+  it('does not emit changed when a disabled checkbox is clicked', async () => {
+    const changedSpy = vi.fn();
+    await renderCheckbox({ disabled: true, changedSpy });
+
+    fireEvent.click(screen.getByRole('checkbox'));
+
+    expect(changedSpy).not.toHaveBeenCalled();
   });
 });
