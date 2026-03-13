@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '@env/environtment.development';
+import { environment } from '@env/environment.development';
 import { LogLevel } from '@core/models/log-level.model';
 
 @Injectable({

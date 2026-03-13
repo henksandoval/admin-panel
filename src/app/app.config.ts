@@ -19,7 +19,7 @@ import { authInterceptor } from '@auth/interceptors/auth.interceptor';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
 import { API_BASE_URL, JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.provider';
 import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
-import { environment } from '@env/environtment.development';
+import { environment } from '@env/environment.development';
 import { errorInterceptor } from '@core/interceptors/error.interceptor';
 
 registerLocaleData(localeEs);
