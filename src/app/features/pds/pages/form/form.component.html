@@ -38,10 +38,10 @@
         </div>
 
         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <app-form-input [config]="emailConfig()" [control]="$any(galleryForm.get('email'))">
+          <app-form-input [config]="emailConfig()" [control]="$any(galleryForm.get('email'))" testId="pds-form-email-input">
           </app-form-input>
 
-          <app-form-input [config]="passwordConfig()" [control]="$any(galleryForm.get('password'))">
+          <app-form-input [config]="passwordConfig()" [control]="$any(galleryForm.get('password'))" testId="pds-form-password-input">
           </app-form-input>
         </div>
 

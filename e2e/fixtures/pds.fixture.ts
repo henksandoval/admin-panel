@@ -73,6 +73,8 @@ export const test = base.extend<PdsFixtures>({
       await interceptAuthMe(page);
     }
 
+    await loginAndNavigate(page, '/pds/form');
+    await page.waitForSelector('[data-testid="pds-form-email-input"]');
     await loginAndNavigate(page, '/pds/selects');
     await page.waitForSelector('[data-testid="form-select-control"]');
     await loginAndNavigate(page, '/pds/form');
