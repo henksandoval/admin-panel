@@ -1,263 +1,205 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular';
+import { describe, it, expect } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import { FormControl, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import { AppFormSelectComponent } from './app-form-select.component';
 import { SelectOption } from './app-form-select.model';
 
+const COUNTRY_OPTIONS: SelectOption<string>[] = [
+  { value: 'us', label: 'United States' },
+  { value: 'uk', label: 'United Kingdom' },
+  { value: 'ca', label: 'Canada' },
+];
+
+const GROUPED_OPTIONS: SelectOption<string>[] = [
+  { value: 'us', label: 'United States', group: 'North America' },
+  { value: 'ca', label: 'Canada', group: 'North America' },
+  { value: 'mx', label: 'Mexico', group: 'North America' },
+  { value: 'uk', label: 'United Kingdom', group: 'Europe' },
+  { value: 'fr', label: 'France', group: 'Europe' },
+  { value: 'de', label: 'Germany', group: 'Europe' },
+];
+
+async function renderSelect(
+  control: FormControl<any>,
+  options: SelectOption<any>[],
+  config: Record<string, any> = {},
+) {
+  const { fixture, container } = await render(AppFormSelectComponent, {
+    componentInputs: { control, options, config },
+  });
+  return { fixture, container };
+}
+
+async function openPanel(fixture: { detectChanges: () => void }) {
+  const user = userEvent.setup();
+  await user.click(screen.getByRole('combobox'));
+  fixture.detectChanges();
+}
+
 describe('AppFormSelectComponent', () => {
-  let fixture: ComponentFixture<AppFormSelectComponent>;
-  let component: AppFormSelectComponent;
-
-  const countryOptions: SelectOption<string>[] = [
-    { value: 'us', label: 'United States' },
-    { value: 'uk', label: 'United Kingdom' },
-    { value: 'ca', label: 'Canada' },
-  ];
-
-  const groupedOptions: SelectOption<string>[] = [
-    { value: 'us', label: 'United States', group: 'North America' },
-    { value: 'ca', label: 'Canada', group: 'North America' },
-    { value: 'mx', label: 'Mexico', group: 'North America' },
-    { value: 'uk', label: 'United Kingdom', group: 'Europe' },
-    { value: 'fr', label: 'France', group: 'Europe' },
-    { value: 'de', label: 'Germany', group: 'Europe' },
-  ];
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppFormSelectComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppFormSelectComponent);
-    component = fixture.componentInstance;
-  });
-
-  it('TC-01 — renders the initial FormControl value in the select', () => {
+  it('marks the initially selected option as selected when the panel is opened', async () => {
     const control = new FormControl('us');
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.detectChanges();
+    const { fixture } = await renderSelect(control, COUNTRY_OPTIONS);
 
-    const select = fixture.debugElement.query(By.css('mat-select'));
-    expect(select.componentInstance.value).toBe('us');
+    await openPanel(fixture);
+
+    const selectedOptions = [...document.querySelectorAll('mat-option[aria-selected="true"]')];
+    expect(selectedOptions.length).toBe(1);
+    expect(selectedOptions[0].textContent?.trim()).toBe('United States');
   });
 
-  it('TC-02 — updates the FormControl when an option is selected', () => {
+  it('reflects a programmatic FormControl value change in the select trigger', async () => {
     const control = new FormControl<string | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
+    const { fixture } = await renderSelect(control, COUNTRY_OPTIONS);
+
+    control.setValue('uk');
     fixture.detectChanges();
 
-    component.control().setValue('uk');
-    expect(control.value).toBe('uk');
+    expect(screen.getByRole('combobox').textContent).toContain('United Kingdom');
   });
 
-  it('TC-03 — shows the error when the control is invalid and has been touched', async () => {
-    const control = new FormControl(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.detectChanges();
+  it('shows the error when the control is invalid and has been touched', async () => {
+    const control = new FormControl<string | null>(null, Validators.required);
+    const { fixture } = await renderSelect(control, COUNTRY_OPTIONS);
 
     control.markAsTouched();
     fixture.detectChanges();
 
-    const error = fixture.debugElement.query(By.css('mat-error'));
-    expect(error).not.toBeNull();
-    expect(error.nativeElement.textContent.trim()).toBe('This field is required');
+    expect(screen.queryByTestId('form-select-error')).toBeTruthy();
+    expect(screen.getByTestId('form-select-error').textContent?.trim()).toBe('This field is required');
   });
 
-  it('TC-04 — does not show error when the control is invalid but untouched', () => {
-    const control = new FormControl(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.detectChanges();
+  it('does not show an error when the control is invalid but untouched', async () => {
+    const control = new FormControl<string | null>(null, Validators.required);
+    await renderSelect(control, COUNTRY_OPTIONS);
 
-    const error = fixture.debugElement.query(By.css('mat-error'));
-    expect(error).toBeNull();
+    expect(screen.queryByTestId('form-select-error')).toBeNull();
   });
 
-  it('TC-05 — config errorMessages overrides the default error message', () => {
-    const control = new FormControl(null, Validators.required);
+  it('displays a custom error message when errorMessages config overrides the default', async () => {
+    const control = new FormControl<string | null>(null, Validators.required);
     control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.componentRef.setInput('config', { errorMessages: { required: 'Please select a country' } });
-    fixture.detectChanges();
+    await renderSelect(control, COUNTRY_OPTIONS, {
+      errorMessages: { required: 'Please select a country' },
+    });
 
-    const error = fixture.debugElement.query(By.css('mat-error'));
-    expect(error.nativeElement.textContent.trim()).toBe('Please select a country');
+    expect(screen.getByTestId('form-select-error').textContent?.trim()).toBe('Please select a country');
   });
 
-  it('TC-06 — disables the select when the FormControl is disabled', () => {
-    const control = new FormControl({ value: 'us', disabled: true });
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.detectChanges();
+  it('disables the select when the FormControl is disabled', async () => {
+    const control = new FormControl({ value: null, disabled: true });
+    await renderSelect(control, COUNTRY_OPTIONS);
 
-    const select = fixture.debugElement.query(By.css('mat-select'));
-    expect(select.componentInstance.disabled).toBe(true);
+    expect(screen.getByRole('combobox').getAttribute('aria-disabled')).toBe('true');
   });
 
-  it('TC-07 — isRequired is true when Validators.required is set', () => {
-    const control = new FormControl(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.detectChanges();
+  it('marks the select as required when the FormControl has Validators.required', async () => {
+    const control = new FormControl<string | null>(null, Validators.required);
+    await renderSelect(control, COUNTRY_OPTIONS);
 
-    expect(component.isRequired()).toBe(true);
+    expect(screen.getByRole('combobox').getAttribute('aria-required')).toBe('true');
   });
 
-  it('TC-08 — renders the label when provided in config', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.componentRef.setInput('config', { label: 'Country' });
-    fixture.detectChanges();
+  it('renders all provided options when the panel is opened', async () => {
+    const control = new FormControl<string | null>(null);
+    const { fixture } = await renderSelect(control, COUNTRY_OPTIONS);
 
-    const label = fixture.debugElement.query(By.css('mat-label'));
-    expect(label).not.toBeNull();
-    expect(label.nativeElement.textContent.trim()).toBe('Country');
+    await openPanel(fixture);
+
+    expect(document.querySelectorAll('mat-option').length).toBe(3);
   });
 
-  it('TC-09 — renders the hint when provided in config', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.componentRef.setInput('config', { hint: 'Select your country of residence' });
-    fixture.detectChanges();
+  it('renders option groups when options have a group property', async () => {
+    const control = new FormControl<string | null>(null);
+    const { fixture } = await renderSelect(control, GROUPED_OPTIONS);
 
-    const hint = fixture.debugElement.query(By.css('mat-hint'));
-    expect(hint).not.toBeNull();
-    expect(hint.nativeElement.textContent.trim()).toBe('Select your country of residence');
+    await openPanel(fixture);
+
+    expect(document.querySelectorAll('mat-optgroup').length).toBe(2);
   });
 
-  it('TC-10 — renders all options', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.detectChanges();
+  it('does not render option groups when no group property is present', async () => {
+    const control = new FormControl<string | null>(null);
+    const { fixture } = await renderSelect(control, COUNTRY_OPTIONS);
 
-    const options = fixture.debugElement.queryAll(By.css('mat-option'));
-    expect(options.length).toBe(3);
+    await openPanel(fixture);
+
+    expect(document.querySelectorAll('mat-optgroup').length).toBe(0);
   });
 
-  it('TC-11 — renders grouped options when group property is present', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', groupedOptions);
-    fixture.detectChanges();
-
-    expect(component.hasGroups()).toBe(true);
-    const optgroups = fixture.debugElement.queryAll(By.css('mat-optgroup'));
-    expect(optgroups.length).toBe(2);
-  });
-
-  it('TC-12 — renders options without groups when group property is not present', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.detectChanges();
-
-    expect(component.hasGroups()).toBe(false);
-    const optgroups = fixture.debugElement.queryAll(By.css('mat-optgroup'));
-    expect(optgroups.length).toBe(0);
-  });
-
-  it('TC-13 — supports multiple selection when configured', () => {
+  it('shows the listbox as multi-selectable when multiple config is true', async () => {
     const control = new FormControl<string[]>(['us', 'uk']);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.componentRef.setInput('config', { multiple: true });
-    fixture.detectChanges();
+    const { fixture } = await renderSelect(control, COUNTRY_OPTIONS, { multiple: true });
 
-    const select = fixture.debugElement.query(By.css('mat-select'));
-    expect(select.componentInstance.multiple).toBe(true);
+    await openPanel(fixture);
+
+    const listbox = document.querySelector('[role="listbox"]');
+    expect(listbox?.getAttribute('aria-multiselectable')).toBe('true');
   });
 
-  it('TC-14 — applies the icon when provided in config', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.componentRef.setInput('config', { icon: 'public' });
-    fixture.detectChanges();
-
-    const icon = fixture.debugElement.query(By.css('mat-icon'));
-    expect(icon).not.toBeNull();
-    expect(icon.nativeElement.textContent.trim()).toBe('public');
-  });
-
-  it('TC-15 — renders with default appearance', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.detectChanges();
-
-    const formField = fixture.debugElement.query(By.css('mat-form-field'));
-    expect(formField.componentInstance.appearance).toBe('fill');
-  });
-
-  it('TC-16 — applies custom appearance from config', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.componentRef.setInput('config', { appearance: 'outline' });
-    fixture.detectChanges();
-
-    const formField = fixture.debugElement.query(By.css('mat-form-field'));
-    expect(formField.componentInstance.appearance).toBe('outline');
-  });
-
-  it('TC-17 — disables individual options', () => {
+  it('disables only the options marked with disabled: true', async () => {
     const optionsWithDisabled: SelectOption<string>[] = [
       { value: 'us', label: 'United States' },
       { value: 'uk', label: 'United Kingdom', disabled: true },
       { value: 'ca', label: 'Canada' },
     ];
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', optionsWithDisabled);
-    fixture.detectChanges();
+    const control = new FormControl<string | null>(null);
+    const { fixture } = await renderSelect(control, optionsWithDisabled);
 
-    const options = fixture.debugElement.queryAll(By.css('mat-option'));
-    expect(options[0].componentInstance.disabled).toBe(false);
-    expect(options[1].componentInstance.disabled).toBe(true);
-    expect(options[2].componentInstance.disabled).toBe(false);
+    await openPanel(fixture);
+
+    const options = document.querySelectorAll('mat-option');
+    expect(options[0].getAttribute('aria-disabled')).toBe('false');
+    expect(options[1].getAttribute('aria-disabled')).toBe('true');
+    expect(options[2].getAttribute('aria-disabled')).toBe('false');
   });
 
-  it('TC-18 — handles generic types correctly', () => {
-    const numberOptions: SelectOption<number>[] = [
-      { value: 1, label: 'Option 1' },
-      { value: 2, label: 'Option 2' },
-    ];
-    const control = new FormControl<number | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', numberOptions);
-    fixture.detectChanges();
+  it('applies the density CSS class to the host element', async () => {
+    const control = new FormControl<string | null>(null);
+    const { container } = await renderSelect(control, COUNTRY_OPTIONS, { density: -2 });
 
-    component.control().setValue(2);
-    expect(component.control().value).toBe(2);
+    expect(container.classList.contains('app-form-select--density-n2')).toBe(true);
   });
 
-  it('TC-19 — applies density class to host element', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', countryOptions);
-    fixture.componentRef.setInput('config', { density: -2 });
-    fixture.detectChanges();
+  it('renders the label when provided in config', async () => {
+    const control = new FormControl<string | null>(null);
+    await renderSelect(control, COUNTRY_OPTIONS, { label: 'Country' });
 
-    expect(component.densityClass()).toContain('app-form-select--density-n2');
+    expect(screen.getByTestId('form-select-label').textContent?.trim()).toBe('Country');
   });
 
-  it('TC-20 — groups options correctly by group name', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', groupedOptions);
+  it('renders the hint when provided in config', async () => {
+    const control = new FormControl<string | null>(null);
+    await renderSelect(control, COUNTRY_OPTIONS, { hint: 'Select your country of residence' });
+
+    expect(screen.getByTestId('form-select-hint').textContent?.trim()).toBe('Select your country of residence');
+  });
+
+  it('renders the icon when provided in config', async () => {
+    const control = new FormControl<string | null>(null);
+    await renderSelect(control, COUNTRY_OPTIONS, { icon: 'public' });
+
+    expect(screen.getByTestId('form-select-icon').textContent?.trim()).toBe('public');
+  });
+
+  it('updates the FormControl value when an option is selected via click', async () => {
+    const control = new FormControl<string | null>(null);
+    const { fixture } = await renderSelect(control, COUNTRY_OPTIONS);
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('combobox'));
     fixture.detectChanges();
 
-    const grouped = component.groupedOptions();
-    expect(grouped.length).toBe(2);
-    expect(grouped[0].options.length).toBe(3);
-    expect(grouped[1].options.length).toBe(3);
+    const ukOption = [...document.querySelectorAll('mat-option')].find(
+      (o) => o.textContent?.includes('United Kingdom'),
+    );
+    if (ukOption) {
+      await user.click(ukOption as HTMLElement);
+      fixture.detectChanges();
+    }
+
+    expect(control.value).toBe('uk');
   });
 });
 

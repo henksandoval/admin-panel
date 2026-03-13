@@ -32,6 +32,7 @@ async function loginAndNavigate(page: Page, path: string): Promise<void> {
 
 export interface PdsFixtures {
   toggleGroupsPage: Page;
+  selectsPage: Page;
 }
 
 export const test = base.extend<PdsFixtures>({
@@ -43,6 +44,17 @@ export const test = base.extend<PdsFixtures>({
 
     await loginAndNavigate(page, '/pds/toggle-groups');
     await page.waitForSelector('[data-testid="toggle-group"]');
+
+    await use(page);
+  },
+  selectsPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptAuthLogin(page);
+      await interceptAuthMe(page);
+    }
+
+    await loginAndNavigate(page, '/pds/selects');
+    await page.waitForSelector('[data-testid="form-select-control"]');
 
     await use(page);
   },
