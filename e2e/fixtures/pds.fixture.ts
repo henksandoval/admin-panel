@@ -32,6 +32,7 @@ async function loginAndNavigate(page: Page, path: string): Promise<void> {
 
 export interface PdsFixtures {
   toggleGroupsPage: Page;
+  radioGroupsPage: Page;
 }
 
 export const test = base.extend<PdsFixtures>({
@@ -43,6 +44,18 @@ export const test = base.extend<PdsFixtures>({
 
     await loginAndNavigate(page, '/pds/toggle-groups');
     await page.waitForSelector('[data-testid="toggle-group"]');
+
+    await use(page);
+  },
+
+  radioGroupsPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptAuthLogin(page);
+      await interceptAuthMe(page);
+    }
+
+    await loginAndNavigate(page, '/pds/radios');
+    await page.waitForSelector('[data-testid="radio-group-wrapper"]');
 
     await use(page);
   },
