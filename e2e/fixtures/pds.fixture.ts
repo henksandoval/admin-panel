@@ -33,6 +33,7 @@ async function loginAndNavigate(page: Page, path: string): Promise<void> {
 export interface PdsFixtures {
   toggleGroupsPage: Page;
   datepickerPage: Page;
+  formPage: Page;
 }
 
 export const test = base.extend<PdsFixtures>({
@@ -56,6 +57,18 @@ export const test = base.extend<PdsFixtures>({
 
     await loginAndNavigate(page, '/pds/form');
     await page.waitForSelector('[data-testid="datepicker-toggle"]');
+
+    await use(page);
+  },
+
+  formPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptAuthLogin(page);
+      await interceptAuthMe(page);
+    }
+
+    await loginAndNavigate(page, '/pds/form');
+    await page.waitForSelector('[data-testid="pds-form-description"]');
 
     await use(page);
   },

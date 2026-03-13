@@ -1,190 +1,137 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea.component';
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { AppFormTextareaComponent } from './app-form-textarea.component';
+import { AppFormTextareaNewOptions } from './app-form-textarea.model';
+
+const TEST_ID = 'form-textarea';
+
+async function renderComponent(control: FormControl<string>, config?: AppFormTextareaNewOptions) {
+  await render(AppFormTextareaComponent, {
+    componentInputs: {
+      control,
+      testId: TEST_ID,
+      ...(config !== undefined ? { config } : {}),
+    },
+  });
+  return { textarea: screen.getByTestId<HTMLTextAreaElement>(TEST_ID) };
+}
 
 describe('AppFormTextareaComponent', () => {
-  let fixture: ComponentFixture<AppFormTextareaComponent>;
-  let component: AppFormTextareaComponent;
+  it('renders the initial FormControl value in the native textarea', async () => {
+    const { textarea } = await renderComponent(new FormControl('Initial text content'));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppFormTextareaComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppFormTextareaComponent);
-    component = fixture.componentInstance;
-  });
-
-  it('TC-01 — renders the initial FormControl value in the native textarea', () => {
-    const control = new FormControl('Initial text content');
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
-    const textarea = fixture.debugElement.query(By.css('textarea')).nativeElement as HTMLTextAreaElement;
     expect(textarea.value).toBe('Initial text content');
   });
 
-  it('TC-02 — updates the FormControl when the user types in the textarea', () => {
+  it('updates the FormControl when the user types in the textarea', async () => {
     const control = new FormControl('');
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+    const { textarea } = await renderComponent(control);
+    const user = userEvent.setup();
 
-    const textareaEl = fixture.debugElement.query(By.css('textarea')).nativeElement as HTMLTextAreaElement;
-    textareaEl.value = 'New textarea content';
-    textareaEl.dispatchEvent(new Event('input'));
+    await user.type(textarea, 'New textarea content');
 
     expect(control.value).toBe('New textarea content');
   });
 
-  it('TC-03 — shows the error when the control is invalid and has been touched', async () => {
-    const control = new FormControl('', Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('shows error when the control is invalid and has been touched', async () => {
+    const { textarea } = await renderComponent(new FormControl('', Validators.required));
+    const user = userEvent.setup();
 
-    control.markAsTouched();
-    fixture.detectChanges();
+    await user.click(textarea);
+    await user.tab();
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).not.toBeNull();
-    expect(matError.nativeElement.textContent.trim()).toBe('This field is required');
+    expect(screen.getByTestId(`${TEST_ID}-error`).textContent?.trim()).toBe('This field is required');
   });
 
-  it('TC-04 — does not show error when the control is invalid but untouched', () => {
-    const control = new FormControl('', Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('does not show error when the control is invalid but untouched', async () => {
+    await renderComponent(new FormControl('', Validators.required));
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).toBeNull();
+    expect(screen.queryByTestId(`${TEST_ID}-error`)).toBeNull();
   });
 
-  it('TC-05 — config errorMessages overrides the default error message', () => {
-    const control = new FormControl('', Validators.required);
-    control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { errorMessages: { required: 'Description is required' } });
-    fixture.detectChanges();
+  it('overrides the default error message with config errorMessages', async () => {
+    const { textarea } = await renderComponent(
+      new FormControl('', Validators.required),
+      { errorMessages: { required: 'Description is required' } },
+    );
+    const user = userEvent.setup();
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError.nativeElement.textContent.trim()).toBe('Description is required');
+    await user.click(textarea);
+    await user.tab();
+
+    expect(screen.getByTestId(`${TEST_ID}-error`).textContent?.trim()).toBe('Description is required');
   });
 
-  it('TC-06 — disables the native textarea when the FormControl is disabled', () => {
-    const control = new FormControl({ value: '', disabled: true });
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('disables the native textarea when the FormControl is disabled', async () => {
+    const { textarea } = await renderComponent(new FormControl({ value: '', disabled: true }));
 
-    const textareaEl = fixture.debugElement.query(By.css('textarea')).nativeElement as HTMLTextAreaElement;
-    expect(textareaEl.disabled).toBe(true);
+    expect(textarea.disabled).toBe(true);
   });
 
-  it('TC-07 — isRequired is true and the textarea has required attribute when Validators.required is set', () => {
-    const control = new FormControl('', Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('adds required attribute to the textarea when Validators.required is set', async () => {
+    const { textarea } = await renderComponent(new FormControl('', Validators.required));
 
-    expect(component.isRequired()).toBe(true);
-
-    const textareaEl = fixture.debugElement.query(By.css('textarea')).nativeElement as HTMLTextAreaElement;
-    expect(textareaEl.required).toBe(true);
+    expect(textarea.required).toBe(true);
   });
 
-  it('TC-08 — does not show error while typing (dirty only), shows error after blur (touched)', () => {
-    const control = new FormControl('', Validators.minLength(10));
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('does not show error while typing (dirty only), shows error after blur (touched)', async () => {
+    const { textarea } = await renderComponent(new FormControl('', Validators.minLength(10)));
+    const user = userEvent.setup();
 
-    const textareaEl = fixture.debugElement.query(By.css('textarea')).nativeElement as HTMLTextAreaElement;
-    textareaEl.value = 'short';
-    textareaEl.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
+    await user.type(textarea, 'short');
+    expect(screen.queryByTestId(`${TEST_ID}-error`)).toBeNull();
 
-    let matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).toBeNull();
-
-    control.markAsTouched();
-    fixture.detectChanges();
-
-    matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).not.toBeNull();
-    expect(matError.nativeElement.textContent.trim()).toBe('The text is too short');
+    await user.tab();
+    expect(screen.getByTestId(`${TEST_ID}-error`).textContent?.trim()).toBe('The text is too short');
   });
 
-  it('TC-09 — renders the label when provided in config', () => {
-    const control = new FormControl('');
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { label: 'Description' });
-    fixture.detectChanges();
+  it('renders the label when provided in config', async () => {
+    await renderComponent(new FormControl(''), { label: 'Description' });
 
-    const label = fixture.debugElement.query(By.css('mat-label'));
-    expect(label).not.toBeNull();
-    expect(label.nativeElement.textContent.trim()).toBe('Description');
+    expect(screen.getByTestId(`${TEST_ID}-label`).textContent?.trim()).toBe('Description');
   });
 
-  it('TC-10 — renders the placeholder when provided in config', () => {
-    const control = new FormControl('');
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { placeholder: 'Enter your description' });
-    fixture.detectChanges();
+  it('renders the placeholder when provided in config', async () => {
+    const { textarea } = await renderComponent(new FormControl(''), { placeholder: 'Enter your description' });
 
-    const textarea = fixture.debugElement.query(By.css('textarea')).nativeElement as HTMLTextAreaElement;
     expect(textarea.placeholder).toBe('Enter your description');
   });
 
-  it('TC-11 — renders the hint when provided in config', () => {
-    const control = new FormControl('');
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { hint: 'Maximum 500 characters' });
-    fixture.detectChanges();
+  it('renders the hint when provided in config', async () => {
+    await renderComponent(new FormControl(''), { hint: 'Maximum 500 characters' });
 
-    const hint = fixture.debugElement.query(By.css('mat-hint'));
-    expect(hint).not.toBeNull();
-    expect(hint.nativeElement.textContent.trim()).toBe('Maximum 500 characters');
+    expect(screen.getByTestId(`${TEST_ID}-hint`).textContent?.trim()).toBe('Maximum 500 characters');
   });
 
-  it('TC-12 — renders the icon when provided in config', () => {
-    const control = new FormControl('');
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { icon: 'description' });
-    fixture.detectChanges();
+  it('renders the icon when provided in config', async () => {
+    await renderComponent(new FormControl(''), { icon: 'description' });
 
-    const icon = fixture.debugElement.query(By.css('mat-icon'));
-    expect(icon).not.toBeNull();
-    expect(icon.nativeElement.textContent.trim()).toBe('description');
+    expect(screen.getByTestId(`${TEST_ID}-icon`).textContent?.trim()).toBe('description');
   });
 
-  it('TC-13 — renders with default rows configuration', () => {
-    const control = new FormControl('');
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('renders with default rows configuration', async () => {
+    const { textarea } = await renderComponent(new FormControl(''));
 
-    const textarea = fixture.debugElement.query(By.css('textarea')).nativeElement as HTMLTextAreaElement;
     expect(textarea.rows).toBe(3);
   });
 
-  it('TC-14 — renders with custom rows configuration', () => {
-    const control = new FormControl('');
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { rows: 5 });
-    fixture.detectChanges();
+  it('renders with custom rows configuration', async () => {
+    const { textarea } = await renderComponent(new FormControl(''), { rows: 5 });
 
-    const textarea = fixture.debugElement.query(By.css('textarea')).nativeElement as HTMLTextAreaElement;
     expect(textarea.rows).toBe(5);
   });
 
-  it('TC-15 — handles maxlength validation error message', () => {
-    const control = new FormControl('', Validators.maxLength(20));
-    control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('shows maxlength error when text exceeds the limit and control is touched', async () => {
+    const { textarea } = await renderComponent(new FormControl('', Validators.maxLength(20)));
+    const user = userEvent.setup();
 
-    control.setValue('This is a very long text that exceeds the limit');
-    fixture.detectChanges();
+    await user.type(textarea, 'This is a very long text that exceeds the limit');
+    await user.tab();
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).not.toBeNull();
-    expect(matError.nativeElement.textContent.trim()).toBe('The text is too long');
+    expect(screen.getByTestId(`${TEST_ID}-error`).textContent?.trim()).toBe('The text is too long');
   });
 });
+
 
