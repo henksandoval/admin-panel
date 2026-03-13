@@ -1,19 +1,19 @@
 <nav class="app-bread-crumb mat-label-large">
   @for (item of navigationService.breadcrumbs(); track item.label; let last = $last) {
     @if (last || !item.route) {
-      <a class="app-bread-crumb-pill no-route">
+      <a class="app-bread-crumb-pill no-route" data-testid="bread-crumb-pill">
         <mat-icon>{{ item.icon }}</mat-icon>
         <span>{{ item.label }}</span>
       </a>
     }
     @else {
-      <a [routerLink]="item.route" class="app-bread-crumb-pill">
+      <a [routerLink]="item.route" class="app-bread-crumb-pill" data-testid="bread-crumb-pill">
         <mat-icon>{{ item.icon }}</mat-icon>
         <span>{{ item.label }}</span>
       </a>
     }
     @if (!last) {
-      <mat-icon class="app-bread-crumb-separator" aria-hidden="true">chevron_right</mat-icon>
+      <mat-icon class="app-bread-crumb-separator" aria-hidden="true" data-testid="bread-crumb-separator">chevron_right</mat-icon>
     }
   }
 </nav>

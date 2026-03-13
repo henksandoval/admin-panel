@@ -1,13 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { Router, Routes } from '@angular/router';
+import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-import { AUTH_ROUTES, LAYOUT_STATIC_CHILDREN } from '../../app.routes';
+import { LAYOUT_ROUTE_FACTORY } from '../../app.routes';
 import { MenuDataService } from './menu-data.service';
 import { RouteBuilderService } from './route-builder.service';
 import { LoggingService } from './logging.service';
-import { LayoutComponent } from '@layout/layout.component';
 import { AuthService } from '@auth/services';
-import { authGuard } from '@auth/guards';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +16,7 @@ export class InitializationService {
   private readonly router: Router = inject(Router);
   private readonly logger: LoggingService = inject(LoggingService);
   private readonly authService: AuthService = inject(AuthService);
+  private readonly layoutRouteFactory = inject(LAYOUT_ROUTE_FACTORY);
 
   async initialize(): Promise<void> {
     try {
@@ -26,17 +25,7 @@ export class InitializationService {
 
       const dynamicRoutes = this.routeBuilder.buildRoutes(this.menuDataService.menuItems());
 
-      const freshRoutes: Routes = [
-        ...AUTH_ROUTES,
-        {
-          path: '',
-          component: LayoutComponent,
-          canActivate: [authGuard],
-          children: [...LAYOUT_STATIC_CHILDREN, ...dynamicRoutes],
-        },
-      ];
-
-      this.router.resetConfig(freshRoutes);
+      this.router.resetConfig(this.layoutRouteFactory(dynamicRoutes));
       this.logger.info('Rutas dinámicas inicializadas correctamente.');
     } catch (error) {
       this.logger.error('Error al inicializar rutas dinámicas.', error);
