@@ -1,127 +1,101 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
+
+const TEST_ID = 'test-input';
+
+async function renderFormInput(
+  control: FormControl<string>,
+  config?: AppFormInputOptions,
+) {
+  return render(AppFormInputComponent, {
+    componentInputs: { control, testId: TEST_ID, ...(config ? { config } : {}) },
+  });
+}
 
 describe('AppFormInputComponent', () => {
-  let fixture: ComponentFixture<AppFormInputComponent>;
-  let component: AppFormInputComponent;
+  it('renders the initial FormControl value in the native input', async () => {
+    const control = new FormControl('admin@empresa.com') as FormControl<string>;
+    await renderFormInput(control);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppFormInputComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppFormInputComponent);
-    component = fixture.componentInstance;
+    expect(screen.getByTestId<HTMLInputElement>(TEST_ID).value).toBe('admin@empresa.com');
   });
 
-  it('TC-01 — renders the initial FormControl value in the native input', () => {
-    const control = new FormControl('admin@empresa.com');
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('updates the FormControl when the user types in the input', async () => {
+    const control = new FormControl('') as FormControl<string>;
+    await renderFormInput(control);
 
-    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    expect(input.value).toBe('admin@empresa.com');
-  });
-
-  it('TC-02 — updates the FormControl when the user types in the input', () => {
-    const control = new FormControl('');
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
-    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    inputEl.value = 'nuevo@valor.com';
-    inputEl.dispatchEvent(new Event('input'));
+    await userEvent.type(screen.getByTestId(TEST_ID), 'nuevo@valor.com');
 
     expect(control.value).toBe('nuevo@valor.com');
   });
 
-  it('TC-03 — shows the error when the control is invalid and has been touched', async () => {
-    const control = new FormControl('', Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
+  it('shows the error when the control is invalid and has been touched', async () => {
+    const control = new FormControl('', Validators.required) as FormControl<string>;
     control.markAsTouched();
+    const { fixture } = await renderFormInput(control);
     fixture.detectChanges();
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).not.toBeNull();
-    expect(matError.nativeElement.textContent.trim()).toBe('This field is required');
+    const errorEl = screen.getByTestId(TEST_ID + '-error');
+    expect(errorEl.textContent?.trim()).toBe('This field is required');
   });
 
-  it('TC-04 — does not show error when the control is invalid but untouched', () => {
-    const control = new FormControl('', Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('does not show error when the control is invalid but untouched', async () => {
+    const control = new FormControl('', Validators.required) as FormControl<string>;
+    await renderFormInput(control);
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).toBeNull();
+    expect(screen.queryByTestId(TEST_ID + '-error')).toBeNull();
   });
 
-  it('TC-05 — config errorMessages overrides the default error message', () => {
-    const control = new FormControl('', Validators.required);
+  it('overrides the default error message with config.errorMessages', async () => {
+    const control = new FormControl('', Validators.required) as FormControl<string>;
     control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { errorMessages: { required: 'Email is required' } });
+    const { fixture } = await renderFormInput(control, { errorMessages: { required: 'Email is required' } });
     fixture.detectChanges();
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError.nativeElement.textContent.trim()).toBe('Email is required');
+    expect(screen.getByTestId(TEST_ID + '-error').textContent?.trim()).toBe('Email is required');
   });
 
-  it('TC-06 — disables the native input when the FormControl is disabled', () => {
-    const control = new FormControl({ value: '', disabled: true });
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('disables the native input when the FormControl is disabled', async () => {
+    const control = new FormControl({ value: '', disabled: true }) as FormControl<string>;
+    await renderFormInput(control);
 
-    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    expect(inputEl.disabled).toBe(true);
+    expect(screen.getByTestId<HTMLInputElement>(TEST_ID).disabled).toBe(true);
   });
 
-  it('TC-07 — isRequired is true and the input has required attribute when Validators.required is set', () => {
-    const control = new FormControl('', Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('has required attribute on input when Validators.required is set', async () => {
+    const control = new FormControl('', Validators.required) as FormControl<string>;
+    await renderFormInput(control);
 
-    expect(component.isRequired()).toBe(true);
-
-    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    expect(inputEl.required).toBe(true);
+    expect(screen.getByTestId<HTMLInputElement>(TEST_ID).required).toBe(true);
   });
 
-  it('TC-08 — does not show error while typing (dirty only), shows error after blur (touched)', () => {
-    const control = new FormControl('', Validators.email);
-    fixture.componentRef.setInput('control', control);
+  it('does not show error while typing (dirty only), shows error after blur (touched)', async () => {
+    const control = new FormControl('', Validators.email) as FormControl<string>;
+    const { fixture } = await renderFormInput(control);
+
+    const input = screen.getByTestId(TEST_ID);
+    const user = userEvent.setup();
+    await user.type(input, 'invalid-text');
     fixture.detectChanges();
 
-    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    inputEl.value = 'invalid-text';
-    inputEl.dispatchEvent(new Event('input'));
+    expect(screen.queryByTestId(TEST_ID + '-error')).toBeNull();
+
+    await user.tab();
     fixture.detectChanges();
 
-    expect(component.errorState().shouldShow).toBe(false);
-
-    inputEl.dispatchEvent(new Event('blur'));
-    fixture.detectChanges();
-
-    expect(component.errorState().shouldShow).toBe(true);
+    expect(screen.queryByTestId(TEST_ID + '-error')).not.toBeNull();
   });
 
-  it('TC-09 — emits event when clicking the icon', () => {
-    const control = new FormControl('');
+  it('calls onIconClick handler when the icon is clicked', async () => {
+    const control = new FormControl('') as FormControl<string>;
     const onIconClickSpy = vi.fn();
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { icon: 'visibility', onIconClick: onIconClickSpy });
-    fixture.detectChanges();
+    await renderFormInput(control, { icon: 'visibility', onIconClick: onIconClickSpy });
 
-    const iconEl = fixture.debugElement.query(By.css('mat-icon'));
-    expect(iconEl).not.toBeNull();
-
-    const event = new MouseEvent('click');
-    iconEl.nativeElement.dispatchEvent(event);
-    fixture.detectChanges();
+    await userEvent.click(screen.getByTestId(TEST_ID + '-icon'));
 
     expect(onIconClickSpy).toHaveBeenCalledWith(expect.any(MouseEvent));
   });

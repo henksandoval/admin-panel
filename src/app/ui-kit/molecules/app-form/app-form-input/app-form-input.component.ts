@@ -37,13 +37,13 @@ interface ErrorState {
         <span matTextSuffix>{{ fullConfig().suffix }}</span>
       }
       @if (fullConfig().icon) {
-        <mat-icon matSuffix [ngClass]="{ 'app-form-input-icon-clickable': isIconClickable() }" (click)="onIconClick($event)">{{ fullConfig().icon }}</mat-icon>
+        <mat-icon matSuffix [attr.data-testid]="testId() ? testId() + '-icon' : null" [ngClass]="{ 'app-form-input-icon-clickable': isIconClickable() }" (click)="onIconClick($event)">{{ fullConfig().icon }}</mat-icon>
       }
       @if (fullConfig().hint) {
         <mat-hint>{{ fullConfig().hint }}</mat-hint>
       }
       @if (errorState().shouldShow) {
-        <mat-error>{{ errorState().message }}</mat-error>
+        <mat-error [attr.data-testid]="testId() ? testId() + '-error' : null">{{ errorState().message }}</mat-error>
       }
     </mat-form-field>
   `,
@@ -63,17 +63,17 @@ export class AppFormInputComponent {
     });
   }
 
-  readonly fullConfig = computed<AppFormInputConfig>(() => ({
+  protected readonly fullConfig = computed<AppFormInputConfig>(() => ({
     ...FORM_INPUT_DEFAULTS,
     ...this.config()
   }) as AppFormInputConfig);
 
-  readonly isRequired = computed(() => {
+  protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
   });
 
-  readonly errorState = computed<ErrorState>(() => {
+  protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
     const shouldShow = ctrl.invalid && ctrl.touched;
@@ -86,11 +86,11 @@ export class AppFormInputComponent {
     return { shouldShow: true, message };
   });
 
-  readonly isIconClickable = computed(() => {
+  protected readonly isIconClickable = computed(() => {
     return !!this.fullConfig().icon && !!this.fullConfig().onIconClick;
   });
 
-  onIconClick(event: MouseEvent): void {
+  protected onIconClick(event: MouseEvent): void {
     if (this.isIconClickable()) {
       this.fullConfig().onIconClick?.(event);
     }
