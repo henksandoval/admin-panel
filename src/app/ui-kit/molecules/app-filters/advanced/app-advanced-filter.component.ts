@@ -55,20 +55,20 @@ export class AppAdvancedFilterComponent {
 
   criteriaChange = output<AppFilterCriterion[]>();
 
-  readonly criteria = signal<AppFilterCriterion[]>([]);
-  readonly currentToggles = signal<Record<string, boolean>>({});
-  readonly booleanOptions = BOOLEAN_OPTIONS;
-  readonly toggles = computed(() => this.config().toggles ?? []);
+  protected readonly criteria = signal<AppFilterCriterion[]>([]);
+  protected readonly currentToggles = signal<Record<string, boolean>>({});
+  protected readonly booleanOptions = BOOLEAN_OPTIONS;
+  protected readonly toggles = computed(() => this.config().toggles ?? []);
   readonly operators = computed(() =>
     this.config().operators ?? DEFAULT_FILTER_OPERATORS
   );
-  readonly fieldOptions = computed(() =>
+  protected readonly fieldOptions = computed(() =>
     this.config().fields.map(f => ({ value: f.key, label: f.label }))
   );
-  readonly hasCriteria = computed(() => this.criteria().length > 0);
-  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
-  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
-  readonly criteriaAreaClasses = computed(() => {
+  protected readonly hasCriteria = computed(() => this.criteria().length > 0);
+  protected readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
+  protected readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
+  protected readonly criteriaAreaClasses = computed(() => {
     const classes = ['app-filters-advanced-criteria'];
     if (this.hasCriteria()) {
       classes.push('app-filters-advanced-criteria--active');
@@ -76,7 +76,7 @@ export class AppAdvancedFilterComponent {
     return classes.join(' ');
   });
   private readonly fb = inject(FormBuilder);
-  readonly builderForm = this.fb.nonNullable.group({
+  protected readonly builderForm = this.fb.nonNullable.group({
     field: ['', Validators.required],
     operator: ['', Validators.required],
     value: '',
@@ -86,42 +86,42 @@ export class AppAdvancedFilterComponent {
   private readonly formState = toSignal(this.builderForm.valueChanges, {
     initialValue: this.builderForm.getRawValue(),
   });
-  readonly selectedField = computed(() => {
+  protected readonly selectedField = computed(() => {
     const key = this.formState().field;
     return key ? this.config().fields.find(f => f.key === key) ?? null : null;
   });
-  readonly operatorOptions = computed(() => {
+  protected readonly operatorOptions = computed(() => {
     const field = this.selectedField();
     if (!field) return [];
     return this.operators()
       .filter(op => op.applicableTo.includes(field.type))
       .map(op => ({ value: op.key, label: op.label }));
   });
-  readonly valueOptions = computed(() => {
+  protected readonly valueOptions = computed(() => {
     const field = this.selectedField();
     return field?.type === 'select' && field.options ? field.options : [];
   });
-  readonly selectedFieldType = computed(() => this.selectedField()?.type ?? null);
+  protected readonly selectedFieldType = computed(() => this.selectedField()?.type ?? null);
   readonly selectedOperator = computed(() => {
     const key = this.formState().operator;
     return key ? this.operators().find(o => o.key === key) ?? null : null;
   });
-  readonly isNoValueOperator = computed(() => this.selectedOperator()?.requiresValue === false);
+  protected readonly isNoValueOperator = computed(() => this.selectedOperator()?.requiresValue === false);
 
-  readonly fieldLabel = computed(() =>
+  protected readonly fieldLabel = computed(() =>
     $localize`:Filter|Field selector label@@filter.form.field:Field`
   );
-  readonly operatorLabel = computed(() =>
+  protected readonly operatorLabel = computed(() =>
     $localize`:Filter|Operator selector label@@filter.form.operator:Operator`
   );
-  readonly valueLabel = computed(() =>
+  protected readonly valueLabel = computed(() =>
     $localize`:Filter|Value input label@@filter.form.value:Value`
   );
-  readonly dateLabel = computed(() =>
+  protected readonly dateLabel = computed(() =>
     $localize`:Filter|Date input label@@filter.form.date:Date`
   );
 
-  readonly canAddCriterion = computed(() => {
+  protected readonly canAddCriterion = computed(() => {
     const operator = this.selectedOperator();
     if (!this.selectedField() || !operator) return false;
     if (!operator.requiresValue) return true;
@@ -143,7 +143,7 @@ export class AppAdvancedFilterComponent {
     });
   }
 
-  addCriterion(): void {
+  protected addCriterion(): void {
     const field = this.selectedField();
     const operator = this.selectedOperator();
 
@@ -162,29 +162,29 @@ export class AppAdvancedFilterComponent {
     this.emitAutoSearch();
   }
 
-  getRemoveLabel(criterion: AppFilterCriterion): string {
+  protected getRemoveLabel(criterion: AppFilterCriterion): string {
     const displayValue = this.criterionDisplay.transform(criterion);
     const criteria = `${criterion.field.label} ${criterion.operator.symbol} ${displayValue}`;
     return $localize`:Filter|Remove criterion button@@filter.pill.remove:Remove filter: ${criteria}:criteria:`;
   }
 
-  removeCriterion(id: string): void {
+  protected removeCriterion(id: string): void {
     this.criteria.update(current => current.filter(c => c.id !== id));
     this.emitAllCriteria();
     this.emitAutoSearch();
   }
 
-  clearAllCriteria(): void {
+  protected clearAllCriteria(): void {
     this.criteria.set([]);
     this.criteriaChange.emit(togglesToCriteria(this.currentToggles(), this.operators()));
     this.emitAutoSearch();
   }
 
-  emitSearch(): void {
+  protected emitSearch(): void {
     this.emitAllCriteria();
   }
 
-  onToggleChange(togglesRecord: Record<string, boolean>): void {
+  protected onToggleChange(togglesRecord: Record<string, boolean>): void {
     this.currentToggles.set(togglesRecord);
     this.emitAllCriteria();
     this.emitAutoSearch();

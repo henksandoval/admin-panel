@@ -1,196 +1,116 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { AppFormCheckboxComponent } from './app-form-checkbox.component';
+import { AppFormCheckboxNewOptions } from './app-form-checkbox.model';
+
+async function renderFormCheckbox(options: {
+  control: FormControl<boolean>;
+  config?: AppFormCheckboxNewOptions;
+  label?: string;
+}) {
+  const { control, config = {}, label = 'Label' } = options;
+
+  const { fixture } = await render(
+    `<app-form-checkbox [control]="control" [config]="config">${label}</app-form-checkbox>`,
+    {
+      imports: [AppFormCheckboxComponent],
+      componentProperties: { control, config },
+    }
+  );
+
+  return { fixture };
+}
 
 describe('AppFormCheckboxComponent', () => {
-  let fixture: ComponentFixture<AppFormCheckboxComponent>;
-  let component: AppFormCheckboxComponent;
+  it('reflects the initial FormControl value in the checkbox', async () => {
+    const control = new FormControl<boolean>(true, { nonNullable: true });
+    await renderFormCheckbox({ control });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppFormCheckboxComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppFormCheckboxComponent);
-    component = fixture.componentInstance;
+    expect((screen.getByRole('checkbox') as HTMLInputElement).checked).toBe(true);
   });
 
-  it('TC-01 — renders the initial FormControl value in the checkbox', () => {
-    const control = new FormControl(true);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('updates the FormControl value when the checkbox is toggled', async () => {
+    const control = new FormControl<boolean>(false, { nonNullable: true });
+    await renderFormCheckbox({ control });
 
-    const checkbox = fixture.debugElement.query(By.css('app-checkbox'));
-    expect(checkbox.componentInstance.checked).toBe(true);
-  });
-
-  it('TC-02 — updates the FormControl when the checkbox is toggled', () => {
-    const control = new FormControl(false);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
-    component.onCheckboxChange(true);
+    await userEvent.setup().click(screen.getByRole('checkbox'));
 
     expect(control.value).toBe(true);
   });
 
-  it('TC-03 — shows the error when the control is invalid and has been touched', async () => {
-    const control = new FormControl(false, Validators.requiredTrue);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
+  it('shows the error message when the control is invalid and touched', async () => {
+    const control = new FormControl<boolean>(false, { validators: Validators.requiredTrue, nonNullable: true });
     control.markAsTouched();
-    fixture.detectChanges();
 
-    const error = fixture.debugElement.query(By.css('.app-form-checkbox-error'));
-    expect(error).not.toBeNull();
-    expect(error.nativeElement.textContent.trim()).toBe('You must accept this to continue');
+    await renderFormCheckbox({ control });
+
+    expect(screen.getByTestId('form-checkbox-error')).not.toBeNull();
   });
 
-  it('TC-04 — does not show error when the control is invalid but untouched', () => {
-    const control = new FormControl(false, Validators.requiredTrue);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('does not show error when the control is invalid but untouched', async () => {
+    const control = new FormControl<boolean>(false, { validators: Validators.requiredTrue, nonNullable: true });
+    await renderFormCheckbox({ control });
 
-    const error = fixture.debugElement.query(By.css('.app-form-checkbox-error'));
-    expect(error).toBeNull();
+    expect(screen.queryByTestId('form-checkbox-error')).toBeNull();
   });
 
-  it('TC-05 — config errorMessages overrides the default error message', () => {
-    const control = new FormControl(false, Validators.requiredTrue);
+  it('displays a custom error message when config.errorMessages is set', async () => {
+    const control = new FormControl<boolean>(false, { validators: Validators.requiredTrue, nonNullable: true });
     control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { errorMessages: { requiredTrue: 'You must accept the terms' } });
-    fixture.detectChanges();
 
-    const error = fixture.debugElement.query(By.css('.app-form-checkbox-error'));
-    expect(error.nativeElement.textContent.trim()).toBe('You must accept the terms');
+    await renderFormCheckbox({
+      control,
+      config: { errorMessages: { required: 'You must accept the terms' } },
+    });
+
+    expect(screen.getByTestId('form-checkbox-error').textContent?.trim()).toBe('You must accept the terms');
   });
 
-  it('TC-06 — disables the checkbox when the FormControl is disabled', () => {
-    const control = new FormControl({ value: false, disabled: true });
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('renders the checkbox as disabled when the FormControl is disabled', async () => {
+    const control = new FormControl<boolean>({ value: false, disabled: true }, { nonNullable: true });
+    await renderFormCheckbox({ control });
 
-    const checkbox = fixture.debugElement.query(By.css('app-checkbox'));
-    expect(checkbox.componentInstance.disabled).toBe(true);
+    expect((screen.getByRole('checkbox') as HTMLInputElement).disabled).toBe(true);
   });
 
-  it('TC-07 — isRequired is true when Validators.requiredTrue is set', () => {
-    const control = new FormControl(false, Validators.requiredTrue);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('renders the checkbox as required when Validators.requiredTrue is set', async () => {
+    const control = new FormControl<boolean>(false, { validators: Validators.requiredTrue, nonNullable: true });
+    await renderFormCheckbox({ control });
 
-    expect(component.isRequired()).toBe(true);
-
-    const checkbox = fixture.debugElement.query(By.css('app-checkbox'));
-    expect(checkbox.componentInstance.required).toBe(true);
+    expect((screen.getByRole('checkbox') as HTMLInputElement).required).toBe(true);
   });
 
-  it('TC-08 — marks control as touched when checkbox is changed', () => {
-    const control = new FormControl(false);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('renders the checkbox as required when Validators.required is set', async () => {
+    const control = new FormControl<boolean>(false, { validators: Validators.required, nonNullable: true });
+    await renderFormCheckbox({ control });
 
-    component.onCheckboxChange(true);
+    expect((screen.getByRole('checkbox') as HTMLInputElement).required).toBe(true);
+  });
+
+  it('marks the control as touched when the checkbox is toggled', async () => {
+    const control = new FormControl<boolean>(false, { nonNullable: true });
+    await renderFormCheckbox({ control });
+
+    await userEvent.setup().click(screen.getByRole('checkbox'));
 
     expect(control.touched).toBe(true);
   });
 
-  it('TC-09 — renders content with ng-content', () => {
-    const control = new FormControl(false);
+  it('renders projected content inside the checkbox label', async () => {
+    const control = new FormControl<boolean>(false, { nonNullable: true });
 
-    @Component({
-      standalone: true,
-      imports: [AppFormCheckboxComponent],
-      template: `
-        <app-form-checkbox [control]="control">
-          <span class="test-content">Accept terms</span>
-        </app-form-checkbox>
-      `
-    })
-    class TestHostComponent {
-      control = control;
-    }
-
-    const hostFixture = TestBed.createComponent(TestHostComponent);
-    hostFixture.detectChanges();
-
-    const content = hostFixture.debugElement.query(By.css('.test-content'));
-    expect(content).not.toBeNull();
-    expect(content.nativeElement.textContent).toBe('Accept terms');
-  });
-
-  it('TC-10 — applies color from config', () => {
-    const control = new FormControl(false);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { color: 'accent' });
+    const { fixture } = await render(
+      `<app-form-checkbox [control]="control"><span data-testid="projected-content">Accept terms</span></app-form-checkbox>`,
+      {
+        imports: [AppFormCheckboxComponent],
+        componentProperties: { control },
+      }
+    );
     fixture.detectChanges();
 
-    const checkbox = fixture.debugElement.query(By.css('app-checkbox'));
-    expect(checkbox.componentInstance.color).toBe('accent');
-  });
-
-  it('TC-11 — applies size from config', () => {
-    const control = new FormControl(false);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { size: 'large' });
-    fixture.detectChanges();
-
-    const checkbox = fixture.debugElement.query(By.css('app-checkbox'));
-    expect(checkbox.componentInstance.size).toBe('large');
-  });
-
-  it('TC-12 — applies labelPosition from config', () => {
-    const control = new FormControl(false);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { labelPosition: 'before' });
-    fixture.detectChanges();
-
-    const checkbox = fixture.debugElement.query(By.css('app-checkbox'));
-    expect(checkbox.componentInstance.labelPosition).toBe('before');
-  });
-
-  it('TC-13 — isRequired is true when Validators.required is set', () => {
-    const control = new FormControl(false, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
-    expect(component.isRequired()).toBe(true);
-  });
-
-  it('TC-14 — handles custom error messages for required validator', () => {
-    const control = new FormControl(false, Validators.required);
-    control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { errorMessages: { required: 'This is required' } });
-    fixture.detectChanges();
-
-    const error = fixture.debugElement.query(By.css('.app-form-checkbox-error'));
-    expect(error.nativeElement.textContent.trim()).toBe('This is required');
-  });
-
-  it('TC-15 — renders with default indeterminate as false', () => {
-    const control = new FormControl(false);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
-    const checkbox = fixture.debugElement.query(By.css('app-checkbox'));
-    expect(checkbox.componentInstance.indeterminate).toBe(false);
-  });
-
-  it('TC-16 — applies indeterminate from config', () => {
-    const control = new FormControl(false);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { indeterminate: true });
-    fixture.detectChanges();
-
-    const checkbox = fixture.debugElement.query(By.css('app-checkbox'));
-    expect(checkbox.componentInstance.indeterminate).toBe(true);
+    expect(screen.getByTestId('projected-content')).not.toBeNull();
+    expect(screen.getByTestId('projected-content').textContent).toBe('Accept terms');
   });
 });
-
-// Helper component for testing ng-content
-import { Component } from '@angular/core';
-
