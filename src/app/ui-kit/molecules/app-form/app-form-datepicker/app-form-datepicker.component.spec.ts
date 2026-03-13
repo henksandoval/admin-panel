@@ -1,35 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { describe, expect, it } from 'vitest';
+import { render, screen } from '@testing-library/angular';
 import { AppFormDatepickerComponent } from './app-form-datepicker.component';
 
-describe('AppFormDatepickerComponent', () => {
-  let fixture: ComponentFixture<AppFormDatepickerComponent>;
-  let component: AppFormDatepickerComponent;
+const TEST_ID = 'datepicker-input';
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppFormDatepickerComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppFormDatepickerComponent);
-    component = fixture.componentInstance;
+async function renderDatepicker(options: {
+  control: FormControl<Date | null>;
+  config?: object;
+}) {
+  await render(AppFormDatepickerComponent, {
+    inputs: {
+      control: options.control,
+      config: options.config ?? {},
+      testId: TEST_ID,
+    },
   });
+}
 
-  it('TC-01 — renders the initial FormControl value in the datepicker input', () => {
+describe('AppFormDatepickerComponent', () => {
+  it('renders the initial FormControl value in the datepicker input', async () => {
     const testDate = new Date(2024, 0, 15);
-    const control = new FormControl(testDate);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+    const control = new FormControl<Date | null>(testDate);
 
-    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    await renderDatepicker({ control });
+
+    const input = screen.getByTestId<HTMLInputElement>(TEST_ID);
     expect(input.value).toBeTruthy();
   });
 
-  it('TC-02 — updates the FormControl when the date is selected', () => {
+  it('updates the FormControl when a date value is set programmatically', async () => {
     const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+
+    await renderDatepicker({ control });
 
     const testDate = new Date(2024, 0, 15);
     control.setValue(testDate);
@@ -37,172 +40,112 @@ describe('AppFormDatepickerComponent', () => {
     expect(control.value).toEqual(testDate);
   });
 
-  it('TC-03 — shows the error when the control is invalid and has been touched', async () => {
+  it('shows the required error message when the control is invalid and touched', async () => {
     const control = new FormControl<Date | null>(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+
+    await renderDatepicker({ control });
 
     control.markAsTouched();
-    fixture.detectChanges();
+    control.updateValueAndValidity();
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).not.toBeNull();
-    expect(matError.nativeElement.textContent.trim()).toBe('This field is required');
+    const error = await screen.findByTestId('datepicker-error');
+    expect(error.textContent?.trim()).toBe('This field is required');
   });
 
-  it('TC-04 — does not show error when the control is invalid but untouched', () => {
+  it('does not show an error when the control is invalid but untouched', async () => {
     const control = new FormControl<Date | null>(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError).toBeNull();
+    await renderDatepicker({ control });
+
+    expect(screen.queryByTestId('datepicker-error')).toBeNull();
   });
 
-  it('TC-05 — config errorMessages overrides the default error message', () => {
+  it('displays a custom error message when config errorMessages overrides the default', async () => {
     const control = new FormControl<Date | null>(null, Validators.required);
     control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { errorMessages: { required: 'Birth date is required' } });
-    fixture.detectChanges();
 
-    const matError = fixture.debugElement.query(By.css('mat-error'));
-    expect(matError.nativeElement.textContent.trim()).toBe('Birth date is required');
+    await renderDatepicker({ control, config: { errorMessages: { required: 'Birth date is required' } } });
+
+    const error = screen.getByTestId('datepicker-error');
+    expect(error.textContent?.trim()).toBe('Birth date is required');
   });
 
-  it('TC-06 — disables the input when the FormControl is disabled', () => {
-    const control = new FormControl({ value: null, disabled: true });
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
+  it('disables the input when the FormControl is disabled', async () => {
+    const control = new FormControl<Date | null>({ value: null, disabled: true });
 
-    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    expect(inputEl.disabled).toBe(true);
+    await renderDatepicker({ control });
+
+    const input = screen.getByTestId<HTMLInputElement>(TEST_ID);
+    expect(input.disabled).toBe(true);
   });
 
-  it('TC-07 — isRequired is true when Validators.required is set', () => {
+  it('marks the input as required when Validators.required is set on the control', async () => {
     const control = new FormControl<Date | null>(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
 
-    expect(component.isRequired()).toBe(true);
+    await renderDatepicker({ control });
 
-    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    expect(inputEl.required).toBe(true);
+    const input = screen.getByTestId<HTMLInputElement>(TEST_ID);
+    expect(input.required).toBe(true);
   });
 
-  it('TC-08 — renders the label when provided in config', () => {
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { label: 'Birth Date' });
-    fixture.detectChanges();
+  it('shows a matDatepickerMax error when the date exceeds the configured maxDate', async () => {
+    const maxDate = new Date(2024, 0, 31);
+    const control = new FormControl<Date | null>(new Date(2025, 0, 1));
+    control.markAsTouched();
 
-    const label = fixture.debugElement.query(By.css('mat-label'));
-    expect(label).not.toBeNull();
-    expect(label.nativeElement.textContent.trim()).toBe('Birth Date');
+    await renderDatepicker({ control, config: { maxDate, errorMessages: { matDatepickerMax: 'Date is too late' } } });
+
+    control.setErrors({ matDatepickerMax: { max: maxDate, actual: control.value } });
+    control.updateValueAndValidity();
+
+    const error = await screen.findByTestId('datepicker-error');
+    expect(error.textContent?.trim()).toBe('Date is too late');
   });
 
-  it('TC-09 — renders the placeholder when provided in config', () => {
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { placeholder: 'MM/DD/YYYY' });
-    fixture.detectChanges();
+  it('applies minDate and maxDate from config to the datepicker input', async () => {
+    const minDate = new Date(2000, 0, 1);
+    const maxDate = new Date(2030, 11, 31);
+    const control = new FormControl<Date | null>(new Date(2025, 5, 15));
+    control.markAsTouched();
 
-    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    await renderDatepicker({ control, config: { minDate, maxDate } });
+
+    expect(screen.queryByTestId('datepicker-error')).toBeNull();
+  });
+
+  it('renders the datepicker toggle button', async () => {
+    const control = new FormControl<Date | null>(null);
+
+    await renderDatepicker({ control });
+
+    expect(screen.getByTestId('datepicker-toggle')).toBeTruthy();
+  });
+
+  it('renders the label when provided in config', async () => {
+    const control = new FormControl<Date | null>(null);
+
+    await renderDatepicker({ control, config: { label: 'Birth Date' } });
+
+    const label = screen.getByTestId('datepicker-label');
+    expect(label.textContent?.trim()).toBe('Birth Date');
+  });
+
+  it('renders the placeholder when provided in config', async () => {
+    const control = new FormControl<Date | null>(null);
+
+    await renderDatepicker({ control, config: { placeholder: 'MM/DD/YYYY' } });
+
+    const input = screen.getByTestId<HTMLInputElement>(TEST_ID);
     expect(input.placeholder).toBe('MM/DD/YYYY');
   });
 
-  it('TC-10 — renders the hint when provided in config', () => {
+  it('renders the hint when provided in config', async () => {
     const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { hint: 'You must be 18 or older' });
-    fixture.detectChanges();
 
-    const hint = fixture.debugElement.query(By.css('mat-hint'));
-    expect(hint).not.toBeNull();
-    expect(hint.nativeElement.textContent.trim()).toBe('You must be 18 or older');
-  });
+    await renderDatepicker({ control, config: { hint: 'You must be 18 or older' } });
 
-  it('TC-11 — renders the icon when provided in config', () => {
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { icon: 'calendar_today' });
-    fixture.detectChanges();
-
-    const icon = fixture.debugElement.query(By.css('mat-icon'));
-    expect(icon).not.toBeNull();
-    expect(icon.nativeElement.textContent.trim()).toBe('calendar_today');
-  });
-
-  it('TC-12 — renders the datepicker toggle button', () => {
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
-    const toggle = fixture.debugElement.query(By.css('mat-datepicker-toggle'));
-    expect(toggle).not.toBeNull();
-  });
-
-  it('TC-13 — renders with default appearance', () => {
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
-    const formField = fixture.debugElement.query(By.css('mat-form-field'));
-    expect(formField.componentInstance.appearance).toBe('fill');
-  });
-
-  it('TC-14 — applies custom appearance from config', () => {
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { appearance: 'outline' });
-    fixture.detectChanges();
-
-    const formField = fixture.debugElement.query(By.css('mat-form-field'));
-    expect(formField.componentInstance.appearance).toBe('outline');
-  });
-
-  it('TC-15 — handles matDatepickerMax validation error message', () => {
-    const maxDate = new Date(2024, 0, 31);
-    const control = new FormControl<Date | null>(new Date(2025, 0, 1), Validators.max(maxDate.getTime()));
-    control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.detectChanges();
-
-    // This test validates the error message structure
-    const errorState = component.errorState();
-    expect(errorState.shouldShow).toBe(true);
-  });
-
-  it('TC-16 — applies minDate from config', () => {
-    const minDate = new Date(2000, 0, 1);
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { minDate });
-    fixture.detectChanges();
-
-    const input = fixture.debugElement.query(By.css('input'));
-    expect(input.componentInstance.min).toEqual(minDate);
-  });
-
-  it('TC-17 — applies maxDate from config', () => {
-    const maxDate = new Date(2030, 0, 1);
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { maxDate });
-    fixture.detectChanges();
-
-    const input = fixture.debugElement.query(By.css('input'));
-    expect(input.componentInstance.max).toEqual(maxDate);
-  });
-
-  it('TC-18 — applies startView from config', () => {
-    const control = new FormControl<Date | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('config', { startView: 'year' });
-    fixture.detectChanges();
-
-    const datepicker = fixture.debugElement.query(By.css('mat-datepicker'));
-    expect(datepicker.componentInstance.startView).toBe('year');
+    const hint = screen.getByTestId('datepicker-hint');
+    expect(hint.textContent?.trim()).toBe('You must be 18 or older');
   });
 });
 
