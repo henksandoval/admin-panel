@@ -2,6 +2,36 @@
 
 > Referencia completa para developers: `docs/STYLE_GUIDE.md`
 
+## Development Environment
+
+### Bootstrap
+
+```bash
+npm install
+```
+
+### Commands
+
+| Command | Description |
+|---|---|
+| `npm start` | Start development server on http://localhost:4200 |
+| `npm run build` | Production build |
+| `npm test` | Run unit/component tests (Vitest) |
+| `npm run test:coverage` | Run tests with coverage report |
+| `npm run lint` | Lint code (ESLint + angular-eslint) |
+| `npm run lint:fix` | Lint and auto-fix |
+| `npm run e2e` | Run E2E tests (Playwright) |
+
+### Validation Workflow
+
+After making code changes, always run in this order:
+
+```bash
+npm run lint
+npm test
+npm run build
+```
+
 ## Reglas Absolutas
 
 ### Estilos
