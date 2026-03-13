@@ -1,10 +1,9 @@
 import { Component, computed, effect, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon } from '@angular/material/icon';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { AppFormDatepickerConfig, AppFormDatepickerOptions, FORM_DATEPICKER_DEFAULT_ERROR_MESSAGES, FORM_DATEPICKER_DEFAULTS } from './app-form-datepicker.model';
 
@@ -16,13 +15,13 @@ interface ErrorState {
 @Component({
   selector: 'app-form-datepicker',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatIconModule],
+  imports: [ReactiveFormsModule, MatFormField, MatLabel, MatPrefix, MatInput, MatSuffix, MatIcon, MatHint, MatError, MatDatepickerModule],
   providers: [provideNativeDateAdapter()],
   styleUrl: './app-form-datepicker.component.scss',
   template: `
     <mat-form-field class="w-full" [appearance]="fullConfig().appearance">
       @if (fullConfig().label) {
-        <mat-label>{{ fullConfig().label }}</mat-label>
+        <mat-label data-testid="datepicker-label">{{ fullConfig().label }}</mat-label>
       }
       @if (fullConfig().prefix) {
         <span matTextPrefix>{{ fullConfig().prefix }}&nbsp;</span>
@@ -35,6 +34,7 @@ interface ErrorState {
         [min]="fullConfig().minDate"
         [max]="fullConfig().maxDate"
         [attr.aria-label]="fullConfig().ariaLabel"
+        [attr.data-testid]="testId() ?? null"
         [required]="isRequired()"
       >
       @if (fullConfig().suffix) {
@@ -43,13 +43,13 @@ interface ErrorState {
       @if (fullConfig().icon) {
         <mat-icon matPrefix>{{ fullConfig().icon }}</mat-icon>
       }
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matIconSuffix [for]="picker" data-testid="datepicker-toggle"></mat-datepicker-toggle>
       <mat-datepicker #picker [startView]="fullConfig().startView"></mat-datepicker>
       @if (fullConfig().hint) {
-        <mat-hint>{{ fullConfig().hint }}</mat-hint>
+        <mat-hint data-testid="datepicker-hint">{{ fullConfig().hint }}</mat-hint>
       }
       @if (errorState().shouldShow) {
-        <mat-error>{{ errorState().message }}</mat-error>
+        <mat-error data-testid="datepicker-error">{{ errorState().message }}</mat-error>
       }
     </mat-form-field>
   `,
@@ -57,6 +57,7 @@ interface ErrorState {
 export class AppFormDatepickerComponent {
   readonly control = input.required<FormControl<Date | null>>();
   readonly config = input<AppFormDatepickerOptions>({});
+  readonly testId = input<string>();
 
   private readonly controlEventTick = signal(0);
 
@@ -68,17 +69,17 @@ export class AppFormDatepickerComponent {
     });
   }
 
-  readonly fullConfig = computed<AppFormDatepickerConfig>(() => ({
+  protected readonly fullConfig = computed<AppFormDatepickerConfig>(() => ({
     ...FORM_DATEPICKER_DEFAULTS,
     ...this.config()
   }) as AppFormDatepickerConfig);
 
-  readonly isRequired = computed(() => {
+  protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
   });
 
-  readonly errorState = computed<ErrorState>(() => {
+  protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
     const shouldShow = ctrl.invalid && ctrl.touched;
