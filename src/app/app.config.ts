@@ -15,6 +15,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
 import { AUTH_ROUTES, LAYOUT_ROUTE_FACTORY, LAYOUT_STATIC_CHILDREN, routes } from './app.routes';
+import { featureRouteLoaders } from './feature-route-loaders';
 import { LayoutComponent } from '@layout/layout.component';
 import { authGuard } from '@auth/guards';
 import { InitializationService } from '@core/services';
@@ -22,6 +23,7 @@ import { authInterceptor } from '@auth/interceptors';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers';
 import { API_BASE_URL, JwtAuthProvider } from '@auth/providers';
 import { MockAuthProvider } from '@auth/providers';
+import { ROUTE_LOADER_REGISTRY } from '@core/registry';
 import { environment } from '@env/environment';
 import { errorInterceptor } from '@core/interceptors';
 
@@ -61,5 +63,6 @@ export const appConfig: ApplicationConfig = {
     },
     { provide: AUTH_PUBLIC_URLS, useValue: ['/auth/login', '/auth/refresh', '/auth/logout'] },
     { provide: API_BASE_URL,     useValue: environment.apiBaseUrl },
+    { provide: ROUTE_LOADER_REGISTRY, useValue: featureRouteLoaders },
   ]
 };

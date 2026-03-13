@@ -1,0 +1,24 @@
+import { RouteLoaderRegistry } from '@core/registry';
+
+export const pdsRouteLoaders: RouteLoaderRegistry = {
+  pds: () => import('@features/pds/showcase.component').then((m) => m.ShowcaseComponent),
+  'pds-index': () => import('@features/pds/pages/index/index.component').then((m) => m.IndexComponent),
+  'pds-form': () => import('@features/pds/pages/form/form.component').then((m) => m.FormComponent),
+  'pds-buttons': () => import('@features/pds/pages/buttons/buttons.component'),
+  'pds-checkboxes': () => import('@features/pds/pages/checkboxes/checkboxes.component'),
+  'pds-radios': () => import('@features/pds/pages/radios/radios.component'),
+  'pds-indicators': () => import('@features/pds/pages/indicators/indicators.component'),
+  'pds-selects': () => import('@features/pds/pages/selects/selects.component'),
+  'pds-toggle-groups': () => import('@features/pds/pages/toggle-groups/toggle-groups.component'),
+  'pds-icons': () => import('@features/pds/pages/icons-gallery/icons-gallery.component'),
+  'pds-typography': () => import('@features/pds/pages/typography/typography.component'),
+  'pds-layout-dashboard': () => import('@features/pds/pages/layouts/dashboard.component'),
+  'pds-layout-full-width': () => import('@features/pds/pages/layouts/full-width.component'),
+  'pds-layout-main-sidebar': () => import('@features/pds/pages/layouts/main-sidebar.component'),
+  'pds-layout-sidebar-main': () => import('@features/pds/pages/layouts/sidebar-main.component'),
+  'pds-layout-two-column': () => import('@features/pds/pages/layouts/two-column.component'),
+  'pds-layout-two-column-footer': () => import('@features/pds/pages/layouts/two-column-footer.component'),
+  'pds-layout-three-column': () => import('@features/pds/pages/layouts/three-column.component'),
+  'pds-table-client-side': () => import('@features/pds/pages/table-client-side/table-client-side.component').then((m) => m.TableClientSideComponent),
+  'pds-table-server-side': () => import('@features/pds/pages/table-server-side/table-server-side.component').then((m) => m.TableServerSideComponent),
+};
