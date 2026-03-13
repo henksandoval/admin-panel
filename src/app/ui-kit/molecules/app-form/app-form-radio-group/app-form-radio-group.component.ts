@@ -15,22 +15,24 @@ interface ErrorState {
   imports: [ReactiveFormsModule, MatRadioModule, AppRadioComponent],
   styleUrl: './app-form-radio-group.component.scss',
   template: `
-    <div class="app-form-radio-group-wrapper">
+    <div class="app-form-radio-group-wrapper" data-testid="radio-group-wrapper">
       @if (fullConfig().label) {
-        <label class="app-form-radio-group-label mat-label-large">
+        <label class="app-form-radio-group-label mat-label-large" data-testid="radio-group-label">
           {{ fullConfig().label }}
           @if (isRequired()) {
-            <span>*</span>
+            <span data-testid="radio-group-required-indicator">*</span>
           }
         </label>
       }
 
       <mat-radio-group
         class="app-form-radio-group-options"
+        data-testid="radio-group"
         [class.app-form-radio-group-layout-horizontal]="fullConfig().layout === 'horizontal'"
         [formControl]="control()">
         @for (option of options(); track option.value) {
           <app-radio
+            [attr.data-testid]="'radio-option-' + option.value"
             [value]="option.value"
             [disabled]="option.disabled || false">
             {{ option.label }}
@@ -39,11 +41,11 @@ interface ErrorState {
       </mat-radio-group>
 
       @if (fullConfig().hint) {
-        <div class="app-form-radio-group-hint mat-label-small">{{ fullConfig().hint }}</div>
+        <div class="app-form-radio-group-hint mat-label-small" data-testid="radio-group-hint">{{ fullConfig().hint }}</div>
       }
 
       @if (errorState().shouldShow) {
-        <div class="app-form-radio-group-error mat-label-large" role="alert">
+        <div class="app-form-radio-group-error mat-label-large" role="alert" data-testid="radio-group-error">
           {{ errorState().message }}
         </div>
       }
@@ -65,17 +67,17 @@ export class AppFormRadioGroupComponent<T = any> {
     });
   }
 
-  readonly fullConfig = computed<AppFormRadioGroupConfig>(() => ({
+  protected readonly fullConfig = computed<AppFormRadioGroupConfig>(() => ({
     ...FORM_RADIO_GROUP_DEFAULTS,
     ...this.config()
   }) as AppFormRadioGroupConfig);
 
-  readonly isRequired = computed(() => {
+  protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
   });
 
-  readonly errorState = computed<ErrorState>(() => {
+  protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
     const shouldShow = ctrl.invalid && ctrl.touched;
