@@ -1,10 +1,11 @@
 @if (showFooter()) {
   <mat-divider class="my-4"></mat-divider>
 
-  <div class="footer">
+  <div class="footer" data-testid="filter-footer">
     <div class="footer-toggles">
       @for (toggle of internalToggles(); track toggle.key) {
         <app-checkbox
+          [attr.data-testid]="'filter-footer-toggle-' + toggle.key"
           (changed)="onToggleChange(toggle.key, $event)"
           [checked]="toggle.value">
           {{ toggle.label }}
@@ -14,13 +15,13 @@
 
     <div class="footer-buttons">
       @if (showClearButton()) {
-        <app-button (click)="onClear()" iconBefore="restart_alt">
+        <app-button testId="filter-footer-clear-button" (click)="onClear()" iconBefore="restart_alt">
           <ng-container i18n="Filters|Clear filters button@@filters.btn.clear">Clear filters</ng-container>
         </app-button>
       }
 
       @if (showSearchButton()) {
-        <app-button (click)="onSearch()" iconBefore="search">
+        <app-button testId="filter-footer-search-button" (click)="onSearch()" iconBefore="search">
           <ng-container i18n="Filters|Search button@@filters.btn.search">Search</ng-container>
         </app-button>
       }
