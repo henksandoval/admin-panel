@@ -8,7 +8,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
 import { LayoutService } from '../../services/layout.service';
 import { AppBreadCrumbComponent } from '@ui-molecules/app-bread-crumb';
-import { AuthService } from '@auth/services';
+import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-toolbar',

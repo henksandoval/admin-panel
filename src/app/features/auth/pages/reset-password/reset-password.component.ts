@@ -2,7 +2,7 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { AuthService } from '@auth/services';
+import { AuthService } from '@auth/services/auth.service';
 import { AppButtonComponent } from '@ui-atoms/app-button';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';

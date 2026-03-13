@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, Observable, of, switchMap, tap } from 'rxjs';
-import { AUTH_PROVIDER } from '@auth/providers';
+import { AUTH_PROVIDER } from '@auth/providers/auth-provider.token';
 import {
   AUTH_DEFAULTS,
   AuthStatus,

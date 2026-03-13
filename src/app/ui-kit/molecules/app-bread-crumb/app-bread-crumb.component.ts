@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { NavigationService } from '@core/services';
+import { NavigationService } from '@core/services/navigation.service';
 
 @Component({
   selector: 'app-bread-crumb',

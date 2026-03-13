@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationItem } from '@core/models';
-import { NavigationService } from '@core/services';
+import { NavigationService } from '@core/services/navigation.service';
 import { filter, Subscription } from 'rxjs';
 import { LayoutService } from '@layout/services/layout.service';
 

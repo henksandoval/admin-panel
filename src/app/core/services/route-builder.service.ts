@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Route } from '@angular/router';
 import { ApiMenuItem } from '@core/contracts';
-import { ROUTE_REGISTRY, RouteDefinition } from '@core/registry';
+import { ROUTE_REGISTRY, RouteDefinition } from '@core/registry/route-registry';
 import { LoggingService } from './logging.service';
-import { authGuard, roleGuard } from '@auth/guards';
+import { authGuard, roleGuard } from '@auth/guards/auth.guard';
 
 @Injectable({
   providedIn: 'root',

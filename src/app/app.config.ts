@@ -16,14 +16,14 @@ import localeEs from '@angular/common/locales/es';
 
 import { AUTH_ROUTES, LAYOUT_ROUTE_FACTORY, LAYOUT_STATIC_CHILDREN, routes } from './app.routes';
 import { LayoutComponent } from '@layout/layout.component';
-import { authGuard } from '@auth/guards';
-import { InitializationService } from '@core/services';
-import { authInterceptor } from '@auth/interceptors';
-import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers';
-import { API_BASE_URL, JwtAuthProvider } from '@auth/providers';
-import { MockAuthProvider } from '@auth/providers';
+import { authGuard } from '@auth/guards/auth.guard';
+import { InitializationService } from '@core/services/initialization.service';
+import { authInterceptor } from '@auth/interceptors/auth.interceptor';
+import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
+import { API_BASE_URL, JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.provider';
+import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
 import { environment } from '@env/environment.development';
-import { errorInterceptor } from '@core/interceptors';
+import { errorInterceptor } from '@core/interceptors/error.interceptor';
 
 registerLocaleData(localeEs);
 
