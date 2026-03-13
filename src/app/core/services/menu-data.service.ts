@@ -41,6 +41,10 @@ export class MenuDataService {
   private buildNavigationItems(items: ApiMenuItem[], parentPath: string): NavigationItem[] {
     return items
       .map((item: ApiMenuItem): NavigationItem | null => {
+        if (item.hidden) {
+          return null;
+        }
+
         const definition = ROUTE_REGISTRY[item.id];
 
         if (!definition) {

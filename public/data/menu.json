@@ -79,29 +79,6 @@
         ]
       },
       {
-        "id": "errors",
-        "label": "Errores",
-        "icon": "error",
-        "hidden": true,
-        "children": [
-          {
-            "id": "error-403",
-            "label": "Error 403",
-            "icon": "error_outline"
-          },
-          {
-            "id": "error-404",
-            "label": "Error 404",
-            "icon": "error_outline"
-          },
-          {
-            "id": "error-500",
-            "label": "Error 500",
-            "icon": "warning"
-          }
-        ]
-      },
-      {
         "id": "badges",
         "label": "Badges",
         "icon": "loyalty",
@@ -248,6 +225,29 @@
         "id": "pds-icons",
         "label": "Iconos",
         "icon": "insert_emoticon"
+      }
+    ]
+  },
+  {
+    "id": "errors",
+    "label": "Errores",
+    "icon": "error",
+    "hidden": true,
+    "children": [
+      {
+        "id": "error-403",
+        "label": "Error 403",
+        "icon": "error_outline"
+      },
+      {
+        "id": "error-404",
+        "label": "Error 404",
+        "icon": "error_outline"
+      },
+      {
+        "id": "error-500",
+        "label": "Error 500",
+        "icon": "warning"
       }
     ]
   }
