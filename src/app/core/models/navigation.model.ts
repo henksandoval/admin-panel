@@ -12,6 +12,9 @@ export interface NavigationItem {
   readonly icon: string;
   readonly url?: string;
   readonly badge?: NavigationBadge;
+  readonly requiresAuth?: boolean;
+  readonly roles?: readonly string[];
+  readonly requireAllRoles?: boolean;
   readonly children?: NavigationItem[];
 }
 

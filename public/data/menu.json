@@ -1,9 +1,10 @@
 [
-  { "id": "dashboard", "label": "Dashboard", "icon": "dashboard" },
+  { "id": "dashboard", "label": "Dashboard", "icon": "dashboard", "requiresAuth": true },
   {
     "id": "applications",
     "label": "Aplicaciones",
     "icon": "apps",
+    "requiresAuth": true,
     "children": [
       {
         "id": "ecommerce",
@@ -60,23 +61,25 @@
           { "id": "error-504", "label": "Error 504", "icon": "warning" }
         ]
       },
-      { "id": "profile", "label": "Perfil", "icon": "person" }
+      { "id": "profile", "label": "Perfil", "icon": "person", "requiresAuth": true }
     ]
   },
   {
     "id": "user-interface",
     "label": "Interfaz de Usuario",
     "icon": "palette",
+    "requiresAuth": true,
     "children": [
       { "id": "forms", "label": "Formularios", "icon": "assignment" },
       { "id": "cards", "label": "Cards",        "icon": "credit_card" }
     ]
   },
-  { "id": "settings", "label": "Configuración", "icon": "settings" },
+  { "id": "settings", "label": "Configuración", "icon": "settings", "requiresAuth": true, "roles": ["admin"] },
   {
     "id": "badges",
     "label": "Badges",
     "icon": "loyalty",
+    "requiresAuth": true,
     "children": [
       { "id": "normal",            "label": "Normal",      "icon": "loyalty", "badge": { "title": "12", "type": "normal" } },
       { "id": "success",           "label": "Éxito",       "icon": "loyalty", "badge": { "title": "11", "type": "success" } },
@@ -94,6 +97,8 @@
     "id": "pds",
     "label": "PDS",
     "icon": "dashboard_customize",
+    "requiresAuth": true,
+    "roles": ["admin"],
     "children": [
       { "id": "pds-index", "label": "Index", "icon": "home" },
       {

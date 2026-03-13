@@ -3,6 +3,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationItem, BreadcrumbItem } from '@core/models';
+import { AuthService } from '@auth/services';
+import { AuthUser } from '@auth/models';
 import { MenuDataService } from './menu-data.service';
 
 @Injectable({
@@ -10,9 +12,17 @@ import { MenuDataService } from './menu-data.service';
 })
 export class NavigationService {
   private readonly router: Router = inject(Router);
+  private readonly authService: AuthService = inject(AuthService);
   private readonly menuDataService: MenuDataService = inject(MenuDataService);
 
   private readonly navigationMenu = computed<NavigationItem[]>(() => this.menuDataService.navigationItems());
+  private readonly filteredNavigationMenu = computed<NavigationItem[]>(() =>
+    this.filterNavigationItems(
+      this.navigationMenu(),
+      this.authService.currentUser(),
+      this.authService.isAuthenticated(),
+    ),
+  );
   private readonly currentNavigationChildren = signal<NavigationItem[]>([]);
   private readonly activeRootItemId = signal<string | null>(null);
 
@@ -26,7 +36,7 @@ export class NavigationService {
 
   readonly breadcrumbs = computed<BreadcrumbItem[]>(() => {
     const url = this.currentUrl();
-    const menu = this.navigationMenu();
+    const menu = this.filteredNavigationMenu();
     return this.buildBreadcrumbs(menu, url);
   });
 
@@ -40,7 +50,7 @@ export class NavigationService {
   }
 
   getNavigation(): Signal<NavigationItem[]> {
-    return this.navigationMenu;
+    return this.filteredNavigationMenu;
   }
 
   getCurrentNavigation(): Signal<NavigationItem[]> {
@@ -56,10 +66,54 @@ export class NavigationService {
   }
 
   updateActiveRootItem(): void {
-    const activeItem = this.navigationMenu().find((rootItem) =>
+    const activeItem = this.filteredNavigationMenu().find((rootItem) =>
       this.itemContainsActiveRoute(rootItem),
     );
     this.activeRootItemId.set(activeItem?.id ?? null);
+  }
+
+  private filterNavigationItems(
+    items: NavigationItem[],
+    user: AuthUser | null,
+    isAuthenticated: boolean,
+  ): NavigationItem[] {
+    return items.reduce<NavigationItem[]>((filtered, item) => {
+      if (!this.isNavigationItemAllowed(item, user, isAuthenticated)) {
+        return filtered;
+      }
+
+      const children = item.children
+        ? this.filterNavigationItems(item.children, user, isAuthenticated)
+        : undefined;
+
+      if (item.children && (!children || children.length === 0) && !item.url) {
+        return filtered;
+      }
+
+      filtered.push({
+        ...item,
+        ...(children ? { children } : {}),
+      });
+
+      return filtered;
+    }, []);
+  }
+
+  private isNavigationItemAllowed(
+    item: NavigationItem,
+    user: AuthUser | null,
+    isAuthenticated: boolean,
+  ): boolean {
+    const roles = item.roles ?? [];
+    const requiresAuth = item.requiresAuth ?? roles.length > 0;
+
+    if (requiresAuth && !isAuthenticated) return false;
+    if (roles.length === 0) return true;
+    if (!user) return false;
+
+    return item.requireAllRoles
+      ? roles.every((role) => user.roles.includes(role))
+      : roles.some((role) => user.roles.includes(role));
   }
 
   private buildBreadcrumbs(menu: NavigationItem[], url: string): BreadcrumbItem[] {

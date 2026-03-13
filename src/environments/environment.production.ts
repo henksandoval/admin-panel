@@ -5,4 +5,5 @@ export const environment: AppEnvironment = {
   production: true,
   logLevel: LogLevel.error,
   apiBaseUrl: 'https://api.tu-dominio.com',
+  strictMenuRoutes: true,
 };

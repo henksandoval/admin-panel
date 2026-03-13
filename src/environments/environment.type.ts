@@ -4,4 +4,5 @@ export interface AppEnvironment {
   production: boolean;
   logLevel: LogLevel;
   apiBaseUrl: string;
+  strictMenuRoutes: boolean;
 }
