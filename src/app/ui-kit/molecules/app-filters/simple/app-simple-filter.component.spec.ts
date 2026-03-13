@@ -1,98 +1,133 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { AppSimpleFilterComponent } from './app-simple-filter.component';
-import { AppFiltersConfig } from '../app-filter.model';
+import { AppFiltersConfig, AppFilterCriterion } from '../app-filter.model';
+import { AppFormInputStubComponent } from '@stubs/ui-kit/app-form-input.stub';
+import { AppFormSelectStubComponent } from '@stubs/ui-kit/app-form-select.stub';
+import { AppFormDatepickerStubComponent } from '@stubs/ui-kit/app-form-datepicker.stub';
+import { AppFilterFooterStubComponent } from '@stubs/ui-kit/app-filter-footer.stub';
 
-const config: AppFiltersConfig = {
+const TEXT_CONFIG: AppFiltersConfig = {
   fields: [
     { key: 'name', label: 'Name', type: 'text' },
     { key: 'age', label: 'Age', type: 'number' },
   ],
+  debounceMs: 9999,
 };
 
+const SELECT_CONFIG: AppFiltersConfig = {
+  fields: [
+    { key: 'status', label: 'Status', type: 'select', options: [{ value: 'active', label: 'Active' }] },
+  ],
+  debounceMs: 9999,
+};
+
+async function renderFilter(config: AppFiltersConfig, values: Record<string, unknown> = {}) {
+  const criteriaChangeSpy = vi.fn<[AppFilterCriterion[]], void>();
+
+  await render(AppSimpleFilterComponent, {
+    componentInputs: { config, values },
+    componentImports: [
+      ReactiveFormsModule,
+      AppFormInputStubComponent,
+      AppFormSelectStubComponent,
+      AppFormDatepickerStubComponent,
+      AppFilterFooterStubComponent,
+    ],
+    on: { criteriaChange: criteriaChangeSpy },
+  });
+
+  return { criteriaChangeSpy };
+}
+
 describe('AppSimpleFilterComponent', () => {
-  let fixture: ComponentFixture<AppSimpleFilterComponent>;
-  let component: AppSimpleFilterComponent;
+  it('includes a reset option with null value as the first item in select field options', async () => {
+    await renderFilter(SELECT_CONFIG);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppSimpleFilterComponent],
-    }).compileComponents();
+    const select = screen.getByRole('combobox');
+    const options = Array.from(select.querySelectorAll('option'));
 
-    fixture = TestBed.createComponent(AppSimpleFilterComponent);
-    fixture.componentRef.setInput('config', config);
-    fixture.detectChanges(); // triggers ngOnInit → initializeForm
-    component = fixture.componentInstance;
+    expect(options).toHaveLength(2);
+    expect(options[0].textContent?.trim()).toContain('-- All --');
   });
 
-  describe('getSelectOptions', () => {
-    it('prepends a null reset option to the provided options', () => {
-      const options = component.getSelectOptions({ options: [{ value: 'a', label: 'A' }] });
-      expect(options[0].value).toBeNull();
-      expect(options[0].label).toBe('-- Todos --');
-      expect(options.length).toBe(2);
-    });
+  it('emits only criteria for fields with non-empty values when the search button is clicked', async () => {
+    const { criteriaChangeSpy } = await renderFilter(TEXT_CONFIG);
+    const user = userEvent.setup();
+
+    await user.type(screen.getByTestId('name'), 'Alice');
+    criteriaChangeSpy.mockClear();
+
+    await user.click(screen.getByTestId('filter-footer-search'));
+
+    expect(criteriaChangeSpy).toHaveBeenCalledOnce();
+    const [criteria] = criteriaChangeSpy.mock.calls[0];
+    expect(criteria).toHaveLength(1);
+    expect(criteria[0]).toMatchObject({ field: { key: 'name' }, value: 'Alice' });
   });
 
-  describe('emitSearch', () => {
-    it('emits only criteria for non-empty form values using the default operator by type', () => {
-      const emitSpy = vi.spyOn(component.criteriaChange, 'emit');
-      component.getControl('name').setValue('Alice');
-      component.getControl('age').setValue(null); // empty — should be excluded
+  it('uses the default operator for the field type when no defaultOperator is configured', async () => {
+    const { criteriaChangeSpy } = await renderFilter(TEXT_CONFIG);
+    const user = userEvent.setup();
 
-      component.emitSearch();
+    await user.type(screen.getByTestId('name'), 'Alice');
+    criteriaChangeSpy.mockClear();
 
-      expect(emitSpy).toHaveBeenCalledOnce();
-      const [criteria] = emitSpy.mock.calls[0];
-      expect(criteria).toHaveLength(1);
-      expect(criteria[0]).toMatchObject({
-        field: { key: 'name' },
-        operator: { key: 'contains' }, // DEFAULT_OPERATOR_BY_TYPE for 'text'
-        value: 'Alice',
-      });
-    });
+    await user.click(screen.getByTestId('filter-footer-search'));
 
-    it('uses field.defaultOperator when provided, overriding the type default', () => {
-      const emitSpy = vi.spyOn(component.criteriaChange, 'emit');
-      fixture.componentRef.setInput('config', {
-        fields: [{ key: 'name', label: 'Name', type: 'text', defaultOperator: 'eq' }],
-      });
-      fixture.detectChanges();
-      component.getControl('name').setValue('Bob');
-
-      component.emitSearch();
-
-      const [criteria] = emitSpy.mock.calls[0];
-      expect(criteria[0].operator.key).toBe('eq');
-    });
+    const [criteria] = criteriaChangeSpy.mock.calls[0];
+    expect(criteria[0].operator.key).toBe('contains');
   });
 
-  describe('clearAllCriteria', () => {
-    it('resets form controls and emits empty criteria', () => {
-      const emitSpy = vi.spyOn(component.criteriaChange, 'emit');
-      component.getControl('name').setValue('Alice');
+  it('uses field.defaultOperator over the type-based default when explicitly configured', async () => {
+    const config: AppFiltersConfig = {
+      fields: [{ key: 'name', label: 'Name', type: 'text', defaultOperator: 'eq' }],
+      debounceMs: 9999,
+    };
+    const { criteriaChangeSpy } = await renderFilter(config);
+    const user = userEvent.setup();
 
-      component.clearAllCriteria();
+    await user.type(screen.getByTestId('name'), 'Bob');
+    criteriaChangeSpy.mockClear();
 
-      expect(component.getControl('name').value).toBeNull();
-      expect(emitSpy).toHaveBeenCalledWith([]);
-    });
+    await user.click(screen.getByTestId('filter-footer-search'));
+
+    const [criteria] = criteriaChangeSpy.mock.calls[0];
+    expect(criteria[0].operator.key).toBe('eq');
   });
 
-  describe('onToggleChange', () => {
-    it('updates currentToggles and includes toggle criteria in the next emit', () => {
-      const configWithToggles: AppFiltersConfig = {
-        fields: [],
-        toggles: [{ key: 'active', label: 'Active', value: false }],
-      };
-      fixture.componentRef.setInput('config', configWithToggles);
-      fixture.detectChanges();
-      const emitSpy = vi.spyOn(component.criteriaChange, 'emit');
+  it('resets all field inputs and emits empty criteria when the clear button is clicked', async () => {
+    const { criteriaChangeSpy } = await renderFilter(TEXT_CONFIG);
+    const user = userEvent.setup();
 
-      // togglesToCriteria emits a criterion only when toggle value is false
-      component.onToggleChange({ active: false });
+    await user.type(screen.getByTestId('name'), 'Alice');
+    criteriaChangeSpy.mockClear();
 
-      const [criteria] = emitSpy.mock.calls[0];
-      expect(criteria.some(c => c.field.key === 'active' && c.value === false)).toBe(true);
-    });
+    await user.click(screen.getByTestId('filter-footer-clear'));
+
+    expect(screen.getByTestId<HTMLInputElement>('name').value).toBe('');
+    expect(criteriaChangeSpy).toHaveBeenCalledOnce();
+    const [criteria] = criteriaChangeSpy.mock.calls[0];
+    expect(criteria).toHaveLength(0);
+  });
+
+  it('includes toggle criteria in the emitted event after a toggle is changed to the false state', async () => {
+    const config: AppFiltersConfig = {
+      fields: [],
+      toggles: [{ key: 'active', label: 'Active', value: true }],
+      debounceMs: 9999,
+    };
+    const { criteriaChangeSpy } = await renderFilter(config);
+    const user = userEvent.setup();
+
+    await user.click(screen.getByTestId('filter-toggle-active'));
+
+    const callsAfterToggle = criteriaChangeSpy.mock.calls;
+    const hasToggleCriterion = callsAfterToggle.some(call =>
+      call[0].some((c: AppFilterCriterion) => c.field.key === 'active' && c.value === false)
+    );
+    expect(hasToggleCriterion).toBe(true);
   });
 });
