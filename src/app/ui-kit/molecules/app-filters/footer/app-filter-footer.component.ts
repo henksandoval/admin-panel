@@ -23,9 +23,9 @@ export class AppFilterFooterComponent {
   readonly clearClick = output<void>();
   readonly searchClick = output<void>();
 
-  readonly internalToggles = signal<AppFilterToggle[]>([]);
+  protected readonly internalToggles = signal<AppFilterToggle[]>([]);
 
-  readonly showFooter = computed(() =>
+  protected readonly showFooter = computed(() =>
     this.toggles().length > 0 || this.showClearButton() || this.showSearchButton()
   );
 
@@ -39,18 +39,18 @@ export class AppFilterFooterComponent {
     });
   }
 
-  onToggleChange(key: string, checked: boolean): void {
+  protected onToggleChange(key: string, checked: boolean): void {
     this.internalToggles.update(current =>
       current.map(t => t.key === key ? { ...t, value: checked } : t)
     );
     this.toggleChange.emit(togglesToRecord(this.internalToggles()));
   }
 
-  onClear(): void {
+  protected onClear(): void {
     this.clearClick.emit();
   }
 
-  onSearch(): void {
+  protected onSearch(): void {
     this.searchClick.emit();
   }
 }

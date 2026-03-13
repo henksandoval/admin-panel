@@ -1,14 +1,16 @@
-<mat-form-field class="w-full" [appearance]="fullConfig().appearance">
+<mat-form-field data-testid="form-select-field" class="w-full" [appearance]="fullConfig().appearance">
   @if(fullConfig().label) {
-    <mat-label>{{ fullConfig().label }}</mat-label>
+    <mat-label data-testid="form-select-label">{{ fullConfig().label }}</mat-label>
   }
 
   @if(fullConfig().icon) {
-    <mat-icon matPrefix>{{ fullConfig().icon }}</mat-icon>
+    <mat-icon data-testid="form-select-icon" matPrefix>{{ fullConfig().icon }}</mat-icon>
   }
 
   <mat-select
+    data-testid="form-select-control"
     [formControl]="control()"
+    [required]="isRequired()"
     [placeholder]="fullConfig().placeholder"
     [multiple]="fullConfig().multiple"
     [attr.aria-label]="fullConfig().ariaLabel"
@@ -34,11 +36,11 @@
   </mat-select>
 
   @if(fullConfig().hint) {
-    <mat-hint>{{ fullConfig().hint }}</mat-hint>
+    <mat-hint data-testid="form-select-hint">{{ fullConfig().hint }}</mat-hint>
   }
 
   @if (errorState().shouldShow) {
-    <mat-error>{{ errorState().message }}</mat-error>
+    <mat-error data-testid="form-select-error">{{ errorState().message }}</mat-error>
   }
 </mat-form-field>
 

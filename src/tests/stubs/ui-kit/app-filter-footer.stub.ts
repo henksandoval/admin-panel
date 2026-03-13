@@ -12,6 +12,12 @@ import { AppFilterToggle } from '@ui-molecules/app-filters/app-filter.model';
     }
     <button data-testid="filter-footer-clear" type="button" (click)="clearClick.emit()">Clear</button>
     <button data-testid="filter-footer-search" type="button" (click)="searchClick.emit()">Search</button>
+    @if (showClearButton()) {
+      <button data-testid="advanced-filter-clear-button" type="button" (click)="clearClick.emit()">Clear</button>
+    }
+    @if (showSearchButton()) {
+      <button data-testid="advanced-filter-search-button" type="button" (click)="searchClick.emit()">Search</button>
+    }
   `,
 })
 export class AppFilterFooterStubComponent {

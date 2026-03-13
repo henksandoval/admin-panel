@@ -3,10 +3,11 @@
 
   @if (!hasCriteria()) {
     <mat-icon>filter_list</mat-icon>
-    <span i18n="Filters|No filters applied message@@filters.empty">No filters applied</span>
+    <span data-testid="advanced-filter-empty" i18n="Filters|No filters applied message@@filters.empty">No filters applied</span>
   } @else {
     @for (criterion of criteria(); track criterion.id) {
-      <div [attr.data-type]="criterion.field.type" class="app-filter-pill" role="listitem">
+      <div [attr.data-testid]="'advanced-filter-criterion-' + criterion.id"
+           [attr.data-type]="criterion.field.type" class="app-filter-pill" role="listitem">
         <span class="app-filter-pill-field">{{ criterion.field.label }}</span>
         <span class="app-filter-pill-operator">{{ criterion.operator.symbol }}</span>
         <span [title]="criterion | criterionDisplay" class="app-filter-pill-value">
@@ -14,6 +15,7 @@
         </span>
         <button (click)="removeCriterion(criterion.id)"
                 [attr.aria-label]="getRemoveLabel(criterion)"
+                [attr.data-testid]="'advanced-filter-criterion-' + criterion.id + '-remove'"
                 class="app-filter-pill-remove"
                 type="button">
           <mat-icon aria-hidden="true">close</mat-icon>
@@ -27,12 +29,14 @@
 
 <div [formGroup]="builderForm" class="app-filters-advanced-form">
   <div>
-    <app-form-select [config]="{ label: fieldLabel() }" [options]="fieldOptions()" [control]="$any(builderForm.controls.field)">
+    <app-form-select data-testid="advanced-filter-field-select"
+                     [config]="{ label: fieldLabel() }" [options]="fieldOptions()" [control]="$any(builderForm.controls.field)">
     </app-form-select>
   </div>
 
   <div>
-    <app-form-select [config]="{ label: operatorLabel() }" [options]="operatorOptions()" [control]="$any(builderForm.controls.operator)">
+    <app-form-select data-testid="advanced-filter-operator-select"
+                     [config]="{ label: operatorLabel() }" [options]="operatorOptions()" [control]="$any(builderForm.controls.operator)">
     </app-form-select>
   </div>
 
@@ -40,22 +44,27 @@
     <div>
       @switch (selectedFieldType()) {
         @case ('select') {
-          <app-form-select [config]="{ label: valueLabel() }" [options]="valueOptions()" [control]="$any(builderForm.controls.value)">
+          <app-form-select data-testid="advanced-filter-value-select"
+                           [config]="{ label: valueLabel() }" [options]="valueOptions()" [control]="$any(builderForm.controls.value)">
           </app-form-select>
         }
         @case ('date') {
-          <app-form-datepicker [config]="{ label: dateLabel() }" [control]="$any(builderForm.controls.value)"></app-form-datepicker>
+          <app-form-datepicker testId="advanced-filter-value-datepicker"
+                               [config]="{ label: dateLabel() }" [control]="$any(builderForm.controls.value)"></app-form-datepicker>
         }
         @case ('number') {
-        <app-form-input [config]="{ label: valueLabel(), type: 'number' }" [control]="builderForm.controls.value">
+          <app-form-input testId="advanced-filter-value-input"
+                          [config]="{ label: valueLabel(), type: 'number' }" [control]="builderForm.controls.value">
           </app-form-input>
         }
         @case ('boolean') {
-          <app-form-select [config]="{ label: valueLabel() }" [options]="booleanOptions" [control]="$any(builderForm.controls.value)">
+          <app-form-select data-testid="advanced-filter-value-select"
+                           [config]="{ label: valueLabel() }" [options]="booleanOptions" [control]="$any(builderForm.controls.value)">
           </app-form-select>
         }
         @default {
-          <app-form-input [config]="{ label: valueLabel() }" [control]="builderForm.controls.value"></app-form-input>
+          <app-form-input testId="advanced-filter-value-input"
+                          [config]="{ label: valueLabel() }" [control]="builderForm.controls.value"></app-form-input>
         }
       }
     </div>
@@ -64,7 +73,8 @@
   }
 
   <div class="app-filters-advanced-form-button">
-    <app-button (click)="addCriterion()" [disabled]="!canAddCriterion()" iconBefore="add">
+    <app-button testId="advanced-filter-add-button"
+                (click)="addCriterion()" [disabled]="!canAddCriterion()" iconBefore="add">
       <ng-container i18n="Filters|Add criterion button@@filters.btn.add">Add</ng-container>
     </app-button>
   </div>

@@ -6,6 +6,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { Routes } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideHighlightOptions } from 'ngx-highlightjs';
@@ -13,7 +14,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
-import { routes } from './app.routes';
+import { AUTH_ROUTES, LAYOUT_ROUTE_FACTORY, LAYOUT_STATIC_CHILDREN, routes } from './app.routes';
+import { LayoutComponent } from '@layout/layout.component';
+import { authGuard } from '@auth/guards';
 import { InitializationService } from '@core/services';
 import { authInterceptor } from '@auth/interceptors';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers';
@@ -40,6 +43,18 @@ export const appConfig: ApplicationConfig = {
     }),
     provideAnimationsAsync(),
     { provide: LOCALE_ID,        useValue: 'es-ES' },
+    {
+      provide: LAYOUT_ROUTE_FACTORY,
+      useValue: (dynamicChildren: Routes): Routes => [
+        ...AUTH_ROUTES,
+        {
+          path: '',
+          component: LayoutComponent,
+          canActivate: [authGuard],
+          children: [...LAYOUT_STATIC_CHILDREN, ...dynamicChildren],
+        },
+      ],
+    },
     {
       provide:  AUTH_PROVIDER,
       useClass: environment.production ? JwtAuthProvider : MockAuthProvider,

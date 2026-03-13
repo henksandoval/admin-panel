@@ -1,5 +1,4 @@
 import { Component, computed, effect, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,7 +13,7 @@ interface ErrorState {
 @Component({
   selector: 'app-form-select',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule],
   templateUrl: './app-form-select.component.html',
   styleUrl: './app-form-select.component.scss',
   host: {
@@ -36,21 +35,21 @@ export class AppFormSelectComponent<T = any> {
     });
   }
 
-  readonly fullConfig = computed<AppFormSelectConfig>(() => ({
+  protected readonly fullConfig = computed<AppFormSelectConfig>(() => ({
     ...FORM_SELECT_DEFAULTS,
     ...this.config()
   }) as AppFormSelectConfig);
 
-  readonly isRequired = computed(() => {
+  protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
   });
 
-  readonly hasGroups = computed(() => {
+  protected readonly hasGroups = computed(() => {
     return this.options().some(opt => opt.group !== undefined);
   });
 
-  readonly densityClass = computed(() => {
+  protected readonly densityClass = computed(() => {
     const densityMap: Record<SelectDensity, string> = {
       0: 'app-form-select--density-0',
       '-1': 'app-form-select--density-n1',
@@ -60,7 +59,7 @@ export class AppFormSelectComponent<T = any> {
     return densityMap[this.fullConfig().density];
   });
 
-  readonly groupedOptions = computed(() => {
+  protected readonly groupedOptions = computed(() => {
     const groups = new Map<string, SelectOption<T>[]>();
     this.options().forEach(option => {
       const groupName = option.group ?? 'default';
@@ -72,7 +71,7 @@ export class AppFormSelectComponent<T = any> {
     return Array.from(groups.entries()).map(([name, options]) => ({ name, options }));
   });
 
-  readonly errorState = computed<ErrorState>(() => {
+  protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
     const shouldShow = ctrl.invalid && ctrl.touched;
