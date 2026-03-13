@@ -32,6 +32,7 @@ async function loginAndNavigate(page: Page, path: string): Promise<void> {
 
 export interface PdsFixtures {
   toggleGroupsPage: Page;
+  selectsPage: Page;
   radioGroupsPage: Page;
   datepickerPage: Page;
   formPage: Page;
@@ -49,6 +50,7 @@ export const test = base.extend<PdsFixtures>({
 
     await use(page);
   },
+  selectsPage: async ({ page }, use) => {
 
   radioGroupsPage: async ({ page }, use) => {
   datepickerPage: async ({ page }, use) => {
@@ -71,6 +73,8 @@ export const test = base.extend<PdsFixtures>({
       await interceptAuthMe(page);
     }
 
+    await loginAndNavigate(page, '/pds/selects');
+    await page.waitForSelector('[data-testid="form-select-control"]');
     await loginAndNavigate(page, '/pds/form');
     await page.waitForSelector('[data-testid="pds-form-description"]');
 
