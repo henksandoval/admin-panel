@@ -32,7 +32,6 @@ export class RegisterComponent {
   protected readonly status = signal<RegisterStatus>(REGISTER_DEFAULTS.status);
   protected readonly errorMessage = signal<string>(REGISTER_DEFAULTS.errorMessage);
   protected readonly showPassword = signal(false);
-  protected readonly showPasswordConfirm = signal(false);
   protected readonly minPasswordLength = REGISTER_DEFAULTS.passwordMinLength;
 
   protected readonly nameFieldConfig: AppFormInputOptions = {
@@ -69,9 +68,9 @@ export class RegisterComponent {
 
   protected readonly confirmFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:Register|Confirm password field label@@register.field.confirm.label:Confirm password`,
-    type: this.showPasswordConfirm() ? 'text' : 'password',
-    icon: this.showPasswordConfirm() ? 'visibility_off' : 'visibility',
-    onIconClick: () => this.showPasswordConfirm.update(v => !v),
+    type: this.showPassword() ? 'text' : 'password',
+    icon: this.showPassword() ? 'visibility_off' : 'visibility',
+    onIconClick: () => this.showPassword.update(v => !v),
     errorMessages: {
       required: $localize`:Register|Confirm password required error@@register.field.confirm.error.required:Please confirm your password`,
       passwordMismatch: $localize`:Register|Password mismatch error@@register.field.confirm.error.mismatch:Passwords do not match`,

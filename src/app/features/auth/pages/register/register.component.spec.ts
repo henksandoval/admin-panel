@@ -95,7 +95,7 @@ describe('RegisterComponent', () => {
   });
 
   it('changes both password inputs to text when show password is toggled', async () => {
-    await renderRegisterComponent();
+    const { fixture } = await renderRegisterComponent();
 
     const passwordInput = screen.getByTestId<HTMLInputElement>('register-password-input');
     const confirmInput = screen.getByTestId<HTMLInputElement>('register-confirm-input');
@@ -104,8 +104,9 @@ describe('RegisterComponent', () => {
     expect(passwordInput.type).toBe('password');
     expect(confirmInput.type).toBe('password');
 
-    const showPasswordButton = screen.getByRole('button', { name: /show password/i });
+    const showPasswordButton = screen.getByTestId('register-password-input-icon');
     await user.click(showPasswordButton);
+    fixture.detectChanges();
 
     expect(passwordInput.type).toBe('text');
     expect(confirmInput.type).toBe('text');

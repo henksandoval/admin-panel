@@ -12,7 +12,7 @@ describe('AppButtonComponent', () => {
   it('renders with default type, color, and non-disabled state', async () => {
     await renderButton();
 
-    const button = screen.getByRole('button') as HTMLButtonElement;
+    const button = screen.getByRole('button');
     expect(button.getAttribute('type')).toBe(BUTTON_DEFAULTS.type);
     expect(button.getAttribute('color')).toBe(BUTTON_DEFAULTS.color);
     expect(button.disabled).toBe(false);

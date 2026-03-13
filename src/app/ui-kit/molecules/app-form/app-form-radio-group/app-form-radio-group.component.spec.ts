@@ -30,7 +30,7 @@ describe('AppFormRadioGroupComponent', () => {
   it('renders with the initial FormControl value selected', async () => {
     await renderComponent(new FormControl('female'));
 
-    expect((screen.getByRole('radio', { name: 'Female' }) as HTMLInputElement).checked).toBe(true);
+    expect((screen.getByRole('radio', { name: 'Female' })).checked).toBe(true);
   });
 
   it('updates the FormControl when a radio option is selected', async () => {
@@ -114,9 +114,9 @@ describe('AppFormRadioGroupComponent', () => {
     ];
     await renderComponent(new FormControl(null), optionsWithDisabled);
 
-    expect((screen.getByRole('radio', { name: 'Male' }) as HTMLInputElement).disabled).toBe(false);
-    expect((screen.getByRole('radio', { name: 'Female' }) as HTMLInputElement).disabled).toBe(true);
-    expect((screen.getByRole('radio', { name: 'Other' }) as HTMLInputElement).disabled).toBe(false);
+    expect((screen.getByRole('radio', { name: 'Male' })).disabled).toBe(false);
+    expect((screen.getByRole('radio', { name: 'Female' })).disabled).toBe(true);
+    expect((screen.getByRole('radio', { name: 'Other' })).disabled).toBe(false);
   });
 });
 

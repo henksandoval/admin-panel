@@ -22,13 +22,13 @@ describe('AppRadioComponent', () => {
   it('renders the radio button as enabled and without aria-label by default', async () => {
     await renderRadioComponent({ value: 'option1' });
 
-    expect((screen.getByRole('radio') as HTMLInputElement).disabled).toBe(false);
+    expect((screen.getByRole('radio')).disabled).toBe(false);
     expect(screen.getByTestId('radio-button').getAttribute('aria-label')).toBeNull();
   });
 
   it('disables the radio button when disabled input is true', async () => {
     await renderRadioComponent({ value: 'option1', disabled: true });
 
-    expect((screen.getByRole('radio') as HTMLInputElement).disabled).toBe(true);
+    expect((screen.getByRole('radio')).disabled).toBe(true);
   });
 });

@@ -34,7 +34,7 @@ describe('AppCheckboxComponent', () => {
   it('renders unchecked, enabled, and non-required by default', async () => {
     await renderCheckbox();
 
-    const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+    const checkbox = screen.getByRole('checkbox');
     expect(checkbox.checked).toBe(false);
     expect(checkbox.disabled).toBe(false);
     expect(checkbox.required).toBe(false);
@@ -68,7 +68,7 @@ describe('AppCheckboxComponent', () => {
 
     await userEvent.setup().click(screen.getByRole('checkbox'));
 
-    expect((screen.getByRole('checkbox') as HTMLInputElement).checked).toBe(true);
+    expect((screen.getByRole('checkbox')).checked).toBe(true);
     expect(changedSpy).toHaveBeenCalledWith(true);
   });
 

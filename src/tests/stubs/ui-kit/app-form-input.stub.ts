@@ -8,7 +8,7 @@ import { AppFormInputOptions } from "@ui-molecules/app-form/app-form-input/app-f
   imports: [ReactiveFormsModule],
   template: `
     <input [attr.data-testid]="testId()" [type]="config().type ?? 'text'" [formControl]="control()" />
-    <button type="button" (click)="config().onIconClick?.($event)">icon</button>
+    <button type="button" [attr.data-testid]="testId() ? testId() + '-icon' : null" (click)="config().onIconClick?.($event)">icon</button>
   `,
 })
 export class AppFormInputStubComponent {

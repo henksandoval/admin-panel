@@ -28,7 +28,7 @@ describe('AppFormCheckboxComponent', () => {
     const control = new FormControl<boolean>(true, { nonNullable: true });
     await renderFormCheckbox({ control });
 
-    expect((screen.getByRole('checkbox') as HTMLInputElement).checked).toBe(true);
+    expect((screen.getByRole('checkbox')).checked).toBe(true);
   });
 
   it('updates the FormControl value when the checkbox is toggled', async () => {
@@ -72,21 +72,21 @@ describe('AppFormCheckboxComponent', () => {
     const control = new FormControl<boolean>({ value: false, disabled: true }, { nonNullable: true });
     await renderFormCheckbox({ control });
 
-    expect((screen.getByRole('checkbox') as HTMLInputElement).disabled).toBe(true);
+    expect((screen.getByRole('checkbox')).disabled).toBe(true);
   });
 
   it('renders the checkbox as required when Validators.requiredTrue is set', async () => {
     const control = new FormControl<boolean>(false, { validators: Validators.requiredTrue, nonNullable: true });
     await renderFormCheckbox({ control });
 
-    expect((screen.getByRole('checkbox') as HTMLInputElement).required).toBe(true);
+    expect((screen.getByRole('checkbox')).required).toBe(true);
   });
 
   it('renders the checkbox as required when Validators.required is set', async () => {
     const control = new FormControl<boolean>(false, { validators: Validators.required, nonNullable: true });
     await renderFormCheckbox({ control });
 
-    expect((screen.getByRole('checkbox') as HTMLInputElement).required).toBe(true);
+    expect((screen.getByRole('checkbox')).required).toBe(true);
   });
 
   it('marks the control as touched when the checkbox is toggled', async () => {

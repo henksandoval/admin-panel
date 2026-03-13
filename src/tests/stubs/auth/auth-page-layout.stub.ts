@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 
 @Component({
-  selector: 'auth-page-layout',
+  selector: 'app-auth-page-layout',
   standalone: true,
   template: '<ng-content />',
 })
