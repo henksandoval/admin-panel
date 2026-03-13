@@ -1,1 +1,2 @@
-export { authInterceptor } from '@auth/interceptors/auth.interceptor';
+export { authInterceptor } from '@auth/interceptors';
+export { errorInterceptor } from './error.interceptor';

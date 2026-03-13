@@ -1,4 +1,4 @@
-import { MATERIAL_ICONS_LIST } from '@ui-types/material-icons.model';
+import { MATERIAL_ICONS_LIST } from '@ui-types';
 
 export interface IconViewModel {
   name: string;

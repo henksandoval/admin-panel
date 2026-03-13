@@ -2,12 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { AUTH_ROUTES, LAYOUT_STATIC_CHILDREN } from '../../app.routes';
-import { MenuDataService } from '@core/services/menu-data.service';
-import { RouteBuilderService } from '@core/services/route-builder.service';
-import { LoggingService } from '@core/services/logging.service';
+import { MenuDataService } from './menu-data.service';
+import { RouteBuilderService } from './route-builder.service';
+import { LoggingService } from './logging.service';
 import { LayoutComponent } from '@layout/layout.component';
-import { AuthService } from '@auth/services/auth.service';
-import { authGuard } from '@auth/guards/auth.guard';
+import { AuthService } from '@auth/services';
+import { authGuard } from '@auth/guards';
 
 @Injectable({
   providedIn: 'root',

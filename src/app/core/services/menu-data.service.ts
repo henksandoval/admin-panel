@@ -2,10 +2,10 @@ import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/cor
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { LoggingService } from '@core/services/logging.service';
-import { ApiMenuItem } from '@core/contracts/api-menu-item.model';
-import { NavigationItem, NavigationBadge, NAVIGATION_DEFAULTS } from '@core/models/navigation.model';
-import { ROUTE_REGISTRY } from '@core/registry/route-registry';
+import { LoggingService } from './logging.service';
+import { ApiMenuItem } from '@core/contracts';
+import { NavigationItem, NavigationBadge, NAVIGATION_DEFAULTS } from '@core/models';
+import { ROUTE_REGISTRY } from '@core/registry';
 
 @Injectable({
   providedIn: 'root',

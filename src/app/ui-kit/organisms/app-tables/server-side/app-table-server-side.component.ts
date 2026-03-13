@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal, } from '@angular/core';
-import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
-import { AppPaginationComponent } from '@ui-atoms/app-pagination/app-pagination.component';
-import { AppTableComponent } from '@ui-atoms/app-table/app-table.component';
-import { AppTableSort } from '@ui-atoms/app-table/app-table.model';
-import { AppAdvancedFilterComponent } from '@ui-molecules/app-filters/advanced/app-advanced-filter.component';
-import { AppFilterCriterion, AppFilterValues } from '@ui-molecules/app-filters/app-filter.model';
-import { criteriaToValues } from '@ui-molecules/app-filters/criteria-evaluator.utils';
-import { AppSimpleFilterComponent } from '@ui-molecules/app-filters/simple/app-simple-filter.component';
+import { AppCardComponent } from '@ui-atoms/app-card';
+import { AppPaginationComponent } from '@ui-atoms/app-pagination';
+import { AppTableComponent } from '@ui-atoms/app-table';
+import { AppTableSort } from '@ui-atoms/app-table';
+import { AppAdvancedFilterComponent } from '@ui-molecules/app-filters/advanced';
+import { AppFilterCriterion, AppFilterValues } from '@ui-molecules/app-filters';
+import { criteriaToValues } from '@ui-molecules/app-filters';
+import { AppSimpleFilterComponent } from '@ui-molecules/app-filters/simple';
 import { AppTableBase } from '../app-table-base';
 import { AnyRecord } from '../app-table.model';
-import { AppPageEvent } from '@ui-atoms/app-pagination/app-pagination.model';
+import { AppPageEvent } from '@ui-atoms/app-pagination';
 import { AppTableServerParams, TABLE_SERVER_SIDE_DEFAULTS } from './app-table-server-side.model';
 
 @Component({

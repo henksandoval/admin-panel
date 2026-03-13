@@ -1,5 +1,5 @@
-import { AppTableConfig } from '@ui-atoms/app-table/app-table.model';
-import { AppFiltersConfig } from '@ui-molecules/app-filters/app-filter.model';
+import { AppTableConfig } from '@ui-atoms/app-table';
+import { AppFiltersConfig } from '@ui-molecules/app-filters';
 import { ALL_ICON_CATEGORIES, IconViewModel } from './icons-gallery.model';
 
 export function getIconsTableConfig(): AppTableConfig<IconViewModel> {

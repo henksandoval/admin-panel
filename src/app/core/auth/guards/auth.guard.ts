@@ -7,8 +7,8 @@ import {
 } from '@angular/router';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, map, take } from 'rxjs';
-import { AuthService } from '@auth/services/auth.service';
-import { AUTH_DEFAULTS } from '@auth/models/auth.model';
+import { AuthService } from '@auth/services';
+import { AUTH_DEFAULTS } from '@auth/models';
 
 export const authGuard: CanActivateFn = (
   _route: ActivatedRouteSnapshot,

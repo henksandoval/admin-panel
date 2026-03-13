@@ -1,5 +1,5 @@
-import { AppTableSort } from '@ui-atoms/app-table/app-table.model';
-import { AppFilterValues } from '@ui-molecules/app-filters/app-filter.model';
+import { AppTableSort } from '@ui-atoms/app-table';
+import { AppFilterValues } from '@ui-molecules/app-filters';
 import { APP_TABLE_DEFAULTS } from '../app-table.model';
 
 export interface AppTableServerParams {

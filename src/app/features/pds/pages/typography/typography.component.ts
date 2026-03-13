@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
+import { AppCardComponent } from '@ui-atoms/app-card';
 import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
 import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
 

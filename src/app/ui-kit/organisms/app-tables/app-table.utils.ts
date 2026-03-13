@@ -1,4 +1,4 @@
-import { AppTableSort } from '@ui-atoms/app-table/app-table.model';
+import { AppTableSort } from '@ui-atoms/app-table';
 import { AnyRecord } from './app-table.model';
 
 export function defaultTableSort<T extends AnyRecord>(data: T[], sort: AppTableSort): T[] {

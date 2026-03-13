@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppCardComponent } from '@ui-atoms/app-card/app-card.component';
+import { AppCardComponent } from '@ui-atoms/app-card';
 
 @Component({
   selector: 'app-pds-preview-card',

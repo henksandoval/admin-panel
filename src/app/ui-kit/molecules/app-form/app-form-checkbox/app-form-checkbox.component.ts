@@ -1,7 +1,7 @@
 import { Component, computed, effect, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
 import { AppFormCheckboxNewConfig, AppFormCheckboxNewOptions, FORM_CHECKBOX_NEW_DEFAULT_ERROR_MESSAGES, FORM_CHECKBOX_NEW_DEFAULTS } from './app-form-checkbox.model';
 
 interface ErrorState {

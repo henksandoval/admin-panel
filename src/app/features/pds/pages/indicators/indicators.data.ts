@@ -1,9 +1,9 @@
-import { BadgeColor, BadgePosition, BadgeVariant } from '@ui-atoms/app-badge/app-badge.model';
+import { BadgeColor, BadgePosition, BadgeVariant } from '@ui-atoms/app-badge';
 import {
   PdsApiReferencePropertyModel
-} from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
-import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
+} from '@features/pds/shared/molecules/pds-api-reference';
+import { PdsBestPracticeItemModel } from '@features/pds/shared/molecules/pds-best-practices';
+import { PdsVariantGuideModel } from '@features/pds/shared/templates/pds-page-layout';
 
 export interface BadgeVariantGuide extends PdsVariantGuideModel {
   readonly variant: BadgeVariant;

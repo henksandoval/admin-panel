@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Toast } from '@core/models/notification.model';
+import { Toast } from '@core/models';
 
 @Component({
     selector: 'app-toast',

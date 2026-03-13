@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { AppButtonComponent } from '@ui-atoms/app-button/app-button.component';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group/app-toggle-group.component';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox/app-checkbox.component';
-import { ToggleOption } from '@ui-atoms/app-toggle-group/app-toggle-group.model';
+import { AppButtonComponent } from '@ui-atoms/app-button';
+import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
+import { ToggleOption } from '@ui-atoms/app-toggle-group';
 import {
   API_PROPERTIES,
   BEST_PRACTICES,
@@ -15,9 +15,9 @@ import {
   GROUPED_OPTIONS,
   SELECT_STATE_GUIDES
 } from './selects.data';
-import { PdsPageLayoutComponent } from '../../shared/templates/pds-page-layout/pds-page-layout.component';
-import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select/app-form-select.component';
-import { SelectOption, SelectDensity } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
+import { PdsPageLayoutComponent } from '@features/pds/shared/templates/pds-page-layout';
+import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select';
+import { SelectOption, SelectDensity } from '@ui-molecules/app-form/app-form-select';
 
 @Component({
   selector: 'app-selects',

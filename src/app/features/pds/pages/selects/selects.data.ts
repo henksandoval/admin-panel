@@ -1,9 +1,9 @@
-import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
+import { SelectOption } from '@ui-molecules/app-form/app-form-select';
 import {
   PdsApiReferencePropertyModel
-} from '../../shared/molecules/pds-api-reference/pds-api-reference-property.model';
-import { PdsBestPracticeItemModel } from '../../shared/molecules/pds-best-practices/pds-best-practice-item.model';
-import { PdsVariantGuideModel } from '../../shared/templates/pds-page-layout/pds-variant-guide.model';
+} from '@features/pds/shared/molecules/pds-api-reference';
+import { PdsBestPracticeItemModel } from '@features/pds/shared/molecules/pds-best-practices';
+import { PdsVariantGuideModel } from '@features/pds/shared/templates/pds-page-layout';
 
 export interface SelectStateGuide extends PdsVariantGuideModel {
   readonly variant: 'single' | 'multiple' | 'grouped' | 'disabled';

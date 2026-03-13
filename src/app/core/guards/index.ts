@@ -1,1 +1,1 @@
-export { authGuard, roleGuard, canActivateAuthenticated, canActivateWithRole } from '@auth/guards/auth.guard';
+export { authGuard, roleGuard, canActivateAuthenticated, canActivateWithRole } from '@auth/guards';
