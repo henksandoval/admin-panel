@@ -9,19 +9,21 @@ import { AppFormSelectStubComponent } from '@stubs/ui-kit/app-form-select.stub';
 import { AppFormDatepickerStubComponent } from '@stubs/ui-kit/app-form-datepicker.stub';
 import { AppFilterFooterStubComponent } from '@stubs/ui-kit/app-filter-footer.stub';
 
+const DEBOUNCE_MS_DISABLED = 9999;
+
 const TEXT_CONFIG: AppFiltersConfig = {
   fields: [
     { key: 'name', label: 'Name', type: 'text' },
     { key: 'age', label: 'Age', type: 'number' },
   ],
-  debounceMs: 9999,
+  debounceMs: DEBOUNCE_MS_DISABLED,
 };
 
 const SELECT_CONFIG: AppFiltersConfig = {
   fields: [
     { key: 'status', label: 'Status', type: 'select', options: [{ value: 'active', label: 'Active' }] },
   ],
-  debounceMs: 9999,
+  debounceMs: DEBOUNCE_MS_DISABLED,
 };
 
 async function renderFilter(config: AppFiltersConfig, values: Record<string, unknown> = {}) {
@@ -84,7 +86,7 @@ describe('AppSimpleFilterComponent', () => {
   it('uses field.defaultOperator over the type-based default when explicitly configured', async () => {
     const config: AppFiltersConfig = {
       fields: [{ key: 'name', label: 'Name', type: 'text', defaultOperator: 'eq' }],
-      debounceMs: 9999,
+      debounceMs: DEBOUNCE_MS_DISABLED,
     };
     const { criteriaChangeSpy } = await renderFilter(config);
     const user = userEvent.setup();
@@ -117,7 +119,7 @@ describe('AppSimpleFilterComponent', () => {
     const config: AppFiltersConfig = {
       fields: [],
       toggles: [{ key: 'active', label: 'Active', value: true }],
-      debounceMs: 9999,
+      debounceMs: DEBOUNCE_MS_DISABLED,
     };
     const { criteriaChangeSpy } = await renderFilter(config);
     const user = userEvent.setup();
