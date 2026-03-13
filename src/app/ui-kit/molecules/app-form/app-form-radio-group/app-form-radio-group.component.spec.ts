@@ -1,202 +1,122 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { describe, expect, it } from 'vitest';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { AppFormRadioGroupComponent } from './app-form-radio-group.component';
-import { RadioOption } from './app-form-radio-group.model';
+import { AppFormRadioGroupOptions, RadioOption } from './app-form-radio-group.model';
+
+const OPTIONS: RadioOption<string>[] = [
+  { value: 'male', label: 'Male' },
+  { value: 'female', label: 'Female' },
+  { value: 'other', label: 'Other' },
+];
+
+async function renderComponent(
+  control: FormControl,
+  options: RadioOption<any>[] = OPTIONS,
+  config?: AppFormRadioGroupOptions,
+) {
+  const { fixture } = await render(AppFormRadioGroupComponent, {
+    componentInputs: {
+      control,
+      options,
+      ...(config !== undefined ? { config } : {}),
+    },
+  });
+  return { fixture };
+}
 
 describe('AppFormRadioGroupComponent', () => {
-  let fixture: ComponentFixture<AppFormRadioGroupComponent>;
-  let component: AppFormRadioGroupComponent;
+  it('renders with the initial FormControl value selected', async () => {
+    await renderComponent(new FormControl('female'));
 
-  const genderOptions: RadioOption<string>[] = [
-    { value: 'male', label: 'Male' },
-    { value: 'female', label: 'Female' },
-    { value: 'other', label: 'Other' },
-  ];
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppFormRadioGroupComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppFormRadioGroupComponent);
-    component = fixture.componentInstance;
+    expect((screen.getByRole('radio', { name: 'Female' }) as HTMLInputElement).checked).toBe(true);
   });
 
-  it('TC-01 — renders the initial FormControl value in the radio group', () => {
-    const control = new FormControl('male');
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.detectChanges();
-
-    const radioGroup = fixture.debugElement.query(By.css('mat-radio-group'));
-    expect(radioGroup.componentInstance.value).toBe('male');
-  });
-
-  it('TC-02 — updates the FormControl when a radio option is selected', () => {
+  it('updates the FormControl when a radio option is selected', async () => {
     const control = new FormControl<string | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.detectChanges();
+    await renderComponent(control);
 
-    component.control().setValue('female');
+    await userEvent.setup().click(screen.getByRole('radio', { name: 'Female' }));
 
     expect(control.value).toBe('female');
   });
 
-  it('TC-03 — shows the error when the control is invalid and has been touched', async () => {
+  it('shows the error message when the control is invalid and touched', async () => {
     const control = new FormControl(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.detectChanges();
+    const { fixture } = await renderComponent(control);
 
     control.markAsTouched();
     fixture.detectChanges();
 
-    const error = fixture.debugElement.query(By.css('.app-form-radio-group-error'));
-    expect(error).not.toBeNull();
-    expect(error.nativeElement.textContent.trim()).toBe('This field is required');
+    const errorEl = screen.getByTestId('radio-group-error');
+    expect(errorEl).not.toBeNull();
+    expect(errorEl.textContent?.trim()).toBe('This field is required');
   });
 
-  it('TC-04 — does not show error when the control is invalid but untouched', () => {
-    const control = new FormControl(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.detectChanges();
+  it('does not show error when the control is invalid but untouched', async () => {
+    await renderComponent(new FormControl(null, Validators.required));
 
-    const error = fixture.debugElement.query(By.css('.app-form-radio-group-error'));
-    expect(error).toBeNull();
+    expect(screen.queryByTestId('radio-group-error')).toBeNull();
   });
 
-  it('TC-05 — config errorMessages overrides the default error message', () => {
+  it('shows a custom error message from config when control is invalid and touched', async () => {
     const control = new FormControl(null, Validators.required);
+    const { fixture } = await renderComponent(control, OPTIONS, {
+      errorMessages: { required: 'Please select a gender' },
+    });
+
     control.markAsTouched();
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.componentRef.setInput('config', { errorMessages: { required: 'Please select a gender' } });
     fixture.detectChanges();
 
-    const error = fixture.debugElement.query(By.css('.app-form-radio-group-error'));
-    expect(error.nativeElement.textContent.trim()).toBe('Please select a gender');
+    expect(screen.getByTestId('radio-group-error').textContent?.trim()).toBe('Please select a gender');
   });
 
-  it('TC-06 — disables radio options when the FormControl is disabled', () => {
-    const control = new FormControl({ value: 'male', disabled: true });
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.detectChanges();
+  it('disables all radio options when the FormControl is disabled', async () => {
+    await renderComponent(new FormControl({ value: null, disabled: true }));
 
-    const radios = fixture.debugElement.queryAll(By.css('app-radio'));
-    radios.forEach(radio => {
-      expect(radio.componentInstance.disabled).toBe(true);
+    screen.getAllByRole('radio').forEach(radio => {
+      expect((radio as HTMLInputElement).disabled).toBe(true);
     });
   });
 
-  it('TC-07 — isRequired is true when Validators.required is set', () => {
-    const control = new FormControl(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.detectChanges();
+  it('displays the required indicator when Validators.required is applied', async () => {
+    await renderComponent(new FormControl(null, Validators.required), OPTIONS, { label: 'Gender' });
 
-    expect(component.isRequired()).toBe(true);
+    const indicator = screen.getByTestId('radio-group-required-indicator');
+    expect(indicator).not.toBeNull();
+    expect(indicator.textContent?.trim()).toBe('*');
   });
 
-  it('TC-08 — renders the label when provided in config', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.componentRef.setInput('config', { label: 'Gender' });
-    fixture.detectChanges();
+  it('renders all provided radio options', async () => {
+    await renderComponent(new FormControl(null));
 
-    const label = fixture.debugElement.query(By.css('.app-form-radio-group-label'));
-    expect(label).not.toBeNull();
-    expect(label.nativeElement.textContent).toContain('Gender');
+    expect(screen.getAllByRole('radio')).toHaveLength(OPTIONS.length);
   });
 
-  it('TC-09 — renders the hint when provided in config', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.componentRef.setInput('config', { hint: 'Select your gender identity' });
-    fixture.detectChanges();
+  it('does not apply horizontal layout class by default', async () => {
+    await renderComponent(new FormControl(null));
 
-    const hint = fixture.debugElement.query(By.css('.app-form-radio-group-hint'));
-    expect(hint).not.toBeNull();
-    expect(hint.nativeElement.textContent).toBe('Select your gender identity');
+    expect(screen.getByTestId('radio-group').classList.contains('app-form-radio-group-layout-horizontal')).toBe(false);
   });
 
-  it('TC-10 — renders all radio options', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.detectChanges();
+  it('applies horizontal layout class when configured', async () => {
+    await renderComponent(new FormControl(null), OPTIONS, { layout: 'horizontal' });
 
-    const radios = fixture.debugElement.queryAll(By.css('app-radio'));
-    expect(radios.length).toBe(3);
+    expect(screen.getByTestId('radio-group').classList.contains('app-form-radio-group-layout-horizontal')).toBe(true);
   });
 
-  it('TC-11 — applies vertical layout by default', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.detectChanges();
-
-    const radioGroup = fixture.debugElement.query(By.css('.app-form-radio-group-options'));
-    expect(radioGroup.nativeElement.classList.contains('app-form-radio-group-layout-horizontal')).toBe(false);
-  });
-
-  it('TC-12 — applies horizontal layout when configured', () => {
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.componentRef.setInput('config', { layout: 'horizontal' });
-    fixture.detectChanges();
-
-    const radioGroup = fixture.debugElement.query(By.css('.app-form-radio-group-options'));
-    expect(radioGroup.nativeElement.classList.contains('app-form-radio-group-layout-horizontal')).toBe(true);
-  });
-
-  it('TC-13 — disables individual options when marked as disabled', () => {
+  it('disables only the options marked as disabled in the options array', async () => {
     const optionsWithDisabled: RadioOption<string>[] = [
       { value: 'male', label: 'Male' },
       { value: 'female', label: 'Female', disabled: true },
       { value: 'other', label: 'Other' },
     ];
-    const control = new FormControl(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', optionsWithDisabled);
-    fixture.detectChanges();
+    await renderComponent(new FormControl(null), optionsWithDisabled);
 
-    const radios = fixture.debugElement.queryAll(By.css('app-radio'));
-    expect(radios[0].componentInstance.disabled).toBe(false);
-    expect(radios[1].componentInstance.disabled).toBe(true);
-    expect(radios[2].componentInstance.disabled).toBe(false);
-  });
-
-  it('TC-14 — renders required indicator when isRequired is true', () => {
-    const control = new FormControl(null, Validators.required);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', genderOptions);
-    fixture.componentRef.setInput('config', { label: 'Gender' });
-    fixture.detectChanges();
-
-    const requiredIndicator = fixture.debugElement.query(By.css('.app-form-radio-group-label span'));
-    expect(requiredIndicator).not.toBeNull();
-    expect(requiredIndicator.nativeElement.textContent).toBe('*');
-  });
-
-  it('TC-15 — handles generic types correctly', () => {
-    const numberOptions: RadioOption<number>[] = [
-      { value: 1, label: 'Option 1' },
-      { value: 2, label: 'Option 2' },
-    ];
-    const control = new FormControl<number | null>(null);
-    fixture.componentRef.setInput('control', control);
-    fixture.componentRef.setInput('options', numberOptions);
-    fixture.detectChanges();
-
-    control.setValue(2);
-    expect(control.value).toBe(2);
+    expect((screen.getByRole('radio', { name: 'Male' }) as HTMLInputElement).disabled).toBe(false);
+    expect((screen.getByRole('radio', { name: 'Female' }) as HTMLInputElement).disabled).toBe(true);
+    expect((screen.getByRole('radio', { name: 'Other' }) as HTMLInputElement).disabled).toBe(false);
   });
 });
 

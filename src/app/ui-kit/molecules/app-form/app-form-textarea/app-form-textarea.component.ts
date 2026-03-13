@@ -20,7 +20,7 @@ interface ErrorState {
   template: `
     <mat-form-field class="w-full" [appearance]="fullConfig().appearance">
       @if (fullConfig().label) {
-        <mat-label>{{ fullConfig().label }}</mat-label>
+        <mat-label [attr.data-testid]="testId() ? testId() + '-label' : null">{{ fullConfig().label }}</mat-label>
       }
       @if (fullConfig().prefix) {
         <span matTextPrefix>{{ fullConfig().prefix }}&nbsp;</span>
@@ -31,6 +31,7 @@ interface ErrorState {
         [rows]="fullConfig().rows"
         [placeholder]="fullConfig().placeholder"
         [attr.aria-label]="fullConfig().ariaLabel"
+        [attr.data-testid]="testId() ?? null"
         [required]="isRequired()"
         cdkTextareaAutosize
         [cdkAutosizeMinRows]="fullConfig().rows"
@@ -40,13 +41,13 @@ interface ErrorState {
         <span matTextSuffix>{{ fullConfig().suffix }}</span>
       }
       @if (fullConfig().icon) {
-        <mat-icon matSuffix>{{ fullConfig().icon }}</mat-icon>
+        <mat-icon matSuffix [attr.data-testid]="testId() ? testId() + '-icon' : null">{{ fullConfig().icon }}</mat-icon>
       }
       @if (fullConfig().hint) {
-        <mat-hint>{{ fullConfig().hint }}</mat-hint>
+        <mat-hint [attr.data-testid]="testId() ? testId() + '-hint' : null">{{ fullConfig().hint }}</mat-hint>
       }
       @if (errorState().shouldShow) {
-        <mat-error>{{ errorState().message }}</mat-error>
+        <mat-error [attr.data-testid]="testId() ? testId() + '-error' : null">{{ errorState().message }}</mat-error>
       }
     </mat-form-field>
   `,
@@ -54,6 +55,7 @@ interface ErrorState {
 export class AppFormTextareaComponent {
   readonly control = input.required<FormControl<string>>();
   readonly config = input<AppFormTextareaNewOptions>({});
+  readonly testId = input<string>();
 
   private readonly controlEventTick = signal(0);
 
@@ -65,17 +67,17 @@ export class AppFormTextareaComponent {
     });
   }
 
-  readonly fullConfig = computed<AppFormTextareaNewConfig>(() => ({
+  protected readonly fullConfig = computed<AppFormTextareaNewConfig>(() => ({
     ...FORM_TEXTAREA_NEW_DEFAULTS,
     ...this.config()
   }) as AppFormTextareaNewConfig);
 
-  readonly isRequired = computed(() => {
+  protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
   });
 
-  readonly errorState = computed<ErrorState>(() => {
+  protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
     const shouldShow = ctrl.invalid && ctrl.touched;
