@@ -11,5 +11,5 @@ import { NavigationService } from '@core/services';
   styleUrl: './app-bread-crumb.component.scss'
 })
 export class AppBreadCrumbComponent {
-  readonly navigationService = inject(NavigationService);
+  protected readonly navigationService = inject(NavigationService);
 }
