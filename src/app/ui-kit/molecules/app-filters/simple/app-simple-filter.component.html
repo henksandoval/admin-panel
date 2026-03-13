@@ -2,6 +2,7 @@
   @for (filter of config().fields; track filter.key) {
     <div
       [style.width]="filter.width ?? 'auto'"
+      [attr.data-testid]="'filter-field-' + filter.key"
       class="filter-field">
 
       @switch (filter.type) {
@@ -13,7 +14,8 @@
                   placeholder: filter.placeholder ?? '',
                   appearance: appearance()
                 }"
-            [control]="getControl(filter.key)">
+            [control]="getControl(filter.key)"
+            [testId]="filter.key">
           </app-form-input>
         }
         @case ('number') {
@@ -24,7 +26,8 @@
                   placeholder: filter.placeholder ?? '',
                   appearance: appearance()
                 }"
-            [control]="getControl(filter.key)">
+            [control]="getControl(filter.key)"
+            [testId]="filter.key">
           </app-form-input>
         }
         @case ('select') {

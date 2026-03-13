@@ -60,11 +60,11 @@ export class AppSimpleFilterComponent implements OnInit {
 
   criteriaChange = output<AppFilterCriterion[]>();
 
-  readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
-  readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
-  readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
-  readonly toggles = computed(() => this.config().toggles ?? []);
-  readonly currentToggles = signal<Record<string, boolean>>({});
+  protected readonly appearance = computed(() => this.config().appearance ?? FILTER_DEFAULTS.appearance);
+  protected readonly showClearButton = computed(() => this.config().showClearButton ?? FILTER_DEFAULTS.showClearButton);
+  protected readonly showSearchButton = computed(() => this.config().showSearchButton ?? FILTER_DEFAULTS.showSearchButton);
+  protected readonly toggles = computed(() => this.config().toggles ?? []);
+  protected readonly currentToggles = signal<Record<string, boolean>>({});
 
   private readonly destroyRef = inject(DestroyRef);
   private readonly debounceMs = computed(() => this.config().debounceMs ?? FILTER_DEFAULTS.debounceMs);
@@ -91,25 +91,25 @@ export class AppSimpleFilterComponent implements OnInit {
     this.initializeForm();
   }
 
-  getControl(key: string): FormControl {
+  protected getControl(key: string): FormControl {
     return this.formGroup().get(key) as FormControl;
   }
 
-  getSelectOptions(filter: { options?: { value: unknown; label: string }[] }): SelectOption[] {
+  protected getSelectOptions(filter: { options?: { value: unknown; label: string }[] }): SelectOption[] {
     const resetOption: SelectOption = { value: null as unknown, label: $localize`:Filter|Reset/all option in select@@filter.select.allOption:-- All --` };
     return [resetOption, ...(filter.options ?? [])];
   }
 
-  onToggleChange(togglesRecord: Record<string, boolean>): void {
+  protected onToggleChange(togglesRecord: Record<string, boolean>): void {
     this.currentToggles.set(togglesRecord);
     this.emitAllCriteria();
   }
 
-  emitSearch(): void {
+  protected emitSearch(): void {
     this.emitAllCriteria();
   }
 
-  clearAllCriteria(): void {
+  protected clearAllCriteria(): void {
     this.formGroup().reset();
     this.criteriaChange.emit(togglesToCriteria(this.currentToggles()));
   }

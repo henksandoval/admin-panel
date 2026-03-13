@@ -1,14 +1,14 @@
 import { Component, input } from '@angular/core';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-form-datepicker',
   standalone: true,
   imports: [ReactiveFormsModule],
-  template: `<input [attr.data-testid]="testId()" type="date" [formControl]="$any(control())" />`,
+  template: `<input [attr.data-testid]="testId() ?? null" type="date" [formControl]="control()" />`,
 })
 export class AppFormDatepickerStubComponent {
-  readonly control = input.required<FormControl<Date | null>>();
-  readonly config = input<any>({});
+  readonly control = input.required<FormControl>();
+  readonly config = input<Record<string, unknown>>({});
   readonly testId = input<string>();
 }
