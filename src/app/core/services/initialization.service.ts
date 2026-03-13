@@ -5,6 +5,7 @@ import { LAYOUT_ROUTE_FACTORY } from '../../app.routes';
 import { MenuDataService } from './menu-data.service';
 import { RouteBuilderService } from './route-builder.service';
 import { LoggingService } from './logging.service';
+import { environment } from '@env/environment';
 import { AuthService } from '@auth/services';
 
 @Injectable({
@@ -20,6 +21,9 @@ export class InitializationService {
 
   async initialize(): Promise<void> {
     try {
+      if (environment.production && environment.apiBaseUrl.includes('localhost')) {
+        this.logger.warn($localize`@@envConfigWarning:Production build is using a localhost API base URL.`);
+      }
       await lastValueFrom(this.authService.checkSession(), { defaultValue: undefined });
       await lastValueFrom(this.menuDataService.loadMenu());
 
