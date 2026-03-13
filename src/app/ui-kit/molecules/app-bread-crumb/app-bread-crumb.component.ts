@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { NavigationService } from '@core/services';
+import { AppBreadcrumbItem } from '@ui-types';
+import { BREAD_CRUMB_DEFAULTS } from './app-bread-crumb.model';
 
 @Component({
   selector: 'app-bread-crumb',
@@ -11,5 +12,5 @@ import { NavigationService } from '@core/services';
   styleUrl: './app-bread-crumb.component.scss'
 })
 export class AppBreadCrumbComponent {
-  protected readonly navigationService = inject(NavigationService);
+  readonly items = input<AppBreadcrumbItem[]>(BREAD_CRUMB_DEFAULTS.items);
 }

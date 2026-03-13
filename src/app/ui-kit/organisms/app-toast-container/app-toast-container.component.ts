@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
-import { NotificationService } from '@core/services';
-import { Toast } from '@core/models';
 import { AppToastComponent } from '@ui-organisms/app-toast';
+import { AppToast } from '@ui-types';
+import { APP_TOAST_CONTAINER_DEFAULTS } from './app-toast-container.model';
 
 @Component({
     selector: 'app-toast-container',
@@ -12,25 +11,11 @@ import { AppToastComponent } from '@ui-organisms/app-toast';
     templateUrl: './app-toast-container.component.html',
     styleUrl: './app-toast-container.component.scss'
 })
-export class AppToastContainerComponent implements OnInit, OnDestroy {
-    toasts: Toast[] = [];
-    private subscription!: Subscription;
+export class AppToastContainerComponent {
+    readonly toasts = input<AppToast[]>(APP_TOAST_CONTAINER_DEFAULTS.toasts);
+    readonly dismiss = output<string>();
 
-    constructor(private notificationService: NotificationService) { }
-
-    ngOnInit(): void {
-        this.subscription = this.notificationService.toasts$.subscribe(
-            toasts => this.toasts = toasts
-        );
-    }
-
-    ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
-
-    onDismiss(id: string): void {
-        this.notificationService.remove(id);
+    protected onDismiss(id: string): void {
+        this.dismiss.emit(id);
     }
 }
