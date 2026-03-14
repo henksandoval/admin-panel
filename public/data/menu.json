@@ -232,7 +232,7 @@
     "id": "errors",
     "label": "Errores",
     "icon": "error",
-    "hidden": true,
+    "hidden": false,
     "children": [
       {
         "id": "error-403",
