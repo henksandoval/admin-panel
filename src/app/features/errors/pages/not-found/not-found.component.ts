@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
     <div class="app-not-found-container max-w-md mx-auto py-12">
       <div class="text-center">
         <mat-icon class="app-not-found-icon inline-block mb-4" color="primary">search_off</mat-icon>
+        <p class="app-not-found-code mat-display-medium">{{ pageCode }}</p>
         <h1 class="mat-headline-large">{{ pageTitle }}</h1>
         <p class="mat-body-medium mt-4 text-gray-600">{{ pageDescription }}</p>
         <div class="mt-8">
@@ -34,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
   `,
 })
 export class NotFoundComponent {
+  protected readonly pageCode = '404';
   protected readonly pageTitle = $localize`:NotFound|Page title@@errors.notfound.title:Page not found`;
   protected readonly pageDescription = $localize`:NotFound|Page description@@errors.notfound.description:The page you are looking for does not exist or has been moved`;
   protected readonly returnButtonText = $localize`:NotFound|Return button@@errors.notfound.button:Return to dashboard`;

@@ -89,7 +89,7 @@ describe('AuthService', () => {
 
     it('NO debe redirigir cuando el refresh falla en checkSession', async () => {
       setupFailing();
-      const navigateSpy = vi.spyOn(router, 'navigate');
+      const navigateSpy = vi.spyOn(router, 'navigateByUrl');
 
       await lastValueFrom(service.checkSession(), { defaultValue: undefined });
 
@@ -155,13 +155,13 @@ describe('AuthService', () => {
       );
       expect(service.isAuthenticated()).toBe(true);
 
-      const navigateSpy = vi.spyOn(router, 'navigate');
+      const navigateSpy = vi.spyOn(router, 'navigateByUrl');
       await lastValueFrom(service.logout(), { defaultValue: undefined });
 
       expect(service.status()).toBe('unauthenticated');
       expect(service.currentUser()).toBeNull();
       expect(service.accessToken()).toBeNull();
-      expect(navigateSpy).toHaveBeenCalledWith([AUTH_DEFAULTS.loginRoute]);
+      expect(navigateSpy).toHaveBeenCalledWith(AUTH_DEFAULTS.loginRoute);
     });
 
     it('debe limpiar la sesión incluso cuando el endpoint falla', async () => {

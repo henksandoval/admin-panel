@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
     <div class="app-server-error-container max-w-md mx-auto py-12">
       <div class="text-center">
         <mat-icon class="app-server-error-icon inline-block mb-4" color="warn">error_outline</mat-icon>
+        <p class="app-server-error-code mat-display-medium">{{ pageCode }}</p>
         <h1 class="mat-headline-large">{{ pageTitle }}</h1>
         <p class="mat-body-medium mt-4 text-gray-600">{{ pageDescription }}</p>
         <div class="mt-8">
@@ -34,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
   `,
 })
 export class ServerErrorComponent {
+  protected readonly pageCode = '500';
   protected readonly pageTitle = $localize`:ServerError|Page title@@errors.servererror.title:Something went wrong`;
   protected readonly pageDescription = $localize`:ServerError|Page description@@errors.servererror.description:An unexpected error has occurred. Our team has been notified`;
   protected readonly returnButtonText = $localize`:ServerError|Return button@@errors.servererror.button:Return to dashboard`;

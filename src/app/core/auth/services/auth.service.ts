@@ -51,7 +51,7 @@ export class AuthService {
     return this.provider.refreshAccessToken().pipe(
       switchMap((tokenResponse) => this.setSession(tokenResponse)),
       catchError(() => {
-        this.clearSession(false);
+        this.clearSession(null);
         return EMPTY;
       }),
     );
@@ -61,7 +61,7 @@ export class AuthService {
     return this.provider.login(credentials).pipe(
       switchMap((tokenResponse) => this.setSession(tokenResponse)),
       switchMap(() => {
-        this.router.navigateByUrl(returnUrl ?? AUTH_DEFAULTS.redirectAfterLogin);
+        void this.router.navigateByUrl(returnUrl ?? AUTH_DEFAULTS.redirectAfterLogin);
         return EMPTY;
       }),
     );
@@ -79,11 +79,11 @@ export class AuthService {
     return this.provider.confirmPasswordReset(confirm);
   }
 
-  logout(): Observable<void> {
+  logout(redirectTo: string | null = AUTH_DEFAULTS.loginRoute): Observable<void> {
     return this.provider.logout().pipe(
-      tap(() => this.clearSession()),
+      tap(() => this.clearSession(redirectTo)),
       catchError(() => {
-        this.clearSession();
+        this.clearSession(redirectTo);
         return of(undefined as unknown as void);
       }),
     );
@@ -105,13 +105,13 @@ export class AuthService {
     );
   }
 
-  private clearSession(redirect = true): void {
+  private clearSession(redirectTo: string | null = AUTH_DEFAULTS.loginRoute): void {
     this.clearRefreshTimer();
     this._accessToken.set(null);
     this._currentUser.set(null);
     this._status.set('unauthenticated');
-    if (redirect) {
-      this.router.navigate([AUTH_DEFAULTS.loginRoute]);
+    if (redirectTo) {
+      void this.router.navigateByUrl(redirectTo);
     }
   }
 

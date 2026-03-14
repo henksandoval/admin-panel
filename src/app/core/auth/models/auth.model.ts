@@ -59,6 +59,6 @@ export const AUTH_DEFAULTS = {
   tokenRefreshThresholdMs: 60_000,
   redirectAfterLogin: '/',
   loginRoute: '/auth/login',
-  unauthorizedRoute: '/errors/403',
+  unauthorizedRoute: '/errors/unauthorized',
 } as const;
 
