@@ -7,38 +7,30 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-not-found',
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
+  template: `
+    <div class="app-not-found-container max-w-md mx-auto py-12">
+      <div class="text-center">
+        <mat-icon class="app-not-found-icon inline-block mb-4" color="primary">search_off</mat-icon>
+        <h1 class="mat-headline-large">{{ pageTitle }}</h1>
+        <p class="mat-body-medium mt-4 text-gray-600">{{ pageDescription }}</p>
+        <div class="mt-8">
+          <a mat-raised-button color="primary" routerLink="/dashboard">
+            {{ returnButtonText }}
+          </a>
+        </div>
+      </div>
+    </div>
+  `,
   styles: `
-    .app-not-found-container {
-      text-align: center;
-      max-width: 500px;
-    }
-
-    .app-not-found-code {
-      font-size: 8rem;
-      font-weight: 300;
-      line-height: 1;
-      margin-bottom: 1rem;
+    :host {
+      display: block;
     }
 
     .app-not-found-icon {
-      font-size: 6rem;
-      width: 6rem;
-      height: 6rem;
-      margin: 0 auto 2rem;
+      font-size: 4rem;
+      width: 4rem;
+      height: 4rem;
     }
-  `,
-  template: `
-    <div class="app-not-found-container">
-      <div class="app-not-found-code">404</div>
-      <mat-icon class="app-not-found-icon" color="primary">search_off</mat-icon>
-      <h1 class="mat-headline-large">{{ pageTitle }}</h1>
-      <p class="mat-body-medium mt-4">{{ pageDescription }}</p>
-      <div class="mt-8 flex gap-4 justify-center">
-        <a mat-raised-button color="primary" routerLink="/dashboard">
-          {{ returnButtonText }}
-        </a>
-      </div>
-    </div>
   `,
 })
 export class NotFoundComponent {
