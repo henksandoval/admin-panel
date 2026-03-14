@@ -1,4 +1,4 @@
-import { RouteLoaderRegistry } from '@core/registry';
+import { RouteLoaderRegistry } from '@core/registry/route-registry';
 import { dashboardRouteLoaders } from '@features/dashboard/route-loaders';
 import { pdsRouteLoaders } from '@features/pds/route-loaders';
 

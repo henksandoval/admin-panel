@@ -25,6 +25,7 @@ import { API_BASE_URL, JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.prov
 import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
 import { environment } from '@env/environment.development';
 import { errorInterceptor } from '@core/interceptors/error.interceptor';
+import { ROUTE_LOADER_REGISTRY } from '@core/registry/route-registry';
 
 registerLocaleData(localeEs);
 
