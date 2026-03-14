@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationItem } from '@core/models';
-import { NavigationService } from '@core/services';
+import { NavigationService } from '@core/services/navigation.service';
 import { LayoutService } from '../../services/layout.service';
 import { Router } from '@angular/router';
 import { NavTreeInlineComponent } from './components/nav-tree-inline/nav-tree-inline.component';

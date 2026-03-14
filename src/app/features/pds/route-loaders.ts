@@ -1,4 +1,4 @@
-import { RouteLoaderRegistry } from '@core/registry';
+import { RouteLoaderRegistry } from '@core/registry/route-registry';
 
 export const pdsRouteLoaders: RouteLoaderRegistry = {
   pds: () => import('@features/pds/showcase.component').then((m) => m.ShowcaseComponent),

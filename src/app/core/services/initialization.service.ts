@@ -5,8 +5,8 @@ import { LAYOUT_ROUTE_FACTORY } from '../../app.routes';
 import { MenuDataService } from './menu-data.service';
 import { RouteBuilderService } from './route-builder.service';
 import { LoggingService } from './logging.service';
+import { AuthService } from '@auth/services/auth.service';
 import { environment } from '@env/environment';
-import { AuthService } from '@auth/services';
 
 @Injectable({
   providedIn: 'root',
