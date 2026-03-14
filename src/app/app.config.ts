@@ -13,8 +13,7 @@ import { provideHighlightOptions } from 'ngx-highlightjs';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-
-import { AUTH_ROUTES, LAYOUT_ROUTE_FACTORY, LAYOUT_STATIC_CHILDREN, routes } from './app.routes';
+import { LAYOUT_ROUTE_FACTORY, routes } from './app.routes';
 import { featureRouteLoaders } from './feature-route-loaders';
 import { LayoutComponent } from '@layout/layout.component';
 import { authGuard } from '@auth/guards/auth.guard';
@@ -47,15 +46,15 @@ export const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID,        useValue: 'es-ES' },
     {
       provide: LAYOUT_ROUTE_FACTORY,
-      useValue: (dynamicChildren: Routes): Routes => [
-        ...AUTH_ROUTES,
-        {
-          path: '',
-          component: LayoutComponent,
-          canActivate: [authGuard],
-          children: [...LAYOUT_STATIC_CHILDREN, ...dynamicChildren],
-        },
-      ],
+      useValue: (dynamicChildren: Routes): Routes => routes.map(route => {
+        if (route.path === '' && route.component) {
+          return {
+            ...route,
+            children: [...(route.children ?? []), ...dynamicChildren],
+          };
+        }
+        return route;
+      }),
     },
     {
       provide:  AUTH_PROVIDER,
