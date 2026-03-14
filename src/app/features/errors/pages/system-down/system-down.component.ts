@@ -7,14 +7,14 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatButtonModule, MatIconModule],
   template: `
-    <div class="app-system-down-wrapper">
+    <div class="app-system-down-wrapper" data-testid="system-down-page">
       <div class="app-system-down-container">
         <div class="text-center">
           <mat-icon class="app-system-down-icon" color="warn">build_circle</mat-icon>
           <h1 class="mat-headline-large">{{ pageTitle }}</h1>
           <p class="mat-body-medium mt-4">{{ pageDescription }}</p>
           <div class="mt-8">
-            <button mat-raised-button color="primary" (click)="onRetry()">
+            <button mat-raised-button color="primary" (click)="onRetry()" data-testid="system-down-cta">
               {{ retryButtonText }}
             </button>
           </div>

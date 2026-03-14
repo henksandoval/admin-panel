@@ -8,14 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `
-    <div class="app-not-found-container max-w-md mx-auto py-12">
+    <div class="app-not-found-container max-w-md mx-auto py-12" data-testid="not-found-page">
       <div class="text-center">
         <mat-icon class="app-not-found-icon inline-block mb-4" color="primary">search_off</mat-icon>
         <p class="app-not-found-code mat-display-medium">{{ pageCode }}</p>
         <h1 class="mat-headline-large">{{ pageTitle }}</h1>
         <p class="mat-body-medium mt-4 text-gray-600">{{ pageDescription }}</p>
         <div class="mt-8">
-          <a mat-raised-button color="primary" routerLink="/dashboard">
+          <a mat-raised-button color="primary" routerLink="/dashboard" data-testid="not-found-cta">
             {{ returnButtonText }}
           </a>
         </div>

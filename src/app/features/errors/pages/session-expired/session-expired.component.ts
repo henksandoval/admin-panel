@@ -8,14 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `
-    <div class="app-session-expired-wrapper">
+    <div class="app-session-expired-wrapper" data-testid="session-expired-page">
       <div class="app-session-expired-container">
         <div class="text-center">
           <mat-icon class="app-session-expired-icon" color="warn">schedule</mat-icon>
           <h1 class="mat-headline-large">{{ pageTitle }}</h1>
           <p class="mat-body-medium mt-4">{{ pageDescription }}</p>
           <div class="mt-8">
-            <a mat-raised-button color="primary" routerLink="/auth/login">
+            <a mat-raised-button color="primary" routerLink="/auth/login" data-testid="session-expired-cta">
               {{ loginButtonText }}
             </a>
           </div>

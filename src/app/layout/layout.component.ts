@@ -27,7 +27,7 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
     class: 'block h-full'
   },
   template: `
-    <div class="h-full w-full relative">
+    <div class="h-full w-full relative" data-testid="layout-shell">
       <mat-sidenav-container class="h-full w-full" autosize (backdropClick)="onBackdropClick()">
         <mat-sidenav
           #sidenav

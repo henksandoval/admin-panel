@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `
-    <div class="app-access-denied-wrapper">
+    <div class="app-access-denied-wrapper" data-testid="access-denied-page">
       <div class="app-access-denied-container">
         <div class="text-center">
           <mat-icon class="app-access-denied-icon" color="warn">security</mat-icon>

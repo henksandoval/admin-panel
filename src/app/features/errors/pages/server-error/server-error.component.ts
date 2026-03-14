@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `
-    <div class="app-server-error-container max-w-md mx-auto py-12">
+    <div class="app-server-error-container max-w-md mx-auto py-12" data-testid="server-error-page">
       <div class="text-center">
         <mat-icon class="app-server-error-icon inline-block mb-4" color="warn">error_outline</mat-icon>
         <p class="app-server-error-code mat-display-medium">{{ pageCode }}</p>

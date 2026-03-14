@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `
-    <div class="app-unauthorized-container max-w-md mx-auto py-12">
+    <div class="app-unauthorized-container max-w-md mx-auto py-12" data-testid="unauthorized-page">
       <div class="text-center">
         <mat-icon class="app-unauthorized-icon inline-block mb-4" color="warn">lock</mat-icon>
         <p class="app-unauthorized-code mat-display-medium">{{ pageCode }}</p>
