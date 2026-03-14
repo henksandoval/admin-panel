@@ -250,5 +250,28 @@
         "icon": "warning"
       }
     ]
+  },
+  {
+    "id": "critical-errors",
+    "label": "Errores Críticos",
+    "icon": "report_problem",
+    "hidden": false,
+    "children": [
+      {
+        "id": "error-session-expired",
+        "label": "Session Expired",
+        "icon": "schedule"
+      },
+      {
+        "id": "error-access-denied",
+        "label": "Access Denied",
+        "icon": "lock"
+      },
+      {
+        "id": "error-system-down",
+        "label": "System Down",
+        "icon": "cloud_off"
+      }
+    ]
   }
 ]

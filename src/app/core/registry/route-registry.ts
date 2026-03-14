@@ -19,31 +19,26 @@ export interface RouteDefinition {
   readonly requireAllRoles?: boolean;
 }
 
-export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
-  'dashboard': {
-    path: 'dashboard',
-    requiresAuth: true,
-  },
+const coreRoutes: Record<string, RouteDefinition> = {
+  'dashboard': { path: 'dashboard', requiresAuth: true },
+};
+
+const errorRoutes: Record<string, RouteDefinition> = {
   'errors': { path: 'errors' },
   'error-403': { path: 'unauthorized' },
   'error-404': { path: 'not-found' },
   'error-500': { path: 'server-error' },
-  'badges': { path: 'badges', requiresAuth: true },
-  'normal': { path: 'normal' },
-  'success': { path: 'success' },
-  'info': { path: 'info' },
-  'warning': { path: 'warning' },
-  'error': { path: 'error' },
-  'normal-indicator': { path: 'normal-indicator' },
-  'success-indicator': { path: 'success-indicator' },
-  'info-indicator': { path: 'info-indicator' },
-  'warning-indicator': { path: 'warning-indicator' },
-  'error-indicator': { path: 'error-indicator' },
-  'pds': {
-    path: 'pds',
-    requiresAuth: true,
-    roles: ['admin'],
-  },
+};
+
+const criticalErrorRoutes: Record<string, RouteDefinition> = {
+  'critical-errors': { path: 'critical-errors' },
+  'error-session-expired': { path: 'session-expired' },
+  'error-access-denied': { path: 'access-denied' },
+  'error-system-down': { path: 'system-down' },
+};
+
+const pdsRoutes: Record<string, RouteDefinition> = {
+  'pds': { path: 'pds', requiresAuth: true, roles: ['admin'] },
   'pds-index': { path: 'index' },
   'pds-form': { path: 'form' },
   'pds-buttons': { path: 'buttons' },
@@ -65,5 +60,23 @@ export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
   'pds-table': { path: 'table' },
   'pds-table-client-side': { path: 'client-side' },
   'pds-table-server-side': { path: 'server-side' },
+  'badges': { path: 'badges', requiresAuth: true },
+  'normal': { path: 'normal' },
+  'success': { path: 'success' },
+  'info': { path: 'info' },
+  'warning': { path: 'warning' },
+  'error': { path: 'error' },
+  'normal-indicator': { path: 'normal-indicator' },
+  'success-indicator': { path: 'success-indicator' },
+  'info-indicator': { path: 'info-indicator' },
+  'warning-indicator': { path: 'warning-indicator' },
+  'error-indicator': { path: 'error-indicator' },
+};
+
+export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
+  ...coreRoutes,
+  ...errorRoutes,
+  ...criticalErrorRoutes,
+  ...pdsRoutes,
 };
 
