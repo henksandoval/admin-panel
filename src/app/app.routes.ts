@@ -2,7 +2,7 @@ import { InjectionToken } from '@angular/core';
 import { Routes } from '@angular/router';
 import { LayoutComponent } from '@layout/layout.component';
 import { ErrorLayoutComponent } from '@features/errors/error-layout.component';
-import { authGuard } from '@auth/guards';
+import { authGuard } from '@auth/guards/auth.guard';
 
 export const LAYOUT_ROUTE_FACTORY = new InjectionToken<(dynamicChildren: Routes) => Routes>(
   'LAYOUT_ROUTE_FACTORY',

@@ -3,9 +3,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationItem, BreadcrumbItem } from '@core/models';
-import { AuthService } from '@auth/services';
 import { AuthUser } from '@auth/models';
 import { MenuDataService } from './menu-data.service';
+import { AuthService } from '@core/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root',

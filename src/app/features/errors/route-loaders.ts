@@ -1,4 +1,4 @@
-import { RouteLoaderRegistry } from '@core/registry';
+import { RouteLoaderRegistry } from '@core/registry/route-registry';
 
 export const errorRouteLoaders: RouteLoaderRegistry = {
   'not-found': () => import('@features/errors/pages/not-found/not-found.component').then((m) => m.NotFoundComponent),

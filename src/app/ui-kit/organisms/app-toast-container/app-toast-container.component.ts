@@ -1,5 +1,8 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { NotificationService } from '@core/services/notification.service';
+import { Toast } from '@core/models';
 import { AppToastComponent } from '@ui-organisms/app-toast';
 import { AppToast } from '@ui-types';
 import { APP_TOAST_CONTAINER_DEFAULTS } from './app-toast-container.model';

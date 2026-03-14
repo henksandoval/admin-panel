@@ -5,9 +5,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@core": ["src/app/core/index.ts"],
       "@core/*": ["src/app/core/*"],
-      "@auth": ["src/app/core/auth/index.ts"],
       "@auth/*": ["src/app/core/auth/*"],
       "@features/*": ["src/app/features/*"],
       "@layout/*": ["src/app/layout/*"],

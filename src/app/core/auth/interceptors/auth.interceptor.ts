@@ -5,8 +5,8 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from 'rxjs';
-import { AuthService } from '@auth/services';
-import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers';
+import { AuthService } from '@auth/services/auth.service';
+import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
 import { IAuthProvider, TokenResponse } from '@auth/models';
 
 let isRefreshing = false;

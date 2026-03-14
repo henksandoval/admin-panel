@@ -33,7 +33,7 @@ import {
 import { RadioOption } from '@ui-molecules/app-form/app-form-radio-group';
 import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select';
 import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea';
-import { LoggingService } from '@core/services';
+import { LoggingService } from '@core/services/logging.service';
 
 @Component({
   selector: 'app-form-gallery',

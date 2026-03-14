@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
 import { ApiMenuItem } from '@core/contracts';
 import { NavigationItem, NavigationBadge, NAVIGATION_DEFAULTS } from '@core/models';
-import { ROUTE_REGISTRY } from '@core/registry';
+import { ROUTE_REGISTRY } from '@core/registry/route-registry';
 import { environment } from '@env/environment';
 
 @Injectable({
