@@ -15,7 +15,7 @@ export const LAYOUT_STATIC_CHILDREN: Routes = [
   },
 ];
 
-export const ERROR_ROUTES_CHILDREN: Routes = [
+export const CONTEXT_AWARE_ERROR_ROUTES: Routes = [
   {
     path: 'not-found',
     loadComponent: () =>
@@ -35,6 +35,30 @@ export const ERROR_ROUTES_CHILDREN: Routes = [
     loadComponent: () =>
       import('@features/errors/pages/server-error/server-error.component').then(
         (m) => m.ServerErrorComponent,
+      ),
+  },
+];
+
+export const CRITICAL_ERROR_ROUTES: Routes = [
+  {
+    path: 'session-expired',
+    loadComponent: () =>
+      import('@features/errors/pages/session-expired/session-expired.component').then(
+        (m) => m.SessionExpiredComponent,
+      ),
+  },
+  {
+    path: 'access-denied',
+    loadComponent: () =>
+      import('@features/errors/pages/access-denied/access-denied.component').then(
+        (m) => m.AccessDeniedComponent,
+      ),
+  },
+  {
+    path: 'system-down',
+    loadComponent: () =>
+      import('@features/errors/pages/system-down/system-down.component').then(
+        (m) => m.SystemDownComponent,
       ),
   },
 ];
@@ -90,9 +114,13 @@ export const routes: Routes = [
       ...LAYOUT_STATIC_CHILDREN,
       {
         path: 'errors',
-        children: ERROR_ROUTES_CHILDREN,
+        children: CONTEXT_AWARE_ERROR_ROUTES,
       },
     ],
+  },
+  {
+    path: 'critical-errors',
+    children: CRITICAL_ERROR_ROUTES,
   },
   {
     path: '**',

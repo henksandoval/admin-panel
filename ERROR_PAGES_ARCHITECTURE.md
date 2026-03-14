@@ -1,23 +1,10 @@
-# Error Pages Architecture — Shell-Embedded Approach
+# Error Pages Architecture — Dual Strategy
 
-## Visual Comparison
+## Hybrid Approach: Two Complementary Layouts
 
-### Before (ErrorLayoutComponent - Full Screen)
-```
-┌─────────────────────────────────┐
-│         Full Screen             │
-├─────────────────────────────────┤
-│                                 │
-│          404 Error              │
-│         (centered)              │
-│                                 │
-│      [Return to Dashboard]      │
-│                                 │
-└─────────────────────────────────┘
-No sidebar, no toolbar, no context
-```
+Your insight was correct: **both approaches serve different purposes and should coexist.**
 
-### After (Shell-Embedded - Your Idea)
+### Option 1: Context-Aware Errors (Shell-Embedded)
 ```
 ┌─────────────────────────────────────────────────┐
 │ ☰ Sidebar  │  Toolbar (Settings, Theme, etc)   │
@@ -33,36 +20,85 @@ No sidebar, no toolbar, no context
 │             │  └──────────────────────────┘    │
 │             │                                   │
 └─────────────────────────────────────────────────┘
-Sidebar visible, toolbar visible, full navigation context
+
+✓ Sidebar visible  ✓ Toolbar visible  ✓ Full context
 ```
 
-## Architecture Changes
+**Use Case**: User actions within authenticated context that fail
+- "Search returned zero results" → 404 in dashboard/search
+- "You don't have permission to view this" → 403 in users section
+- "Processing error but session is valid" → 500 in form submission
+
+### Option 2: Critical Errors (Full Screen)
+```
+┌─────────────────────────────────────────────┐
+│                                             │
+│          [System Maintenance]               │
+│                                             │
+│     "System is under maintenance"           │
+│                                             │
+│              [Try Again]                    │
+│                                             │
+└─────────────────────────────────────────────┘
+
+✗ No sidebar  ✗ No toolbar  ✓ Full attention
+```
+
+**Use Case**: System-level or security-critical errors that require isolation
+- "Session expired" → User must re-authenticate
+- "Access denied" → Unauthorized access attempt
+- "System down" → Maintenance or critical failure
+
+## Architecture Overview
 
 ### Route Structure
 
-**Before:**
 ```
-/auth/* → AuthLayoutComponent
-/errors/* → ErrorLayoutComponent (separate layout)
-/ → LayoutComponent (main shell)
-  └── /dashboard, /users, etc.
+/auth/*              → AuthLayoutComponent (unauthenticated)
+
+/ (with authGuard)   → LayoutComponent (main shell)
+  ├── /dashboard, /users, etc.
+  └── /errors/*         ← Context-aware errors
+      ├── /not-found
+      ├── /unauthorized
+      └── /server-error
+
+/critical-errors/*   → Full-screen components (NO authGuard)
+  ├── /session-expired
+  ├── /access-denied
+  └── /system-down
 ```
 
-**After:**
-```
-/auth/* → AuthLayoutComponent
-/ → LayoutComponent (main shell)
-  ├── /dashboard, /users, etc.
-  └── /errors/* (error pages within shell)
-      ├── /errors/not-found
-      ├── /errors/unauthorized
-      └── /errors/server-error
-```
+### Decision Matrix: Which Error Route?
+
+| Scenario | Route | Reason |
+|----------|-------|--------|
+| User searches for non-existent resource | `/errors/not-found` | Context needed, user is authenticated |
+| API returns 404 in list view | `/errors/not-found` | User needs to see they're in the right section |
+| User lacks permission in feature | `/errors/unauthorized` | Show context, user can try elsewhere |
+| API call fails but session valid | `/errors/server-error` | User is authenticated, retry is possible |
+| **JWT token expired** | `/critical-errors/session-expired` | Security: remove all context, force re-auth |
+| **Failed authGuard (no token)** | `/critical-errors/access-denied` | Security: bypass shell, show login |
+| **Backend system down (5xx)** | `/critical-errors/system-down` | Retry mechanism, check status elsewhere |
 
 ### Implementation Details
 
 #### Route Definition (app.routes.ts)
 ```typescript
+// Context-aware errors: within shell, requires authGuard
+export const CONTEXT_AWARE_ERROR_ROUTES: Routes = [
+  { path: 'not-found', loadComponent: () => NotFoundComponent },
+  { path: 'unauthorized', loadComponent: () => UnauthorizedComponent },
+  { path: 'server-error', loadComponent: () => ServerErrorComponent },
+];
+
+// Critical errors: full-screen, NO authGuard
+export const CRITICAL_ERROR_ROUTES: Routes = [
+  { path: 'session-expired', loadComponent: () => SessionExpiredComponent },
+  { path: 'access-denied', loadComponent: () => AccessDeniedComponent },
+  { path: 'system-down', loadComponent: () => SystemDownComponent },
+];
+
 export const routes: Routes = [
   ...AUTH_ROUTES,
   {
@@ -73,14 +109,18 @@ export const routes: Routes = [
       ...LAYOUT_STATIC_CHILDREN,
       {
         path: 'errors',
-        children: ERROR_ROUTES_CHILDREN,  // ← Error pages as children
+        children: CONTEXT_AWARE_ERROR_ROUTES,  // ← Protected by authGuard
       },
     ],
+  },
+  {
+    path: 'critical-errors',
+    children: CRITICAL_ERROR_ROUTES,  // ← NO authGuard, full-screen
   },
 ];
 ```
 
-#### Layout Shell (layout.component.ts)
+#### Shell Layout (layout.component.ts)
 ```
 MatSidenavContainer
 ├── MatSidenav (sidebar)
@@ -88,12 +128,23 @@ MatSidenavContainer
 ├── MatSidenavContent
 │   ├── AppToolbarComponent
 │   └── main
-│       └── <router-outlet />  ← Error pages render here
-│               └── NotFoundComponent
-│               └── UnauthorizedComponent
-│               └── ServerErrorComponent
-└── MatSidenav (settings, end position)
+│       └── <router-outlet />
+│           ├── Regular pages (dashboard, users, etc)
+│           └── Context-aware errors (/errors/*)
+│               └── Rendered within content area
+└── MatSidenav (settings, end)
     └── AppSettingsPanelComponent
+```
+
+#### Critical Error Components (Full-Screen)
+```
+Document Root
+└── app-session-expired (full viewport)
+    └── display: flex
+        height: 100vh
+        width: 100vw
+        background: gradient
+        [Centered error card]
 ```
 
 ## Component Evolution
@@ -133,84 +184,140 @@ template: `
 
 ## Routing Examples
 
-### Navigate to Error Pages
-
-From anywhere in the app with the shell:
+### Context-Aware Error Navigation
 ```typescript
-// 404
-this.router.navigate(['/errors/not-found']);
+// From within authenticated pages (API call fails, user action fails, etc)
 
-// 403 Unauthorized
-this.router.navigate(['/errors/unauthorized']);
-
-// 500 Server Error
-this.router.navigate(['/errors/server-error']);
-```
-
-From error interceptors:
-```typescript
-// error.interceptor.ts
-if (error.status === 404) {
+// User searched for something that doesn't exist
+if (response.items.length === 0) {
   this.router.navigate(['/errors/not-found']);
 }
+
+// User lacks permission in feature
 if (error.status === 403) {
   this.router.navigate(['/errors/unauthorized']);
 }
+
+// API processing error but user is still authenticated
 if (error.status >= 500) {
   this.router.navigate(['/errors/server-error']);
 }
 ```
 
-## Advantages of Shell-Embedded Approach
+### Critical Error Navigation
+```typescript
+// From error interceptors, guards, or middleware
 
-✅ **Context Preservation**
-- Users can see sidebar navigation while viewing error
-- Understand what section they were in when error occurred
+// Login/Auth Guard detects no valid token
+if (!this.authService.isAuthenticated()) {
+  this.router.navigateByUrl('/critical-errors/access-denied');
+}
 
-✅ **Consistency**
-- Error pages match app styling and layout
-- No jarring visual transition to different layout
+// Token refresh failed, session is invalid
+if (error.status === 401 && !this.tokenService.canRefresh()) {
+  this.router.navigateByUrl('/critical-errors/session-expired');
+}
 
-✅ **Navigation Options**
-- Sidebar remains accessible
-- Users can navigate directly without "go back" button
-- More flexible recovery paths
+// Backend/System error that prevents authentication
+if (error.status >= 500 && this.isSystemDown(error)) {
+  this.router.navigateByUrl('/critical-errors/system-down');
+}
+```
 
-✅ **Mobile Friendly**
-- Responsive layout adapts to container
-- Sidebar collapse/expand works naturally
-- Better touch targets and spacing
+### Error Interceptor Example
+```typescript
+// error.interceptor.ts
+intercept(req, next) {
+  return next.handle(req).pipe(
+    catchError(error => {
+      switch (error.status) {
+        case 404:
+          this.router.navigate(['/errors/not-found']);
+          break;
+        case 401:
+          // Session expired
+          this.router.navigateByUrl('/critical-errors/session-expired');
+          break;
+        case 403:
+          return this.router.navigate(['/errors/unauthorized']);
+        case 500:
+        case 502:
+        case 503:
+          this.router.navigateByUrl('/critical-errors/system-down');
+          break;
+      }
+      return throwError(error);
+    })
+  );
+}
+```
 
-✅ **Accessibility**
-- Maintains body structure and landmarks
-- Sidebar navigation always available for keyboard users
-- Consistent focus management with main app
+## Advantages of Hybrid Approach
+
+### Context-Aware Errors (`/errors/*`)
+✅ **User Context Preserved**: User understands where they were when error occurred  
+✅ **Navigation Available**: Sidebar allows users to recover by going elsewhere  
+✅ **Consistent UX**: Error pages match app styling and layout  
+✅ **Less Jarring**: No sudden visual transition away from app  
+✅ **Mobile Friendly**: Responsive layout adapts to content area  
+✅ **Accessibility**: All landmarks and navigation remain available  
+
+### Critical Errors (`/critical-errors/*`)
+✅ **Security Isolation**: Failed auth can't access app content  
+✅ **Full Attention**: Full screen focuses user on urgent action (re-login)  
+✅ **System Transparency**: Shows status without app context  
+✅ **Recovery Path Clear**: "Go to login" is the only option  
+✅ **Token Agnostic**: Can be shown without valid authentication  
+✅ **Graceful Degradation**: Displays even if shell/sidebar fails to load  
+
+## When to Use Which?
+
+| Situation | Route | Reason |
+|-----------|-------|--------|
+| User performs search, 0 results | `/errors/not-found` | Context helps: "search is here" |
+| API call within feature fails | `/errors/server-error` | User might retry, needs context |
+| User lacks feature permission | `/errors/unauthorized` | User should see sidebar alternatives |
+| **Session/Token expires** | `/critical-errors/session-expired` | Security: force re-auth, hide app |
+| **Failed auth guard** | `/critical-errors/access-denied` | Security: no token = no shell |
+| **System/Backend down** | `/critical-errors/system-down` | Maintenance: user can't proceed, try later |
 
 ## Implementation Checklist
 
-- [x] Move error routes as children of LayoutComponent
-- [x] Remove ErrorLayoutComponent from route structure
-- [x] Update error page components for content area
-- [x] Adjust icon sizes and spacing
-- [x] Ensure responsive design (max-w-md container)
-- [ ] Test routing from error pages back to dashboard
-- [ ] Test error interceptor integration
-- [ ] Test mobile and tablet viewports
-- [ ] Test keyboard navigation
-- [ ] Update error handling in interceptors to use new routes
-- [ ] Test sidebar/toolbar interaction while on error page
+**Context-Aware Errors (`/errors/*`)**
+- [x] Create NotFound, Unauthorized, ServerError components
+- [x] Size/style for content area (icons: 4rem, max-w-md container)
+- [x] Include sidebar navigation in test
+- [x] Route as children of LayoutComponent (will provide authGuard automatically)
+- [ ] Test navigation from error pages back to dashboard
+- [ ] Test mobile viewport responsiveness
+- [ ] Test keyboard navigation with sidebar visible
+
+**Critical Errors (`/critical-errors/*`)**
+- [x] Create SessionExpired, AccessDenied, SystemDown components
+- [x] Full-screen styling (100vh/100vw, flex centering)
+- [x] Add gradient background to differentiate from shell
+- [x] Route at root level (NO authGuard)
+- [ ] Test that authGuard can redirect to these
+- [ ] Test that interceptors can trigger these
+- [ ] Test that session timeout properly navigates to session-expired
+- [ ] Test that failed token refresh goes to access-denied
+
+**Error Handling Integration**
+- [ ] Update error.interceptor.ts to use both route types
+- [ ] Update auth.guard.ts to redirect to critical-errors on failure
+- [ ] Add token refresh interceptor with session-expired handling
+- [ ] Test 4xx/5xx response handling
 
 ## Files Modified
 
-1. `src/app/app.routes.ts` - Route structure reorganization
-2. `src/app/features/errors/pages/not-found/not-found.component.ts`
-3. `src/app/features/errors/pages/unauthorized/unauthorized.component.ts`
-4. `src/app/features/errors/pages/server-error/server-error.component.ts`
+1. `src/app/app.routes.ts` - Dual route structure (context-aware + critical)
+2. `src/app/features/errors/pages/not-found/not-found.component.ts` - Content area styling
+3. `src/app/features/errors/pages/unauthorized/unauthorized.component.ts` - Content area styling
+4. `src/app/features/errors/pages/server-error/server-error.component.ts` - Content area styling
+5. `src/app/features/errors/pages/session-expired/session-expired.component.ts` - Full-screen (NEW)
+6. `src/app/features/errors/pages/access-denied/access-denied.component.ts` - Full-screen (NEW)
+7. `src/app/features/errors/pages/system-down/system-down.component.ts` - Full-screen (NEW)
 
 ## Files No Longer Needed
 
-- `src/app/features/errors/error-layout.component.ts` (can be deleted)
-
----
-
-**Status**: Implementation complete. Ready for visual testing and integration with error handlers.
+- `src/app/features/errors/error-layout.component.ts` (can be deleted, no longer used)
