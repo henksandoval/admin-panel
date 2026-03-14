@@ -44,64 +44,26 @@ export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
     requiresAuth: true,
     roles: ['admin'],
   },
-  'pds-index': {
-    path: 'index',
-  },
-  'pds-form': {
-    path: 'form',
-  },
-  'pds-buttons': {
-    path: 'buttons',
-  },
-  'pds-checkboxes': {
-    path: 'checkboxes',
-  },
-  'pds-radios': {
-    path: 'radios',
-  },
-  'pds-indicators': {
-    path: 'indicators',
-  },
-  'pds-selects': {
-    path: 'selects',
-  },
-  'pds-toggle-groups': {
-    path: 'toggle-groups',
-  },
-  'pds-icons': {
-    path: 'icons-gallery',
-  },
-  'pds-typography': {
-    path: 'typography',
-  },
+  'pds-index': { path: 'index' },
+  'pds-form': { path: 'form' },
+  'pds-buttons': { path: 'buttons' },
+  'pds-checkboxes': { path: 'checkboxes' },
+  'pds-radios': { path: 'radios' },
+  'pds-indicators': { path: 'indicators' },
+  'pds-selects': { path: 'selects' },
+  'pds-toggle-groups': { path: 'toggle-groups' },
+  'pds-icons': { path: 'icons-gallery' },
+  'pds-typography': { path: 'typography' },
   'pds-layout': { path: 'layout' },
-  'pds-layout-dashboard': {
-    path: 'dashboard',
-  },
-  'pds-layout-full-width': {
-    path: 'full-width',
-  },
-  'pds-layout-main-sidebar': {
-    path: 'main-sidebar',
-  },
-  'pds-layout-sidebar-main': {
-    path: 'sidebar-main',
-  },
-  'pds-layout-two-column': {
-    path: 'two-column',
-  },
-  'pds-layout-two-column-footer': {
-    path: 'two-column-footer',
-  },
-  'pds-layout-three-column': {
-    path: 'three-column',
-  },
+  'pds-layout-dashboard': { path: 'dashboard' },
+  'pds-layout-full-width': { path: 'full-width' },
+  'pds-layout-main-sidebar': { path: 'main-sidebar' },
+  'pds-layout-sidebar-main': { path: 'sidebar-main' },
+  'pds-layout-two-column': { path: 'two-column' },
+  'pds-layout-two-column-footer': { path: 'two-column-footer' },
+  'pds-layout-three-column': { path: 'three-column' },
   'pds-table': { path: 'table' },
-  'pds-table-client-side': {
-    path: 'client-side',
-  },
-  'pds-table-server-side': {
-    path: 'server-side',
-  },
+  'pds-table-client-side': { path: 'client-side' },
+  'pds-table-server-side': { path: 'server-side' },
 };
 
