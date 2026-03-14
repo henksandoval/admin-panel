@@ -6,6 +6,7 @@ import { LoggingService } from './logging.service';
 import { ApiMenuItem } from '@core/contracts';
 import { NavigationItem, NavigationBadge, NAVIGATION_DEFAULTS } from '@core/models';
 import { ROUTE_REGISTRY } from '@core/registry/route-registry';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -40,10 +41,17 @@ export class MenuDataService {
   private buildNavigationItems(items: ApiMenuItem[], parentPath: string): NavigationItem[] {
     return items
       .map((item: ApiMenuItem): NavigationItem | null => {
+        if (item.hidden) {
+          return null;
+        }
+
         const definition = ROUTE_REGISTRY[item.id];
 
         if (!definition) {
           this.logger.warn(`[MenuDataService] id '${item.id}' no tiene entrada en ROUTE_REGISTRY. Se omite del menú.`);
+          if (environment.strictMenuRoutes) {
+            throw new Error(`[MenuDataService] id '${item.id}' no tiene entrada en ROUTE_REGISTRY.`);
+          }
           return null;
         }
 
@@ -61,12 +69,19 @@ export class MenuDataService {
             }
           : undefined;
 
+        const requiresAuth = item.requiresAuth ?? definition.requiresAuth ?? false;
+        const roles = item.roles ?? definition.roles;
+        const requireAllRoles = item.requireAllRoles ?? definition.requireAllRoles;
+
         return {
           id: item.id,
           title: item.label,
           icon: item.icon ?? NAVIGATION_DEFAULTS.icon,
-          url: definition.loader ? fullPath : undefined,
+          url: fullPath,
           badge,
+          requiresAuth,
+          roles,
+          requireAllRoles,
           children: hasChildren
             ? this.buildNavigationItems(item.children, fullPath)
             : undefined,

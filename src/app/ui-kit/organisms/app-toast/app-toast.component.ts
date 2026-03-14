@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Toast } from '@core/models';
+import { AppToast } from '@ui-types';
+import { APP_TOAST_DEFAULTS } from './app-toast.model';
 
 @Component({
     selector: 'app-toast',
@@ -12,20 +13,20 @@ import { Toast } from '@core/models';
     styleUrl: './app-toast.component.scss'
 })
 export class AppToastComponent {
-    @Input({ required: true }) toast!: Toast;
-    @Output() dismiss = new EventEmitter<string>();
+    readonly toast = input<AppToast>(APP_TOAST_DEFAULTS.toast);
+    readonly dismiss = output<string>();
 
-    onDismiss(): void {
-        this.dismiss.emit(this.toast.id);
+    protected onDismiss(): void {
+        this.dismiss.emit(this.toast().id);
     }
 
-    get iconName(): string {
-        switch (this.toast.type) {
+    protected readonly iconName = computed(() => {
+        switch (this.toast().type) {
             case 'success': return 'check_circle';
             case 'error': return 'error';
             case 'warning': return 'warning';
             case 'info': return 'info';
             default: return 'info';
         }
-    }
+    });
 }

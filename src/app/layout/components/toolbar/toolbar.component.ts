@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { LayoutService } from '../../services/layout.service';
 import { AppBreadCrumbComponent } from '@ui-molecules/app-bread-crumb';
 import { AuthService } from '@auth/services/auth.service';
+import { NavigationService } from '@core/services';
 
 @Component({
   selector: 'app-toolbar',
@@ -89,8 +90,10 @@ import { AuthService } from '@auth/services/auth.service';
 export class ToolbarComponent {
   private readonly layoutService = inject(LayoutService);
   private readonly authService   = inject(AuthService);
+  private readonly navigationService = inject(NavigationService);
 
   readonly currentUser = this.authService.currentUser;
+  protected readonly breadcrumbs = this.navigationService.breadcrumbs;
 
   toggleSidebar(): void {
     this.layoutService.toggleSidebar();

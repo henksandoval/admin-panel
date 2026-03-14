@@ -1,113 +1,64 @@
 [
-  { "id": "dashboard", "label": "Dashboard", "icon": "dashboard" },
   {
-    "id": "applications",
-    "label": "Aplicaciones",
-    "icon": "apps",
-    "children": [
-      {
-        "id": "ecommerce",
-        "label": "E-Commerce",
-        "icon": "shopping_cart",
-        "children": [
-          { "id": "products",  "label": "Productos", "icon": "inventory_2" },
-          { "id": "orders",    "label": "Pedidos",   "icon": "receipt_long" },
-          { "id": "customers", "label": "Clientes",  "icon": "people" },
-          {
-            "id": "reports",
-            "label": "Reportes",
-            "icon": "bar_chart",
-            "children": [
-              { "id": "sales",     "label": "Ventas",  "icon": "attach_money" },
-              { "id": "purchases", "label": "Compras", "icon": "attach_file" }
-            ]
-          },
-          { "id": "analytics", "label": "Analytics", "icon": "insights" }
-        ]
-      },
-      { "id": "mail", "label": "Correo", "icon": "email" },
-      { "id": "chat", "label": "Chat",   "icon": "chat" }
-    ]
-  },
-  {
-    "id": "pages",
-    "label": "Páginas",
-    "icon": "description",
-    "children": [
-      {
-        "id": "authentication",
-        "label": "Autenticación",
-        "icon": "lock",
-        "children": [
-          { "id": "login",           "label": "Login",                          "icon": "login" },
-          { "id": "register",        "label": "Registro",                       "icon": "person_add" },
-          { "id": "forgot-password", "label": "Recuperar contraseña",           "icon": "lock_reset" },
-          { "id": "lock-screen",     "label": "Bloquear pantalla",              "icon": "lock_open" },
-          { "id": "two-factor-auth", "label": "Autenticación de dos factores",  "icon": "vpn_key" }
-        ]
-      },
-      {
-        "id": "errors",
-        "label": "Errores",
-        "icon": "error",
-        "children": [
-          { "id": "error-400", "label": "Error 400", "icon": "error_outline" },
-          { "id": "error-401", "label": "Error 401", "icon": "error_outline" },
-          { "id": "error-403", "label": "Error 403", "icon": "error_outline" },
-          { "id": "error-404", "label": "Error 404", "icon": "error_outline" },
-          { "id": "error-500", "label": "Error 500", "icon": "warning" },
-          { "id": "error-503", "label": "Error 503", "icon": "warning" },
-          { "id": "error-504", "label": "Error 504", "icon": "warning" }
-        ]
-      },
-      { "id": "profile", "label": "Perfil", "icon": "person" }
-    ]
-  },
-  {
-    "id": "user-interface",
-    "label": "Interfaz de Usuario",
-    "icon": "palette",
-    "children": [
-      { "id": "forms", "label": "Formularios", "icon": "assignment" },
-      { "id": "cards", "label": "Cards",        "icon": "credit_card" }
-    ]
-  },
-  { "id": "settings", "label": "Configuración", "icon": "settings" },
-  {
-    "id": "badges",
-    "label": "Badges",
-    "icon": "loyalty",
-    "children": [
-      { "id": "normal",            "label": "Normal",      "icon": "loyalty", "badge": { "title": "12", "type": "normal" } },
-      { "id": "success",           "label": "Éxito",       "icon": "loyalty", "badge": { "title": "11", "type": "success" } },
-      { "id": "info",              "label": "Información", "icon": "loyalty", "badge": { "title": "2",  "type": "info" } },
-      { "id": "warning",           "label": "Advertencia", "icon": "loyalty", "badge": { "title": "1",  "type": "warning" } },
-      { "id": "error",             "label": "Error",       "icon": "loyalty", "badge": { "title": "6",  "type": "error" } },
-      { "id": "normal-indicator",  "label": "Normal",      "icon": "loyalty", "badge": { "title": "12", "type": "normal",  "indicator": true } },
-      { "id": "success-indicator", "label": "Éxito",       "icon": "loyalty", "badge": { "title": "10", "type": "success", "indicator": true } },
-      { "id": "info-indicator",    "label": "Información", "icon": "loyalty", "badge": { "title": "2",  "type": "info",    "indicator": true } },
-      { "id": "warning-indicator", "label": "Advertencia", "icon": "loyalty", "badge": { "title": "1",  "type": "warning", "indicator": true } },
-      { "id": "error-indicator",   "label": "Error",       "icon": "loyalty", "badge": { "title": "9",  "type": "error",   "indicator": true } }
-    ]
+    "id": "dashboard",
+    "label": "Dashboard",
+    "icon": "dashboard",
+    "requiresAuth": true
   },
   {
     "id": "pds",
     "label": "PDS",
     "icon": "dashboard_customize",
+    "requiresAuth": true,
+    "roles": [
+      "admin"
+    ],
     "children": [
-      { "id": "pds-index", "label": "Index", "icon": "home" },
+      {
+        "id": "pds-index",
+        "label": "Index",
+        "icon": "home"
+      },
       {
         "id": "pds-layout",
         "label": "Layouts",
         "icon": "view_carousel",
         "children": [
-          { "id": "pds-layout-dashboard",         "label": "Dashboard",        "icon": "view_compact" },
-          { "id": "pds-layout-full-width",        "label": "Full Width",       "icon": "crop_landscape" },
-          { "id": "pds-layout-main-sidebar",      "label": "Main Sidebar",     "icon": "view_compact" },
-          { "id": "pds-layout-sidebar-main",      "label": "Sidebar Main",     "icon": "view_quilt" },
-          { "id": "pds-layout-two-column",        "label": "Two Column",       "icon": "vertical_split" },
-          { "id": "pds-layout-two-column-footer", "label": "Two Column Footer","icon": "view_kanban" },
-          { "id": "pds-layout-three-column",      "label": "Three Column",     "icon": "view_column" }
+          {
+            "id": "pds-layout-dashboard",
+            "label": "Dashboard",
+            "icon": "view_compact"
+          },
+          {
+            "id": "pds-layout-full-width",
+            "label": "Full Width",
+            "icon": "crop_landscape"
+          },
+          {
+            "id": "pds-layout-main-sidebar",
+            "label": "Main Sidebar",
+            "icon": "view_compact"
+          },
+          {
+            "id": "pds-layout-sidebar-main",
+            "label": "Sidebar Main",
+            "icon": "view_quilt"
+          },
+          {
+            "id": "pds-layout-two-column",
+            "label": "Two Column",
+            "icon": "vertical_split"
+          },
+          {
+            "id": "pds-layout-two-column-footer",
+            "label": "Two Column Footer",
+            "icon": "view_kanban"
+          },
+          {
+            "id": "pds-layout-three-column",
+            "label": "Three Column",
+            "icon": "view_column"
+          }
         ]
       },
       {
@@ -115,20 +66,189 @@
         "label": "Tablas",
         "icon": "table_view",
         "children": [
-          { "id": "pds-table-client-side", "label": "Client-Side", "icon": "cloud_off" },
-          { "id": "pds-table-server-side", "label": "Server-Side", "icon": "cloud_download" }
+          {
+            "id": "pds-table-client-side",
+            "label": "Client-Side",
+            "icon": "cloud_off"
+          },
+          {
+            "id": "pds-table-server-side",
+            "label": "Server-Side",
+            "icon": "cloud_download"
+          }
         ]
       },
-      { "id": "pds-form",         "label": "Formularios",  "icon": "assignment" },
-      { "id": "pds-buttons",      "label": "Botones",      "icon": "touch_app" },
-      { "id": "pds-checkboxes",   "label": "Checkboxes",   "icon": "check_box" },
-      { "id": "pds-radios",       "label": "Radios",       "icon": "radio_button_checked" },
-      { "id": "pds-indicators",   "label": "Indicadores",  "icon": "edit_note" },
-      { "id": "pds-selects",      "label": "Selects",      "icon": "arrow_drop_down_circle" },
-      { "id": "pds-toggle-groups","label": "Toggle Groups","icon": "view_week" },
-      { "id": "pds-typography",   "label": "Tipografía",   "icon": "text_fields" },
-      { "id": "pds-icons",        "label": "Iconos",       "icon": "insert_emoticon" }
+      {
+        "id": "badges",
+        "label": "Badges",
+        "icon": "loyalty",
+        "requiresAuth": true,
+        "children": [
+          {
+            "id": "normal",
+            "label": "Normal",
+            "icon": "loyalty",
+            "badge": {
+              "title": "12",
+              "type": "normal"
+            }
+          },
+          {
+            "id": "success",
+            "label": "Éxito",
+            "icon": "loyalty",
+            "badge": {
+              "title": "11",
+              "type": "success"
+            }
+          },
+          {
+            "id": "info",
+            "label": "Información",
+            "icon": "loyalty",
+            "badge": {
+              "title": "2",
+              "type": "info"
+            }
+          },
+          {
+            "id": "warning",
+            "label": "Advertencia",
+            "icon": "loyalty",
+            "badge": {
+              "title": "1",
+              "type": "warning"
+            }
+          },
+          {
+            "id": "error",
+            "label": "Error",
+            "icon": "loyalty",
+            "badge": {
+              "title": "6",
+              "type": "error"
+            }
+          },
+          {
+            "id": "normal-indicator",
+            "label": "Normal",
+            "icon": "loyalty",
+            "badge": {
+              "title": "12",
+              "type": "normal",
+              "indicator": true
+            }
+          },
+          {
+            "id": "success-indicator",
+            "label": "Éxito",
+            "icon": "loyalty",
+            "badge": {
+              "title": "10",
+              "type": "success",
+              "indicator": true
+            }
+          },
+          {
+            "id": "info-indicator",
+            "label": "Información",
+            "icon": "loyalty",
+            "badge": {
+              "title": "2",
+              "type": "info",
+              "indicator": true
+            }
+          },
+          {
+            "id": "warning-indicator",
+            "label": "Advertencia",
+            "icon": "loyalty",
+            "badge": {
+              "title": "1",
+              "type": "warning",
+              "indicator": true
+            }
+          },
+          {
+            "id": "error-indicator",
+            "label": "Error",
+            "icon": "loyalty",
+            "badge": {
+              "title": "9",
+              "type": "error",
+              "indicator": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "pds-form",
+        "label": "Formularios",
+        "icon": "assignment"
+      },
+      {
+        "id": "pds-buttons",
+        "label": "Botones",
+        "icon": "touch_app"
+      },
+      {
+        "id": "pds-checkboxes",
+        "label": "Checkboxes",
+        "icon": "check_box"
+      },
+      {
+        "id": "pds-radios",
+        "label": "Radios",
+        "icon": "radio_button_checked"
+      },
+      {
+        "id": "pds-indicators",
+        "label": "Indicadores",
+        "icon": "edit_note"
+      },
+      {
+        "id": "pds-selects",
+        "label": "Selects",
+        "icon": "arrow_drop_down_circle"
+      },
+      {
+        "id": "pds-toggle-groups",
+        "label": "Toggle Groups",
+        "icon": "view_week"
+      },
+      {
+        "id": "pds-typography",
+        "label": "Tipografía",
+        "icon": "text_fields"
+      },
+      {
+        "id": "pds-icons",
+        "label": "Iconos",
+        "icon": "insert_emoticon"
+      }
+    ]
+  },
+  {
+    "id": "errors",
+    "label": "Errores",
+    "icon": "error",
+    "hidden": true,
+    "children": [
+      {
+        "id": "error-403",
+        "label": "Error 403",
+        "icon": "error_outline"
+      },
+      {
+        "id": "error-404",
+        "label": "Error 404",
+        "icon": "error_outline"
+      },
+      {
+        "id": "error-500",
+        "label": "Error 500",
+        "icon": "warning"
+      }
     ]
   }
 ]
-

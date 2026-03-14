@@ -1,5 +1,5 @@
 <nav class="app-bread-crumb mat-label-large">
-  @for (item of navigationService.breadcrumbs(); track item.label; let last = $last) {
+  @for (item of items(); track item.label; let last = $last) {
     @if (last || !item.route) {
       <a class="app-bread-crumb-pill no-route" data-testid="bread-crumb-pill">
         <mat-icon>{{ item.icon }}</mat-icon>

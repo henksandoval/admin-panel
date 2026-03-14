@@ -5,4 +5,5 @@ export const environment: AppEnvironment = {
   production: false,
   logLevel: LogLevel.debug,
   apiBaseUrl: 'http://localhost:3000',
+  strictMenuRoutes: false,
 };

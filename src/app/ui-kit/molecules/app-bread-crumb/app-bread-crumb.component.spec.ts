@@ -1,32 +1,24 @@
-import { signal } from '@angular/core';
 import { RouterLink, provideRouter } from '@angular/router';
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/angular';
 import { AppBreadCrumbComponent } from './app-bread-crumb.component';
-import { NavigationService } from '@core/services/navigation.service';
-import { BreadcrumbItem } from '@core/models';
+import { AppBreadcrumbItem } from '@ui-types';
 import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
 
-function breadcrumb(label: string, route: string | null = null, icon = 'home'): BreadcrumbItem {
+function breadcrumb(label: string, route: string | null = null, icon = 'home'): AppBreadcrumbItem {
   return { label, route, icon };
 }
 
-async function renderBreadCrumb(breadcrumbs: BreadcrumbItem[]) {
-  const navigationServiceMock = { breadcrumbs: signal(breadcrumbs) };
-
+async function renderBreadCrumb(breadcrumbs: AppBreadcrumbItem[]) {
   await render(AppBreadCrumbComponent, {
     componentImports: [RouterLink, MatIconStubComponent],
-    providers: [
-      provideRouter([]),
-      { provide: NavigationService, useValue: navigationServiceMock },
-    ],
+    providers: [provideRouter([])],
+    componentInputs: { items: breadcrumbs },
   });
-
-  return { navigationServiceMock };
 }
 
 describe('AppBreadCrumbComponent', () => {
-  it('renders one pill per breadcrumb item returned by NavigationService', async () => {
+  it('renders one pill per breadcrumb item input', async () => {
     await renderBreadCrumb([
       breadcrumb('Home', '/home'),
       breadcrumb('Users', '/users'),
