@@ -9,7 +9,7 @@ import { ErrorsPageComponent } from '../shared/errors-page.component';
     <app-errors-page
       icon="security"
       iconColor="warn"
-      iconClass="app-access-denied-icon"
+      iconClass="app-error-icon"
       [pageTitle]="pageTitle"
       [pageDescription]="pageDescription"
       [buttonText]="loginButtonText"

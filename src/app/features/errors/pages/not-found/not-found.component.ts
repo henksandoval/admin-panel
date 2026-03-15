@@ -9,7 +9,7 @@ import { ErrorsPageComponent } from '../shared/errors-page.component';
     <app-errors-page
       icon="search_off"
       iconColor="primary"
-      iconClass="app-not-found-icon"
+      iconClass="app-error-icon"
       [pageTitle]="pageTitle"
       [pageDescription]="pageDescription"
       [buttonText]="returnButtonText"

@@ -1,12 +1,2 @@
 @use './error-page-styles' as *;
 
-.app-error-icon {
-  @include error-page-icon-size(4rem);
-}
-
-.app-session-expired-icon,
-.app-not-found-icon,
-.app-access-denied-icon {
-  @include error-page-icon-size(4rem);
-}
-

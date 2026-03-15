@@ -9,7 +9,7 @@ import { CriticalErrorsPageComponent } from '../shared/critical-errors-page.comp
     <app-critical-errors-page
       icon="lock"
       iconColor="warn"
-      iconClass="app-unauthorized-icon"
+      iconClass="app-error-icon"
       [pageCode]="pageCode"
       [pageTitle]="pageTitle"
       [pageDescription]="pageDescription"

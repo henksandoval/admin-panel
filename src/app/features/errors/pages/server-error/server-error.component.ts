@@ -9,7 +9,7 @@ import { CriticalErrorsPageComponent } from '../shared/critical-errors-page.comp
     <app-critical-errors-page
       icon="error_outline"
       iconColor="warn"
-      iconClass="app-server-error-icon"
+      iconClass="app-error-icon"
       [pageCode]="pageCode"
       [pageTitle]="pageTitle"
       [pageDescription]="pageDescription"

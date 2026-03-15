@@ -9,7 +9,7 @@ import { ErrorsPageComponent } from '../shared/errors-page.component';
     <app-errors-page
       icon="schedule"
       iconColor="warn"
-      iconClass="app-session-expired-icon"
+      iconClass="app-error-icon"
       [pageTitle]="pageTitle"
       [pageDescription]="pageDescription"
       [buttonText]="loginButtonText"
