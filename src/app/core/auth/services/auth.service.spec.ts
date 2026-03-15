@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { lastValueFrom, throwError } from 'rxjs';
+import { lastValueFrom, of, throwError } from 'rxjs';
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 
 import { AuthService } from './auth.service';
@@ -47,28 +47,28 @@ describe('AuthService', () => {
     return failing;
   }
 
-  describe('estado inicial', () => {
+  describe('initial state', () => {
     beforeEach(() => setup());
 
-    it('debe iniciar con status "checking"', () => {
+    it('initializes with status "checking"', () => {
       expect(service.status()).toBe('checking');
     });
 
-    it('debe iniciar con currentUser null', () => {
+    it('initializes with currentUser null', () => {
       expect(service.currentUser()).toBeNull();
     });
 
-    it('debe iniciar con accessToken null', () => {
+    it('initializes with accessToken null', () => {
       expect(service.accessToken()).toBeNull();
     });
 
-    it('isAuthenticated debe ser false en el estado inicial', () => {
+    it('isAuthenticated is false on initial state', () => {
       expect(service.isAuthenticated()).toBe(false);
     });
   });
 
   describe('checkSession()', () => {
-    it('debe establecer status "authenticated" cuando el refresh tiene éxito', async () => {
+    it('sets status to "authenticated" when refresh succeeds', async () => {
       setup();
       await lastValueFrom(service.checkSession(), { defaultValue: undefined });
 
@@ -78,7 +78,7 @@ describe('AuthService', () => {
       expect(service.isAuthenticated()).toBe(true);
     });
 
-    it('debe establecer status "unauthenticated" cuando el refresh falla', async () => {
+    it('sets status to "unauthenticated" when refresh fails', async () => {
       setupFailing();
       await lastValueFrom(service.checkSession(), { defaultValue: undefined });
 
@@ -87,7 +87,7 @@ describe('AuthService', () => {
       expect(service.accessToken()).toBeNull();
     });
 
-    it('NO debe redirigir cuando el refresh falla en checkSession', async () => {
+    it('does not redirect when refresh fails during checkSession', async () => {
       setupFailing();
       const navigateSpy = vi.spyOn(router, 'navigate');
 
@@ -98,7 +98,7 @@ describe('AuthService', () => {
   });
 
   describe('login()', () => {
-    it('debe establecer status "authenticated" tras login exitoso', async () => {
+    it('sets status to "authenticated" after successful login', async () => {
       setup();
       await lastValueFrom(
         service.login({ email: 'test@example.com', password: 'pass1234' }),
@@ -110,11 +110,10 @@ describe('AuthService', () => {
       expect(service.accessToken()).toBe(MOCK_TOKEN_RESPONSE.accessToken);
     });
 
-    it('debe navegar a "/" por defecto tras login exitoso', async () => {
+    it('navigates to redirectAfterLogin by default after successful login', async () => {
       setup();
       const spy = vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
 
-      // El observable completa con EMPTY pero el tap se ejecuta antes de EMPTY
       await new Promise<void>((resolve) => {
         service.login({ email: 'test@example.com', password: 'pass1234' })
           .subscribe({ complete: resolve, error: () => resolve() });
@@ -123,7 +122,7 @@ describe('AuthService', () => {
       expect(spy).toHaveBeenCalledWith(AUTH_DEFAULTS.redirectAfterLogin);
     });
 
-    it('debe navegar a returnUrl cuando se provee', async () => {
+    it('navigates to returnUrl when provided', async () => {
       setup();
       const spy = vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
 
@@ -135,7 +134,7 @@ describe('AuthService', () => {
       expect(spy).toHaveBeenCalledWith('/dashboard');
     });
 
-    it('debe propagar el error cuando el proveedor falla', async () => {
+    it('propagates the error when the provider fails', async () => {
       setupFailing();
 
       await expect(
@@ -147,7 +146,7 @@ describe('AuthService', () => {
   });
 
   describe('logout()', () => {
-    it('debe limpiar la sesión y redirigir a login', async () => {
+    it('clears session and redirects to login', async () => {
       setup();
       await lastValueFrom(
         service.login({ email: 'test@example.com', password: 'pass1234' }),
@@ -164,8 +163,7 @@ describe('AuthService', () => {
       expect(navigateSpy).toHaveBeenCalledWith([AUTH_DEFAULTS.loginRoute]);
     });
 
-    it('debe limpiar la sesión incluso cuando el endpoint falla', async () => {
-      // Proveedor que devuelve Observable de error (no throw síncrono)
+    it('clears session even when the logout endpoint fails', async () => {
       setup({ logout: vi.fn(() => throwError(() => new Error('Network error'))) });
 
       await lastValueFrom(service.logout(), { defaultValue: undefined });
@@ -175,37 +173,37 @@ describe('AuthService', () => {
     });
   });
 
-  describe('computed de autorización', () => {
+  describe('authorization computed signals', () => {
     beforeEach(async () => {
       setup();
       await lastValueFrom(service.checkSession(), { defaultValue: undefined });
     });
 
-    it('hasRole() debe retornar true para un rol que el usuario tiene', () => {
+    it('hasRole() returns true for a role the user has', () => {
       expect(service.hasRole('admin')()).toBe(true);
     });
 
-    it('hasRole() debe retornar false para un rol que el usuario no tiene', () => {
+    it('hasRole() returns false for a role the user does not have', () => {
       expect(service.hasRole('superadmin')()).toBe(false);
     });
 
-    it('hasPermission() debe retornar true para un permiso que el usuario tiene', () => {
+    it('hasPermission() returns true for a permission the user has', () => {
       expect(service.hasPermission('write')()).toBe(true);
     });
 
-    it('hasPermission() debe retornar false para un permiso que el usuario no tiene', () => {
+    it('hasPermission() returns false for a permission the user does not have', () => {
       expect(service.hasPermission('delete')()).toBe(false);
     });
 
-    it('hasAnyRole() debe retornar true si el usuario tiene alguno de los roles', () => {
+    it('hasAnyRole() returns true when the user has at least one of the given roles', () => {
       expect(service.hasAnyRole(['superadmin', 'editor'])()).toBe(true);
     });
 
-    it('hasAnyRole() debe retornar false si el usuario no tiene ninguno de los roles', () => {
+    it('hasAnyRole() returns false when the user has none of the given roles', () => {
       expect(service.hasAnyRole(['superadmin', 'owner'])()).toBe(false);
     });
 
-    it('hasRole() debe retornar false cuando no hay usuario autenticado', async () => {
+    it('hasRole() returns false when there is no authenticated user', async () => {
       setupFailing();
       await lastValueFrom(service.checkSession(), { defaultValue: undefined });
 
@@ -213,10 +211,10 @@ describe('AuthService', () => {
     });
   });
 
-  describe('timer de refresh proactivo', () => {
+  describe('proactive token refresh timer', () => {
     afterEach(() => vi.useRealTimers());
 
-    it('debe programar el refresh cuando la sesión se establece con vida útil suficiente', async () => {
+    it('refreshes the token after the expected delay when session is established with sufficient token lifetime', async () => {
       vi.useFakeTimers();
       const mockProvider = createMockAuthProvider();
       TestBed.resetTestingModule();
@@ -232,18 +230,40 @@ describe('AuthService', () => {
       await lastValueFrom(service.checkSession(), { defaultValue: undefined });
       expect(service.isAuthenticated()).toBe(true);
 
-      // Instalamos el spy y reseteamos conteo DESPUÉS de checkSession
       const refreshSpy = vi.spyOn(mockProvider, 'refreshAccessToken');
       refreshSpy.mockClear();
 
-      // expiresInSeconds=900s, threshold=60s → timer programado para 840s
-      // Avanzamos menos de 840s para que el timer NO dispare aún
       vi.advanceTimersByTime(839_999);
       expect(refreshSpy).toHaveBeenCalledTimes(0);
 
-      // Avanzamos los 2ms restantes → el timer dispara exactamente una vez
       vi.advanceTimersByTime(2);
       expect(refreshSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not attempt a token refresh when session is established with a token expiring within the threshold', async () => {
+      vi.useFakeTimers();
+      const shortLivedTokenResponse = { ...MOCK_TOKEN_RESPONSE, expiresInSeconds: 30 };
+      const mockProvider = createMockAuthProvider({
+        refreshAccessToken: vi.fn(() => of(shortLivedTokenResponse)),
+      });
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        imports: [RouterTestingModule],
+        providers: [
+          AuthService,
+          { provide: AUTH_PROVIDER, useValue: mockProvider },
+        ],
+      });
+      service = TestBed.inject(AuthService);
+
+      await lastValueFrom(service.checkSession(), { defaultValue: undefined });
+      expect(service.isAuthenticated()).toBe(true);
+
+      const refreshSpy = vi.spyOn(mockProvider, 'refreshAccessToken');
+      refreshSpy.mockClear();
+
+      vi.advanceTimersByTime(120_000);
+      expect(refreshSpy).toHaveBeenCalledTimes(0);
     });
   });
 });

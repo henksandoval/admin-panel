@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import {
   HttpClient,
-  HttpErrorResponse,
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
@@ -58,8 +57,7 @@ describe('authInterceptor', () => {
 
   afterEach(() => httpMock.verify());
 
-  // ── Inyección de token ─────────────────────────────────────────────────────
-  it('debe inyectar el header Authorization cuando hay token', () => {
+  it('injects the Authorization header when a token is present', () => {
     setup('my-token');
     http.get(TEST_URL).subscribe();
 
@@ -68,7 +66,7 @@ describe('authInterceptor', () => {
     req.flush({});
   });
 
-  it('NO debe inyectar Authorization cuando no hay token', () => {
+  it('does not inject Authorization when there is no token', () => {
     setup(null);
     http.get(TEST_URL).subscribe();
 
@@ -77,8 +75,7 @@ describe('authInterceptor', () => {
     req.flush({});
   });
 
-  // ── URLs públicas ──────────────────────────────────────────────────────────
-  it('NO debe inyectar Authorization en URLs públicas', () => {
+  it('does not inject Authorization for public URLs', () => {
     setup('valid-token', ['/auth/refresh', '/auth/login']);
     http.post('/auth/refresh', {}).subscribe();
 
@@ -87,8 +84,7 @@ describe('authInterceptor', () => {
     req.flush({});
   });
 
-  // ── Manejo de 401 ─────────────────────────────────────────────────────────
-  it('debe reintentar con el nuevo token tras recibir 401', () => {
+  it('retries the request with the new token after receiving a 401', () => {
     setup('old-token');
     let callCount = 0;
 
@@ -99,13 +95,10 @@ describe('authInterceptor', () => {
       },
     });
 
-    // Primera llamada → 401
     const firstReq = httpMock.expectOne(TEST_URL);
     expect(firstReq.request.headers.get('Authorization')).toBe('Bearer old-token');
     firstReq.flush('Unauthorized', { status: 401, statusText: 'Unauthorized' });
 
-    // El interceptor llama a refreshAccessToken → mock devuelve MOCK_TOKEN_RESPONSE
-    // Segunda llamada con nuevo token
     const retryReq = httpMock.expectOne(TEST_URL);
     expect(retryReq.request.headers.get('Authorization')).toBe(
       `Bearer ${MOCK_TOKEN_RESPONSE.accessToken}`,
@@ -115,7 +108,7 @@ describe('authInterceptor', () => {
     expect(callCount).toBe(1);
   });
 
-  it('debe llamar a logout cuando el refresh también falla', () => {
+  it('calls logout when the token refresh also fails after a 401', () => {
     const failingProvider = createFailingAuthProvider();
     const mockAuthService = createMockAuthServiceWithToken('old-token');
 
@@ -135,7 +128,7 @@ describe('authInterceptor', () => {
 
     let errorReceived = false;
     http.get(TEST_URL).subscribe({
-      error: (_err: HttpErrorResponse) => { errorReceived = true; },
+      error: (_err: unknown) => { errorReceived = true; },
     });
 
     const req = httpMock.expectOne(TEST_URL);
@@ -145,23 +138,19 @@ describe('authInterceptor', () => {
     expect(mockAuthService.logout).toHaveBeenCalled();
   });
 
-  // ── Cola de requests simultáneos ───────────────────────────────────────────
-  it('debe encolar requests simultáneos durante el refresh y resolverlos con el nuevo token', () => {
+  it('queues concurrent requests during refresh and resolves all with the new token', () => {
     setup('old-token');
     const results: unknown[] = [];
 
     http.get(`${TEST_URL}/a`).subscribe((d) => results.push(d));
     http.get(`${TEST_URL}/b`).subscribe((d) => results.push(d));
 
-    // Ambos requests van con el token viejo
     const reqA = httpMock.expectOne(`${TEST_URL}/a`);
     const reqB = httpMock.expectOne(`${TEST_URL}/b`);
 
-    // El primer 401 dispara el refresh
     reqA.flush('Unauthorized', { status: 401, statusText: 'Unauthorized' });
     reqB.flush('Unauthorized', { status: 401, statusText: 'Unauthorized' });
 
-    // Ambos deben reintentarse con el nuevo token
     const retryA = httpMock.expectOne(`${TEST_URL}/a`);
     const retryB = httpMock.expectOne(`${TEST_URL}/b`);
 

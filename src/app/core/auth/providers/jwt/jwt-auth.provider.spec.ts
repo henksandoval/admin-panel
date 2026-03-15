@@ -39,7 +39,7 @@ describe('JwtAuthProvider', () => {
       password: 'password123',
     };
 
-    it('debe hacer POST a /auth/login con las credenciales', () => {
+    it('sends a POST request to /auth/login with the provided credentials', () => {
       provider.login(credentials).subscribe();
 
       const req = httpMock.expectOne(`${API_BASE}/auth/login`);
@@ -48,7 +48,7 @@ describe('JwtAuthProvider', () => {
       req.flush(MOCK_TOKEN_RESPONSE);
     });
 
-    it('debe enviar withCredentials: true', () => {
+    it('sends the request with withCredentials: true', () => {
       provider.login(credentials).subscribe();
 
       const req = httpMock.expectOne(`${API_BASE}/auth/login`);
@@ -56,7 +56,7 @@ describe('JwtAuthProvider', () => {
       req.flush(MOCK_TOKEN_RESPONSE);
     });
 
-    it('debe retornar el TokenResponse del servidor', () => {
+    it('returns the TokenResponse from the server', () => {
       let result = null;
       provider.login(credentials).subscribe((r) => (result = r));
 
@@ -66,7 +66,7 @@ describe('JwtAuthProvider', () => {
   });
 
   describe('logout()', () => {
-    it('debe hacer POST a /auth/logout', () => {
+    it('sends a POST request to /auth/logout', () => {
       provider.logout().subscribe();
 
       const req = httpMock.expectOne(`${API_BASE}/auth/logout`);
@@ -74,7 +74,7 @@ describe('JwtAuthProvider', () => {
       req.flush(null);
     });
 
-    it('debe enviar withCredentials: true', () => {
+    it('sends the request with withCredentials: true', () => {
       provider.logout().subscribe();
 
       const req = httpMock.expectOne(`${API_BASE}/auth/logout`);
@@ -84,7 +84,7 @@ describe('JwtAuthProvider', () => {
   });
 
   describe('refreshAccessToken()', () => {
-    it('debe hacer POST a /auth/refresh', () => {
+    it('sends a POST request to /auth/refresh', () => {
       provider.refreshAccessToken().subscribe();
 
       const req = httpMock.expectOne(`${API_BASE}/auth/refresh`);
@@ -92,7 +92,7 @@ describe('JwtAuthProvider', () => {
       req.flush(MOCK_TOKEN_RESPONSE);
     });
 
-    it('debe enviar withCredentials: true para que el browser envíe la httpOnly cookie', () => {
+    it('sends the request with withCredentials: true so the browser sends the httpOnly cookie', () => {
       provider.refreshAccessToken().subscribe();
 
       const req = httpMock.expectOne(`${API_BASE}/auth/refresh`);
@@ -102,7 +102,7 @@ describe('JwtAuthProvider', () => {
   });
 
   describe('getUser()', () => {
-    it('debe hacer GET a /auth/me con el header Authorization', () => {
+    it('sends a GET request to /auth/me with the Authorization header', () => {
       provider.getUser('my-token').subscribe();
 
       const req = httpMock.expectOne(`${API_BASE}/auth/me`);
@@ -111,7 +111,7 @@ describe('JwtAuthProvider', () => {
       req.flush(MOCK_USER);
     });
 
-    it('debe retornar el AuthUser del servidor', () => {
+    it('returns the AuthUser from the server', () => {
       let result = null;
       provider.getUser('my-token').subscribe((u) => (result = u));
 
@@ -121,38 +121,37 @@ describe('JwtAuthProvider', () => {
   });
 
   describe('isTokenExpired()', () => {
-    it('debe retornar false cuando el token tiene vida útil suficiente', () => {
+    it('returns false when the token has sufficient lifetime', () => {
       const session: AuthSession = {
         user: MOCK_USER,
         accessToken: 'token',
-        accessTokenExpiresAt: Date.now() + 120_000, // expira en 2 min (> threshold 60s)
+        accessTokenExpiresAt: Date.now() + 120_000,
       };
       expect(provider.isTokenExpired(session)).toBe(false);
     });
 
-    it('debe retornar true cuando el token está dentro del umbral de refresh', () => {
+    it('returns true when the token is within the refresh threshold', () => {
       const session: AuthSession = {
         user: MOCK_USER,
         accessToken: 'token',
-        accessTokenExpiresAt: Date.now() + 30_000, // expira en 30s (< threshold 60s)
+        accessTokenExpiresAt: Date.now() + 30_000,
       };
       expect(provider.isTokenExpired(session)).toBe(true);
     });
 
-    it('debe retornar true cuando el token ya expiró', () => {
+    it('returns true when the token has already expired', () => {
       const session: AuthSession = {
         user: MOCK_USER,
         accessToken: 'token',
-        accessTokenExpiresAt: Date.now() - 1_000, // expiró hace 1s
+        accessTokenExpiresAt: Date.now() - 1_000,
       };
       expect(provider.isTokenExpired(session)).toBe(true);
     });
 
-    it('debe usar AUTH_DEFAULTS.tokenRefreshThresholdMs como umbral', () => {
+    it('uses AUTH_DEFAULTS.tokenRefreshThresholdMs as the expiry threshold', () => {
       const exactThreshold: AuthSession = {
         user: MOCK_USER,
         accessToken: 'token',
-        // Exactamente en el umbral → considera expirado
         accessTokenExpiresAt: Date.now() + AUTH_DEFAULTS.tokenRefreshThresholdMs,
       };
       expect(provider.isTokenExpired(exactThreshold)).toBe(true);
