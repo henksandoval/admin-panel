@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ErrorsPageComponent } from '../shared/errors-page.component';
+import { ErrorsPageComponent } from '@features/errors/shared/templates/error-page-layout/error-page-layout.component';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
   imports: [ErrorsPageComponent],
   template: `
-    <app-errors-page
+    <app-error-page-layout
       icon="search_off"
       iconColor="primary"
       iconClass="app-error-icon"
@@ -16,7 +16,7 @@ import { ErrorsPageComponent } from '../shared/errors-page.component';
       buttonRoute="/dashboard"
       dataTestId="not-found-page">
       <p class="app-not-found-code mat-display-medium">{{ pageCode }}</p>
-    </app-errors-page>
+    </app-error-page-layout>
   `,
 })
 export class NotFoundComponent {

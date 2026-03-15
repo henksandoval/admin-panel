@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-errors-page',
+  selector: 'app-error-page-layout',
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `
@@ -30,7 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
       </div>
     </div>
   `,
-  styleUrl: './errors-page.component.scss',
+  styleUrl: './error-page-layout.component.scss',
 })
 export class ErrorsPageComponent {
   icon = input.required<string>();

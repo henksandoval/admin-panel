@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ErrorsPageComponent } from '../shared/errors-page.component';
+import { ErrorsPageComponent } from "@features/errors/shared/templates/error-page-layout/error-page-layout.component";
 
 @Component({
   selector: 'app-session-expired',
   standalone: true,
   imports: [ErrorsPageComponent],
   template: `
-    <app-errors-page
+    <app-error-page-layout
       icon="schedule"
       iconColor="warn"
       iconClass="app-error-icon"
@@ -15,7 +15,7 @@ import { ErrorsPageComponent } from '../shared/errors-page.component';
       [buttonText]="loginButtonText"
       buttonRoute="/auth/login"
       dataTestId="session-expired-page">
-    </app-errors-page>
+    </app-error-page-layout>
   `,
 })
 export class SessionExpiredComponent {

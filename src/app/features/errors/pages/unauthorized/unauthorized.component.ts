@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
-import { CriticalErrorsPageComponent } from '../shared/critical-errors-page.component';
+import { ErrorsPageComponent } from '@features/errors/shared/templates/error-page-layout/error-page-layout.component';
 
 @Component({
   selector: 'app-unauthorized',
   standalone: true,
-  imports: [CriticalErrorsPageComponent],
+  imports: [ErrorsPageComponent],
   template: `
-    <app-critical-errors-page
+    <app-error-page-layout
       icon="lock"
       iconColor="warn"
       iconClass="app-error-icon"
-      [pageCode]="pageCode"
       [pageTitle]="pageTitle"
       [pageDescription]="pageDescription"
       [buttonText]="returnButtonText"
       buttonRoute="/dashboard"
       dataTestId="unauthorized-page">
-    </app-critical-errors-page>
+        <p class="app-not-found-code mat-display-medium">{{ pageCode }}</p>
+    </app-error-page-layout>
   `,
 })
 export class UnauthorizedComponent {
