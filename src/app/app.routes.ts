@@ -1,7 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { Routes } from '@angular/router';
 import { LayoutComponent } from '@layout/layout.component';
-import { ErrorLayoutComponent } from '@features/errors/error-layout.component';
 import { authGuard } from '@auth/guards/auth.guard';
 
 export const LAYOUT_ROUTE_FACTORY = new InjectionToken<(dynamicChildren: Routes) => Routes>(
@@ -13,6 +12,54 @@ export const LAYOUT_STATIC_CHILDREN: Routes = [
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+  },
+];
+
+export const CONTEXT_AWARE_ERROR_ROUTES: Routes = [
+  {
+    path: 'not-found',
+    loadComponent: () =>
+      import('@features/errors/pages/not-found/not-found.component').then(
+        (m) => m.NotFoundComponent,
+      ),
+  },
+  {
+    path: 'unauthorized',
+    loadComponent: () =>
+      import('@features/errors/pages/unauthorized/unauthorized.component').then(
+        (m) => m.UnauthorizedComponent,
+      ),
+  },
+  {
+    path: 'server-error',
+    loadComponent: () =>
+      import('@features/errors/pages/server-error/server-error.component').then(
+        (m) => m.ServerErrorComponent,
+      ),
+  },
+];
+
+export const CRITICAL_ERROR_ROUTES: Routes = [
+  {
+    path: 'session-expired',
+    loadComponent: () =>
+      import('@features/errors/pages/session-expired/session-expired.component').then(
+        (m) => m.SessionExpiredComponent,
+      ),
+  },
+  {
+    path: 'access-denied',
+    loadComponent: () =>
+      import('@features/errors/pages/access-denied/access-denied.component').then(
+        (m) => m.AccessDeniedComponent,
+      ),
+  },
+  {
+    path: 'system-down',
+    loadComponent: () =>
+      import('@features/errors/pages/system-down/system-down.component').then(
+        (m) => m.SystemDownComponent,
+      ),
   },
 ];
 
@@ -57,44 +104,23 @@ export const AUTH_ROUTES: Routes = [
   },
 ];
 
-export const ERROR_ROUTES: Routes = [
-  {
-    path: 'errors',
-    component: ErrorLayoutComponent,
-    children: [
-      {
-        path: 'not-found',
-        loadComponent: () =>
-          import('@features/errors/pages/not-found/not-found.component').then(
-            (m) => m.NotFoundComponent,
-          ),
-      },
-      {
-        path: 'unauthorized',
-        loadComponent: () =>
-          import('@features/errors/pages/unauthorized/unauthorized.component').then(
-            (m) => m.UnauthorizedComponent,
-          ),
-      },
-      {
-        path: 'server-error',
-        loadComponent: () =>
-          import('@features/errors/pages/server-error/server-error.component').then(
-            (m) => m.ServerErrorComponent,
-          ),
-      },
-    ],
-  },
-];
-
 export const routes: Routes = [
   ...AUTH_ROUTES,
-  ...ERROR_ROUTES,
   {
     path: '',
     component: LayoutComponent,
     canActivate: [authGuard],
-    children: LAYOUT_STATIC_CHILDREN,
+    children: [
+      ...LAYOUT_STATIC_CHILDREN,
+      {
+        path: 'errors',
+        children: CONTEXT_AWARE_ERROR_ROUTES,
+      },
+    ],
+  },
+  {
+    path: 'critical-errors',
+    children: CRITICAL_ERROR_ROUTES,
   },
   {
     path: '**',

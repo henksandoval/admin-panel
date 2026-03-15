@@ -89,7 +89,7 @@ describe('AuthService', () => {
 
     it('does not redirect when refresh fails during checkSession', async () => {
       setupFailing();
-      const navigateSpy = vi.spyOn(router, 'navigate');
+      const navigateSpy = vi.spyOn(router, 'navigateByUrl');
 
       await lastValueFrom(service.checkSession(), { defaultValue: undefined });
 
@@ -154,13 +154,13 @@ describe('AuthService', () => {
       );
       expect(service.isAuthenticated()).toBe(true);
 
-      const navigateSpy = vi.spyOn(router, 'navigate');
+      const navigateSpy = vi.spyOn(router, 'navigateByUrl');
       await lastValueFrom(service.logout(), { defaultValue: undefined });
 
       expect(service.status()).toBe('unauthenticated');
       expect(service.currentUser()).toBeNull();
       expect(service.accessToken()).toBeNull();
-      expect(navigateSpy).toHaveBeenCalledWith([AUTH_DEFAULTS.loginRoute]);
+      expect(navigateSpy).toHaveBeenCalledWith(AUTH_DEFAULTS.loginRoute);
     });
 
     it('clears session even when the logout endpoint fails', async () => {

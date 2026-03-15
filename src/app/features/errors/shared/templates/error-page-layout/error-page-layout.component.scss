@@ -1,0 +1,44 @@
+.app-error-wrapper {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.app-error-container {
+  background-color: var(--mat-sys-surface-container);
+  box-shadow:
+    0 4px 6px -1px color-mix(in srgb, var(--mat-sys-secondary) 15%, transparent),
+    0 16px 32px -4px color-mix(in srgb, var(--mat-sys-secondary) 20%, transparent);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  max-width: 28rem;
+  width: 100%;
+}
+
+.app-error-icon {
+  display: flex;
+  justify-content: center;
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.app-error-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.app-error-description {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}

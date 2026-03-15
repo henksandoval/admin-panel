@@ -19,15 +19,47 @@ export interface RouteDefinition {
   readonly requireAllRoles?: boolean;
 }
 
-export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
-  'dashboard': {
-    path: 'dashboard',
-    requiresAuth: true,
-  },
+const coreRoutes: Record<string, RouteDefinition> = {
+  'dashboard': { path: 'dashboard', requiresAuth: true },
+};
+
+const errorRoutes: Record<string, RouteDefinition> = {
   'errors': { path: 'errors' },
-  'error-403': { path: '403' },
-  'error-404': { path: '404' },
-  'error-500': { path: '500' },
+  'error-403': { path: 'unauthorized' },
+  'error-404': { path: 'not-found' },
+  'error-500': { path: 'server-error' },
+};
+
+const criticalErrorRoutes: Record<string, RouteDefinition> = {
+  'critical-errors': { path: 'critical-errors' },
+  'error-session-expired': { path: 'session-expired' },
+  'error-access-denied': { path: 'access-denied' },
+  'error-system-down': { path: 'system-down' },
+};
+
+const pdsRoutes: Record<string, RouteDefinition> = {
+  'pds': { path: 'pds', requiresAuth: true, roles: ['admin'] },
+  'pds-index': { path: 'index' },
+  'pds-form': { path: 'form' },
+  'pds-buttons': { path: 'buttons' },
+  'pds-checkboxes': { path: 'checkboxes' },
+  'pds-radios': { path: 'radios' },
+  'pds-indicators': { path: 'indicators' },
+  'pds-selects': { path: 'selects' },
+  'pds-toggle-groups': { path: 'toggle-groups' },
+  'pds-icons': { path: 'icons-gallery' },
+  'pds-typography': { path: 'typography' },
+  'pds-layout': { path: 'layout' },
+  'pds-layout-dashboard': { path: 'dashboard' },
+  'pds-layout-full-width': { path: 'full-width' },
+  'pds-layout-main-sidebar': { path: 'main-sidebar' },
+  'pds-layout-sidebar-main': { path: 'sidebar-main' },
+  'pds-layout-two-column': { path: 'two-column' },
+  'pds-layout-two-column-footer': { path: 'two-column-footer' },
+  'pds-layout-three-column': { path: 'three-column' },
+  'pds-table': { path: 'table' },
+  'pds-table-client-side': { path: 'client-side' },
+  'pds-table-server-side': { path: 'server-side' },
   'badges': { path: 'badges', requiresAuth: true },
   'normal': { path: 'normal' },
   'success': { path: 'success' },
@@ -39,69 +71,12 @@ export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
   'info-indicator': { path: 'info-indicator' },
   'warning-indicator': { path: 'warning-indicator' },
   'error-indicator': { path: 'error-indicator' },
-  'pds': {
-    path: 'pds',
-    requiresAuth: true,
-    roles: ['admin'],
-  },
-  'pds-index': {
-    path: 'index',
-  },
-  'pds-form': {
-    path: 'form',
-  },
-  'pds-buttons': {
-    path: 'buttons',
-  },
-  'pds-checkboxes': {
-    path: 'checkboxes',
-  },
-  'pds-radios': {
-    path: 'radios',
-  },
-  'pds-indicators': {
-    path: 'indicators',
-  },
-  'pds-selects': {
-    path: 'selects',
-  },
-  'pds-toggle-groups': {
-    path: 'toggle-groups',
-  },
-  'pds-icons': {
-    path: 'icons-gallery',
-  },
-  'pds-typography': {
-    path: 'typography',
-  },
-  'pds-layout': { path: 'layout' },
-  'pds-layout-dashboard': {
-    path: 'dashboard',
-  },
-  'pds-layout-full-width': {
-    path: 'full-width',
-  },
-  'pds-layout-main-sidebar': {
-    path: 'main-sidebar',
-  },
-  'pds-layout-sidebar-main': {
-    path: 'sidebar-main',
-  },
-  'pds-layout-two-column': {
-    path: 'two-column',
-  },
-  'pds-layout-two-column-footer': {
-    path: 'two-column-footer',
-  },
-  'pds-layout-three-column': {
-    path: 'three-column',
-  },
-  'pds-table': { path: 'table' },
-  'pds-table-client-side': {
-    path: 'client-side',
-  },
-  'pds-table-server-side': {
-    path: 'server-side',
-  },
+};
+
+export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
+  ...coreRoutes,
+  ...errorRoutes,
+  ...criticalErrorRoutes,
+  ...pdsRoutes,
 };
 

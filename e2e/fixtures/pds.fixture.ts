@@ -51,9 +51,18 @@ export const test = base.extend<PdsFixtures>({
     await use(page);
   },
   selectsPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptAuthLogin(page);
+      await interceptAuthMe(page);
+    }
+
+    await loginAndNavigate(page, '/pds/selects');
+    await page.waitForSelector('[data-testid="form-select-control"]');
+
+    await use(page);
+  },
 
   radioGroupsPage: async ({ page }, use) => {
-  datepickerPage: async ({ page }, use) => {
     if (testConfig.useMock) {
       await interceptAuthLogin(page);
       await interceptAuthMe(page);
@@ -61,6 +70,16 @@ export const test = base.extend<PdsFixtures>({
 
     await loginAndNavigate(page, '/pds/radios');
     await page.waitForSelector('[data-testid="radio-group-wrapper"]');
+
+    await use(page);
+  },
+
+  datepickerPage: async ({ page }, use) => {
+    if (testConfig.useMock) {
+      await interceptAuthLogin(page);
+      await interceptAuthMe(page);
+    }
+
     await loginAndNavigate(page, '/pds/form');
     await page.waitForSelector('[data-testid="datepicker-toggle"]');
 
@@ -75,9 +94,6 @@ export const test = base.extend<PdsFixtures>({
 
     await loginAndNavigate(page, '/pds/form');
     await page.waitForSelector('[data-testid="pds-form-email-input"]');
-    await loginAndNavigate(page, '/pds/selects');
-    await page.waitForSelector('[data-testid="form-select-control"]');
-    await loginAndNavigate(page, '/pds/form');
     await page.waitForSelector('[data-testid="pds-form-description"]');
 
     await use(page);

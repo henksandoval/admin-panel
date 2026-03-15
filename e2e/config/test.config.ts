@@ -40,6 +40,15 @@ export interface MockUserResponse {
   readonly permissions: readonly string[];
 }
 
+export interface ErrorPageRoutes {
+  readonly notFound: string;
+  readonly unauthorized: string;
+  readonly serverError: string;
+  readonly sessionExpired: string;
+  readonly accessDenied: string;
+  readonly systemDown: string;
+}
+
 export interface E2ETestConfig {
   readonly useMock: boolean;
   readonly apiBaseUrl: string;
@@ -47,6 +56,7 @@ export interface E2ETestConfig {
   readonly registerCredentials: RegisterTestCredentials;
   readonly expectedDefaultRedirect: string;
   readonly resetPasswordToken: string;
+  readonly errorRoutes: ErrorPageRoutes;
   readonly mockResponses: {
     readonly loginToken: MockTokenResponse;
     readonly user: MockUserResponse;
@@ -72,6 +82,15 @@ export const testConfig: E2ETestConfig = {
   expectedDefaultRedirect: '/dashboard',
 
   resetPasswordToken: 'e2e-valid-reset-token',
+
+  errorRoutes: {
+    notFound: '/errors/not-found',
+    unauthorized: '/errors/unauthorized',
+    serverError: '/errors/server-error',
+    sessionExpired: '/critical-errors/session-expired',
+    accessDenied: '/critical-errors/access-denied',
+    systemDown: '/critical-errors/system-down',
+  },
 
   mockResponses: {
     loginToken: {

@@ -8,9 +8,9 @@ test.describe('AppFormDatepickerComponent on PDS form page', () => {
   test('opens the calendar overlay when the toggle button is clicked', async ({ datepickerPage }) => {
     await datepickerPage.getByTestId('datepicker-toggle').locator('button').click();
 
-    await datepickerPage.waitForSelector('[aria-label="Choose date"]');
+    await datepickerPage.waitForSelector('mat-datepicker-content');
 
-    await expect(datepickerPage.locator('[aria-label="Choose date"]')).toBeVisible();
+    await expect(datepickerPage.locator('mat-datepicker-content')).toBeVisible();
   });
 
   test('renders the birth date datepicker input field', async ({ datepickerPage }) => {

@@ -24,7 +24,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authReq = token ? addTokenHeader(req, token) : req;
 
   return next(authReq).pipe(
-    catchError((error: any) => {
+    catchError((error: unknown) => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         return handle401(req, next, authService, authProvider);
       }
@@ -47,7 +47,7 @@ function handle401(
   next: Parameters<HttpInterceptorFn>[1],
   authService: AuthService,
   authProvider: IAuthProvider,
-) {
+): ReturnType<Parameters<HttpInterceptorFn>[1]> {
   if (!isRefreshing) {
     isRefreshing = true;
     refreshTokenSubject.next(null);
@@ -58,10 +58,9 @@ function handle401(
         refreshTokenSubject.next(tokenResponse.accessToken);
         return next(addTokenHeader(req, tokenResponse.accessToken));
       }),
-      catchError((error: any) => {
+      catchError((error: unknown) => {
         isRefreshing = false;
-        // Logout silencioso: limpia estado y redirige a login
-        authService.logout().subscribe();
+        authService.logout('/critical-errors/session-expired').subscribe();
         return throwError(() => error);
       }),
     );

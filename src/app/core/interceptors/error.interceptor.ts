@@ -1,24 +1,71 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { NotificationService } from '@core/services/notification.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     const notificationService = inject(NotificationService);
+    const router = inject(Router);
 
     return next(req).pipe(
-        catchError((error: HttpErrorResponse) => {
+        catchError((error: unknown) => {
+            const httpError = error instanceof HttpErrorResponse ? error : null;
             let errorMsg = '';
-            if (error.error instanceof ErrorEvent) {
-                // Client-side error
-                errorMsg = `Error: ${error.error.message}`;
+            if (httpError?.error instanceof ErrorEvent) {
+                errorMsg = $localize`:Http error|Client network failure@@errors.http.client:Network error. Please check your connection and try again.`;
             } else {
-                // Server-side error
-                errorMsg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                errorMsg = buildServerErrorMessage(httpError?.status);
             }
 
-            notificationService.error(errorMsg, 'HTTP Error');
+            navigateOnHttpStatus(httpError?.status, router);
+            notificationService.error(
+                errorMsg,
+                $localize`:Http error|Toast title@@errors.http.title:Request error`,
+            );
             return throwError(() => error);
         })
     );
 };
+
+function buildServerErrorMessage(status?: number): string {
+    switch (status) {
+        case 403:
+            return $localize`:Http error|Forbidden message@@errors.http.403:You do not have permission to perform this action.`;
+        case 404:
+            return $localize`:Http error|Not found message@@errors.http.404:The requested resource was not found.`;
+        case 500:
+            return $localize`:Http error|Server error message@@errors.http.500:An unexpected server error occurred.`;
+        case 503:
+            return $localize`:Http error|Service unavailable message@@errors.http.503:The service is temporarily unavailable. Please try again shortly.`;
+        default:
+            return $localize`:Http error|Generic server message@@errors.http.generic:An unexpected request error occurred.`;
+    }
+}
+
+function navigateOnHttpStatus(status: number | undefined, router: Router): void {
+    const currentUrl = router.url;
+
+    if (currentUrl.startsWith('/errors/') || currentUrl.startsWith('/critical-errors/')) {
+        return;
+    }
+
+    if (status === 403) {
+        void router.navigateByUrl('/errors/unauthorized');
+        return;
+    }
+
+    if (status === 404) {
+        void router.navigateByUrl('/errors/not-found');
+        return;
+    }
+
+    if (status === 500) {
+        void router.navigateByUrl('/errors/server-error');
+        return;
+    }
+
+    if (status === 503) {
+        void router.navigateByUrl('/critical-errors/system-down');
+    }
+}
