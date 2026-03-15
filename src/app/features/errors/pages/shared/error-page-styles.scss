@@ -1,0 +1,56 @@
+/**
+ * Shared Error Page Styles
+ * Centralized styles for all error pages with wrapper and container layout
+ */
+
+@mixin error-page-icon-size($size: 4rem) {
+  font-size: $size;
+  width: $size;
+  height: $size;
+}
+
+.app-error-wrapper {
+  background-color: var(--mat-sys-surface);
+  background-image: linear-gradient(
+    135deg,
+    var(--overlay-on-surface-05) 0%,
+    var(--overlay-on-surface-10) 100%
+  );
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.app-error-container {
+  background-color: var(--mat-sys-surface-container);
+  box-shadow: 0 10px 30px var(--overlay-shadow-15);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  max-width: 28rem;
+  width: 100%;
+}
+
+.app-error-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.app-error-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.app-error-description {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}

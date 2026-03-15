@@ -1,37 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { CriticalErrorsPageComponent } from '../shared/critical-errors-page.component';
 
 @Component({
   selector: 'app-server-error',
   standalone: true,
-  imports: [RouterLink, MatButtonModule, MatIconModule],
+  imports: [CriticalErrorsPageComponent],
   template: `
-    <div class="app-server-error-container max-w-md mx-auto py-12" data-testid="server-error-page">
-      <div class="text-center">
-        <mat-icon class="app-server-error-icon inline-block mb-4" color="warn">error_outline</mat-icon>
-        <p class="app-server-error-code mat-display-medium">{{ pageCode }}</p>
-        <h1 class="mat-headline-large">{{ pageTitle }}</h1>
-        <p class="mat-body-medium mt-4 text-gray-600">{{ pageDescription }}</p>
-        <div class="mt-8">
-          <a mat-raised-button color="primary" routerLink="/dashboard">
-            {{ returnButtonText }}
-          </a>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: `
-    :host {
-      display: block;
-    }
-
-    .app-server-error-icon {
-      font-size: 4rem;
-      width: 4rem;
-      height: 4rem;
-    }
+    <app-critical-errors-page
+      icon="error_outline"
+      iconColor="warn"
+      iconClass="app-server-error-icon"
+      [pageCode]="pageCode"
+      [pageTitle]="pageTitle"
+      [pageDescription]="pageDescription"
+      [buttonText]="returnButtonText"
+      buttonRoute="/dashboard"
+      dataTestId="server-error-page">
+    </app-critical-errors-page>
   `,
 })
 export class ServerErrorComponent {

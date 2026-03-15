@@ -1,37 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { ErrorsPageComponent } from '../shared/errors-page.component';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports: [RouterLink, MatButtonModule, MatIconModule],
+  imports: [ErrorsPageComponent],
   template: `
-    <div class="app-not-found-container max-w-md mx-auto py-12" data-testid="not-found-page">
-      <div class="text-center">
-        <mat-icon class="app-not-found-icon inline-block mb-4" color="primary">search_off</mat-icon>
-        <p class="app-not-found-code mat-display-medium">{{ pageCode }}</p>
-        <h1 class="mat-headline-large">{{ pageTitle }}</h1>
-        <p class="mat-body-medium mt-4 text-gray-600">{{ pageDescription }}</p>
-        <div class="mt-8">
-          <a mat-raised-button color="primary" routerLink="/dashboard" data-testid="not-found-cta">
-            {{ returnButtonText }}
-          </a>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: `
-    :host {
-      display: block;
-    }
-
-    .app-not-found-icon {
-      font-size: 4rem;
-      width: 4rem;
-      height: 4rem;
-    }
+    <app-errors-page
+      icon="search_off"
+      iconColor="primary"
+      iconClass="app-not-found-icon"
+      [pageTitle]="pageTitle"
+      [pageDescription]="pageDescription"
+      [buttonText]="returnButtonText"
+      buttonRoute="/dashboard"
+      dataTestId="not-found-page">
+      <p class="app-not-found-code mat-display-medium">{{ pageCode }}</p>
+    </app-errors-page>
   `,
 })
 export class NotFoundComponent {

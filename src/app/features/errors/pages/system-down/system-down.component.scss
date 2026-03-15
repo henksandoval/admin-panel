@@ -1,0 +1,5 @@
+@use '../shared/error-page-styles' as *;
+
+.app-system-down-icon {
+  @include error-page-icon-size(4rem);
+}

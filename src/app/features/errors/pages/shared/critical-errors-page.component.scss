@@ -1,0 +1,15 @@
+@use './error-page-styles' as *;
+
+.app-error-icon {
+  @include error-page-icon-size(4rem);
+}
+
+.app-server-error-icon,
+.app-unauthorized-icon {
+  @include error-page-icon-size(4rem);
+}
+
+.app-error-code {
+  margin: 0 0 0.5rem;
+}
+
