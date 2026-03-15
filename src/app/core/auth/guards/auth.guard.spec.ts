@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { signal } from '@angular/core';
 import { lastValueFrom, of } from 'rxjs';
@@ -11,7 +11,6 @@ import { AUTH_PROVIDER } from '@auth/providers/auth-provider.token';
 import { AUTH_DEFAULTS, AuthStatus, AuthUser } from '@auth/models/auth.model';
 import { createMockAuthProvider, MOCK_USER } from '@auth/testing/auth-test.helpers';
 
-// ── Factory de mocks de ruta ──────────────────────────────────────────────────
 function mockRoute(data: Record<string, unknown> = {}): ActivatedRouteSnapshot {
   return { data } as unknown as ActivatedRouteSnapshot;
 }
@@ -20,7 +19,6 @@ function mockRouterState(url = '/dashboard'): RouterStateSnapshot {
   return { url } as RouterStateSnapshot;
 }
 
-// ── Mock de AuthService ───────────────────────────────────────────────────────
 function createMockAuthService(status: AuthStatus, user: AuthUser | null = null) {
   const statusSignal = signal<AuthStatus>(status);
   const userSignal   = signal<AuthUser | null>(user);
@@ -28,13 +26,6 @@ function createMockAuthService(status: AuthStatus, user: AuthUser | null = null)
     status:      statusSignal.asReadonly(),
     currentUser: userSignal.asReadonly(),
   };
-}
-
-// ── Helper para ejecutar un guard funcional en TestBed ────────────────────────
-function runAuthGuard(authServiceMock: ReturnType<typeof createMockAuthService>, url = '/dashboard') {
-  return TestBed.runInInjectionContext(() =>
-    authGuard(mockRoute(), mockRouterState(url)),
-  );
 }
 
 function runRoleGuard(
@@ -47,8 +38,6 @@ function runRoleGuard(
 }
 
 describe('authGuard', () => {
-  let router: Router;
-
   function setup(status: AuthStatus, user: AuthUser | null = null) {
     const mockAuthService = createMockAuthService(status, user);
 
@@ -59,11 +48,10 @@ describe('authGuard', () => {
         { provide: AUTH_PROVIDER, useValue: createMockAuthProvider() },
       ],
     });
-    router = TestBed.inject(Router);
     return mockAuthService;
   }
 
-  it('debe retornar true cuando el usuario está autenticado', async () => {
+  it('returns true when the user is authenticated', async () => {
     setup('authenticated', MOCK_USER);
     const guardResult = TestBed.runInInjectionContext(() =>
       authGuard(mockRoute(), mockRouterState('/dashboard')),
@@ -72,7 +60,7 @@ describe('authGuard', () => {
     expect(resolved).toBe(true);
   });
 
-  it('debe redirigir a login con returnUrl cuando el usuario NO está autenticado', async () => {
+  it('redirects to login with returnUrl when the user is not authenticated', async () => {
     setup('unauthenticated');
     const guardResult = TestBed.runInInjectionContext(() =>
       authGuard(mockRoute(), mockRouterState('/dashboard')),
@@ -85,8 +73,7 @@ describe('authGuard', () => {
     expect(urlTree.queryParams['returnUrl']).toBe('/dashboard');
   });
 
-  it('debe esperar si el status es "checking" y resolver cuando cambia', async () => {
-    // Empezamos con checking, luego cambiamos a authenticated
+  it('waits when status is "checking" and resolves when status changes', async () => {
     const statusSignal = signal<AuthStatus>('checking');
     const mockAuthService = {
       status:      statusSignal.asReadonly(),
@@ -105,7 +92,6 @@ describe('authGuard', () => {
       authGuard(mockRoute(), mockRouterState('/dashboard')),
     );
 
-    // El guard está esperando, resolvemos cambiando el status
     setTimeout(() => statusSignal.set('authenticated'), 0);
 
     const resolved = await lastValueFrom(guardResult as ReturnType<typeof of>);
@@ -129,8 +115,8 @@ describe('roleGuard', () => {
     });
   }
 
-  it('debe retornar true si el usuario tiene el rol requerido (OR lógico)', () => {
-    setup(MOCK_USER); // MOCK_USER tiene roles: ['admin', 'editor']
+  it('returns true when the user has at least one of the required roles (OR logic)', () => {
+    setup(MOCK_USER);
     const result = runRoleGuard(
       createMockAuthService('authenticated', MOCK_USER),
       { roles: ['admin', 'superadmin'], requireAll: false },
@@ -138,7 +124,7 @@ describe('roleGuard', () => {
     expect(result).toBe(true);
   });
 
-  it('debe redirigir a 403 si el usuario NO tiene ningún rol requerido', () => {
+  it('redirects to 403 when the user has none of the required roles', () => {
     setup(MOCK_USER);
     const result = runRoleGuard(
       createMockAuthService('authenticated', MOCK_USER),
@@ -148,7 +134,7 @@ describe('roleGuard', () => {
     expect((result as UrlTree).toString()).toContain(AUTH_DEFAULTS.unauthorizedRoute);
   });
 
-  it('debe retornar true si el usuario tiene TODOS los roles (AND lógico)', () => {
+  it('returns true when the user has all required roles (AND logic)', () => {
     setup(MOCK_USER);
     const result = runRoleGuard(
       createMockAuthService('authenticated', MOCK_USER),
@@ -157,7 +143,7 @@ describe('roleGuard', () => {
     expect(result).toBe(true);
   });
 
-  it('debe redirigir a 403 si falta algún rol con requireAll: true', () => {
+  it('redirects to 403 when the user is missing a required role with requireAll: true', () => {
     setup(MOCK_USER);
     const result = runRoleGuard(
       createMockAuthService('authenticated', MOCK_USER),
@@ -166,7 +152,7 @@ describe('roleGuard', () => {
     expect(result).toBeInstanceOf(UrlTree);
   });
 
-  it('debe retornar true si no hay roles requeridos', () => {
+  it('returns true when no roles are required', () => {
     setup(MOCK_USER);
     const result = runRoleGuard(
       createMockAuthService('authenticated', MOCK_USER),
@@ -175,7 +161,7 @@ describe('roleGuard', () => {
     expect(result).toBe(true);
   });
 
-  it('debe retornar true si no hay usuario (la autenticación la gestiona authGuard)', () => {
+  it('returns true when there is no authenticated user, delegating to authGuard', () => {
     setup(null);
     const result = runRoleGuard(
       createMockAuthService('unauthenticated', null),
