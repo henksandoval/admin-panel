@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Employee } from "../contracts/employee.contract";
+import { Employee } from '../models/employee.model';
 import { generateEmployees } from "./data/employees.data";
 import { MockHttpService } from "./mock-http.service";
 

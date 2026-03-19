@@ -1,4 +1,5 @@
-import { Employee, EMPLOYEE_DEPARTMENTS, EMPLOYEE_ROLES, EmployeeStatus } from "../../contracts/employee.contract";
+import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_ROLES } from '../../shared/employee-options.config';
+import { Employee, EmployeeStatus } from '../../models/employee.model';
 
 const FIRST_NAMES = [
   'Ana', 'Carlos', 'María', 'Juan', 'Laura', 'Pedro', 'Sofía', 'Diego',

@@ -1,1 +1,1 @@
-export * from './api-menu-item.model';
+export * from './api-menu-item.contract';

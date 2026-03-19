@@ -15,4 +15,3 @@ export interface ApiMenuItem {
   readonly badge?: ApiMenuItemBadge;
   readonly children?: ApiMenuItem[];
 }
-

@@ -1,7 +1,8 @@
 import { CurrencyPipe, DatePipe } from "@angular/common";
 import { inject, Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
-import { Employee, EMPLOYEE_STATUS_LABELS, EmployeeStatus } from "../../contracts/employee.contract";
+import { EMPLOYEE_STATUS_LABELS } from '../../shared/employee-options.config';
+import { Employee, EmployeeStatus } from '../../models/employee.model';
 import { MockEmployeeService } from "../../mocks/mock-employee.service";
 
 export interface EmployeeViewModel {

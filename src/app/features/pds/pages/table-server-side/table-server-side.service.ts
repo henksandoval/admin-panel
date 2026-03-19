@@ -5,7 +5,8 @@ import {
   AppTableServerResponse
 } from "@ui-organisms/app-tables/server-side/app-table-server-side.model";
 import { Observable } from "rxjs";
-import { Employee, EMPLOYEE_STATUS_LABELS, EmployeeStatus } from "../../contracts/employee.contract";
+import { EMPLOYEE_STATUS_LABELS } from '../../shared/employee-options.config';
+import { Employee, EmployeeStatus } from '../../models/employee.model';
 import { generateEmployees } from "../../mocks/data/employees.data";
 
 export interface EmployeeViewModel {
