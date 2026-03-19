@@ -12,11 +12,13 @@ import {
   RegisterCredentials,
   TokenResponse,
 } from '@auth/models';
+import { AuditService } from '@core/services/audit.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly provider = inject(AUTH_PROVIDER);
   private readonly router = inject(Router);
+  private readonly auditService = inject(AuditService);
 
   private readonly _status = signal<AuthStatus>('checking');
   private readonly _currentUser = signal<AuthUser | null>(null);
@@ -60,29 +62,89 @@ export class AuthService {
   login(credentials: LoginCredentials, returnUrl?: string): Observable<void> {
     return this.provider.login(credentials).pipe(
       switchMap((tokenResponse) => this.setSession(tokenResponse)),
+      tap(() => {
+        const user = this._currentUser();
+        this.auditService.record({
+          action: 'login_success',
+          userId: user?.id ?? null,
+          userEmail: credentials.email,
+          timestamp: new Date().toISOString(),
+        }).subscribe();
+      }),
       switchMap(() => {
         void this.router.navigateByUrl(returnUrl ?? AUTH_DEFAULTS.redirectAfterLogin);
         return EMPTY;
+      }),
+      catchError((error: unknown) => {
+        this.auditService.record({
+          action: 'login_failure',
+          userId: null,
+          userEmail: credentials.email,
+          timestamp: new Date().toISOString(),
+        }).subscribe();
+        throw error;
       }),
     );
   }
 
   register(credentials: RegisterCredentials): Observable<void> {
-    return this.provider.register(credentials);
+    return this.provider.register(credentials).pipe(
+      tap(() => {
+        this.auditService.record({
+          action: 'register',
+          userId: null,
+          userEmail: credentials.email,
+          timestamp: new Date().toISOString(),
+        }).subscribe();
+      }),
+    );
   }
 
   requestPasswordReset(request: PasswordResetRequest): Observable<void> {
-    return this.provider.requestPasswordReset(request);
+    return this.provider.requestPasswordReset(request).pipe(
+      tap(() => {
+        this.auditService.record({
+          action: 'password_reset_requested',
+          userId: null,
+          userEmail: request.email,
+          timestamp: new Date().toISOString(),
+        }).subscribe();
+      }),
+    );
   }
 
   confirmPasswordReset(confirm: PasswordResetConfirm): Observable<void> {
-    return this.provider.confirmPasswordReset(confirm);
+    return this.provider.confirmPasswordReset(confirm).pipe(
+      tap(() => {
+        this.auditService.record({
+          action: 'password_reset_confirmed',
+          userId: null,
+          userEmail: null,
+          timestamp: new Date().toISOString(),
+        }).subscribe();
+      }),
+    );
   }
 
   logout(redirectTo: string | null = AUTH_DEFAULTS.loginRoute): Observable<void> {
+    const user = this._currentUser();
     return this.provider.logout().pipe(
-      tap(() => this.clearSession(redirectTo)),
+      tap(() => {
+        this.auditService.record({
+          action: 'logout',
+          userId: user?.id ?? null,
+          userEmail: user?.email ?? null,
+          timestamp: new Date().toISOString(),
+        }).subscribe();
+        this.clearSession(redirectTo);
+      }),
       catchError(() => {
+        this.auditService.record({
+          action: 'logout',
+          userId: user?.id ?? null,
+          userEmail: user?.email ?? null,
+          timestamp: new Date().toISOString(),
+        }).subscribe();
         this.clearSession(redirectTo);
         return of(undefined as unknown as void);
       }),
@@ -127,6 +189,13 @@ export class AuthService {
         .pipe(
           switchMap((tr) => this.setSession(tr)),
           catchError(() => {
+            const user = this._currentUser();
+            this.auditService.record({
+              action: 'token_refresh_failure',
+              userId: user?.id ?? null,
+              userEmail: user?.email ?? null,
+              timestamp: new Date().toISOString(),
+            }).subscribe();
             this.clearSession();
             return EMPTY;
           }),

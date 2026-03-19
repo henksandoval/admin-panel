@@ -13,6 +13,11 @@ import {
   MOCK_USER,
   MOCK_TOKEN_RESPONSE,
 } from '@auth/testing/auth-test.helpers';
+import { AuditService } from '@core/services/audit.service';
+
+const mockAuditService: Pick<AuditService, 'record'> = {
+  record: vi.fn(() => of(void 0)),
+};
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -25,6 +30,7 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         { provide: AUTH_PROVIDER, useValue: mockProvider },
+        { provide: AuditService, useValue: mockAuditService },
       ],
     });
     service = TestBed.inject(AuthService);
@@ -40,6 +46,7 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         { provide: AUTH_PROVIDER, useValue: failing },
+        { provide: AuditService, useValue: mockAuditService },
       ],
     });
     service = TestBed.inject(AuthService);
@@ -223,6 +230,7 @@ describe('AuthService', () => {
         providers: [
           AuthService,
           { provide: AUTH_PROVIDER, useValue: mockProvider },
+          { provide: AuditService, useValue: mockAuditService },
         ],
       });
       service = TestBed.inject(AuthService);
@@ -252,6 +260,7 @@ describe('AuthService', () => {
         providers: [
           AuthService,
           { provide: AUTH_PROVIDER, useValue: mockProvider },
+          { provide: AuditService, useValue: mockAuditService },
         ],
       });
       service = TestBed.inject(AuthService);

@@ -1,10 +1,19 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { App } from './app';
+import { AUTH_PROVIDER } from '@auth/providers/auth-provider.token';
+import { AuditService } from '@core/services/audit.service';
+import { createMockAuthProvider } from '@auth/testing/auth-test.helpers';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
+      imports: [App, RouterTestingModule],
+      providers: [
+        { provide: AUTH_PROVIDER, useValue: createMockAuthProvider() },
+        { provide: AuditService, useValue: { record: () => of(void 0) } },
+      ],
     }).compileComponents();
   });
 
