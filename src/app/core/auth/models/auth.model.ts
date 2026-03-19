@@ -57,8 +57,12 @@ export interface IAuthProvider {
 
 export const AUTH_DEFAULTS = {
   tokenRefreshThresholdMs: 60_000,
+  idleTimeoutMs: 15 * 60_000,
+  idleWarningMs: 2 * 60_000,
+  idleWarningToastDurationMs: 10_000,
   redirectAfterLogin: '/',
   loginRoute: '/auth/login',
   unauthorizedRoute: '/errors/unauthorized',
+  sessionExpiredRoute: '/critical-errors/session-expired',
 } as const;
 
