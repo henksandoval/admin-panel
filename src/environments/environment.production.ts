@@ -6,4 +6,8 @@ export const environment: AppEnvironment = {
   logLevel: LogLevel.error,
   apiBaseUrl: 'https://api.tu-dominio.com',
   strictMenuRoutes: true,
+  featureFlags: {
+    'dashboard.analytics': false,
+    'users.export': false,
+  },
 };
