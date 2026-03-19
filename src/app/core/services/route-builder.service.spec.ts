@@ -1,10 +1,31 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ApiMenuItem } from '@core/contracts';
-import { authGuard, roleGuard } from '@auth/guards/auth.guard';
+import { authGuard, permissionGuard, roleGuard } from '@auth/guards/auth.guard';
 import { ROUTE_LOADER_REGISTRY, RouteLoaderRegistry } from '@core/registry/route-registry';
 import { LoggingService } from './logging.service';
 import { RouteBuilderService } from './route-builder.service';
+
+vi.mock('@core/registry/route-registry', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@core/registry/route-registry')>();
+  return {
+    ...original,
+    ROUTE_REGISTRY: {
+      ...original.ROUTE_REGISTRY,
+      'permission-only': {
+        path: 'permission-only',
+        requiresAuth: true,
+        permissions: ['write'],
+      },
+      'roles-and-permissions': {
+        path: 'roles-and-permissions',
+        requiresAuth: true,
+        roles: ['admin'],
+        permissions: ['write'],
+      },
+    },
+  };
+});
 
 const MOCK_LOADER = vi.fn().mockResolvedValue({});
 
@@ -72,6 +93,27 @@ describe('RouteBuilderService', () => {
 
       expect(routes[0].canActivate).toEqual([authGuard, roleGuard]);
       expect(routes[0].data?.['roles']).toEqual(['admin']);
+    });
+
+    it('includes authGuard and permissionGuard with permission data for routes that require authentication with permissions', () => {
+      const { service } = createRouteBuilderService({ 'permission-only': MOCK_LOADER });
+      const item: ApiMenuItem = { id: 'permission-only', label: 'Permission Only' };
+
+      const routes = service.buildRoutes([item]);
+
+      expect(routes[0].canActivate).toEqual([authGuard, permissionGuard]);
+      expect(routes[0].data?.['permissions']).toEqual(['write']);
+    });
+
+    it('includes authGuard, roleGuard, and permissionGuard when both roles and permissions are required', () => {
+      const { service } = createRouteBuilderService({ 'roles-and-permissions': MOCK_LOADER });
+      const item: ApiMenuItem = { id: 'roles-and-permissions', label: 'Roles And Permissions' };
+
+      const routes = service.buildRoutes([item]);
+
+      expect(routes[0].canActivate).toEqual([authGuard, roleGuard, permissionGuard]);
+      expect(routes[0].data?.['roles']).toEqual(['admin']);
+      expect(routes[0].data?.['permissions']).toEqual(['write']);
     });
 
     it('ignores items with unknown ids and still builds routes for valid items', () => {
