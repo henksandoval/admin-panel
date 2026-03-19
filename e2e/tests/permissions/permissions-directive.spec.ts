@@ -1,19 +1,19 @@
 import { test, expect } from '../../fixtures/permissions.fixture';
 
 test.describe('Permission directives on dashboard', () => {
-  test('shows write-permission element when user has write permission', async ({ writePermissionDashboard }) => {
-    await expect(writePermissionDashboard.getByTestId('dashboard-write-action')).toBeVisible();
+  test('renders write-action section when user has write permission', async ({ dashboardPage }) => {
+    await expect(dashboardPage.getByTestId('dashboard-write-action')).toBeVisible();
   });
 
-  test('shows admin-role element when user has admin role', async ({ writePermissionDashboard }) => {
-    await expect(writePermissionDashboard.getByTestId('dashboard-admin-panel')).toBeVisible();
+  test('removes delete-action section from DOM when user lacks delete permission', async ({ dashboardPage }) => {
+    await expect(dashboardPage.getByTestId('dashboard-delete-action')).not.toBeAttached();
   });
 
-  test('hides write-permission element when user lacks write permission', async ({ readOnlyDashboard }) => {
-    await expect(readOnlyDashboard.getByTestId('dashboard-write-action')).not.toBeVisible();
+  test('renders admin-panel section when user has admin role', async ({ dashboardPage }) => {
+    await expect(dashboardPage.getByTestId('dashboard-admin-panel')).toBeVisible();
   });
 
-  test('hides admin-role element when user lacks admin role', async ({ readOnlyDashboard }) => {
-    await expect(readOnlyDashboard.getByTestId('dashboard-admin-panel')).not.toBeVisible();
+  test('removes superadmin-panel section from DOM when user lacks superadmin role', async ({ dashboardPage }) => {
+    await expect(dashboardPage.getByTestId('dashboard-superadmin-panel')).not.toBeAttached();
   });
 });

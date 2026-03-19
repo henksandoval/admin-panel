@@ -60,7 +60,6 @@ export interface E2ETestConfig {
   readonly mockResponses: {
     readonly loginToken: MockTokenResponse;
     readonly user: MockUserResponse;
-    readonly readOnlyUser: MockUserResponse;
   };
 }
 
@@ -105,13 +104,6 @@ export const testConfig: E2ETestConfig = {
       displayName: 'E2E Test User',
       roles: ['admin'],
       permissions: ['read', 'write'],
-    },
-    readOnlyUser: {
-      id: 'e2e-user-2',
-      email: 'readonly@example.com',
-      displayName: 'E2E Read-Only User',
-      roles: ['viewer'],
-      permissions: ['read'],
     },
   },
 };

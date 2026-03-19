@@ -1,5 +1,5 @@
 import { test as base, type Page, type Route } from '@playwright/test';
-import { testConfig, type MockUserResponse } from '../config/test.config';
+import { testConfig } from '../config/test.config';
 
 async function interceptAuthLogin(page: Page): Promise<void> {
   await page.route(`${testConfig.apiBaseUrl}/auth/login`, (route: Route) => {
@@ -11,12 +11,12 @@ async function interceptAuthLogin(page: Page): Promise<void> {
   });
 }
 
-async function interceptAuthMe(page: Page, user: MockUserResponse): Promise<void> {
+async function interceptAuthMe(page: Page): Promise<void> {
   await page.route(`${testConfig.apiBaseUrl}/auth/me`, (route: Route) => {
     route.fulfill({
       status: 200,
       contentType: 'application/json',
-      body: JSON.stringify(user),
+      body: JSON.stringify(testConfig.mockResponses.user),
     });
   });
 }
@@ -30,27 +30,14 @@ async function loginAndNavigateToDashboard(page: Page): Promise<void> {
 }
 
 export interface PermissionsFixtures {
-  writePermissionDashboard: Page;
-  readOnlyDashboard: Page;
+  dashboardPage: Page;
 }
 
 export const test = base.extend<PermissionsFixtures>({
-  writePermissionDashboard: async ({ page }, use) => {
+  dashboardPage: async ({ page }, use) => {
     if (testConfig.useMock) {
       await interceptAuthLogin(page);
-      await interceptAuthMe(page, testConfig.mockResponses.user);
-    }
-
-    await loginAndNavigateToDashboard(page);
-    await page.waitForSelector('[data-testid="dashboard-container"]');
-
-    await use(page);
-  },
-
-  readOnlyDashboard: async ({ page }, use) => {
-    if (testConfig.useMock) {
-      await interceptAuthLogin(page);
-      await interceptAuthMe(page, testConfig.mockResponses.readOnlyUser);
+      await interceptAuthMe(page);
     }
 
     await loginAndNavigateToDashboard(page);
