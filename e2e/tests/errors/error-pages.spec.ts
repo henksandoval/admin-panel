@@ -15,7 +15,7 @@ test.describe('In-shell error pages', () => {
 
     await expect(authenticatedPage.getByTestId('layout-shell')).toBeVisible();
     await expect(authenticatedPage.getByTestId('not-found-page')).toBeVisible();
-    await expect(authenticatedPage.getByTestId('not-found-cta')).toBeVisible();
+    await expect(authenticatedPage.getByTestId('not-found-page-cta')).toBeVisible();
   });
 });
 
@@ -27,7 +27,7 @@ test.describe('Critical error pages', () => {
     await expect(page.getByTestId('layout-shell')).not.toBeVisible();
     await expect(page.getByTestId('session-expired-page')).toBeVisible();
 
-    await page.getByTestId('session-expired-cta').click();
+    await page.getByTestId('session-expired-page-cta').click();
     await page.waitForURL('**/auth/login');
 
     expect(page.url()).toContain('/auth/login');
@@ -39,6 +39,6 @@ test.describe('Critical error pages', () => {
 
     await expect(page.getByTestId('layout-shell')).not.toBeVisible();
     await expect(page.getByTestId('system-down-page')).toBeVisible();
-    await expect(page.getByTestId('system-down-cta')).toBeVisible();
+    await expect(page.getByTestId('system-down-page-cta')).toBeVisible();
   });
 });

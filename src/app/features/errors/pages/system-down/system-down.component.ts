@@ -16,7 +16,7 @@ import { ErrorsPageComponent } from '@features/errors/shared/templates/error-pag
       [pageDescription]="pageDescription"
       [buttonText]="retryButtonText"
       buttonRoute="/auth/login"
-      dataTestId="session-expired-page">
+      dataTestId="system-down-page">
     </app-error-page-layout>
   `
 })
