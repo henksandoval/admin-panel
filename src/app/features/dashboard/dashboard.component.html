@@ -1,0 +1,17 @@
+<div data-testid="dashboard-container">
+  <section *appHasPermission="'write'" data-testid="dashboard-write-action">
+    <span i18n="Dashboard|Write action section@@dashboard.section.writeAction">New Entry</span>
+  </section>
+
+  <section *appHasPermission="'delete'" data-testid="dashboard-delete-action">
+    <span i18n="Dashboard|Delete action section@@dashboard.section.deleteAction">Delete Entry</span>
+  </section>
+
+  <section *appHasRole="'admin'" data-testid="dashboard-admin-panel">
+    <span i18n="Dashboard|Admin panel section@@dashboard.section.adminPanel">Admin Panel</span>
+  </section>
+
+  <section *appHasRole="'superadmin'" data-testid="dashboard-superadmin-panel">
+    <span i18n="Dashboard|Super-admin panel section@@dashboard.section.superAdminPanel">Super Admin Panel</span>
+  </section>
+</div>

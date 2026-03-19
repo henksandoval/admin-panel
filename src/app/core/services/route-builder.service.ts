@@ -3,7 +3,7 @@ import { Route } from '@angular/router';
 import { ApiMenuItem } from '@core/contracts';
 import { LazyComponentLoader, ROUTE_LOADER_REGISTRY, ROUTE_REGISTRY, RouteDefinition } from '@core/registry/route-registry';
 import { LoggingService } from './logging.service';
-import { authGuard, roleGuard } from '@auth/guards/auth.guard';
+import { authGuard, permissionGuard, roleGuard } from '@auth/guards/auth.guard';
 
 @Injectable({
   providedIn: 'root',
@@ -72,15 +72,26 @@ export class RouteBuilderService {
     if (!definition.requiresAuth) return route;
 
     const hasRoles = !!definition.roles?.length;
+    const hasPermissions = !!definition.permissions?.length;
+
+    const guards = [authGuard];
+    if (hasRoles) guards.push(roleGuard);
+    if (hasPermissions) guards.push(permissionGuard);
 
     return {
       ...route,
-      canActivate: hasRoles ? [authGuard, roleGuard] : [authGuard],
-      ...(hasRoles && {
+      canActivate: guards,
+      ...((hasRoles || hasPermissions) && {
         data: {
           ...route.data,
-          roles:      definition.roles,
-          requireAll: definition.requireAllRoles ?? false,
+          ...(hasRoles && {
+            roles:      definition.roles,
+            requireAll: definition.requireAllRoles ?? false,
+          }),
+          ...(hasPermissions && {
+            permissions:           definition.permissions,
+            requireAllPermissions: definition.requireAllPermissions ?? false,
+          }),
         },
       }),
     };

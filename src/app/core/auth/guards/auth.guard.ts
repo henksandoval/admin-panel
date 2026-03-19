@@ -36,8 +36,8 @@ export const roleGuard: CanActivateFn = (
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const requiredRoles: string[] = route.data['roles'] ?? [];
-  const requireAll: boolean = route.data['requireAll'] ?? false;
+  const requiredRoles = (route.data['roles'] as string[] | undefined) ?? [];
+  const requireAll = (route.data['requireAll'] as boolean | undefined) ?? false;
   const user = authService.currentUser();
 
   if (!user || requiredRoles.length === 0) return true;
@@ -45,6 +45,28 @@ export const roleGuard: CanActivateFn = (
   const hasAccess = requireAll
     ? requiredRoles.every((role) => user.roles.includes(role))
     : requiredRoles.some((role) => user.roles.includes(role));
+
+  return hasAccess
+    ? true
+    : router.createUrlTree([AUTH_DEFAULTS.unauthorizedRoute]);
+};
+
+export const permissionGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  _state: RouterStateSnapshot,
+) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  const requiredPermissions = (route.data['permissions'] as string[] | undefined) ?? [];
+  const requireAll = (route.data['requireAllPermissions'] as boolean | undefined) ?? false;
+  const user = authService.currentUser();
+
+  if (!user || requiredPermissions.length === 0) return true;
+
+  const hasAccess = requireAll
+    ? requiredPermissions.every((permission) => user.permissions.includes(permission))
+    : requiredPermissions.some((permission) => user.permissions.includes(permission));
 
   return hasAccess
     ? true
@@ -59,5 +81,13 @@ export const canActivateWithRole = (
 ): Pick<import('@angular/router').Route, 'canActivate' | 'data'> => ({
   canActivate: [authGuard, roleGuard],
   data: { roles, requireAll },
+});
+
+export const canActivateWithPermission = (
+  permissions: string[],
+  requireAll = false,
+): Pick<import('@angular/router').Route, 'canActivate' | 'data'> => ({
+  canActivate: [authGuard, permissionGuard],
+  data: { permissions, requireAllPermissions: requireAll },
 });
 

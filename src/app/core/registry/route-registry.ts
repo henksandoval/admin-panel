@@ -17,6 +17,8 @@ export interface RouteDefinition {
   readonly requiresAuth?: boolean;
   readonly roles?: string[];
   readonly requireAllRoles?: boolean;
+  readonly permissions?: string[];
+  readonly requireAllPermissions?: boolean;
 }
 
 const coreRoutes: Record<string, RouteDefinition> = {

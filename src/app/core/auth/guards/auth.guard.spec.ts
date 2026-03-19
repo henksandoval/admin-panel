@@ -5,7 +5,7 @@ import { signal } from '@angular/core';
 import { lastValueFrom, of } from 'rxjs';
 import { describe, it, expect } from 'vitest';
 
-import { authGuard, roleGuard } from './auth.guard';
+import { authGuard, permissionGuard, roleGuard } from './auth.guard';
 import { AuthService } from '@auth/services/auth.service';
 import { AUTH_PROVIDER } from '@auth/providers/auth-provider.token';
 import { AUTH_DEFAULTS, AuthStatus, AuthUser } from '@auth/models/auth.model';
@@ -166,6 +166,88 @@ describe('roleGuard', () => {
     const result = runRoleGuard(
       createMockAuthService('unauthenticated', null),
       { roles: ['admin'] },
+    );
+    expect(result).toBe(true);
+  });
+});
+
+function runPermissionGuard(
+  authServiceMock: ReturnType<typeof createMockAuthService>,
+  routeData: Record<string, unknown>,
+) {
+  return TestBed.runInInjectionContext(() =>
+    permissionGuard(mockRoute(routeData), mockRouterState()),
+  );
+}
+
+describe('permissionGuard', () => {
+  function setup(user: AuthUser | null) {
+    const mockAuthService = createMockAuthService(
+      user ? 'authenticated' : 'unauthenticated',
+      user,
+    );
+
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      providers: [
+        { provide: AuthService,   useValue: mockAuthService },
+        { provide: AUTH_PROVIDER, useValue: createMockAuthProvider() },
+      ],
+    });
+  }
+
+  it('returns true when the user has at least one of the required permissions (OR logic)', () => {
+    setup(MOCK_USER);
+    const result = runPermissionGuard(
+      createMockAuthService('authenticated', MOCK_USER),
+      { permissions: ['read', 'delete'], requireAllPermissions: false },
+    );
+    expect(result).toBe(true);
+  });
+
+  it('redirects to 403 when the user has none of the required permissions', () => {
+    setup(MOCK_USER);
+    const result = runPermissionGuard(
+      createMockAuthService('authenticated', MOCK_USER),
+      { permissions: ['delete', 'admin'], requireAllPermissions: false },
+    );
+    expect(result).toBeInstanceOf(UrlTree);
+    expect((result as UrlTree).toString()).toContain(AUTH_DEFAULTS.unauthorizedRoute);
+  });
+
+  it('returns true when the user has all required permissions (AND logic)', () => {
+    setup(MOCK_USER);
+    const result = runPermissionGuard(
+      createMockAuthService('authenticated', MOCK_USER),
+      { permissions: ['read', 'write'], requireAllPermissions: true },
+    );
+    expect(result).toBe(true);
+  });
+
+  it('redirects to 403 when the user is missing a required permission with requireAllPermissions: true', () => {
+    setup(MOCK_USER);
+    const result = runPermissionGuard(
+      createMockAuthService('authenticated', MOCK_USER),
+      { permissions: ['read', 'delete'], requireAllPermissions: true },
+    );
+    expect(result).toBeInstanceOf(UrlTree);
+    expect((result as UrlTree).toString()).toContain(AUTH_DEFAULTS.unauthorizedRoute);
+  });
+
+  it('returns true when no permissions are required', () => {
+    setup(MOCK_USER);
+    const result = runPermissionGuard(
+      createMockAuthService('authenticated', MOCK_USER),
+      { permissions: [] },
+    );
+    expect(result).toBe(true);
+  });
+
+  it('returns true when there is no authenticated user, delegating to authGuard', () => {
+    setup(null);
+    const result = runPermissionGuard(
+      createMockAuthService('unauthenticated', null),
+      { permissions: ['read'] },
     );
     expect(result).toBe(true);
   });
