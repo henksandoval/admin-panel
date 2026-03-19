@@ -220,6 +220,30 @@ Usar `sr-only` de Tailwind para contenido visible solo por lectores de pantalla:
 
 ## Reglas de Componentes
 
+### Contract naming glossary (core)
+
+Este glosario define una frontera clara entre el modelo interno de la aplicacion y sus integraciones externas. El objetivo es que el dominio de la app sea estable, y que los cambios de APIs o proveedores se absorban mediante mapeos.
+
+**core/contracts**
+
+- Proposito: acuerdos con capas externas (APIs, SDKs, proveedores, storage externo, integraciones).
+- Contenido: DTOs de entrada/salida, payloads de webhooks/eventos externos, tipos de librerias externas.
+- Sufijos recomendados: `*.contract.ts` o `*.dto.ts`.
+- Ejemplos: `user.api.contract.ts`, `menu.api.contract.ts`, `auth.provider.contract.ts`.
+
+**core/models**
+
+- Proposito: modelos internos del dominio de la aplicacion (entidades, value objects, enums de negocio).
+- Contenido: tipos que viven y evolucionan con la logica interna, usados por multiples features.
+- Sufijos recomendados: `*.model.ts`, `*.value.ts`, `*.types.ts`.
+- Ejemplos: `user.model.ts`, `navigation.model.ts`, `auth-session.value.ts`.
+
+**Reglas de uso**
+
+- No mezclar DTOs externos con modelos internos.
+- Usar mappers/adapters para convertir `contracts -> models`.
+- Si un modelo es especifico de una feature, debe vivir dentro de esa feature, no en `core`.
+
 ### Estructura de archivos
 
 ```
