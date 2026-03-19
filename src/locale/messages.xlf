@@ -1,6 +1,925 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
   <file id="ngi18n" original="ng.template">
+    <unit id="errors.http.client">
+      <notes>
+        <note category="location">src/app/core/interceptors/error.interceptor.ts:16</note>
+        <note category="description">Client network failure</note>
+        <note category="meaning">Http error</note>
+      </notes>
+      <segment>
+        <source>Network error. Please check your connection and try again.</source>
+      </segment>
+    </unit>
+    <unit id="errors.http.title">
+      <notes>
+        <note category="location">src/app/core/interceptors/error.interceptor.ts:24</note>
+        <note category="description">Toast title</note>
+        <note category="meaning">Http error</note>
+      </notes>
+      <segment>
+        <source>Request error</source>
+      </segment>
+    </unit>
+    <unit id="errors.http.403">
+      <notes>
+        <note category="location">src/app/core/interceptors/error.interceptor.ts:34</note>
+        <note category="description">Forbidden message</note>
+        <note category="meaning">Http error</note>
+      </notes>
+      <segment>
+        <source>You do not have permission to perform this action.</source>
+      </segment>
+    </unit>
+    <unit id="errors.http.404">
+      <notes>
+        <note category="location">src/app/core/interceptors/error.interceptor.ts:36</note>
+        <note category="description">Not found message</note>
+        <note category="meaning">Http error</note>
+      </notes>
+      <segment>
+        <source>The requested resource was not found.</source>
+      </segment>
+    </unit>
+    <unit id="errors.http.500">
+      <notes>
+        <note category="location">src/app/core/interceptors/error.interceptor.ts:38</note>
+        <note category="description">Server error message</note>
+        <note category="meaning">Http error</note>
+      </notes>
+      <segment>
+        <source>An unexpected server error occurred.</source>
+      </segment>
+    </unit>
+    <unit id="errors.http.503">
+      <notes>
+        <note category="location">src/app/core/interceptors/error.interceptor.ts:40</note>
+        <note category="description">Service unavailable message</note>
+        <note category="meaning">Http error</note>
+      </notes>
+      <segment>
+        <source>The service is temporarily unavailable. Please try again shortly.</source>
+      </segment>
+    </unit>
+    <unit id="errors.http.generic">
+      <notes>
+        <note category="location">src/app/core/interceptors/error.interceptor.ts:42</note>
+        <note category="description">Generic server message</note>
+        <note category="meaning">Http error</note>
+      </notes>
+      <segment>
+        <source>An unexpected request error occurred.</source>
+      </segment>
+    </unit>
+    <unit id="5143386459166222182">
+      <notes>
+        <note category="location">src/app/core/services/initialization.service.ts:25</note>
+      </notes>
+      <segment>
+        <source>@@envConfigWarning:Production build is using a localhost API base URL.</source>
+      </segment>
+    </unit>
+    <unit id="forgot.heading">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.html:4,5</note>
+        <note category="description">Page heading</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Forgot your password?</source>
+      </segment>
+    </unit>
+    <unit id="forgot.subheading">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.html:5,9</note>
+        <note category="description">Page subheading</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Enter your email and we&apos;ll send you a reset link</source>
+      </segment>
+    </unit>
+    <unit id="forgot.success">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.html:18,23</note>
+        <note category="description">Success message</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Check your inbox — a reset link is on its way.</source>
+      </segment>
+    </unit>
+    <unit id="forgot.form.ariaLabel">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.html:25,28</note>
+        <note category="description">Form aria-label</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Forgot your password</source>
+      </segment>
+    </unit>
+    <unit id="forgot.btn.submit">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.html:41,44</note>
+        <note category="description">Submit button</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Send reset link</source>
+      </segment>
+    </unit>
+    <unit id="forgot.login.link">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.html:48,51</note>
+        <note category="description">Back to login</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Back to sign in</source>
+      </segment>
+    </unit>
+    <unit id="forgot.field.email.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.ts:34</note>
+        <note category="description">Email field label</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+      </segment>
+    </unit>
+    <unit id="forgot.field.email.placeholder">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.ts:36</note>
+        <note category="description">Email field placeholder</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>user@example.com</source>
+      </segment>
+    </unit>
+    <unit id="forgot.field.email.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.ts:39</note>
+        <note category="description">Email required error</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Email is required</source>
+      </segment>
+    </unit>
+    <unit id="forgot.field.email.error.email">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.ts:40</note>
+        <note category="description">Email invalid error</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Enter a valid email</source>
+      </segment>
+    </unit>
+    <unit id="forgot.error.generic">
+      <notes>
+        <note category="location">src/app/features/auth/pages/forgot-password/forgot-password.component.ts:70</note>
+        <note category="description">Generic error</note>
+        <note category="meaning">ForgotPassword</note>
+      </notes>
+      <segment>
+        <source>Something went wrong. Please try again.</source>
+      </segment>
+    </unit>
+    <unit id="login.form.ariaLabel">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:10,11</note>
+        <note category="description">Form aria-label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Sign in</source>
+      </segment>
+    </unit>
+    <unit id="login.rememberMe.ariaLabel">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:16,18</note>
+        <note category="description">Remember me aria</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Remember me</source>
+      </segment>
+    </unit>
+    <unit id="login.rememberMe.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:18,20</note>
+        <note category="description">Remember me label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Remember me</source>
+      </segment>
+    </unit>
+    <unit id="login.forgotPassword.link">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:21,25</note>
+        <note category="description">Forgot password link</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Forgot password?</source>
+      </segment>
+    </unit>
+    <unit id="login.btn.submit">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:31,34</note>
+        <note category="description">Submit button</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Sign In</source>
+      </segment>
+    </unit>
+    <unit id="login.divider.or">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:37,38</note>
+        <note category="description">Divider OR label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>OR</source>
+      </segment>
+    </unit>
+    <unit id="login.google.ariaLabel">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:47,50</note>
+        <note category="description">Google login aria-label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Connect with Google</source>
+      </segment>
+    </unit>
+    <unit id="login.google.btn">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:51,56</note>
+        <note category="description">Google login button</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Connect with Google</source>
+      </segment>
+    </unit>
+    <unit id="login.register.text">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:57,58</note>
+        <note category="description">Register link text</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Don&apos;t have an account yet?</source>
+      </segment>
+    </unit>
+    <unit id="login.register.link">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.html:58,62</note>
+        <note category="location">src/app/features/auth/pages/register/register.component.html:41,45</note>
+        <note category="description">Register link</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Sign Up!</source>
+      </segment>
+    </unit>
+    <unit id="login.field.email.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.ts:51</note>
+        <note category="description">Email field label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+      </segment>
+    </unit>
+    <unit id="login.field.email.placeholder">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.ts:53</note>
+        <note category="description">Email field placeholder</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>user@example.com</source>
+      </segment>
+    </unit>
+    <unit id="login.field.email.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.ts:56</note>
+        <note category="description">Email required error</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Email is required</source>
+      </segment>
+    </unit>
+    <unit id="login.field.email.error.email">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.ts:57</note>
+        <note category="description">Email invalid error</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Enter a valid email</source>
+      </segment>
+    </unit>
+    <unit id="login.field.password.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.ts:62</note>
+        <note category="description">Password field label</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Password</source>
+      </segment>
+    </unit>
+    <unit id="login.field.password.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.ts:67</note>
+        <note category="description">Password required error</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Password is required</source>
+      </segment>
+    </unit>
+    <unit id="login.field.password.error.minlength">
+      <notes>
+        <note category="location">src/app/features/auth/pages/login/login.component.ts:68</note>
+        <note category="description">Password minlength error</note>
+        <note category="meaning">Login</note>
+      </notes>
+      <segment>
+        <source>Minimum <ph id="0" equiv="minLength" disp="this.minPasswordLength"/> characters</source>
+      </segment>
+    </unit>
+    <unit id="register.heading">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.html:4,5</note>
+        <note category="description">Page heading</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Create account</source>
+      </segment>
+    </unit>
+    <unit id="register.subheading">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.html:5,9</note>
+        <note category="description">Page subheading</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Fill in your details to get started</source>
+      </segment>
+    </unit>
+    <unit id="register.form.ariaLabel">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.html:17,18</note>
+        <note category="description">Form aria-label</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Create account</source>
+      </segment>
+    </unit>
+    <unit id="register.btn.submit">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.html:35,39</note>
+        <note category="description">Submit button</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Create account</source>
+      </segment>
+    </unit>
+    <unit id="register.login.text">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.html:40,41</note>
+        <note category="description">Login link text</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Already have an account?</source>
+      </segment>
+    </unit>
+    <unit id="register.field.name.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:38</note>
+        <note category="description">Name field label</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Full name</source>
+      </segment>
+    </unit>
+    <unit id="register.field.name.placeholder">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:40</note>
+        <note category="description">Name field placeholder</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>John Doe</source>
+      </segment>
+    </unit>
+    <unit id="register.field.name.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:43</note>
+        <note category="description">Name required error</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Full name is required</source>
+      </segment>
+    </unit>
+    <unit id="register.field.email.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:48</note>
+        <note category="description">Email field label</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+      </segment>
+    </unit>
+    <unit id="register.field.email.placeholder">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:50</note>
+        <note category="description">Email field placeholder</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>user@example.com</source>
+      </segment>
+    </unit>
+    <unit id="register.field.email.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:53</note>
+        <note category="description">Email required error</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Email is required</source>
+      </segment>
+    </unit>
+    <unit id="register.field.email.error.email">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:54</note>
+        <note category="description">Email invalid error</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Enter a valid email</source>
+      </segment>
+    </unit>
+    <unit id="register.field.password.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:59</note>
+        <note category="description">Password field label</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Password</source>
+      </segment>
+    </unit>
+    <unit id="register.field.password.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:64</note>
+        <note category="description">Password required error</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Password is required</source>
+      </segment>
+    </unit>
+    <unit id="register.field.password.error.minlength">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:65</note>
+        <note category="description">Password minlength error</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Minimum <ph id="0" equiv="minLength" disp="this.minPasswordLength"/> characters</source>
+      </segment>
+    </unit>
+    <unit id="register.field.confirm.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:70</note>
+        <note category="description">Confirm password field label</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Confirm password</source>
+      </segment>
+    </unit>
+    <unit id="register.field.confirm.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:75</note>
+        <note category="description">Confirm password required error</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Please confirm your password</source>
+      </segment>
+    </unit>
+    <unit id="register.field.confirm.error.mismatch">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:76</note>
+        <note category="description">Password mismatch error</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Passwords do not match</source>
+      </segment>
+    </unit>
+    <unit id="register.error.generic">
+      <notes>
+        <note category="location">src/app/features/auth/pages/register/register.component.ts:114</note>
+        <note category="description">Generic error</note>
+        <note category="meaning">Register</note>
+      </notes>
+      <segment>
+        <source>Registration failed. Please try again.</source>
+      </segment>
+    </unit>
+    <unit id="reset.heading">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:4,5</note>
+        <note category="description">Page heading</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Set new password</source>
+      </segment>
+    </unit>
+    <unit id="reset.subheading">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:5,9</note>
+        <note category="description">Page subheading</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Choose a strong password for your account</source>
+      </segment>
+    </unit>
+    <unit id="reset.error.invalidToken">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:11,13</note>
+        <note category="description">Invalid token</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>This reset link is invalid or has expired.</source>
+      </segment>
+    </unit>
+    <unit id="reset.btn.requestNew">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:14,19</note>
+        <note category="description">Request new link button</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Request a new link</source>
+      </segment>
+    </unit>
+    <unit id="reset.success">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:28,30</note>
+        <note category="description">Success message</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Your password has been updated. You can now sign in.</source>
+      </segment>
+    </unit>
+    <unit id="reset.btn.login">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:31,35</note>
+        <note category="description">Go to login button</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Go to sign in</source>
+      </segment>
+    </unit>
+    <unit id="reset.form.ariaLabel">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:38,40</note>
+        <note category="description">Form aria-label</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Reset password</source>
+      </segment>
+    </unit>
+    <unit id="reset.field.password.checkbox.ariaLabel">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:56,58</note>
+        <note category="description">Show password aria-label</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Show password</source>
+      </segment>
+    </unit>
+    <unit id="reset.field.password.checkbox.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:58,63</note>
+        <note category="description">Show password label</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Show password</source>
+      </segment>
+    </unit>
+    <unit id="reset.btn.submit">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:70,75</note>
+        <note category="description">Submit button</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Update password</source>
+      </segment>
+    </unit>
+    <unit id="reset.login.link">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.html:76,79</note>
+        <note category="description">Back to login</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Back to sign in</source>
+      </segment>
+    </unit>
+    <unit id="reset.field.password.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.ts:43</note>
+        <note category="description">Password field label</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>New password</source>
+      </segment>
+    </unit>
+    <unit id="reset.field.password.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.ts:48</note>
+        <note category="description">Password required error</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Password is required</source>
+      </segment>
+    </unit>
+    <unit id="reset.field.password.error.minlength">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.ts:49</note>
+        <note category="description">Password minlength error</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Minimum <ph id="0" equiv="minLength" disp="this.minPasswordLength"/> characters</source>
+      </segment>
+    </unit>
+    <unit id="reset.field.confirm.label">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.ts:54</note>
+        <note category="description">Confirm password field label</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Confirm new password</source>
+      </segment>
+    </unit>
+    <unit id="reset.field.confirm.error.required">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.ts:59</note>
+        <note category="description">Confirm required error</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Please confirm your password</source>
+      </segment>
+    </unit>
+    <unit id="reset.field.confirm.error.mismatch">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.ts:60</note>
+        <note category="description">Password mismatch error</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Passwords do not match</source>
+      </segment>
+    </unit>
+    <unit id="reset.error.generic">
+      <notes>
+        <note category="location">src/app/features/auth/pages/reset-password/reset-password.component.ts:108</note>
+        <note category="description">Generic error</note>
+        <note category="meaning">ResetPassword</note>
+      </notes>
+      <segment>
+        <source>Something went wrong. Please try again.</source>
+      </segment>
+    </unit>
+    <unit id="authLayout.brand.subtitle">
+      <notes>
+        <note category="location">src/app/features/auth/shared/templates/auth-page-layout/auth-page-layout.component.model.ts:3</note>
+        <note category="description">Brand subtitle</note>
+        <note category="meaning">Auth Layout</note>
+      </notes>
+      <segment>
+        <source>panel</source>
+      </segment>
+    </unit>
+    <unit id="errors.accessdenied.title">
+      <notes>
+        <note category="location">src/app/features/errors/pages/access-denied/access-denied.component.ts:22</note>
+        <note category="description">Page title</note>
+        <note category="meaning">AccessDenied</note>
+      </notes>
+      <segment>
+        <source>Access denied</source>
+      </segment>
+    </unit>
+    <unit id="errors.accessdenied.description">
+      <notes>
+        <note category="location">src/app/features/errors/pages/access-denied/access-denied.component.ts:23</note>
+        <note category="description">Page description</note>
+        <note category="meaning">AccessDenied</note>
+      </notes>
+      <segment>
+        <source>You do not have authorization to access this resource. Please contact your administrator.</source>
+      </segment>
+    </unit>
+    <unit id="errors.accessdenied.button">
+      <notes>
+        <note category="location">src/app/features/errors/pages/access-denied/access-denied.component.ts:24</note>
+        <note category="description">Login button</note>
+        <note category="meaning">AccessDenied</note>
+      </notes>
+      <segment>
+        <source>Go to login</source>
+      </segment>
+    </unit>
+    <unit id="errors.notfound.title">
+      <notes>
+        <note category="location">src/app/features/errors/pages/not-found/not-found.component.ts:24</note>
+        <note category="description">Page title</note>
+        <note category="meaning">NotFound</note>
+      </notes>
+      <segment>
+        <source>Page not found</source>
+      </segment>
+    </unit>
+    <unit id="errors.notfound.description">
+      <notes>
+        <note category="location">src/app/features/errors/pages/not-found/not-found.component.ts:25</note>
+        <note category="description">Page description</note>
+        <note category="meaning">NotFound</note>
+      </notes>
+      <segment>
+        <source>The page you are looking for does not exist or has been moved</source>
+      </segment>
+    </unit>
+    <unit id="errors.notfound.button">
+      <notes>
+        <note category="location">src/app/features/errors/pages/not-found/not-found.component.ts:26</note>
+        <note category="description">Return button</note>
+        <note category="meaning">NotFound</note>
+      </notes>
+      <segment>
+        <source>Return to dashboard</source>
+      </segment>
+    </unit>
+    <unit id="errors.servererror.title">
+      <notes>
+        <note category="location">src/app/features/errors/pages/server-error/server-error.component.ts:24</note>
+        <note category="description">Page title</note>
+        <note category="meaning">ServerError</note>
+      </notes>
+      <segment>
+        <source>Something went wrong</source>
+      </segment>
+    </unit>
+    <unit id="errors.servererror.description">
+      <notes>
+        <note category="location">src/app/features/errors/pages/server-error/server-error.component.ts:25</note>
+        <note category="description">Page description</note>
+        <note category="meaning">ServerError</note>
+      </notes>
+      <segment>
+        <source>An unexpected error has occurred. Our team has been notified</source>
+      </segment>
+    </unit>
+    <unit id="errors.servererror.button">
+      <notes>
+        <note category="location">src/app/features/errors/pages/server-error/server-error.component.ts:26</note>
+        <note category="description">Return button</note>
+        <note category="meaning">ServerError</note>
+      </notes>
+      <segment>
+        <source>Return to dashboard</source>
+      </segment>
+    </unit>
+    <unit id="errors.sessionexpired.title">
+      <notes>
+        <note category="location">src/app/features/errors/pages/session-expired/session-expired.component.ts:22</note>
+        <note category="description">Page title</note>
+        <note category="meaning">SessionExpired</note>
+      </notes>
+      <segment>
+        <source>Session expired</source>
+      </segment>
+    </unit>
+    <unit id="errors.sessionexpired.description">
+      <notes>
+        <note category="location">src/app/features/errors/pages/session-expired/session-expired.component.ts:23</note>
+        <note category="description">Page description</note>
+        <note category="meaning">SessionExpired</note>
+      </notes>
+      <segment>
+        <source>Your session has expired for security reasons. Please log in again.</source>
+      </segment>
+    </unit>
+    <unit id="errors.sessionexpired.button">
+      <notes>
+        <note category="location">src/app/features/errors/pages/session-expired/session-expired.component.ts:24</note>
+        <note category="description">Login button</note>
+        <note category="meaning">SessionExpired</note>
+      </notes>
+      <segment>
+        <source>Go to login</source>
+      </segment>
+    </unit>
+    <unit id="errors.systemdown.title">
+      <notes>
+        <note category="location">src/app/features/errors/pages/system-down/system-down.component.ts:24</note>
+        <note category="description">Page title</note>
+        <note category="meaning">SystemDown</note>
+      </notes>
+      <segment>
+        <source>System maintenance</source>
+      </segment>
+    </unit>
+    <unit id="errors.systemdown.description">
+      <notes>
+        <note category="location">src/app/features/errors/pages/system-down/system-down.component.ts:25</note>
+        <note category="description">Page description</note>
+        <note category="meaning">SystemDown</note>
+      </notes>
+      <segment>
+        <source>The system is currently under maintenance. We&apos;ll be back online shortly.</source>
+      </segment>
+    </unit>
+    <unit id="errors.systemdown.button">
+      <notes>
+        <note category="location">src/app/features/errors/pages/system-down/system-down.component.ts:26</note>
+        <note category="description">Retry button</note>
+        <note category="meaning">SystemDown</note>
+      </notes>
+      <segment>
+        <source>Try again</source>
+      </segment>
+    </unit>
+    <unit id="errors.unauthorized.title">
+      <notes>
+        <note category="location">src/app/features/errors/pages/unauthorized/unauthorized.component.ts:24</note>
+        <note category="description">Page title</note>
+        <note category="meaning">Unauthorized</note>
+      </notes>
+      <segment>
+        <source>Access denied</source>
+      </segment>
+    </unit>
+    <unit id="errors.unauthorized.description">
+      <notes>
+        <note category="location">src/app/features/errors/pages/unauthorized/unauthorized.component.ts:25</note>
+        <note category="description">Page description</note>
+        <note category="meaning">Unauthorized</note>
+      </notes>
+      <segment>
+        <source>You do not have permission to access this resource</source>
+      </segment>
+    </unit>
+    <unit id="errors.unauthorized.button">
+      <notes>
+        <note category="location">src/app/features/errors/pages/unauthorized/unauthorized.component.ts:26</note>
+        <note category="description">Return button</note>
+        <note category="meaning">Unauthorized</note>
+      </notes>
+      <segment>
+        <source>Return to dashboard</source>
+      </segment>
+    </unit>
     <unit id="pds.form.layout.description">
       <notes>
         <note category="location">src/app/features/pds/pages/form/form.component.html:3,4</note>
@@ -73,7 +992,7 @@
     </unit>
     <unit id="pds.form.checkbox.terms">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:79,83</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:77,81</note>
         <note category="description">Terms and conditions label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -83,7 +1002,7 @@
     </unit>
     <unit id="pds.form.btn.reset">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:85,88</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:83,86</note>
         <note category="description">Reset button</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -93,7 +1012,7 @@
     </unit>
     <unit id="pds.form.btn.submit">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:89,92</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:87,90</note>
         <note category="description">Submit button</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -103,7 +1022,7 @@
     </unit>
     <unit id="pds.form.card.code">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:95</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:93</note>
         <note category="description">Generated code card title</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -113,7 +1032,7 @@
     </unit>
     <unit id="pds.form.btn.copyCode">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:96,97</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:94,95</note>
         <note category="description">Copy code tooltip</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -123,7 +1042,7 @@
     </unit>
     <unit id="pds.form.card.visualControls">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:106</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:104</note>
         <note category="description">Visual controls card title</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -133,7 +1052,7 @@
     </unit>
     <unit id="pds.form.card.visualControls.description">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:108,112</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:106,110</note>
         <note category="description">Visual controls card description</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -143,7 +1062,7 @@
     </unit>
     <unit id="pds.form.label.appearance">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:114,116</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:112,114</note>
         <note category="description">Appearance style label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -153,7 +1072,7 @@
     </unit>
     <unit id="pds.form.hint.appearance">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:118,122</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:116,120</note>
         <note category="description">Appearance helper text</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -163,7 +1082,7 @@
     </unit>
     <unit id="pds.form.label.showHide">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:127,130</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:125,128</note>
         <note category="description">Show/hide elements label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -173,7 +1092,7 @@
     </unit>
     <unit id="pds.form.checkbox.showIcons">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:134,138</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:132,136</note>
         <note category="description">Show icons checkbox</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -183,7 +1102,7 @@
     </unit>
     <unit id="pds.form.checkbox.showHints">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:141,145</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:139,143</note>
         <note category="description">Show hints checkbox</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -193,7 +1112,7 @@
     </unit>
     <unit id="pds.form.checkbox.showPrefixSuffix">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:148,154</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:146,152</note>
         <note category="description">Show prefix/suffix checkbox</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -203,7 +1122,7 @@
     </unit>
     <unit id="pds.form.info.tryItTitle">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:159,160</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:157,158</note>
         <note category="description">Try it title</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -213,7 +1132,7 @@
     </unit>
     <unit id="pds.form.info.tryItDescription">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:161,166</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:159,164</note>
         <note category="description">Try it description</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -223,7 +1142,7 @@
     </unit>
     <unit id="pds.form.status.title">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:170,172</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:168,170</note>
         <note category="description">Form status title</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -233,7 +1152,7 @@
     </unit>
     <unit id="pds.form.status.status">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:173,174</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:171,172</note>
         <note category="description">Status label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -243,7 +1162,7 @@
     </unit>
     <unit id="pds.form.status.valid">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:186,187</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:184,185</note>
         <note category="description">Valid label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -253,7 +1172,7 @@
     </unit>
     <unit id="pds.form.status.touched">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:190,191</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:188,189</note>
         <note category="description">Touched label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -263,7 +1182,7 @@
     </unit>
     <unit id="pds.form.status.dirty">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.html:194,195</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.html:192,193</note>
         <note category="description">Dirty label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -273,7 +1192,7 @@
     </unit>
     <unit id="pds.form.gender.male">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:110</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:86</note>
         <note category="description">Gender option male</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -283,7 +1202,7 @@
     </unit>
     <unit id="pds.form.gender.female">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:111</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:87</note>
         <note category="description">Gender option female</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -293,7 +1212,7 @@
     </unit>
     <unit id="pds.form.gender.other">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:112</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:88</note>
         <note category="description">Gender option other</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -303,7 +1222,7 @@
     </unit>
     <unit id="pds.form.gender.preferNotToSay">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:113</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:89</note>
         <note category="description">Gender option prefer not to say</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -313,7 +1232,7 @@
     </unit>
     <unit id="pds.form.appearance.fill">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:118</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:94</note>
         <note category="description">Appearance option fill</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -323,7 +1242,7 @@
     </unit>
     <unit id="pds.form.appearance.outline">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:119</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:95</note>
         <note category="description">Appearance option outline</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -333,7 +1252,7 @@
     </unit>
     <unit id="pds.form.country.us">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:122</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:98</note>
         <note category="description">Country United States</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -343,7 +1262,7 @@
     </unit>
     <unit id="pds.form.country.uk">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:123</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:99</note>
         <note category="description">Country United Kingdom</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -353,7 +1272,7 @@
     </unit>
     <unit id="pds.form.country.ca">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:124</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:100</note>
         <note category="description">Country Canada</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -363,7 +1282,7 @@
     </unit>
     <unit id="pds.form.country.mx">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:125</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:101</note>
         <note category="description">Country Mexico</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -373,7 +1292,7 @@
     </unit>
     <unit id="pds.form.country.es">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:126</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:102</note>
         <note category="description">Country Spain</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -383,7 +1302,7 @@
     </unit>
     <unit id="pds.form.country.fr">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:127</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:103</note>
         <note category="description">Country France</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -393,7 +1312,7 @@
     </unit>
     <unit id="pds.form.country.de">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:128</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:104</note>
         <note category="description">Country Germany</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -403,7 +1322,7 @@
     </unit>
     <unit id="pds.form.country.it">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:129</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:105</note>
         <note category="description">Country Italy</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -413,7 +1332,7 @@
     </unit>
     <unit id="pds.form.field.basicText.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:132</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:108</note>
         <note category="description">Full name field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -423,7 +1342,7 @@
     </unit>
     <unit id="pds.form.field.basicText.placeholder">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:133</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:109</note>
         <note category="description">Full name placeholder</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -433,7 +1352,7 @@
     </unit>
     <unit id="pds.form.field.basicText.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:137</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:113</note>
         <note category="description">Full name hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -443,7 +1362,7 @@
     </unit>
     <unit id="pds.form.field.email.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:140</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:116</note>
         <note category="description">Email field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -453,7 +1372,7 @@
     </unit>
     <unit id="pds.form.field.email.placeholder">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:141</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:117</note>
         <note category="description">Email placeholder</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -463,7 +1382,7 @@
     </unit>
     <unit id="pds.form.field.email.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:145</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:121</note>
         <note category="description">Email hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -473,7 +1392,7 @@
     </unit>
     <unit id="pds.form.field.email.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:147</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:123</note>
         <note category="description">Email required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -483,7 +1402,7 @@
     </unit>
     <unit id="pds.form.field.email.error.email">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:148</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:124</note>
         <note category="description">Email invalid error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -493,7 +1412,7 @@
     </unit>
     <unit id="pds.form.field.password.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:152</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:128</note>
         <note category="description">Password field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -503,7 +1422,7 @@
     </unit>
     <unit id="pds.form.field.password.placeholder">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:153</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:129</note>
         <note category="description">Password placeholder</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -513,7 +1432,7 @@
     </unit>
     <unit id="pds.form.field.password.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:157</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:133</note>
         <note category="description">Password hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -523,7 +1442,7 @@
     </unit>
     <unit id="pds.form.field.password.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:160</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:136</note>
         <note category="description">Password required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -533,7 +1452,7 @@
     </unit>
     <unit id="pds.form.field.password.error.minlength">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:161</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:137</note>
         <note category="description">Password minlength error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -543,7 +1462,7 @@
     </unit>
     <unit id="pds.form.field.age.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:165</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:141</note>
         <note category="description">Age field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -553,7 +1472,7 @@
     </unit>
     <unit id="pds.form.field.age.placeholder">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:166</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:142</note>
         <note category="description">Age placeholder</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -563,7 +1482,7 @@
     </unit>
     <unit id="pds.form.field.age.suffix">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:170</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:146</note>
         <note category="description">Age suffix</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -573,7 +1492,7 @@
     </unit>
     <unit id="pds.form.field.age.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:171</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:147</note>
         <note category="description">Age hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -583,7 +1502,7 @@
     </unit>
     <unit id="pds.form.field.age.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:173</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:149</note>
         <note category="description">Age required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -593,7 +1512,7 @@
     </unit>
     <unit id="pds.form.field.age.error.min">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:174</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:150</note>
         <note category="description">Age min error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -603,7 +1522,7 @@
     </unit>
     <unit id="pds.form.field.age.error.max">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:175</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:151</note>
         <note category="description">Age max error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -613,7 +1532,7 @@
     </unit>
     <unit id="pds.form.field.phone.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:179</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:155</note>
         <note category="description">Phone field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -623,7 +1542,7 @@
     </unit>
     <unit id="pds.form.field.phone.placeholder">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:180</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:156</note>
         <note category="description">Phone placeholder</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -633,7 +1552,7 @@
     </unit>
     <unit id="pds.form.field.phone.prefix">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:184</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:160</note>
         <note category="description">Phone prefix</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -643,7 +1562,7 @@
     </unit>
     <unit id="pds.form.field.phone.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:185</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:161</note>
         <note category="description">Phone hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -653,7 +1572,7 @@
     </unit>
     <unit id="pds.form.field.phone.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:187</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:163</note>
         <note category="description">Phone required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -663,7 +1582,7 @@
     </unit>
     <unit id="pds.form.field.description.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:191</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:167</note>
         <note category="description">Description field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -673,7 +1592,7 @@
     </unit>
     <unit id="pds.form.field.description.placeholder">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:192</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:168</note>
         <note category="description">Description placeholder</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -683,7 +1602,7 @@
     </unit>
     <unit id="pds.form.field.description.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:195</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:171</note>
         <note category="description">Description hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -693,7 +1612,7 @@
     </unit>
     <unit id="pds.form.field.description.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:199</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:175</note>
         <note category="description">Description required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -703,7 +1622,7 @@
     </unit>
     <unit id="pds.form.field.description.error.minlength">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:200</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:176</note>
         <note category="description">Description minlength error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -713,7 +1632,7 @@
     </unit>
     <unit id="pds.form.field.description.error.maxlength">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:201</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:177</note>
         <note category="description">Description maxlength error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -723,7 +1642,7 @@
     </unit>
     <unit id="pds.form.field.birthDate.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:205</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:181</note>
         <note category="description">Birth date field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -733,7 +1652,7 @@
     </unit>
     <unit id="pds.form.field.birthDate.placeholder">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:206</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:182</note>
         <note category="description">Birth date placeholder</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -743,7 +1662,7 @@
     </unit>
     <unit id="pds.form.field.birthDate.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:209</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:185</note>
         <note category="description">Birth date hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -753,7 +1672,7 @@
     </unit>
     <unit id="pds.form.field.birthDate.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:212</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:188</note>
         <note category="description">Birth date required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -763,7 +1682,7 @@
     </unit>
     <unit id="pds.form.field.birthDate.error.max">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:213</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:189</note>
         <note category="description">Birth date max error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -773,7 +1692,7 @@
     </unit>
     <unit id="pds.form.field.gender.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:218</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:194</note>
         <note category="description">Gender field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -783,7 +1702,7 @@
     </unit>
     <unit id="pds.form.field.gender.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:219</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:195</note>
         <note category="description">Gender hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -793,7 +1712,7 @@
     </unit>
     <unit id="pds.form.field.gender.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:223</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:199</note>
         <note category="description">Gender required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -803,7 +1722,7 @@
     </unit>
     <unit id="pds.form.field.country.label">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:228</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:204</note>
         <note category="description">Select country field label</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -813,7 +1732,7 @@
     </unit>
     <unit id="pds.form.field.country.placeholder">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:229</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:205</note>
         <note category="description">Select country placeholder</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -823,7 +1742,7 @@
     </unit>
     <unit id="pds.form.field.country.hint">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:232</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:208</note>
         <note category="description">Select country hint</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -833,7 +1752,7 @@
     </unit>
     <unit id="pds.form.field.country.error.required">
       <notes>
-        <note category="location">src/app/features/pds/pages/form/form.component.ts:234</note>
+        <note category="location">src/app/features/pds/pages/form/form.component.ts:210</note>
         <note category="description">Select country required error</note>
         <note category="meaning">Form Gallery</note>
       </notes>
@@ -934,11 +1853,11 @@
     <unit id="employee.col.name">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:10</note>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:59</note>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:73</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:60</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:74</note>
         <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:11</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:55</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:69</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:56</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:70</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -949,9 +1868,9 @@
     <unit id="employee.col.email">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:11</note>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:60</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:61</note>
         <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:12</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:56</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:57</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -962,9 +1881,9 @@
     <unit id="employee.col.department">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:12</note>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:32</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:33</note>
         <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:13</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:28</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:29</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -986,9 +1905,9 @@
     <unit id="employee.col.status">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:14</note>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:39</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:40</note>
         <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:15</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:35</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:36</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -999,9 +1918,9 @@
     <unit id="employee.col.salary">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:15</note>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:64</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:65</note>
         <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:16</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:60</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:61</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1012,9 +1931,9 @@
     <unit id="employee.col.hireDate">
       <notes>
         <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:16</note>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:46</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:47</note>
         <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:17</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:42</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:43</note>
         <note category="description">Column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1044,8 +1963,8 @@
     </unit>
     <unit id="employee.toggle.showDeleted">
       <notes>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:51</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:47</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:52</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:48</note>
         <note category="description">Filter toggle</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1055,8 +1974,8 @@
     </unit>
     <unit id="employee.toggle.showHidden">
       <notes>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:52</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:48</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:53</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:49</note>
         <note category="description">Filter toggle</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1066,10 +1985,10 @@
     </unit>
     <unit id="employee.field.id">
       <notes>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:58</note>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:72</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:54</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:68</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:59</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:73</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:55</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:69</note>
         <note category="description">Filter field label</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1079,8 +1998,8 @@
     </unit>
     <unit id="employee.placeholder.id">
       <notes>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:72</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:68</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:73</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:69</note>
         <note category="description">Filter placeholder</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1090,8 +2009,8 @@
     </unit>
     <unit id="employee.placeholder.name">
       <notes>
-        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:73</note>
-        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:69</note>
+        <note category="location">src/app/features/pds/pages/table-client-side/table-client-side.config.ts:74</note>
+        <note category="location">src/app/features/pds/pages/table-server-side/table-server-side.config.ts:70</note>
         <note category="description">Filter placeholder</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1179,19 +2098,9 @@
         <source>Close settings</source>
       </segment>
     </unit>
-    <unit id="settings.density.title">
-      <notes>
-        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:14,16</note>
-        <note category="description">Density section</note>
-        <note category="meaning">Settings</note>
-      </notes>
-      <segment>
-        <source>Information Density</source>
-      </segment>
-    </unit>
     <unit id="settings.scheme.title">
       <notes>
-        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:25,27</note>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:14,16</note>
         <note category="description">Mode section</note>
         <note category="meaning">Settings</note>
       </notes>
@@ -1201,7 +2110,7 @@
     </unit>
     <unit id="settings.theme.title">
       <notes>
-        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:36,38</note>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:25,27</note>
         <note category="description">Accent color section</note>
         <note category="meaning">Settings</note>
       </notes>
@@ -1211,7 +2120,7 @@
     </unit>
     <unit id="settings.btn.reset">
       <notes>
-        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:61,65</note>
+        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.html:50,54</note>
         <note category="description">Button to reset settings</note>
         <note category="meaning">Settings</note>
       </notes>
@@ -1247,36 +2156,6 @@
       </notes>
       <segment>
         <source>Light</source>
-      </segment>
-    </unit>
-    <unit id="settings.density.comfortable">
-      <notes>
-        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:46</note>
-        <note category="description">Density option</note>
-        <note category="meaning">Settings</note>
-      </notes>
-      <segment>
-        <source>Comfortable</source>
-      </segment>
-    </unit>
-    <unit id="settings.density.compact">
-      <notes>
-        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:47</note>
-        <note category="description">Density option</note>
-        <note category="meaning">Settings</note>
-      </notes>
-      <segment>
-        <source>Compact</source>
-      </segment>
-    </unit>
-    <unit id="settings.density.dense">
-      <notes>
-        <note category="location">src/app/layout/components/settings-panel/settings-panel.component.ts:48</note>
-        <note category="description">Density option</note>
-        <note category="meaning">Settings</note>
-      </notes>
-      <segment>
-        <source>Dense</source>
       </segment>
     </unit>
     <unit id="sidebar.appName">
@@ -1349,16 +2228,6 @@
         <source>Toggle sidebar</source>
       </segment>
     </unit>
-    <unit id="toolbar.title">
-      <notes>
-        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:12,16</note>
-        <note category="description">Main panel title</note>
-        <note category="meaning">Toolbar</note>
-      </notes>
-      <segment>
-        <source>Dashboard</source>
-      </segment>
-    </unit>
     <unit id="toolbar.btn.search">
       <notes>
         <note category="location">src/app/layout/components/toolbar/toolbar.component.html:18</note>
@@ -1427,16 +2296,6 @@
       </notes>
       <segment>
         <source>User menu</source>
-      </segment>
-    </unit>
-    <unit id="toolbar.menu.user.name">
-      <notes>
-        <note category="location">src/app/layout/components/toolbar/toolbar.component.html:60,61</note>
-        <note category="description">User name in menu</note>
-        <note category="meaning">Toolbar</note>
-      </notes>
-      <segment>
-        <source>Admin User</source>
       </segment>
     </unit>
     <unit id="toolbar.menu.user.profile">
@@ -1541,7 +2400,7 @@
     </unit>
     <unit id="table.header.actions">
       <notes>
-        <note category="location">src/app/ui-kit/atoms/app-table/app-table.component.ts:73,74</note>
+        <note category="location">src/app/ui-kit/atoms/app-table/app-table.component.ts:75,76</note>
         <note category="description">Actions column header</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1551,7 +2410,7 @@
     </unit>
     <unit id="table.empty">
       <notes>
-        <note category="location">src/app/ui-kit/atoms/app-table/app-table.model.ts:44</note>
+        <note category="location">src/app/ui-kit/atoms/app-table/app-table.model.ts:45</note>
         <note category="description">Empty state message</note>
         <note category="meaning">Table</note>
       </notes>
@@ -1571,7 +2430,7 @@
     </unit>
     <unit id="filters.btn.add">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.html:73,78</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.html:78,83</note>
         <note category="description">Add criterion button</note>
         <note category="meaning">Filters</note>
       </notes>
@@ -1581,7 +2440,7 @@
     </unit>
     <unit id="filter.boolean.yes">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:38</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:29</note>
         <note category="description">Boolean yes option</note>
         <note category="meaning">Filter</note>
       </notes>
@@ -1591,7 +2450,7 @@
     </unit>
     <unit id="filter.boolean.no">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:39</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:30</note>
         <note category="description">Boolean no option</note>
         <note category="meaning">Filter</note>
       </notes>
@@ -1601,7 +2460,7 @@
     </unit>
     <unit id="filter.form.field">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:124</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:112</note>
         <note category="description">Field selector label</note>
         <note category="meaning">Filter</note>
       </notes>
@@ -1611,7 +2470,7 @@
     </unit>
     <unit id="filter.form.operator">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:127</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:115</note>
         <note category="description">Operator selector label</note>
         <note category="meaning">Filter</note>
       </notes>
@@ -1621,7 +2480,7 @@
     </unit>
     <unit id="filter.form.value">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:130</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:118</note>
         <note category="description">Value input label</note>
         <note category="meaning">Filter</note>
       </notes>
@@ -1631,7 +2490,7 @@
     </unit>
     <unit id="filter.form.date">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:133</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:121</note>
         <note category="description">Date input label</note>
         <note category="meaning">Filter</note>
       </notes>
@@ -1641,7 +2500,7 @@
     </unit>
     <unit id="filter.pill.remove">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:180</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts:168</note>
         <note category="description">Remove criterion button</note>
         <note category="meaning">Filter</note>
       </notes>
@@ -1781,7 +2640,7 @@
     </unit>
     <unit id="filters.btn.clear">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/footer/app-filter-footer.component.html:18,22</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/footer/app-filter-footer.component.html:19,23</note>
         <note category="description">Clear filters button</note>
         <note category="meaning">Filters</note>
       </notes>
@@ -1791,7 +2650,7 @@
     </unit>
     <unit id="filters.btn.search">
       <notes>
-        <note category="location">src/app/ui-kit/molecules/app-filters/footer/app-filter-footer.component.html:24,27</note>
+        <note category="location">src/app/ui-kit/molecules/app-filters/footer/app-filter-footer.component.html:25,28</note>
         <note category="description">Search button</note>
         <note category="meaning">Filters</note>
       </notes>
@@ -1809,6 +2668,206 @@
         <source>-- All --</source>
       </segment>
     </unit>
+    <unit id="formCheckbox.error.required">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-checkbox/app-form-checkbox.model.ts:24</note>
+        <note category="description">Required error</note>
+        <note category="meaning">FormCheckbox</note>
+      </notes>
+      <segment>
+        <source>This field must be checked</source>
+      </segment>
+    </unit>
+    <unit id="formCheckbox.error.requiredTrue">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-checkbox/app-form-checkbox.model.ts:25</note>
+        <note category="description">Required true error</note>
+        <note category="meaning">FormCheckbox</note>
+      </notes>
+      <segment>
+        <source>You must accept this to continue</source>
+      </segment>
+    </unit>
+    <unit id="formDatepicker.error.required">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-datepicker/app-form-datepicker.model.ts:36</note>
+        <note category="description">Required error</note>
+        <note category="meaning">FormDatepicker</note>
+      </notes>
+      <segment>
+        <source>This field is required</source>
+      </segment>
+    </unit>
+    <unit id="formDatepicker.error.minDate">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-datepicker/app-form-datepicker.model.ts:37</note>
+        <note category="description">Min date error</note>
+        <note category="meaning">FormDatepicker</note>
+      </notes>
+      <segment>
+        <source>Date is too early</source>
+      </segment>
+    </unit>
+    <unit id="formDatepicker.error.maxDate">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-datepicker/app-form-datepicker.model.ts:38</note>
+        <note category="description">Max date error</note>
+        <note category="meaning">FormDatepicker</note>
+      </notes>
+      <segment>
+        <source>Date is too late</source>
+      </segment>
+    </unit>
+    <unit id="formDatepicker.error.filter">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-datepicker/app-form-datepicker.model.ts:39</note>
+        <note category="description">Filter error</note>
+        <note category="meaning">FormDatepicker</note>
+      </notes>
+      <segment>
+        <source>Invalid date</source>
+      </segment>
+    </unit>
+    <unit id="formDatepicker.error.parse">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-datepicker/app-form-datepicker.model.ts:40</note>
+        <note category="description">Parse error</note>
+        <note category="meaning">FormDatepicker</note>
+      </notes>
+      <segment>
+        <source>Invalid date format</source>
+      </segment>
+    </unit>
+    <unit id="formInput.error.required">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-input/app-form-input.model.ts:36</note>
+        <note category="description">Required error</note>
+        <note category="meaning">FormInput</note>
+      </notes>
+      <segment>
+        <source>This field is required</source>
+      </segment>
+    </unit>
+    <unit id="formInput.error.email">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-input/app-form-input.model.ts:37</note>
+        <note category="description">Email error</note>
+        <note category="meaning">FormInput</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid email address</source>
+      </segment>
+    </unit>
+    <unit id="formInput.error.minlength">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-input/app-form-input.model.ts:38</note>
+        <note category="description">Min length error</note>
+        <note category="meaning">FormInput</note>
+      </notes>
+      <segment>
+        <source>The value is too short</source>
+      </segment>
+    </unit>
+    <unit id="formInput.error.maxlength">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-input/app-form-input.model.ts:39</note>
+        <note category="description">Max length error</note>
+        <note category="meaning">FormInput</note>
+      </notes>
+      <segment>
+        <source>The value is too long</source>
+      </segment>
+    </unit>
+    <unit id="formInput.error.pattern">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-input/app-form-input.model.ts:40</note>
+        <note category="description">Pattern error</note>
+        <note category="meaning">FormInput</note>
+      </notes>
+      <segment>
+        <source>The format is not valid</source>
+      </segment>
+    </unit>
+    <unit id="formRadioGroup.error.required">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-radio-group/app-form-radio-group.model.ts:26</note>
+        <note category="description">Required error</note>
+        <note category="meaning">FormRadioGroup</note>
+      </notes>
+      <segment>
+        <source>This field is required</source>
+      </segment>
+    </unit>
+    <unit id="formSelect.error.required">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-select/app-form-select.model.ts:41</note>
+        <note category="description">Required error</note>
+        <note category="meaning">FormSelect</note>
+      </notes>
+      <segment>
+        <source>This field is required</source>
+      </segment>
+    </unit>
+    <unit id="formSelect.error.minlength">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-select/app-form-select.model.ts:42</note>
+        <note category="description">Min length error</note>
+        <note category="meaning">FormSelect</note>
+      </notes>
+      <segment>
+        <source>Please select at least {requiredLength} options</source>
+      </segment>
+    </unit>
+    <unit id="formSelect.error.maxlength">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-select/app-form-select.model.ts:43</note>
+        <note category="description">Max length error</note>
+        <note category="meaning">FormSelect</note>
+      </notes>
+      <segment>
+        <source>Please select no more than {requiredLength} options</source>
+      </segment>
+    </unit>
+    <unit id="formTextarea.error.required">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-textarea/app-form-textarea.model.ts:34</note>
+        <note category="description">Required error</note>
+        <note category="meaning">FormTextarea</note>
+      </notes>
+      <segment>
+        <source>This field is required</source>
+      </segment>
+    </unit>
+    <unit id="formTextarea.error.minlength">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-textarea/app-form-textarea.model.ts:35</note>
+        <note category="description">Min length error</note>
+        <note category="meaning">FormTextarea</note>
+      </notes>
+      <segment>
+        <source>The text is too short</source>
+      </segment>
+    </unit>
+    <unit id="formTextarea.error.maxlength">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-textarea/app-form-textarea.model.ts:36</note>
+        <note category="description">Max length error</note>
+        <note category="meaning">FormTextarea</note>
+      </notes>
+      <segment>
+        <source>The text is too long</source>
+      </segment>
+    </unit>
+    <unit id="formTextarea.error.pattern">
+      <notes>
+        <note category="location">src/app/ui-kit/molecules/app-form/app-form-textarea/app-form-textarea.model.ts:37</note>
+        <note category="description">Pattern error</note>
+        <note category="meaning">FormTextarea</note>
+      </notes>
+      <segment>
+        <source>The format is not valid</source>
+      </segment>
+    </unit>
     <unit id="table.advancedFilters.title">
       <notes>
         <note category="location">src/app/ui-kit/organisms/app-tables/client-side/app-table-client-side.component.ts:37</note>
@@ -1819,339 +2878,6 @@
       <segment>
         <source>Advanced filters</source>
       </segment>
-    </unit>
-    <unit id="login.heading">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.html</note>
-        <note category="description">Page heading</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Welcome</source>
-      </segment>
-    </unit>
-    <unit id="login.subheading">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.html</note>
-        <note category="description">Page subheading</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Sign in to continue</source>
-      </segment>
-    </unit>
-    <unit id="login.field.email.label">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.ts</note>
-        <note category="description">Email field label</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Email</source>
-      </segment>
-    </unit>
-    <unit id="login.field.email.placeholder">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.ts</note>
-        <note category="description">Email field placeholder</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>user@example.com</source>
-      </segment>
-    </unit>
-    <unit id="login.field.email.error.required">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.ts</note>
-        <note category="description">Email required error</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Email is required</source>
-      </segment>
-    </unit>
-    <unit id="login.field.email.error.email">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.ts</note>
-        <note category="description">Email invalid error</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Enter a valid email</source>
-      </segment>
-    </unit>
-    <unit id="login.field.password.label">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.html</note>
-        <note category="description">Password field label</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Password</source>
-      </segment>
-    </unit>
-    <unit id="login.field.password.checkbox.label">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.html</note>
-        <note category="description">Show password checkbox label</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Show password</source>
-      </segment>
-    </unit>
-    <unit id="login.field.password.checkbox.ariaLabel">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.html</note>
-        <note category="description">Show password checkbox aria-label</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Show password</source>
-      </segment>
-    </unit>
-    <unit id="login.field.password.error.required">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.ts</note>
-        <note category="description">Password required error</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Password is required</source>
-      </segment>
-    </unit>
-    <unit id="login.field.password.error.minlength">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.ts</note>
-        <note category="description">Password minlength error</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Minimum <ph id="0" equiv="minLength" disp="minPasswordLength"/> characters</source>
-      </segment>
-    </unit>
-    <unit id="login.btn.submit">
-      <notes>
-        <note category="location">src/app/features/auth/login/login.component.html</note>
-        <note category="description">Submit button</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment>
-        <source>Sign in</source>
-      </segment>
-    </unit>
-    <unit id="login.forgot.link">
-      <notes>
-        <note category="description">Forgot password link</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment><source>Forgot password?</source></segment>
-    </unit>
-    <unit id="login.register.text">
-      <notes>
-        <note category="description">Register prompt text</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment><source>Don't have an account?</source></segment>
-    </unit>
-    <unit id="login.register.link">
-      <notes>
-        <note category="description">Register link</note>
-        <note category="meaning">Login</note>
-      </notes>
-      <segment><source>Create one</source></segment>
-    </unit>
-    <unit id="register.heading">
-      <notes><note category="description">Page heading</note><note category="meaning">Register</note></notes>
-      <segment><source>Create account</source></segment>
-    </unit>
-    <unit id="register.subheading">
-      <notes><note category="description">Page subheading</note><note category="meaning">Register</note></notes>
-      <segment><source>Fill in your details to get started</source></segment>
-    </unit>
-    <unit id="register.field.name.label">
-      <notes><note category="description">Name field label</note><note category="meaning">Register</note></notes>
-      <segment><source>Full name</source></segment>
-    </unit>
-    <unit id="register.field.name.placeholder">
-      <notes><note category="description">Name field placeholder</note><note category="meaning">Register</note></notes>
-      <segment><source>John Doe</source></segment>
-    </unit>
-    <unit id="register.field.name.error.required">
-      <notes><note category="description">Name required error</note><note category="meaning">Register</note></notes>
-      <segment><source>Full name is required</source></segment>
-    </unit>
-    <unit id="register.field.email.label">
-      <notes><note category="description">Email field label</note><note category="meaning">Register</note></notes>
-      <segment><source>Email</source></segment>
-    </unit>
-    <unit id="register.field.email.placeholder">
-      <notes><note category="description">Email field placeholder</note><note category="meaning">Register</note></notes>
-      <segment><source>user@example.com</source></segment>
-    </unit>
-    <unit id="register.field.email.error.required">
-      <notes><note category="description">Email required error</note><note category="meaning">Register</note></notes>
-      <segment><source>Email is required</source></segment>
-    </unit>
-    <unit id="register.field.email.error.email">
-      <notes><note category="description">Email invalid error</note><note category="meaning">Register</note></notes>
-      <segment><source>Enter a valid email</source></segment>
-    </unit>
-    <unit id="register.field.password.label">
-      <notes><note category="description">Password field label</note><note category="meaning">Register</note></notes>
-      <segment><source>Password</source></segment>
-    </unit>
-    <unit id="register.field.password.error.required">
-      <notes><note category="description">Password required error</note><note category="meaning">Register</note></notes>
-      <segment><source>Password is required</source></segment>
-    </unit>
-    <unit id="register.field.password.error.minlength">
-      <notes><note category="description">Password minlength error</note><note category="meaning">Register</note></notes>
-      <segment><source>Minimum <ph id="0" equiv="minLength" disp="minPasswordLength"/> characters</source></segment>
-    </unit>
-    <unit id="register.field.confirm.label">
-      <notes><note category="description">Confirm password label</note><note category="meaning">Register</note></notes>
-      <segment><source>Confirm password</source></segment>
-    </unit>
-    <unit id="register.field.confirm.error.required">
-      <notes><note category="description">Confirm password required</note><note category="meaning">Register</note></notes>
-      <segment><source>Please confirm your password</source></segment>
-    </unit>
-    <unit id="register.field.confirm.error.mismatch">
-      <notes><note category="description">Password mismatch error</note><note category="meaning">Register</note></notes>
-      <segment><source>Passwords do not match</source></segment>
-    </unit>
-    <unit id="register.field.password.checkbox.label">
-      <notes><note category="description">Show password checkbox label</note><note category="meaning">Register</note></notes>
-      <segment><source>Show password</source></segment>
-    </unit>
-    <unit id="register.field.password.checkbox.ariaLabel">
-      <notes><note category="description">Show password checkbox aria-label</note><note category="meaning">Register</note></notes>
-      <segment><source>Show password</source></segment>
-    </unit>
-    <unit id="register.btn.submit">
-      <notes><note category="description">Submit button</note><note category="meaning">Register</note></notes>
-      <segment><source>Create account</source></segment>
-    </unit>
-    <unit id="register.login.text">
-      <notes><note category="description">Login prompt text</note><note category="meaning">Register</note></notes>
-      <segment><source>Already have an account?</source></segment>
-    </unit>
-    <unit id="register.login.link">
-      <notes><note category="description">Login link</note><note category="meaning">Register</note></notes>
-      <segment><source>Sign in</source></segment>
-    </unit>
-    <unit id="register.error.generic">
-      <notes><note category="description">Generic registration error</note><note category="meaning">Register</note></notes>
-      <segment><source>Registration failed. Please try again.</source></segment>
-    </unit>
-    <unit id="forgot.heading">
-      <notes><note category="description">Page heading</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Forgot your password?</source></segment>
-    </unit>
-    <unit id="forgot.subheading">
-      <notes><note category="description">Page subheading</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Enter your email and we'll send you a reset link</source></segment>
-    </unit>
-    <unit id="forgot.field.email.label">
-      <notes><note category="description">Email field label</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Email</source></segment>
-    </unit>
-    <unit id="forgot.field.email.placeholder">
-      <notes><note category="description">Email field placeholder</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>user@example.com</source></segment>
-    </unit>
-    <unit id="forgot.field.email.error.required">
-      <notes><note category="description">Email required error</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Email is required</source></segment>
-    </unit>
-    <unit id="forgot.field.email.error.email">
-      <notes><note category="description">Email invalid error</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Enter a valid email</source></segment>
-    </unit>
-    <unit id="forgot.btn.submit">
-      <notes><note category="description">Submit button</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Send reset link</source></segment>
-    </unit>
-    <unit id="forgot.success">
-      <notes><note category="description">Success message</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Check your inbox — a reset link is on its way.</source></segment>
-    </unit>
-    <unit id="forgot.login.link">
-      <notes><note category="description">Back to login link</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Back to sign in</source></segment>
-    </unit>
-    <unit id="forgot.error.generic">
-      <notes><note category="description">Generic error</note><note category="meaning">ForgotPassword</note></notes>
-      <segment><source>Something went wrong. Please try again.</source></segment>
-    </unit>
-    <unit id="reset.heading">
-      <notes><note category="description">Page heading</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Set new password</source></segment>
-    </unit>
-    <unit id="reset.subheading">
-      <notes><note category="description">Page subheading</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Choose a strong password for your account</source></segment>
-    </unit>
-    <unit id="reset.field.password.label">
-      <notes><note category="description">Password field label</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>New password</source></segment>
-    </unit>
-    <unit id="reset.field.password.error.required">
-      <notes><note category="description">Password required error</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Password is required</source></segment>
-    </unit>
-    <unit id="reset.field.password.error.minlength">
-      <notes><note category="description">Password minlength error</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Minimum <ph id="0" equiv="minLength" disp="minPasswordLength"/> characters</source></segment>
-    </unit>
-    <unit id="reset.field.confirm.label">
-      <notes><note category="description">Confirm password label</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Confirm new password</source></segment>
-    </unit>
-    <unit id="reset.field.confirm.error.required">
-      <notes><note category="description">Confirm password required</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Please confirm your password</source></segment>
-    </unit>
-    <unit id="reset.field.confirm.error.mismatch">
-      <notes><note category="description">Password mismatch error</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Passwords do not match</source></segment>
-    </unit>
-    <unit id="reset.field.password.checkbox.label">
-      <notes><note category="description">Show password label</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Show password</source></segment>
-    </unit>
-    <unit id="reset.field.password.checkbox.ariaLabel">
-      <notes><note category="description">Show password aria-label</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Show password</source></segment>
-    </unit>
-    <unit id="reset.btn.submit">
-      <notes><note category="description">Submit button</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Update password</source></segment>
-    </unit>
-    <unit id="reset.btn.login">
-      <notes><note category="description">Go to login button</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Go to sign in</source></segment>
-    </unit>
-    <unit id="reset.btn.requestNew">
-      <notes><note category="description">Request new link button</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Request a new link</source></segment>
-    </unit>
-    <unit id="reset.success">
-      <notes><note category="description">Success message</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Your password has been updated. You can now sign in.</source></segment>
-    </unit>
-    <unit id="reset.error.invalidToken">
-      <notes><note category="description">Invalid token error</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>This reset link is invalid or has expired.</source></segment>
-    </unit>
-    <unit id="reset.error.generic">
-      <notes><note category="description">Generic error</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Something went wrong. Please try again.</source></segment>
-    </unit>
-    <unit id="reset.login.link">
-      <notes><note category="description">Back to login link</note><note category="meaning">ResetPassword</note></notes>
-      <segment><source>Back to sign in</source></segment>
     </unit>
   </file>
 </xliff>
