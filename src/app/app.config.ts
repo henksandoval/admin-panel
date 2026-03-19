@@ -25,6 +25,7 @@ import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
 import { environment } from '@env/environment.development';
 import { errorInterceptor } from '@core/interceptors/error.interceptor';
 import { ROUTE_LOADER_REGISTRY } from '@core/registry/route-registry';
+import { FEATURE_FLAGS } from '@core/services/feature-flags.service';
 
 registerLocaleData(localeEs);
 
@@ -63,5 +64,6 @@ export const appConfig: ApplicationConfig = {
     { provide: AUTH_PUBLIC_URLS, useValue: ['/auth/login', '/auth/refresh', '/auth/logout'] },
     { provide: API_BASE_URL,     useValue: environment.apiBaseUrl },
     { provide: ROUTE_LOADER_REGISTRY, useValue: featureRouteLoaders },
+    { provide: FEATURE_FLAGS,    useValue: environment.featureFlags },
   ]
 };

@@ -6,4 +6,8 @@ export const environment: AppEnvironment = {
   logLevel: LogLevel.debug,
   apiBaseUrl: 'http://localhost:3000',
   strictMenuRoutes: false,
+  featureFlags: {
+    'dashboard.analytics': true,
+    'users.export': true,
+  },
 };
