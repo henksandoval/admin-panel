@@ -1,3 +1,4 @@
+export * from './audit.model';
 export * from './feature-flags.model';
 export * from './log-level.model';
 export * from './navigation.model';
