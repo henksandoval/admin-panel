@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Router } from '@angular/router';
 import { EMPTY, of, throwError } from 'rxjs';
-import { ApiMenuItem } from '@core/contracts';
+import { ApiMenuItem, MenuContractError, MENU_SCHEMA_VERSION } from '@core/contracts';
 import { AuthService } from '@auth/services/auth.service';
 import { LAYOUT_ROUTE_FACTORY } from '../../app.routes';
 import { InitializationService } from './initialization.service';
@@ -25,6 +25,7 @@ function createInitializationService() {
 
   const routerMock = {
     resetConfig: vi.fn(),
+    navigateByUrl: vi.fn().mockResolvedValue(true),
   };
 
   const loggerMock = {
@@ -88,6 +89,18 @@ describe('InitializationService', () => {
     await expect(service.initialize()).rejects.toThrow('API Error');
 
     expect(routerMock.resetConfig).not.toHaveBeenCalled();
+    expect(loggerMock.error).toHaveBeenCalled();
+  });
+
+  it('navigates to the error page and does not re-throw when loadMenu fails with a MenuContractError', async () => {
+    const { service, menuDataMock, routerMock, loggerMock } = createInitializationService();
+    const contractError = new MenuContractError(`[MenuContract v${MENU_SCHEMA_VERSION}] 1 menu item(s) failed validation.`);
+    menuDataMock.loadMenu.mockReturnValue(throwError(() => contractError));
+
+    await expect(service.initialize()).resolves.toBeUndefined();
+
+    expect(routerMock.resetConfig).toHaveBeenCalled();
+    expect(routerMock.navigateByUrl).toHaveBeenCalledWith('/errors/server-error');
     expect(loggerMock.error).toHaveBeenCalled();
   });
 });

@@ -6,7 +6,10 @@ import { MenuDataService } from './menu-data.service';
 import { RouteBuilderService } from './route-builder.service';
 import { LoggingService } from './logging.service';
 import { AuthService } from '@auth/services/auth.service';
+import { MenuContractError } from '@core/contracts';
 import { environment } from '@env/environment';
+
+const MENU_CONTRACT_ERROR_ROUTE = '/errors/server-error';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +36,11 @@ export class InitializationService {
       this.logger.info('Rutas dinámicas inicializadas correctamente.');
     } catch (error) {
       this.logger.error('Error al inicializar rutas dinámicas.', error);
+      if (error instanceof MenuContractError) {
+        this.router.resetConfig(this.layoutRouteFactory([]));
+        await this.router.navigateByUrl(MENU_CONTRACT_ERROR_ROUTE);
+        return;
+      }
       throw error;
     }
   }
