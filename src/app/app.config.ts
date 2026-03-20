@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  ErrorHandler,
   inject,
   LOCALE_ID,
   provideAppInitializer,
@@ -24,8 +25,10 @@ import { API_BASE_URL, JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.prov
 import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
 import { environment } from '@env/environment.development';
 import { errorInterceptor } from '@core/interceptors/error.interceptor';
+import { correlationInterceptor } from '@core/interceptors/correlation.interceptor';
 import { ROUTE_LOADER_REGISTRY } from '@core/registry/route-registry';
 import { FEATURE_FLAGS } from '@core/services/feature-flags.service';
+import { GlobalErrorHandler } from '@core/handlers/global-error.handler';
 
 registerLocaleData(localeEs);
 
@@ -34,8 +37,9 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
+    provideHttpClient(withInterceptors([correlationInterceptor, authInterceptor, errorInterceptor])),
     provideAppInitializer(() => inject(InitializationService).initialize()),
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
     provideHighlightOptions({
       coreLibraryLoader: () => import('highlight.js/lib/core'),
       languages: {

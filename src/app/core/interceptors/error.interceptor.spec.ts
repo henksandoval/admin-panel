@@ -13,6 +13,7 @@ import { describe, it, expect, afterEach, vi } from 'vitest';
 
 import { errorInterceptor } from './error.interceptor';
 import { NotificationService } from '@core/services/notification.service';
+import { CorrelationService } from '@core/services/correlation.service';
 
 const TEST_URL = 'https://api.example.com/data';
 
@@ -31,12 +32,15 @@ function setup(initialUrl = '/dashboard') {
     navigateByUrl: vi.fn().mockResolvedValue(true),
   };
 
+  const correlationServiceMock = { id: 'test-correlation-id' };
+
   TestBed.configureTestingModule({
     providers: [
       provideHttpClient(withInterceptors([errorInterceptor])),
       provideHttpClientTesting(),
       { provide: NotificationService, useValue: notificationServiceMock },
       { provide: Router, useValue: routerMock },
+      { provide: CorrelationService, useValue: correlationServiceMock },
     ],
   });
 
@@ -110,5 +114,53 @@ describe('errorInterceptor', () => {
     req.flush({}, { status: 500, statusText: 'Server Error' });
 
     expect(routerMock.navigateByUrl).not.toHaveBeenCalled();
+  });
+
+  it('logs 5xx errors as operational using console.error', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockReturnValue(undefined);
+    const { http, httpMock } = setup();
+
+    http.get(TEST_URL).subscribe({ error: () => undefined });
+
+    httpMock.expectOne(TEST_URL).flush({}, { status: 500, statusText: 'Server Error' });
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringMatching(/\[ERROR\]/),
+      expect.objectContaining({ correlationId: 'test-correlation-id', status: 500 }),
+    );
+
+    vi.restoreAllMocks();
+  });
+
+  it('logs 4xx errors as expected using console.warn', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockReturnValue(undefined);
+    const { http, httpMock } = setup();
+
+    http.get(TEST_URL).subscribe({ error: () => undefined });
+
+    httpMock.expectOne(TEST_URL).flush({}, { status: 403, statusText: 'Forbidden' });
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringMatching(/\[WARN\]/),
+      expect.objectContaining({ correlationId: 'test-correlation-id', status: 403 }),
+    );
+
+    vi.restoreAllMocks();
+  });
+
+  it('includes the correlation ID in the log context', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockReturnValue(undefined);
+    const { http, httpMock } = setup();
+
+    http.get(TEST_URL).subscribe({ error: () => undefined });
+
+    httpMock.expectOne(TEST_URL).flush({}, { status: 500, statusText: 'Server Error' });
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ correlationId: 'test-correlation-id' }),
+    );
+
+    vi.restoreAllMocks();
   });
 });
