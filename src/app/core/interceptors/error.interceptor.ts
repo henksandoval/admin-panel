@@ -3,6 +3,9 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { NotificationService } from '@core/services/notification.service';
+import { LoggingService } from '@core/services/logging.service';
+import { CorrelationService } from '@core/services/correlation.service';
+import { ErrorKind } from '@core/models';
 
 const NAVIGATION_HANDLED_STATUSES = new Set([403, 404, 500, 503]);
 const OPERATIONAL_ERROR_DURATION = 8000;
@@ -10,6 +13,8 @@ const OPERATIONAL_ERROR_DURATION = 8000;
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     const notificationService = inject(NotificationService);
     const router = inject(Router);
+    const logger = inject(LoggingService);
+    const correlation = inject(CorrelationService);
 
     return next(req).pipe(
         catchError((error: unknown) => {
@@ -22,10 +27,39 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                 notifyError(httpError, notificationService);
             }
 
+            const kind = classifyError(httpError);
+            logHttpError(logger, kind, httpError, correlation.id);
+
+            navigateOnHttpStatus(httpError?.status, router);
+            notificationService.error(
+                errorMsg,
+                $localize`:Http error|Toast title@@errors.http.title:Request error`,
+            );
             return throwError(() => error);
         })
     );
 };
+
+function classifyError(error: HttpErrorResponse | null): ErrorKind {
+    if (!error || error.error instanceof ErrorEvent) {
+        return 'operational';
+    }
+    return error.status >= 500 ? 'operational' : 'expected';
+}
+
+function logHttpError(
+    logger: LoggingService,
+    kind: ErrorKind,
+    error: HttpErrorResponse | null,
+    correlationId: string,
+): void {
+    const errorContext = { correlationId, status: error?.status, url: error?.url };
+    if (kind === 'operational') {
+        logger.error('Operational HTTP error', errorContext);
+    } else {
+        logger.warn('Expected HTTP error', errorContext);
+    }
+}
 
 function notifyError(httpError: HttpErrorResponse | null, notificationService: NotificationService): void {
     const title = $localize`:Http error|Toast title@@errors.http.title:Request error`;
