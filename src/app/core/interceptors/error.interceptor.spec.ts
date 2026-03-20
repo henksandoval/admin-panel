@@ -54,94 +54,46 @@ describe('errorInterceptor', () => {
     TestBed.inject(HttpTestingController).verify();
   });
 
-  it('navigates to unauthorized page when response status is 403', () => {
-    const { http, httpMock, routerMock } = setup();
+  it('navigates to the error page and suppresses the toast for 403', () => {
+    const { http, httpMock, notificationServiceMock, routerMock } = setup();
 
     http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 403, statusText: 'Forbidden' });
+    httpMock.expectOne(TEST_URL).flush({}, { status: 403, statusText: 'Forbidden' });
 
     expect(routerMock.navigateByUrl).toHaveBeenCalledWith('/errors/unauthorized');
-  });
-
-  it('does not show a notification for 403 because the error page communicates it', () => {
-    const { http, httpMock, notificationServiceMock } = setup();
-
-    http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 403, statusText: 'Forbidden' });
-
     expect(notificationServiceMock.error).not.toHaveBeenCalled();
     expect(notificationServiceMock.warning).not.toHaveBeenCalled();
   });
 
-  it('navigates to not-found page when response status is 404', () => {
-    const { http, httpMock, routerMock } = setup();
+  it('navigates to the error page and suppresses the toast for 404', () => {
+    const { http, httpMock, notificationServiceMock, routerMock } = setup();
 
     http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 404, statusText: 'Not Found' });
+    httpMock.expectOne(TEST_URL).flush({}, { status: 404, statusText: 'Not Found' });
 
     expect(routerMock.navigateByUrl).toHaveBeenCalledWith('/errors/not-found');
-  });
-
-  it('does not show a notification for 404 because the error page communicates it', () => {
-    const { http, httpMock, notificationServiceMock } = setup();
-
-    http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 404, statusText: 'Not Found' });
-
     expect(notificationServiceMock.error).not.toHaveBeenCalled();
     expect(notificationServiceMock.warning).not.toHaveBeenCalled();
   });
 
-  it('navigates to server-error page when response status is 500', () => {
-    const { http, httpMock, routerMock } = setup();
+  it('navigates to the error page and suppresses the toast for 500', () => {
+    const { http, httpMock, notificationServiceMock, routerMock } = setup();
 
     http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 500, statusText: 'Server Error' });
+    httpMock.expectOne(TEST_URL).flush({}, { status: 500, statusText: 'Server Error' });
 
     expect(routerMock.navigateByUrl).toHaveBeenCalledWith('/errors/server-error');
-  });
-
-  it('does not show a notification for 500 because the error page communicates it', () => {
-    const { http, httpMock, notificationServiceMock } = setup();
-
-    http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 500, statusText: 'Server Error' });
-
     expect(notificationServiceMock.error).not.toHaveBeenCalled();
     expect(notificationServiceMock.warning).not.toHaveBeenCalled();
   });
 
-  it('navigates to critical system-down page when response status is 503', () => {
-    const { http, httpMock, routerMock } = setup();
+  it('navigates to the critical page and suppresses the toast for 503', () => {
+    const { http, httpMock, notificationServiceMock, routerMock } = setup();
 
     http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 503, statusText: 'Service Unavailable' });
+    httpMock.expectOne(TEST_URL).flush({}, { status: 503, statusText: 'Service Unavailable' });
 
     expect(routerMock.navigateByUrl).toHaveBeenCalledWith('/critical-errors/system-down');
-  });
-
-  it('does not show a notification for 503 because the error page communicates it', () => {
-    const { http, httpMock, notificationServiceMock } = setup();
-
-    http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 503, statusText: 'Service Unavailable' });
-
     expect(notificationServiceMock.error).not.toHaveBeenCalled();
     expect(notificationServiceMock.warning).not.toHaveBeenCalled();
   });
@@ -150,9 +102,7 @@ describe('errorInterceptor', () => {
     const { http, httpMock, routerMock } = setup('/errors/not-found');
 
     http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 500, statusText: 'Server Error' });
+    httpMock.expectOne(TEST_URL).flush({}, { status: 500, statusText: 'Server Error' });
 
     expect(routerMock.navigateByUrl).not.toHaveBeenCalled();
   });
@@ -161,39 +111,29 @@ describe('errorInterceptor', () => {
     const { http, httpMock, notificationServiceMock } = setup();
 
     http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.error(new ProgressEvent('error'));
+    httpMock.expectOne(TEST_URL).error(new ProgressEvent('error'));
 
     expect(notificationServiceMock.warning).toHaveBeenCalled();
     expect(notificationServiceMock.error).not.toHaveBeenCalled();
   });
 
-  it('shows a warning notification for a 400 bad request', () => {
+  it('shows a warning notification for a non-navigation 4xx error', () => {
     const { http, httpMock, notificationServiceMock } = setup();
 
     http.get(TEST_URL).subscribe({ error: () => undefined });
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 400, statusText: 'Bad Request' });
+    httpMock.expectOne(TEST_URL).flush({}, { status: 400, statusText: 'Bad Request' });
 
     expect(notificationServiceMock.warning).toHaveBeenCalled();
     expect(notificationServiceMock.error).not.toHaveBeenCalled();
   });
 
-  it('shows an error notification with longer duration for an operational 502 error', () => {
+  it('shows an error notification with longer duration for an operational 5xx error', () => {
     const { http, httpMock, notificationServiceMock } = setup();
 
     http.get(TEST_URL).subscribe({ error: () => undefined });
+    httpMock.expectOne(TEST_URL).flush({}, { status: 502, statusText: 'Bad Gateway' });
 
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 502, statusText: 'Bad Gateway' });
-
-    expect(notificationServiceMock.error).toHaveBeenCalledWith(
-      expect.any(String),
-      expect.any(String),
-      8000,
-    );
+    expect(notificationServiceMock.error).toHaveBeenCalledWith(expect.any(String), expect.any(String), 8000);
     expect(notificationServiceMock.warning).not.toHaveBeenCalled();
   });
 
@@ -202,9 +142,7 @@ describe('errorInterceptor', () => {
     let errorReceived = false;
 
     http.get(TEST_URL).subscribe({ error: () => { errorReceived = true; }});
-
-    const req = httpMock.expectOne(TEST_URL);
-    req.flush({}, { status: 422, statusText: 'Unprocessable Entity' });
+    httpMock.expectOne(TEST_URL).flush({}, { status: 422, statusText: 'Unprocessable Entity' });
 
     expect(errorReceived).toBe(true);
   });
