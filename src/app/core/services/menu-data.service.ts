@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
-import { ApiMenuItem } from '@core/contracts';
+import { ApiMenuItem, validateApiMenuItems } from '@core/contracts';
 import { NavigationItem, NavigationBadge, NAVIGATION_DEFAULTS } from '@core/models';
 import { ROUTE_REGISTRY } from '@core/registry/route-registry';
 import { environment } from '@env/environment';
@@ -22,7 +22,8 @@ export class MenuDataService {
   public readonly navigationItems: Signal<NavigationItem[]> = this._navigationItems.asReadonly();
 
   public loadMenu(): Observable<void> {
-    return this.http.get<ApiMenuItem[]>('data/menu.json').pipe(
+    return this.http.get<unknown>('data/menu.json').pipe(
+      map((data: unknown) => validateApiMenuItems(data)),
       tap((items: ApiMenuItem[]) => {
         this._menuItems.set(items);
         this._navigationItems.set(this.buildNavigationItems(items, ''));
