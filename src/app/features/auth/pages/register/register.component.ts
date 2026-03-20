@@ -9,6 +9,7 @@ import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
 import { passwordMatchValidator } from '@features/auth/shared/validators';
 import { REGISTER_DEFAULTS, RegisterStatus } from './register.model';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
+import { APP_PATHS } from '@core/models/app-routes.model';
 
 @Component({
   selector: 'app-register',
@@ -100,7 +101,7 @@ export class RegisterComponent {
     this.authService.register({ displayName, email, password }).subscribe({
       next: () => {
         this.status.set('success');
-        void this.router.navigate(['/auth/login']);
+        void this.router.navigate([APP_PATHS.auth.login]);
       },
       error: (err: unknown) => {
         this.status.set('error');

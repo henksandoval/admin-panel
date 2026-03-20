@@ -1,4 +1,5 @@
 import { InjectionToken, Type } from '@angular/core';
+import { ROUTE_SEGMENTS } from '@core/models/app-routes.model';
 
 interface DefaultExport<T> {
   default: T;
@@ -22,21 +23,21 @@ export interface RouteDefinition {
 }
 
 const coreRoutes: Record<string, RouteDefinition> = {
-  'dashboard': { path: 'dashboard', requiresAuth: true },
+  'dashboard': { path: ROUTE_SEGMENTS.dashboard, requiresAuth: true },
 };
 
 const errorRoutes: Record<string, RouteDefinition> = {
-  'errors': { path: 'errors' },
-  'error-403': { path: 'unauthorized' },
-  'error-404': { path: 'not-found' },
-  'error-500': { path: 'server-error' },
+  'errors': { path: ROUTE_SEGMENTS.errors },
+  'error-403': { path: ROUTE_SEGMENTS.unauthorized },
+  'error-404': { path: ROUTE_SEGMENTS.notFound },
+  'error-500': { path: ROUTE_SEGMENTS.serverError },
 };
 
 const criticalErrorRoutes: Record<string, RouteDefinition> = {
-  'critical-errors': { path: 'critical-errors' },
-  'error-session-expired': { path: 'session-expired' },
-  'error-access-denied': { path: 'access-denied' },
-  'error-system-down': { path: 'system-down' },
+  'critical-errors': { path: ROUTE_SEGMENTS.criticalErrors },
+  'error-session-expired': { path: ROUTE_SEGMENTS.sessionExpired },
+  'error-access-denied': { path: ROUTE_SEGMENTS.accessDenied },
+  'error-system-down': { path: ROUTE_SEGMENTS.systemDown },
 };
 
 const pdsRoutes: Record<string, RouteDefinition> = {

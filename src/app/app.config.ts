@@ -26,6 +26,7 @@ import { environment } from '@env/environment.development';
 import { errorInterceptor } from '@core/interceptors/error.interceptor';
 import { ROUTE_LOADER_REGISTRY } from '@core/registry/route-registry';
 import { FEATURE_FLAGS } from '@core/services/feature-flags.service';
+import { ROUTE_SEGMENTS } from '@core/models/app-routes.model';
 
 registerLocaleData(localeEs);
 
@@ -61,7 +62,11 @@ export const appConfig: ApplicationConfig = {
       provide:  AUTH_PROVIDER,
       useClass: environment.production ? JwtAuthProvider : MockAuthProvider,
     },
-    { provide: AUTH_PUBLIC_URLS, useValue: ['/auth/login', '/auth/refresh', '/auth/logout'] },
+    { provide: AUTH_PUBLIC_URLS, useValue: [
+      `/${ROUTE_SEGMENTS.auth}/${ROUTE_SEGMENTS.login}`,
+      `/${ROUTE_SEGMENTS.auth}/refresh`,
+      `/${ROUTE_SEGMENTS.auth}/logout`,
+    ] },
     { provide: API_BASE_URL,     useValue: environment.apiBaseUrl },
     { provide: ROUTE_LOADER_REGISTRY, useValue: featureRouteLoaders },
     { provide: FEATURE_FLAGS,    useValue: environment.featureFlags },

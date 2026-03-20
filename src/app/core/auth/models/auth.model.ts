@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { APP_PATHS } from '@core/models/app-routes.model';
 
 export type AuthStatus = 'checking' | 'authenticated' | 'unauthenticated';
 
@@ -61,8 +62,8 @@ export const AUTH_DEFAULTS = {
   idleWarningMs: 2 * 60_000,
   idleWarningToastDurationMs: 10_000,
   redirectAfterLogin: '/',
-  loginRoute: '/auth/login',
-  unauthorizedRoute: '/errors/unauthorized',
-  sessionExpiredRoute: '/critical-errors/session-expired',
+  loginRoute: APP_PATHS.auth.login,
+  unauthorizedRoute: APP_PATHS.errors.unauthorized,
+  sessionExpiredRoute: APP_PATHS.criticalErrors.sessionExpired,
 } as const;
 

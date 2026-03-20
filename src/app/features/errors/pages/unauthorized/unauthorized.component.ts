@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ErrorsPageComponent } from '@features/errors/shared/templates/error-page-layout/error-page-layout.component';
+import { APP_PATHS } from '@core/models/app-routes.model';
 
 @Component({
   selector: 'app-unauthorized',
@@ -13,13 +14,14 @@ import { ErrorsPageComponent } from '@features/errors/shared/templates/error-pag
       [pageTitle]="pageTitle"
       [pageDescription]="pageDescription"
       [buttonText]="returnButtonText"
-      buttonRoute="/dashboard"
+      [buttonRoute]="dashboardRoute"
       dataTestId="unauthorized-page">
         <p class="app-not-found-code mat-display-medium">{{ pageCode }}</p>
     </app-error-page-layout>
   `,
 })
 export class UnauthorizedComponent {
+  protected readonly dashboardRoute = APP_PATHS.dashboard;
   protected readonly pageCode = '403';
   protected readonly pageTitle = $localize`:Unauthorized|Page title@@errors.unauthorized.title:Access denied`;
   protected readonly pageDescription = $localize`:Unauthorized|Page description@@errors.unauthorized.description:You do not have permission to access this resource`;

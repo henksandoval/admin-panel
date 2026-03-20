@@ -8,6 +8,7 @@ import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from
 import { AuthService } from '@auth/services/auth.service';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
 import { IAuthProvider, TokenResponse } from '@auth/models';
+import { APP_PATHS } from '@core/models/app-routes.model';
 
 let isRefreshing = false;
 const refreshTokenSubject = new BehaviorSubject<string | null>(null);
@@ -60,7 +61,7 @@ function handle401(
       }),
       catchError((error: unknown) => {
         isRefreshing = false;
-        authService.logout('/critical-errors/session-expired').subscribe();
+        authService.logout(APP_PATHS.criticalErrors.sessionExpired).subscribe();
         return throwError(() => error);
       }),
     );

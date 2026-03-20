@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { NotificationService } from '@core/services/notification.service';
+import { APP_PATHS } from '@core/models/app-routes.model';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     const notificationService = inject(NotificationService);
@@ -46,26 +47,26 @@ function buildServerErrorMessage(status?: number): string {
 function navigateOnHttpStatus(status: number | undefined, router: Router): void {
     const currentUrl = router.url;
 
-    if (currentUrl.startsWith('/errors/') || currentUrl.startsWith('/critical-errors/')) {
+    if (currentUrl.startsWith(APP_PATHS.errors.prefix) || currentUrl.startsWith(APP_PATHS.criticalErrors.prefix)) {
         return;
     }
 
     if (status === 403) {
-        void router.navigateByUrl('/errors/unauthorized');
+        void router.navigateByUrl(APP_PATHS.errors.unauthorized);
         return;
     }
 
     if (status === 404) {
-        void router.navigateByUrl('/errors/not-found');
+        void router.navigateByUrl(APP_PATHS.errors.notFound);
         return;
     }
 
     if (status === 500) {
-        void router.navigateByUrl('/errors/server-error');
+        void router.navigateByUrl(APP_PATHS.errors.serverError);
         return;
     }
 
     if (status === 503) {
-        void router.navigateByUrl('/critical-errors/system-down');
+        void router.navigateByUrl(APP_PATHS.criticalErrors.systemDown);
     }
 }

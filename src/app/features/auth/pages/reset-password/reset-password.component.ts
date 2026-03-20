@@ -10,6 +10,7 @@ import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
 import { passwordMatchValidator } from '@features/auth/shared/validators';
 import { RESET_PASSWORD_DEFAULTS, ResetPasswordStatus } from './reset-password.model';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
+import { APP_PATHS } from '@core/models/app-routes.model';
 
 @Component({
   selector: 'app-reset-password',
@@ -109,11 +110,11 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   protected goToLogin(): void {
-    void this.router.navigate(['/auth/login']);
+    void this.router.navigate([APP_PATHS.auth.login]);
   }
 
   protected goToForgotPassword(): void {
-    void this.router.navigate(['/auth/forgot-password']);
+    void this.router.navigate([APP_PATHS.auth.forgotPassword]);
   }
 }
 
