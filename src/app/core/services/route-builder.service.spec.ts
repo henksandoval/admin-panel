@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { ApiMenuItem } from '@core/contracts';
+import { NavigationItem } from '@core/models';
 import { authGuard, permissionGuard, roleGuard } from '@auth/guards/auth.guard';
 import { ROUTE_LOADER_REGISTRY, RouteLoaderRegistry } from '@core/registry/route-registry';
 import { LoggingService } from './logging.service';
@@ -51,7 +51,7 @@ describe('RouteBuilderService', () => {
   describe('buildRoutes', () => {
     it('generates a route with loadComponent when the item has a registered loader', () => {
       const { service } = createRouteBuilderService({ dashboard: MOCK_LOADER });
-      const item: ApiMenuItem = { id: 'dashboard', label: 'Dashboard' };
+      const item: NavigationItem = { id: 'dashboard', title: 'Dashboard', icon: '' };
 
       const routes = service.buildRoutes([item]);
 
@@ -62,10 +62,11 @@ describe('RouteBuilderService', () => {
 
     it('generates a parent route with children when the item has child items', () => {
       const { service } = createRouteBuilderService({ 'error-404': MOCK_LOADER });
-      const parent: ApiMenuItem = {
+      const parent: NavigationItem = {
         id: 'errors',
-        label: 'Errors',
-        children: [{ id: 'error-404', label: '404' }],
+        title: 'Errors',
+        icon: '',
+        children: [{ id: 'error-404', title: '404', icon: '' }],
       };
 
       const routes = service.buildRoutes([parent]);
@@ -78,7 +79,7 @@ describe('RouteBuilderService', () => {
 
     it('includes authGuard in canActivate for routes that require authentication without roles', () => {
       const { service } = createRouteBuilderService({ dashboard: MOCK_LOADER });
-      const item: ApiMenuItem = { id: 'dashboard', label: 'Dashboard' };
+      const item: NavigationItem = { id: 'dashboard', title: 'Dashboard', icon: '' };
 
       const routes = service.buildRoutes([item]);
 
@@ -87,7 +88,7 @@ describe('RouteBuilderService', () => {
 
     it('includes authGuard and roleGuard with role data for routes that require authentication with roles', () => {
       const { service } = createRouteBuilderService({ pds: MOCK_LOADER });
-      const item: ApiMenuItem = { id: 'pds', label: 'PDS' };
+      const item: NavigationItem = { id: 'pds', title: 'PDS', icon: '' };
 
       const routes = service.buildRoutes([item]);
 
@@ -97,7 +98,7 @@ describe('RouteBuilderService', () => {
 
     it('includes authGuard and permissionGuard with permission data for routes that require authentication with permissions', () => {
       const { service } = createRouteBuilderService({ 'permission-only': MOCK_LOADER });
-      const item: ApiMenuItem = { id: 'permission-only', label: 'Permission Only' };
+      const item: NavigationItem = { id: 'permission-only', title: 'Permission Only', icon: '' };
 
       const routes = service.buildRoutes([item]);
 
@@ -107,7 +108,7 @@ describe('RouteBuilderService', () => {
 
     it('includes authGuard, roleGuard, and permissionGuard when both roles and permissions are required', () => {
       const { service } = createRouteBuilderService({ 'roles-and-permissions': MOCK_LOADER });
-      const item: ApiMenuItem = { id: 'roles-and-permissions', label: 'Roles And Permissions' };
+      const item: NavigationItem = { id: 'roles-and-permissions', title: 'Roles And Permissions', icon: '' };
 
       const routes = service.buildRoutes([item]);
 
@@ -118,8 +119,8 @@ describe('RouteBuilderService', () => {
 
     it('ignores items with unknown ids and still builds routes for valid items', () => {
       const { service, loggerMock } = createRouteBuilderService({ dashboard: MOCK_LOADER });
-      const unknownItem: ApiMenuItem = { id: 'unknown-id', label: 'Unknown' };
-      const validItem: ApiMenuItem = { id: 'dashboard', label: 'Dashboard' };
+      const unknownItem: NavigationItem = { id: 'unknown-id', title: 'Unknown', icon: '' };
+      const validItem: NavigationItem = { id: 'dashboard', title: 'Dashboard', icon: '' };
 
       const routes = service.buildRoutes([unknownItem, validItem]);
 
@@ -130,7 +131,7 @@ describe('RouteBuilderService', () => {
 
     it('ignores items with no loader and no children and emits a warning', () => {
       const { service, loggerMock } = createRouteBuilderService({});
-      const item: ApiMenuItem = { id: 'errors', label: 'Errors' };
+      const item: NavigationItem = { id: 'errors', title: 'Errors', icon: '' };
 
       const routes = service.buildRoutes([item]);
 

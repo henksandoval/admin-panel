@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Route } from '@angular/router';
-import { ApiMenuItem } from '@core/contracts';
+import { NavigationItem } from '@core/models';
 import { LazyComponentLoader, ROUTE_LOADER_REGISTRY, ROUTE_REGISTRY, RouteDefinition } from '@core/registry/route-registry';
 import { LoggingService } from './logging.service';
 import { authGuard, permissionGuard, roleGuard } from '@auth/guards/auth.guard';
@@ -12,13 +12,13 @@ export class RouteBuilderService {
   private readonly logger: LoggingService = inject(LoggingService);
   private readonly routeLoaders = inject(ROUTE_LOADER_REGISTRY);
 
-  public buildRoutes(items: ApiMenuItem[]): Route[] {
+  public buildRoutes(items: NavigationItem[]): Route[] {
     return items
-      .map((item: ApiMenuItem) => this.buildRoute(item))
+      .map((item: NavigationItem) => this.buildRoute(item))
       .filter((route: Route | null): route is Route => route !== null);
   }
 
-  private buildRoute(item: ApiMenuItem): Route | null {
+  private buildRoute(item: NavigationItem): Route | null {
     const definition: RouteDefinition | undefined = ROUTE_REGISTRY[item.id];
     const loader = this.routeLoaders[item.id];
 
@@ -41,7 +41,7 @@ export class RouteBuilderService {
     definition: RouteDefinition,
     loader: LazyComponentLoader | undefined,
     hasChildren: boolean,
-    item: ApiMenuItem,
+    item: NavigationItem,
   ): Route | null {
     if (loader && !hasChildren) {
       return { path: definition.path, loadComponent: loader };

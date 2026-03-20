@@ -27,7 +27,7 @@ describe('MenuDataService', () => {
     TestBed.resetTestingModule();
   });
 
-  it('updates menuItems and navigationItems signals when API returns valid menu data', () => {
+  it('updates navigationItems signal when API returns valid menu data', () => {
     const { service, httpController } = createMenuDataService();
     const apiResponse: ApiMenuItem[] = [
       { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
@@ -40,7 +40,6 @@ describe('MenuDataService', () => {
     req.flush(apiResponse);
 
     expect(completed).toBe(true);
-    expect(service.menuItems()).toEqual(apiResponse);
     expect(service.navigationItems()).toHaveLength(1);
     expect(service.navigationItems()[0].url).toBe('/dashboard');
   });
@@ -93,7 +92,6 @@ describe('MenuDataService', () => {
     const req = httpController.expectOne('data/menu.json');
     req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
 
-    expect(service.menuItems()).toEqual([]);
     expect(service.navigationItems()).toEqual([]);
     expect(thrownError).toBeDefined();
   });

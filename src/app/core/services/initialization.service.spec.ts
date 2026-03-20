@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Router } from '@angular/router';
 import { EMPTY, of, throwError } from 'rxjs';
-import { ApiMenuItem } from '@core/contracts';
+import { NavigationItem } from '@core/models';
 import { AuthService } from '@auth/services/auth.service';
 import { LAYOUT_ROUTE_FACTORY } from '../../app.routes';
 import { InitializationService } from './initialization.service';
@@ -10,13 +10,13 @@ import { LoggingService } from './logging.service';
 import { MenuDataService } from './menu-data.service';
 import { RouteBuilderService } from './route-builder.service';
 
-const MOCK_MENU_ITEMS: ApiMenuItem[] = [{ id: 'dashboard', label: 'Dashboard' }];
+const MOCK_NAVIGATION_ITEMS: NavigationItem[] = [{ id: 'dashboard', title: 'Dashboard', icon: '' }];
 const MOCK_DYNAMIC_ROUTES = [{ path: 'dashboard', loadComponent: vi.fn() }];
 
 function createInitializationService() {
   const menuDataMock = {
     loadMenu: vi.fn().mockReturnValue(of(undefined)),
-    menuItems: vi.fn().mockReturnValue(MOCK_MENU_ITEMS),
+    navigationItems: vi.fn().mockReturnValue(MOCK_NAVIGATION_ITEMS),
   };
 
   const routeBuilderMock = {
@@ -65,7 +65,7 @@ describe('InitializationService', () => {
     await service.initialize();
 
     expect(menuDataMock.loadMenu).toHaveBeenCalled();
-    expect(routeBuilderMock.buildRoutes).toHaveBeenCalledWith(MOCK_MENU_ITEMS);
+    expect(routeBuilderMock.buildRoutes).toHaveBeenCalledWith(MOCK_NAVIGATION_ITEMS);
     expect(layoutRouteFactoryMock).toHaveBeenCalledWith(MOCK_DYNAMIC_ROUTES);
     expect(routerMock.resetConfig).toHaveBeenCalledWith(MOCK_DYNAMIC_ROUTES);
   });

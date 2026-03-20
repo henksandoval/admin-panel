@@ -27,7 +27,7 @@ export class InitializationService {
       await lastValueFrom(this.authService.checkSession(), { defaultValue: undefined });
       await lastValueFrom(this.menuDataService.loadMenu());
 
-      const dynamicRoutes = this.routeBuilder.buildRoutes(this.menuDataService.menuItems());
+      const dynamicRoutes = this.routeBuilder.buildRoutes(this.menuDataService.navigationItems());
 
       this.router.resetConfig(this.layoutRouteFactory(dynamicRoutes));
       this.logger.info('Rutas dinámicas inicializadas correctamente.');

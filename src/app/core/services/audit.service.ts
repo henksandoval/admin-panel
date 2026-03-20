@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { AuditEvent } from '@core/models';
-import { AuditEventDto } from '@core/contracts';
 import { API_BASE_URL } from '@auth/providers/jwt/jwt-auth.provider';
 import { LoggingService } from './logging.service';
+import { toAuditEventDto } from '@core/mappers';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class AuditService {
   private readonly logger = inject(LoggingService);
 
   record(event: AuditEvent): Observable<void> {
-    const dto: AuditEventDto = { ...event };
+    const dto = toAuditEventDto(event);
     return this.http.post<void>(`${this.apiBase}/audit/events`, dto).pipe(
       catchError((error: unknown) => {
         this.logger.error('Failed to record audit event', error);
