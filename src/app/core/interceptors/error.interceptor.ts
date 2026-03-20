@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { NotificationService } from '@core/services/notification.service';
 
+const NAVIGATION_HANDLED_STATUSES = new Set([403, 404, 500, 503]);
+const OPERATIONAL_ERROR_DURATION = 8000;
+
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     const notificationService = inject(NotificationService);
     const router = inject(Router);
@@ -11,22 +14,40 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req).pipe(
         catchError((error: unknown) => {
             const httpError = error instanceof HttpErrorResponse ? error : null;
-            let errorMsg = '';
-            if (httpError?.error instanceof ErrorEvent) {
-                errorMsg = $localize`:Http error|Client network failure@@errors.http.client:Network error. Please check your connection and try again.`;
-            } else {
-                errorMsg = buildServerErrorMessage(httpError?.status);
+            const status = httpError?.status;
+
+            navigateOnHttpStatus(status, router);
+
+            if (!NAVIGATION_HANDLED_STATUSES.has(status ?? -1)) {
+                notifyError(httpError, notificationService);
             }
 
-            navigateOnHttpStatus(httpError?.status, router);
-            notificationService.error(
-                errorMsg,
-                $localize`:Http error|Toast title@@errors.http.title:Request error`,
-            );
             return throwError(() => error);
         })
     );
 };
+
+function notifyError(httpError: HttpErrorResponse | null, notificationService: NotificationService): void {
+    const title = $localize`:Http error|Toast title@@errors.http.title:Request error`;
+    const status = httpError?.status;
+
+    if (httpError?.error instanceof ErrorEvent) {
+        notificationService.warning(
+            $localize`:Http error|Client network failure@@errors.http.client:Network error. Please check your connection and try again.`,
+            title,
+        );
+        return;
+    }
+
+    const message = buildServerErrorMessage(status);
+    const isOperational = status !== undefined && status >= 500;
+
+    if (isOperational) {
+        notificationService.error(message, title, OPERATIONAL_ERROR_DURATION);
+    } else {
+        notificationService.warning(message, title);
+    }
+}
 
 function buildServerErrorMessage(status?: number): string {
     switch (status) {
