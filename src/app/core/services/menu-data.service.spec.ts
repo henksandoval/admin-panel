@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { ApiMenuItem } from '@core/contracts';
+import { ApiMenuItem, MenuContractError } from '@core/contracts';
 import { MenuDataService } from './menu-data.service';
 import { LoggingService } from './logging.service';
 
@@ -96,5 +96,35 @@ describe('MenuDataService', () => {
     expect(service.menuItems()).toEqual([]);
     expect(service.navigationItems()).toEqual([]);
     expect(thrownError).toBeDefined();
+  });
+
+  it('throws a MenuContractError and clears signals when the API returns a non-array response', () => {
+    const { service, httpController, loggerMock } = createMenuDataService();
+
+    let thrownError: unknown;
+    service.loadMenu().subscribe({ error: (e: unknown) => (thrownError = e) });
+
+    const req = httpController.expectOne('data/menu.json');
+    req.flush({ menu: [] });
+
+    expect(thrownError).toBeInstanceOf(MenuContractError);
+    expect(service.menuItems()).toEqual([]);
+    expect(service.navigationItems()).toEqual([]);
+    expect(loggerMock.error).toHaveBeenCalled();
+  });
+
+  it('throws a MenuContractError and clears signals when an item is missing required fields', () => {
+    const { service, httpController, loggerMock } = createMenuDataService();
+
+    let thrownError: unknown;
+    service.loadMenu().subscribe({ error: (e: unknown) => (thrownError = e) });
+
+    const req = httpController.expectOne('data/menu.json');
+    req.flush([{ label: 'No ID here' }]);
+
+    expect(thrownError).toBeInstanceOf(MenuContractError);
+    expect(service.menuItems()).toEqual([]);
+    expect(service.navigationItems()).toEqual([]);
+    expect(loggerMock.error).toHaveBeenCalled();
   });
 });
