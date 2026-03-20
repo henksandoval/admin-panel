@@ -1,6 +1,6 @@
 import { Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { AppToastContainerComponent } from './ui-kit/organisms/app-toast-container/app-toast-container.component';
 import { NotificationService } from '@core/services/notification.service';
 import { AuthService } from '@auth/services/auth.service';
@@ -34,16 +34,20 @@ export class App {
       }
     });
 
-    this.idleService.onWarning$.pipe(takeUntilDestroyed()).subscribe(() => {
-      this.notificationService.warning(
-        $localize`:IdleService|Warning notification message@@session.idle.warning.message:Your session will expire soon due to inactivity.`,
-        $localize`:IdleService|Warning notification title@@session.idle.warning.title:Session expiring soon`,
-        AUTH_DEFAULTS.idleWarningToastDurationMs,
-      );
+    effect(() => {
+      if (this.idleService.warning()) {
+        this.notificationService.warning(
+          $localize`:IdleService|Warning notification message@@session.idle.warning.message:Your session will expire soon due to inactivity.`,
+          $localize`:IdleService|Warning notification title@@session.idle.warning.title:Session expiring soon`,
+          AUTH_DEFAULTS.idleWarningToastDurationMs,
+        );
+      }
     });
 
-    this.idleService.onIdle$.pipe(takeUntilDestroyed()).subscribe(() => {
-      this.authService.logout(AUTH_DEFAULTS.sessionExpiredRoute).subscribe();
+    effect(() => {
+      if (this.idleService.idle()) {
+        this.authService.logout(AUTH_DEFAULTS.sessionExpiredRoute).subscribe();
+      }
     });
   }
 

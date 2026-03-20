@@ -1,17 +1,16 @@
 import { DOCUMENT } from '@angular/common';
-import { inject, Injectable, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { AUTH_DEFAULTS } from '@auth/models';
 
 @Injectable({ providedIn: 'root' })
 export class IdleService implements OnDestroy {
   private readonly document = inject(DOCUMENT);
 
-  private readonly _onWarning$ = new Subject<void>();
-  private readonly _onIdle$ = new Subject<void>();
+  private readonly _warning = signal(false);
+  private readonly _idle = signal(false);
 
-  readonly onWarning$ = this._onWarning$.asObservable();
-  readonly onIdle$ = this._onIdle$.asObservable();
+  readonly warning = this._warning.asReadonly();
+  readonly idle = this._idle.asReadonly();
 
   private idleTimer: ReturnType<typeof setTimeout> | null = null;
   private warningTimer: ReturnType<typeof setTimeout> | null = null;
@@ -28,7 +27,15 @@ export class IdleService implements OnDestroy {
     'scroll',
   ];
 
-  private readonly boundResetFn = (): void => this.resetTimers();
+  private lastResetAt = 0;
+  private readonly RESET_THROTTLE_MS = 500;
+
+  private readonly boundResetFn = (): void => {
+    const now = Date.now();
+    if (now - this.lastResetAt < this.RESET_THROTTLE_MS) return;
+    this.lastResetAt = now;
+    this.resetTimers();
+  };
 
   start(
     idleTimeoutMs = AUTH_DEFAULTS.idleTimeoutMs,
@@ -46,6 +53,8 @@ export class IdleService implements OnDestroy {
     this.running = false;
     this.clearTimers();
     this.removeActivityListeners();
+    this._warning.set(false);
+    this._idle.set(false);
   }
 
   ngOnDestroy(): void {
@@ -58,17 +67,19 @@ export class IdleService implements OnDestroy {
     const warningDelay = this.idleTimeoutMs - this.idleWarningMs;
     if (warningDelay > 0) {
       this.warningTimer = setTimeout(() => {
-        this._onWarning$.next();
+        this._warning.set(true);
       }, warningDelay);
     }
 
     this.idleTimer = setTimeout(() => {
-      this._onIdle$.next();
+      this._idle.set(true);
     }, this.idleTimeoutMs);
   }
 
   private resetTimers(): void {
     if (!this.running) return;
+    this._warning.set(false);
+    this._idle.set(false);
     this.scheduleTimers();
   }
 

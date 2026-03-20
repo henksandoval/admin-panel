@@ -5,7 +5,7 @@ import {
   LOCALE_ID,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { Routes } from '@angular/router';
 import { provideRouter } from '@angular/router';
@@ -35,7 +35,7 @@ registerLocaleData(localeEs);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([correlationInterceptor, authInterceptor, errorInterceptor])),
     provideAppInitializer(() => inject(InitializationService).initialize()),
