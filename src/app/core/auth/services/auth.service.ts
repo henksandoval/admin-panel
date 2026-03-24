@@ -69,7 +69,7 @@ export class AuthService {
           userId: user?.id ?? null,
           userEmail: credentials.email,
           timestamp: new Date().toISOString(),
-        }).subscribe();
+        });
       }),
       switchMap(() => {
         void this.router.navigateByUrl(returnUrl ?? AUTH_DEFAULTS.redirectAfterLogin);
@@ -81,7 +81,7 @@ export class AuthService {
           userId: null,
           userEmail: credentials.email,
           timestamp: new Date().toISOString(),
-        }).subscribe();
+        });
         throw error;
       }),
     );
@@ -95,7 +95,7 @@ export class AuthService {
           userId: null,
           userEmail: credentials.email,
           timestamp: new Date().toISOString(),
-        }).subscribe();
+        });
       }),
     );
   }
@@ -108,7 +108,7 @@ export class AuthService {
           userId: null,
           userEmail: request.email,
           timestamp: new Date().toISOString(),
-        }).subscribe();
+        });
       }),
     );
   }
@@ -121,7 +121,7 @@ export class AuthService {
           userId: null,
           userEmail: null,
           timestamp: new Date().toISOString(),
-        }).subscribe();
+        });
       }),
     );
   }
@@ -135,7 +135,7 @@ export class AuthService {
           userId: user?.id ?? null,
           userEmail: user?.email ?? null,
           timestamp: new Date().toISOString(),
-        }).subscribe();
+        });
         this.clearSession(redirectTo);
       }),
       catchError(() => {
@@ -144,7 +144,7 @@ export class AuthService {
           userId: user?.id ?? null,
           userEmail: user?.email ?? null,
           timestamp: new Date().toISOString(),
-        }).subscribe();
+        });
         this.clearSession(redirectTo);
         return of(undefined as unknown as void);
       }),
@@ -195,7 +195,7 @@ export class AuthService {
               userId: user?.id ?? null,
               userEmail: user?.email ?? null,
               timestamp: new Date().toISOString(),
-            }).subscribe();
+            });
             this.clearSession();
             return EMPTY;
           }),

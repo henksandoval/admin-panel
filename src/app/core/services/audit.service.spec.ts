@@ -1,13 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { Subject } from 'rxjs';
+import { describe, it, expect, beforeAll, beforeEach, afterEach, vi, Mock } from 'vitest';
 
-import { AuditService } from './audit.service';
+import { AuditService, AUDIT_BATCH_TRIGGER } from './audit.service';
 import { API_BASE_URL } from '@auth/providers/jwt/jwt-auth.provider';
 import { AuditEvent } from '@core/models';
 
 const API_BASE = 'https://api.example.com';
+const BATCH_URL = `${API_BASE}/audit/events/batch`;
 
 const MOCK_EVENT: AuditEvent = {
   action: 'login_success',
@@ -19,16 +21,37 @@ const MOCK_EVENT: AuditEvent = {
 describe('AuditService', () => {
   let service: AuditService;
   let httpMock: HttpTestingController;
+  let batchTrigger: Subject<void>;
+  let sendBeaconMock: Mock;
+
+  beforeAll(() => {
+    // Polyfill sendBeacon for JSDOM environments that lack it.
+    if (!('sendBeacon' in navigator)) {
+      Object.defineProperty(navigator, 'sendBeacon', {
+        value: vi.fn(),
+        configurable: true,
+        writable: true,
+      });
+    }
+  });
 
   beforeEach(() => {
+    // Fresh mock per test — avoids accumulated call history across test resets.
+    sendBeaconMock = vi.fn().mockReturnValue(true);
+    navigator.sendBeacon = sendBeaconMock;
+
+    batchTrigger = new Subject<void>();
+
     TestBed.configureTestingModule({
       providers: [
         AuditService,
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: API_BASE_URL, useValue: API_BASE },
+        { provide: AUDIT_BATCH_TRIGGER, useValue: batchTrigger },
       ],
     });
+
     service = TestBed.inject(AuditService);
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -39,93 +62,109 @@ describe('AuditService', () => {
   });
 
   describe('record()', () => {
-    it('sends a POST request to /audit/events', () => {
-      service.record(MOCK_EVENT).subscribe();
+    it('does not send an HTTP request immediately when an event is recorded', () => {
+      service.record(MOCK_EVENT);
 
-      const req = httpMock.expectOne(`${API_BASE}/audit/events`);
+      httpMock.expectNone(BATCH_URL);
+    });
+
+    it('batches multiple events into a single POST when the trigger fires', () => {
+      const secondEvent: AuditEvent = { ...MOCK_EVENT, action: 'logout' };
+
+      service.record(MOCK_EVENT);
+      service.record(secondEvent);
+      batchTrigger.next();
+
+      const req = httpMock.expectOne(BATCH_URL);
       expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual([MOCK_EVENT, secondEvent]);
       req.flush(null);
     });
 
-    it('sends the audit event data as the request body', () => {
-      service.record(MOCK_EVENT).subscribe();
+    it('flushes immediately when BATCH_MAX_SIZE events are queued', () => {
+      for (let i = 0; i < 10; i++) {
+        service.record(MOCK_EVENT);
+      }
 
-      const req = httpMock.expectOne(`${API_BASE}/audit/events`);
-      expect(req.request.body).toEqual(MOCK_EVENT);
+      const req = httpMock.expectOne(BATCH_URL);
+      expect(req.request.body).toHaveLength(10);
       req.flush(null);
     });
 
-    it('completes without error when the server responds with an error', () => {
-      let completed = false;
-      let errorThrown = false;
+    it('sends the correct DTO fields for each event in the batch', () => {
+      service.record(MOCK_EVENT);
+      batchTrigger.next();
 
-      service.record(MOCK_EVENT).subscribe({
-        complete: () => { completed = true; },
-        error: () => { errorThrown = true; },
+      const req = httpMock.expectOne(BATCH_URL);
+      expect(req.request.body[0]).toMatchObject({
+        action: 'login_success',
+        userId: 'user-1',
+        userEmail: 'test@example.com',
+        timestamp: '2026-01-01T00:00:00.000Z',
       });
-
-      httpMock.expectOne(`${API_BASE}/audit/events`).flush('Server Error', {
-        status: 500,
-        statusText: 'Internal Server Error',
-      });
-
-      expect(completed).toBe(true);
-      expect(errorThrown).toBe(false);
+      req.flush(null);
     });
 
-    it('logs an error message when the server request fails', () => {
+    it('does not throw when the batch request fails', () => {
+      service.record(MOCK_EVENT);
+      batchTrigger.next();
+
+      expect(() =>
+        httpMock
+          .expectOne(BATCH_URL)
+          .flush('Server Error', { status: 500, statusText: 'Internal Server Error' }),
+      ).not.toThrow();
+    });
+
+    it('logs an error when the batch request fails', () => {
       const errorSpy = vi.spyOn(console, 'error').mockReturnValue(undefined);
 
-      service.record(MOCK_EVENT).subscribe();
+      service.record(MOCK_EVENT);
+      batchTrigger.next();
 
-      httpMock.expectOne(`${API_BASE}/audit/events`).flush('Server Error', {
-        status: 500,
-        statusText: 'Internal Server Error',
-      });
+      httpMock
+        .expectOne(BATCH_URL)
+        .flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
 
       expect(errorSpy).toHaveBeenCalledWith(
-        expect.stringMatching(/\[ERROR\]/),
+        expect.stringMatching(/\[ERROR]/),
         expect.anything(),
       );
     });
 
-    it('includes action, userId, userEmail, and timestamp in the request body', () => {
-      const event: AuditEvent = {
-        action: 'logout',
-        userId: 'user-42',
-        userEmail: 'admin@example.com',
+    it('sends null userId and userEmail when user is not authenticated', () => {
+      const unauthEvent: AuditEvent = {
+        action: 'login_failure',
+        userId: null,
+        userEmail: 'unknown@example.com',
         timestamp: '2026-03-01T12:00:00.000Z',
       };
 
-      service.record(event).subscribe();
+      service.record(unauthEvent);
+      batchTrigger.next();
 
-      const req = httpMock.expectOne(`${API_BASE}/audit/events`);
-      expect(req.request.body).toMatchObject({
-        action: 'logout',
-        userId: 'user-42',
-        userEmail: 'admin@example.com',
-        timestamp: '2026-03-01T12:00:00.000Z',
+      const req = httpMock.expectOne(BATCH_URL);
+      expect(req.request.body[0]).toMatchObject({
+        action: 'login_failure',
+        userId: null,
+        userEmail: 'unknown@example.com',
       });
       req.flush(null);
     });
+  });
 
-    it('sends null userId and userEmail when user is not authenticated', () => {
-      const event: AuditEvent = {
-        action: 'login_failure',
-        userId: null,
-        userEmail: 'unknown@example.com',
-        timestamp: '2026-03-01T12:00:00.000Z',
-      };
+  describe('ngOnDestroy()', () => {
+    it('flushes pending events via sendBeacon on destroy', () => {
+      service.record(MOCK_EVENT);
+      service.ngOnDestroy();
 
-      service.record(event).subscribe();
+      expect(sendBeaconMock).toHaveBeenCalledWith(BATCH_URL, expect.any(Blob));
+    });
 
-      const req = httpMock.expectOne(`${API_BASE}/audit/events`);
-      expect(req.request.body).toMatchObject({
-        action: 'login_failure',
-        userId: null,
-        userEmail: 'unknown@example.com',
-      });
-      req.flush(null);
+    it('does not call sendBeacon when there are no pending events on destroy', () => {
+      service.ngOnDestroy();
+
+      expect(sendBeaconMock).not.toHaveBeenCalled();
     });
   });
 });
