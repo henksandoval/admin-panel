@@ -20,9 +20,10 @@ export class HasRoleDirective {
 
     if (roles.length === 0) return true;
 
+    const userRoles = this.authService.currentUser()?.roles ?? [];
     return requireAll
-      ? roles.every((r) => this.authService.hasRole(r)())
-      : roles.some((r) => this.authService.hasRole(r)());
+      ? roles.every((r) => userRoles.includes(r))
+      : roles.some((r) => userRoles.includes(r));
   });
 
   constructor() {
@@ -31,7 +32,7 @@ export class HasRoleDirective {
         if (this.viewContainer.length === 0) {
           this.viewContainer.createEmbeddedView(this.templateRef);
         }
-      } else {
+      } else if (this.viewContainer.length > 0) {
         this.viewContainer.clear();
       }
     });

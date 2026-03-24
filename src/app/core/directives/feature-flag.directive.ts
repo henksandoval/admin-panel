@@ -14,7 +14,7 @@ export class FeatureFlagDirective {
   readonly appFeatureFlag = input.required<FeatureFlagKey>();
 
   private readonly isEnabled = computed(() =>
-    this.featureFlagsService.isEnabled(this.appFeatureFlag())()
+    this.featureFlagsService.flags()[this.appFeatureFlag()]
   );
 
   constructor() {
@@ -23,7 +23,7 @@ export class FeatureFlagDirective {
         if (this.viewContainer.length === 0) {
           this.viewContainer.createEmbeddedView(this.templateRef);
         }
-      } else {
+      } else if (this.viewContainer.length > 0) {
         this.viewContainer.clear();
       }
     });

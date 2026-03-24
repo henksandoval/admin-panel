@@ -20,9 +20,10 @@ export class HasPermissionDirective {
 
     if (permissions.length === 0) return true;
 
+    const userPermissions = this.authService.currentUser()?.permissions ?? [];
     return requireAll
-      ? permissions.every((p) => this.authService.hasPermission(p)())
-      : permissions.some((p) => this.authService.hasPermission(p)());
+      ? permissions.every((p) => userPermissions.includes(p))
+      : permissions.some((p) => userPermissions.includes(p));
   });
 
   constructor() {
@@ -31,7 +32,7 @@ export class HasPermissionDirective {
         if (this.viewContainer.length === 0) {
           this.viewContainer.createEmbeddedView(this.templateRef);
         }
-      } else {
+      } else if (this.viewContainer.length > 0) {
         this.viewContainer.clear();
       }
     });
