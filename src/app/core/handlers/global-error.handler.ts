@@ -2,6 +2,7 @@ import { ErrorHandler, inject, Injectable } from '@angular/core';
 import { LoggingService } from '@core/services/logging.service';
 import { ErrorReportingService } from '@core/services/error-reporting.service';
 import { CorrelationService } from '@core/services/correlation.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -10,6 +11,8 @@ export class GlobalErrorHandler implements ErrorHandler {
   private readonly correlation = inject(CorrelationService);
 
   handleError(error: unknown): void {
+    if (error instanceof HttpErrorResponse) return;
+
     const message = error instanceof Error ? error.message : String(error);
     this.logger.error('Unhandled error', error);
     this.reporting
