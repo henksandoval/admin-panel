@@ -1,0 +1,27 @@
+import { ErrorHandler, inject, Injectable } from '@angular/core';
+import { LoggingService } from '@core/logging-audit/logging.service';
+import { ErrorReportingService } from './error-reporting.service';
+import { CorrelationService } from '@core/network/correlation.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
+@Injectable()
+export class GlobalErrorHandler implements ErrorHandler {
+  private readonly logger = inject(LoggingService);
+  private readonly reporting = inject(ErrorReportingService);
+  private readonly correlation = inject(CorrelationService);
+
+  handleError(error: unknown): void {
+    if (error instanceof HttpErrorResponse) return;
+
+    const message = error instanceof Error ? error.message : String(error);
+    this.logger.error('Unhandled error', error);
+    this.reporting
+      .report({
+        kind: 'operational',
+        message,
+        correlationId: this.correlation.id,
+        timestamp: new Date().toISOString(),
+      })
+      .subscribe();
+  }
+}

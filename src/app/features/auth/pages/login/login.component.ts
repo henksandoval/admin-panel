@@ -11,7 +11,7 @@ import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
 import { MatDivider } from '@angular/material/divider';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
-import { LoggingService } from '@core/services/logging.service';
+import { LoggingService } from '@core/logging-audit/logging.service';
 
 @Component({
   selector: 'app-auth-login',

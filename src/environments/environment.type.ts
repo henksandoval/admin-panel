@@ -1,5 +1,5 @@
-import { LogLevel } from '@core/models/log-level.model';
-import { FeatureFlags } from '@core/models/feature-flags.model';
+import { LogLevel } from '@core/logging-audit/log-level.model';
+import { FeatureFlags } from '@core/feature-flags/feature-flags.model';
 
 export interface AppEnvironment {
   production: boolean;

@@ -12,7 +12,7 @@ import {
   RegisterCredentials,
   TokenResponse,
 } from '@auth/models';
-import { AuditService } from '@core/services/audit.service';
+import { AuditService } from '@core/logging-audit/audit.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

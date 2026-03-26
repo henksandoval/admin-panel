@@ -9,7 +9,7 @@ import { render, screen } from '@testing-library/angular';
 import { describe, it, expect, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { AuthLayoutComponent } from './auth-layout.component';
-import { SettingsService } from '@core/services/settings.service';
+import { SettingsService } from '@core/config/settings.service';
 import { SettingsPanelStubComponent } from '@stubs/layout/settings-panel.stub';
 
 function createSettingsServiceMock(panelOpen = false) {

@@ -13,7 +13,7 @@ import {
   MOCK_USER,
   MOCK_TOKEN_RESPONSE,
 } from '@auth/testing/auth-test.helpers';
-import { AuditService } from '@core/services/audit.service';
+import { AuditService } from '@core/logging-audit/audit.service';
 
 const mockAuditService: Pick<AuditService, 'record'> = {
   record: vi.fn(() => of(void 0)),

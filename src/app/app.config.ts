@@ -16,19 +16,17 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { LAYOUT_ROUTE_FACTORY, routes } from './app.routes';
 import { featureRouteLoaders } from './feature-route-loaders';
-import { LayoutComponent } from '@layout/layout.component';
-import { authGuard } from '@auth/guards/auth.guard';
-import { InitializationService } from '@core/services/initialization.service';
+import { InitializationService } from '@core/config/initialization.service';
 import { authInterceptor } from '@auth/interceptors/auth.interceptor';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
 import { API_BASE_URL, JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.provider';
 import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
 import { environment } from '@env/environment.development';
-import { errorInterceptor } from '@core/interceptors/error.interceptor';
-import { correlationInterceptor } from '@core/interceptors/correlation.interceptor';
-import { ROUTE_LOADER_REGISTRY } from '@core/registry/route-registry';
-import { FEATURE_FLAGS } from '@core/services/feature-flags.service';
-import { GlobalErrorHandler } from '@core/handlers/global-error.handler';
+import { errorInterceptor } from '@core/errors/error.interceptor';
+import { correlationInterceptor } from '@core/network/correlation.interceptor';
+import { ROUTE_LOADER_REGISTRY } from '@core/navigation/route-registry';
+import { FEATURE_FLAGS } from '@core/feature-flags/feature-flags.service';
+import { GlobalErrorHandler } from '@core/errors/global-error.handler';
 
 registerLocaleData(localeEs);
 

@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { SettingsService } from '@core/services/settings.service';
+import { SettingsService } from '@core/config/settings.service';
 import { SettingsPanelComponent } from '@layout/components/settings-panel/settings-panel.component';
 
 @Component({

@@ -1,5 +1,5 @@
 import { AppEnvironment } from '@env/environment.type';
-import { LogLevel } from '@core/models/log-level.model';
+import { LogLevel } from '@core/logging-audit/log-level.model';
 
 export const environment: AppEnvironment = {
   production: false,
