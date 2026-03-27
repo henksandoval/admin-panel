@@ -27,7 +27,13 @@
     "test:e2e:report": "playwright show-report",
     "test": "npm run test:unit",
     "test:all": "npm run lint && npm run test:unit && npm run test:e2e",
-    "test:ci": "npm run lint && npm run test:unit:coverage && npm run test:e2e"
+    "test:ci": "npm run lint && npm run test:unit:coverage && npm run test:e2e",
+    "dep:graph": "depcruise src/app --config .dependency-cruiser.js --output-type html > docs/dep-graph.html",
+    "dep:archi": "depcruise src/app --config .dependency-cruiser.js --output-type archi > docs/dep-archi.dot && dot -T svg docs/dep-archi.dot -o docs/dep-archi.svg",
+    "dep:graph:svg": "depcruise src/app --config .dependency-cruiser.js --output-type dot > docs/dep-graph.dot && dot -T svg docs/dep-graph.dot -o docs/dep-graph.svg",
+    "dep:focus": "depcruise src/app --config .dependency-cruiser.js --output-type dot --focus",
+    "dep:validate": "depcruise src/app --config .dependency-cruiser.js --output-type err",
+    "dep:diagram":  "depcruise src/app --config .dependency-cruiser.js --output-type mermaid > docs/arquitectura.md"
   },
   "private": true,
   "dependencies": {
@@ -61,6 +67,7 @@
     "@vitest/coverage-v8": "^4.0.18",
     "angular-eslint": "21.0.1",
     "autoprefixer": "^10.4.22",
+    "dependency-cruiser": "^17.3.10",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-rxjs-x": "^0.9.4",
