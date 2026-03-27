@@ -1,76 +1,110 @@
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const ignoredDirectories = new Set([
-    '.git',
-    '.angular',
-    '.idea',
-    '.vscode',
-    'dist',
-    'node_modules',
-    'playwright-report',
-    'test-results',
+const DIRECTORIES_TO_IGNORE = new Set([
+  '.git',
+  '.angular',
+  '.idea',
+  '.vscode',
+  'dist',
+  'node_modules',
+  'playwright-report',
+  'test-results',
 ]);
 
-const root = process.cwd();
-const isFlatMode = process.argv.includes('--flat');
-const useAsciiBranches = process.argv.includes('--ascii') || !process.stdout.isTTY;
+const projectRootPath = process.cwd();
+const shouldPrintFlatList = process.argv.includes('--flat');
+const shouldUseAsciiCharacters = process.argv.includes('--ascii') || !process.stdout.isTTY;
 
-const byName = (left, right) =>
-  left.name.localeCompare(right.name, undefined, {
+const ignoreExtensionArgument = process.argv.find(arg => arg.startsWith('--ignore-ext='));
+const onlyExtensionArgument = process.argv.find(arg => arg.startsWith('--only-ext='));
+
+const extensionsToIgnore = ignoreExtensionArgument ? ignoreExtensionArgument.split('=')[1].split(',') : [];
+const extensionsToKeep = onlyExtensionArgument ? onlyExtensionArgument.split('=')[1].split(',') : [];
+
+const compareEntriesByName = (firstEntry, secondEntry) =>
+  firstEntry.name.localeCompare(secondEntry.name, undefined, {
     sensitivity: 'base',
     numeric: true,
   });
 
-const listEntries = async (directoryPath) => {
-  const entries = await readdir(directoryPath, { withFileTypes: true });
+const getFilteredAndSortedEntries = async (currentDirectoryPath) => {
+  const allEntries = await readdir(currentDirectoryPath, { withFileTypes: true });
 
-  return entries
-    .filter((entry) => !(entry.isDirectory() && ignoredDirectories.has(entry.name)))
-    .sort(byName);
+  return allEntries
+    .filter((entry) => {
+      if (entry.isDirectory()) {
+        const isIgnoredDirectory = DIRECTORIES_TO_IGNORE.has(entry.name);
+        return !isIgnoredDirectory;
+      }
+
+      if (entry.isFile()) {
+        const hasIgnoredExtension = extensionsToIgnore.some(ext => entry.name.endsWith(ext));
+        if (hasIgnoredExtension) return false;
+
+        if (extensionsToKeep.length > 0) {
+          const hasKeptExtension = extensionsToKeep.some(ext => entry.name.endsWith(ext));
+          if (!hasKeptExtension) return false;
+        }
+      }
+
+      return true;
+    })
+    .sort(compareEntriesByName);
 };
 
-const printTree = async (directoryPath, prefix = '') => {
-  const entries = await listEntries(directoryPath);
+const printDirectoryTree = async (currentDirectoryPath, currentIndentation = '') => {
+  const directoryEntries = await getFilteredAndSortedEntries(currentDirectoryPath);
 
-  for (let index = 0; index < entries.length; index += 1) {
-    const entry = entries[index];
-    const isLastEntry = index === entries.length - 1;
-    const branch = useAsciiBranches
-      ? isLastEntry
-        ? '`-- '
-        : '|-- '
-      : isLastEntry
-        ? '└── '
-        : '├── ';
+  for (let index = 0; index < directoryEntries.length; index += 1) {
+    const entry = directoryEntries[index];
+    const isLastEntryInDirectory = index === directoryEntries.length - 1;
 
-    console.log(`${prefix}${branch}${entry.name}`);
+    let branchSymbol = '';
+    if (shouldUseAsciiCharacters) {
+      branchSymbol = isLastEntryInDirectory ? '`-- ' : '|-- ';
+    } else {
+      branchSymbol = isLastEntryInDirectory ? '└── ' : '├── ';
+    }
+
+    console.log(`${currentIndentation}${branchSymbol}${entry.name}`);
 
     if (entry.isDirectory()) {
-      const childPrefix = useAsciiBranches
-        ? `${prefix}${isLastEntry ? '    ' : '|   '}`
-        : `${prefix}${isLastEntry ? '    ' : '│   '}`;
-      await printTree(join(directoryPath, entry.name), childPrefix);
+      let childIndentationSymbol = '';
+      if (shouldUseAsciiCharacters) {
+        childIndentationSymbol = isLastEntryInDirectory ? '    ' : '|   ';
+      } else {
+        childIndentationSymbol = isLastEntryInDirectory ? '    ' : '│   ';
+      }
+
+      const nextIndentation = `${currentIndentation}${childIndentationSymbol}`;
+      const childDirectoryPath = join(currentDirectoryPath, entry.name);
+
+      await printDirectoryTree(childDirectoryPath, nextIndentation);
     }
   }
 };
 
-const printFlat = async (directoryPath, prefix = '') => {
-  const entries = await listEntries(directoryPath);
+const printFlatDirectoryList = async (currentDirectoryPath, relativePathPrefix = '') => {
+  const directoryEntries = await getFilteredAndSortedEntries(currentDirectoryPath);
 
-  for (const entry of entries) {
-    const nextPath = prefix ? `${prefix}/${entry.name}` : entry.name;
-    console.log(nextPath);
+  for (const entry of directoryEntries) {
+    const fullRelativePath = relativePathPrefix
+      ? `${relativePathPrefix}/${entry.name}`
+      : entry.name;
+
+    console.log(fullRelativePath);
 
     if (entry.isDirectory()) {
-      await printFlat(join(directoryPath, entry.name), nextPath);
+      const childDirectoryPath = join(currentDirectoryPath, entry.name);
+      await printFlatDirectoryList(childDirectoryPath, fullRelativePath);
     }
   }
 };
 
-if (isFlatMode) {
-  await printFlat(root);
+if (shouldPrintFlatList) {
+  await printFlatDirectoryList(projectRootPath);
 } else {
   console.log('.');
-  await printTree(root);
+  await printDirectoryTree(projectRootPath);
 }
