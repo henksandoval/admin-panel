@@ -1,17 +1,3 @@
-import { InjectionToken, Type } from '@angular/core';
-
-interface DefaultExport<T> {
-  default: T;
-}
-
-export type LazyComponentLoader = () => Promise<Type<unknown> | DefaultExport<Type<unknown>>>;
-
-export type RouteLoaderRegistry = Record<string, LazyComponentLoader>;
-
-export const ROUTE_LOADER_REGISTRY = new InjectionToken<RouteLoaderRegistry>(
-  'ROUTE_LOADER_REGISTRY',
-);
-
 export interface RouteDefinition {
   readonly path: string;
   readonly requiresAuth?: boolean;

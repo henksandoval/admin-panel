@@ -9,8 +9,7 @@ import { AppTableServerParams } from '@ui-organisms/app-tables/server-side';
 import { getFiltersConfig, getPaginationConfig, getTableConfig } from './table-server-side.config';
 import { EmployeeViewModel, TableServerSideService } from './table-server-side.service';
 import { AppPageLayoutComponent, AppSlotContainerDirective } from '@ui-templates/app-page-layout';
-import { MockEmployeeService } from '@features/pds/mocks/mock-employee.service';
-import { MockHttpService } from '@features/pds/mocks/mock-http.service';
+import { MockHttpService, MockEmployeeService } from '@features/pds/mocks';
 
 @Component({
   selector: 'app-table-server-side-pds',

@@ -6,7 +6,7 @@ import { LoggingService } from '@core/logging-audit';
 import { ApiMenuItem, validateApiMenuItems } from './api-menu-item.contract';
 import { NavigationItem, NavigationBadge, NAVIGATION_DEFAULTS } from './navigation.model';
 import { ROUTE_REGISTRY } from './route-registry';
-import { environment } from '@env/environment';
+import { STRICT_MENU_ROUTES } from './navigation.tokens';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +14,7 @@ import { environment } from '@env/environment';
 export class MenuDataService {
   private readonly http: HttpClient = inject(HttpClient);
   private readonly logger: LoggingService = inject(LoggingService);
+  private readonly strictMenuRoutes = inject(STRICT_MENU_ROUTES);
 
   private readonly _menuItems: WritableSignal<ApiMenuItem[]> = signal<ApiMenuItem[]>([]);
   public readonly menuItems: Signal<ApiMenuItem[]> = this._menuItems.asReadonly();
@@ -50,7 +51,7 @@ export class MenuDataService {
 
         if (!definition) {
           this.logger.warn(`[MenuDataService] id '${item.id}' no tiene entrada en ROUTE_REGISTRY. Se omite del menú.`);
-          if (environment.strictMenuRoutes) {
+          if (this.strictMenuRoutes) {
             throw new Error(`[MenuDataService] id '${item.id}' no tiene entrada en ROUTE_REGISTRY.`);
           }
           return null;

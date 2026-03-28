@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
+import { inject, Injectable } from '@angular/core';
 import { LogLevel } from './log-level.model';
+import { LOG_LEVEL } from './logging.tokens';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoggingService {
-  private readonly minLevel: LogLevel = environment.logLevel;
+  
+  private readonly minLevel = inject(LOG_LEVEL);
 
   debug(message: string, ...optionalParams: unknown[]): void {
     this.writeToLog(LogLevel.debug, message, optionalParams);

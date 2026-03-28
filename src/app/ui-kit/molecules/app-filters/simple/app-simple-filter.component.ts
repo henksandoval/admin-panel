@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AppFilterCriterion, AppFiltersConfig, AppFilterValues, DEFAULT_FILTER_OPERATORS, DEFAULT_OPERATOR_BY_TYPE, FILTER_DEFAULTS } from '../app-filter.model';
 import { togglesToCriteria } from '../app-filter.utils';
-import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
+import { AppFilterFooterComponent } from '../footer';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppFormDatepickerComponent, AppFormInputComponent, AppFormSelectComponent, SelectOption } from '@ui-molecules/app-form';
 

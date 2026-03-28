@@ -1,3 +1,3 @@
-export * from './settings-panel/settings-panel.component';
+export * from './settings-panel';
 export * from './sidebar/sidebar.component';
 export * from './toolbar/toolbar.component';

@@ -1,11 +1,9 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
   forbidden: [
-
     // ─────────────────────────────────────────────────────────────────
     // REGLAS ARQUITECTÓNICAS - Constitución de Dependencias del Proyecto
     // ─────────────────────────────────────────────────────────────────
-
     {
       name: 'arch-ui-kit-no-core',
       severity: 'error',
@@ -66,11 +64,7 @@ module.exports = {
         'Dentro de la app usa InjectionTokens para inyectar la config.',
       from: {
         path: '^src/app/',
-        pathNot: [
-          '^src/app/core/config/',
-          '^src/app/core/tokens/',
-          '^src/app/app[.]'
-        ]
+        pathNot: '^src/app/app\\.config\\.ts'
       },
       to: { path: '^src/environments/' }
     },
@@ -84,9 +78,7 @@ module.exports = {
           '\\.spec\\.ts$',        // Los specs importan lo que testean
           'route-loaders\\.ts$',   // Los route-loaders necesitan referencias directas para lazy loading
           '^src/tests/',
-          '\\.spec\\.ts$',
           '\\.routes\\.ts$',
-          'route-loaders\\.ts$',
           'app\\.config\\.ts$',
           '^src/app/core/config/',
           '^src/app/layout/',
@@ -94,6 +86,7 @@ module.exports = {
         ]
       },
       to: {
+        path: '^src/',
         pathNot: [
           '^$1/[^/]+$',    // hermanos (mismo directorio que from)
           '^$2/[^/]+$',    // NUEVO: archivos directamente en el directorio padre
@@ -107,7 +100,7 @@ module.exports = {
     // ─────────────────────────────────────────────────────────────────
     {
       name: 'no-circular',
-      severity: 'warn',
+      severity: 'error',
       comment:
         'This dependency is part of a circular relationship. You might want to revise ' +
         'your solution (i.e. use dependency inversion, make sure the modules have a single responsibility) ',

@@ -6,11 +6,10 @@ import { AppTableAction, AppTableSort } from "@ui-atoms/app-table";
 import { AppToggleGroupComponent, ToggleOption } from "@ui-atoms/app-toggle-group";
 import { AppTableClientSideComponent } from "@ui-organisms/app-tables/client-side";
 import { AppFilterCriterion } from "@ui-molecules/app-filters";
-import { MockEmployeeService } from "../../mocks/mock-employee.service";
-import { MockHttpService } from "../../mocks/mock-http.service";
 import { getFiltersConfig, getTableConfig } from "./table-client-side.config";
 import { EmployeeViewModel, TableClientSideService } from "./table-client-side.service";
 import { AppPageLayoutComponent, AppSlotContainerDirective } from '@ui-templates/app-page-layout';
+import { MockHttpService, MockEmployeeService } from "@features/pds/mocks";
 
 const FILTER_MODE_OPTIONS: ToggleOption[] = [
   { value: 'false', label: $localize`:Table|Simple filters toggle@@tableclient.btn.simpleFilters:Simple Filters`, icon: 'filter_list' },

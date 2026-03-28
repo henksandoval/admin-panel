@@ -1,9 +1,6 @@
-import { computed, inject, Injectable, InjectionToken, Signal, signal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { FEATURE_FLAGS_DEFAULTS, FeatureFlagKey, FeatureFlags } from './feature-flags.model';
-
-export const FEATURE_FLAGS = new InjectionToken<Partial<FeatureFlags>>('FEATURE_FLAGS', {
-  factory: () => ({}),
-});
+import { FEATURE_FLAGS } from './feature-flag.tokens';
 
 @Injectable({ providedIn: 'root' })
 export class FeatureFlagsService {

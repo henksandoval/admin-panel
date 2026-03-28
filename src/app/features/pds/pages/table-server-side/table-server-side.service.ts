@@ -7,7 +7,7 @@ import {
 import { Observable } from "rxjs";
 import { EMPLOYEE_STATUS_LABELS } from '@features/pds/shared';
 import { Employee, EmployeeStatus } from '@features/pds/models';
-import { generateEmployees } from "@features/pds/mocks/data/employees.data";
+import { generateEmployees } from "@features/pds/mocks";
 
 export interface EmployeeViewModel {
   id: number;

@@ -4,7 +4,7 @@ import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/mat
 import { MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SettingsService } from '@core/config';
-import { SettingsPanelComponent } from '@layout/components/settings-panel/settings-panel.component';
+import { SettingsPanelComponent } from '@layout/components';
 
 @Component({
   selector: 'auth-layout',

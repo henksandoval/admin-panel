@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Route } from '@angular/router';
 import { ApiMenuItem } from './api-menu-item.contract';
-import { LazyComponentLoader, ROUTE_LOADER_REGISTRY, ROUTE_REGISTRY, RouteDefinition } from './route-registry';
 import { LoggingService } from '@core/logging-audit';
 import { authGuard, permissionGuard, roleGuard } from '@core/auth/guards';
+import { ROUTE_LOADER_REGISTRY, LazyComponentLoader } from './navigation.tokens';
+import { RouteDefinition, ROUTE_REGISTRY } from './route-registry';
 
 @Injectable({
   providedIn: 'root',

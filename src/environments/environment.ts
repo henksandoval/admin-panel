@@ -1,3 +1,13 @@
-import { environment as developmentEnvironment } from './environment.development';
+import { AppEnvironment } from '@env/environment.type';
+import { LogLevel } from '@core/logging-audit/log-level.model';
 
-export const environment = developmentEnvironment;
+export const environment: AppEnvironment = {
+  production: false,
+  logLevel: LogLevel.debug,
+  apiBaseUrl: 'http://localhost:3000',
+  strictMenuRoutes: false,
+  featureFlags: {
+    'dashboard.analytics': true,
+    'users.export': true,
+  },
+};

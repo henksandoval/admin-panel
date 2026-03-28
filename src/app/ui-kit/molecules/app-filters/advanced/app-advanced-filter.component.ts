@@ -14,7 +14,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@ui-atoms/app-button';
-import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
+import { AppFilterFooterComponent } from '../footer';
 import { AppFormDatepickerComponent, AppFormInputComponent, AppFormSelectComponent, SelectOption } from '@ui-molecules/app-form';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
 import { AppFilterCriterion, AppFiltersConfig, DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-filter.model';

@@ -14,19 +14,22 @@ import { provideHighlightOptions } from 'ngx-highlightjs';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-import { LAYOUT_ROUTE_FACTORY, routes } from './app.routes';
 import { featureRouteLoaders } from './feature-route-loaders';
 import { InitializationService } from '@core/config/initialization.service';
 import { authInterceptor } from '@auth/interceptors/auth.interceptor';
-import { API_BASE_URL, JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.provider';
+import { JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.provider';
 import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
-import { environment } from '@env/environment.development';
 import { errorInterceptor } from '@core/errors/error.interceptor';
 import { correlationInterceptor } from '@core/network/correlation.interceptor';
-import { ROUTE_LOADER_REGISTRY } from '@core/navigation/route-registry';
-import { FEATURE_FLAGS } from '@core/feature-flags/feature-flags.service';
 import { GlobalErrorHandler } from '@core/errors/global-error.handler';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@core/auth/providers';
+import { LAYOUT_ROUTE_FACTORY, ROUTE_LOADER_REGISTRY, STRICT_MENU_ROUTES } from '@core/navigation/navigation.tokens';
+import { FEATURE_FLAGS } from '@core/feature-flags/feature-flag.tokens';
+import { LOG_LEVEL } from '@core/logging-audit/logging.tokens';
+import { environment } from '@env/environment';
+import { IS_PRODUCTION } from './app.tokens';
+import { API_BASE_URL } from '@core/network';
+import { routes } from './app.routes';
 
 registerLocaleData(localeEs);
 
@@ -64,9 +67,12 @@ export const appConfig: ApplicationConfig = {
       useClass: environment.production ? JwtAuthProvider : MockAuthProvider,
     },
     { provide: AUTH_PUBLIC_URLS, useValue: ['/auth/login', '/auth/refresh', '/auth/logout'] },
-    { provide: API_BASE_URL,     useValue: environment.apiBaseUrl },
+    { provide: API_BASE_URL, useValue: environment.apiBaseUrl },
     { provide: ROUTE_LOADER_REGISTRY, useValue: featureRouteLoaders },
-    { provide: FEATURE_FLAGS,    useValue: environment.featureFlags },
+    { provide: LOG_LEVEL, useValue: environment.logLevel },
+    { provide: FEATURE_FLAGS, useValue: environment.featureFlags },
+    { provide: STRICT_MENU_ROUTES, useValue: environment.strictMenuRoutes },
+    { provide: IS_PRODUCTION, useValue: environment.production },
   ]
 };
 

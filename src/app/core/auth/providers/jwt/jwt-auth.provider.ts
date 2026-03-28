@@ -12,8 +12,7 @@ import {
   RegisterCredentials,
   TokenResponse,
 } from '@core/auth/models';
-
-export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
+import { API_BASE_URL } from '@core/network';
 
 @Injectable({ providedIn: 'root' })
 export class JwtAuthProvider implements IAuthProvider {

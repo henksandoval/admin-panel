@@ -7,7 +7,7 @@ import {
 import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from '@core/auth/services';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@core/auth/providers';
-import { IAuthProvider, TokenResponse } from '../models/auth.model';
+import { IAuthProvider, TokenResponse } from '../models';
 
 let isRefreshing = false;
 const refreshTokenSubject = new BehaviorSubject<string | null>(null);

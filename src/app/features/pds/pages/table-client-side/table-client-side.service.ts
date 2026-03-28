@@ -3,7 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { EMPLOYEE_STATUS_LABELS } from '@features/pds/shared';
 import { Employee, EmployeeStatus } from '@features/pds/models';
-import { MockEmployeeService } from "@features/pds/mocks/mock-employee.service";
+import { MockEmployeeService } from "@features/pds/mocks";
 
 export interface EmployeeViewModel {
   id: number;
