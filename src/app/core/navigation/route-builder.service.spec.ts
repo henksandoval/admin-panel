@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ApiMenuItem } from './api-menu-item.contract';
-import { authGuard, permissionGuard, roleGuard } from '@auth/guards/auth.guard';
+import { authGuard, permissionGuard, roleGuard } from '@core/auth'auth.guard';
 import { ROUTE_LOADER_REGISTRY, RouteLoaderRegistry } from './route-registry';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { LoggingService } from '@core/logging-audit';
 import { RouteBuilderService } from './route-builder.service';
 
 vi.mock('@core/navigation/route-registry', async (importOriginal) => {

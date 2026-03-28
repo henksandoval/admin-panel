@@ -1,8 +1,8 @@
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Employee } from '../models/employee.model';
-import { generateEmployees } from "./data/employees.data";
+import { Employee } from '@features/pds/models';
 import { MockHttpService } from "./mock-http.service";
+import { generateEmployees } from "./data/employees.data";
 
 @Injectable()
 export class MockEmployeeService {

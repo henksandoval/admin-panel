@@ -98,7 +98,7 @@ export default class SelectsComponent {
     const density = this.densityValue();
 
     let tsCode = `// TypeScript\n`;
-    tsCode += `import { SelectOption } from '@shared/form-controls/app-form-select/app-form-select.model';\n\n`;
+    tsCode += `import { SelectOption } from '@ui-molecules/app-form/app-form-select';\n\n`;
 
     if (state === 'grouped') {
       tsCode += `options: SelectOption<string>[] = [\n`;

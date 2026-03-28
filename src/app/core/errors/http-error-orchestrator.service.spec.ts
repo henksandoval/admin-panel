@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
-import { LoggingService } from '@core/logging-audit/logging.service';
-import { NotificationService } from '@core/notifications/notification.service';
+import { LoggingService } from '@core/logging-audit';
+import { NotificationService } from '@core/notifications';
 import { CorrelationService } from '@core/network/correlation.service';
 import { HttpErrorOrchestratorService } from './http-error-orchestrator.service';
 
@@ -152,4 +152,3 @@ describe('HttpErrorOrchestratorService', () => {
     expect(loggingServiceMock.error).not.toHaveBeenCalled();
   });
 });
-

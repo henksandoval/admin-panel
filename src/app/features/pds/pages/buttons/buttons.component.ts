@@ -11,7 +11,7 @@ import { BUTTON_DEFAULTS, ButtonColor, ButtonShape, ButtonSize } from '@ui-atoms
 import { MatButtonAppearance } from '@angular/material/button';
 import { API_PROPERTIES, BEST_PRACTICES, VARIANT_GUIDES } from './buttons.data';
 import { PdsPageLayoutComponent } from '@features/pds/shared/templates/pds-page-layout';
-import { AppCardComponent } from "@ui-atoms/app-card/app-card.component";
+import { AppCardComponent } from "@ui-atoms/app-card";
 
 @Component({
   selector: 'app-buttons',

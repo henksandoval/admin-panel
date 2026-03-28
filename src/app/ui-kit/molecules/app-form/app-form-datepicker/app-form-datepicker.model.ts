@@ -39,4 +39,3 @@ export const FORM_DATEPICKER_DEFAULT_ERROR_MESSAGES: Record<string, string> = {
   matDatepickerFilter: $localize`:FormDatepicker|Filter error@@formDatepicker.error.filter:Invalid date`,
   matDatepickerParse: $localize`:FormDatepicker|Parse error@@formDatepicker.error.parse:Invalid date format`,
 };
-

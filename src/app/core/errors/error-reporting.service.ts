@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { ErrorReport } from './error-report.model';
 import { ErrorReportDto } from './error-report.contract';
-import { API_BASE_URL } from '@auth/providers/jwt/jwt-auth.provider';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { API_BASE_URL } from '@core/auth/providers/jwt';
+import { LoggingService } from '@core/logging-audit';
 
 @Injectable({
   providedIn: 'root',

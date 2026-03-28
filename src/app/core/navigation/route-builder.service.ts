@@ -2,8 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { Route } from '@angular/router';
 import { ApiMenuItem } from './api-menu-item.contract';
 import { LazyComponentLoader, ROUTE_LOADER_REGISTRY, ROUTE_REGISTRY, RouteDefinition } from './route-registry';
-import { LoggingService } from '@core/logging-audit/logging.service';
-import { authGuard, permissionGuard, roleGuard } from '@auth/guards/auth.guard';
+import { LoggingService } from '@core/logging-audit';
+import { authGuard, permissionGuard, roleGuard } from '@core/auth/guards';
 
 @Injectable({
   providedIn: 'root',
@@ -97,4 +97,3 @@ export class RouteBuilderService {
     };
   }
 }
-

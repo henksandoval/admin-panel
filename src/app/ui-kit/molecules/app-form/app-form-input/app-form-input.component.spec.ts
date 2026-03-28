@@ -3,7 +3,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input/app-form-input.component';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input/app-form-input.model';
+import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
 
 const TEST_ID = 'test-input';
 
@@ -100,4 +100,3 @@ describe('AppFormInputComponent', () => {
     expect(onIconClickSpy).toHaveBeenCalledWith(expect.any(MouseEvent));
   });
 });
-

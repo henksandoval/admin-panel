@@ -3,10 +3,7 @@ import { AppCardComponent } from '@ui-atoms/app-card';
 import { AppPaginationComponent } from '@ui-atoms/app-pagination';
 import { AppTableComponent } from '@ui-atoms/app-table';
 import { AppTableSort } from '@ui-atoms/app-table';
-import { AppAdvancedFilterComponent } from '@ui-molecules/app-filters/advanced';
-import { AppFilterCriterion, AppFilterValues } from '@ui-molecules/app-filters';
-import { criteriaToValues } from '@ui-molecules/app-filters';
-import { AppSimpleFilterComponent } from '@ui-molecules/app-filters/simple';
+import { AppAdvancedFilterComponent, AppSimpleFilterComponent, AppFilterCriterion, AppFilterValues, criteriaToValues } from '@ui-molecules/app-filters';
 import { AppTableBase } from '../app-table-base';
 import { AnyRecord } from '../app-table.model';
 import { AppPageEvent } from '@ui-atoms/app-pagination';
@@ -78,4 +75,3 @@ export class AppTableServerSideComponent<T extends AnyRecord> extends AppTableBa
     this.paramsChange.emit(this.currentParams());
   }
 }
-

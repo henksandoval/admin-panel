@@ -1,5 +1,5 @@
 import { Component, effect, input, output, signal } from '@angular/core';
-import { AppFilterToggle } from '@ui-molecules/app-filters/app-filter.model';
+import { AppFilterToggle } from '@ui-molecules/app-filters';
 
 @Component({
   selector: 'app-filter-footer',

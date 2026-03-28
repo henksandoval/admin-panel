@@ -1,7 +1,7 @@
 import { AppTableConfig } from '@ui-atoms/app-table';
 import { AppFiltersConfig } from '@ui-molecules/app-filters';
 import { AppPaginationConfig } from '@ui-atoms/app-pagination';
-import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_STATUS_OPTIONS } from '../../shared/employee-options.config';
+import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_STATUS_OPTIONS } from '@features/pds/shared';
 import { EmployeeViewModel } from './table-server-side.service';
 
 export function getTableConfig(): AppTableConfig<EmployeeViewModel> {

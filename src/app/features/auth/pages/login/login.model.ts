@@ -13,4 +13,3 @@ export const LOGIN_DEFAULTS = {
   passwordMinLength: 8,
   rememberMe:       false,
 } as const;
-

@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { ForgotPasswordComponent } from './forgot-password.component';
-import { AuthService } from '@auth/services/auth.service';
+import { AuthService } from '@core/auth/services';
 import { AuthPageLayoutStubComponent } from '@stubs/auth/auth-page-layout.stub';
 import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
 import { AppButtonStubComponent } from '@stubs/ui-kit/app-button.stub';

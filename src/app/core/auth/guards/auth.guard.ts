@@ -7,8 +7,8 @@ import {
 } from '@angular/router';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, map, take } from 'rxjs';
-import { AuthService } from '@auth/services/auth.service';
-import { AUTH_DEFAULTS } from '@auth/models';
+import { AuthService } from '@core/auth/services';
+import { AUTH_DEFAULTS } from '@core/auth/models';
 
 export const authGuard: CanActivateFn = (
   _route: ActivatedRouteSnapshot,
@@ -90,4 +90,3 @@ export const canActivateWithPermission = (
   canActivate: [authGuard, permissionGuard],
   data: { permissions, requireAllPermissions: requireAll },
 });
-

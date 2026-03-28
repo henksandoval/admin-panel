@@ -6,8 +6,8 @@ import { lastValueFrom, of } from 'rxjs';
 import { describe, it, expect } from 'vitest';
 
 import { authGuard, permissionGuard, roleGuard } from './auth.guard';
-import { AuthService } from '@auth/services/auth.service';
-import { AUTH_PROVIDER } from '@auth/providers/auth-provider.token';
+import { AuthService } from '@core/auth/services';
+import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AUTH_DEFAULTS, AuthStatus, AuthUser } from '@auth/models/auth.model';
 import { createMockAuthProvider, MOCK_USER } from '@auth/testing/auth-test.helpers';
 
@@ -252,6 +252,3 @@ describe('permissionGuard', () => {
     expect(result).toBe(true);
   });
 });
-
-
-

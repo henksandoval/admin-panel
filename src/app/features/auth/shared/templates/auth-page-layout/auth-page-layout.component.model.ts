@@ -3,4 +3,3 @@ export const AUTH_LAYOUT_DEFAULTS = {
   brandSub: $localize`:Auth Layout|Brand subtitle@@authLayout.brand.subtitle:panel`,
   showHeader: true,
 } as const;
-

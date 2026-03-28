@@ -10,4 +10,3 @@ export const FORGOT_PASSWORD_DEFAULTS = {
   status:       'idle' as ForgotPasswordStatus,
   errorMessage: '',
 } as const;
-

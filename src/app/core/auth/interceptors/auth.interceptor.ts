@@ -5,9 +5,9 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from 'rxjs';
-import { AuthService } from '@auth/services/auth.service';
-import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
-import { IAuthProvider, TokenResponse } from '@auth/models';
+import { AuthService } from '@core/auth/services';
+import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@core/auth/providers';
+import { IAuthProvider, TokenResponse } from '../models/auth.model';
 
 let isRefreshing = false;
 const refreshTokenSubject = new BehaviorSubject<string | null>(null);

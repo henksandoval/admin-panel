@@ -24,4 +24,3 @@ export const FORM_CHECKBOX_NEW_DEFAULT_ERROR_MESSAGES: Record<string, string> = 
   required: $localize`:FormCheckbox|Required error@@formCheckbox.error.required:This field must be checked`,
   requiredTrue: $localize`:FormCheckbox|Required true error@@formCheckbox.error.requiredTrue:You must accept this to continue`,
 };
-

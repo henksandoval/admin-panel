@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ApiMenuItem, MenuContractError } from './api-menu-item.contract';
 import { MenuDataService } from './menu-data.service';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { LoggingService } from '@core/logging-audit';
 
 function createMenuDataService() {
   const loggerMock = { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() };

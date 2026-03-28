@@ -2,7 +2,7 @@ import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/cor
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { LoggingService } from '@core/logging-audit';
 import { ApiMenuItem, validateApiMenuItems } from './api-menu-item.contract';
 import { NavigationItem, NavigationBadge, NAVIGATION_DEFAULTS } from './navigation.model';
 import { ROUTE_REGISTRY } from './route-registry';
@@ -91,4 +91,3 @@ export class MenuDataService {
       .filter((item): item is NavigationItem => item !== null);
   }
 }
-

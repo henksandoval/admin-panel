@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { ResetPasswordComponent } from './reset-password.component';
-import { AuthService } from '@auth/services/auth.service';
+import { AuthService } from '@core/auth/services';
 import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
 import { AppButtonStubComponent } from '@stubs/ui-kit/app-button.stub';
 import { AppCheckboxStubComponent } from '@stubs/ui-kit/app-checkbox.stub';

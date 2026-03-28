@@ -2,9 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorKind } from './error-report.model';
-import { CorrelationService } from '@core/network/correlation.service';
-import { LoggingService } from '@core/logging-audit/logging.service';
-import { NotificationService } from '@core/notifications/notification.service';
+import { CorrelationService } from '@core/network';
+import { LoggingService } from '@core/logging-audit';
+import { NotificationService } from '@core/notifications';
 
 const NAVIGATION_HANDLED_STATUSES = new Set([403, 404, 500, 503]);
 const OPERATIONAL_ERROR_DURATION = 8000;
@@ -112,4 +112,3 @@ export class HttpErrorOrchestratorService {
     }
   }
 }
-

@@ -65,4 +65,3 @@ export const AUTH_DEFAULTS = {
   unauthorizedRoute: '/errors/unauthorized',
   sessionExpiredRoute: '/critical-errors/session-expired',
 } as const;
-

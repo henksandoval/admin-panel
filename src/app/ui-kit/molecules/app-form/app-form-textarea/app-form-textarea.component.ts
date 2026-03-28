@@ -90,5 +90,3 @@ export class AppFormTextareaComponent {
     return { shouldShow: true, message };
   });
 }
-
-

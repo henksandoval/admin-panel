@@ -8,7 +8,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
 import { LayoutService } from '../../services/layout.service';
 import { AppBreadCrumbComponent } from '@ui-molecules/app-bread-crumb';
-import { AuthService } from '@auth/services/auth.service';
+import { AuthService } from '@core/auth/services';
 import { NavigationService } from '@core/navigation/navigation.service';
 
 @Component({
@@ -103,4 +103,3 @@ export class ToolbarComponent {
     this.authService.logout().subscribe();
   }
 }
-

@@ -54,5 +54,3 @@ export class AppFilterFooterComponent {
     this.searchClick.emit();
   }
 }
-
-

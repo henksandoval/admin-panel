@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Subject } from 'rxjs';
 import { NavigationItem } from './navigation.model';
-import { AuthService } from '@auth/services/auth.service';
+import { AuthService } from '@core/auth/services';
 import { MenuDataService } from './menu-data.service';
 import { NavigationService } from './navigation.service';
 

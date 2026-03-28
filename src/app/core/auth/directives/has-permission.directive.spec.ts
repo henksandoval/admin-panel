@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/angular';
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import { HasPermissionDirective } from './has-permission.directive';
-import { AuthService } from '@auth/services/auth.service';
-import { AUTH_PROVIDER } from '@auth/providers/auth-provider.token';
+import { AuthService } from '@core/auth/services';
+import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AuthUser } from '@auth/models/auth.model';
 import { createMockAuthProvider, MOCK_USER } from '@auth/testing/auth-test.helpers';
 

@@ -2,11 +2,10 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { AuthService } from '@auth/services/auth.service';
+import { AuthService } from '@core/auth/services';
 import { AppButtonComponent } from '@ui-atoms/app-button';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
+import { AppFormInputComponent, AppFormInputOptions } from '@ui-molecules/app-form';
 import { passwordMatchValidator } from '@features/auth/shared/validators';
 import { RESET_PASSWORD_DEFAULTS, ResetPasswordStatus } from './reset-password.model';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
@@ -116,6 +115,3 @@ export class ResetPasswordComponent implements OnInit {
     void this.router.navigate(['/auth/forgot-password']);
   }
 }
-
-
-

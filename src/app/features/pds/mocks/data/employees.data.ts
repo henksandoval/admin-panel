@@ -1,5 +1,5 @@
-import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_ROLES } from '../../shared/employee-options.config';
-import { Employee, EmployeeStatus } from '../../models/employee.model';
+import { EMPLOYEE_DEPARTMENTS, EMPLOYEE_ROLES } from '@features/pds/shared';
+import { Employee, EmployeeStatus } from '@features/pds/models';
 
 const FIRST_NAMES = [
   'Ana', 'Carlos', 'María', 'Juan', 'Laura', 'Pedro', 'Sofía', 'Diego',

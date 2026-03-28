@@ -36,4 +36,3 @@ export const FORM_TEXTAREA_NEW_DEFAULT_ERROR_MESSAGES: Record<string, string> = 
   maxlength: $localize`:FormTextarea|Max length error@@formTextarea.error.maxlength:The text is too long`,
   pattern: $localize`:FormTextarea|Pattern error@@formTextarea.error.pattern:The format is not valid`,
 };
-

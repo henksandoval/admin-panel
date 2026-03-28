@@ -1,4 +1,4 @@
-import { EmployeeStatus } from '../models/employee.model';
+import { EmployeeStatus } from '@features/pds/models';
 
 export const EMPLOYEE_STATUS_LABELS: Record<EmployeeStatus, string> = {
   active: $localize`:Employee|Status label@@employee.status.active:Active`,

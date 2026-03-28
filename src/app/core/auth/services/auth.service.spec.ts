@@ -5,7 +5,7 @@ import { lastValueFrom, of, throwError } from 'rxjs';
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 
 import { AuthService } from './auth.service';
-import { AUTH_PROVIDER } from '@auth/providers/auth-provider.token';
+import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AUTH_DEFAULTS } from '@auth/models/auth.model';
 import {
   createMockAuthProvider,
@@ -276,7 +276,3 @@ describe('AuthService', () => {
     });
   });
 });
-
-
-
-

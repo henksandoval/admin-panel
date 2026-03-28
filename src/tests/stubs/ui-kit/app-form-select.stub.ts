@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectOption } from '@ui-molecules/app-form/app-form-select/app-form-select.model';
+import { SelectOption } from '@ui-molecules/app-form/app-form-select';
 
 @Component({
   selector: 'app-form-select',

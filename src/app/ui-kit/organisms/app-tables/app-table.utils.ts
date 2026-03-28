@@ -20,4 +20,3 @@ export function defaultTableSort<T extends AnyRecord>(data: T[], sort: AppTableS
 export function calcLastPage(totalItems: number, pageSize: number): number {
   return Math.max(0, Math.ceil(totalItems / pageSize) - 1);
 }
-

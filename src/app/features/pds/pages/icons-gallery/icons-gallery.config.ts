@@ -58,4 +58,3 @@ export function getIconsFiltersConfig(): AppFiltersConfig {
     showSearchButton: false,
   };
 }
-

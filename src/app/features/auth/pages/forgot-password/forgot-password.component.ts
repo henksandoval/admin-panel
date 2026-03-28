@@ -2,10 +2,9 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { AuthService } from '@auth/services/auth.service';
+import { AuthService } from '@core/auth/services';
 import { AppButtonComponent } from '@ui-atoms/app-button';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
+import { AppFormInputComponent, AppFormInputOptions } from '@ui-molecules/app-form';
 import { FORGOT_PASSWORD_DEFAULTS, ForgotPasswordStatus } from './forgot-password.model';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
 
@@ -70,4 +69,3 @@ export class ForgotPasswordComponent {
     return $localize`:ForgotPassword|Generic error@@forgot.error.generic:Something went wrong. Please try again.`;
   }
 }
-

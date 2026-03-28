@@ -1,0 +1,68 @@
+
+> admin-panel@0.0.0 dep:validate
+> depcruise src/app --config .dependency-cruiser.js --output-type err
+
+
+  warn arch-no-direct-environment: src/app/core/navigation/menu-data.service.ts ΓåÆ src/environments/environment.ts
+  warn arch-no-direct-environment: src/app/core/logging-audit/logging.service.ts ΓåÆ src/environments/environment.ts
+  warn arch-no-barrel-bypass: src/app/ui-kit/molecules/app-filters/simple/app-simple-filter.component.ts ΓåÆ src/app/ui-kit/molecules/app-filters/footer/app-filter-footer.component.ts
+  warn arch-no-barrel-bypass: src/app/ui-kit/molecules/app-filters/advanced/app-advanced-filter.component.ts ΓåÆ src/app/ui-kit/molecules/app-filters/footer/app-filter-footer.component.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/shared/employee-options.config.ts ΓåÆ src/app/features/pds/models/employee.model.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-server-side/table-server-side.service.ts ΓåÆ src/app/features/pds/shared/employee-options.config.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-server-side/table-server-side.service.ts ΓåÆ src/app/features/pds/models/employee.model.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-server-side/table-server-side.service.ts ΓåÆ src/app/features/pds/mocks/data/employees.data.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-server-side/table-server-side.config.ts ΓåÆ src/app/features/pds/shared/employee-options.config.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-server-side/table-server-side.component.ts ΓåÆ src/app/features/pds/mocks/mock-http.service.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-server-side/table-server-side.component.ts ΓåÆ src/app/features/pds/mocks/mock-employee.service.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-client-side/table-client-side.service.ts ΓåÆ src/app/features/pds/shared/employee-options.config.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-client-side/table-client-side.service.ts ΓåÆ src/app/features/pds/models/employee.model.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-client-side/table-client-side.service.ts ΓåÆ src/app/features/pds/mocks/mock-employee.service.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-client-side/table-client-side.config.ts ΓåÆ src/app/features/pds/shared/employee-options.config.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-client-side/table-client-side.component.ts ΓåÆ src/app/features/pds/mocks/mock-http.service.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/table-client-side/table-client-side.component.ts ΓåÆ src/app/features/pds/mocks/mock-employee.service.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/pages/form/form.component.ts ΓåÆ src/app/core/logging-audit/logging.service.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/mocks/mock-employee.service.ts ΓåÆ src/app/features/pds/models/employee.model.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/mocks/mock-employee.service.ts ΓåÆ src/app/features/pds/mocks/data/employees.data.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/mocks/data/employees.data.ts ΓåÆ src/app/features/pds/shared/employee-options.config.ts
+  warn arch-no-barrel-bypass: src/app/features/pds/mocks/data/employees.data.ts ΓåÆ src/app/features/pds/models/employee.model.ts
+  warn arch-no-barrel-bypass: src/app/features/errors/pages/unauthorized/unauthorized.component.ts ΓåÆ src/app/features/errors/shared/templates/error-page-layout/error-page-layout.component.ts
+  warn arch-no-barrel-bypass: src/app/features/errors/pages/system-down/system-down.component.ts ΓåÆ src/app/features/errors/shared/templates/error-page-layout/error-page-layout.component.ts
+  warn arch-no-barrel-bypass: src/app/features/errors/pages/session-expired/session-expired.component.ts ΓåÆ src/app/features/errors/shared/templates/error-page-layout/error-page-layout.component.ts
+  warn arch-no-barrel-bypass: src/app/features/errors/pages/server-error/server-error.component.ts ΓåÆ src/app/features/errors/shared/templates/error-page-layout/error-page-layout.component.ts
+  warn arch-no-barrel-bypass: src/app/features/errors/pages/not-found/not-found.component.ts ΓåÆ src/app/features/errors/shared/templates/error-page-layout/error-page-layout.component.ts
+  warn arch-no-barrel-bypass: src/app/features/errors/pages/access-denied/access-denied.component.ts ΓåÆ src/app/features/errors/shared/templates/error-page-layout/error-page-layout.component.ts
+  warn arch-no-barrel-bypass: src/app/features/dashboard/dashboard.component.ts ΓåÆ src/app/core/feature-flags/feature-flag.directive.ts
+  warn arch-no-barrel-bypass: src/app/features/dashboard/dashboard.component.ts ΓåÆ src/app/core/auth/directives/has-role.directive.ts
+  warn arch-no-barrel-bypass: src/app/features/dashboard/dashboard.component.ts ΓåÆ src/app/core/auth/directives/has-permission.directive.ts
+  warn arch-no-barrel-bypass: src/app/features/auth/pages/reset-password/reset-password.component.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/features/auth/pages/register/register.component.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/features/auth/pages/login/login.component.ts ΓåÆ src/app/core/logging-audit/logging.service.ts
+  warn arch-no-barrel-bypass: src/app/features/auth/pages/login/login.component.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/features/auth/pages/forgot-password/forgot-password.component.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/features/auth/auth-layout.component.ts ΓåÆ src/app/layout/components/settings-panel/settings-panel.component.ts
+  warn arch-no-barrel-bypass: src/app/features/auth/auth-layout.component.ts ΓåÆ src/app/core/config/settings.service.ts
+  warn arch-no-barrel-bypass: src/app/core/navigation/route-builder.service.ts ΓåÆ src/app/core/logging-audit/logging.service.ts
+  warn arch-no-barrel-bypass: src/app/core/navigation/route-builder.service.ts ΓåÆ src/app/core/auth/guards/auth.guard.ts
+  warn arch-no-barrel-bypass: src/app/core/navigation/navigation.service.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/core/navigation/menu-data.service.ts ΓåÆ src/app/core/logging-audit/logging.service.ts
+  warn arch-no-barrel-bypass: src/app/core/logging-audit/audit.service.ts ΓåÆ src/app/core/auth/providers/jwt/jwt-auth.provider.ts
+  warn arch-no-barrel-bypass: src/app/core/errors/http-error-orchestrator.service.ts ΓåÆ src/app/core/notifications/notification.service.ts
+  warn arch-no-barrel-bypass: src/app/core/errors/http-error-orchestrator.service.ts ΓåÆ src/app/core/network/correlation.service.ts
+  warn arch-no-barrel-bypass: src/app/core/errors/http-error-orchestrator.service.ts ΓåÆ src/app/core/logging-audit/logging.service.ts
+  warn arch-no-barrel-bypass: src/app/core/errors/global-error.handler.ts ΓåÆ src/app/core/network/correlation.service.ts
+  warn arch-no-barrel-bypass: src/app/core/errors/global-error.handler.ts ΓåÆ src/app/core/logging-audit/logging.service.ts
+  warn arch-no-barrel-bypass: src/app/core/errors/error-reporting.service.ts ΓåÆ src/app/core/logging-audit/logging.service.ts
+  warn arch-no-barrel-bypass: src/app/core/errors/error-reporting.service.ts ΓåÆ src/app/core/auth/providers/jwt/jwt-auth.provider.ts
+  warn arch-no-barrel-bypass: src/app/core/auth/services/auth.service.ts ΓåÆ src/app/core/logging-audit/audit.service.ts
+  warn arch-no-barrel-bypass: src/app/core/auth/services/auth.service.ts ΓåÆ src/app/core/auth/providers/auth-provider.token.ts
+  warn arch-no-barrel-bypass: src/app/core/auth/interceptors/auth.interceptor.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/core/auth/interceptors/auth.interceptor.ts ΓåÆ src/app/core/auth/providers/auth-provider.token.ts
+  warn arch-no-barrel-bypass: src/app/core/auth/guards/auth.guard.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/core/auth/directives/has-role.directive.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/core/auth/directives/has-permission.directive.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+  warn arch-no-barrel-bypass: src/app/app.ts ΓåÆ src/app/core/notifications/notification.service.ts
+  warn arch-no-barrel-bypass: src/app/app.ts ΓåÆ src/app/core/auth/services/idle.service.ts
+  warn arch-no-barrel-bypass: src/app/app.ts ΓåÆ src/app/core/auth/services/auth.service.ts
+
+x 60 dependency violations (0 errors, 60 warnings). 301 modules, 724 dependencies cruised.
+

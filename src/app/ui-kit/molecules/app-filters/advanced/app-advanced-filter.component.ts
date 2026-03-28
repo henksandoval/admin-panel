@@ -15,12 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@ui-atoms/app-button';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
-import {
-  AppFormDatepickerComponent
-} from '@ui-molecules/app-form/app-form-datepicker';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
-import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select';
-import { SelectOption } from '@ui-molecules/app-form/app-form-select';
+import { AppFormDatepickerComponent, AppFormInputComponent, AppFormSelectComponent, SelectOption } from '@ui-molecules/app-form';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
 import { AppFilterCriterion, AppFiltersConfig, DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-filter.model';
 import { togglesToCriteria } from '../app-filter.utils';

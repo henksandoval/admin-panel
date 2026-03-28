@@ -81,4 +81,3 @@ export const ROUTE_REGISTRY: Record<string, RouteDefinition> = {
   ...criticalErrorRoutes,
   ...pdsRoutes,
 };
-

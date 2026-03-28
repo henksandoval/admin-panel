@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { IdleService } from './idle.service';
-import { AUTH_DEFAULTS } from '@auth/models';
+import { AUTH_DEFAULTS } from '@core/auth/models';
 
 describe('IdleService', () => {
   let service: IdleService;

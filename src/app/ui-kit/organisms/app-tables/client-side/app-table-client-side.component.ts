@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal, } from "@angular/core";
-import { AppTableComponent } from "@ui-atoms/app-table/app-table.component";
+import { AppTableComponent } from "@ui-atoms/app-table";
 import { AppTableBase } from "../app-table-base";
 import { AnyRecord } from "../app-table.model";
 import { defaultTableSort } from "../app-table.utils";

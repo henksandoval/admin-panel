@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ErrorsPageComponent } from '@features/errors/shared/templates/error-page-layout/error-page-layout.component';
+import { ErrorsPageComponent } from '@features/errors/shared';
 
 @Component({
   selector: 'app-server-error',

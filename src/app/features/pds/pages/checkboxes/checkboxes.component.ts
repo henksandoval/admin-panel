@@ -115,5 +115,3 @@ export default class CheckboxesComponent {
     void this.router.navigate(['/pds/index']);
   }
 }
-
-

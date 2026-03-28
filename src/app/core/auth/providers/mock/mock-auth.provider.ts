@@ -9,7 +9,7 @@ import {
   PasswordResetRequest,
   RegisterCredentials,
   TokenResponse,
-} from '@auth/models';
+} from '@core/auth/models';
 
 @Injectable({ providedIn: 'root' })
 export class MockAuthProvider implements IAuthProvider {
@@ -69,4 +69,3 @@ export class MockAuthProvider implements IAuthProvider {
     return of(undefined as unknown as void);
   }
 }
-

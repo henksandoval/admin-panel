@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ErrorsPageComponent } from '@features/errors/shared/templates/error-page-layout/error-page-layout.component';
+import { ErrorsPageComponent } from '@features/errors/shared';
 
 @Component({
   selector: 'app-system-down',

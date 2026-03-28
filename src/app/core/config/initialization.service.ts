@@ -4,8 +4,8 @@ import { lastValueFrom } from 'rxjs';
 import { LAYOUT_ROUTE_FACTORY } from '../../app.routes';
 import { MenuDataService } from '@core/navigation/menu-data.service';
 import { RouteBuilderService } from '@core/navigation/route-builder.service';
-import { LoggingService } from '@core/logging-audit/logging.service';
-import { AuthService } from '@auth/services/auth.service';
+import { LoggingService } from '@core/logging-audit';
+import { AuthService } from '@core/auth/services';
 import { MenuContractError } from '@core/navigation/api-menu-item.contract';
 import { environment } from '@env/environment';
 

@@ -15,7 +15,7 @@ import {
 } from 'rxjs';
 import { AuditEvent } from './audit.model';
 import { AuditEventDto } from './audit-event.contract';
-import { API_BASE_URL } from '@auth/providers/jwt/jwt-auth.provider';
+import { API_BASE_URL } from '@core/auth/providers/jwt';
 import { LoggingService } from './logging.service';
 
 export const AUDIT_BATCH_TRIGGER = new InjectionToken<Observable<unknown>>(

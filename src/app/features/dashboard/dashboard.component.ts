@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { HasPermissionDirective } from '@auth/directives/has-permission.directive';
-import { HasRoleDirective } from '@auth/directives/has-role.directive';
-import { FeatureFlagDirective } from '@core/feature-flags/feature-flag.directive';
+import { HasPermissionDirective, HasRoleDirective } from '@core/auth/directives';
+import { FeatureFlagDirective } from '@core/feature-flags';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,4 +10,3 @@ import { FeatureFlagDirective } from '@core/feature-flags/feature-flag.directive
 })
 export class DashboardComponent {
 }
-

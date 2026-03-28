@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
-import { AppFormTextareaNewOptions } from '@ui-molecules/app-form/app-form-textarea/app-form-textarea.model';
+import { AppFormTextareaNewOptions } from '@ui-molecules/app-form/app-form-textarea';
 
 @Component({
   selector: 'app-form-textarea',

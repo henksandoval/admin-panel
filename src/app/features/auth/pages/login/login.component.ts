@@ -3,15 +3,14 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AuthService } from '@auth/services/auth.service';
+import { AuthService } from '@core/auth/services';
 import { AppButtonComponent } from '@ui-atoms/app-button';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
+import { AppFormInputComponent, AppFormInputOptions } from '@ui-molecules/app-form';
 import { LOGIN_DEFAULTS, LoginStatus } from './login.model';
 import { MatDivider } from '@angular/material/divider';
 import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { LoggingService } from '@core/logging-audit';
 
 @Component({
   selector: 'app-auth-login',
@@ -111,4 +110,3 @@ export class LoginComponent {
     return 'Credenciales incorrectas. Inténtalo de nuevo.';
   }
 }
-

@@ -14,26 +14,14 @@ import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
 import { AppCardComponent } from '@ui-atoms/app-card';
 import { ToggleOption } from '@ui-atoms/app-toggle-group';
 import { API_PROPERTIES, BEST_PRACTICES } from './form.data';
-import { LayoutConfig } from '@ui-templates/app-page-layout/app-page-layout.model';
+import { LayoutConfig } from '@ui-templates/app-page-layout';
 import { PdsPageUtilitiesService } from '@features/pds/shared/templates/pds-page-layout';
 import {
   PdsDocumentationTabsComponent
 } from '@features/pds/shared/organisms/pds-documentation-tabs';
-import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-layout.component";
-import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
-import { AppFormCheckboxComponent } from '@ui-molecules/app-form/app-form-checkbox';
-import {
-  AppFormDatepickerComponent
-} from '@ui-molecules/app-form/app-form-datepicker';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
-import { AppFormInputOptions } from '@ui-molecules/app-form/app-form-input';
-import {
-  AppFormRadioGroupComponent
-} from '@ui-molecules/app-form/app-form-radio-group';
-import { RadioOption } from '@ui-molecules/app-form/app-form-radio-group';
-import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select';
-import { AppFormTextareaComponent } from '@ui-molecules/app-form/app-form-textarea';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { AppPageLayoutComponent, AppSlotContainerDirective } from "@ui-templates/app-page-layout";
+import { AppFormCheckboxComponent, AppFormDatepickerComponent, AppFormInputComponent, AppFormInputOptions, AppFormRadioGroupComponent, RadioOption, AppFormSelectComponent, AppFormTextareaComponent } from '@ui-molecules/app-form';
+import { LoggingService } from '@core/logging-audit';
 
 @Component({
   selector: 'app-form-gallery',

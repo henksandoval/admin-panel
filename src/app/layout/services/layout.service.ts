@@ -49,4 +49,3 @@ export class LayoutService {
     localStorage.setItem(this.STORAGE_KEY_SIDEBAR_DISPLAY_MODE, String(collapsed));
   }
 }
-

@@ -1,7 +1,7 @@
 import { ErrorHandler, inject, Injectable } from '@angular/core';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { LoggingService } from '@core/logging-audit';
 import { ErrorReportingService } from './error-reporting.service';
-import { CorrelationService } from '@core/network/correlation.service';
+import { CorrelationService } from '@core/network';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()

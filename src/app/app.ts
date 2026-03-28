@@ -2,10 +2,9 @@ import { Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AppToastContainerComponent } from '@ui-kit';
-import { NotificationService } from '@core/notifications/notification.service';
-import { AuthService } from '@auth/services/auth.service';
-import { IdleService } from '@auth/services/idle.service';
-import { AUTH_DEFAULTS } from '@auth/models';
+import { NotificationService } from '@core/notifications';
+import { AuthService, IdleService } from '@core/auth/services';
+import { AUTH_DEFAULTS } from '@core/auth/models';
 
 @Component({
   selector: 'app-root',

@@ -11,7 +11,7 @@ import {
   PasswordResetRequest,
   RegisterCredentials,
   TokenResponse,
-} from '@auth/models';
+} from '@core/auth/models';
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 

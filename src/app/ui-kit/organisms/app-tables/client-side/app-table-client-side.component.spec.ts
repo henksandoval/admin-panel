@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppTableClientSideComponent } from './app-table-client-side.component';
-import { AppFilterCriterion } from '@ui-molecules/app-filters/app-filter.model';
+import { AppFilterCriterion } from '@ui-molecules/app-filters';
 
 interface Row { id: number; name: string }
 

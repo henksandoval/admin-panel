@@ -17,23 +17,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  AppFilterCriterion,
-  AppFiltersConfig,
-  AppFilterValues,
-  DEFAULT_FILTER_OPERATORS,
-  DEFAULT_OPERATOR_BY_TYPE,
-  FILTER_DEFAULTS
-} from '../app-filter.model';
+import { AppFilterCriterion, AppFiltersConfig, AppFilterValues, DEFAULT_FILTER_OPERATORS, DEFAULT_OPERATOR_BY_TYPE, FILTER_DEFAULTS } from '../app-filter.model';
+import { togglesToCriteria } from '../app-filter.utils';
 import { AppFilterFooterComponent } from '../footer/app-filter-footer.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {
-  AppFormDatepickerComponent
-} from '@ui-molecules/app-form/app-form-datepicker';
-import { AppFormInputComponent } from '@ui-molecules/app-form/app-form-input';
-import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select';
-import { SelectOption } from '@ui-molecules/app-form/app-form-select';
-import { togglesToCriteria } from '../app-filter.utils';
+import { AppFormDatepickerComponent, AppFormInputComponent, AppFormSelectComponent, SelectOption } from '@ui-molecules/app-form';
 
 @Component({
   selector: 'app-simple-filters',

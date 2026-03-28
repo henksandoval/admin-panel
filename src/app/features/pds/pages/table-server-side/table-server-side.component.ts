@@ -6,12 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { AppTableServerSideComponent } from '@ui-organisms/app-tables/server-side';
 import { AppTableServerParams } from '@ui-organisms/app-tables/server-side';
-import { MockHttpService } from '../../mocks/mock-http.service';
-import { MockEmployeeService } from '../../mocks/mock-employee.service';
 import { getFiltersConfig, getPaginationConfig, getTableConfig } from './table-server-side.config';
 import { EmployeeViewModel, TableServerSideService } from './table-server-side.service';
-import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
-import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
+import { AppPageLayoutComponent, AppSlotContainerDirective } from '@ui-templates/app-page-layout';
+import { MockEmployeeService } from '@features/pds/mocks/mock-employee.service';
+import { MockHttpService } from '@features/pds/mocks/mock-http.service';
 
 @Component({
   selector: 'app-table-server-side-pds',
@@ -74,6 +73,3 @@ export class TableServerSideComponent implements OnInit {
     this.snackBar.open(msg, '✕', { duration: 2500 });
   }
 }
-
-
-

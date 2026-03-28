@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,

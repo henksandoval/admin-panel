@@ -119,4 +119,3 @@ export class LayoutComponent {
     this.settingsService.togglePanel();
   }
 }
-

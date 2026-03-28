@@ -42,4 +42,3 @@ export const FORM_SELECT_DEFAULT_ERROR_MESSAGES: Record<string, string> = {
   minlength: $localize`:FormSelect|Min length error@@formSelect.error.minlength:Please select at least {requiredLength} options`,
   maxlength: $localize`:FormSelect|Max length error@@formSelect.error.maxlength:Please select no more than {requiredLength} options`,
 };
-

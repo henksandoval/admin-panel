@@ -133,5 +133,3 @@ describe('AppFormTextareaComponent', () => {
     expect(screen.getByTestId(`${TEST_ID}-error`).textContent?.trim()).toBe('The text is too long');
   });
 });
-
-

@@ -148,4 +148,3 @@ describe('AppFormDatepickerComponent', () => {
     expect(hint.textContent?.trim()).toBe('You must be 18 or older');
   });
 });
-

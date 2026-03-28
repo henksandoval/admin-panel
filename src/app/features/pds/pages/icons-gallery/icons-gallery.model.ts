@@ -56,4 +56,3 @@ export const ALL_ICON_CATEGORIES: string[] = [
   'Settings & Tech',
   'Other',
 ];
-

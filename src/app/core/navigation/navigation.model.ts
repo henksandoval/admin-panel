@@ -28,4 +28,3 @@ export const NAVIGATION_DEFAULTS = {
   icon: '',
   badgeIndicator: false,
 } as const;
-

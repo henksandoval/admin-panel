@@ -11,4 +11,3 @@ export const BUTTON_DEFAULTS = {
   type: 'button' as ButtonType,
   disabled: false,
 } as const;
-

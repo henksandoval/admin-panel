@@ -3,11 +3,11 @@ import { inject, Injectable } from "@angular/core";
 import {
   AppTableServerParams,
   AppTableServerResponse
-} from "@ui-organisms/app-tables/server-side/app-table-server-side.model";
+} from "@ui-organisms/app-tables/server-side";
 import { Observable } from "rxjs";
-import { EMPLOYEE_STATUS_LABELS } from '../../shared/employee-options.config';
-import { Employee, EmployeeStatus } from '../../models/employee.model';
-import { generateEmployees } from "../../mocks/data/employees.data";
+import { EMPLOYEE_STATUS_LABELS } from '@features/pds/shared';
+import { Employee, EmployeeStatus } from '@features/pds/models';
+import { generateEmployees } from "@features/pds/mocks/data/employees.data";
 
 export interface EmployeeViewModel {
   id: number;

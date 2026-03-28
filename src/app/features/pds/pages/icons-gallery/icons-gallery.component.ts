@@ -7,8 +7,7 @@ import { AppTableClientSideComponent } from '@ui-organisms/app-tables/client-sid
 import { AppTableAction } from '@ui-atoms/app-table';
 import { buildIconViewModels, IconViewModel, ICONS_GALLERY_DEFAULTS } from './icons-gallery.model';
 import { getIconsFiltersConfig, getIconsTableConfig } from './icons-gallery.config';
-import { AppPageLayoutComponent } from '@ui-templates/app-page-layout/app-page-layout.component';
-import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
+import { AppPageLayoutComponent, AppSlotContainerDirective } from '@ui-templates/app-page-layout';
 
 @Component({
   selector: 'app-icons-gallery',

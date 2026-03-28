@@ -119,4 +119,3 @@ describe('AppFormRadioGroupComponent', () => {
     expect((screen.getByRole('radio', { name: 'Other' })).disabled).toBe(false);
   });
 });
-

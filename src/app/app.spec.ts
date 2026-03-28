@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { App } from './app';
-import { AUTH_PROVIDER } from '@auth/providers/auth-provider.token';
+import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AuditService } from '@core/logging-audit/audit.service';
 import { createMockAuthProvider } from '@auth/testing/auth-test.helpers';
 

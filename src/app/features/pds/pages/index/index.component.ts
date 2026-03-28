@@ -4,8 +4,7 @@ import { CommonModule } from "@angular/common";
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AppCardComponent } from '@ui-atoms/app-card';
-import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-layout.component";
-import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
+import { AppPageLayoutComponent, AppSlotContainerDirective } from "@ui-templates/app-page-layout";
 
 interface ShowcaseItem {
   id: string;

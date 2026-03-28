@@ -7,11 +7,9 @@ import { PdsVariantGuideModel } from './pds-variant-guide.model';
 import { PdsPreviewCardComponent } from '../../molecules/pds-preview-card';
 import { PdsDocumentationTabsComponent } from '../../organisms/pds-documentation-tabs';
 import { PdsPageUtilitiesService } from './pds-page-utilities.service';
-import { AppPageLayoutComponent } from "@ui-templates/app-page-layout/app-page-layout.component";
-import { AppCardComponent } from "@ui-atoms/app-card/app-card.component";
-import { LayoutPreset } from '@ui-templates/app-page-layout/app-page-layout.model';
-import { AppSlotContainerDirective } from '@ui-templates/app-page-layout/app-slot-container.directive';
-import { PdsCodeBlockComponent } from "../../molecules/pds-code-block/pds-code-block.component";
+import { PdsCodeBlockComponent } from '../../molecules/pds-code-block';
+import { AppPageLayoutComponent, AppSlotContainerDirective, LayoutPreset } from "@ui-templates/app-page-layout";
+import { AppCardComponent } from "@ui-atoms/app-card";
 
 @Component({
   selector: 'app-pds-page-layout',

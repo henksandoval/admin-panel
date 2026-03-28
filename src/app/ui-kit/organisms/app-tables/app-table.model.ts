@@ -9,4 +9,3 @@ export const APP_TABLE_DEFAULTS = {
   initialPageIndex: 0,
   initialPageSize: 10,
 } as const;
-

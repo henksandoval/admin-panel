@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { LoggingService } from '@core/logging-audit';
 import { SettingsService } from './settings.service';
 
 const STORAGE_KEY = 'app-settings';

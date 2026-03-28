@@ -9,4 +9,3 @@ export function passwordMatchValidator(control: AbstractControl): ValidationErro
 
   return password.value === confirm.value ? null : { passwordMismatch: true };
 }
-

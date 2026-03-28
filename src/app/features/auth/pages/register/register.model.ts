@@ -14,4 +14,3 @@ export const REGISTER_DEFAULTS = {
   errorMessage:      '',
   passwordMinLength: 8,
 } as const;
-

@@ -3,10 +3,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Router } from '@angular/router';
 import { EMPTY, of, throwError } from 'rxjs';
 import { ApiMenuItem, MenuContractError, MENU_SCHEMA_VERSION } from '@core/navigation/api-menu-item.contract';
-import { AuthService } from '@auth/services/auth.service';
+import { AuthService } from '@core/auth/services';
 import { LAYOUT_ROUTE_FACTORY } from '../../app.routes';
 import { InitializationService } from './initialization.service';
-import { LoggingService } from '@core/logging-audit/logging.service';
+import { LoggingService } from '@core/logging-audit';
 import { MenuDataService } from '@core/navigation/menu-data.service';
 import { RouteBuilderService } from '@core/navigation/route-builder.service';
 

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { inject, Injectable, OnDestroy, signal } from '@angular/core';
-import { AUTH_DEFAULTS } from '@auth/models';
+import { AUTH_DEFAULTS } from '@core/auth/models';
 
 @Injectable({ providedIn: 'root' })
 export class IdleService implements OnDestroy {

@@ -9,7 +9,7 @@ import {
   PasswordResetRequest,
   RegisterCredentials,
   TokenResponse,
-} from '@auth/models';
+} from '@core/auth/models';
 
 @Injectable({ providedIn: 'root' })
 export class NullAuthProvider implements IAuthProvider {
@@ -58,4 +58,3 @@ export const AUTH_PROVIDER = new InjectionToken<IAuthProvider>('AUTH_PROVIDER', 
 export const AUTH_PUBLIC_URLS = new InjectionToken<string[]>('AUTH_PUBLIC_URLS', {
   factory: () => [],
 });
-

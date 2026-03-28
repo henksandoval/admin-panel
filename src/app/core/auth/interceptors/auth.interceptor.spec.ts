@@ -13,8 +13,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { describe, it, expect, afterEach, vi } from 'vitest';
 
 import { authInterceptor } from './auth.interceptor';
-import { AuthService } from '@auth/services/auth.service';
-import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
+import { AuthService } from '@core/auth/services';
+import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@core/auth/providers';
 import {
   createMockAuthProvider,
   createFailingAuthProvider,
@@ -167,6 +167,3 @@ describe('authInterceptor', () => {
     expect(results).toHaveLength(2);
   });
 });
-
-
-

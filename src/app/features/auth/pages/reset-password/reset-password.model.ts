@@ -12,4 +12,3 @@ export const RESET_PASSWORD_DEFAULTS = {
   errorMessage:      '',
   passwordMinLength: 8,
 } as const;
-

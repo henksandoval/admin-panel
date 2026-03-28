@@ -18,7 +18,6 @@ import { LAYOUT_ROUTE_FACTORY, routes } from './app.routes';
 import { featureRouteLoaders } from './feature-route-loaders';
 import { InitializationService } from '@core/config/initialization.service';
 import { authInterceptor } from '@auth/interceptors/auth.interceptor';
-import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@auth/providers/auth-provider.token';
 import { API_BASE_URL, JwtAuthProvider } from '@auth/providers/jwt/jwt-auth.provider';
 import { MockAuthProvider } from '@auth/providers/mock/mock-auth.provider';
 import { environment } from '@env/environment.development';
@@ -27,6 +26,7 @@ import { correlationInterceptor } from '@core/network/correlation.interceptor';
 import { ROUTE_LOADER_REGISTRY } from '@core/navigation/route-registry';
 import { FEATURE_FLAGS } from '@core/feature-flags/feature-flags.service';
 import { GlobalErrorHandler } from '@core/errors/global-error.handler';
+import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@core/auth/providers';
 
 registerLocaleData(localeEs);
 
@@ -69,3 +69,4 @@ export const appConfig: ApplicationConfig = {
     { provide: FEATURE_FLAGS,    useValue: environment.featureFlags },
   ]
 };
+

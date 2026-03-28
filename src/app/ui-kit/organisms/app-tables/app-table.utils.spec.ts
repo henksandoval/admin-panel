@@ -27,5 +27,3 @@ describe('calcLastPage', () => {
     expect(calcLastPage(0, 10)).toBe(0);
   });
 });
-
-

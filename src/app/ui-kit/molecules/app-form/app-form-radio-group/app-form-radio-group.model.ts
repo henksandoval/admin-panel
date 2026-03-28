@@ -25,4 +25,3 @@ export const FORM_RADIO_GROUP_DEFAULTS: AppFormRadioGroupConfig = {
 export const FORM_RADIO_GROUP_DEFAULT_ERROR_MESSAGES: Record<string, string> = {
   required: $localize`:FormRadioGroup|Required error@@formRadioGroup.error.required:This field is required`,
 };
-
