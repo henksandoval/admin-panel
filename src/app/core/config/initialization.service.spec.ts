@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { EMPTY, of, throwError } from 'rxjs';
 import { ApiMenuItem, MenuContractError, MENU_SCHEMA_VERSION } from '@core/navigation/api-menu-item.contract';
 import { AuthService } from '@core/auth/services';
-import { LAYOUT_ROUTE_FACTORY } from '../../app.routes';
 import { InitializationService } from './initialization.service';
 import { LoggingService } from '@core/logging-audit';
-import { MenuDataService } from '@core/navigation/menu-data.service';
-import { RouteBuilderService } from '@core/navigation/route-builder.service';
+import { MenuDataService, RouteBuilderService, LAYOUT_ROUTE_FACTORY } from '@core/navigation';
+import { IS_PRODUCTION } from '@core/config';
+import { API_BASE_URL } from '@core/network';
 
 const MOCK_MENU_ITEMS: ApiMenuItem[] = [{ id: 'dashboard', label: 'Dashboard' }];
 const MOCK_DYNAMIC_ROUTES = [{ path: 'dashboard', loadComponent: vi.fn() }];
@@ -48,6 +48,8 @@ function createInitializationService() {
       { provide: LoggingService, useValue: loggerMock },
       { provide: AuthService, useValue: authServiceMock },
       { provide: LAYOUT_ROUTE_FACTORY, useValue: layoutRouteFactoryMock },
+      { provide: IS_PRODUCTION, useValue: false },
+      { provide: API_BASE_URL, useValue: 'https://api.example.com' },
     ],
   });
 
