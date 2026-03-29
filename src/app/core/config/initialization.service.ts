@@ -6,7 +6,7 @@ import { RouteBuilderService } from '@core/navigation/route-builder.service';
 import { LoggingService } from '@core/logging-audit';
 import { AuthService } from '@core/auth/services';
 import { MenuContractError } from '@core/navigation/api-menu-item.contract';
-import { IS_PRODUCTION } from 'src/app/app.tokens';
+import { IS_PRODUCTION } from '@core/config';
 import { API_BASE_URL } from '@core/network';
 import { LAYOUT_ROUTE_FACTORY } from '@core/navigation';
 

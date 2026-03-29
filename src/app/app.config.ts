@@ -27,7 +27,7 @@ import { LAYOUT_ROUTE_FACTORY, ROUTE_LOADER_REGISTRY, STRICT_MENU_ROUTES } from 
 import { FEATURE_FLAGS } from '@core/feature-flags/feature-flag.tokens';
 import { LOG_LEVEL } from '@core/logging-audit/logging.tokens';
 import { environment } from '@env/environment';
-import { IS_PRODUCTION } from './app.tokens';
+import { IS_PRODUCTION } from '@core/config';
 import { API_BASE_URL } from '@core/network';
 import { routes } from './app.routes';
 
