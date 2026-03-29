@@ -1,3 +1,4 @@
-export * from './feature-flags.model';
-export * from './feature-flags.service';
-export * from './feature-flag.directive';
+export * from './models';
+export * from './services';
+export * from './directives';
+export * from './tokens';
