@@ -1,33 +1,6 @@
-import { test as base, type Page, type Route } from '@playwright/test';
+import { test as base, type Page } from '@playwright/test';
 import { testConfig } from '../config/test.config';
-
-async function interceptAuthLogin(page: Page): Promise<void> {
-  await page.route(`${testConfig.apiBaseUrl}/auth/login`, (route: Route) => {
-    route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify(testConfig.mockResponses.loginToken),
-    });
-  });
-}
-
-async function interceptAuthMe(page: Page): Promise<void> {
-  await page.route(`${testConfig.apiBaseUrl}/auth/me`, (route: Route) => {
-    route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify(testConfig.mockResponses.user),
-    });
-  });
-}
-
-async function loginAndNavigateToDashboard(page: Page): Promise<void> {
-  await page.goto('/auth/login');
-  await page.getByTestId('login-email-input').fill(testConfig.credentials.email);
-  await page.getByTestId('login-password-input').fill(testConfig.credentials.password);
-  await page.getByTestId('login-submit-button').click();
-  await page.waitForURL(`**${testConfig.expectedDefaultRedirect}`);
-}
+import { interceptAuthLogin, interceptAuthMe, loginAndNavigate } from '../helpers/auth.helpers';
 
 export interface PermissionsFixtures {
   dashboardPage: Page;
@@ -40,7 +13,7 @@ export const test = base.extend<PermissionsFixtures>({
       await interceptAuthMe(page);
     }
 
-    await loginAndNavigateToDashboard(page);
+    await loginAndNavigate(page, testConfig.expectedDefaultRedirect);
     await page.waitForSelector('[data-testid="dashboard-container"]');
 
     await use(page);
