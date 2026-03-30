@@ -72,21 +72,16 @@ export const permissionGuard: CanActivateFn = (
     ? true
     : router.createUrlTree([AUTH_DEFAULTS.unauthorizedRoute]);
 };
+export const guestGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-export const canActivateAuthenticated = [authGuard] as const;
-
-export const canActivateWithRole = (
-  roles: string[],
-  requireAll = false,
-): Pick<import('@angular/router').Route, 'canActivate' | 'data'> => ({
-  canActivate: [authGuard, roleGuard],
-  data: { roles, requireAll },
-});
-
-export const canActivateWithPermission = (
-  permissions: string[],
-  requireAll = false,
-): Pick<import('@angular/router').Route, 'canActivate' | 'data'> => ({
-  canActivate: [authGuard, permissionGuard],
-  data: { permissions, requireAllPermissions: requireAll },
-});
+  return toObservable(authService.status).pipe(
+    filter((status) => status !== 'checking'),
+    take(1),
+    map((status) => {
+      if (status !== 'authenticated') return true;
+      return router.createUrlTree([AUTH_DEFAULTS.redirectAfterLogin]);
+    }),
+  );
+};

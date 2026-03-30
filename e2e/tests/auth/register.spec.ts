@@ -1,5 +1,6 @@
 import { test, expect } from '../../fixtures/auth.fixture';
 import { testConfig } from '../../config/test.config';
+import { interceptAuthRegisterWithError } from '../../helpers/auth.helpers';
 
 test.describe('Registration flow', () => {
   test('redirects to login page after successful registration', async ({ registerPage }) => {
@@ -22,6 +23,9 @@ test.describe('Registration — unhappy paths', () => {
   test('shows an error message when the email address is already registered', async ({ page }) => {
     const { displayName, password } = testConfig.registerCredentials;
 
+    if (testConfig.useMock) {
+      await interceptAuthRegisterWithError(page, 409, { message: 'Email already in use' });
+    }
     await page.goto('/auth/register');
     await page.getByTestId('register-name-input').fill(displayName);
     await page.getByTestId('register-email-input').fill(testConfig.mockErrorTriggers.registerFailEmail);

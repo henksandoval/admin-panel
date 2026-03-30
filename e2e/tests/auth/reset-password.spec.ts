@@ -1,5 +1,6 @@
 import { test, expect } from '../../fixtures/auth.fixture';
 import { testConfig } from '../../config/test.config';
+import { interceptConfirmPasswordResetWithError } from '../../helpers/auth.helpers';
 
 const VALID_PASSWORD = 'NewPassword123';
 
@@ -25,6 +26,9 @@ test.describe('ResetPasswordComponent — Unhappy paths', () => {
   });
 
   test('shows an error message when the server rejects the password reset', async ({ page }) => {
+    if (testConfig.useMock) {
+      await interceptConfirmPasswordResetWithError(page, 400, { message: 'Invalid or expired token' });
+    }
     await page.goto(`/auth/reset-password?token=${testConfig.mockErrorTriggers.resetPasswordErrorToken}`);
     await page.getByTestId('reset-password-password-input').fill(VALID_PASSWORD);
     await page.getByTestId('reset-password-confirm-input').fill(VALID_PASSWORD);

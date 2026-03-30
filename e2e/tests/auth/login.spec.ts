@@ -1,5 +1,6 @@
 import { test, expect } from '../../fixtures/auth.fixture';
 import { testConfig } from '../../config/test.config';
+import { interceptAuthLoginWithError } from '../../helpers/auth.helpers';
 
 test.describe('Successful login redirects user', () => {
   test('redirects to default protected route after successful login', async ({ loginPage }) => {
@@ -31,6 +32,9 @@ test.describe('Successful login redirects user', () => {
 
 test.describe('Login — unhappy paths', () => {
   test('shows an error message when credentials are rejected by the server', async ({ page }) => {
+    if (testConfig.useMock) {
+      await interceptAuthLoginWithError(page, 401, { message: 'Invalid credentials' });
+    }
     await page.goto('/auth/login');
     await page.getByTestId('login-email-input').fill(testConfig.mockErrorTriggers.loginFailEmail);
     await page.getByTestId('login-password-input').fill(testConfig.credentials.password);
