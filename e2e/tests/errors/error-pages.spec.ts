@@ -18,6 +18,22 @@ test.describe('In-shell error pages', () => {
     await expect(authenticatedPage.getByTestId('not-found-page')).toBeVisible();
     await expect(authenticatedPage.getByTestId('not-found-page-cta')).toBeVisible();
   });
+
+  test('unauthorized page renders within the layout and shows a return-to-dashboard CTA', async ({ authenticatedPage }) => {
+    await authenticatedPage.goto(testConfig.errorRoutes.unauthorized);
+
+    await expect(authenticatedPage.getByTestId('layout-shell')).toBeVisible();
+    await expect(authenticatedPage.getByTestId('unauthorized-page')).toBeVisible();
+    await expect(authenticatedPage.getByTestId('unauthorized-page-cta')).toBeVisible();
+  });
+
+  test('server-error page renders within the layout and shows a return-to-dashboard CTA', async ({ authenticatedPage }) => {
+    await authenticatedPage.goto(testConfig.errorRoutes.serverError);
+
+    await expect(authenticatedPage.getByTestId('layout-shell')).toBeVisible();
+    await expect(authenticatedPage.getByTestId('server-error-page')).toBeVisible();
+    await expect(authenticatedPage.getByTestId('server-error-page-cta')).toBeVisible();
+  });
 });
 
 test.describe('Critical error pages', () => {
@@ -41,5 +57,13 @@ test.describe('Critical error pages', () => {
     await expect(page.getByTestId('layout-shell')).not.toBeVisible();
     await expect(page.getByTestId('system-down-page')).toBeVisible();
     await expect(page.getByTestId('system-down-page-cta')).toBeVisible();
+  });
+
+  test('access-denied renders outside the shell and CTA redirects to login', async ({ page }) => {
+    await page.goto(testConfig.errorRoutes.accessDenied);
+
+    await expect(page.getByTestId('layout-shell')).not.toBeVisible();
+    await expect(page.getByTestId('access-denied-page')).toBeVisible();
+    await expect(page.getByTestId('access-denied-page-cta')).toBeVisible();
   });
 });
