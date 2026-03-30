@@ -28,3 +28,23 @@ test.describe('Successful login redirects user', () => {
     expect(loginPage.url()).toContain(returnUrl);
   });
 });
+
+test.describe('Login — unhappy paths', () => {
+  test('shows an error message when credentials are rejected by the server', async ({ page }) => {
+    await page.goto('/auth/login');
+    await page.getByTestId('login-email-input').fill(testConfig.mockErrorTriggers.loginFailEmail);
+    await page.getByTestId('login-password-input').fill(testConfig.credentials.password);
+    await page.getByTestId('login-submit-button').click();
+
+    await expect(page.getByTestId('login-error-message')).toBeVisible();
+  });
+
+  test('shows a field validation error when the email format is invalid', async ({ page }) => {
+    await page.goto('/auth/login');
+
+    await page.getByTestId('login-email-input').fill('not-a-valid-email');
+    await page.getByTestId('login-password-input').click();
+
+    await expect(page.getByTestId('login-email-input-error')).toBeVisible();
+  });
+});

@@ -57,7 +57,10 @@ export class MockAuthProvider implements IAuthProvider {
     return false;
   }
 
-  register(_credentials: RegisterCredentials): Observable<void> {
+  register(credentials: RegisterCredentials): Observable<void> {
+    if (credentials.email.includes('fail')) {
+      return throwError(() => new Error('This email address is already registered (mock).'));
+    }
     return of(undefined as unknown as void);
   }
 
@@ -65,7 +68,10 @@ export class MockAuthProvider implements IAuthProvider {
     return of(undefined as unknown as void);
   }
 
-  confirmPasswordReset(_confirm: PasswordResetConfirm): Observable<void> {
+  confirmPasswordReset(confirm: PasswordResetConfirm): Observable<void> {
+    if (confirm.token.includes('error')) {
+      return throwError(() => new Error('This reset link is invalid or has expired (mock).'));
+    }
     return of(undefined as unknown as void);
   }
 }
