@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '@core/auth/guards';
+import { authGuard, guestGuard } from '@core/auth/guards';
 import { LayoutComponent } from '@layout/layout.component';
 
 export const LAYOUT_STATIC_CHILDREN: Routes = [
@@ -61,6 +61,7 @@ export const CRITICAL_ERROR_ROUTES: Routes = [
 export const AUTH_ROUTES: Routes = [
   {
     path: 'auth',
+    canActivate: [guestGuard],
     loadComponent: () =>
       import('@features/auth/auth-layout.component').then(
         (m) => m.AuthLayoutComponent,

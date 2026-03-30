@@ -49,6 +49,12 @@ export interface ErrorPageRoutes {
   readonly systemDown: string;
 }
 
+export interface MockErrorTriggers {
+  readonly loginFailEmail: string;
+  readonly registerFailEmail: string;
+  readonly resetPasswordErrorToken: string;
+}
+
 export interface E2ETestConfig {
   readonly useMock: boolean;
   readonly apiBaseUrl: string;
@@ -61,6 +67,7 @@ export interface E2ETestConfig {
     readonly loginToken: MockTokenResponse;
     readonly user: MockUserResponse;
   };
+  readonly mockErrorTriggers: MockErrorTriggers;
 }
 
 export const testConfig: E2ETestConfig = {
@@ -105,5 +112,11 @@ export const testConfig: E2ETestConfig = {
       roles: ['admin'],
       permissions: ['read', 'write'],
     },
+  },
+
+  mockErrorTriggers: {
+    loginFailEmail:           'fail@example.com',
+    registerFailEmail:        'fail-register@example.com',
+    resetPasswordErrorToken:  'e2e-error-reset-token',
   },
 };

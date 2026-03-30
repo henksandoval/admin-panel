@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/auth.fixture';
 
-test.describe('ForgotPasswordHappyPath — Successful submission shows success message', () => {
+test.describe('Forgot password — successful submission shows confirmation', () => {
   test('hides the form and shows the success message after submitting a valid email', async ({ forgotPasswordPage }) => {
     await forgotPasswordPage.getByTestId('forgot-password-email-input').fill('user@example.com');
 
