@@ -19,7 +19,7 @@ import {
   createMockAuthProvider,
   createFailingAuthProvider,
   MOCK_TOKEN_RESPONSE,
-} from '@auth/testing/auth-test.helpers';
+} from '@test-helpers/auth';
 
 const TEST_URL    = 'https://api.example.com/data';
 const REFRESH_URL = '/auth/refresh';
@@ -55,7 +55,12 @@ describe('authInterceptor', () => {
     return { mockAuthService, mockProvider };
   }
 
-  afterEach(() => httpMock.verify());
+  afterEach(() => {
+    if (httpMock) {
+      httpMock.verify();
+    }
+    vi.restoreAllMocks();
+  });
 
   it('injects the Authorization header when a token is present', () => {
     setup('my-token');
@@ -111,6 +116,8 @@ describe('authInterceptor', () => {
   it('calls logout when the token refresh also fails after a 401', () => {
     const failingProvider = createFailingAuthProvider();
     const mockAuthService = createMockAuthServiceWithToken('old-token');
+
+    setup('old-token'); // Initialize TestBed first via setup to ensure httpMock is ready
 
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({

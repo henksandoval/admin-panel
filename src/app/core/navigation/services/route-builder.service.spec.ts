@@ -1,10 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { ApiMenuItem } from '../contracts/api-menu-item.contract';
+import { ApiMenuItem } from '@core/navigation';
 import { authGuard, permissionGuard, roleGuard } from '@core/auth/guards';
-import { ROUTE_LOADER_REGISTRY, RouteLoaderRegistry } from '../tokens/navigation.tokens';
+import { ROUTE_LOADER_REGISTRY, RouteBuilderService, RouteLoaderRegistry } from '@core/navigation';
 import { LoggingService } from '@core/logging-audit';
-import { RouteBuilderService } from './route-builder.service';
 
 vi.mock('@core/navigation/registry/route-registry', async (importOriginal) => {
   const original = await importOriginal<typeof import('@core/navigation/registry/route-registry')>();
@@ -73,7 +72,7 @@ describe('RouteBuilderService', () => {
       expect(routes).toHaveLength(1);
       expect(routes[0].path).toBe('errors');
       expect(routes[0].children).toHaveLength(1);
-      expect(routes[0].children![0].path).toBe('404');
+      expect(routes[0].children![0].path).toBe('not-found');
     });
 
     it('includes authGuard in canActivate for routes that require authentication without roles', () => {

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { LogLevel } from '../models/log-level.model';
+import { LogLevel, LOG_LEVEL } from '@core/logging-audit';
 import { LoggingService } from './logging.service';
 
 vi.mock('@env/environment', () => ({
@@ -11,7 +11,11 @@ describe('LoggingService', () => {
   let service: LoggingService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: LOG_LEVEL, useValue: LogLevel.warn }
+      ]
+    });
     service = TestBed.inject(LoggingService);
   });
 

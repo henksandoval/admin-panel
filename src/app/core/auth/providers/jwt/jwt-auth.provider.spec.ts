@@ -8,9 +8,10 @@ import {
 } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
-import { JwtAuthProvider, API_BASE_URL } from './jwt-auth.provider';
+import { JwtAuthProvider } from '@auth/providers';
+import { API_BASE_URL } from '@core/network';
 import { AUTH_DEFAULTS, AuthSession, LoginCredentials } from '@auth/models/auth.model';
-import { MOCK_USER, MOCK_TOKEN_RESPONSE } from '@auth/testing/auth-test.helpers';
+import { MOCK_USER, MOCK_TOKEN_RESPONSE } from '@test-helpers/auth';
 
 const API_BASE = 'https://api.example.com';
 
@@ -31,7 +32,11 @@ describe('JwtAuthProvider', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => httpMock.verify());
+  afterEach(() => {
+    if (httpMock) {
+      httpMock.verify();
+    }
+  });
 
   describe('login()', () => {
     const credentials: LoginCredentials = {
@@ -71,7 +76,7 @@ describe('JwtAuthProvider', () => {
 
       const req = httpMock.expectOne(`${API_BASE}/auth/logout`);
       expect(req.request.method).toBe('POST');
-      req.flush(null);
+      req.flush({});
     });
 
     it('sends the request with withCredentials: true', () => {
@@ -79,7 +84,7 @@ describe('JwtAuthProvider', () => {
 
       const req = httpMock.expectOne(`${API_BASE}/auth/logout`);
       expect(req.request.withCredentials).toBe(true);
-      req.flush(null);
+      req.flush({});
     });
   });
 

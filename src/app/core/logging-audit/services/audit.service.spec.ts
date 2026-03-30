@@ -5,8 +5,8 @@ import { Subject } from 'rxjs';
 import { describe, it, expect, beforeAll, beforeEach, afterEach, vi, Mock } from 'vitest';
 
 import { AuditService, AUDIT_BATCH_TRIGGER } from './audit.service';
-import { API_BASE_URL } from '@auth/providers/jwt/jwt-auth.provider';
-import { AuditEvent } from '../models/audit.model';
+import { API_BASE_URL } from '@core/network';
+import { LogLevel, AuditEvent, LOG_LEVEL } from '@core/logging-audit';
 
 const API_BASE = 'https://api.example.com';
 const BATCH_URL = `${API_BASE}/audit/events/batch`;
@@ -48,6 +48,7 @@ describe('AuditService', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: API_BASE_URL, useValue: API_BASE },
+        { provide: LOG_LEVEL, useValue: LogLevel.warn },
         { provide: AUDIT_BATCH_TRIGGER, useValue: batchTrigger },
       ],
     });

@@ -15,7 +15,7 @@ import { ErrorsPageComponent } from '@features/errors/shared';
       [buttonText]="returnButtonText"
       buttonRoute="/dashboard"
       dataTestId="server-error-page">
-        <p class="app-not-found-code mat-display-medium">{{ pageCode }}</p>
+        <p class="app-server-error-code mat-display-medium">{{ pageCode }}</p>
     </app-error-page-layout>
   `,
 })

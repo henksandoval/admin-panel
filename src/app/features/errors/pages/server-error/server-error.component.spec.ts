@@ -17,7 +17,7 @@ describe('ServerErrorComponent', () => {
   it('should display 500 code', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const code = compiled.querySelector('.app-server-error-code');
-    expect(code?.textContent).toContain('500');
+    expect(code?.textContent?.trim()).toBe('500');
   });
 
   it('should display page title', () => {
@@ -28,13 +28,14 @@ describe('ServerErrorComponent', () => {
 
   it('should have a link to dashboard', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const link = compiled.querySelector('a[routerLink="/dashboard"]');
+    const link = compiled.querySelector('a[data-testid="server-error-page-cta"]');
     expect(link).toBeTruthy();
+    expect(link?.getAttribute('href')).toContain('/dashboard');
   });
 
   it('should display error icon', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const icon = compiled.querySelector('.app-server-error-icon');
-    expect(icon?.textContent).toContain('error_outline');
+    const icon = compiled.querySelector('mat-icon');
+    expect(icon?.textContent?.trim()).toBe('error_outline');
   });
 });

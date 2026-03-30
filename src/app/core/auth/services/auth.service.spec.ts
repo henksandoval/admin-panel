@@ -7,13 +7,8 @@ import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { AuthService } from './auth.service';
 import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AUTH_DEFAULTS } from '@auth/models/auth.model';
-import {
-  createMockAuthProvider,
-  createFailingAuthProvider,
-  MOCK_USER,
-  MOCK_TOKEN_RESPONSE,
-} from '@auth/testing/auth-test.helpers';
-import { AuditService } from '@core/logging-audit/audit.service';
+import { createMockAuthProvider, MOCK_USER, MOCK_TOKEN_RESPONSE, createFailingAuthProvider } from '@test-helpers/auth';
+import { AuditService } from '@core/logging-audit';
 
 const mockAuditService: Pick<AuditService, 'record'> = {
   record: vi.fn(() => of(void 0)),

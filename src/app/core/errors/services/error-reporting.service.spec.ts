@@ -3,9 +3,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
-import { ErrorReportingService } from './error-reporting.service';
-import { API_BASE_URL } from '@auth/providers/jwt/jwt-auth.provider';
-import { ErrorReport } from '../models/error-report.model';
+import { ErrorReport, ErrorReportingService } from '@core/errors';
+import { API_BASE_URL } from '@core/network';
+import { LOG_LEVEL } from '@core/logging-audit/tokens/logging.tokens';
+import { LogLevel } from '@core/logging-audit/models/log-level.model';
 
 const API_BASE = 'https://api.example.com';
 
@@ -27,6 +28,7 @@ describe('ErrorReportingService', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: API_BASE_URL, useValue: API_BASE },
+        { provide: LOG_LEVEL, useValue: LogLevel.warn },
       ],
     });
     service = TestBed.inject(ErrorReportingService);
@@ -58,7 +60,10 @@ describe('ErrorReportingService', () => {
     let completed = false;
     let errorThrown = false;
 
-    service.report(MOCK_REPORT).subscribe({
+    // First expectation to ensure the module is instantiated before other code
+    const request$ = service.report(MOCK_REPORT);
+
+    request$.subscribe({
       complete: () => { completed = true; },
       error: () => { errorThrown = true; },
     });

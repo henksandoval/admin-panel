@@ -3,10 +3,10 @@ import { ErrorHandler } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-
-import { GlobalErrorHandler } from './global-error.handler';
-import { API_BASE_URL } from '@auth/providers/jwt/jwt-auth.provider';
-import { CorrelationService } from '@core/network/correlation.service';
+import { GlobalErrorHandler } from '@core/errors';
+import { API_BASE_URL, CorrelationService } from '@core/network';
+import { LOG_LEVEL } from '@core/logging-audit/tokens/logging.tokens';
+import { LogLevel } from '@core/logging-audit/models/log-level.model';
 
 const API_BASE = 'https://api.example.com';
 const MOCK_CORRELATION_ID = 'test-correlation-id';
@@ -20,6 +20,7 @@ function setup() {
       provideHttpClient(),
       provideHttpClientTesting(),
       { provide: API_BASE_URL, useValue: API_BASE },
+      { provide: LOG_LEVEL, useValue: LogLevel.warn },
       { provide: CorrelationService, useValue: correlationServiceMock },
     ],
   });

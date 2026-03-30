@@ -1,15 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, convertToParamMap } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Subject, throwError, of } from 'rxjs';
-import { type Mock, describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/angular';
+import { describe, expect, it, vi } from 'vitest';
+import { screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { LoginComponent } from './login.component';
-import { AuthService } from '@auth/services/auth.service';
-import { LoggingService } from '@core/services/logging.service';
+import { AuthService } from '@core/auth/services';
+import { LoggingService, LOG_LEVEL, LogLevel } from '@core/logging-audit';
 import { MatDividerStubComponent } from '@stubs/material/mat-divider.stub';
 import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
 import { AppButtonStubComponent } from '@stubs/ui-kit/app-button.stub';
@@ -28,6 +28,7 @@ async function renderLoginComponent(returnUrl?: string) {
     providers: [
       { provide: AuthService, useValue: authServiceMock },
       { provide: LoggingService, useValue: { error: vi.fn(), warn: vi.fn() } },
+      { provide: LOG_LEVEL, useValue: LogLevel.warn },
       {
         provide: ActivatedRoute,
         useValue: {

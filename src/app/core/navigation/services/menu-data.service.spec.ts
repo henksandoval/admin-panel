@@ -2,8 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { ApiMenuItem, MenuContractError } from '../contracts/api-menu-item.contract';
-import { MenuDataService } from './menu-data.service';
+import { STRICT_MENU_ROUTES, ApiMenuItem, MenuContractError, MenuDataService } from '@core/navigation';
 import { LoggingService } from '@core/logging-audit';
 
 function createMenuDataService() {
@@ -14,6 +13,7 @@ function createMenuDataService() {
       provideHttpClient(),
       provideHttpClientTesting(),
       { provide: LoggingService, useValue: loggerMock },
+      { provide: STRICT_MENU_ROUTES, useValue: ['dashboard', 'pds', 'pds-form'] },
     ],
   });
 
@@ -67,7 +67,20 @@ describe('MenuDataService', () => {
   });
 
   it('filters out items with unknown ids and emits a warning log', () => {
-    const { service, httpController, loggerMock } = createMenuDataService();
+    // Override default to non-strict to test the filtering behavior
+    TestBed.resetTestingModule();
+    const loggerMock = { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() };
+    TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: LoggingService, useValue: loggerMock },
+        { provide: STRICT_MENU_ROUTES, useValue: false },
+      ],
+    });
+    const service = TestBed.inject(MenuDataService);
+    const httpController = TestBed.inject(HttpTestingController);
+
     const apiResponse: ApiMenuItem[] = [
       { id: 'unknown-feature', label: 'Unknown' },
       { id: 'dashboard', label: 'Dashboard' },

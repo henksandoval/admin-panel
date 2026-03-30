@@ -17,7 +17,7 @@ describe('UnauthorizedComponent', () => {
   it('should display 403 code', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const code = compiled.querySelector('.app-unauthorized-code');
-    expect(code?.textContent).toContain('403');
+    expect(code?.textContent?.trim()).toBe('403');
   });
 
   it('should display page title', () => {
@@ -28,13 +28,14 @@ describe('UnauthorizedComponent', () => {
 
   it('should have a link to dashboard', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const link = compiled.querySelector('a[routerLink="/dashboard"]');
+    const link = compiled.querySelector('a[data-testid="unauthorized-page-cta"]');
     expect(link).toBeTruthy();
+    expect(link?.getAttribute('href')).toContain('/dashboard');
   });
 
   it('should display lock icon', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const icon = compiled.querySelector('.app-unauthorized-icon');
-    expect(icon?.textContent).toContain('lock');
+    const icon = compiled.querySelector('mat-icon');
+    expect(icon?.textContent?.trim()).toBe('lock');
   });
 });

@@ -2,11 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { describe, it, expect, vi, afterEach } from 'vitest';
-
 import { LoggingService } from '@core/logging-audit';
 import { NotificationService } from '@core/notifications';
-import { CorrelationService } from '@core/network/correlation.service';
-import { HttpErrorOrchestratorService } from './http-error-orchestrator.service';
+import { CorrelationService } from '@core/network';
+import { HttpErrorOrchestratorService } from '@core/errors';
 
 const TEST_URL = 'https://api.example.com/data';
 

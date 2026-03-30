@@ -2,12 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Router } from '@angular/router';
 import { EMPTY, of, throwError } from 'rxjs';
-import { ApiMenuItem, MenuContractError, MENU_SCHEMA_VERSION } from '@core/navigation/api-menu-item.contract';
 import { AuthService } from '@core/auth/services';
-import { InitializationService } from './initialization.service';
+import { IS_PRODUCTION, InitializationService } from '@core/config';
 import { LoggingService } from '@core/logging-audit';
-import { MenuDataService, RouteBuilderService, LAYOUT_ROUTE_FACTORY } from '@core/navigation';
-import { IS_PRODUCTION } from '@core/config';
+import { MENU_SCHEMA_VERSION, LAYOUT_ROUTE_FACTORY, MenuDataService, RouteBuilderService, ApiMenuItem, MenuContractError } from '@core/navigation';
 import { API_BASE_URL } from '@core/network';
 
 const MOCK_MENU_ITEMS: ApiMenuItem[] = [{ id: 'dashboard', label: 'Dashboard' }];

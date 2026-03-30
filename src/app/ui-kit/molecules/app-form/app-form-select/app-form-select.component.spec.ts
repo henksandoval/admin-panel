@@ -2,8 +2,7 @@ import { render, screen } from '@testing-library/angular';
 import { describe, it, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { FormControl, Validators } from '@angular/forms';
-import { AppFormSelectComponent } from './app-form-select.component';
-import { SelectOption } from './app-form-select.model';
+import { AppFormSelectComponent, SelectOption } from '@ui-kit';
 
 const COUNTRY_OPTIONS: SelectOption<string>[] = [
   { value: 'us', label: 'United States' },

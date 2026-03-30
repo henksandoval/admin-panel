@@ -17,7 +17,7 @@ describe('NotFoundComponent', () => {
   it('should display 404 code', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const code = compiled.querySelector('.app-not-found-code');
-    expect(code?.textContent).toContain('404');
+    expect(code?.textContent?.trim()).toBe('404');
   });
 
   it('should display page title', () => {
@@ -28,13 +28,15 @@ describe('NotFoundComponent', () => {
 
   it('should have a link to dashboard', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const link = compiled.querySelector('a[routerLink="/dashboard"]');
+    const link = compiled.querySelector('a[data-testid="not-found-page-cta"]');
     expect(link).toBeTruthy();
+    // In Angular tests, routerLink is often translated to href
+    expect(link?.getAttribute('href')).toContain('/dashboard');
   });
 
   it('should display error icon', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const icon = compiled.querySelector('.app-not-found-icon');
-    expect(icon?.textContent).toContain('search_off');
+    const icon = compiled.querySelector('mat-icon');
+    expect(icon?.textContent?.trim()).toBe('search_off');
   });
 });
