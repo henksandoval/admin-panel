@@ -13,7 +13,7 @@ export const test = base.extend<ErrorFixtures>({
       await interceptAuthMe(page);
     }
 
-    await loginAndNavigate(page, testConfig.errorRoutes.notFound);
+    await loginAndNavigate(page, testConfig.expectedDefaultRedirect);
     await use(page);
   },
 });

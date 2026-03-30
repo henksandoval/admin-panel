@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/auth.fixture';
 import { testConfig } from '../../config/test.config';
 
-test.describe('TC-LoginHappyPath — Successful login redirects user', () => {
+test.describe('Successful login redirects user', () => {
   test('redirects to default protected route after successful login', async ({ loginPage }) => {
     await loginPage.getByTestId('login-email-input').fill(testConfig.credentials.email);
     await loginPage.getByTestId('login-password-input').fill(testConfig.credentials.password);

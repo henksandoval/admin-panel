@@ -11,6 +11,7 @@ test.describe('In-shell error pages', () => {
   });
 
   test('in-shell error pages render within the layout and show a return-to-dashboard CTA', async ({ authenticatedPage }) => {
+    await authenticatedPage.goto(testConfig.errorRoutes.notFound);
     await authenticatedPage.waitForURL(`**${testConfig.errorRoutes.notFound}`);
 
     await expect(authenticatedPage.getByTestId('layout-shell')).toBeVisible();

@@ -24,16 +24,14 @@ test.describe('AppBreadCrumbComponent on layout pages', () => {
 
   test('navigates to the parent route when clicking a navigable breadcrumb pill', async ({ breadcrumbPage }) => {
     const pills = breadcrumbPage.locator('[data-testid="bread-crumb-pill"]');
-    const pillCount = await pills.count();
 
-    if (pillCount > 1) {
-      const firstPill = pills.first();
-      const initialUrl = breadcrumbPage.url();
+    await expect(pills.nth(1)).toBeVisible();
 
-      await firstPill.click();
+    const initialUrl = breadcrumbPage.url();
 
-      await breadcrumbPage.waitForSelector('[data-testid="bread-crumb-pill"]');
-      expect(breadcrumbPage.url()).not.toBe(initialUrl);
-    }
+    await pills.first().click();
+
+    await breadcrumbPage.waitForSelector('[data-testid="bread-crumb-pill"]');
+    await expect(breadcrumbPage).not.toHaveURL(initialUrl);
   });
 });
