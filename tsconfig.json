@@ -10,7 +10,7 @@
       "@features/*": ["src/app/features/*"],
       "@layout/*": ["src/app/layout/*"],
       "@stubs/*": ["src/tests/stubs/*"],
-      "@tests/*": ["src/tests/*"],
+      "@test-helpers/*": ["src/tests/helpers/*"],
       "@ui-kit": ["src/app/ui-kit/index.ts"],
       "@ui-atoms": ["src/app/ui-kit/atoms/index.ts"],
       "@ui-atoms/*": ["src/app/ui-kit/atoms/*"],

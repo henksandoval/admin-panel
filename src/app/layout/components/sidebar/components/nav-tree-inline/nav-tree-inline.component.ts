@@ -13,8 +13,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NavigationItem } from '@core/navigation/navigation.model';
-import { NavigationService } from '@core/navigation/navigation.service';
+import { NavigationItem } from '@core/navigation/models';
+import { NavigationService } from '@core/navigation/services';
 import { filter, Subscription } from 'rxjs';
 import { LayoutService } from '@layout/services/layout.service';
 

@@ -724,7 +724,7 @@ protected handleSubmit() { }
 Antes de crear un stub o mock local en un test, verificar si ya existe uno en `src/tests/stubs/`. No duplicar stubs entre archivos de test.
 
 ```typescript
-import { MatIconStub } from '@tests/stubs/material/mat-icon.stub';
+import { MatIconStub } from '@stubs/material/mat-icon.stub';
 ```
 
 ### Nomenclatura de tests

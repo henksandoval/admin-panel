@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Scheme, SettingsService, Theme } from '@core/config/settings.service';
+import { Scheme, SettingsService, Theme } from '@core/config/services';
 import { MatTooltip } from '@angular/material/tooltip';
 import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
 import { ToggleOption } from '@ui-atoms/app-toggle-group';

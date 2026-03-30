@@ -3,8 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { App } from './app';
 import { AUTH_PROVIDER } from '@core/auth/providers';
-import { AuditService } from '@core/logging-audit/audit.service';
-import { createMockAuthProvider } from '@auth/testing/auth-test.helpers';
+import { AuditService } from '@core/logging-audit';
+import { createMockAuthProvider } from '@test-helpers/auth';
 
 describe('App', () => {
   beforeEach(async () => {

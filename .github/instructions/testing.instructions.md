@@ -36,7 +36,7 @@ screen.getByTestId('submit-button');
 Check `src/tests/stubs/` before creating a local stub or mock. Do not duplicate stubs across test files.
 
 ```typescript
-import { MatIconStub } from '@tests/stubs/material/mat-icon.stub';
+import { MatIconStub } from '@stubs/material/mat-icon.stub';
 ```
 
 ## `it()` Naming

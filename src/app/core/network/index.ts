@@ -1,3 +1,3 @@
-export * from './correlation.service';
-export * from './correlation.interceptor';
-export * from './network.tokens';
+export * from './services';
+export * from './interceptors';
+export * from './tokens';
