@@ -1,4 +1,4 @@
 <div class="toast-container">
-    <app-toast *ngFor="let toast of toasts()" [toast]="toast" (dismiss)="onDismiss($event)">
-    </app-toast>
+  <app-toast (dismiss)="onDismiss($event)" *ngFor="let toast of toasts()" [toast]="toast">
+  </app-toast>
 </div>

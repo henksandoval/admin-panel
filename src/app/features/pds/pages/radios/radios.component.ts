@@ -17,9 +17,7 @@ import {
   SIZE_OPTIONS
 } from './radios.data';
 import { PdsPageLayoutComponent } from '@features/pds/shared/templates/pds-page-layout';
-import {
-  AppFormRadioGroupComponent
-} from '@ui-molecules/app-form/app-form-radio-group';
+import { AppFormRadioGroupComponent } from '@ui-molecules/app-form/app-form-radio-group';
 
 @Component({
   selector: 'app-radios',

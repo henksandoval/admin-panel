@@ -53,10 +53,21 @@
   border-radius: 3px;
 }
 
-.code-tag    { color: var(--mat-sys-tertiary); }
-.code-attr   { color: var(--mat-sys-secondary); }
-.code-string { color: var(--mat-sys-primary); }
-.code-bad    { color: var(--mat-sys-on-error-container); }
+.code-tag {
+  color: var(--mat-sys-tertiary);
+}
+
+.code-attr {
+  color: var(--mat-sys-secondary);
+}
+
+.code-string {
+  color: var(--mat-sys-primary);
+}
+
+.code-bad {
+  color: var(--mat-sys-on-error-container);
+}
 
 // ─── Category card ────────────────────────────────────────────────────────────
 

@@ -1,25 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClient,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpClient, provideHttpClient, withInterceptors, } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting, } from '@angular/common/http/testing';
 import { signal } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { describe, it, expect, afterEach, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { authInterceptor } from './auth.interceptor';
 import { AuthService } from '@core/auth/services';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@core/auth/providers';
-import {
-  createMockAuthProvider,
-  createFailingAuthProvider,
-  MOCK_TOKEN_RESPONSE,
-} from '@test-helpers/auth';
+import { createFailingAuthProvider, createMockAuthProvider, MOCK_TOKEN_RESPONSE, } from '@test-helpers/auth';
 
 const TEST_URL    = 'https://api.example.com/data';
 const REFRESH_URL = '/auth/refresh';

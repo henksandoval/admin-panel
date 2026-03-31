@@ -1,53 +1,53 @@
 <div class="app-pagination-container">
-    @if (showPageSizeSelector()) {
+  @if (showPageSizeSelector()) {
     <div class="app-pagination-size-selector">
-        <span class="app-pagination-size-label mat-label-large">{{ itemsPerPageLabel() }}</span>
-        <app-form-select
-            class="app-pagination-size-select"
-            [control]="pageSizeControl"
-            [config]="{ density: -3 }"
-            [options]="pageSizeSelectOptions()">
-        </app-form-select>
+      <span class="app-pagination-size-label mat-label-large">{{ itemsPerPageLabel() }}</span>
+      <app-form-select
+        [config]="{ density: -3 }"
+        [control]="pageSizeControl"
+        [options]="pageSizeSelectOptions()"
+        class="app-pagination-size-select">
+      </app-form-select>
     </div>
-    }
+  }
 
-    <div class="app-pagination-range-info mat-label-large" data-testid="pagination-range-info">{{ rangeLabel() }}</div>
+  <div class="app-pagination-range-info mat-label-large" data-testid="pagination-range-info">{{ rangeLabel() }}</div>
 
-    <div class="app-pagination-nav">
+  <div class="app-pagination-nav">
     @if (showFirstLastButtons()) {
-        <app-button
+      <app-button
+        (click)="goToFirstPage()"
         [disabled]="isFirstPage()"
         [matTooltip]="firstPageLabel()"
-        (click)="goToFirstPage()"
         iconBefore="first_page"
         testId="pagination-first-page-button">
-        </app-button>
+      </app-button>
     }
 
     <app-button
-        [disabled]="isFirstPage()"
-        [matTooltip]="previousPageLabel()"
-        (click)="goToPreviousPage()"
-        iconBefore="chevron_left"
-        testId="pagination-prev-button">
+      (click)="goToPreviousPage()"
+      [disabled]="isFirstPage()"
+      [matTooltip]="previousPageLabel()"
+      iconBefore="chevron_left"
+      testId="pagination-prev-button">
     </app-button>
 
     <app-button
-        [disabled]="isLastPage()"
-        [matTooltip]="nextPageLabel()"
-        (click)="goToNextPage()"
-        iconBefore="chevron_right"
-        testId="pagination-next-button">
+      (click)="goToNextPage()"
+      [disabled]="isLastPage()"
+      [matTooltip]="nextPageLabel()"
+      iconBefore="chevron_right"
+      testId="pagination-next-button">
     </app-button>
 
     @if (showFirstLastButtons()) {
-        <app-button
+      <app-button
+        (click)="goToLastPage()"
         [disabled]="isLastPage()"
         [matTooltip]="lastPageLabel()"
-        (click)="goToLastPage()"
         iconBefore="last_page"
         testId="pagination-last-page-button">
-        </app-button>
+      </app-button>
     }
-    </div>
+  </div>
 </div>

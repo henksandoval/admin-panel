@@ -16,7 +16,6 @@
     @if (selectedState() === 'single') {
       <div class="w-full max-w-sm">
         <app-form-select
-          [control]="singleControl"
           [config]="{
             label: 'Country',
             placeholder: 'Select a country',
@@ -25,6 +24,7 @@
             hint: showHint() ? 'Select your country from the list' : '',
             density: densityValue()
           }"
+          [control]="singleControl"
           [options]="currentOptions()">
         </app-form-select>
         <p class="hint-text mat-label-small">
@@ -36,7 +36,6 @@
     @if (selectedState() === 'multiple') {
       <div class="w-full max-w-sm">
         <app-form-select
-          [control]="multipleControl"
           [config]="{
             label: 'Select Frameworks',
             placeholder: 'Choose multiple...',
@@ -46,6 +45,7 @@
             hint: showHint() ? 'You can select multiple frameworks' : '',
             density: densityValue()
           }"
+          [control]="multipleControl"
           [options]="currentOptions()">
         </app-form-select>
         <p class="hint-text mat-label-small">
@@ -57,7 +57,6 @@
     @if (selectedState() === 'grouped') {
       <div class="w-full max-w-sm">
         <app-form-select
-          [control]="groupedControl"
           [config]="{
             label: 'Select Technology',
             placeholder: 'Choose from categories...',
@@ -66,6 +65,7 @@
             hint: showHint() ? 'Options are organized by category' : '',
             density: densityValue()
           }"
+          [control]="groupedControl"
           [options]="currentOptions()">
         </app-form-select>
         <p class="hint-text mat-label-small">
@@ -77,7 +77,6 @@
     @if (selectedState() === 'disabled') {
       <div class="w-full max-w-sm">
         <app-form-select
-          [control]="singleControl"
           [config]="{
             label: 'Disabled Select',
             placeholder: 'Cannot interact',
@@ -86,6 +85,7 @@
             hint: showHint() ? 'This field is disabled' : '',
             density: densityValue()
           }"
+          [control]="singleControl"
           [options]="currentOptions()">
         </app-form-select>
       </div>

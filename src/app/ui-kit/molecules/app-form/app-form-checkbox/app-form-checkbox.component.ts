@@ -1,7 +1,12 @@
 import { Component, computed, effect, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
-import { AppFormCheckboxNewConfig, AppFormCheckboxNewOptions, FORM_CHECKBOX_NEW_DEFAULT_ERROR_MESSAGES, FORM_CHECKBOX_NEW_DEFAULTS } from './app-form-checkbox.model';
+import {
+  AppFormCheckboxNewConfig,
+  AppFormCheckboxNewOptions,
+  FORM_CHECKBOX_NEW_DEFAULT_ERROR_MESSAGES,
+  FORM_CHECKBOX_NEW_DEFAULTS
+} from './app-form-checkbox.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -39,27 +44,15 @@ interface ErrorState {
 export class AppFormCheckboxComponent {
   readonly control = input.required<FormControl<boolean>>();
   readonly config = input<AppFormCheckboxNewOptions>({});
-
-  private readonly controlEventTick = signal(0);
-
-  constructor() {
-    effect((onCleanup) => {
-      const sub = this.control().events
-        .subscribe(() => this.controlEventTick.update(v => v + 1));
-      onCleanup(() => sub.unsubscribe());
-    });
-  }
-
   protected readonly fullConfig = computed<AppFormCheckboxNewConfig>(() => ({
     ...FORM_CHECKBOX_NEW_DEFAULTS,
     ...this.config()
   }) as AppFormCheckboxNewConfig);
-
+  private readonly controlEventTick = signal(0);
   protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required) || this.control().hasValidator(Validators.requiredTrue);
   });
-
   protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
@@ -72,6 +65,14 @@ export class AppFormCheckboxComponent {
     const message = customMessages[errorKey] ?? FORM_CHECKBOX_NEW_DEFAULT_ERROR_MESSAGES[errorKey] ?? 'Validation error';
     return { shouldShow: true, message };
   });
+
+  constructor() {
+    effect((onCleanup) => {
+      const sub = this.control().events
+        .subscribe(() => this.controlEventTick.update(v => v + 1));
+      onCleanup(() => sub.unsubscribe());
+    });
+  }
 
   protected onCheckboxChange(checked: boolean): void {
     this.control().setValue(checked);

@@ -4,9 +4,9 @@
       <app-card
         [expanded]="false"
         [isExpandable]="true"
+        [title]="advancedFiltersTitle"
         class="mb-4"
-        icon="filter_alt"
-        [title]="advancedFiltersTitle">
+        icon="filter_alt">
         <app-filters-advanced
           (criteriaChange)="onFiltersChange($event)"
           [config]="config">

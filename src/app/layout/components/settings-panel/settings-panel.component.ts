@@ -7,8 +7,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Scheme, SettingsService, Theme } from '@core/config/services';
 import { MatTooltip } from '@angular/material/tooltip';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
-import { ToggleOption } from '@ui-atoms/app-toggle-group';
+import { AppToggleGroupComponent, ToggleOption } from '@ui-atoms/app-toggle-group';
 
 @Component({
   selector: 'app-settings-panel',
@@ -41,11 +40,10 @@ export class SettingsPanelComponent {
     { value: 'dark',  label: $localize`:Settings|Color scheme option@@settings.scheme.dark:Dark`,  icon: 'dark_mode' },
     { value: 'light', label: $localize`:Settings|Color scheme option@@settings.scheme.light:Light`, icon: 'light_mode' },
   ];
-
-  private settingsService = inject(SettingsService);
-  protected readonly config = this.settingsService.config;
   protected readonly isThemeActive = computed(() =>
     (themeId: Theme) => this.config().theme === themeId);
+  private settingsService = inject(SettingsService);
+  protected readonly config = this.settingsService.config;
 
   closePanel(): void {
     this.settingsService.closePanel();

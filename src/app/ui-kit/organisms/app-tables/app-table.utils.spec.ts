@@ -1,4 +1,4 @@
-import { defaultTableSort, calcLastPage } from './app-table.utils';
+import { calcLastPage, defaultTableSort } from './app-table.utils';
 
 describe('defaultTableSort', () => {
   it('places null values at the end regardless of sort direction', () => {

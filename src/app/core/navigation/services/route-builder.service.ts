@@ -3,8 +3,8 @@ import { Route } from '@angular/router';
 import { ApiMenuItem } from '../contracts/api-menu-item.contract';
 import { LoggingService } from '@core/logging-audit';
 import { authGuard, permissionGuard, roleGuard } from '@core/auth/guards';
-import { ROUTE_LOADER_REGISTRY, LazyComponentLoader } from '../tokens/navigation.tokens';
-import { RouteDefinition, ROUTE_REGISTRY } from '../registry/route-registry';
+import { LazyComponentLoader, ROUTE_LOADER_REGISTRY } from '../tokens/navigation.tokens';
+import { ROUTE_REGISTRY, RouteDefinition } from '../registry/route-registry';
 
 @Injectable({
   providedIn: 'root',

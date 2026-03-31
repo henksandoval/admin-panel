@@ -26,18 +26,10 @@ import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
   templateUrl: './reset-password.component.html',
 })
 export class ResetPasswordComponent implements OnInit {
-  private readonly authService = inject(AuthService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
-
   protected readonly status = signal<ResetPasswordStatus>(RESET_PASSWORD_DEFAULTS.status);
   protected readonly errorMessage = signal<string>(RESET_PASSWORD_DEFAULTS.errorMessage);
   protected readonly showPassword = signal(false);
   protected readonly minPasswordLength = RESET_PASSWORD_DEFAULTS.passwordMinLength;
-
-  private token = '';
-
   protected readonly passwordFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:ResetPassword|Password field label@@reset.field.password.label:New password`,
     type: this.showPassword() ? 'text' : 'password',
@@ -48,7 +40,6 @@ export class ResetPasswordComponent implements OnInit {
       minlength: $localize`:ResetPassword|Password minlength error@@reset.field.password.error.minlength:Minimum ${this.minPasswordLength}:minLength: characters`,
     },
   }));
-
   protected readonly confirmFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:ResetPassword|Confirm password field label@@reset.field.confirm.label:Confirm new password`,
     type: this.showPassword() ? 'text' : 'password',
@@ -59,11 +50,13 @@ export class ResetPasswordComponent implements OnInit {
       passwordMismatch: $localize`:ResetPassword|Password mismatch error@@reset.field.confirm.error.mismatch:Passwords do not match`,
     },
   }));
-
   protected readonly isLoading = computed(() => this.status() === 'loading');
   protected readonly isSuccess = computed(() => this.status() === 'success');
   protected readonly isInvalidToken = computed(() => this.status() === 'invalid-token');
-
+  private readonly authService = inject(AuthService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
   protected readonly form = this.fb.group(
     {
       password: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(RESET_PASSWORD_DEFAULTS.passwordMinLength)]),
@@ -71,6 +64,7 @@ export class ResetPasswordComponent implements OnInit {
     },
     { validators: passwordMatchValidator },
   );
+  private token = '';
 
   ngOnInit(): void {
     const token = this.route.snapshot.queryParamMap.get('token');
@@ -102,16 +96,16 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
-  private resolveErrorMessage(err: unknown): string {
-    if (err instanceof Error) return err.message;
-    return $localize`:ResetPassword|Generic error@@reset.error.generic:Something went wrong. Please try again.`;
-  }
-
   protected goToLogin(): void {
     void this.router.navigate(['/auth/login']);
   }
 
   protected goToForgotPassword(): void {
     void this.router.navigate(['/auth/forgot-password']);
+  }
+
+  private resolveErrorMessage(err: unknown): string {
+    if (err instanceof Error) return err.message;
+    return $localize`:ResetPassword|Generic error@@reset.error.generic:Something went wrong. Please try again.`;
   }
 }

@@ -1,15 +1,7 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpClient, HttpErrorResponse, provideHttpClient, withInterceptors, } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting, } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { describe, it, expect, afterEach, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { HttpErrorOrchestratorService } from '../services/http-error-orchestrator.service';
 import { errorInterceptor } from './error.interceptor';

@@ -7,9 +7,8 @@ export class IdleService implements OnDestroy {
   private readonly document = inject(DOCUMENT);
 
   private readonly _warning = signal(false);
-  private readonly _idle = signal(false);
-
   readonly warning = this._warning.asReadonly();
+  private readonly _idle = signal(false);
   readonly idle = this._idle.asReadonly();
 
   private idleTimer: ReturnType<typeof setTimeout> | null = null;
@@ -29,13 +28,6 @@ export class IdleService implements OnDestroy {
 
   private lastResetAt = 0;
   private readonly RESET_THROTTLE_MS = 500;
-
-  private readonly boundResetFn = (): void => {
-    const now = Date.now();
-    if (now - this.lastResetAt < this.RESET_THROTTLE_MS) return;
-    this.lastResetAt = now;
-    this.resetTimers();
-  };
 
   start(
     idleTimeoutMs = AUTH_DEFAULTS.idleTimeoutMs,
@@ -60,6 +52,13 @@ export class IdleService implements OnDestroy {
   ngOnDestroy(): void {
     this.stop();
   }
+
+  private readonly boundResetFn = (): void => {
+    const now = Date.now();
+    if (now - this.lastResetAt < this.RESET_THROTTLE_MS) return;
+    this.lastResetAt = now;
+    this.resetTimers();
+  };
 
   private scheduleTimers(): void {
     this.clearTimers();

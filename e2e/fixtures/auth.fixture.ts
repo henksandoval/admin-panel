@@ -1,4 +1,4 @@
-import { test as base, type Page, type Route } from '@playwright/test';
+import { type Page, type Route, test as base } from '@playwright/test';
 import { testConfig } from '../config/test.config';
 import { interceptAuthLogin, interceptAuthMe } from '../helpers/auth.helpers';
 

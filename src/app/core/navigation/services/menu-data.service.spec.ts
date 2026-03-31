@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { STRICT_MENU_ROUTES, ApiMenuItem, MenuContractError, MenuDataService } from '@core/navigation';
+import { ApiMenuItem, MenuContractError, MenuDataService, STRICT_MENU_ROUTES } from '@core/navigation';
 import { LoggingService } from '@core/logging-audit';
 
 function createMenuDataService() {

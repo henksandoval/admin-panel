@@ -5,7 +5,12 @@ import { MatInput } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIcon } from '@angular/material/icon';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { AppFormDatepickerConfig, AppFormDatepickerOptions, FORM_DATEPICKER_DEFAULT_ERROR_MESSAGES, FORM_DATEPICKER_DEFAULTS } from './app-form-datepicker.model';
+import {
+  AppFormDatepickerConfig,
+  AppFormDatepickerOptions,
+  FORM_DATEPICKER_DEFAULT_ERROR_MESSAGES,
+  FORM_DATEPICKER_DEFAULTS
+} from './app-form-datepicker.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -58,27 +63,15 @@ export class AppFormDatepickerComponent {
   readonly control = input.required<FormControl<Date | null>>();
   readonly config = input<AppFormDatepickerOptions>({});
   readonly testId = input<string>();
-
-  private readonly controlEventTick = signal(0);
-
-  constructor() {
-    effect((onCleanup) => {
-      const sub = this.control().events
-        .subscribe(() => this.controlEventTick.update(v => v + 1));
-      onCleanup(() => sub.unsubscribe());
-    });
-  }
-
   protected readonly fullConfig = computed<AppFormDatepickerConfig>(() => ({
     ...FORM_DATEPICKER_DEFAULTS,
     ...this.config()
   }) as AppFormDatepickerConfig);
-
+  private readonly controlEventTick = signal(0);
   protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
   });
-
   protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
@@ -91,4 +84,12 @@ export class AppFormDatepickerComponent {
     const message = customMessages[errorKey] ?? FORM_DATEPICKER_DEFAULT_ERROR_MESSAGES[errorKey] ?? 'Validation error';
     return { shouldShow: true, message };
   });
+
+  constructor() {
+    effect((onCleanup) => {
+      const sub = this.control().events
+        .subscribe(() => this.controlEventTick.update(v => v + 1));
+      onCleanup(() => sub.unsubscribe());
+    });
+  }
 }

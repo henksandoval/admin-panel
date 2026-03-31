@@ -6,12 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { AppBadgeComponent } from '@ui-atoms/app-badge';
+import { AppBadgeComponent, BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeVariant } from '@ui-atoms/app-badge';
 import { AppButtonComponent } from '@ui-atoms/app-button';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
-import { ToggleOption } from '@ui-atoms/app-toggle-group';
-import { BADGE_DEFAULTS, BadgeColor, BadgePosition, BadgeVariant } from '@ui-atoms/app-badge';
+import { AppToggleGroupComponent, ToggleOption } from '@ui-atoms/app-toggle-group';
 import {
   API_PROPERTIES,
   BADGE_POSITIONS,
@@ -55,11 +53,6 @@ export default class IndicatorsComponent {
   readonly hasIndicator = signal<boolean>(BADGE_DEFAULTS.hasIndicator);
   readonly badgeLabel = signal<string>('Badge Text');
   readonly badgeLabelControl = new FormControl<string>('Badge Text', { nonNullable: true });
-
-  constructor() {
-    this.badgeContentControl.valueChanges.subscribe(v => this.badgeContent.set(v));
-    this.badgeLabelControl.valueChanges.subscribe(v => this.badgeLabel.set(v));
-  }
   readonly variantOptions: ToggleOption[] = [
     { value: 'overlay', label: 'Overlay' },
     { value: 'inline', label: 'Inline' }
@@ -92,6 +85,11 @@ export default class IndicatorsComponent {
     }
   });
   private readonly router = inject(Router);
+
+  constructor() {
+    this.badgeContentControl.valueChanges.subscribe(v => this.badgeContent.set(v));
+    this.badgeLabelControl.valueChanges.subscribe(v => this.badgeLabel.set(v));
+  }
 
   goBack(): void {
     void this.router.navigate(['/pds/index']);

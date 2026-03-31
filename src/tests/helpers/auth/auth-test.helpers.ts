@@ -1,5 +1,5 @@
 import { of, throwError } from 'rxjs';
-import { IAuthProvider, AuthUser, TokenResponse } from '@core/auth/models';
+import { AuthUser, IAuthProvider, TokenResponse } from '@core/auth/models';
 import { vi } from 'vitest';
 
 export const MOCK_USER: AuthUser = {

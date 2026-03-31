@@ -4,7 +4,12 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
-import { AppFormInputConfig, AppFormInputOptions, FORM_INPUT_DEFAULT_ERROR_MESSAGES, FORM_INPUT_DEFAULTS } from './app-form-input.model';
+import {
+  AppFormInputConfig,
+  AppFormInputOptions,
+  FORM_INPUT_DEFAULT_ERROR_MESSAGES,
+  FORM_INPUT_DEFAULTS
+} from './app-form-input.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -52,22 +57,14 @@ export class AppFormInputComponent {
   readonly control = input.required<FormControl<string>>();
   readonly config = input<AppFormInputOptions>({});
   readonly testId = input<string>();
-
-  private readonly controlEventTick = signal(0);
-
-  constructor() {
-    effect((onCleanup) => {
-      const sub = this.control().events
-        .subscribe(() => this.controlEventTick.update(v => v + 1));
-      onCleanup(() => sub.unsubscribe());
-    });
-  }
-
   protected readonly fullConfig = computed<AppFormInputConfig>(() => ({
     ...FORM_INPUT_DEFAULTS,
     ...this.config()
   }) as AppFormInputConfig);
-
+  protected readonly isIconClickable = computed(() => {
+    return !!this.fullConfig().icon && !!this.fullConfig().onIconClick;
+  });
+  private readonly controlEventTick = signal(0);
   protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
@@ -86,9 +83,13 @@ export class AppFormInputComponent {
     return { shouldShow: true, message };
   });
 
-  protected readonly isIconClickable = computed(() => {
-    return !!this.fullConfig().icon && !!this.fullConfig().onIconClick;
-  });
+  constructor() {
+    effect((onCleanup) => {
+      const sub = this.control().events
+        .subscribe(() => this.controlEventTick.update(v => v + 1));
+      onCleanup(() => sub.unsubscribe());
+    });
+  }
 
   protected onIconClick(event: MouseEvent): void {
     if (this.isIconClickable()) {

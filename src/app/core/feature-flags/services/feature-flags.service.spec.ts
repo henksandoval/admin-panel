@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it } from 'vitest';
-import { FeatureFlags, FEATURE_FLAGS_DEFAULTS } from '../models/feature-flags.model';
+import { FEATURE_FLAGS_DEFAULTS, FeatureFlags } from '../models/feature-flags.model';
 import { FeatureFlagsService } from './feature-flags.service';
 import { FEATURE_FLAGS } from '../tokens/feature-flag.tokens';
 

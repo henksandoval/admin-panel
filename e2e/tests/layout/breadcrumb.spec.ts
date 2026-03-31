@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/layout.fixture';
+import { expect, test } from '../../fixtures/layout.fixture';
 
 test.describe('AppBreadCrumbComponent on layout pages', () => {
   test('renders breadcrumb pills when navigating to a nested page', async ({ breadcrumbPage }) => {

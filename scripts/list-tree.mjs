@@ -1,5 +1,5 @@
-import { readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import {readdir} from 'node:fs/promises';
+import {join} from 'node:path';
 
 const DIRECTORIES_TO_IGNORE = new Set([
   '.git',

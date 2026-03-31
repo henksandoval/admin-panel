@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/auth.fixture';
+import { expect, test } from '../../fixtures/auth.fixture';
 import { testConfig } from '../../config/test.config';
 import { interceptAuthLoginWithError } from '../../helpers/auth.helpers';
 

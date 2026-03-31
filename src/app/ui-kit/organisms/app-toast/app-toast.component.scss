@@ -57,20 +57,32 @@
 
 .toast-success {
   border-left-color: #2e7d32;
-  .toast-icon mat-icon { color: #2e7d32; }
+
+  .toast-icon mat-icon {
+    color: #2e7d32;
+  }
 }
 
 .toast-error {
   border-left-color: #d32f2f;
-  .toast-icon mat-icon { color: #d32f2f; }
+
+  .toast-icon mat-icon {
+    color: #d32f2f;
+  }
 }
 
 .toast-warning {
   border-left-color: #ed6c02;
-  .toast-icon mat-icon { color: #ed6c02; }
+
+  .toast-icon mat-icon {
+    color: #ed6c02;
+  }
 }
 
 .toast-info {
   border-left-color: #0288d1;
-  .toast-icon mat-icon { color: #0288d1; }
+
+  .toast-icon mat-icon {
+    color: #0288d1;
+  }
 }

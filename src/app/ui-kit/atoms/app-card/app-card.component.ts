@@ -1,6 +1,6 @@
 import { Component, computed, contentChild, Directive, input, model } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { MatExpansionPanel, MatExpansionPanelHeader, MatAccordion } from '@angular/material/expansion';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
 

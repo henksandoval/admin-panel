@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AppCardComponent } from '@ui-atoms/app-card';
-import { PdsApiReferenceComponent } from '../../molecules/pds-api-reference';
-import { PdsBestPracticesComponent } from '../../molecules/pds-best-practices';
-import { PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference';
-import { PdsBestPracticeItemModel } from '../../molecules/pds-best-practices';
+import { PdsApiReferenceComponent, PdsApiReferencePropertyModel } from '../../molecules/pds-api-reference';
+import { PdsBestPracticeItemModel, PdsBestPracticesComponent } from '../../molecules/pds-best-practices';
 
 @Component({
   selector: 'app-pds-documentation-tabs',

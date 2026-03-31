@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AppFilterCriterion, AppFilterValue, AppFilterValues } from './app-filter.model';
+import {AppFilterCriterion, AppFilterValue, AppFilterValues} from './app-filter.model';
 
 export function evaluateCriteria<T extends Record<string, any>>(
   data: T[],

@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/r
 import { RouterTestingModule } from '@angular/router/testing';
 import { signal } from '@angular/core';
 import { lastValueFrom, of } from 'rxjs';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { authGuard, permissionGuard, roleGuard } from './auth.guard';
 import { AuthService } from '@core/auth/services';

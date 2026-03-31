@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoggingService } from '@core/logging-audit';
 import { ApiMenuItem, validateApiMenuItems } from '../contracts/api-menu-item.contract';
-import { NavigationItem, NavigationBadge, NAVIGATION_DEFAULTS } from '../models/navigation.model';
+import { NAVIGATION_DEFAULTS, NavigationBadge, NavigationItem } from '../models/navigation.model';
 import { ROUTE_REGISTRY } from '../registry/route-registry';
 import { STRICT_MENU_ROUTES } from '../tokens/navigation.tokens';
 

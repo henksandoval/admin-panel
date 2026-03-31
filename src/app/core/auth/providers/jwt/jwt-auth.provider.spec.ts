@@ -1,17 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  provideHttpClient,
-} from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { provideHttpClient, } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting, } from '@angular/common/http/testing';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { JwtAuthProvider } from '@auth/providers';
 import { API_BASE_URL } from '@core/network';
 import { AUTH_DEFAULTS, AuthSession, LoginCredentials } from '@auth/models/auth.model';
-import { MOCK_USER, MOCK_TOKEN_RESPONSE } from '@test-helpers/auth';
+import { MOCK_TOKEN_RESPONSE, MOCK_USER } from '@test-helpers/auth';
 
 const API_BASE = 'https://api.example.com';
 

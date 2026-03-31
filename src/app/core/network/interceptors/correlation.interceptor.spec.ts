@@ -1,16 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClient,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
-import { describe, it, expect, afterEach } from 'vitest';
+import { HttpClient, provideHttpClient, withInterceptors, } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting, } from '@angular/common/http/testing';
+import { afterEach, describe, expect, it } from 'vitest';
 
-import { correlationInterceptor, CORRELATION_ID_HEADER } from './correlation.interceptor';
+import { CORRELATION_ID_HEADER, correlationInterceptor } from './correlation.interceptor';
 import { CorrelationService } from '../services/correlation.service';
 
 const TEST_URL = 'https://api.example.com/data';

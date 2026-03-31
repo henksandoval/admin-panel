@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, RouterLink } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
-import { Subject, throwError, of } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { LoginComponent } from './login.component';
 import { AuthService } from '@core/auth/services';
-import { LoggingService, LOG_LEVEL, LogLevel } from '@core/logging-audit';
+import { LOG_LEVEL, LoggingService, LogLevel } from '@core/logging-audit';
 import { MatDividerStubComponent } from '@stubs/material/mat-divider.stub';
 import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
 import { AppButtonStubComponent } from '@stubs/ui-kit/app-button.stub';

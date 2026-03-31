@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { render, screen } from '@testing-library/angular';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { HasRoleDirective } from './has-role.directive';
 import { AuthService } from '@core/auth/services';

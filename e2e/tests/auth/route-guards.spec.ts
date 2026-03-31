@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { testConfig } from '../../config/test.config';
 import { interceptAuthLogin, interceptAuthMe, loginAndNavigate } from '../../helpers/auth.helpers';
 

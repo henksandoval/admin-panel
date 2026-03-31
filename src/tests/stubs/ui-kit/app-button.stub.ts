@@ -1,4 +1,4 @@
-import { Component, InputSignal, input, output } from "@angular/core";
+import { Component, input, InputSignal, output } from "@angular/core";
 
 @Component({
   selector: 'app-button',

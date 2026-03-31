@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/auth.fixture';
+import { expect, test } from '../../fixtures/auth.fixture';
 
 test.describe('Forgot password — successful submission shows confirmation', () => {
   test('hides the form and shows the success message after submitting a valid email', async ({ forgotPasswordPage }) => {

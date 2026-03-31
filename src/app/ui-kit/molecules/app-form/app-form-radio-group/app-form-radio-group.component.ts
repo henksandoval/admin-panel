@@ -2,7 +2,13 @@ import { Component, computed, effect, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { AppRadioComponent } from '@ui-atoms/app-radio';
-import { AppFormRadioGroupConfig, AppFormRadioGroupOptions, FORM_RADIO_GROUP_DEFAULT_ERROR_MESSAGES, FORM_RADIO_GROUP_DEFAULTS, RadioOption } from './app-form-radio-group.model';
+import {
+  AppFormRadioGroupConfig,
+  AppFormRadioGroupOptions,
+  FORM_RADIO_GROUP_DEFAULT_ERROR_MESSAGES,
+  FORM_RADIO_GROUP_DEFAULTS,
+  RadioOption
+} from './app-form-radio-group.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -56,27 +62,15 @@ export class AppFormRadioGroupComponent<T = any> {
   readonly control = input.required<FormControl<T | null>>();
   readonly options = input.required<RadioOption<T>[]>();
   readonly config = input<AppFormRadioGroupOptions>({});
-
-  private readonly controlEventTick = signal(0);
-
-  constructor() {
-    effect((onCleanup) => {
-      const sub = this.control().events
-        .subscribe(() => this.controlEventTick.update(v => v + 1));
-      onCleanup(() => sub.unsubscribe());
-    });
-  }
-
   protected readonly fullConfig = computed<AppFormRadioGroupConfig>(() => ({
     ...FORM_RADIO_GROUP_DEFAULTS,
     ...this.config()
   }) as AppFormRadioGroupConfig);
-
+  private readonly controlEventTick = signal(0);
   protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
   });
-
   protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
@@ -89,4 +83,12 @@ export class AppFormRadioGroupComponent<T = any> {
     const message = customMessages[errorKey] ?? FORM_RADIO_GROUP_DEFAULT_ERROR_MESSAGES[errorKey] ?? 'Validation error';
     return { shouldShow: true, message };
   });
+
+  constructor() {
+    effect((onCleanup) => {
+      const sub = this.control().events
+        .subscribe(() => this.controlEventTick.update(v => v + 1));
+      onCleanup(() => sub.unsubscribe());
+    });
+  }
 }

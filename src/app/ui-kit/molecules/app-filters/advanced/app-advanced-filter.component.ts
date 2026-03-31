@@ -15,7 +15,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDivider } from "@angular/material/divider";
 import { AppButtonComponent } from '@ui-atoms/app-button';
 import { AppFilterFooterComponent } from '../footer';
-import { AppFormDatepickerComponent, AppFormInputComponent, AppFormSelectComponent, SelectOption } from '@ui-molecules/app-form';
+import {
+  AppFormDatepickerComponent,
+  AppFormInputComponent,
+  AppFormSelectComponent,
+  SelectOption
+} from '@ui-molecules/app-form';
 import { CriterionDisplayPipe } from '../criterion-display.pipe';
 import { AppFilterCriterion, AppFiltersConfig, DEFAULT_FILTER_OPERATORS, FILTER_DEFAULTS } from '../app-filter.model';
 import { togglesToCriteria } from '../app-filter.utils';
@@ -49,14 +54,13 @@ export class AppAdvancedFilterComponent {
   readonly initialCriteria = input<AppFilterCriterion[]>([]);
 
   criteriaChange = output<AppFilterCriterion[]>();
-
+  readonly operators = computed(() =>
+    this.config().operators ?? DEFAULT_FILTER_OPERATORS
+  );
   protected readonly criteria = signal<AppFilterCriterion[]>([]);
   protected readonly currentToggles = signal<Record<string, boolean>>({});
   protected readonly booleanOptions = BOOLEAN_OPTIONS;
   protected readonly toggles = computed(() => this.config().toggles ?? []);
-  readonly operators = computed(() =>
-    this.config().operators ?? DEFAULT_FILTER_OPERATORS
-  );
   protected readonly fieldOptions = computed(() =>
     this.config().fields.map(f => ({ value: f.key, label: f.label }))
   );
@@ -70,6 +74,31 @@ export class AppAdvancedFilterComponent {
     }
     return classes.join(' ');
   });
+  protected readonly operatorOptions = computed(() => {
+    const field = this.selectedField();
+    if (!field) return [];
+    return this.operators()
+      .filter(op => op.applicableTo.includes(field.type))
+      .map(op => ({ value: op.key, label: op.label }));
+  });
+  protected readonly valueOptions = computed(() => {
+    const field = this.selectedField();
+    return field?.type === 'select' && field.options ? field.options : [];
+  });
+  protected readonly selectedFieldType = computed(() => this.selectedField()?.type ?? null);
+  protected readonly isNoValueOperator = computed(() => this.selectedOperator()?.requiresValue === false);
+  protected readonly fieldLabel = computed(() =>
+    $localize`:Filter|Field selector label@@filter.form.field:Field`
+  );
+  protected readonly operatorLabel = computed(() =>
+    $localize`:Filter|Operator selector label@@filter.form.operator:Operator`
+  );
+  protected readonly valueLabel = computed(() =>
+    $localize`:Filter|Value input label@@filter.form.value:Value`
+  );
+  protected readonly dateLabel = computed(() =>
+    $localize`:Filter|Date input label@@filter.form.date:Date`
+  );
   private readonly fb = inject(FormBuilder);
   protected readonly builderForm = this.fb.nonNullable.group({
     field: ['', Validators.required],
@@ -85,37 +114,10 @@ export class AppAdvancedFilterComponent {
     const key = this.formState().field;
     return key ? this.config().fields.find(f => f.key === key) ?? null : null;
   });
-  protected readonly operatorOptions = computed(() => {
-    const field = this.selectedField();
-    if (!field) return [];
-    return this.operators()
-      .filter(op => op.applicableTo.includes(field.type))
-      .map(op => ({ value: op.key, label: op.label }));
-  });
-  protected readonly valueOptions = computed(() => {
-    const field = this.selectedField();
-    return field?.type === 'select' && field.options ? field.options : [];
-  });
-  protected readonly selectedFieldType = computed(() => this.selectedField()?.type ?? null);
   readonly selectedOperator = computed(() => {
     const key = this.formState().operator;
     return key ? this.operators().find(o => o.key === key) ?? null : null;
   });
-  protected readonly isNoValueOperator = computed(() => this.selectedOperator()?.requiresValue === false);
-
-  protected readonly fieldLabel = computed(() =>
-    $localize`:Filter|Field selector label@@filter.form.field:Field`
-  );
-  protected readonly operatorLabel = computed(() =>
-    $localize`:Filter|Operator selector label@@filter.form.operator:Operator`
-  );
-  protected readonly valueLabel = computed(() =>
-    $localize`:Filter|Value input label@@filter.form.value:Value`
-  );
-  protected readonly dateLabel = computed(() =>
-    $localize`:Filter|Date input label@@filter.form.date:Date`
-  );
-
   protected readonly canAddCriterion = computed(() => {
     const operator = this.selectedOperator();
     if (!this.selectedField() || !operator) return false;

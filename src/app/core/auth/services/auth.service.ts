@@ -21,16 +21,15 @@ export class AuthService {
   private readonly auditService = inject(AuditService);
 
   private readonly _status = signal<AuthStatus>('checking');
-  private readonly _currentUser = signal<AuthUser | null>(null);
-  private readonly _accessToken = signal<string | null>(null);
-  private _refreshTimer: ReturnType<typeof setTimeout> | null = null;
-
   readonly status: Signal<AuthStatus> = this._status.asReadonly();
-  readonly currentUser: Signal<AuthUser | null> = this._currentUser.asReadonly();
-  readonly accessToken: Signal<string | null> = this._accessToken.asReadonly();
   readonly isAuthenticated: Signal<boolean> = computed(
     () => this._status() === 'authenticated',
   );
+  private readonly _currentUser = signal<AuthUser | null>(null);
+  readonly currentUser: Signal<AuthUser | null> = this._currentUser.asReadonly();
+  private readonly _accessToken = signal<string | null>(null);
+  readonly accessToken: Signal<string | null> = this._accessToken.asReadonly();
+  private _refreshTimer: ReturnType<typeof setTimeout> | null = null;
 
   hasRole(role: string): Signal<boolean> {
     return computed(() => this._currentUser()?.roles.includes(role) ?? false);

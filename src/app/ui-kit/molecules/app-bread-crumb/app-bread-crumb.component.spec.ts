@@ -1,4 +1,4 @@
-import { RouterLink, provideRouter } from '@angular/router';
+import { provideRouter, RouterLink } from '@angular/router';
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/angular';
 import { AppBreadCrumbComponent } from './app-bread-crumb.component';

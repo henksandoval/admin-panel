@@ -1,26 +1,26 @@
-<mat-form-field data-testid="form-select-field" class="w-full" [appearance]="fullConfig().appearance">
-  @if(fullConfig().label) {
+<mat-form-field [appearance]="fullConfig().appearance" class="w-full" data-testid="form-select-field">
+  @if (fullConfig().label) {
     <mat-label data-testid="form-select-label">{{ fullConfig().label }}</mat-label>
   }
 
-  @if(fullConfig().icon) {
+  @if (fullConfig().icon) {
     <mat-icon data-testid="form-select-icon" matPrefix>{{ fullConfig().icon }}</mat-icon>
   }
 
   <mat-select
-    data-testid="form-select-control"
-    [formControl]="control()"
-    [required]="isRequired()"
-    [placeholder]="fullConfig().placeholder"
-    [multiple]="fullConfig().multiple"
     [attr.aria-label]="fullConfig().ariaLabel"
-    [panelClass]="fullConfig().panelClass || ''">
+    [formControl]="control()"
+    [multiple]="fullConfig().multiple"
+    [panelClass]="fullConfig().panelClass || ''"
+    [placeholder]="fullConfig().placeholder"
+    [required]="isRequired()"
+    data-testid="form-select-control">
 
     @if (hasGroups()) {
       @for (group of groupedOptions(); track group.name) {
         <mat-optgroup [label]="group.name">
           @for (option of group.options; track option.value) {
-            <mat-option [value]="option.value" [disabled]="option.disabled || false">
+            <mat-option [disabled]="option.disabled || false" [value]="option.value">
               {{ option.label }}
             </mat-option>
           }
@@ -28,14 +28,14 @@
       }
     } @else {
       @for (option of options(); track option.value) {
-        <mat-option [value]="option.value" [disabled]="option.disabled || false">
+        <mat-option [disabled]="option.disabled || false" [value]="option.value">
           {{ option.label }}
         </mat-option>
       }
     }
   </mat-select>
 
-  @if(fullConfig().hint) {
+  @if (fullConfig().hint) {
     <mat-hint data-testid="form-select-hint">{{ fullConfig().hint }}</mat-hint>
   }
 

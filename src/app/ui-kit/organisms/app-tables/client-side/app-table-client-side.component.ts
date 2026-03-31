@@ -6,7 +6,12 @@ import { defaultTableSort } from "../app-table.utils";
 import { AppTableFilterFn, AppTableSortFn, TABLE_CLIENT_SIDE_DEFAULTS } from "./app-table-client-side.model";
 import { AppCardComponent } from "@ui-atoms/app-card";
 import { AppPaginationComponent } from "@ui-atoms/app-pagination";
-import { AppSimpleFilterComponent, AppAdvancedFilterComponent, AppFilterCriterion, evaluateCriteria } from "@ui-molecules/app-filters";
+import {
+  AppAdvancedFilterComponent,
+  AppFilterCriterion,
+  AppSimpleFilterComponent,
+  evaluateCriteria
+} from "@ui-molecules/app-filters";
 
 @Component({
   selector: 'app-table-client-side',

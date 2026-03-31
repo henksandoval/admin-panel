@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AppTableClientSideComponent } from '@ui-organisms/app-tables/client-side';
 import { AppTableAction } from '@ui-atoms/app-table';
-import { buildIconViewModels, IconViewModel, ICONS_GALLERY_DEFAULTS } from './icons-gallery.model';
+import { buildIconViewModels, ICONS_GALLERY_DEFAULTS, IconViewModel } from './icons-gallery.model';
 import { getIconsFiltersConfig, getIconsTableConfig } from './icons-gallery.config';
 import { AppPageLayoutComponent, AppSlotContainerDirective } from '@ui-templates/app-page-layout';
 

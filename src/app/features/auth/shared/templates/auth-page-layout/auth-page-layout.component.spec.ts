@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/angular';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { AuthPageLayoutComponent } from '@features/auth/shared';
 
 async function renderAuthPageLayoutComponent(contentHtml: string) {

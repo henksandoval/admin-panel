@@ -26,10 +26,15 @@ Los event listeners se registran directamente sobre `document` sin ninguna prote
 
 ```typescript
 // idle.service.ts — líneas 86-90
-private addActivityListeners(): void {
-  for (const event of this.activityEvents) {
-    this.document.addEventListener(event, this.boundResetFn, { passive: true });
-  }
+private
+addActivityListeners()
+:
+void {
+  for(const event of this.activityEvents
+)
+{
+  this.document.addEventListener(event, this.boundResetFn, {passive: true});
+}
 }
 ```
 
@@ -37,12 +42,12 @@ Zone.js parchea `EventTarget.addEventListener`. Cualquier callback registrado de
 
 ### Impacto medido
 
-| Evento | Frecuencia típica | CD cycles/segundo |
-|--------|-------------------|-------------------|
-| `mousemove` | ~60 fps en movimiento activo | **~60** |
-| `scroll` | ~60 fps durante scroll | **~60** |
-| `keydown` | variable (typing rápido) | ~10–15 |
-| `click` / `touchstart` | puntual | bajo |
+| Evento                 | Frecuencia típica            | CD cycles/segundo |
+|------------------------|------------------------------|-------------------|
+| `mousemove`            | ~60 fps en movimiento activo | **~60**           |
+| `scroll`               | ~60 fps durante scroll       | **~60**           |
+| `keydown`              | variable (typing rápido)     | ~10–15            |
+| `click` / `touchstart` | puntual                      | bajo              |
 
 Durante una sesión normal en la que el usuario mueve el ratón, **Angular ejecuta ~60 ciclos de Change Detection innecesarios por segundo** para un servicio cuya lógica no debería producir ningún re-render.
 
@@ -60,10 +65,10 @@ La solución correcta actúa en dos niveles:
 
 ```typescript
 // Antes
-provideZoneChangeDetection({ eventCoalescing: true }),
+provideZoneChangeDetection({eventCoalescing: true}),
 
 // Después
-provideZonelessChangeDetection(),
+  provideZonelessChangeDetection(),
 ```
 
 Con zoneless, Zone.js no parchea `EventTarget`. Los event listeners del `IdleService` dejan de disparar Change Detection por completo, sin ningún cambio en el servicio.
@@ -82,8 +87,12 @@ Los `setTimeout` se almacenan en `idleTimer` y `warningTimer`, y `clearTimeout` 
 
 ```typescript
 // El ciclo de vida está bien cubierto
-ngOnDestroy(): void { this.stop(); }
-stop(): void       { this.clearTimers(); this.removeActivityListeners(); }
+ngOnDestroy()
+:
+void {this.stop();}
+stop()
+:
+void {this.clearTimers(); this.removeActivityListeners();}
 ```
 
 #### 2b. `Subject`s — ❌ Patrón obsoleto en Angular 20
@@ -91,8 +100,10 @@ stop(): void       { this.clearTimers(); this.removeActivityListeners(); }
 Los dos `Subject`s que exponen el estado del servicio al exterior **son el patrón incorrecto en Angular 20**:
 
 ```typescript
-private readonly _onWarning$ = new Subject<void>();
-private readonly _onIdle$    = new Subject<void>();
+private readonly
+_onWarning$ = new Subject<void>();
+private readonly
+_onIdle$ = new Subject<void>();
 ```
 
 `ngOnDestroy()` llama a `stop()`, que limpia timers y listeners, pero **no llama a `_onWarning$.complete()` ni a `_onIdle$.complete()`**. Aunque en `providedIn: 'root'` el riesgo de fuga es bajo (el servicio vive tanto como la app), el problema de fondo es arquitectónico: los `Subject`s como canal de eventos de UI son un patrón RxJS propio del mundo Zone.js.
@@ -102,15 +113,15 @@ private readonly _onIdle$    = new Subject<void>();
 Con Angular 20, el estado del servicio se expresa como signals de solo lectura. Los componentes que las lean actualizarán su vista de forma granular y automática, sin subscripciones ni `complete()`:
 
 ```typescript
-import { signal, computed, Injectable, OnDestroy } from '@angular/core';
+import {signal, computed, Injectable, OnDestroy} from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class IdleService implements OnDestroy {
   private readonly _warning = signal(false);
-  private readonly _idle    = signal(false);
+  private readonly _idle = signal(false);
 
   readonly warning = this._warning.asReadonly();
-  readonly idle    = this._idle.asReadonly();
+  readonly idle = this._idle.asReadonly();
 
   private scheduleTimers(): void {
     this.clearTimers();
@@ -137,11 +148,12 @@ export class IdleService implements OnDestroy {
 Si algún consumidor necesita la API Observable por compatibilidad con código existente, puede puente con `toObservable()` de `@angular/core/rxjs-interop`, sin tocar el servicio:
 
 ```typescript
-import { toObservable } from '@angular/core/rxjs-interop';
-import { filter } from 'rxjs/operators';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {filter} from 'rxjs/operators';
 
 // En el componente consumidor
-readonly onIdle$ = toObservable(this.idleService.idle).pipe(filter(Boolean));
+readonly
+onIdle$ = toObservable(this.idleService.idle).pipe(filter(Boolean));
 ```
 
 ---
@@ -153,11 +165,18 @@ readonly onIdle$ = toObservable(this.idleService.idle).pipe(filter(Boolean));
 El callback de actividad se ejecuta **sincrónicamente en cada evento**, sin ningún mecanismo de reducción de frecuencia:
 
 ```typescript
-private readonly boundResetFn = (): void => this.resetTimers();
+private readonly
+boundResetFn = (): void => this.resetTimers();
 
-private resetTimers(): void {
-  if (!this.running) return;
-  this.scheduleTimers();           // clearTimeout × 2 + setTimeout × 2
+private
+resetTimers()
+:
+void {
+  if(!
+this.running
+)
+return;
+this.scheduleTimers();           // clearTimeout × 2 + setTimeout × 2
 }
 ```
 
@@ -176,10 +195,13 @@ Cada `scheduleTimers()` realiza operaciones en el event loop del navegador que, 
 Añadir un guard de tiempo mínimo entre reschedules directamente en `boundResetFn`. Es framework-agnostic, no requiere RxJS ni NgZone, y es completamente compatible con zoneless:
 
 ```typescript
-private lastResetAt = 0;
-private readonly RESET_THROTTLE_MS = 500;
+private
+lastResetAt = 0;
+private readonly
+RESET_THROTTLE_MS = 500;
 
-private readonly boundResetFn = (): void => {
+private readonly
+boundResetFn = (): void => {
   const now = Date.now();
   if (now - this.lastResetAt < this.RESET_THROTTLE_MS) return;
   this.lastResetAt = now;
@@ -193,12 +215,12 @@ Reduce las operaciones de timer de **O(fps) → O(1 cada 500 ms)**: máximo 2 re
 
 ## Tabla resumen de hallazgos
 
-| # | Verificación | Estado | Severidad | Corrección |
-|---|---|---|---|---|
-| 1 | Zone.js dispara CD en cada DOM event | ❌ | **Alta** | `provideZonelessChangeDetection()` |
-| 2a | Limpieza de `setTimeout` al destruir | ✅ Correcto | — | — |
-| 2b | `Subject`s: patrón obsoleto en ng20 | ❌ | **Alta** | Reemplazar con `signal<boolean>` |
-| 3 | Throttle en eventos de actividad | ❌ | **Alta** | Guard de timestamp en `boundResetFn` |
+| #  | Verificación                         | Estado     | Severidad | Corrección                           |
+|----|--------------------------------------|------------|-----------|--------------------------------------|
+| 1  | Zone.js dispara CD en cada DOM event | ❌          | **Alta**  | `provideZonelessChangeDetection()`   |
+| 2a | Limpieza de `setTimeout` al destruir | ✅ Correcto | —         | —                                    |
+| 2b | `Subject`s: patrón obsoleto en ng20  | ❌          | **Alta**  | Reemplazar con `signal<boolean>`     |
+| 3  | Throttle en eventos de actividad     | ❌          | **Alta**  | Guard de timestamp en `boundResetFn` |
 
 ---
 
