@@ -9,7 +9,7 @@ import { authGuard, permissionGuard, roleGuard } from './auth.guard';
 import { AuthService } from '@core/auth/services';
 import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AUTH_DEFAULTS, AuthStatus, AuthUser } from '@auth/models/auth.model';
-import { createMockAuthProvider, MOCK_USER } from '@test-helpers/auth';
+import { createMockAuthProvider, MOCK_USER } from '@auth/testing';
 
 function mockRoute(data: Record<string, unknown> = {}): ActivatedRouteSnapshot {
   return { data } as unknown as ActivatedRouteSnapshot;

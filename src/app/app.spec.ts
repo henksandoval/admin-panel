@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { App } from './app';
 import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AuditService } from '@core/logging-audit';
-import { createMockAuthProvider } from '@test-helpers/auth';
+import { createMockAuthProvider } from '@core/auth/testing';
 
 describe('App', () => {
   beforeEach(async () => {

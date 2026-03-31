@@ -8,7 +8,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { authInterceptor } from './auth.interceptor';
 import { AuthService } from '@core/auth/services';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@core/auth/providers';
-import { createFailingAuthProvider, createMockAuthProvider, MOCK_TOKEN_RESPONSE, } from '@test-helpers/auth';
+import { createFailingAuthProvider, createMockAuthProvider, MOCK_TOKEN_RESPONSE, } from '@auth/testing';
 
 const TEST_URL    = 'https://api.example.com/data';
 const REFRESH_URL = '/auth/refresh';

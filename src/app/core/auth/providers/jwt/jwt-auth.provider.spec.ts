@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { JwtAuthProvider } from '@auth/providers';
 import { API_BASE_URL } from '@core/network';
 import { AUTH_DEFAULTS, AuthSession, LoginCredentials } from '@auth/models/auth.model';
-import { MOCK_TOKEN_RESPONSE, MOCK_USER } from '@test-helpers/auth';
+import { MOCK_TOKEN_RESPONSE, MOCK_USER } from '@auth/testing';
 
 const API_BASE = 'https://api.example.com';
 
