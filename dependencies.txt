@@ -1,7 +1,0 @@
-
-> admin-panel@0.0.0 dep:validate
-> depcruise src/app --config .dependency-cruiser.js --output-type err
-
-
-Γ£ö no dependency violations found (316 modules, 746 dependencies cruised)
-
