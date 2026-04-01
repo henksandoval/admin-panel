@@ -1,0 +1,32 @@
+{
+  "servers": {
+    "admin-api": {
+      "type": "http",
+      "url": "http://localhost:3000/mcp",
+      "description": "Admin Panel REST API — exposes users, roles, audit logs and feature flags as MCP tools. Start the backend with `npm run api:dev` before using.",
+      "tools": {
+        "list_users": {
+          "description": "Fetch paginated users from the API. Useful for understanding real data shapes when generating contracts or test fixtures."
+        },
+        "get_user": {
+          "description": "Get a single user by ID. Returns full profile including roles and audit history."
+        },
+        "list_roles": {
+          "description": "Fetch all available roles. Use to keep role enums in sync with backend."
+        },
+        "get_feature_flags": {
+          "description": "Fetch current feature flag state. Useful when implementing conditional features."
+        },
+        "get_audit_log": {
+          "description": "Fetch audit log entries. Useful when implementing logging-related features."
+        }
+      }
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@github/copilot-mcp@latest"],
+      "description": "GitHub MCP — access issues, PRs, and code search. Use when implementing features that reference GitHub tickets or when cross-referencing PR comments."
+    }
+  }
+}
