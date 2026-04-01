@@ -8,7 +8,7 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <app-bread-crumb [items]="breadcrumbs()" />
+    <app-bread-crumb [items]="breadcrumbs()"/>
 
     <span class="spacer"></span>
 
@@ -30,20 +30,24 @@
 
       <mat-menu #notificationsMenu="matMenu">
         <div class="menu-header">
-          <h3 class="menu-header-title mat-label-large" i18n="Toolbar|Notifications menu title@@toolbar.menu.notifications.title">Notifications</h3>
+          <h3 class="menu-header-title mat-label-large"
+              i18n="Toolbar|Notifications menu title@@toolbar.menu.notifications.title">Notifications</h3>
         </div>
         <mat-divider></mat-divider>
         <button mat-menu-item>
           <mat-icon color="primary">info</mat-icon>
-          <span class="menu-item-text mat-label-large" i18n="Toolbar|Notification: new update@@toolbar.notification.update">New update available</span>
+          <span class="menu-item-text mat-label-large"
+                i18n="Toolbar|Notification: new update@@toolbar.notification.update">New update available</span>
         </button>
         <button mat-menu-item>
           <mat-icon color="secondary">check_circle</mat-icon>
-          <span class="menu-item-text mat-label-large" i18n="Toolbar|Notification: task completed@@toolbar.notification.taskDone">Task completed</span>
+          <span class="menu-item-text mat-label-large"
+                i18n="Toolbar|Notification: task completed@@toolbar.notification.taskDone">Task completed</span>
         </button>
         <button mat-menu-item>
           <mat-icon color="tertiary">warning</mat-icon>
-          <span class="menu-item-text mat-label-large" i18n="Toolbar|Notification: system warning@@toolbar.notification.warning">System warning</span>
+          <span class="menu-item-text mat-label-large"
+                i18n="Toolbar|Notification: system warning@@toolbar.notification.warning">System warning</span>
         </button>
       </mat-menu>
 
@@ -70,7 +74,7 @@
           <span i18n="Toolbar|Menu option: settings@@toolbar.menu.user.settings">Settings</span>
         </button>
         <mat-divider class="menu-divider"></mat-divider>
-        <button mat-menu-item (click)="logout()">
+        <button (click)="logout()" mat-menu-item>
           <mat-icon>logout</mat-icon>
           <span i18n="Toolbar|Menu option: sign out@@toolbar.menu.user.logout">Sign Out</span>
         </button>

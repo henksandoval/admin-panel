@@ -13,11 +13,6 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class NullAuthProvider implements IAuthProvider {
-  private readonly errorMsg = (method: string): string =>
-    `[AUTH] NullAuthProvider.${method}() invocado. ` +
-    `Registra un proveedor real en app.config.ts via: ` +
-    `{ provide: AUTH_PROVIDER, useClass: JwtAuthProvider }`;
-
   login(_credentials: LoginCredentials): Observable<TokenResponse> {
     return throwError(() => new Error(this.errorMsg('login')));
   }
@@ -49,6 +44,11 @@ export class NullAuthProvider implements IAuthProvider {
   confirmPasswordReset(_confirm: PasswordResetConfirm): Observable<void> {
     return throwError(() => new Error(this.errorMsg('confirmPasswordReset')));
   }
+
+  private readonly errorMsg = (method: string): string =>
+    `[AUTH] NullAuthProvider.${method}() invocado. ` +
+    `Registra un proveedor real en app.config.ts via: ` +
+    `{ provide: AUTH_PROVIDER, useClass: JwtAuthProvider }`;
 }
 
 export const AUTH_PROVIDER = new InjectionToken<IAuthProvider>('AUTH_PROVIDER', {

@@ -3,7 +3,14 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { AppFormSelectConfig, AppFormSelectOptions, FORM_SELECT_DEFAULT_ERROR_MESSAGES, FORM_SELECT_DEFAULTS, SelectDensity, SelectOption } from './app-form-select.model';
+import {
+  AppFormSelectConfig,
+  AppFormSelectOptions,
+  FORM_SELECT_DEFAULT_ERROR_MESSAGES,
+  FORM_SELECT_DEFAULTS,
+  SelectDensity,
+  SelectOption
+} from './app-form-select.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -24,31 +31,13 @@ export class AppFormSelectComponent<T = any> {
   readonly control = input.required<FormControl<T | T[] | null>>();
   readonly options = input.required<SelectOption<T>[]>();
   readonly config = input<AppFormSelectOptions>({});
-
-  private readonly controlEventTick = signal(0);
-
-  constructor() {
-    effect((onCleanup) => {
-      const sub = this.control().events
-        .subscribe(() => this.controlEventTick.update(v => v + 1));
-      onCleanup(() => sub.unsubscribe());
-    });
-  }
-
   protected readonly fullConfig = computed<AppFormSelectConfig>(() => ({
     ...FORM_SELECT_DEFAULTS,
     ...this.config()
   }) as AppFormSelectConfig);
-
-  protected readonly isRequired = computed(() => {
-    this.controlEventTick();
-    return this.control().hasValidator(Validators.required);
-  });
-
   protected readonly hasGroups = computed(() => {
     return this.options().some(opt => opt.group !== undefined);
   });
-
   protected readonly densityClass = computed(() => {
     const densityMap: Record<SelectDensity, string> = {
       0: 'app-form-select--density-0',
@@ -58,7 +47,6 @@ export class AppFormSelectComponent<T = any> {
     };
     return densityMap[this.fullConfig().density];
   });
-
   protected readonly groupedOptions = computed(() => {
     const groups = new Map<string, SelectOption<T>[]>();
     this.options().forEach(option => {
@@ -70,7 +58,11 @@ export class AppFormSelectComponent<T = any> {
     });
     return Array.from(groups.entries()).map(([name, options]) => ({ name, options }));
   });
-
+  private readonly controlEventTick = signal(0);
+  protected readonly isRequired = computed(() => {
+    this.controlEventTick();
+    return this.control().hasValidator(Validators.required);
+  });
   protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
@@ -83,4 +75,12 @@ export class AppFormSelectComponent<T = any> {
     const message = customMessages[errorKey] ?? FORM_SELECT_DEFAULT_ERROR_MESSAGES[errorKey] ?? 'Validation error';
     return { shouldShow: true, message };
   });
+
+  constructor() {
+    effect((onCleanup) => {
+      const sub = this.control().events
+        .subscribe(() => this.controlEventTick.update(v => v + 1));
+      onCleanup(() => sub.unsubscribe());
+    });
+  }
 }

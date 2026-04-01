@@ -156,8 +156,8 @@ export class AppTableComponent<T extends Record<string, any> = Record<string, an
     }
     return classes.join(' ');
   });
-  private readonly stickyHeader = computed(() => this.config().stickyHeader ?? TABLE_DEFAULTS.stickyHeader);
   protected readonly wrapperMaxHeight = computed(() => this.config().maxHeight ?? null);
+  private readonly stickyHeader = computed(() => this.config().stickyHeader ?? TABLE_DEFAULTS.stickyHeader);
   protected readonly tableClasses = computed(() => {
     const classes = ['app-table'];
     if (this.stickyHeader()) classes.push('sticky-header');

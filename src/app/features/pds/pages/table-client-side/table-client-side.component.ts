@@ -9,7 +9,7 @@ import { AppFilterCriterion } from "@ui-molecules/app-filters";
 import { getFiltersConfig, getTableConfig } from "./table-client-side.config";
 import { EmployeeViewModel, TableClientSideService } from "./table-client-side.service";
 import { AppPageLayoutComponent, AppSlotContainerDirective } from '@ui-templates/app-page-layout';
-import { MockHttpService, MockEmployeeService } from "@features/pds/mocks";
+import { MockEmployeeService, MockHttpService } from "@features/pds/mocks";
 
 const FILTER_MODE_OPTIONS: ToggleOption[] = [
   { value: 'false', label: $localize`:Table|Simple filters toggle@@tableclient.btn.simpleFilters:Simple Filters`, icon: 'filter_list' },

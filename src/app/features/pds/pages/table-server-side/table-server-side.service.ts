@@ -1,9 +1,6 @@
 import { CurrencyPipe, DatePipe } from "@angular/common";
 import { inject, Injectable } from "@angular/core";
-import {
-  AppTableServerParams,
-  AppTableServerResponse
-} from "@ui-organisms/app-tables/server-side";
+import { AppTableServerParams, AppTableServerResponse } from "@ui-organisms/app-tables/server-side";
 import { Observable } from "rxjs";
 import { EMPLOYEE_STATUS_LABELS } from '@features/pds/shared';
 import { Employee, EmployeeStatus } from '@features/pds/models';

@@ -1,4 +1,4 @@
-import { test as base, type Page } from '@playwright/test';
+import { type Page, test as base } from '@playwright/test';
 import { testConfig } from '../config/test.config';
 import { interceptAuthLogin, interceptAuthMe, loginAndNavigate } from '../helpers/auth.helpers';
 

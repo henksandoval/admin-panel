@@ -5,8 +5,8 @@
     <div class="footer-toggles">
       @for (toggle of internalToggles(); track toggle.key) {
         <app-checkbox
-          [attr.data-testid]="'filter-footer-toggle-' + toggle.key"
           (changed)="onToggleChange(toggle.key, $event)"
+          [attr.data-testid]="'filter-footer-toggle-' + toggle.key"
           [checked]="toggle.value">
           {{ toggle.label }}
         </app-checkbox>
@@ -15,13 +15,13 @@
 
     <div class="footer-buttons">
       @if (showClearButton()) {
-        <app-button testId="filter-footer-clear-button" (click)="onClear()" iconBefore="restart_alt">
+        <app-button (click)="onClear()" iconBefore="restart_alt" testId="filter-footer-clear-button">
           <ng-container i18n="Filters|Clear filters button@@filters.btn.clear">Clear filters</ng-container>
         </app-button>
       }
 
       @if (showSearchButton()) {
-        <app-button testId="filter-footer-search-button" (click)="onSearch()" iconBefore="search">
+        <app-button (click)="onSearch()" iconBefore="search" testId="filter-footer-search-button">
           <ng-container i18n="Filters|Search button@@filters.btn.search">Search</ng-container>
         </app-button>
       }

@@ -1,8 +1,8 @@
 <div class="filters-fields">
   @for (filter of config().fields; track filter.key) {
     <div
-      [style.width]="filter.width ?? 'auto'"
       [attr.data-testid]="'filter-field-' + filter.key"
+      [style.width]="filter.width ?? 'auto'"
       class="filter-field">
 
       @switch (filter.type) {

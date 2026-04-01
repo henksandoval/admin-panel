@@ -1,5 +1,5 @@
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, RouterLink } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/angular';

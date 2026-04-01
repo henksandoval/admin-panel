@@ -1,18 +1,6 @@
 import { inject, Injectable, InjectionToken, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  catchError,
-  concatMap,
-  filter,
-  fromEvent,
-  map,
-  merge,
-  Observable,
-  of,
-  Subject,
-  takeUntil,
-  timer,
-} from 'rxjs';
+import { catchError, concatMap, filter, fromEvent, map, merge, Observable, of, Subject, takeUntil, timer, } from 'rxjs';
 import { AuditEvent } from '../models/audit.model';
 import { AuditEventDto } from '../contracts/audit-event.contract';
 import { LoggingService } from './logging.service';
@@ -26,17 +14,14 @@ export const AUDIT_BATCH_TRIGGER = new InjectionToken<Observable<unknown>>(
   providedIn: 'root',
 })
 export class AuditService implements OnDestroy {
+  private static readonly BATCH_WINDOW_MS = 3_000;
+  private static readonly BATCH_MAX_SIZE = 10;
   private readonly http = inject(HttpClient);
   private readonly apiBase = inject(API_BASE_URL);
   private readonly logger = inject(LoggingService);
-
   private readonly pending: AuditEvent[] = [];
   private readonly flush$ = new Subject<void>();
   private readonly destroy$ = new Subject<void>();
-
-  private static readonly BATCH_WINDOW_MS = 3_000;
-  private static readonly BATCH_MAX_SIZE = 10;
-
   private readonly batchTrigger: Observable<unknown> =
     inject(AUDIT_BATCH_TRIGGER, { optional: true }) ??
     timer(AuditService.BATCH_WINDOW_MS, AuditService.BATCH_WINDOW_MS);

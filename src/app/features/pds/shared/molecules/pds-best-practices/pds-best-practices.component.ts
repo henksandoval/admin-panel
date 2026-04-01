@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { PdsBestPracticeItemModel } from './pds-best-practice-item.model';
+import {Component, Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {PdsBestPracticeItemModel} from './pds-best-practice-item.model';
 
 @Component({
   selector: 'app-pds-best-practices',

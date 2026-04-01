@@ -8,9 +8,8 @@
 
 .app-error-container {
   background-color: var(--mat-sys-surface-container);
-  box-shadow:
-    0 4px 6px -1px color-mix(in srgb, var(--mat-sys-secondary) 15%, transparent),
-    0 16px 32px -4px color-mix(in srgb, var(--mat-sys-secondary) 20%, transparent);
+  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--mat-sys-secondary) 15%, transparent),
+  0 16px 32px -4px color-mix(in srgb, var(--mat-sys-secondary) 20%, transparent);
   border-radius: 0.5rem;
   padding: 2rem;
   max-width: 28rem;

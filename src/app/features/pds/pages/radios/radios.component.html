@@ -21,8 +21,8 @@
             hint: showHint() ? 'This helps us personalize your experience' : '',
             layout: 'vertical'
           }"
-          [options]="currentOptions()"
-          [control]="$any(demoForm.get('basicSelection'))">
+          [control]="$any(demoForm.get('basicSelection'))"
+          [options]="currentOptions()">
         </app-form-radio-group>
         <p class="hint-text mat-label-small mt-4">
           Selected: <strong>{{ demoForm.get('basicSelection')?.value || 'None' }}</strong>
@@ -36,8 +36,8 @@
             hint: showHint() ? 'Choose how you want to receive notifications' : '',
             layout: 'vertical'
           }"
-          [options]="currentOptions()"
-          [control]="$any(demoForm.get('descriptionsSelection'))">
+          [control]="$any(demoForm.get('descriptionsSelection'))"
+          [options]="currentOptions()">
         </app-form-radio-group>
         <p class="hint-text mat-label-small mt-4">
           Selected: <strong>{{ demoForm.get('descriptionsSelection')?.value || 'None' }}</strong>
@@ -51,8 +51,8 @@
             hint: showHint() ? 'Choose your preferred size' : '',
             layout: 'horizontal'
           }"
-          [options]="currentOptions()"
-          [control]="$any(demoForm.get('horizontalSelection'))">
+          [control]="$any(demoForm.get('horizontalSelection'))"
+          [options]="currentOptions()">
         </app-form-radio-group>
         <p class="hint-text mat-label-small mt-4">
           Selected: <strong>{{ demoForm.get('horizontalSelection')?.value || 'None' }}</strong>
@@ -66,8 +66,8 @@
             hint: showHint() ? 'Selection is currently disabled' : '',
             layout: 'vertical'
           }"
-          [options]="currentOptions()"
-          [control]="$any(demoForm.get('disabledSelection'))">
+          [control]="$any(demoForm.get('disabledSelection'))"
+          [options]="currentOptions()">
         </app-form-radio-group>
         <p class="hint-text mat-label-small mt-4">
           Selected: <strong>{{ demoForm.get('disabledSelection')?.value || 'None' }}</strong>

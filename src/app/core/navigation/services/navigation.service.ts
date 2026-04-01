@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal, Signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationItem, BreadcrumbItem } from '../models/navigation.model';
+import { BreadcrumbItem, NavigationItem } from '../models/navigation.model';
 import { AuthUser } from '@core/auth/models';
 import { MenuDataService } from './menu-data.service';
 import { AuthService } from '@core/auth/services';

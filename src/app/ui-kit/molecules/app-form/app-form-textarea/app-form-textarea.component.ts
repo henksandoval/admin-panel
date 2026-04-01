@@ -5,7 +5,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { AppFormTextareaNewConfig, AppFormTextareaNewOptions, FORM_TEXTAREA_NEW_DEFAULT_ERROR_MESSAGES, FORM_TEXTAREA_NEW_DEFAULTS } from './app-form-textarea.model';
+import {
+  AppFormTextareaNewConfig,
+  AppFormTextareaNewOptions,
+  FORM_TEXTAREA_NEW_DEFAULT_ERROR_MESSAGES,
+  FORM_TEXTAREA_NEW_DEFAULTS
+} from './app-form-textarea.model';
 
 interface ErrorState {
   shouldShow: boolean;
@@ -56,27 +61,15 @@ export class AppFormTextareaComponent {
   readonly control = input.required<FormControl<string>>();
   readonly config = input<AppFormTextareaNewOptions>({});
   readonly testId = input<string>();
-
-  private readonly controlEventTick = signal(0);
-
-  constructor() {
-    effect((onCleanup) => {
-      const sub = this.control().events
-        .subscribe(() => this.controlEventTick.update(v => v + 1));
-      onCleanup(() => sub.unsubscribe());
-    });
-  }
-
   protected readonly fullConfig = computed<AppFormTextareaNewConfig>(() => ({
     ...FORM_TEXTAREA_NEW_DEFAULTS,
     ...this.config()
   }) as AppFormTextareaNewConfig);
-
+  private readonly controlEventTick = signal(0);
   protected readonly isRequired = computed(() => {
     this.controlEventTick();
     return this.control().hasValidator(Validators.required);
   });
-
   protected readonly errorState = computed<ErrorState>(() => {
     this.controlEventTick();
     const ctrl = this.control();
@@ -89,4 +82,12 @@ export class AppFormTextareaComponent {
     const message = customMessages[errorKey] ?? FORM_TEXTAREA_NEW_DEFAULT_ERROR_MESSAGES[errorKey] ?? 'Validation error';
     return { shouldShow: true, message };
   });
+
+  constructor() {
+    effect((onCleanup) => {
+      const sub = this.control().events
+        .subscribe(() => this.controlEventTick.update(v => v + 1));
+      onCleanup(() => sub.unsubscribe());
+    });
+  }
 }

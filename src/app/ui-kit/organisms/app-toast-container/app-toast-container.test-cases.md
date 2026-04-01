@@ -1,6 +1,6 @@
 # Test Cases — AppToastContainerComponent
 
-| ID del Test | Tipo | Escenario / Propósito | Precondiciones | Pasos clave | Resultado Esperado | Justificación de Valor |
-|---|---|---|---|---|---|---|
+| ID del Test      | Tipo        | Escenario / Propósito                                        | Precondiciones           | Pasos clave                                      | Resultado Esperado                         | Justificación de Valor                                                           |
+|------------------|-------------|--------------------------------------------------------------|--------------------------|--------------------------------------------------|--------------------------------------------|----------------------------------------------------------------------------------|
 | TC-RendersToasts | Integración | Renderiza un `app-toast` por cada toast recibido en `toasts` | `toasts` con 2 elementos | 1. Renderizar con 2 toasts. 2. Detectar cambios. | Existen 2 elementos `app-toast` en el DOM. | Happy path crítico: el contenedor debe mostrar todas las notificaciones activas. |
-| TC-DismissEmits | Integración | `onDismiss(id)` emite el output `dismiss` | `toasts` con un item | 1. Llamar `onDismiss('toast-abc')`. | `dismiss` emite `'toast-abc'`. | Garantiza que cerrar un toast notifica al adaptador que maneja el estado global. |
+| TC-DismissEmits  | Integración | `onDismiss(id)` emite el output `dismiss`                    | `toasts` con un item     | 1. Llamar `onDismiss('toast-abc')`.              | `dismiss` emite `'toast-abc'`.             | Garantiza que cerrar un toast notifica al adaptador que maneja el estado global. |

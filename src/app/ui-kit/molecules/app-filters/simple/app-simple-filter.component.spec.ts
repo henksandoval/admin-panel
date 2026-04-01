@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { AppSimpleFilterComponent } from './app-simple-filter.component';
-import { AppFiltersConfig, AppFilterCriterion } from '../app-filter.model';
+import { AppFilterCriterion, AppFiltersConfig } from '../app-filter.model';
 import { AppFormInputStubComponent } from '@stubs/ui-kit/app-form-input.stub';
 import { AppFormSelectStubComponent } from '@stubs/ui-kit/app-form-select.stub';
 import { AppFormDatepickerStubComponent } from '@stubs/ui-kit/app-form-datepicker.stub';

@@ -7,12 +7,10 @@ import { FeatureFlagsService } from '../services/feature-flags.service';
   standalone: true,
 })
 export class FeatureFlagDirective {
+  readonly appFeatureFlag = input.required<FeatureFlagKey>();
   private readonly templateRef = inject<TemplateRef<unknown>>(TemplateRef);
   private readonly viewContainer = inject(ViewContainerRef);
   private readonly featureFlagsService = inject(FeatureFlagsService);
-
-  readonly appFeatureFlag = input.required<FeatureFlagKey>();
-
   private readonly isEnabled = computed(() =>
     this.featureFlagsService.flags()[this.appFeatureFlag()]
   );

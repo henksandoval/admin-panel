@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { lastValueFrom, of, throwError } from 'rxjs';
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { AuthService } from './auth.service';
 import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AUTH_DEFAULTS } from '@auth/models/auth.model';
-import { createMockAuthProvider, MOCK_USER, MOCK_TOKEN_RESPONSE, createFailingAuthProvider } from '@test-helpers/auth';
+import { createFailingAuthProvider, createMockAuthProvider, MOCK_TOKEN_RESPONSE, MOCK_USER } from '@auth/testing';
 import { AuditService } from '@core/logging-audit';
 
 const mockAuditService: Pick<AuditService, 'record'> = {

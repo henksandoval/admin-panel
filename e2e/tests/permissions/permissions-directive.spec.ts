@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/permissions.fixture';
+import { expect, test } from '../../fixtures/permissions.fixture';
 
 test.describe('Permission directives on dashboard', () => {
   test('renders write-action section when user has write permission', async ({ dashboardPage }) => {

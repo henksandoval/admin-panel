@@ -1,9 +1,5 @@
 import { inject } from '@angular/core';
-import {
-  HttpErrorResponse,
-  HttpInterceptorFn,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn, HttpRequest, } from '@angular/common/http';
 import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from '@core/auth/services';
 import { AUTH_PROVIDER, AUTH_PUBLIC_URLS } from '@core/auth/providers';

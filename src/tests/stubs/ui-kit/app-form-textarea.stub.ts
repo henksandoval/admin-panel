@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AppFormTextareaNewOptions } from '@ui-molecules/app-form/app-form-textarea';
 
 @Component({

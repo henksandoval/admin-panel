@@ -18,11 +18,11 @@
   &.parent-active {
     border-left: $border-width solid var(--mat-sys-tertiary);
     background: linear-gradient(
-        to right,
-        var(--mat-sys-tertiary) 0%,
-        var(--overlay-on-primary-10) 20%,
-        var(--overlay-on-primary-20) 65%,
-        transparent 100%
+      to right,
+      var(--mat-sys-tertiary) 0%,
+      var(--overlay-on-primary-10) 20%,
+      var(--overlay-on-primary-20) 65%,
+      transparent 100%
     );
 
     button, .tree-node-content {
@@ -35,11 +35,11 @@
 
     &.parent-active[aria-level="#{$level}"] {
       background: linear-gradient(
-          to right,
-          var(--mat-sys-tertiary) 0%,
-          var(--overlay-on-primary-10) #{$intensity + 0%},
-          var(--overlay-on-primary-20) 65%,
-          transparent 100%
+        to right,
+        var(--mat-sys-tertiary) 0%,
+        var(--overlay-on-primary-10) #{$intensity + 0%},
+        var(--overlay-on-primary-20) 65%,
+        transparent 100%
       );
     }
   }
@@ -60,11 +60,11 @@
 @mixin _nav-item-active($border-width: 4px) {
   &.active {
     background: linear-gradient(
-        to right,
-        var(--mat-sys-tertiary) 0%,
-        var(--overlay-on-primary-10) 50%,
-        var(--overlay-on-primary-20) 65%,
-        transparent 100%
+      to right,
+      var(--mat-sys-tertiary) 0%,
+      var(--overlay-on-primary-10) 50%,
+      var(--overlay-on-primary-20) 65%,
+      transparent 100%
     );
     border-left: $border-width solid var(--mat-sys-tertiary);
 

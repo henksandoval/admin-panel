@@ -44,12 +44,12 @@
     @if (selectedVariant() === 'overlay') {
       <div class="mt-2">
         <app-form-input
-          [control]="badgeContentControl"
           [config]="{
             label: 'Content',
             placeholder: 'Badge content',
             icon: 'numbers'
-          }">
+          }"
+          [control]="badgeContentControl">
         </app-form-input>
       </div>
 
@@ -68,12 +68,12 @@
     } @else {
       <div class="mt-2">
         <app-form-input
-          [control]="badgeLabelControl"
           [config]="{
             label: 'Label',
             placeholder: 'Badge label',
             icon: 'text_fields'
-          }">
+          }"
+          [control]="badgeLabelControl">
         </app-form-input>
       </div>
 

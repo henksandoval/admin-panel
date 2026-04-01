@@ -5,15 +5,15 @@
         <mat-icon>{{ item.icon }}</mat-icon>
         <span>{{ item.label }}</span>
       </a>
-    }
-    @else {
+    } @else {
       <a [routerLink]="item.route" class="app-bread-crumb-pill" data-testid="bread-crumb-pill">
         <mat-icon>{{ item.icon }}</mat-icon>
         <span>{{ item.label }}</span>
       </a>
     }
     @if (!last) {
-      <mat-icon class="app-bread-crumb-separator" aria-hidden="true" data-testid="bread-crumb-separator">chevron_right</mat-icon>
+      <mat-icon aria-hidden="true" class="app-bread-crumb-separator" data-testid="bread-crumb-separator">chevron_right
+      </mat-icon>
     }
   }
 </nav>

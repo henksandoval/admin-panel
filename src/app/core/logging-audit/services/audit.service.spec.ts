@@ -2,11 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { Subject } from 'rxjs';
-import { describe, it, expect, beforeAll, beforeEach, afterEach, vi, Mock } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 
-import { AuditService, AUDIT_BATCH_TRIGGER } from './audit.service';
+import { AUDIT_BATCH_TRIGGER, AuditService } from './audit.service';
 import { API_BASE_URL } from '@core/network';
-import { LogLevel, AuditEvent, LOG_LEVEL } from '@core/logging-audit';
+import { AuditEvent, LOG_LEVEL, LogLevel } from '@core/logging-audit';
 
 const API_BASE = 'https://api.example.com';
 const BATCH_URL = `${API_BASE}/audit/events/batch`;

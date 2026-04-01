@@ -1,7 +1,5 @@
 import { ToggleOption } from '@ui-atoms/app-toggle-group';
-import {
-  PdsApiReferencePropertyModel
-} from '@features/pds/shared/molecules/pds-api-reference';
+import { PdsApiReferencePropertyModel } from '@features/pds/shared/molecules/pds-api-reference';
 import { PdsBestPracticeItemModel } from '@features/pds/shared/molecules/pds-best-practices';
 import { PdsVariantGuideModel } from '@features/pds/shared/templates/pds-page-layout';
 

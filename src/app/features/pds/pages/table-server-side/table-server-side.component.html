@@ -1,9 +1,10 @@
-<app-page-layout preset="fullWidth" [showEmptySlots]="true">
+<app-page-layout [showEmptySlots]="true" preset="fullWidth">
   <ng-template appSlot="content">
     <div class="flex items-center justify-between mb-4">
       <div>
         <h1 class="mat-title-large m-0" i18n="Table|Page title@@tableserver.title">Employee directory</h1>
-        <p class="mat-body-medium m-0" i18n="Table|Page description@@tableserver.description">Server-side table example with simple and advanced filters</p>
+        <p class="mat-body-medium m-0" i18n="Table|Page description@@tableserver.description">Server-side table example
+          with simple and advanced filters</p>
       </div>
 
       <mat-button-toggle-group
@@ -15,7 +16,8 @@
         </mat-button-toggle>
         <mat-button-toggle [value]="true">
           <mat-icon>tune</mat-icon>
-          <ng-container i18n="Table|Advanced filters toggle@@tableserver.btn.advancedFilters">Advanced Filters</ng-container>
+          <ng-container i18n="Table|Advanced filters toggle@@tableserver.btn.advancedFilters">Advanced Filters
+          </ng-container>
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
@@ -47,4 +49,4 @@
       </ng-template>
     </app-table-server-side>
   </ng-template>
-<app-page-layout>
+  <app-page-layout>

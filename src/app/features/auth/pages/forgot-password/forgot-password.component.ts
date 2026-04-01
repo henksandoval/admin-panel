@@ -23,12 +23,8 @@ import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
   templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent {
-  private readonly authService = inject(AuthService);
-  private readonly fb = inject(FormBuilder);
-
   protected readonly status = signal<ForgotPasswordStatus>(FORGOT_PASSWORD_DEFAULTS.status);
   protected readonly errorMessage = signal<string>(FORGOT_PASSWORD_DEFAULTS.errorMessage);
-
   protected readonly emailFieldConfig: AppFormInputOptions = {
     label: $localize`:ForgotPassword|Email field label@@forgot.field.email.label:Email`,
     type: 'email',
@@ -39,10 +35,10 @@ export class ForgotPasswordComponent {
       email: $localize`:ForgotPassword|Email invalid error@@forgot.field.email.error.email:Enter a valid email`,
     },
   };
-
   protected readonly isLoading = computed(() => this.status() === 'loading');
   protected readonly isSuccess = computed(() => this.status() === 'success');
-
+  private readonly authService = inject(AuthService);
+  private readonly fb = inject(FormBuilder);
   protected readonly form = this.fb.group({
     email: this.fb.nonNullable.control('', [Validators.required, Validators.email]),
   });

@@ -6,13 +6,11 @@ import { AuthService } from '@core/auth/services';
   standalone: true,
 })
 export class HasPermissionDirective {
+  readonly appHasPermission = input.required<string | string[]>();
+  readonly appHasPermissionRequireAll = input(false);
   private readonly templateRef = inject<TemplateRef<unknown>>(TemplateRef);
   private readonly viewContainer = inject(ViewContainerRef);
   private readonly authService = inject(AuthService);
-
-  readonly appHasPermission = input.required<string | string[]>();
-  readonly appHasPermissionRequireAll = input(false);
-
   private readonly hasAccess = computed(() => {
     const value = this.appHasPermission();
     const requireAll = this.appHasPermissionRequireAll();

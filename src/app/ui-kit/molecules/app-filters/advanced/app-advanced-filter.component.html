@@ -29,14 +29,16 @@
 
 <div [formGroup]="builderForm" class="app-filters-advanced-form">
   <div>
-    <app-form-select data-testid="advanced-filter-field-select"
-                     [config]="{ label: fieldLabel() }" [options]="fieldOptions()" [control]="$any(builderForm.controls.field)">
+    <app-form-select [config]="{ label: fieldLabel() }"
+                     [control]="$any(builderForm.controls.field)" [options]="fieldOptions()"
+                     data-testid="advanced-filter-field-select">
     </app-form-select>
   </div>
 
   <div>
-    <app-form-select data-testid="advanced-filter-operator-select"
-                     [config]="{ label: operatorLabel() }" [options]="operatorOptions()" [control]="$any(builderForm.controls.operator)">
+    <app-form-select [config]="{ label: operatorLabel() }"
+                     [control]="$any(builderForm.controls.operator)" [options]="operatorOptions()"
+                     data-testid="advanced-filter-operator-select">
     </app-form-select>
   </div>
 
@@ -44,27 +46,30 @@
     <div>
       @switch (selectedFieldType()) {
         @case ('select') {
-          <app-form-select data-testid="advanced-filter-value-select"
-                           [config]="{ label: valueLabel() }" [options]="valueOptions()" [control]="$any(builderForm.controls.value)">
+          <app-form-select [config]="{ label: valueLabel() }"
+                           [control]="$any(builderForm.controls.value)" [options]="valueOptions()"
+                           data-testid="advanced-filter-value-select">
           </app-form-select>
         }
         @case ('date') {
-          <app-form-datepicker testId="advanced-filter-value-datepicker"
-                               [config]="{ label: dateLabel() }" [control]="$any(builderForm.controls.value)"></app-form-datepicker>
+          <app-form-datepicker [config]="{ label: dateLabel() }"
+                               [control]="$any(builderForm.controls.value)"
+                               testId="advanced-filter-value-datepicker"></app-form-datepicker>
         }
         @case ('number') {
-          <app-form-input testId="advanced-filter-value-input"
-                          [config]="{ label: valueLabel(), type: 'number' }" [control]="builderForm.controls.value">
+          <app-form-input [config]="{ label: valueLabel(), type: 'number' }"
+                          [control]="builderForm.controls.value" testId="advanced-filter-value-input">
           </app-form-input>
         }
         @case ('boolean') {
-          <app-form-select data-testid="advanced-filter-value-select"
-                           [config]="{ label: valueLabel() }" [options]="booleanOptions" [control]="$any(builderForm.controls.value)">
+          <app-form-select [config]="{ label: valueLabel() }"
+                           [control]="$any(builderForm.controls.value)" [options]="booleanOptions"
+                           data-testid="advanced-filter-value-select">
           </app-form-select>
         }
         @default {
-          <app-form-input testId="advanced-filter-value-input"
-                          [config]="{ label: valueLabel() }" [control]="builderForm.controls.value"></app-form-input>
+          <app-form-input [config]="{ label: valueLabel() }"
+                          [control]="builderForm.controls.value" testId="advanced-filter-value-input"></app-form-input>
         }
       }
     </div>
@@ -73,8 +78,8 @@
   }
 
   <div class="app-filters-advanced-form-button">
-    <app-button testId="advanced-filter-add-button"
-                (click)="addCriterion()" [disabled]="!canAddCriterion()" iconBefore="add">
+    <app-button (click)="addCriterion()"
+                [disabled]="!canAddCriterion()" iconBefore="add" testId="advanced-filter-add-button">
       <ng-container i18n="Filters|Add criterion button@@filters.btn.add">Add</ng-container>
     </app-button>
   </div>

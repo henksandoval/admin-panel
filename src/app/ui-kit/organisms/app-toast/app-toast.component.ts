@@ -15,11 +15,6 @@ import { APP_TOAST_DEFAULTS } from './app-toast.model';
 export class AppToastComponent {
     readonly toast = input<AppToast>(APP_TOAST_DEFAULTS.toast);
     readonly dismiss = output<string>();
-
-    protected onDismiss(): void {
-        this.dismiss.emit(this.toast().id);
-    }
-
     protected readonly iconName = computed(() => {
         switch (this.toast().type) {
             case 'success': return 'check_circle';
@@ -29,4 +24,8 @@ export class AppToastComponent {
             default: return 'info';
         }
     });
+
+    protected onDismiss(): void {
+        this.dismiss.emit(this.toast().id);
+    }
 }

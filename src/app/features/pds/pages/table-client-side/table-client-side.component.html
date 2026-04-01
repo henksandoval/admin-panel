@@ -1,9 +1,10 @@
-<app-page-layout preset="fullWidth" [showEmptySlots]="true">
+<app-page-layout [showEmptySlots]="true" preset="fullWidth">
   <ng-template appSlot="content">
     <div class="flex items-center justify-between mb-6">
       <div>
         <h1 class="mat-headline-large" i18n="Table|Page title@@tableclient.title">Employee directory</h1>
-        <p class="mat-body-medium" i18n="Table|Page description@@tableclient.description">Client-side table example with simple and advanced filters</p>
+        <p class="mat-body-medium" i18n="Table|Page description@@tableclient.description">Client-side table example with
+          simple and advanced filters</p>
       </div>
 
       <app-toggle-group
@@ -40,4 +41,4 @@
     </app-table-client-side>
 
   </ng-template>
-<app-page-layout>
+  <app-page-layout>

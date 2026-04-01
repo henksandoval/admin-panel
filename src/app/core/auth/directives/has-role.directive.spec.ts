@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { render, screen } from '@testing-library/angular';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { HasRoleDirective } from './has-role.directive';
 import { AuthService } from '@core/auth/services';
 import { AUTH_PROVIDER } from '@core/auth/providers';
 import { AuthUser } from '@auth/models/auth.model';
-import { createMockAuthProvider, MOCK_USER } from '@test-helpers/auth';
+import { createMockAuthProvider, MOCK_USER } from '@auth/testing';
 
 function createMockAuthService(user: AuthUser | null) {
   const userSignal = signal<AuthUser | null>(user);

@@ -2,7 +2,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { AppAdvancedFilterComponent, AppFiltersConfig, AppFilterCriterion, CriterionDisplayPipe } from '@ui-kit';
+import { AppAdvancedFilterComponent, AppFilterCriterion, AppFiltersConfig, CriterionDisplayPipe } from '@ui-kit';
 import { MatIconStubComponent } from '@stubs/material/mat-icon.stub';
 import { MatDividerStubComponent } from '@stubs/material/mat-divider.stub';
 import { AppButtonStubComponent } from '@stubs/ui-kit/app-button.stub';

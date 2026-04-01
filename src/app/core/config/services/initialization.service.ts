@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-import { MenuDataService } from '@core/navigation/services';
-import { RouteBuilderService } from '@core/navigation/services';
+import { MenuDataService, RouteBuilderService } from '@core/navigation/services';
 import { LoggingService } from '@core/logging-audit';
 import { AuthService } from '@core/auth/services';
 import { MenuContractError } from '@core/navigation/contracts';

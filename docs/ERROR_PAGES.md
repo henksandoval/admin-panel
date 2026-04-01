@@ -80,6 +80,7 @@ export const ERROR_ROUTES: Routes = [
 ```
 
 **Características:**
+
 - `path: 'errors'` — Prefijo que agrupa todas las rutas de error bajo `/errors/*`
 - `component: ErrorLayoutComponent` — Layout personalizado sin navegación
 - `loadComponent` — Carga lazy de cada página (no incluidas en el bundle inicial)
@@ -107,11 +108,13 @@ export const routes: Routes = [
 ```
 
 **¿Cómo funciona?**
+
 - Angular evalúa las rutas en orden
 - Si no coinciden `auth/`, `errors/`, o las rutas bajo layout → cae en `**`
 - `**` redirige automáticamente a `/errors/not-found`
 
 **Orden crítico:**
+
 1. `AUTH_ROUTES` (se evalúan primero)
 2. `ERROR_ROUTES`
 3. Layout con children dinámicos
@@ -120,6 +123,7 @@ export const routes: Routes = [
 ### 3. ErrorLayoutComponent
 
 ```typescript
+
 @Component({
   selector: 'app-error-layout',
   standalone: true,
@@ -137,10 +141,12 @@ export const routes: Routes = [
     </div>
   `,
 })
-export class ErrorLayoutComponent {}
+export class ErrorLayoutComponent {
+}
 ```
 
 **Diseño:**
+
 - **Centrado en pantalla:** Flexbox centra el contenido
 - **Sin navegación:** No incluye sidebar, toolbar ni menú
 - **RouterOutlet:** Renderiza la página de error específica (`not-found.component`, etc.)
@@ -153,6 +159,7 @@ Cada página de error sigue el mismo patrón:
 #### `not-found.component.ts` (404)
 
 ```typescript
+
 @Component({
   selector: 'app-not-found',
   standalone: true,
@@ -180,6 +187,7 @@ export class NotFoundComponent {
 ```
 
 **Componentes usados:**
+
 - `MatIconModule` — Icono de Material
 - `MatButtonModule` — Botón de retorno con estilos
 - `RouterLink` — Navegación al dashboard
@@ -222,7 +230,12 @@ export const featureRouteLoaders: RouteLoaderRegistry = {
 Y provisto en `app.config.ts`:
 
 ```typescript
-{ provide: ROUTE_LOADER_REGISTRY, useValue: featureRouteLoaders },
+{
+  provide: ROUTE_LOADER_REGISTRY, useValue
+:
+  featureRouteLoaders
+}
+,
 ```
 
 **¿Por qué?** Aunque no se usan dinámicamente desde el menú, están disponibles si se necesita extended lazy loading en el futuro.
@@ -279,6 +292,7 @@ if (error.status === 500) {
 ### Clases CSS
 
 Prefijo `app-{componente}-`:
+
 ```typescript
 'app-not-found-container'
 'app-not-found-code'
@@ -292,24 +306,26 @@ Facilita debugging y evita conflictos de nombres.
 Todos los textos user-facing usan `$localize`:
 
 ```typescript
-protected readonly pageTitle = $localize`:NotFound|Page title@@errors.notfound.title:Page not found`;
+protected readonly
+pageTitle = $localize`:NotFound|Page title@@errors.notfound.title:Page not found`;
 ```
 
 **Estructura:** `$localize`:CONTEXTO|DESCRIPCIÓN@@ID:TEXTO:`
 
 Esto permite:
+
 - Extraer strings para traducción
 - Cambiar textos sin tocar código
 - Mantener IDs únicos por idioma
 
 ### Material vs Tailwind
 
-| Elemento | Librería |
-|----------|----------|
-| Colores | Material (`color="primary"`) |
-| Tipografía | Material (`mat-headline-large`) |
-| Layout | Tailwind (`flex`, `gap-4`, `p-6`) |
-| Spacing | Tailwind (`mt-4`, `mb-6`) |
+| Elemento   | Librería                          |
+|------------|-----------------------------------|
+| Colores    | Material (`color="primary"`)      |
+| Tipografía | Material (`mat-headline-large`)   |
+| Layout     | Tailwind (`flex`, `gap-4`, `p-6`) |
+| Spacing    | Tailwind (`mt-4`, `mb-6`)         |
 
 ---
 
@@ -346,6 +362,7 @@ describe('NotFoundComponent', () => {
 ```
 
 **Enfoque black-box:**
+
 - Interacción vía DOM
 - Selectores por clase, no por `componentInstance`
 - Verificación de presencia y contenido
@@ -388,7 +405,13 @@ describe('NotFoundComponent', () => {
 En `errorInterceptor`:
 
 ```typescript
-intercept(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+intercept(req
+:
+HttpRequest<unknown>, next
+:
+HttpHandlerFn
+):
+Observable < HttpEvent < unknown >> {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       switch (error.status) {
@@ -414,16 +437,16 @@ intercept(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<
 
 ## Resumen
 
-| Aspecto | Detalles |
-|--------|----------|
-| **Ubicación** | `src/app/features/errors/` |
-| **Layout** | `ErrorLayoutComponent` (sin sidebar/toolbar) |
-| **Rutas** | `/errors/not-found`, `/errors/unauthorized`, `/errors/server-error` |
-| **Carga** | Lazy loading via `loadComponent` |
-| **Fallback** | Wildcard `**` redirige a `/errors/not-found` |
-| **Componentes** | Standalone, Material + Tailwind |
-| **Strings** | `$localize` con IDs únicos |
-| **Testing** | 4 tests por página (código, título, link, icono) |
-| **Escalabilidad** | Fácil agregar nuevas páginas |
+| Aspecto           | Detalles                                                            |
+|-------------------|---------------------------------------------------------------------|
+| **Ubicación**     | `src/app/features/errors/`                                          |
+| **Layout**        | `ErrorLayoutComponent` (sin sidebar/toolbar)                        |
+| **Rutas**         | `/errors/not-found`, `/errors/unauthorized`, `/errors/server-error` |
+| **Carga**         | Lazy loading via `loadComponent`                                    |
+| **Fallback**      | Wildcard `**` redirige a `/errors/not-found`                        |
+| **Componentes**   | Standalone, Material + Tailwind                                     |
+| **Strings**       | `$localize` con IDs únicos                                          |
+| **Testing**       | 4 tests por página (código, título, link, icono)                    |
+| **Escalabilidad** | Fácil agregar nuevas páginas                                        |
 
 Las páginas de error son parte integral del flujo de navegación y proporcionan feedback claro al usuario cuando algo falla.

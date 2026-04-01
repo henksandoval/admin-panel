@@ -2,14 +2,15 @@
                  [showEmptySlots]="true"
                  description="Complete reference with all field types and working validations"
                  i18n-description="Form Gallery|Page layout description@@pds.form.layout.description"
-                 title="Form Field Gallery"
-                 i18n-title="Form Gallery|Page layout title@@pds.form.layout.title">
+                 i18n-title="Form Gallery|Page layout title@@pds.form.layout.title"
+                 title="Form Field Gallery">
 
   <ng-template appSlot="header">
     <header class="mb-6">
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="page-title mat-display-small mb-2" i18n="Form Gallery|Page title@@pds.form.title">Form Field Gallery</h1>
+          <h1 class="page-title mat-display-small mb-2" i18n="Form Gallery|Page title@@pds.form.title">Form Field
+            Gallery</h1>
           <p class="page-description mat-body-large" i18n="Form Gallery|Page description@@pds.form.description">
             Complete reference with all field types and working validations. Test real-time validation and explore
             different visual configurations.
@@ -23,8 +24,10 @@
   </ng-template>
 
   <ng-template appSlot="left">
-    <app-card icon="description" title="Complete Form Example" i18n-title="Form Gallery|Complete form card title@@pds.form.card.complete">
-      <p class="card-description mb-6" i18n="Form Gallery|Complete form card description@@pds.form.card.complete.description">
+    <app-card i18n-title="Form Gallery|Complete form card title@@pds.form.card.complete" icon="description"
+              title="Complete Form Example">
+      <p class="card-description mb-6"
+         i18n="Form Gallery|Complete form card description@@pds.form.card.complete.description">
         All field types with real validations. Try entering invalid data to see errors.
       </p>
 
@@ -33,15 +36,18 @@
           <app-form-input [config]="basicTextConfig()" [control]="$any(galleryForm.get('basicText'))">
           </app-form-input>
 
-          <app-form-select [config]="selectCountryConfig()" [options]="countryOptions" [control]="$any(galleryForm.get('country'))">
+          <app-form-select [config]="selectCountryConfig()" [control]="$any(galleryForm.get('country'))"
+                           [options]="countryOptions">
           </app-form-select>
         </div>
 
         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <app-form-input [config]="emailConfig()" [control]="$any(galleryForm.get('email'))" testId="pds-form-email-input">
+          <app-form-input [config]="emailConfig()" [control]="$any(galleryForm.get('email'))"
+                          testId="pds-form-email-input">
           </app-form-input>
 
-          <app-form-input [config]="passwordConfig()" [control]="$any(galleryForm.get('password'))" testId="pds-form-password-input">
+          <app-form-input [config]="passwordConfig()" [control]="$any(galleryForm.get('password'))"
+                          testId="pds-form-password-input">
           </app-form-input>
         </div>
 
@@ -52,17 +58,20 @@
           <app-form-input [config]="phoneConfig()" [control]="$any(galleryForm.get('phone'))">
           </app-form-input>
 
-          <app-form-datepicker [config]="birthDateConfig()" [control]="$any(galleryForm.get('birthDate'))" testId="birth-date-input">
+          <app-form-datepicker [config]="birthDateConfig()" [control]="$any(galleryForm.get('birthDate'))"
+                               testId="birth-date-input">
           </app-form-datepicker>
         </div>
 
         <div class="md:col-span-2">
-          <app-form-textarea [config]="descriptionConfig()" [control]="$any(galleryForm.get('description'))" testId="pds-form-description">
+          <app-form-textarea [config]="descriptionConfig()" [control]="$any(galleryForm.get('description'))"
+                             testId="pds-form-description">
           </app-form-textarea>
         </div>
 
         <div class="md:col-span-2">
-          <app-form-radio-group [config]="genderConfig()" [options]="genderOptions" [control]="$any(galleryForm.get('gender'))">
+          <app-form-radio-group [config]="genderConfig()" [control]="$any(galleryForm.get('gender'))"
+                                [options]="genderOptions">
           </app-form-radio-group>
         </div>
 
@@ -90,9 +99,10 @@
       </form>
     </app-card>
 
-    <app-card [expanded]="false" [isExpandable]="true" class="mt-2" icon="code" title="Generated Code" i18n-title="Form Gallery|Generated code card title@@pds.form.card.code">
-      <button (click)="copyToClipboard(); $event.stopPropagation()" mat-icon-button matTooltip="Copiar código"
-              i18n-matTooltip="Form Gallery|Copy code tooltip@@pds.form.btn.copyCode"
+    <app-card [expanded]="false" [isExpandable]="true" class="mt-2" i18n-title="Form Gallery|Generated code card title@@pds.form.card.code" icon="code"
+              title="Generated Code">
+      <button (click)="copyToClipboard(); $event.stopPropagation()" i18n-matTooltip="Form Gallery|Copy code tooltip@@pds.form.btn.copyCode" mat-icon-button
+              matTooltip="Copiar código"
               slot="header-actions">
         <mat-icon>content_copy</mat-icon>
       </button>
@@ -101,15 +111,18 @@
   </ng-template>
 
   <ng-template appSlot="right">
-    <app-card icon="tune" title="Visual Controls" i18n-title="Form Gallery|Visual controls card title@@pds.form.card.visualControls">
-      <p class="card-description mb-6" i18n="Form Gallery|Visual controls card description@@pds.form.card.visualControls.description">
+    <app-card i18n-title="Form Gallery|Visual controls card title@@pds.form.card.visualControls" icon="tune"
+              title="Visual Controls">
+      <p class="card-description mb-6"
+         i18n="Form Gallery|Visual controls card description@@pds.form.card.visualControls.description">
         Change visual appearance of all fields (validations stay the same)
       </p>
 
       <div class="mt-2">
         <label class="section-label mat-label-large flex items-center gap-1.5 mb-1">
           <mat-icon>style</mat-icon>
-          <ng-container i18n="Form Gallery|Appearance style label@@pds.form.label.appearance">Appearance Style</ng-container>
+          <ng-container i18n="Form Gallery|Appearance style label@@pds.form.label.appearance">Appearance Style
+          </ng-container>
         </label>
         <app-toggle-group [(value)]="globalAppearance" [options]="appearanceOptions" class="w-full"/>
         <p class="helper-text mt-1" i18n="Form Gallery|Appearance helper text@@pds.form.hint.appearance">
@@ -122,7 +135,8 @@
       <div class="mt-2">
         <label class="section-label mat-label-large flex items-center gap-1.5 mb-3">
           <mat-icon>visibility</mat-icon>
-          <ng-container i18n="Form Gallery|Show/hide elements label@@pds.form.label.showHide">Show/Hide Elements</ng-container>
+          <ng-container i18n="Form Gallery|Show/hide elements label@@pds.form.label.showHide">Show/Hide Elements
+          </ng-container>
         </label>
 
         <div class="checkbox-options grid grid-cols-1 gap-3">

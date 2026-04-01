@@ -9,18 +9,23 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@ui-atoms/app-button';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
+import { AppToggleGroupComponent, ToggleOption } from '@ui-atoms/app-toggle-group';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
 import { AppCardComponent } from '@ui-atoms/app-card';
-import { ToggleOption } from '@ui-atoms/app-toggle-group';
 import { API_PROPERTIES, BEST_PRACTICES } from './form.data';
-import { LayoutConfig } from '@ui-templates/app-page-layout';
+import { AppPageLayoutComponent, AppSlotContainerDirective, LayoutConfig } from '@ui-templates/app-page-layout';
 import { PdsPageUtilitiesService } from '@features/pds/shared/templates/pds-page-layout';
+import { PdsDocumentationTabsComponent } from '@features/pds/shared/organisms/pds-documentation-tabs';
 import {
-  PdsDocumentationTabsComponent
-} from '@features/pds/shared/organisms/pds-documentation-tabs';
-import { AppPageLayoutComponent, AppSlotContainerDirective } from "@ui-templates/app-page-layout";
-import { AppFormCheckboxComponent, AppFormDatepickerComponent, AppFormInputComponent, AppFormInputOptions, AppFormRadioGroupComponent, RadioOption, AppFormSelectComponent, AppFormTextareaComponent } from '@ui-molecules/app-form';
+  AppFormCheckboxComponent,
+  AppFormDatepickerComponent,
+  AppFormInputComponent,
+  AppFormInputOptions,
+  AppFormRadioGroupComponent,
+  AppFormSelectComponent,
+  AppFormTextareaComponent,
+  RadioOption
+} from '@ui-molecules/app-form';
 import { LoggingService } from '@core/logging-audit';
 
 @Component({

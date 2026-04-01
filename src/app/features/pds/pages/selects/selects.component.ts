@@ -1,12 +1,11 @@
-import { Component, computed, inject, signal, effect } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@ui-atoms/app-button';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
+import { AppToggleGroupComponent, ToggleOption } from '@ui-atoms/app-toggle-group';
 import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
-import { ToggleOption } from '@ui-atoms/app-toggle-group';
 import {
   API_PROPERTIES,
   BEST_PRACTICES,
@@ -16,8 +15,7 @@ import {
   SELECT_STATE_GUIDES
 } from './selects.data';
 import { PdsPageLayoutComponent } from '@features/pds/shared/templates/pds-page-layout';
-import { AppFormSelectComponent } from '@ui-molecules/app-form/app-form-select';
-import { SelectOption, SelectDensity } from '@ui-molecules/app-form/app-form-select';
+import { AppFormSelectComponent, SelectDensity, SelectOption } from '@ui-molecules/app-form/app-form-select';
 
 @Component({
   selector: 'app-selects',
@@ -50,17 +48,6 @@ export default class SelectsComponent {
   readonly BEST_PRACTICES = BEST_PRACTICES;
   readonly API_PROPERTIES = API_PROPERTIES;
   readonly SELECT_STATE_GUIDES = SELECT_STATE_GUIDES;
-
-  constructor() {
-    effect(() => {
-      if (this.selectedState() === 'disabled') {
-        this.singleControl.disable({ emitEvent: false });
-      } else {
-        this.singleControl.enable({ emitEvent: false });
-      }
-    });
-  }
-
   readonly stateOptions: ToggleOption[] = [
     { value: 'single', label: 'Single' },
     { value: 'multiple', label: 'Multiple' },
@@ -142,6 +129,16 @@ export default class SelectsComponent {
     return `${tsCode}${htmlCode}`;
   });
   private readonly router = inject(Router);
+
+  constructor() {
+    effect(() => {
+      if (this.selectedState() === 'disabled') {
+        this.singleControl.disable({ emitEvent: false });
+      } else {
+        this.singleControl.enable({ emitEvent: false });
+      }
+    });
+  }
 
   goBack(): void {
     void this.router.navigate(['/pds/index']);

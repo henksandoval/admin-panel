@@ -1,4 +1,4 @@
-import { Component, InputSignal, input } from "@angular/core";
+import { Component, input, InputSignal } from "@angular/core";
 
 @Component({
   selector: 'mat-icon',

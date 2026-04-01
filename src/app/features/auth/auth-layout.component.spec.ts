@@ -1,12 +1,12 @@
 import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { RouterOutlet, provideRouter } from '@angular/router';
+import { provideRouter, RouterOutlet } from '@angular/router';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { render, screen } from '@testing-library/angular';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { AuthLayoutComponent } from './auth-layout.component';
 import { SettingsService } from '@core/config/services';

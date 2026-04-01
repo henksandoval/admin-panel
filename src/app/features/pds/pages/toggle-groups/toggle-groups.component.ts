@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AppButtonComponent } from '@ui-atoms/app-button';
-import { AppToggleGroupComponent } from '@ui-atoms/app-toggle-group';
-import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
 import {
+  AppToggleGroupComponent,
   TOGGLE_GROUP_DEFAULTS,
   ToggleGroupColor,
   ToggleGroupSize,
   ToggleOption
 } from '@ui-atoms/app-toggle-group';
+import { AppCheckboxComponent } from '@ui-atoms/app-checkbox';
 import {
   ALIGNMENT_ICON_OPTIONS,
   ALIGNMENT_OPTIONS,

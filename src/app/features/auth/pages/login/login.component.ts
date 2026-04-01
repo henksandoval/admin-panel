@@ -29,23 +29,11 @@ import { LoggingService } from '@core/logging-audit';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  private readonly logging = inject(LoggingService);
-  private readonly authService = inject(AuthService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly fb = inject(FormBuilder);
-
-  constructor() {
-    const iconRegistry = inject(MatIconRegistry);
-    const sanitizer = inject(DomSanitizer);
-    iconRegistry.addSvgIcon('google', sanitizer.bypassSecurityTrustResourceUrl('icons/google.svg'));
-  }
-
   protected readonly status = signal<LoginStatus>(LOGIN_DEFAULTS.status);
   protected readonly errorMessage = signal<string>(LOGIN_DEFAULTS.errorMessage);
   protected readonly showPassword = signal(false);
   protected readonly rememberMe = signal(LOGIN_DEFAULTS.rememberMe);
   protected readonly minPasswordLength = LOGIN_DEFAULTS.passwordMinLength;
-
   protected readonly emailFieldConfig: AppFormInputOptions = {
     label: $localize`:Login|Email field label@@login.field.email.label:Email`,
     type: 'email',
@@ -56,7 +44,6 @@ export class LoginComponent {
       email: $localize`:Login|Email invalid error@@login.field.email.error.email:Enter a valid email`,
     },
   };
-
   protected readonly passwordFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:Login|Password field label@@login.field.password.label:Password`,
     type: this.showPassword() ? 'text' : 'password',
@@ -67,9 +54,11 @@ export class LoginComponent {
       minlength: $localize`:Login|Password minlength error@@login.field.password.error.minlength:Minimum ${this.minPasswordLength}:minLength: characters`,
     },
   }));
-
   protected readonly isLoading = computed(() => this.status() === 'loading');
-
+  private readonly logging = inject(LoggingService);
+  private readonly authService = inject(AuthService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly fb = inject(FormBuilder);
   protected readonly form = this.fb.group({
     email: this.fb.nonNullable.control('', [
       Validators.required,
@@ -81,6 +70,11 @@ export class LoginComponent {
     ]),
   });
 
+  constructor() {
+    const iconRegistry = inject(MatIconRegistry);
+    const sanitizer = inject(DomSanitizer);
+    iconRegistry.addSvgIcon('google', sanitizer.bypassSecurityTrustResourceUrl('icons/google.svg'));
+  }
 
   protected onSubmit(): void {
     if (this.form.invalid || this.isLoading()) return;

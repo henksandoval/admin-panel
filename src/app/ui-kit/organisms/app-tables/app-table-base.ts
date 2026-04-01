@@ -9,11 +9,7 @@ import {
   TemplateRef,
   WritableSignal,
 } from '@angular/core';
-import {
-  AppPageEvent,
-  AppPaginationConfig,
-  AppPaginationState,
-} from '@ui-atoms/app-pagination';
+import { AppPageEvent, AppPaginationConfig, AppPaginationState, } from '@ui-atoms/app-pagination';
 import { AppTableAction, AppTableConfig, AppTableSort } from '@ui-atoms/app-table';
 import { AppFiltersConfig } from '@ui-molecules/app-filters';
 import { AnyRecord, APP_TABLE_DEFAULTS } from './app-table.model';

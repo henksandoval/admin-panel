@@ -3,9 +3,16 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Router } from '@angular/router';
 import { EMPTY, of, throwError } from 'rxjs';
 import { AuthService } from '@core/auth/services';
-import { IS_PRODUCTION, InitializationService } from '@core/config';
+import { InitializationService, IS_PRODUCTION } from '@core/config';
 import { LoggingService } from '@core/logging-audit';
-import { MENU_SCHEMA_VERSION, LAYOUT_ROUTE_FACTORY, MenuDataService, RouteBuilderService, ApiMenuItem, MenuContractError } from '@core/navigation';
+import {
+  ApiMenuItem,
+  LAYOUT_ROUTE_FACTORY,
+  MENU_SCHEMA_VERSION,
+  MenuContractError,
+  MenuDataService,
+  RouteBuilderService
+} from '@core/navigation';
 import { API_BASE_URL } from '@core/network';
 
 const MOCK_MENU_ITEMS: ApiMenuItem[] = [{ id: 'dashboard', label: 'Dashboard' }];

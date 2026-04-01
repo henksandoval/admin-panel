@@ -2,7 +2,8 @@
   <div class="flex flex-col items-center gap-2 mb-8">
     <mat-icon class="mat-icon--large" color="primary">person_add</mat-icon>
     <h1 class="mat-headline-medium m-0" i18n="Register|Page heading@@register.heading">Create account</h1>
-    <p class="mat-body-medium m-0" i18n="Register|Page subheading@@register.subheading">Fill in your details to get started</p>
+    <p class="mat-body-medium m-0" i18n="Register|Page subheading@@register.subheading">Fill in your details to get
+      started</p>
   </div>
 
   @if (status() === 'error') {
@@ -12,33 +13,37 @@
     </div>
   }
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4"
-        i18n-aria-label="Register|Form aria-label@@register.form.ariaLabel"
-        aria-label="Create account">
-    <app-form-input [control]="form.controls.displayName" [config]="nameFieldConfig" testId="register-name-input" />
-    <app-form-input [control]="form.controls.email" [config]="emailFieldConfig" testId="register-email-input" />
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" aria-label="Create account"
+        class="flex flex-col gap-4"
+        i18n-aria-label="Register|Form aria-label@@register.form.ariaLabel">
+    <app-form-input [config]="nameFieldConfig" [control]="form.controls.displayName" testId="register-name-input"/>
+    <app-form-input [config]="emailFieldConfig" [control]="form.controls.email" testId="register-email-input"/>
 
     <div class="app-auth__password-group">
-      <app-form-input [config]="passwordFieldConfig()" [control]="form.controls.password" testId="register-password-input" />
-      <app-form-input [config]="confirmFieldConfig()" [control]="form.controls.confirm" testId="register-confirm-input" />
+      <app-form-input [config]="passwordFieldConfig()" [control]="form.controls.password"
+                      testId="register-password-input"/>
+      <app-form-input [config]="confirmFieldConfig()" [control]="form.controls.confirm"
+                      testId="register-confirm-input"/>
     </div>
 
     <div class="w-full">
       <app-button
-        variant="filled"
-        color="primary"
-        type="submit"
-        class="app-auth__submit-btn"
         [disabled]="isLoading()"
+        class="app-auth__submit-btn"
+        color="primary"
         testId="register-submit-button"
+        type="submit"
+        variant="filled"
       >
         <ng-container i18n="Register|Submit button@@register.btn.submit">Create account</ng-container>
       </app-button>
     </div>
 
     <p class="m-0 flex items-center justify-center gap-1">
-      <span class="mat-label-medium" i18n="Register|Login link text@@register.login.text">Already have an account?</span>
-      <a routerLink="/auth/login" class="app-auth__link mat-label-medium" i18n="Login|Register link@@login.register.link">Sign in!</a>
+      <span class="mat-label-medium"
+            i18n="Register|Login link text@@register.login.text">Already have an account?</span>
+      <a class="app-auth__link mat-label-medium" i18n="Login|Register link@@login.register.link"
+         routerLink="/auth/login">Sign in!</a>
     </p>
   </form>
 </app-auth-page-layout>

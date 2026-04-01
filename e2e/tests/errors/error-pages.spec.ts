@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/errors.fixture';
+import { expect, test } from '../../fixtures/errors.fixture';
 import { testConfig } from '../../config/test.config';
 
 test.describe('In-shell error pages', () => {

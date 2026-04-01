@@ -19,10 +19,9 @@ import { AUTH_DEFAULTS } from '@core/auth/models';
 })
 export class App {
   private readonly notificationService = inject(NotificationService);
+  protected readonly toasts = toSignal(this.notificationService.toasts$, { initialValue: [] });
   private readonly authService = inject(AuthService);
   private readonly idleService = inject(IdleService);
-
-  protected readonly toasts = toSignal(this.notificationService.toasts$, { initialValue: [] });
 
   constructor() {
     effect(() => {

@@ -134,14 +134,14 @@ El proyecto gestiona capas de apilamiento mediante tokens. No usar valores numé
 
 ```scss
 // Escala definida en _tokens.scss
-$z-index-dropdown:   1000;
-$z-index-sticky:     1020;
-$z-index-sidebar:    1030;
-$z-index-toolbar:    1040;
-$z-index-modal:      1050;
-$z-index-popover:    1060;
-$z-index-tooltip:    1070;
-$z-index-toast:      1080;
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-sidebar: 1030;
+$z-index-toolbar: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+$z-index-toast: 1080;
 ```
 
 ```scss
@@ -194,14 +194,14 @@ Todo elemento interactivo debe ser alcanzable y operable con teclado. Material l
   <mat-icon>delete</mat-icon>
 </app-button>
 
-<img [src]="chartUrl" alt="Gráfico de ventas mensuales del último trimestre" />
+<img [src]="chartUrl" alt="Gráfico de ventas mensuales del último trimestre"/>
 
 <!-- ❌ MAL -->
 <app-button variant="icon" color="primary">
   <mat-icon>delete</mat-icon>
 </app-button>
 
-<img [src]="chartUrl" />
+<img [src]="chartUrl"/>
 ```
 
 ### Contraste
@@ -294,14 +294,24 @@ Ante la duda, usar archivo externo.
 
 ```scss
 // ✅ BIEN
-.app-table { }
-.app-table-row { }
-.app-table-cell { }
+.app-table {
+}
+
+.app-table-row {
+}
+
+.app-table-cell {
+}
 
 // ❌ MAL
-.table { }
-.row { }
-.cell { }
+.table {
+}
+
+.row {
+}
+
+.cell {
+}
 ```
 
 ### Computed signals para clases dinámicas
@@ -318,7 +328,10 @@ No usar métodos que se ejecuten en cada ciclo de detección:
 
 ```typescript
 // ❌ MAL: Se reevalúa en cada change detection
-getClasses(): string {
+getClasses()
+:
+string
+{
   return this.stickyHeader ? 'app-table sticky-header' : 'app-table';
 }
 ```
@@ -329,14 +342,24 @@ El proyecto adopta un estilo funcional para transformaciones de datos. La razón
 
 ```typescript
 // ✅ Preferido: inmutable, declarativo
-private cleanValues(values: Record<string, any>) {
+private
+cleanValues(values
+:
+Record<string, any>
+)
+{
   return Object.fromEntries(
     Object.entries(values).filter(([_, v]) => v != null && v !== '')
   );
 }
 
 // ❌ Evitar: mutación de variable local
-private cleanValues(values: Record<string, any>) {
+private
+cleanValues(values
+:
+Record<string, any>
+)
+{
   const cleaned = {};
   Object.entries(values).forEach(([key, value]) => {
     if (value !== null && value !== undefined && value !== '') {
@@ -367,16 +390,16 @@ Todo componente que dependa de datos asíncronos debe manejar estos estados:
 ```html
 <!-- Ejemplo de manejo de estados -->
 @if (isLoading()) {
-  <app-loading variant="skeleton" />
+<app-loading variant="skeleton"/>
 } @else if (hasError()) {
-  <app-error-state
-    [message]="errorMessage()"
-    (retry)="loadData()"
-  />
+<app-error-state
+  [message]="errorMessage()"
+  (retry)="loadData()"
+/>
 } @else if (items().length === 0) {
-  <app-empty-state message="No hay registros" />
+<app-empty-state message="No hay registros"/>
 } @else {
-  <app-table [data]="items()" [columns]="columns" />
+<app-table [data]="items()" [columns]="columns"/>
 }
 ```
 
@@ -386,20 +409,60 @@ Todo componente que dependa de datos asíncronos debe manejar estos estados:
 
 ```scss
 // Layout
-var(--sidebar-width-expanded)   // 280px
-var(--sidebar-width-collapsed)  // 64px
-var(--toolbar-height)           // 64px
-var(--transition-fast)          // 150ms
-var(--transition-normal)        // 300ms
+var
+(
+--sidebar-width-expanded
+
+) // 280px
+var
+(
+--sidebar-width-collapsed
+
+) // 64px
+var
+(
+--toolbar-height
+
+) // 64px
+var
+(
+--transition-fast
+
+) // 150ms
+var
+(
+--transition-normal
+
+) // 300ms
 
 // Overlays (para SCSS custom)
-var(--overlay-light-04)
-var(--overlay-light-12)
-var(--overlay-dark-10)
+var
+(
+--overlay-light-04
+
+)
+var
+(
+--overlay-light-12
+
+)
+var
+(
+--overlay-dark-10
+
+)
 
 // Navegación
-var(--nav-item-hover-bg)
-var(--nav-item-active-bg)
+var
+(
+--nav-item-hover-bg
+
+)
+var
+(
+--nav-item-active-bg
+
+)
 
 // Z-Index (también disponibles como variables SCSS)
 // Ver sección "Z-Index"
@@ -428,7 +491,9 @@ $container-md: ($min-slot-width * 2) + $column-gap-px;
 }
 
 @container (min-width: #{$container-md}) {
-  .app-grid { grid-template-columns: 1fr 1fr; }
+  .app-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 // ✅ BIEN: Valor local de un solo uso, no necesita variable
@@ -561,12 +626,16 @@ No usar strings, números o valores mágicos directamente en lógica de negocio.
 
 ```typescript
 // ❌ MAL
-if (user.role === 'admin') { }
-if (retryCount > 3) { }
+if (user.role === 'admin') {
+}
+if (retryCount > 3) {
+}
 
 // ✅ BIEN
-if (user.role === UserRole.Admin) { }
-if (retryCount > MAX_RETRY_ATTEMPTS) { }
+if (user.role === UserRole.Admin) {
+}
+if (retryCount > MAX_RETRY_ATTEMPTS) {
+}
 ```
 
 **Excepciones válidas:**
@@ -581,12 +650,14 @@ if (retryCount > MAX_RETRY_ATTEMPTS) { }
 // ❌ MAL
 const d = new Date();
 const u = users.filter(x => x.a);
-const handleClick = () => { };
+const handleClick = () => {
+};
 
 // ✅ BIEN
 const currentDate = new Date();
 const activeUsers = users.filter(user => user.isActive);
-const handleSaveButtonClick = () => { };
+const handleSaveButtonClick = () => {
+};
 ```
 
 ### Idioma del código
@@ -596,11 +667,13 @@ Todo el código debe estar en inglés: nombres de variables, funciones, clases, 
 ```typescript
 // ❌ MAL
 const usuarioActivo = getUsuario();
-it('muestra el error cuando el campo es inválido', () => { });
+it('muestra el error cuando el campo es inválido', () => {
+});
 
 // ✅ BIEN
 const activeUser = getUser();
-it('shows the error when the field is invalid', () => { });
+it('shows the error when the field is invalid', () => {
+});
 ```
 
 **Excepción válida:** strings de UI visibles al usuario, que deben ir en el idioma apropiado vía `$localize`.
@@ -626,12 +699,13 @@ Los componentes de formulario del ui-kit **no implementan `ControlValueAccessor`
 ```typescript
 // ❌ MAL: CVA con NG_VALUE_ACCESSOR, forwardRef y connector directive
 @Component({
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AppFormInputComponent), multi: true }]
+  providers: [{provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AppFormInputComponent), multi: true}]
 })
-export class AppFormInputComponent implements ControlValueAccessor { }
+export class AppFormInputComponent implements ControlValueAccessor {
+}
 
 // ✅ BIEN: control input directo
-@Component({ /* sin providers CVA */ })
+@Component({ /* sin providers CVA */})
 export class AppFormInputComponent {
   readonly control = input.required<FormControl<string>>();
 }
@@ -639,10 +713,10 @@ export class AppFormInputComponent {
 
 ```html
 <!-- ❌ MAL -->
-<app-form-input formControlName="email" appFormInputConnector />
+<app-form-input formControlName="email" appFormInputConnector/>
 
 <!-- ✅ BIEN -->
-<app-form-input [control]="form.controls.email" />
+<app-form-input [control]="form.controls.email"/>
 ```
 
 **Ventajas:** elimina la circularidad NG0200, el warning de WebStorm, y las connector directives. Type safety total al pasar `FormControl<T>` tipado.
@@ -650,9 +724,11 @@ export class AppFormInputComponent {
 **Reactividad de estado:** usar `ctrl.events` + un `signal` como ticker para que los `computed` reaccionen a cambios de `touched`/`dirty`/`status`, que son propiedades planas (no signals) del `FormControl`.
 
 ```typescript
-private readonly controlEventTick = signal(0);
+private readonly
+controlEventTick = signal(0);
 
-constructor() {
+constructor()
+{
   effect(() => {
     this.control().events
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -710,11 +786,17 @@ Los miembros del componente usados exclusivamente por el template deben declarar
 ```typescript
 // ❌ MAL
 isLoading = signal(false);
-handleSubmit() { }
+handleSubmit()
+{
+}
 
 // ✅ BIEN
-protected isLoading = signal(false);
-protected handleSubmit() { }
+protected
+isLoading = signal(false);
+protected
+handleSubmit()
+{
+}
 ```
 
 **Excepción:** miembros accedidos desde tests directamente o desde componentes padre deben ser `public`.
@@ -724,7 +806,7 @@ protected handleSubmit() { }
 Antes de crear un stub o mock local en un test, verificar si ya existe uno en `src/tests/stubs/`. No duplicar stubs entre archivos de test.
 
 ```typescript
-import { MatIconStub } from '@stubs/material/mat-icon.stub';
+import {MatIconStub} from '@stubs/material/mat-icon.stub';
 ```
 
 ### Nomenclatura de tests
@@ -733,12 +815,16 @@ Los bloques `it()` deben ser descriptivos en inglés. Prohibido prefijos del tip
 
 ```typescript
 // ❌ MAL
-it('TC-01 - login', () => { });
-it('muestra error', () => { });
+it('TC-01 - login', () => {
+});
+it('muestra error', () => {
+});
 
 // ✅ BIEN
-it('shows error message when credentials are invalid', () => { });
-it('redirects to dashboard after successful login', () => { });
+it('shows error message when credentials are invalid', () => {
+});
+it('redirects to dashboard after successful login', () => {
+});
 ```
 
 ### E2E (Playwright)
@@ -755,7 +841,8 @@ await page.goto('http://localhost:4200/auth/login');
 await page.waitForTimeout(2000);
 
 // ✅ BIEN
-import { testConfig } from '../../config/test.config';
+import {testConfig} from '../../config/test.config';
+
 await page.waitForURL(`**${testConfig.routes.dashboard}`);
 ```
 

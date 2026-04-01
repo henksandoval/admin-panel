@@ -90,9 +90,8 @@ import { NavigationService } from '@core/navigation/services';
 export class ToolbarComponent {
   private readonly layoutService = inject(LayoutService);
   private readonly authService   = inject(AuthService);
-  private readonly navigationService = inject(NavigationService);
-
   readonly currentUser = this.authService.currentUser;
+  private readonly navigationService = inject(NavigationService);
   protected readonly breadcrumbs = this.navigationService.breadcrumbs;
 
   toggleSidebar(): void {

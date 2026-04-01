@@ -24,15 +24,10 @@ import { AuthPageLayoutComponent } from '@features/auth/shared/templates';
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-  private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
-
   protected readonly status = signal<RegisterStatus>(REGISTER_DEFAULTS.status);
   protected readonly errorMessage = signal<string>(REGISTER_DEFAULTS.errorMessage);
   protected readonly showPassword = signal(false);
   protected readonly minPasswordLength = REGISTER_DEFAULTS.passwordMinLength;
-
   protected readonly nameFieldConfig: AppFormInputOptions = {
     label: $localize`:Register|Name field label@@register.field.name.label:Full name`,
     type: 'text',
@@ -42,7 +37,6 @@ export class RegisterComponent {
       required: $localize`:Register|Name required error@@register.field.name.error.required:Full name is required`,
     },
   };
-
   protected readonly emailFieldConfig: AppFormInputOptions = {
     label: $localize`:Register|Email field label@@register.field.email.label:Email`,
     type: 'email',
@@ -53,7 +47,6 @@ export class RegisterComponent {
       email: $localize`:Register|Email invalid error@@register.field.email.error.email:Enter a valid email`,
     },
   };
-
   protected readonly passwordFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:Register|Password field label@@register.field.password.label:Password`,
     type: this.showPassword() ? 'text' : 'password',
@@ -64,7 +57,6 @@ export class RegisterComponent {
       minlength: $localize`:Register|Password minlength error@@register.field.password.error.minlength:Minimum ${this.minPasswordLength}:minLength: characters`,
     },
   }));
-
   protected readonly confirmFieldConfig = computed<AppFormInputOptions>(() => ({
     label: $localize`:Register|Confirm password field label@@register.field.confirm.label:Confirm password`,
     type: this.showPassword() ? 'text' : 'password',
@@ -75,9 +67,10 @@ export class RegisterComponent {
       passwordMismatch: $localize`:Register|Password mismatch error@@register.field.confirm.error.mismatch:Passwords do not match`,
     },
   }));
-
   protected readonly isLoading = computed(() => this.status() === 'loading');
-
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
   protected readonly form = this.fb.group(
     {
       displayName: this.fb.nonNullable.control('', [Validators.required]),
