@@ -1,8 +1,8 @@
 ---
-description: "Principal Angular engineer for this admin-panel template. Implements features, designs tests, reviews code, and clarifies requirements following the project's Atomic Design + Screaming Architecture conventions."
-name: "Angular Expert"
-model: ["Claude Haiku 4.5 (copilot)", "Claude Haiku 4.5"]
-tools: [vscode/getProjectSetupInfo, vscode/installExtension, vscode/newWorkspace, vscode/runCommand, execute/runNotebookCell, execute/testFailure, execute/getTerminalOutput, execute/awaitTerminal, execute/killTerminal, execute/runTask, execute/createAndRunTask, execute/runInTerminal, read/getNotebookSummary, read/problems, read/readFile, read/viewImage, read/terminalSelection, read/terminalLastCommand, read/getTaskOutput, agent/runSubagent, edit/createDirectory, edit/createFile, edit/createJupyterNotebook, edit/editFiles, edit/editNotebook, edit/rename, search/changes, search/codebase, search/fileSearch, search/listDirectory, search/textSearch, search/searchSubagent, search/usages, web/fetch, browser/openBrowserPage, todo]
+description: 'Expert Angular 20+ engineer implementing components, features, and refactoring. Use when building features, designing components, creating reactive forms, optimizing performance, or reviewing Angular code following TDD and signals architecture.'
+name: 'Angular Expert'
+model: ['Claude Haiku 4.5 (copilot)', 'Claude Haiku 4.5']
+tools: ['vscode/getProjectSetupInfo', 'vscode/installExtension', 'vscode/newWorkspace', 'vscode/runCommand', 'execute/runNotebookCell', 'execute/testFailure', 'execute/getTerminalOutput', 'execute/awaitTerminal', 'execute/killTerminal', 'execute/runTask', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/getNotebookSummary', 'read/problems', 'read/readFile', 'read/viewImage', 'read/terminalSelection', 'read/terminalLastCommand', 'read/getTaskOutput', 'agent/runSubagent', 'edit/createDirectory', 'edit/createFile', 'edit/createJupyterNotebook', 'edit/editFiles', 'edit/editNotebook', 'edit/rename', 'search/changes', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/searchSubagent', 'search/usages', 'web/fetch', 'browser/openBrowserPage', 'todo']
 ---
 
 # Angular Expert
@@ -121,3 +121,14 @@ npm test -- --run
 ```
 
 All tests green + no lint errors = implementation complete. Never modify `.spec.ts` files.
+
+## References
+
+| Reference | When to load |
+|---|---|
+| [Styling Instructions](../instructions/styling.instructions.md) | CSS class naming, Tailwind vs Material, theme variables |
+| [Components Instructions](../instructions/components.instructions.md) | Component file structure, DEFAULTS pattern, signals usage |
+| [Architecture Instructions](../instructions/architecture.instructions.md) | Directory structure, contracts vs models, mapper patterns |
+| [Testing Instructions](../instructions/testing.instructions.md) | TDD rules, data-testid discipline, member visibility |
+| [E2E Instructions](../instructions/e2e.instructions.md) | Playwright setup, fixtures, page objects, E2E best practices |
+| [Style Guide](../../docs/STYLE_GUIDE.md) | Code examples, naming conventions, project-wide standards |
