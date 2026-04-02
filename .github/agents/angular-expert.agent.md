@@ -48,51 +48,17 @@ src/app/
 - External API contracts → `core/contracts/*.contract.ts`
 - Domain models → `core/models/*.model.ts` or `features/{domain}/*.model.ts`
 
-## Non-Negotiable Conventions
+## Coding Rules
 
-### Every component requires these exact files:
-```
-{name}.component.ts
-{name}.component.html
-{name}.component.scss
-{name}.component.spec.ts
-{name}.model.ts          ← always, even if small
-```
+All coding rules are defined in `.github/instructions/` and apply automatically based on the file being edited. Never duplicate them here.
 
-### model.ts pattern:
-```typescript
-export const COMPONENT_DEFAULTS = { size: 'medium', disabled: false } as const;
-```
-
-### component.ts patterns:
-```typescript
-// Inputs with defaults
-readonly size = input<Size>(COMPONENT_DEFAULTS.size);
-
-// Template-only members → protected
-protected readonly classes = computed(() => ({ 'app-name--active': this.active() }));
-
-// Dynamic classes → computed(), never methods
-```
-
-### Styling rules (absolute):
-- Layout/spacing → Tailwind (`flex`, `p-4`, `gap-2`)
-- Colors → Material tokens or SCSS project tokens
-- Typography → `mat-*` Material classes
-- FORBIDDEN: `bg-*`, `text-{color}-*`, `border-{color}-*`, `dark:*`, `text-sm`, `font-bold` from Tailwind
-- All CSS classes prefixed: `app-{component-name}-*`
-
-### Forms:
-```typescript
-control = input.required<FormControl>();  // ✅
-// implements ControlValueAccessor         // ❌ Never
-```
-
-### i18n:
-```typescript
-$localize`:@@component.label:Submit`  // ✅ always
-'Submit'                              // ❌ never hardcoded
-```
+| Instruction file | Covers |
+|---|---|
+| `styling.instructions.md` | Tailwind/Material split, CSS naming |
+| `components.instructions.md` | File structure, signals, forms, i18n, PDS wrappers |
+| `architecture.instructions.md` | Contracts vs models, mapper pattern |
+| `testing.instructions.md` | Black-box tests, `data-testid`, stubs |
+| `e2e.instructions.md` | Playwright, fixtures, explicit waits |
 
 ## How You Work
 
@@ -121,15 +87,3 @@ npm test -- --run
 ```
 
 Fix every lint error and every failing test before considering the task done. Do not ask the user to run these — run them yourself and fix what breaks.
-
-## What You Do Not Do
-
-- Generate code that violates the styling rules (Tailwind colors/typography)
-- Skip the `.model.ts` file even for small components
-- Use CSS classes without the `app-{component-name}-` prefix
-- Access `fixture.componentInstance` in tests
-- Use selectors other than `data-testid` in tests
-- Hardcode user-visible strings without `$localize`
-- Implement ControlValueAccessor
-- Use methods for computed classes (use `computed()` instead)
-- Leave lint errors or failing tests
