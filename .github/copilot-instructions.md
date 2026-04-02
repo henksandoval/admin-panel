@@ -48,30 +48,31 @@ npm run build
 7. Computed signals para clases dinámicas. Prohibido: métodos que se reevalúan en cada change detection.
 8. Código funcional (`filter`/`map`) sobre bucles imperativos.
 9. **Todo el código en inglés** — variables, funciones, clases, tests.
-10. **Sin comentarios que describen qué hace el código.** Renombrar si el nombre no es autodescriptivo.
-11. **Strings visibles al usuario con `$localize` y ID `@@`.** Nunca strings de UI hardcodeados.
-12. **Formularios: `control = input.required<FormControl>()`, no CVA.**
-13. Wrappers del PDS (`app-button`, `app-card`, etc.) sobre componentes Material directos cuando existan.
-14. Miembros del componente usados solo por el template: declarar como `protected`, no `public`.
+10. **Toda la documentación técnica para agentes en español.** — Toda la documentación dentro de las carpetas `docs/` y `.github/` debe estar en español.
+11. **Sin comentarios que describen qué hace el código.** Renombrar si el nombre no es autodescriptivo.
+12. **Strings visibles al usuario con `$localize` y ID `@@`.** Nunca strings de UI hardcodeados.
+13. **Formularios: `control = input.required<FormControl>()`, no CVA.**
+14. Wrappers del PDS (`app-button`, `app-card`, etc.) sobre componentes Material directos cuando existan.
+15. Miembros del componente usados solo por el template: declarar como `protected`, no `public`.
 
 ### Contracts y Models (core)
 
-15. `core/contracts`: acuerdos con capas externas (APIs, SDKs, providers). Usar `*.contract.ts` o `*.dto.ts`.
-16. `core/models`: modelos internos del dominio. Usar `*.model.ts`, `*.value.ts` o `*.types.ts`.
-17. No mezclar DTOs externos con modelos internos. Usar mappers `contracts -> models`.
+16. `core/contracts`: acuerdos con capas externas (APIs, SDKs, providers). Usar `*.contract.ts` o `*.dto.ts`.
+17. `core/models`: modelos internos del dominio. Usar `*.model.ts`, `*.value.ts` o `*.types.ts`.
+18. No mezclar DTOs externos con modelos internos. Usar mappers `contracts -> models`.
 
 ### Tests (componente e integración)
 
-18. **Caja negra:** prohibido acceder a `fixture.componentInstance`. Solo interacción DOM con `userEvent` y aserciones `@testing-library/jest-dom`.
-19. Selectores: **siempre `data-testid`**. Si el template no los tiene, agregarlos.
-20. Verificar `src/tests/stubs/` antes de crear un stub o mock local.
-21. `it()` descriptivos en inglés. Prohibido prefijos `TC-`.
+19. **Caja negra:** prohibido acceder a `fixture.componentInstance`. Solo interacción DOM con `userEvent` y aserciones `@testing-library/jest-dom`.
+20. Selectores: **siempre `data-testid`**. Si el template no los tiene, agregarlos.
+21. Verificar `src/tests/stubs/` antes de crear un stub o mock local.
+22. `it()` descriptivos en inglés. Prohibido prefijos `TC-`.
 
 ### Tests E2E
 
-22. Sin hardcodear URLs, credenciales ni timeouts en `.spec.ts`. Usar `e2e/config/test.config.ts`.
-23. Usar fixtures de `e2e/fixtures/` para setup y teardown.
-24. Esperas explícitas (`waitForURL`, `waitForSelector`). Prohibido `waitForTimeout()`.
+23. Sin hardcodear URLs, credenciales ni timeouts en `.spec.ts`. Usar `e2e/config/test.config.ts`.
+24. Usar fixtures de `e2e/fixtures/` para setup y teardown.
+25. Esperas explícitas (`waitForURL`, `waitForSelector`). Prohibido `waitForTimeout()`.
 
 ## Árbol de Decisión
 
