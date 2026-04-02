@@ -1,0 +1,53 @@
+.app-pds-layout-showcase {
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  &__description {
+    color: var(--mat-sys-on-surface-variant);
+    max-width: 680px;
+  }
+
+  &__preset-tag {
+    display: inline-block;
+    padding: 0.375rem 0.875rem;
+    border-radius: 100px;
+    border: 1px solid var(--mat-sys-outline);
+    color: var(--mat-sys-on-surface-variant);
+    font-family: monospace;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  &__preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__preview-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--mat-sys-on-surface-variant);
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--mat-sys-outline-variant);
+    }
+  }
+}

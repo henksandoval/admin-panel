@@ -1,0 +1,28 @@
+<div
+  class="app-layout-zone-card"
+  [class]="zoneModifierClass()"
+  data-testid="layout-zone-card"
+>
+  <div class="app-layout-zone-card__top">
+    <div class="app-layout-zone-card__badge" data-testid="zone-badge">
+      <mat-icon class="app-layout-zone-card__badge-icon">{{ config().icon }}</mat-icon>
+      <span class="mat-label-small">{{ config().label }}</span>
+    </div>
+    <span class="app-layout-zone-card__span mat-label-small" data-testid="zone-span">
+      {{ spanLabel() }}
+    </span>
+  </div>
+
+  <div class="app-layout-zone-card__body">
+    <mat-icon class="app-layout-zone-card__hero-icon">{{ config().icon }}</mat-icon>
+  </div>
+
+  <ul class="app-layout-zone-card__suggestions" data-testid="zone-suggestions">
+    @for (suggestion of config().suggestions; track suggestion) {
+      <li class="app-layout-zone-card__suggestion mat-body-small">
+        <mat-icon class="app-layout-zone-card__suggestion-icon">arrow_right</mat-icon>
+        <span>{{ suggestion }}</span>
+      </li>
+    }
+  </ul>
+</div>

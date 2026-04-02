@@ -1,0 +1,25 @@
+<div class="app-pds-layout-showcase flex flex-col gap-8">
+
+  <header class="app-pds-layout-showcase__header" data-testid="showcase-header">
+    <div class="flex-1">
+      <h1 class="mat-display-small mb-3" data-testid="showcase-title">{{ title() }}</h1>
+      <p class="mat-body-large app-pds-layout-showcase__description">{{ description() }}</p>
+    </div>
+    <code class="app-pds-layout-showcase__preset-tag mat-label-medium" data-testid="showcase-preset-tag">
+      preset="{{ preset() }}"
+    </code>
+  </header>
+
+  <section class="app-pds-layout-showcase__preview" data-testid="showcase-preview">
+    <p class="app-pds-layout-showcase__preview-label mat-label-medium">
+      <mat-icon>visibility</mat-icon>
+      LIVE PREVIEW
+    </p>
+    <ng-content />
+  </section>
+
+  <app-card icon="code" title="Usage" data-testid="showcase-code-card">
+    <app-pds-code-block [code]="codeExample()" />
+  </app-card>
+
+</div>

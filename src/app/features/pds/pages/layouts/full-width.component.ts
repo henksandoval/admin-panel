@@ -1,20 +1,37 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { AppPageLayoutComponent } from '@ui-templates/app-page-layout';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AppPageLayoutComponent, AppSlotContainerDirective } from '@ui-templates/app-page-layout';
+import { LayoutZoneCardComponent } from '@features/pds/shared/molecules/layout-zone-card';
+import { PdsLayoutShowcaseComponent } from '@features/pds/shared/templates/pds-layout-showcase';
+
+const CODE = `\
+<app-page-layout preset="fullWidth">
+  <ng-template appSlot="content"><!-- Full-width content: tables, maps, rich views --></ng-template>
+</app-page-layout>`;
 
 @Component({
   selector: 'app-full-width-example',
   standalone: true,
   imports: [
-    CommonModule,
-    MatIconModule,
-    AppPageLayoutComponent
+    AppPageLayoutComponent,
+    AppSlotContainerDirective,
+    LayoutZoneCardComponent,
+    PdsLayoutShowcaseComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-page-layout preset="fullWidth" [showEmptySlots]="true">
-    </app-page-layout>
-  `
+    <app-pds-layout-showcase
+      title="Full Width Layout"
+      description="Single full-width content area with no column restrictions. Best for data-heavy views like large tables, maps, or dashboards that need all available horizontal space."
+      preset="fullWidth"
+      [codeExample]="code">
+      <app-page-layout preset="fullWidth">
+        <ng-template appSlot="content">
+          <app-layout-zone-card zone="content" span="full" />
+        </ng-template>
+      </app-page-layout>
+    </app-pds-layout-showcase>
+  `,
 })
 export default class FullWidthExampleComponent {
+  protected readonly code = CODE;
 }
