@@ -121,6 +121,7 @@ npm test -- --run
 ```
 
 All tests green + no lint errors = implementation complete. Never modify `.spec.ts` files.
+Find the exact script names in `package.json` — they are the source of truth for commands.
 
 ## References
 
