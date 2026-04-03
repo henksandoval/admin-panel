@@ -29,35 +29,15 @@ Find the exact script names in `package.json`.
 - **Tailwind CSS 3** — layout utilities only (no color/typography utilities)
 - **Vitest** — unit tests; **Playwright** — E2E tests
 
-### Directory Structure
+### Architectural Rules
 
-```
-src/app/
-├── core/               # Cross-cutting concerns (never import from features/)
-│   ├── auth/           # Guards, interceptors, directives, AuthService, IdleService
-│   ├── config/         # App initialization, environment tokens
-│   ├── contracts/      # *.contract.ts / *.dto.ts — external API shapes
-│   ├── errors/         # GlobalErrorHandler, ErrorReportingService
-│   ├── feature-flags/  # FeatureFlagsService, *appFeatureFlag directive
-│   ├── handlers/       # Global error handler
-│   ├── interceptors/   # correlation, auth, error interceptors (registered in this order)
-│   ├── models/         # *.model.ts — internal domain types
-│   ├── navigation/     # MenuService, InitializationService
-│   ├── network/        # CorrelationService (X-Correlation-ID header)
-│   ├── notifications/  # Toast / NotificationService
-│   └── services/       # Shared application services
-├── features/           # Lazy-loaded feature modules
-│   ├── auth/           # Login, register, forgot/reset password
-│   ├── dashboard/
-│   ├── errors/         # Error pages (404, 500, etc.)
-│   └── pds/
-├── layout/             # App shell (sidebar, toolbar, settings panel)
-└── ui-kit/             # Internal component library
-    ├── atoms/          # Primitives: app-button, app-card, app-toggle, …
-    ├── molecules/      # Composed: app-filters, app-form-*, app-breadcrumb, …
-    ├── organisms/      # Complex: app-table, app-toast-container, …
-    └── templates/      # Page layout: app-page-layout
-```
+The project follows screaming architecture and domain-first boundaries.
+
+- Organize by domain, not by artifact type
+- Treat each `core/` domain as independently understandable and potentially extractable
+- Keep `features/` consuming `core/`, never the reverse
+- Use domain-local folders such as `services/`, `guards/`, `interceptors/`, `models/`, `contracts/` only when the domain needs them
+- Consider the architectural principles instruction the source of truth for structure decisions: `.github/instructions/architectural-principles.instructions.md` ([Architectural Principles Instructions](instructions/architectural-principles.instructions.md))
 
 ### Routing
 
@@ -95,6 +75,7 @@ All coding rules live in scoped instruction files. They apply automatically base
 
 | File | Scope | Link |
 |---|---|---|
+| `instructions/architectural-principles.instructions.md` | `src/app/**/*.{ts,html,scss}` | [Architectural Principles](instructions/architectural-principles.instructions.md) |
 | `instructions/styling.instructions.md` | `src/**/*.{ts,html,scss}` | [Styling Instructions](instructions/styling.instructions.md) |
 | `instructions/components.instructions.md` | `src/**/*.{component.ts,component.html,component.scss,model.ts}` | [Components Instructions](instructions/components.instructions.md) |
 | `instructions/architecture.instructions.md` | `src/app/core/**/*.ts` | [Architecture Instructions](instructions/architecture.instructions.md) |
