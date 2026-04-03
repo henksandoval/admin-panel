@@ -40,3 +40,12 @@ All CSS classes in a component must be prefixed with `app-{component-name}-`.
 .app-user-card-active { ... }
 .app-user-card-title { ... }
 ```
+
+## data-testid in Templates
+
+All interactive elements and key content areas **must have `data-testid` attributes**.
+
+```html
+<button data-testid="submit-button" (click)="onSubmit()">{{ label }}</button>
+<div data-testid="error-message" *ngIf="hasError">{{ errorText }}</div>
+<input data-testid="email-input" [formControl]="emailControl" />

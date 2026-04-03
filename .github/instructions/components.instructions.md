@@ -75,6 +75,16 @@ control = input.required<FormControl>();
 implements ControlValueAccessor
 ```
 
+## data-testid in Templates
+
+All interactive elements and key content areas **must have `data-testid` attributes**.
+
+```html
+<button data-testid="submit-button" (click)="onSubmit()">{{ label }}</button>
+<div data-testid="error-message" *ngIf="hasError">{{ errorText }}</div>
+<input data-testid="email-input" [formControl]="emailControl" />
+```
+
 ## i18n
 
 All user-visible strings must use `$localize` with an `@@` ID. Never hardcode UI strings.
