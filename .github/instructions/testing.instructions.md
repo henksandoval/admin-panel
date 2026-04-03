@@ -1,4 +1,6 @@
 ---
+name: 'Testing Standards'
+description: 'Black-box testing conventions for Angular components using Vitest and @testing-library/angular. Use when writing, reviewing, or debugging spec files. Covers data-testid selectors, stub reuse, and it() naming.'
 applyTo: "src/**/*.spec.ts"
 ---
 
@@ -9,11 +11,11 @@ applyTo: "src/**/*.spec.ts"
 Tests verify observable behavior, not internal implementation. Accessing `fixture.componentInstance` to read state or invoke methods is prohibited.
 
 ```typescript
-// ❌ MAL
+// ❌ Bad
 component.submitForm();
 expect(component.isLoading).toBe(true);
 
-// ✅ BIEN
+// ✅ Good
 await user.click(screen.getByTestId('submit-button'));
 expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
 ```
@@ -23,11 +25,11 @@ expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
 The only valid selector is `data-testid`. Never use CSS classes, IDs, or visible text. If the template does not have `data-testid`, add it before writing the test.
 
 ```typescript
-// ❌ MAL
+// ❌ Bad
 screen.getByText('Guardar');
 container.querySelector('.submit-btn');
 
-// ✅ BIEN
+// ✅ Good
 screen.getByTestId('submit-button');
 ```
 
@@ -44,11 +46,11 @@ import { MatIconStub } from '@stubs/material/mat-icon.stub';
 Descriptive in English. `TC-` prefixes are prohibited.
 
 ```typescript
-// ❌ MAL
+// ❌ Bad
 it('TC-01 login', () => { });
 it('muestra error', () => { });
 
-// ✅ BIEN
+// ✅ Good
 it('shows error message when credentials are invalid', () => { });
 it('redirects to dashboard after successful login', () => { });
 ```
@@ -58,11 +60,11 @@ it('redirects to dashboard after successful login', () => { });
 When modifying a `.ts` file as part of a test, declare members used exclusively by the template as `protected`, not `public`.
 
 ```typescript
-// ❌ MAL
+// ❌ Bad
 isLoading = signal(false);
 handleSubmit() { }
 
-// ✅ BIEN
+// ✅ Good
 protected isLoading = signal(false);
 protected handleSubmit() { }
 ```

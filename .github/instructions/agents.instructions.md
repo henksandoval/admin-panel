@@ -1,5 +1,6 @@
 ---
-description: 'Guidelines for creating custom agent files for GitHub Copilot'
+name: 'Custom Agents Guide'
+description: 'Guidelines for creating custom agent files for GitHub Copilot. Use when creating or editing .agent.md files. Covers required frontmatter, tool configuration, handoffs, sub-agent orchestration, and variable patterns.'
 applyTo: '**/*.agent.md'
 ---
 

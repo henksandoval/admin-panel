@@ -1,4 +1,6 @@
 ---
+name: 'Component Conventions'
+description: 'Angular component structure rules for this project. Use when creating or modifying Angular components. Covers the 5-file pattern, signal inputs with COMPONENT_DEFAULTS, computed classes, no CVA, data-testid, and i18n with $localize.'
 applyTo: "src/**/*.{component.ts,component.html,component.scss,model.ts}"
 ---
 

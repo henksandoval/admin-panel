@@ -1,4 +1,6 @@
 ---
+name: 'Styling Rules'
+description: 'CSS/SCSS conventions enforcing Material Design tokens for color and typography, and Tailwind utilities for layout only. Use when editing component styles, templates, or SCSS files. Covers forbidden Tailwind classes and CSS naming prefixes.'
 applyTo: "src/**/*.{ts,html,scss}"
 ---
 
