@@ -18,6 +18,8 @@ Every component must have exactly these files — no exceptions, even for small 
 {name}.model.ts
 ```
 
+> **Why:** Co-locating all related files (logic, template, styles, tests, model) makes each component a self-contained unit. A developer can open one folder and find everything they need. The `.model.ts` file also prevents magic values from being scattered inline — all defaults and types live in one predictable place.
+
 ## model.ts Pattern
 
 ```typescript
@@ -42,6 +44,8 @@ protected readonly classes = computed(() => ({
 ### Computed Signals for Dynamic Classes
 
 Use `computed()` for dynamic classes. Never use methods (they re-evaluate on every change detection cycle).
+
+> **Why:** A method call in a template is invoked on every change detection pass, even when its inputs haven't changed. A `computed()` signal memoizes the result and only recalculates when its dependencies change, giving Angular's OnPush strategy maximum efficiency.
 
 ```typescript
 // ❌
@@ -68,6 +72,8 @@ Exception: members accessed from tests or parent components must remain `public`
 ## Forms
 
 Use `control = input.required<FormControl>()`. Never implement `ControlValueAccessor`.
+
+> **Why:** CVA requires implementing 4 interface methods plus change-detection wiring — significant boilerplate for no added value in this project. Angular 17+ signal inputs allow parent components to pass a `FormControl` directly, keeping form components thin and predictable without a custom value accessor layer.
 
 ```typescript
 // ✅
@@ -108,3 +114,12 @@ Use PDS wrappers (`app-button`, `app-card`, etc.) over raw Material components w
 - Functional code (`filter`, `map`) over imperative loops
 - All code in English — variables, functions, classes, comments
 - No comments that describe what the code does. Rename if the name is not self-describing
+
+---
+
+## Related Instructions
+
+- [Styling Rules](./styling.instructions.md) — CSS class naming prefix (`app-{component-name}-`) and forbidden Tailwind utilities
+- [Testing Standards](./testing.instructions.md) — how to test this component using `data-testid` and black-box patterns
+- [Architectural Principles](./architectural-principles.instructions.md) — where to place this component and which dependencies are allowed
+

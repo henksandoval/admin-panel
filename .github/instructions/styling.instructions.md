@@ -10,6 +10,8 @@ applyTo: "src/**/*.{ts,html,scss}"
 
 **Material manages colors and typography. Tailwind manages layout.**
 
+> **Why:** Material Design theming applies color tokens automatically via CSS custom properties, including dark/light mode switching. Mixing Tailwind color utilities (`bg-blue-500`) bypasses this system, hardcodes values, and breaks theme consistency. Keeping a strict separation means a single theming change propagates everywhere without touching individual components.
+
 | Need | Tool |
 |---|---|
 | Layout / spacing | Tailwind (`flex`, `p-6`, `gap-4`) |
@@ -33,6 +35,8 @@ Never use these Tailwind utilities:
 
 All CSS classes in a component must be prefixed with `app-{component-name}-`.
 
+> **Why:** Angular component styles are scoped via view encapsulation, but global SCSS (tokens, themes) is not. A prefix prevents collisions with third-party styles and makes it immediately clear which component owns a class when reading DevTools or reviewing a PR.
+
 ```scss
 // ❌
 .active { ... }
@@ -51,3 +55,13 @@ All interactive elements and key content areas **must have `data-testid` attribu
 <button data-testid="submit-button" (click)="onSubmit()">{{ label }}</button>
 <div data-testid="error-message" *ngIf="hasError">{{ errorText }}</div>
 <input data-testid="email-input" [formControl]="emailControl" />
+```
+
+> **Why:** `data-testid` is the only selector stable under CSS refactors and copy changes. See [Testing Standards](./testing.instructions.md) for the full rule.
+
+---
+
+## Related Instructions
+
+- [Component Conventions](./components.instructions.md) — component structure and `data-testid` placement requirements
+- [Testing Standards](./testing.instructions.md) — why `data-testid` is the only valid test selector

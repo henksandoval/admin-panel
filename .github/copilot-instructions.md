@@ -39,35 +39,7 @@ The project follows screaming architecture and domain-first boundaries.
 - Use domain-local folders such as `services/`, `guards/`, `interceptors/`, `models/`, `contracts/` only when the domain needs them
 - Consider the architectural principles instruction the source of truth for structure decisions: `.github/instructions/architectural-principles.instructions.md` ([Architectural Principles Instructions](instructions/architectural-principles.instructions.md))
 
-### Routing
-
-Routes are defined in `app.routes.ts`. Feature components are lazy-loaded via `loadComponent()` and registered through `ROUTE_LOADER_REGISTRY` in `feature-route-loaders.ts`. Route paths are defined as constants in `src/app/core/models/app-routes.model.ts` (`ROUTE_SEGMENTS`, `APP_PATHS`).
-
-Guards: `authGuard`, `guestGuard`, `roleGuard`, `permissionGuard` — all in `core/auth/guards/`.
-
-### Authentication
-
-`AuthService` (`core/auth/services/auth.service.ts`) manages state via Signals:
-- `status: Signal<'checking' | 'authenticated' | 'unauthenticated'>`
-- `isAuthenticated: Signal<boolean>` (computed)
-- `currentUser: Signal<AuthUser | null>`
-- `accessToken: Signal<string | null>`
-
-Auth provider is pluggable (`IAuthProvider`): `JwtAuthProvider` in production, `MockAuthProvider` in development. Token is kept in memory and auto-refreshed 60s before expiry. Idle timeout is 15 min (2 min warning).
-
-Template directives: `*appHasRole`, `*appHasPermission`, `*appFeatureFlag`.
-
-### HTTP Interceptors
-
-Registered in order: `correlationInterceptor` → `authInterceptor` → `errorInterceptor`.
-
-- **correlation**: adds `X-Correlation-ID` header (UUID per session, from `CorrelationService`)
-- **auth**: adds `Authorization: Bearer <token>`
-- **error**: classifies 5xx/network as `'operational'` (logged at error) and 4xx as `'expected'` (logged at warn)
-
-### Feature Flags
-
-`FeatureFlagsService.isEnabled(key): Signal<boolean>`. Flags are defined per environment in `environment.ts`. Use `*appFeatureFlag="'dashboard.analytics'"` in templates.
+> For routing, auth service internals, interceptors and feature flags implementation details, see [System Context](instructions/system-context.instructions.md).
 
 ## Rules Index
 
@@ -76,6 +48,7 @@ All coding rules live in scoped instruction files. They apply automatically base
 | File | Scope | Link |
 |---|---|---|
 | `instructions/architectural-principles.instructions.md` | `src/app/**/*.{ts,html,scss}` | [Architectural Principles](instructions/architectural-principles.instructions.md) |
+| `instructions/system-context.instructions.md` | `src/app/**/*.ts` | [System Context](instructions/system-context.instructions.md) |
 | `instructions/styling.instructions.md` | `src/**/*.{ts,html,scss}` | [Styling Instructions](instructions/styling.instructions.md) |
 | `instructions/components.instructions.md` | `src/**/*.{component.ts,component.html,component.scss,model.ts}` | [Components Instructions](instructions/components.instructions.md) |
 | `instructions/testing.instructions.md` | `src/**/*.spec.ts` | [Testing Instructions](instructions/testing.instructions.md) |

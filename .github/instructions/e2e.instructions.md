@@ -10,6 +10,8 @@ applyTo: "e2e/**/*.spec.ts"
 
 Hardcoding URLs, credentials, or timeouts in `.spec.ts` files is prohibited. All configuration lives in `e2e/config/test.config.ts`.
 
+> **Why:** Hardcoded values scatter environment-specific configuration across dozens of files. When a URL, port, or credential changes (e.g., staging vs. CI), a single change to `test.config.ts` propagates everywhere instead of requiring a search-and-replace across the whole test suite.
+
 ```typescript
 // ❌ Bad
 await page.goto('http://localhost:4200/auth/login');
@@ -25,6 +27,8 @@ await loginPage.getByTestId('email-input').fill(testConfig.credentials.email);
 
 Reuse fixtures from `e2e/fixtures/` for setup and teardown. Do not repeat navigation or authentication logic across spec files.
 
+> **Why:** Auth and navigation flows repeated in each spec become a maintenance burden when the login page changes. Fixtures are the single point of change, and they make individual tests shorter and focused on their actual scenario rather than on setup boilerplate.
+
 ```typescript
 import { test } from '../../fixtures/auth.fixture';
 
@@ -34,6 +38,8 @@ test('redirects to dashboard after login', async ({ loginPage }) => { });
 ## Explicit Waits
 
 Use `waitForURL` or `waitForSelector`. `waitForTimeout()` is prohibited.
+
+> **Why:** `waitForTimeout` introduces arbitrary delays that either waste time on fast machines or cause flakiness on slow CI runners. Event-driven waits (`waitForURL`, `waitForSelector`) resolve as soon as the condition is met, making tests both faster and reliable across environments.
 
 ```typescript
 // ❌ Bad
@@ -64,3 +70,10 @@ test('TC-01 login test', async () => { });
 // ✅ Good
 test('redirects to default route after successful login', async () => { });
 ```
+
+---
+
+## Related Instructions
+
+- [Testing Standards](./testing.instructions.md) — same `data-testid` selectors and naming rules apply to unit tests
+
