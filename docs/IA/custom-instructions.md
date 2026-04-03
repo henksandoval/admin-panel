@@ -195,34 +195,7 @@ No mezcles reglas de styling con reglas de arquitectura en el mismo archivo. Usa
 
 ---
 
-## 9. Instrucciones del proyecto
-
-### Inventario actual
-
-| Archivo | `applyTo` | Propósito |
-|---|---|---|
-| `copilot-instructions.md` | Todas las requests | Stack, arquitectura, convenciones globales |
-| `architectural-principles.instructions.md` | `src/app/**/*.{ts,html,scss}` | Screaming architecture, dependency rules, contracts vs models |
-| `components.instructions.md` | `src/**/*.{component.ts,component.html,component.scss,model.ts}` | Los 5 archivos, signals, inputs, forms, data-testid, i18n |
-| `styling.instructions.md` | `src/**/*.{ts,html,scss}` | Material vs Tailwind, CSS class naming, forbidden utilities |
-| `testing.instructions.md` | `src/**/*.spec.ts` | Black-box philosophy, data-testid only, stubs, naming |
-| `e2e.instructions.md` | `e2e/**/*.spec.ts` | Playwright, config centralizado, fixtures, explicit waits |
-| `system-context.instructions.md` | `src/app/**/*.ts` | Contexto del sistema: auth, interceptors, feature flags |
-| `agent-skills.instructions.md` | `**/{.github,.claude}/skills/**/SKILL.md` | Guía para escribir SKILL.md |
-
-### Cobertura del proyecto
-
-```
-src/app/**          → architectural-principles + system-context
-*.component.*       → components (el más específico)
-src/**/*.{ts,html}  → styling (se aplica sobre lo anterior)
-src/**/*.spec.ts    → testing
-e2e/**/*.spec.ts    → e2e
-```
-
----
-
-## 10. Diagnóstico y troubleshooting
+## 8. Diagnóstico y troubleshooting
 
 ### Si una instrucción no se aplica
 

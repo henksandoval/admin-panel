@@ -149,75 +149,7 @@ Nivel 3: RESOURCES
 
 ---
 
-## 5. Cómo funciona el proyecto actualmente
-
-### Inventario actual
-
-```
-.github/
-├── copilot-instructions.md          ← always-on instruction (convenciones globales)
-├── instructions/
-│   ├── architectural-principles.instructions.md  ← src/app/**
-│   ├── system-context.instructions.md            ← src/app/**/*.ts
-│   ├── components.instructions.md                ← *.component.ts/html/scss, model.ts
-│   ├── styling.instructions.md                   ← src/**/*.{ts,html,scss}
-│   ├── testing.instructions.md                   ← src/**/*.spec.ts
-│   ├── e2e.instructions.md                        ← e2e/**/*.spec.ts
-│   └── agent-skills.instructions.md              ← **/{.github,.claude}/skills/**/SKILL.md
-├── skills/
-│   ├── angular-developer/    ← skill de Google, referencia de framework
-│   ├── implement-feature/    ← flujo de implementación del proyecto
-│   ├── implement-tests/      ← flujo de escritura de tests
-│   ├── design-tests/         ← flujo de diseño de tests
-│   ├── clarify-requirements/ ← flujo de clarificación de requisitos
-│   └── review-code/          ← flujo de revisión de código
-└── agents/
-    ├── angular-expert.agent.md   ← orquestador: usa skills + instructions
-    └── testing-expert.agent.md  ← especialista en testing
-```
-
-### El modelo de 3 capas del proyecto
-
-```
-     AGENTES (quién trabaja)
-     angular-expert, testing-expert
-           ↙              ↘
-    SKILLS               INSTRUCTIONS
-    (cómo ejecutar        (reglas que deben
-     una tarea)            respetarse siempre)
-    implement-feature     components.instructions.md
-    angular-developer     styling.instructions.md
-    review-code           testing.instructions.md
-    ...                   ...
-```
-
-**El flujo típico:**
-
-1. Usuario selecciona el agente `Angular Expert`
-2. El agente detecta la tarea → decide qué skill invocar (ej: `implement-feature`)
-3. El skill carga sus instrucciones de flujo + referencias del proyecto
-4. Mientras ejecuta, las `instructions` activas (por `applyTo`) imponen las restricciones de código
-
-### ¿Están siendo usadas correctamente?
-
-**Instructions ✅ Uso correcto:**
-- Se usan para definir reglas permanentes (qué está prohibido, cómo nombrar, qué patrones seguir)
-- Están correctamente separadas por dominio (`applyTo` preciso)
-- `copilot-instructions.md` actúa como hub de convenciones globales
-
-**Skills ✅ Uso correcto:**
-- Encapsulan flujos de trabajo paso a paso (`implement-feature` tiene Steps 1-5)
-- Incluyen recursos de referencia (`angular-developer/references/`)
-- Son invocables como slash commands
-- El skill `angular-developer` sigue correctamente el patrón con `references/`
-
-**Agents ✅ Uso correcto:**
-- `angular-expert` es un **thin orchestrator** — no duplica reglas, delega a skills e instructions
-- Usa una tabla de scopes para saber qué instruction aplicar según los archivos
-
----
-
-## 6. Guía de decisión — ¿cuándo usar qué?
+## 5. Guía de decisión — ¿cuándo usar qué?
 
 ### ¿Instruction o Skill?
 
@@ -257,7 +189,18 @@ Nivel 3: RESOURCES
     → Agent (thin orchestrator)
 ```
 
-### Regla de oro para este proyecto
+### Regla de oro para clasificar conocimiento
+
+| Tipo de conocimiento | Dónde va |
+|---|---|
+| "Siempre usa X en lugar de Y" (regla de estilo) | Instruction con `applyTo` preciso |
+| "Nunca hagas Z" (patrón prohibido) | Instruction con `applyTo` preciso |
+| "Cómo implementar algo de principio a fin" (flujo) | Skill |
+| "Cómo revisar código buscando violaciones" (proceso) | Skill |
+| "Referencia técnica de una API o librería" | `references/` dentro de un Skill |
+| "Stack tecnológico y arquitectura general" | `copilot-instructions.md` |
+
+#### Ejemplo
 
 | Tipo de conocimiento | Dónde va |
 |---------------------|---------|
@@ -270,7 +213,7 @@ Nivel 3: RESOURCES
 
 ---
 
-## 7. Checklist para cuando crees algo nuevo
+## 6. Checklist para cuando crees algo nuevo
 
 ### Nueva regla de código
 ```

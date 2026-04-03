@@ -67,66 +67,29 @@ VS Code ofrece **6 mecanismos** de customización para Copilot. No son alternati
 
 ---
 
-## 4. Mapa de archivos del proyecto
-
-El proyecto ya tiene implementados los tres mecanismos principales:
-
-```
-.github/
-├── copilot-instructions.md              ← Instruction always-on (reglas globales)
-│
-├── instructions/                        ← File-based instructions
-│   ├── architectural-principles.instructions.md   ← src/app/**
-│   ├── components.instructions.md                 ← *.component.ts/html/scss, model.ts
-│   ├── styling.instructions.md                    ← src/**/*.{ts,html,scss}
-│   ├── testing.instructions.md                    ← src/**/*.spec.ts
-│   ├── e2e.instructions.md                        ← e2e/**/*.spec.ts
-│   ├── system-context.instructions.md             ← src/app/**/*.ts
-│   └── agent-skills.instructions.md               ← **/{.github,.claude}/skills/**/SKILL.md
-│
-├── agents/                              ← Custom agents
-│   ├── angular-expert.agent.md          ← Orquestador principal
-│   └── testing-expert.agent.md          ← Especialista en testing
-│
-├── skills/                              ← Agent skills
-│   ├── angular-developer/               ← Framework reference (con 30+ referencias)
-│   ├── implement-feature/               ← Flujo de implementación
-│   ├── implement-tests/                 ← Flujo de escritura de tests
-│   ├── design-tests/                    ← Flujo de diseño de escenarios
-│   ├── clarify-requirements/            ← Flujo de clarificación
-│   └── review-code/                     ← Flujo de revisión
-│
-└── prompts/                             ← ⚠️ NO EXISTE AÚN — ver oportunidad abajo
-```
-
----
-
-## 5. Cómo se complementan en el flujo de trabajo diario
+## 4. Cómo se complementan en el flujo de trabajo diario
 
 ```
 USUARIO
   │
   ├─ Escribe código        → instructions se aplican automáticamente
-  │                           (styling, components, testing según el archivo abierto)
+  │                           (según los archivos abiertos y sus patrones applyTo)
   │
-  ├─ Pide /create-component → prompt file prepara el contexto y lanza el flujo
-  │                            (no existe aún, oportunidad de mejora)
+  ├─ Escribe /mi-tarea     → prompt file prepara el contexto y lanza el flujo
   │
-  ├─ Selecciona Angular Expert → agente orquestador activo
+  ├─ Selecciona un agente  → agente orquestador activo para toda la sesión
   │       │
-  │       ├─ Tarea de implementación  → invoca implement-feature skill
-  │       ├─ Tarea de testing         → invoca implement-tests skill
-  │       └─ Tarea de revisión        → invoca review-code skill
+  │       └─ Delega a skills según la tarea detectada
   │
   └─ Skill en ejecución:
           │
-          ├─ Carga referencias de angular-developer/references/ (bajo demanda)
+          ├─ Carga references/ bajo demanda
           └─ Las instructions activas (por applyTo) imponen restricciones al código generado
 ```
 
 ---
 
-## 6. Parent Repository Discovery (monorepos)
+## 5. Parent Repository Discovery (monorepos)
 
 Si el workspace abierto es una subcarpeta de un repositorio (monorepo), VS Code **por defecto no descubre** las customizaciones del directorio raíz del repositorio.
 
@@ -176,23 +139,12 @@ Si una customización no se aplica:
 
 ---
 
-## 9. Oportunidades de mejora en este proyecto
-
-| Prioridad | Mejora | Beneficio |
-|---|---|---|
-| 🔴 Alta | Crear `.github/prompts/` con prompt files para tareas recurrentes | Estandarizar `/create-component`, `/pr-review`, `/validate` |
-| 🟡 Media | Agregar `AGENTS.md` en la raíz | Compatibilidad con Claude Code y otros agentes no-Copilot |
-| 🟢 Baja | Configurar `chat.useCustomizationsInParentRepositories` | Útil si el repo se convierte en monorepo |
-
----
-
-## 10. Documentación relacionada en este proyecto
+## 9. Documentación relacionada
 
 | Documento | Contenido |
 |---|---|
 | [`docs/IA/custom-instructions.md`](./custom-instructions.md) | Referencia completa de Instructions: tipos, frontmatter, `applyTo`, prioridades, troubleshooting |
-| [`docs/IA/agent-skills.md`](./agent-skills.md) | Referencia completa de Agent Skills: estructura, carga progresiva, scripts, inventario del proyecto |
+| [`docs/IA/agent-skills.md`](./agent-skills.md) | Referencia completa de Agent Skills: estructura, carga progresiva, scripts, checklist |
 | [`docs/IA/instructions-vs-skills-guide.md`](./instructions-vs-skills-guide.md) | Comparativa profunda Instructions vs Skills: cuándo usar cada uno, regla mental, checklist |
 | [`docs/IA/custom-agents.md`](./custom-agents.md) | Referencia completa de Custom Agents: frontmatter, tools, handoffs, subagentes |
-| [`docs/IA/prompt-files.md`](./prompt-files.md) | Referencia de Prompt Files con ejemplos para este stack Angular |
-| [`docs/STYLE_GUIDE.md`](../STYLE_GUIDE.md) | Convenciones de código del proyecto |
+| [`docs/IA/prompt-files.md`](./prompt-files.md) | Referencia de Prompt Files: frontmatter, variables de input, comparativa vs Skills vs Agents |

@@ -50,17 +50,17 @@ La diferencia con las instrucciones y los skills:
 
 ```yaml
 ---
-name: 'Angular Expert'                  # Nombre mostrado en el selector de chat
+name: 'Orchestrator'                    # Nombre mostrado en el selector de chat
 description: 'Implementa componentes...' # Placeholder en el chat input
-argument-hint: '[componente a crear]'   # Hint adicional (opcional)
+argument-hint: '[tarea a realizar]'     # Hint adicional (opcional)
 model: 'Claude Sonnet 4.5'              # Modelo a usar (string o array de fallbacks)
 tools: ['read', 'edit', 'search']       # Herramientas disponibles (ver sección 3)
-agents: ['testing-expert']              # Subagentes que puede invocar (opcional)
+agents: ['specialist-a']               # Subagentes que puede invocar (opcional)
 user-invocable: true                    # ¿Aparece en el selector? (default: true)
 disable-model-invocation: false         # ¿Puede ser invocado como subagente? (default: false)
 handoffs:                               # Transiciones guiadas a otros agentes
   - label: 'Revisar implementación'
-    agent: review-agent
+    agent: reviewer
     prompt: 'Revisa el código generado.'
     send: false
 ---
@@ -143,12 +143,12 @@ handoffs:
 ```
 Planning → Implementation → Review
     ↓              ↓            ↓
-planner.agent   implementer  reviewer
+planner.agent   coder.agent  reviewer.agent
   (read-only)   (full tools)  (read-only)
 
 Write Failing Tests → Write Passing Code
     ↓                       ↓
-design-tests.agent    implement-feature.agent
+test-designer.agent    implementer.agent
 ```
 
 ---
@@ -184,12 +184,12 @@ Un agente puede invocar a otros agentes como subagentes usando el tool `agent`. 
 
 ```
 Usuario
-  └─ Angular Expert (orquestador)
+  └─ Orchestrator (orquestador)
        ├─ Lee el contexto del proyecto
        ├─ Decide qué skill activar
        └─ Invoca subagente según la tarea:
-            ├─ → Testing Expert (para tests)
-            └─ → Code Reviewer (para revisiones)
+            ├─ → Specialist A (para tests)
+            └─ → Specialist B (para revisiones)
 ```
 
 ### Configuración del orquestador
@@ -197,7 +197,7 @@ Usuario
 ```yaml
 ---
 tools: ['read', 'edit', 'search', 'agent']
-agents: ['testing-expert', 'code-reviewer']  # Lista de subagentes permitidos
+agents: ['specialist-a', 'specialist-b']  # Lista de subagentes permitidos
 ---
 ```
 
@@ -229,34 +229,7 @@ model: ['claude-opus-4.5', 'claude-sonnet-4.5', 'gpt-4.1']
 
 ---
 
-## 8. Agentes en este proyecto
-
-### Inventario actual
-
-```
-.github/agents/
-├── angular-expert.agent.md    ← Orquestador principal del proyecto
-└── testing-expert.agent.md   ← Especialista en testing
-```
-
-### Patrón de agente en este proyecto
-
-Los agentes son **thin orchestrators**: no duplican reglas de las instructions, sino que las referencian y deciden qué skill invocar según el contexto.
-
-```
-angular-expert
-  ├── Tools: read, edit, search, agent (+ execute para builds)
-  ├── Modelo: Claude Sonnet 4.5
-  ├── Instrucciones: tabla de qué instruction aplica según el tipo de archivo
-  └── Workflow: tabla de qué skill invocar según la tarea
-        ├── "implementar componente" → implement-feature skill
-        ├── "escribir tests" → implement-tests skill
-        └── "revisar código" → review-code skill
-```
-
----
-
-## 9. Checklist para crear un nuevo agente
+## 8. Checklist para crear un nuevo agente
 
 ```
 1. ¿Es realmente un agente?
@@ -278,4 +251,21 @@ angular-expert
    → Referenciar los skills para los flujos, no repetirlos
 
 6. Verificar que aparece en el selector de chat en VS Code
+```
+
+---
+
+## 9. Ejemplo de un agente en el proyecto
+
+Los agentes son **thin orchestrators**: no duplican reglas de las instructions, sino que las referencian y deciden qué skill invocar según el contexto.
+
+```
+angular-expert
+  ├── Tools: read, edit, search, agent (+ execute para builds)
+  ├── Modelo: Claude Sonnet 4.5
+  ├── Instrucciones: tabla de qué instruction aplica según el tipo de archivo
+  └── Workflow: tabla de qué skill invocar según la tarea
+        ├── "implementar componente" → implement-feature skill
+        ├── "escribir tests" → implement-tests skill
+        └── "revisar código" → review-code skill
 ```

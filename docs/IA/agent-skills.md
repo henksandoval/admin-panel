@@ -154,9 +154,9 @@ NIVEL 3: RECURSOS
 Todos los skills con `user-invocable: true` aparecen en el menú `/` del chat, junto con los prompt files.
 
 ```
-/implement-feature crear el componente UserCard en features/users
-/review-code       busca violaciones al style guide
-/design-tests      para la funcionalidad de login
+/scaffold-feature   crear el componente LoginForm en features/auth
+/audit-code         busca violaciones al style guide
+/draft-tests        para la funcionalidad de autenticación
 ```
 
 Se puede añadir contexto adicional después del slash command. El agente lo usa como input.
@@ -220,48 +220,7 @@ Para usar un skill externo:
 
 ---
 
-## 10. Skills del proyecto
-
-### Inventario actual
-
-```
-.github/skills/
-├── angular-developer/       ← Framework reference + 30+ archivos en references/
-│   └── references/          ← signals, forms, routing, DI, testing, animations...
-├── implement-feature/       ← Flujo completo de implementación (Steps 1-N)
-├── implement-tests/         ← Flujo de escritura de tests siguiendo black-box philosophy
-├── design-tests/            ← Diseño de escenarios de test (sin escribir código)
-├── clarify-requirements/    ← Transformar requerimientos vagos en specs estructuradas
-└── review-code/             ← Auditoría contra SOLID, DRY, KISS y convenciones del proyecto
-```
-
-### Relación entre skills del proyecto
-
-```
-clarify-requirements  →  design-tests  →  implement-feature  →  implement-tests  →  review-code
-      (spec)               (escenarios)      (código)              (tests)            (auditoría)
-```
-
-### El skill `angular-developer`
-
-Es el skill de framework más completo. Contiene ~30 referencias organizadas por tema:
-
-| Categoría | Archivos |
-|---|---|
-| Signals | `signals-overview.md`, `linked-signal.md`, `effects.md`, `resource.md` |
-| Forms | `reactive-forms.md`, `signal-forms.md`, `template-driven-forms.md` |
-| Routing | `define-routes.md`, `navigate-to-routes.md`, `route-guards.md`, `data-resolvers.md`, `loading-strategies.md` |
-| DI | `di-fundamentals.md`, `creating-services.md`, `defining-providers.md`, `hierarchical-injectors.md`, `injection-context.md` |
-| Components | `components.md`, `inputs.md`, `outputs.md`, `host-elements.md`, `component-styling.md` |
-| Testing | `testing-fundamentals.md`, `router-testing.md`, `component-harnesses.md`, `e2e-testing.md` |
-| Otros | `angular-animations.md`, `angular-aria.md`, `rendering-strategies.md`, `cli.md`, `mcp.md` |
-
----
-
-## 11. Checklist para crear un nuevo skill
-
-```
-1. Crear la carpeta con el nombre correcto (lowercase-hyphens)
+## 10. Checklist para crear un nuevo skill
    .github/skills/{nombre}/
 
 2. Crear SKILL.md con frontmatter completo:

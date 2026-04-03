@@ -212,27 +212,7 @@ Usa el patrón de [este componente existente](../src/app/features/users/user-car
 
 ---
 
-## 8. Prompt Files en este proyecto
-
-### Estado actual
-
-> **⚠️ Este proyecto no tiene prompt files todavía.** La carpeta `.github/prompts/` no existe.
-
-### Prompt files recomendados para este stack
-
-Basado en las tareas más frecuentes del proyecto:
-
-| Archivo | Slash command | Propósito |
-|---|---|---|
-| `create-component.prompt.md` | `/create-component` | Scaffolding completo de componente Angular (5 archivos) |
-| `create-service.prompt.md` | `/create-service` | Servicio con signals, inyección y tests |
-| `pr-review.prompt.md` | `/pr-review` | Review contra style guide y architectural principles |
-| `validate.prompt.md` | `/validate` | Ejecutar lint → test → build en secuencia |
-| `fix-test.prompt.md` | `/fix-test` | Debuggear y corregir un test fallido |
-
----
-
-## 9. Cómo crear un prompt file
+## 8. Cómo crear un prompt file
 
 ```bash
 # 1. Crear la carpeta si no existe
