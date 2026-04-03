@@ -26,7 +26,7 @@ Use only the instructions relevant to the files being touched:
 | Domain | Instruction | When it applies |
 |---|---|---|
 | App architecture boundaries | `instructions/architectural-principles.instructions.md` | Any edits under `src/app/**/*.{ts,html,scss}` |
-| Core contracts/models boundary | `instructions/architecture.instructions.md` | Edits under `src/app/core/**/*.ts` |
+| Core contracts/models boundary | `instructions/architectural-principles.instructions.md` | Edits under `src/app/core/**/*.ts` |
 | Component conventions | `instructions/components.instructions.md` | Edits to `*.component.ts`, `*.component.html`, `*.component.scss`, `*.model.ts` |
 | Styling conventions | `instructions/styling.instructions.md` | Edits to `src/**/*.{ts,html,scss}` |
 | Unit/integration test conventions | `instructions/testing.instructions.md` | Edits to `src/**/*.spec.ts` |
