@@ -12,31 +12,12 @@ npm install
 
 ### Commands
 
-```bash
-npm start                    # Dev server (localhost:4200)
-npm run build                # Production build
-npm run lint                 # ESLint
-npm run lint:fix             # ESLint with auto-fix
-npm run test:unit            # Unit tests (Vitest + jsdom)
-npm run test:unit:watch      # Unit tests in watch mode
-npm run test:unit:coverage   # Unit tests with coverage report
-npm run test:e2e             # E2E tests (Playwright)
-npm run test:e2e:ui          # Playwright with UI
-```
-
-**Run a single test file:**
-```bash
-npm run test:unit -- "src/app/core/auth/services/auth.service.spec"
-```
-
-**Run tests matching a name pattern:**
-```bash
-npm run test:unit -- -t "shows error message"
-```
+Read `package.json` scripts for exact command names — they are the source of truth.
 
 ### Validation Workflow
 
 After making code changes, always run in this order: **lint → test → build**.
+Find the exact script names in `package.json`.
 
 ## Architecture
 
