@@ -67,19 +67,35 @@ Criterio de salida:
 
 - Lista priorizada de problemas/oportunidades con evidencia.
 
-**Estado: Pendiente**
+**Estado: COMPLETADO**
 
 Artefacto: [`workflow/ai-customization-audit.md`](./ai-customization-audit.md) — 19 hallazgos (P1–P19) priorizados por impacto y esfuerzo.
 
-Síntesis de hallazgos críticos:
+### 4.0.1 Fortalezas encontradas
 
-| ID | Problema | Impacto |
-|---|---|---|
-| P4 | Tools del agente con acceso excesivo (`browser`, `installExtension`, PR tools) | ❌ Crítico |
-| P11 | `agent-skills.instructions.md` con 263 líneas satura el contexto | ❌ Crítico |
-| P1 | `copilot-instructions.md` duplica reglas de instrucciones individuales | ⚠️ Alto |
-| P5 | Workflow table del agente omite `design-tests` e `implement-tests` | ⚠️ Alto |
-| P12–P15 | Descriptions de los 5 skills sin trigger keywords para auto-discovery | ⚠️ Alto |
+El sistema actual está en el **cuartil superior** vs. buenas prácticas oficiales:
+
+- ✅ **Separación de responsabilidades correcta:** Instructions definen reglas, skills definen flujos, agente orquesta — sin confusión
+- ✅ **Razonamiento incluido:** Todas las reglas explican el *por qué* — mejora decisiones en casos límite
+- ✅ **Pipeline completo:** `clarify-requirements → design-tests → implement-feature → implement-tests → review-code` coherente
+- ✅ **Applyto preciso:** Cada instruction activa en su scope, sin derrames innecesarios
+- ✅ **Agente thin-orchestrator:** `angular-expert` delega correctamente, no duplica
+
+### 4.0.2 Síntesis de hallazgos críticos
+
+| ID | Problema | Severidad | Archivo | Fix |
+|---|---|---|---|---|
+| **P4** | Tools del agente con acceso excesivo (`browser`, `installExtension`, PR tools, `openPullRequest`) | ❌ Crítico | `angular-expert.agent.md` | Reducir a: `[read, edit, search, execute, web/fetch, agent, todo]` |
+| **P11** | `agent-skills.instructions.md` con 263 líneas satura contexto en cada edición de SKILL.md | ❌ Crítico | `.github/instructions/agent-skills.instructions.md` | Condensar a ~30 líneas (solo reglas críticas) |
+| **P1** | `copilot-instructions.md` duplica reglas de instrucciones individuales (Key Conventions) | ⚠️ Alto | `copilot-instructions.md` | Eliminar sección "Key Conventions" completa |
+| **P5** | Workflow table del agente omite `design-tests` e `implement-tests` | ⚠️ Alto | `angular-expert.agent.md` | Añadir dos filas a la tabla de workflow |
+| **P12–P15** | Descriptions de los 5 skills sin trigger keywords para auto-discovery | ⚠️ Alto | `.github/skills/*/SKILL.md` | Añadir "use when..." en cada description |
+| **P8** | `applyTo` de styling.instructions.md activa en service files (irrelevante) | ⚠️ Medio | `styling.instructions.md` | Cambiar glob a: `src/**/*.{component.ts,component.html,component.scss}` |
+| **P10** | Duplicación auth/interceptors entre copilot-instructions.md y system-context.instructions.md | ⚠️ Medio | `copilot-instructions.md` | Eliminar secciones de auth, interceptors, feature-flags de copilot-instructions.md |
+| **P17** | Cadena de skills incompleta expresada en el agente | ⚠️ Medio | `angular-expert.agent.md` | Completar tabla de workflow con todos los 5 skills |
+| **P16** | Sin `argument-hint` en ninguno de los 5 skills | ℹ️ Bajo | `.github/skills/*/SKILL.md` | Añadir argument-hint a cada skill |
+| **P18** | Sin `AGENTS.md` en raíz (solo funciona con Copilot/VS Code) | ℹ️ Bajo | Raíz proyecto | Crear `AGENTS.md` con matriz de cuando usar cada agente |
+| **P19** | Sin prompt files para tareas frecuentes | ℹ️ Bajo | `.github/prompts/` | Crear primer prompt file: lint→test→build |
 
 ## Fase 1 — Investigación guiada por fuentes
 
@@ -274,20 +290,24 @@ Criterio de salida:
 
 ## 5. Backlog vivo (priorizado)
 
-| ID | Tarea | Tipo | Prioridad | Estado | Fuente |
+| ID | Tarea | Detalles | Prioridad | Estado | Fuente |
 |---|---|---|---|---|---|
-| IA-001 | Corregir tools del agente `angular-expert` (P4) | Fix | Crítica | Pendiente | Audit P4 |
-| IA-002 | Añadir trigger keywords a descriptions de 5 skills (P12–P15) | Fix | Alta | Pendiente | Audit P12–P15 |
-| IA-003 | Añadir `design-tests` e `implement-tests` al workflow table del agente (P5) | Fix | Alta | Pendiente | Audit P5 |
-| IA-004 | Condensar `agent-skills.instructions.md` de 263 a ~30 líneas (P11) | Refactor | Alta | Pendiente | Audit P11 |
-| IA-005 | Eliminar sección "Key Conventions" de `copilot-instructions.md` (P1) | Refactor | Alta | Pendiente | Audit P1 |
-| IA-006 | Añadir `argument-hint` a los 5 skills (P16) | Mejora | Media | Pendiente | Audit P16 |
-| IA-007 | Ajustar `applyTo` de `styling.instructions.md` (P8) | Fix | Media | Pendiente | Audit P8 |
-| IA-011 | Crear primer prompt file para validación lint→test→build (P19) | Feature | Media | Pendiente | Audit P19 |
-| IA-012 | Explorar subagentes multi-perspectiva para code review (P21) | Research | Media | Pendiente | P21 |
-| IA-013 | Integrate Plan Agent built-in en workflow diseño (P20) | Integration | Alta | Pendiente | P20 |
-| IA-014 | Crear `AGENTS.md` en raíz para compatibilidad multi-agente (P18) | Feature | Baja | Pendiente | Audit P18 |
-| IA-015 | Ejecutar piloto de workflow completo en 1 tarea real | Validación | Alta | Pendiente | Fase 4 |
+| **IA-001** | Reducir tools del agente `angular-expert` (P4) | Remove: `browser, vscode/installExtension, vscode/newWorkspace, github/*openPullRequest`. Keep only: `[read, edit, search, execute, web/fetch, agent, todo]` | 🔴 Crítica | Pendiente | P4 Audit |
+| **IA-002** | Añadir trigger keywords a descriptions de 5 skills (P12–P15) | Add "use when..." phraseology to each: clarify-requirements, design-tests, implement-feature, implement-tests, review-code. Pattern: "Use when [situation]. [Current description]." | 🔴 Crítica | Pendiente | P12-P15 Audit |
+| **IA-003** | Completar workflow table del agente con `design-tests` e `implement-tests` (P5) | Add rows: "Need to design test scenarios" → design-tests skill; "Need to write .spec.ts files" → implement-tests skill | 🟠 Alta | Pendiente | P5 Audit |
+| **IA-004** | Condensar `agent-skills.instructions.md` de 263 a ~30 líneas (P11) | Move reference tables/patterns to docs/IA/agent-skills.md (already exists). Keep only critical rules: naming convention, description format, resource linking, length budget, no hardcoded secrets | 🟠 Alta | Pendiente | P11 Audit |
+| **IA-005** | Eliminar sección "Key Conventions" de `copilot-instructions.md` (P1) | Remove lines 58–111 completely. These rules live in individual instructions with applyTo. Keep: Stack, Architecture, Rules Index, Pre-Code Checklist. | 🟠 Alta | Pendiente | P1 Audit |
+| **IA-006** | Eliminar duplicaciones auth/interceptors de `copilot-instructions.md` (P10) | Remove: "Auth Service signals", "Interceptor chain", "Feature flags" sections. Leave only link to system-context.instructions.md | 🟠 Alta | Pendiente | P10 Audit |
+| **IA-007** | Ajustar `applyTo` de `styling.instructions.md` (P8) | Change from `src/**/*.{ts,html,scss}` to `src/**/*.{component.ts,component.html,component.scss}`. Reason: exclude service/guard/interceptor .ts files where CSS rules don't apply | 🟡 Media | Pendiente | P8 Audit |
+| **IA-008** | Añadir `argument-hint` a los 5 skills (P16) | clarify-requirements: "[brief description]"; design-tests: "[component/feature]"; implement-feature: "[feature/component name]"; implement-tests: "[test scenarios]"; review-code: "[file/directory/feature]" | 🟡 Media | Pendiente | P16 Audit |
+| **IA-009** | Completar workflow table del agente (P17) | Ensure all 5 skills appear in the workflow decision tree. Reference when to invoke each based on use case | 🟡 Media | Pendiente | P17 Audit |
+| **IA-010** | Crear primer prompt file para validación (P19) | Create `.github/prompts/validate.md`: "Run lint → test → build" as `/validate` slash command | 🟢 Baja | Pendiente | P19 Audit |
+| **IA-011** | Integrar Plan Agent en workflow (P20) | Document: how to use /plan, handoff to CLI, save to /memories/session/plan.md. Add to Fase 2 workflow diagram. | 🟠 Alta | Pendiente | P20 New |
+| **IA-012** | Explorar subagentes multi-perspectiva (P21) | Research: Can multi-perspective review pattern (Correctness + QA + Security + Architecture) replace review-code skill? POC in Fase 4 piloto. | 🟡 Media | Pendiente | P21 New |
+| **IA-013** | Crear `AGENTS.md` en raíz (P18) | Matrix: when to use Plan agent, Local Agent, Copilot CLI, Cloud Agent. Enable Copilot in other tools. | 🟢 Baja | Pendiente | P18 Audit |
+| **IA-014** | Limpiar `testing.instructions.md` (P9) | Remove "Component Visibility" section — already in components.instructions.md. Replace with link. | 🟢 Baja | Pendiente | P9 Audit |
+| **IA-015** | Limpiar `styling.instructions.md` (P7) | Remove duplicate `data-testid` section. Link to components.instructions.md instead. | 🟢 Baja | Pendiente | P7 Audit |
+| **IA-016** | Ejecutar piloto de workflow completo (Fase 4 main) | Pick 1 real feature task: run through full workflow (plan → design-tests → implement → validate → review). Measure cycle time, iterations, friction. | 🔴 Crítica | Pendiente | Fase 4 |
 
 ---
 
@@ -336,23 +356,83 @@ Criterio de salida:
 
 ## 10. Próximo paso inmediato
 
-**Fase 2 activo — Diseño del workflow ideal**
+**Fase 2–3 activa — Implementación del workflow ideal**
 
-Todos los análisis (Fase 0, 1, y nuevos P20-P23) están completos. Listo para implementar optimizaciones críticas + integrar Plan Agent + explorar orchestration patterns.
+Todos los análisis (Fase 0, 1, y nuevos P20-P23) están completos. **16 tareas identificadas, secuenciadas por impacto + dependencias.**
 
-**Bloque 1 — Alto impacto, bajo esfuerzo, mitigación de riesgo:**
+### Bloques de ejecución
 
-1. **IA-001 + IA-002 + IA-003** — Una edición en `angular-expert.agent.md`: reducir tools riesgosos, añadir keywords a descripciones, completar workflow table.
-2. **IA-005** — Limpiar `copilot-instructions.md`, eliminar duplicaciones.
+#### 🔴 **BLOQUE 0 — Mitigación crítica de riesgo (2–3 horas)**
 
-**Bloque 2 — Eficiencia + nuevas capacidades:**
+Ejecutar **antes de cualquier otra cosa**. Reducir exposición de seguridad + context waste.
 
-3. **IA-013** — Integrate Plan Agent: documentar cómo usarlo, handoff a CLI, save plan.md
-4. **IA-012** — Explorador: ¿aplica subagentes multi-perspectiva a review workflow? (POC en piloto)
+1. **IA-001** ~ 30min — Reducir tools del agente (P4: `browser`, `installExtension`, `openPullRequest` → remove)
+2. **IA-004** ~ 60min — Condensar `agent-skills.instructions.md` 263 → 30 líneas (P11)
+3. **IA-005** ~ 30min — Eliminar "Key Conventions" de `copilot-instructions.md` (P1)  
+4. **IA-006** ~ 20min — Eliminar duplicaciones auth/interceptors de `copilot-instructions.md` (P10)
 
-**Bloque 3 — Productividad:**
+**Outcome:** Context savings on every request, tools aligned with least privilege, reduced confusion
 
-5. **IA-004** — Condensar `agent-skills.instructions.md` (mayor ahorro de contexto).
-6. **IA-011** — Primer prompt file funcional (lint→test→build).
+---
 
-¿Arrancamos con Bloque 1?
+#### 🟠 **BLOQUE 1 — Capacidades (High-impact, low-friction) (2–3 horas)**
+
+Completa la orquestación actual. Habilita discovery automático de skills.
+
+5. **IA-002** ~ 40min — Añadir trigger keywords a 5 skill descriptions (P12–P15)
+6. **IA-003** ~ 20min — Completar workflow table del agente (P5 + P17: add design-tests, implement-tests)
+7. **IA-008** ~ 30min — Añadir `argument-hint` a 5 skills (P16)
+8. **IA-011** ~ 30min — Integrate Plan Agent: documentar uso + handoff pattern (P20)
+
+**Outcome:** Skills auto-trigger, Plan Agent integrated, workflow chain complete
+
+---
+
+#### 🟡 **BLOQUE 2 — Scope cleanup & polish (1–2 horas)**
+
+Ajustes de precisión en instructions. Mejor targeting de rules.
+
+9. **IA-007** ~ 15min — Adjust styling.instructions.md `applyTo` (P8: exclude service .ts)
+10. **IA-009** ~ 15min — Verify workflow table complete (P17 follow-up check)
+11. **IA-014** ~ 10min — Clean testing.instructions.md (P9: remove duplicate section)
+12. **IA-015** ~ 10min — Clean styling.instructions.md (P7: remove duplicate section)
+
+**Outcome:** Instructions scoped precisely, reduced noise, faster load times
+
+---
+
+#### 🟢 **BLOQUE 3 — Extensiones (Features, lower priority) (3–4 horas)**
+
+Nuevas capacidades. Research & POCs.
+
+13. **IA-010** ~ 60min — Create `.github/prompts/validate.md` (P19: lint→test→build prompt file)
+14. **IA-013** ~ 45min — Create `AGENTS.md` in root (P18: agent decision matrix)
+15. **IA-012** ~ 60min — Research subagents multi-perspective review (P21: POC design for Fase 4)
+
+**Outcome:** Prompt files available, agent selection easier, subagent patterns documented for Fase 4
+
+---
+
+#### 🔴 **BLOQUE 4 — Validación (Fase 4 Piloto) (4–6 horas, spreads over 1–2 days)**
+
+16. **IA-016** — Pick 1 real feature task. Run full workflow:  
+    - /plan → measure time to structured plan  
+    - design-tests → measure coverage scenarios  
+    - implement-feature → measure code quality feedback  
+    - implement-tests → measure test coverage  
+    - review-code → measure issues found  
+    - Measure total cycle time (target: 2–4 hours from planning to PR-ready)
+
+**Outcome:** Validated workflow, metrics baseline, friction log for endurecimiento
+
+---
+
+### Recomendación de secuencia
+
+**Week 1:** BLOQUE 0 + BLOQUE 1 (high impact, fast) → test with Bloque 4 POC on 1 small feature  
+**Week 2:** BLOQUE 2 + BLOQUE 3 (refinement + features) → full team adoption  
+**Week 3+:** Iterate based on Bloque 4 feedback
+
+**Total effort:** ~11–14 horas de ingeniería (distributed over 2 weeks)
+
+¿Arrancamos con Bloque 0?
