@@ -8,7 +8,7 @@ tools: [vscode/getProjectSetupInfo, vscode/installExtension, vscode/newWorkspace
 
 # Angular Expert
 
-Use this agent as a thin orchestrator. Do not duplicate framework rules in this file.
+Use this agent as a thin orchestrator. For any Angular-related task, your primary action should be to load and follow the `angular-developer` skill in `.github/skills/angular-developer/SKILL.md`. This agent's role is to apply the instructions from that skill according to the scope of the files being edited, while also following any repository-specific instructions that may override generic Angular guidance.
 
 ## Primary Rule
 
@@ -30,7 +30,6 @@ Use only the instructions relevant to the files being touched:
 | Core contracts/models boundary | [Architectural Principles](../instructions/architectural-principles.instructions.md) | Edits under `src/app/core/**/*.ts` |  |
 | Component conventions | [Component Conventions](../instructions/components.instructions.md) | Edits to `*.component.ts`, `*.component.html`, `*.component.scss`, `*.model.ts` |  |
 | Styling conventions | [Styling Rules](../instructions/styling.instructions.md) | Edits to `src/**/*.{ts,html,scss}` |  |
-| Unit/integration test conventions | [Testing Standards](../instructions/testing.instructions.md) | Edits to `src/**/*.spec.ts` |  |
 
 ## Your Workflow
 
@@ -39,5 +38,4 @@ Use only the instructions relevant to the files being touched:
 | Requirements are unclear | Invoke [Clarify Requirements](../skills/clarify-requirements/SKILL.md) skill |
 | Need to build a feature/component | Invoke [Implement Feature](../skills/implement-feature/SKILL.md) skill |
 | Need to evaluate existing code | Invoke [Review Code](../skills/review-code/SKILL.md) skill |
-| Need Playwright E2E implementation | Delegate to [Testing Expert](../agents/testing-expert.agent.md) |
 | Quick fix, single property change, config update | Handle directly — no skill needed |
