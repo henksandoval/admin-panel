@@ -1,0 +1,6 @@
+{
+  "max_spec_revisions": 2,
+  "max_design_revisions": 2,
+  "max_dev_iterations": 3,
+  "max_review_cycles": 2
+}

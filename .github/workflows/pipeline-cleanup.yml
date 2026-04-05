@@ -1,0 +1,118 @@
+name: Pipeline Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  cleanup:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Find pipeline issue number
+        id: find-issue
+        run: |
+          # Look for pipeline-state.json files merged in this PR
+          CHANGED=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.merge_commit_sha }} | grep '^\.pipeline/' | head -1)
+
+          if [ -z "$CHANGED" ]; then
+            echo "No .pipeline/ changes found in this PR. Skipping cleanup."
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Extract issue number from path: .pipeline/{issue-number}/...
+          ISSUE=$(echo "$CHANGED" | sed 's|\.pipeline/\([0-9]*\)/.*|\1|')
+
+          if [ -z "$ISSUE" ]; then
+            echo "Could not extract issue number from path: $CHANGED"
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "issue=$ISSUE" >> $GITHUB_OUTPUT
+          echo "pipeline_dir=.pipeline/$ISSUE" >> $GITHUB_OUTPUT
+          echo "Found pipeline for issue #$ISSUE"
+
+      - name: Move permanent artifacts to docs/decisions
+        if: steps.find-issue.outputs.skip != 'true'
+        run: |
+          ISSUE=${{ steps.find-issue.outputs.issue }}
+          PIPELINE_DIR=".pipeline/$ISSUE"
+          DECISIONS_DIR="docs/decisions/$ISSUE"
+
+          echo "Processing pipeline for issue #$ISSUE"
+
+          # Create the decisions directory
+          mkdir -p "$DECISIONS_DIR"
+
+          # Move permanent artifacts
+          if [ -f "$PIPELINE_DIR/spec.md" ]; then
+            cp "$PIPELINE_DIR/spec.md" "$DECISIONS_DIR/spec.md"
+            echo "Moved spec.md to $DECISIONS_DIR/"
+          else
+            echo "Warning: spec.md not found in $PIPELINE_DIR"
+          fi
+
+          if [ -f "$PIPELINE_DIR/design-decision.md" ]; then
+            cp "$PIPELINE_DIR/design-decision.md" "$DECISIONS_DIR/design-decision.md"
+            echo "Moved design-decision.md to $DECISIONS_DIR/"
+          else
+            echo "Warning: design-decision.md not found in $PIPELINE_DIR"
+          fi
+
+      - name: Delete ephemeral pipeline artifacts
+        if: steps.find-issue.outputs.skip != 'true'
+        run: |
+          PIPELINE_DIR=".pipeline/${{ steps.find-issue.outputs.issue }}"
+
+          if [ -d "$PIPELINE_DIR" ]; then
+            rm -rf "$PIPELINE_DIR"
+            echo "Deleted $PIPELINE_DIR"
+          else
+            echo "Pipeline directory not found: $PIPELINE_DIR"
+          fi
+
+          # Remove .pipeline root if empty
+          if [ -d ".pipeline" ] && [ -z "$(ls -A .pipeline)" ]; then
+            rmdir .pipeline
+            echo "Removed empty .pipeline directory"
+          fi
+
+      - name: Commit cleanup
+        if: steps.find-issue.outputs.skip != 'true'
+        run: |
+          ISSUE=${{ steps.find-issue.outputs.issue }}
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add docs/decisions/$ISSUE/ || true
+          git add -A .pipeline/ || true
+
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: archive pipeline artifacts for issue #$ISSUE
+
+Moved to docs/decisions/$ISSUE/:
+  - spec.md
+  - design-decision.md
+
+Ephemeral artifacts deleted (captured in code and tests).
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+            git push
+            echo "Cleanup committed and pushed."
+          fi
