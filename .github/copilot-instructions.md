@@ -54,51 +54,6 @@ All coding rules live in scoped instruction files. They apply automatically base
 | `instructions/testing.instructions.md` | `src/**/*.spec.ts` | [Testing Instructions](instructions/testing.instructions.md) |
 | `instructions/e2e.instructions.md` | `e2e/**/*.spec.ts` | [E2E Instructions](instructions/e2e.instructions.md) |
 
-## Key Conventions
-
-### Components
-
-- Every component requires exactly 5 files: `.ts`, `.html`, `.scss`, `.spec.ts`, `.model.ts`
-- Template-only members must be `protected`, not `public`
-- Use `computed()` for dynamic CSS classes — never use methods
-- Input defaults come from `COMPONENT_DEFAULTS` in `.model.ts`
-- Use PDS wrappers (`app-button`, `app-card`) over raw Material components when they exist — check `ui-kit/` first
-
-### State
-
-- Services expose state as `readonly` signals: `private readonly _x = signal(…); readonly x = this._x.asReadonly()`
-- Use `effect()` for side effects, not `ngOnChanges` or `ngOnInit` subscriptions
-
-### Data Layer
-
-- API shapes → `core/contracts/` (suffix: `.contract.ts` or `.dto.ts`)
-- Domain models → `core/models/` (suffix: `.model.ts`, `.value.ts`, `.types.ts`)
-- Map at the service/repository boundary — DTOs must never appear in components
-
-### Testing
-
-- Test runner: **Vitest** with `@testing-library/angular`
-- Only selector: `data-testid` — never CSS classes, IDs, or visible text
-- Component tests never touch `fixture.componentInstance`
-- Check `src/tests/stubs/` before creating a new stub
-
-Available stubs: `mat-icon`, `mat-divider`, `mat-sidenav`, `mat-tooltip`, `app-button`, `app-checkbox`, `app-form-input`, `app-form-select`, `app-form-textarea`, `app-form-datepicker`, `app-filter-footer`, `auth-page-layout`, `settings-panel`.
-
-Auth test helpers: `createMockAuthProvider()`, `createFailingAuthProvider()`, `MOCK_USER`, `MOCK_TOKEN_RESPONSE` — from `core/auth/testing/`.
-
-### Styling
-
-- **Material** handles colors and typography; **Tailwind** handles layout/spacing only
-- Forbidden Tailwind: `bg-*`, `text-{color}-*`, `border-{color}-*`, `dark:*`, `text-sm/lg`, `font-bold`
-- All component CSS classes must be prefixed with `app-{component-name}-`
-
-### i18n
-
-All user-visible strings use `$localize` with an `@@` ID:
-```typescript
-$localize`:@@component.submit:Submit`
-```
-
 ## Pre-Code Checklist
 
 - [ ] No Tailwind color or typography utilities (`bg-*`, `text-{color}-*`, `text-sm`, `font-bold`)
