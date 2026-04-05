@@ -33,7 +33,14 @@
     "dep:graph:svg": "depcruise src/app --config .dependency-cruiser.js --output-type dot > docs/dep-graph.dot && dot -T svg docs/dep-graph.dot -o docs/dep-graph.svg",
     "dep:focus": "depcruise src/app --config .dependency-cruiser.js --output-type dot --focus",
     "dep:validate": "depcruise src/app --config .dependency-cruiser.js --output-type err",
-    "dep:diagram":  "depcruise src/app --config .dependency-cruiser.js --output-type mermaid > docs/arquitectura.md"
+    "dep:diagram": "depcruise src/app --config .dependency-cruiser.js --output-type mermaid > docs/arquitectura.md",
+    "diagram:pipeline": "mmdc -i wip/pipeline-workflow.mmd -o wip/pipeline-workflow.svg -b transparent",
+    "diagram:pipeline:png": "mmdc -i wip/pipeline-workflow.mmd -o wip/pipeline-workflow.png -w 2400",
+    "diagram:pipeline:compact": "mmdc -i wip/pipeline-workflow-compact.mmd -o wip/pipeline-workflow-compact.svg -b transparent",
+    "diagram:d1": "mmdc -i wip/pipeline-d1-overview.mmd -o wip/pipeline-d1-overview.svg -b transparent",
+    "diagram:d2": "mmdc -i wip/pipeline-d2-exceptions.mmd -o wip/pipeline-d2-exceptions.svg -b transparent",
+    "diagram:d3": "mmdc -i wip/pipeline-d3-resilience.mmd -o wip/pipeline-d3-resilience.svg -b transparent",
+    "diagram:all": "npm run diagram:d1 && npm run diagram:d2 && npm run diagram:d3"
   },
   "private": true,
   "dependencies": {
@@ -59,6 +66,7 @@
     "@angular/build": "^20.3.6",
     "@angular/cli": "^20.3.6",
     "@angular/compiler-cli": "^20.3.0",
+    "@mermaid-js/mermaid-cli": "^11.12.0",
     "@playwright/test": "^1.50.1",
     "@testing-library/angular": "^18.1.1",
     "@testing-library/dom": "^10.4.1",
@@ -73,6 +81,7 @@
     "eslint-plugin-rxjs-x": "^0.9.4",
     "jsdom": "^28.1.0",
     "postcss": "^8.5.6",
+    "puppeteer": "^24.40.0",
     "tailwindcss": "^3.4.18",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.46.4",

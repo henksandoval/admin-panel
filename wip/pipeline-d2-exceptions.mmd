@@ -1,0 +1,76 @@
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "primaryColor": "#1e3a5f",
+      "primaryTextColor": "#ffffff",
+      "primaryBorderColor": "#4a90d9",
+      "lineColor": "#7f8c8d",
+      "clusterBkg": "#1a2634",
+      "titleColor": "#ecf0f1",
+      "edgeLabelBackground": "#2c3e50",
+      "fontSize": "13px"
+    }
+  }
+}%%
+
+flowchart TD
+
+  %% ── DEV ESCALATION ──────────────────────────────────────
+
+  subgraph ESC["⚙  Dev — Árbol de escalada"]
+    DEV_FAIL["❌ Dev no puede avanzar\nescribe dev-assessment.md"]
+    CLASSIFY{Tipo de fallo}
+
+    QA_ESC["→ 🤖 QA\nSPEC_CONFLICT / TEST_BUG"]
+    TL_ESC["→ 🤖 Tech Lead\nIMPL_BLOCK"]
+    PO_ESC["→ 🤖 PO\nAMBIGUOUS_REQ"]
+    RV_ARB["→ 🤖 Reviewer [árbitro]\nno clasificable"]
+
+    DEV_RESUME["Dev retoma con contexto resuelto"]
+
+    DEV_FAIL  --> CLASSIFY
+    CLASSIFY  --> QA_ESC
+    CLASSIFY  --> TL_ESC
+    CLASSIFY  --> PO_ESC
+    CLASSIFY  --> RV_ARB
+    QA_ESC    --> DEV_RESUME
+    TL_ESC    --> DEV_RESUME
+    PO_ESC    --> DEV_RESUME
+    RV_ARB    --> DEV_RESUME
+  end
+
+  %% ── REVIEWER BLOQUEANTE ──────────────────────────────────
+
+  subgraph BLOQ["🔎  Reviewer — Hallazgos"]
+    REV_IN["Reviewer emite hallazgos"]
+    REV_TYPE{Severidad}
+
+    FIX_MENOR["Dev corrige MAYOR / MENOR\nsin retroceder fase\n→ Reviewer revisa de nuevo"]
+
+    CP4{{"⚑ CP4  [solo si BLOQUEANTE]\nreview-report.md"}}
+
+    FIX_CP4["Dev corrige según\nMERGE_WITH_FIXES"]
+
+    SUSPEND["Tests → @suspended\nCoordinator retrocede\na FASE 1 — Architect rediseña"]
+
+    REV_IN    --> REV_TYPE
+    REV_TYPE  -->|MAYOR / MENOR| FIX_MENOR
+    REV_TYPE  -->|BLOQUEANTE| CP4
+    CP4       -->|MERGE_WITH_FIXES| FIX_CP4
+    CP4       -->|DO_NOT_MERGE| SUSPEND
+  end
+
+  classDef agentNode    fill:#1e3a5f,stroke:#4a90d9,color:#fff
+  classDef escaladeNode fill:#3a2000,stroke:#e67e22,color:#fff
+  classDef checkpointNode fill:#5c3000,stroke:#e67e22,color:#fff
+  classDef decisionNode fill:#2d2d2d,stroke:#95a5a6,color:#fff
+  classDef blockedNode  fill:#5b1a1a,stroke:#e74c3c,color:#fff
+  classDef resumeNode   fill:#1a4731,stroke:#27ae60,color:#fff
+
+  class DEV_FAIL,REV_IN agentNode
+  class QA_ESC,TL_ESC,PO_ESC,RV_ARB escaladeNode
+  class CP4 checkpointNode
+  class CLASSIFY,REV_TYPE decisionNode
+  class SUSPEND blockedNode
+  class DEV_RESUME,FIX_MENOR,FIX_CP4 resumeNode
