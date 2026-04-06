@@ -3,6 +3,7 @@ description: 'Pipeline Coordinator for the SDD+TDD multi-agent pipeline. Use wit
 name: 'Pipeline Coordinator'
 model: claude-haiku-4.5
 tools: ['read/readFile', 'read/problems', 'search/fileSearch', 'search/listDirectory', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'agent/runSubagent', 'todo']
+agents: ["*"]
 ---
 
 # Pipeline Coordinator
