@@ -1,17 +1,20 @@
 {
   "issue": "auth-security-requirements",
   "phase": "design",
-  "status": "in_progress",
+  "status": "waiting_for_approval",
   "completed": [
     "spec_creation",
-    "spec_approved"
+    "spec_approved",
+    "design_produced"
   ],
   "artifacts": {
-    "spec": ".pipeline/auth-security-requirements/spec.md"
+    "spec": ".pipeline/auth-security-requirements/spec.md",
+    "design": ".pipeline/auth-security-requirements/design-decision.md"
   },
   "cycles": {
     "spec_revisions": 0,
     "design_revisions": 0
   },
-  "notes": "Spec de seguridad aprobado. Avanzando a Phase 1: Architect Agent diseñará controles de seguridad y decisiones de diseño."
+  "complexity": "moderate",
+  "notes": "Design completado por Architect Agent. Auditoría completa del sistema existente realizada. 4 brechas identificadas (GAP-1 a GAP-4). 4 decisiones de diseño con razonamiento adversarial documentadas. Estimación: moderate (9 archivos, 2-4 servicios/componentes). Esperando aprobación del Tech Lead para avanzar a QA Agent."
 }
