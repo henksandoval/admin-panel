@@ -1,6 +1,6 @@
 # Design Decision — auth-security-requirements
 
-<!-- STATUS: PENDING -->
+<!-- STATUS: APPROVED -->
 
 ---
 
