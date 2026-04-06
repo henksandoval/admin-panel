@@ -49,6 +49,10 @@ export class IdleService implements OnDestroy {
     this._idle.set(false);
   }
 
+  resetCountdown(): void {
+    this.resetTimers();
+  }
+
   ngOnDestroy(): void {
     this.stop();
   }

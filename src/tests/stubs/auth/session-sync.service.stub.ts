@@ -1,18 +1,13 @@
-import { EMPTY } from 'rxjs';
+import { signal } from '@angular/core';
 import { vi } from 'vitest';
 
-/**
- * Stub for SessionSyncService.
- *
- * No-op implementation for component/service tests that depend on
- * SessionSyncService but do not need to verify cross-tab behaviour.
- * Tests that DO need to verify broadcast events should use the real service
- * with a mocked BroadcastChannel (see session-sync.service.spec.ts).
- */
-export function createSessionSyncServiceStub() {
+export function createSessionSyncServiceStub(): {
+  syncEvent: ReturnType<typeof signal>;
+  broadcast: ReturnType<typeof vi.fn>;
+} {
   return {
-    broadcast: vi.fn<[{ type: string }], void>(),
-    events$:   EMPTY,
+    syncEvent: signal(null),
+    broadcast: vi.fn(),
   };
 }
 

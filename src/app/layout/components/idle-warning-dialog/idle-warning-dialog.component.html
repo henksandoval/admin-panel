@@ -1,0 +1,32 @@
+<div data-testid="idle-warning-dialog" class="app-idle-warning-dialog">
+  <div class="app-idle-warning-dialog-header">
+    <h2 class="app-idle-warning-dialog-title">
+      {{ $localize`:@@idle-warning.title:Sesión por expirar` }}
+    </h2>
+    <p class="app-idle-warning-dialog-description">
+      {{ $localize`:@@idle-warning.message:Tu sesión expirará en:` }}
+    </p>
+  </div>
+
+  <div class="app-idle-warning-dialog-countdown" data-testid="idle-warning-countdown">
+    {{ countdownDisplay() }}
+  </div>
+
+  <div class="app-idle-warning-dialog-actions">
+    <button
+      mat-raised-button
+      color="primary"
+      data-testid="idle-warning-extend-button"
+      (click)="onExtend()"
+      class="app-idle-warning-dialog-button app-idle-warning-dialog-button-extend">
+      {{ $localize`:@@idle-warning.extend:Mantener sesión activa` }}
+    </button>
+    <button
+      mat-stroked-button
+      data-testid="idle-warning-logout-button"
+      (click)="onLogout()"
+      class="app-idle-warning-dialog-button app-idle-warning-dialog-button-logout">
+      {{ $localize`:@@idle-warning.logout:Cerrar sesión` }}
+    </button>
+  </div>
+</div>

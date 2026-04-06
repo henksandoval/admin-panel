@@ -13,7 +13,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class MockAuthProvider implements IAuthProvider {
-  private readonly SESSION_KEY = 'mock_auth_session';
+  private sessionActive = false;
 
   private readonly MOCK_USER: AuthUser = {
     id: 'mock-user-1',
@@ -33,17 +33,17 @@ export class MockAuthProvider implements IAuthProvider {
     if (credentials.email.includes('fail')) {
       return throwError(() => new Error('Credenciales incorrectas (mock).'));
     }
-    localStorage.setItem(this.SESSION_KEY, 'active');
+    this.sessionActive = true;
     return of(this.MOCK_TOKEN);
   }
 
   logout(): Observable<void> {
-    localStorage.removeItem(this.SESSION_KEY);
+    this.sessionActive = false;
     return of(undefined as unknown as void);
   }
 
   refreshAccessToken(): Observable<TokenResponse> {
-    if (!localStorage.getItem(this.SESSION_KEY)) {
+    if (!this.sessionActive) {
       return throwError(() => new Error('[MockAuthProvider] Sin sesión previa.'));
     }
     return of(this.MOCK_TOKEN);

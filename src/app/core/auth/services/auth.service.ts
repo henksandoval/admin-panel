@@ -1,5 +1,6 @@
-import { computed, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, Signal, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, EMPTY, Observable, of, switchMap, tap } from 'rxjs';
 import { AUTH_PROVIDER } from '@core/auth/providers';
 import {
@@ -13,12 +14,16 @@ import {
   TokenResponse,
 } from '@core/auth/models';
 import { AuditService } from '@core/logging-audit';
+import { IdleService } from './idle.service';
+import { SessionSyncService } from './session-sync.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly provider = inject(AUTH_PROVIDER);
   private readonly router = inject(Router);
   private readonly auditService = inject(AuditService);
+  private readonly idleService = inject(IdleService);
+  private readonly sessionSync = inject(SessionSyncService);
 
   private readonly _status = signal<AuthStatus>('checking');
   readonly status: Signal<AuthStatus> = this._status.asReadonly();
@@ -30,6 +35,30 @@ export class AuthService {
   private readonly _accessToken = signal<string | null>(null);
   readonly accessToken: Signal<string | null> = this._accessToken.asReadonly();
   private _refreshTimer: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    effect(() => {
+      const status = this._status();
+      if (status === 'authenticated') {
+        this.idleService.start();
+      } else {
+        this.idleService.stop();
+      }
+    });
+
+    effect(() => {
+      if (this.idleService.idle() && this._status() === 'authenticated') {
+        this.logout(AUTH_DEFAULTS.loginRoute).subscribe();
+      }
+    });
+
+    effect(() => {
+      const syncEvent = this.sessionSync.syncEvent();
+      if (syncEvent?.type === 'SESSION_CLEARED') {
+        this.clearSession(AUTH_DEFAULTS.loginRoute);
+      }
+    });
+  }
 
   hasRole(role: string): Signal<boolean> {
     return computed(() => this._currentUser()?.roles.includes(role) ?? false);
@@ -45,6 +74,10 @@ export class AuthService {
     return computed(
       () => roles.some((role) => this._currentUser()?.roles.includes(role) ?? false),
     );
+  }
+
+  resetIdleTimer(): void {
+    this.idleService.resetCountdown();
   }
 
 
@@ -81,6 +114,11 @@ export class AuthService {
           userEmail: credentials.email,
           timestamp: new Date().toISOString(),
         });
+
+        if (error instanceof HttpErrorResponse && error.status === 401) {
+          const normalizedError = new Error('Correo o contraseña inválidos');
+          throw normalizedError;
+        }
         throw error;
       }),
     );
@@ -135,6 +173,7 @@ export class AuthService {
           userEmail: user?.email ?? null,
           timestamp: new Date().toISOString(),
         });
+        this.sessionSync.broadcast('logout');
         this.clearSession(redirectTo);
       }),
       catchError(() => {
@@ -144,6 +183,7 @@ export class AuthService {
           userEmail: user?.email ?? null,
           timestamp: new Date().toISOString(),
         });
+        this.sessionSync.broadcast('logout');
         this.clearSession(redirectTo);
         return of(undefined as unknown as void);
       }),

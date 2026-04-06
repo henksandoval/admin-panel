@@ -1,7 +1,7 @@
 {
   "issue": "auth-security-requirements",
-  "phase": "qa",
-  "status": "waiting_for_approval",
+  "phase": "review",
+  "status": "blocked_by_review",
   "completed": [
     "spec_creation",
     "spec_approved",
@@ -10,68 +10,55 @@
     "design_revised",
     "test_scenarios_designed",
     "tests_implemented_red",
-    "tests_revised_per_po_feedback"
+    "tests_revised_per_po_feedback",
+    "implementation_v2_complete",
+    "all_tests_green_v2"
   ],
   "artifacts": {
     "spec": ".pipeline/auth-security-requirements/spec.md",
     "design": ".pipeline/auth-security-requirements/design-decision.md",
     "plan": ".pipeline/auth-security-requirements/plan.md",
     "test_scenarios": ".pipeline/auth-security-requirements/test-scenarios.md",
+    "completion_report": ".pipeline/auth-security-requirements/completion-report.md",
+    "dev_decisions": ".pipeline/auth-security-requirements/dev-decisions.md",
     "spec_files": [
       "src/app/layout/components/idle-warning-dialog/idle-warning-dialog.component.spec.ts",
       "src/app/core/auth/services/auth.service.spec.ts"
-    ],
-    "stubs": [
-      "src/tests/stubs/auth/idle.service.stub.ts",
-      "src/tests/stubs/auth/auth.service.stub.ts",
-      "src/tests/stubs/auth/session-sync.service.stub.ts"
     ]
   },
   "cycles": {
     "spec_revisions": 0,
     "design_revisions": 2,
-    "qa_revisions": 1
+    "qa_revisions": 1,
+    "dev_iterations": 2,
+    "review_cycles": 2
   },
   "complexity": "moderate",
-  "findings": {
-    "MAYOR": [
-      "MAYOR-1: RESOLVED — AuthService adds effect() #2 reacting to idleService.idle() === true (with _status === 'authenticated' guard) to call this.logout(). Documented in Resolution 1 + Rule 9.",
-      "MAYOR-2: RESOLVED — MatDialog.open() must include disableClose: true. LayoutComponent declares private dialogRef: MatDialogRef | null to guard against duplicate instances. Documented in Resolution 2 + Rule 10."
+  "review": {
+    "round": 2,
+    "verdict": "DO_NOT_MERGE",
+    "bloqueante": 1,
+    "mayor": 3,
+    "menor": 4,
+    "bloqueante_items": ["B-1: strings visibles sin $localize@@id"],
+    "mayor_items": [
+      "M-1: startCountdown() llama authService.logout() — viola design-decision Resolución 1",
+      "M-2: tipografía en píxeles crudos en SCSS — MAYOR-2 Ronda 1 sin corregir",
+      "M-3: (this.authService as any) innecesario — method exists on type"
     ],
-    "MENOR": [
-      "MENOR-1: RESOLVED — IdleWarningDialogComponent definitively placed in layout/components/idle-warning-dialog/. Justification made consistent in Resolution 3.",
-      "MENOR-2: RESOLVED — MockAuthProvider added to 'Archivos a modificar'; localStorage replaced by private sessionActive = false. Resolution 4.",
-      "MENOR-3: RESOLVED — BroadcastChannel fallback (feature detect + no-op mode + AuditService warning) documented in Rule 4 and Resolution 5.",
-      "MENOR-4: RESOLVED — Rule 7 rewritten: Developer Agent must apply data-testid values from QA Agent artefact; must not invent them independently.",
-      "MENOR-5: RESOLVED — AuthService extraction threshold documented: if >15 public methods or 2+ new session concerns added, extract SessionLifecycleService. Resolution 6."
-    ]
+    "report": ".pipeline/auth-security-requirements/review-report.md"
   },
-  "verdict": "APPROVED: All MAYOR findings resolved. All MENOR findings addressed or documented as explicit technical debt with activation threshold. Design ready for QA phase.",
-  "qa_summary": {
-    "total_new_tests": 4,
-    "tests_red_by_assertion": 1,
-    "tests_red_by_import_error": 3,
-    "green_tests_unchanged": 376,
-    "files_deleted": [
-      "src/app/core/auth/services/session-sync.service.spec.ts"
-    ],
-    "runner_output": "1 failed | 376 passed (377 tests) · 2 failed | 54 passed (56 files)",
-    "circuits": {
-      "circuit_1_login_success": "GREEN (existing auth.service.spec.ts)",
-      "circuit_2_login_failure": "RED by assertion — auth.service.spec.ts: 'returns a generic credential error on invalid login'",
-      "circuit_3_protected_route": "GREEN (existing auth.guard.spec.ts)",
-      "circuit_4_logout": "GREEN (existing auth.service.spec.ts)",
-      "circuit_5_idle_warning": "RED by import-error — idle-warning-dialog.component.spec.ts",
-      "circuit_6_idle_extension": "RED by import-error — idle-warning-dialog.component.spec.ts",
-      "circuit_7_idle_auto_logout": "RED by import-error — idle-warning-dialog.component.spec.ts",
-      "circuit_8_role_denial": "GREEN (existing auth.guard.spec.ts)"
-    },
-    "new_stubs": [
-      "src/tests/stubs/auth/idle.service.stub.ts",
-      "src/tests/stubs/auth/auth.service.stub.ts",
-      "src/tests/stubs/auth/session-sync.service.stub.ts"
-    ]
-  },
-  "notes": "QA revision 1 per Product Owner feedback. Reduced from 21 tests to 4. Removed idle lifecycle effects (3) and error normalization variations (2 of 3 — kept only 401 case). Deleted session-sync.service.spec.ts (multi-tab sync is nice-to-have, not a blocker). Replaced raw error propagation test with normalised-message contract. idle-warning-dialog rewritten from 9 tests to 3 (one per idle circuit)."
+    "total_tests": 380,
+    "tests_green": 380,
+    "tests_red": 0,
+    "files_created": 7,
+    "files_modified": 9,
+    "lint_status": "clean (improved by 5 problems)",
+    "build_status": "successful",
+    "architectural_violations": 0,
+    "styling_violations": 0,
+    "convention_violations": 0,
+    "notes": "Dev v2 with consolidated Angular Expert knowledge. All Pre-Implementation Checklist rules enforced. Zero violations of architectural principles, styling rules, least-privilege, component conventions, or SOLID principles."
+  }
 }
 

@@ -1,14 +1,18 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { LayoutService } from './services/layout.service';
 import { SettingsService } from '@core/config/services';
+import { IdleService } from '@core/auth/services';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SettingsPanelComponent } from './components/settings-panel/settings-panel.component';
+import { IdleWarningDialogComponent } from './components/idle-warning-dialog/idle-warning-dialog.component';
+import { AUTH_DEFAULTS } from '@core/auth/models';
 
 @Component({
   selector: 'app-layout',
@@ -104,6 +108,33 @@ export class LayoutComponent {
   protected readonly sidebarExpanded = this.layoutService.sidebarExpanded;
   private settingsService = inject(SettingsService);
   protected readonly settingsPanelOpened = this.settingsService.panelOpen;
+  private idleService = inject(IdleService);
+  private matDialog = inject(MatDialog);
+
+  private idleWarningDialogRef = signal<any>(null);
+
+  constructor() {
+    effect(() => {
+      const shouldShowWarning = this.idleService.warning();
+      const currentDialogRef = this.idleWarningDialogRef();
+
+      if (shouldShowWarning && !currentDialogRef) {
+        const dialogRef = this.matDialog.open(IdleWarningDialogComponent, {
+          disableClose: true,
+          data: { warningDurationMs: AUTH_DEFAULTS.idleWarningMs },
+        });
+
+        this.idleWarningDialogRef.set(dialogRef);
+
+        dialogRef.afterClosed().subscribe(() => {
+          this.idleWarningDialogRef.set(null);
+        });
+      } else if (!shouldShowWarning && currentDialogRef) {
+        currentDialogRef.close();
+        this.idleWarningDialogRef.set(null);
+      }
+    });
+  }
 
   onBackdropClick(): void {
     if (this.isMobile()) {
