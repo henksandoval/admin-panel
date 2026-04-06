@@ -1,6 +1,6 @@
 import { type Page, test as base } from '@playwright/test';
 import { testConfig } from '../config/test.config';
-import { interceptAuthLogin, interceptAuthMe, loginAndNavigate } from '../helpers/auth.helpers';
+import { interceptAuthLogin, interceptAuthMe, interceptAuthRefresh, interceptAuthLogout, interceptMenuData, loginAndNavigate } from '../helpers/auth.helpers';
 
 export interface ErrorFixtures {
   authenticatedPage: Page;
@@ -11,6 +11,9 @@ export const test = base.extend<ErrorFixtures>({
     if (testConfig.useMock) {
       await interceptAuthLogin(page);
       await interceptAuthMe(page);
+      await interceptAuthRefresh(page);
+      await interceptAuthLogout(page);
+      await interceptMenuData(page);
     }
 
     await loginAndNavigate(page, testConfig.expectedDefaultRedirect);
