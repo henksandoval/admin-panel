@@ -1,7 +1,7 @@
 ---
 description: 'QA Automation agent for the SDD+TDD pipeline. Activated after the Tech Lead approves the design. Writes test-scenarios.md (human-readable) and *.spec.ts files in RED phase — before any implementation exists. Use when you need tests written from a spec before coding begins.'
 name: 'QA Agent'
-model: Claude Sonnet 4.6 (copilot)
+model: claude-sonnet-4.6
 tools: ['read/readFile', 'read/problems', 'read/getTaskOutput', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/usages', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'execute/runInTerminal', 'execute/runTask', 'execute/getTerminalOutput', 'execute/testFailure', 'todo']
 ---
 

@@ -1,7 +1,7 @@
 ---
 description: 'Software Architect agent for the SDD+TDD pipeline. Use when a spec.md has been approved and a technical design is needed. Produces design-decision.md with trade-off analysis, chosen approach, observable UI elements, and complexity estimate. Always applies adversarial reasoning before issuing a verdict.'
 name: 'Architect Agent'
-model: Claude Sonnet 4.6 (copilot)
+model: claude-sonnet-4.6
 tools: ['read/readFile', 'read/problems', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/usages', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'todo']
 ---
 

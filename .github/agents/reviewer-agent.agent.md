@@ -1,7 +1,7 @@
 ---
 description: 'Architect Reviewer agent for the SDD+TDD pipeline. Activated automatically after the Developer completes the implementation. Audits the code for architectural coherence, SOLID compliance, and layer coupling. Produces a review-report.md with classified findings and an explicit merge recommendation.'
 name: 'Reviewer Agent'
-model: Claude Sonnet 4.6 (copilot)
+model: claude-sonnet-4.6
 tools: ['read/readFile', 'read/problems', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/usages', 'search/changes', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'todo']
 ---
 

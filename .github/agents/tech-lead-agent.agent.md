@@ -1,7 +1,7 @@
 ---
 description: 'Technical Lead agent for the SDD+TDD pipeline. Activated automatically after the Architect. Audits design-decision.md against the project architecture using a fixed adversarial checklist. Produces plan.md. Does NOT require human approval — flows automatically to the QA phase.'
 name: 'Tech Lead Agent'
-model: Claude Sonnet 4.6 (copilot)
+model: claude-sonnet-4.6
 tools: ['read/readFile', 'read/problems', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/usages', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'todo']
 ---
 
