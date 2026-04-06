@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 import { lastValueFrom, of, throwError } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -136,12 +137,18 @@ describe('AuthService', () => {
       expect(spy).toHaveBeenCalledWith('/dashboard');
     });
 
-    it('propagates the error when the provider fails', async () => {
-      setupFailing();
+    // ── Circuit #2: Login Failure ─────────────────────────────────────────────
+    // RED phase — fails until AuthService.login() normalises HTTP 401 to a
+    // generic message that does not reveal whether the user account exists (GAP-4).
+    // Spec: CA-21 / "Mensajes de error" non-functional requirement.
+    it('returns a generic credential error on invalid login — does not leak whether the user account exists', async () => {
+      setup({
+        login: vi.fn(() => throwError(() => new HttpErrorResponse({ status: 401, statusText: 'Unauthorized' }))),
+      });
 
       await expect(
         lastValueFrom(service.login({ email: 'bad@example.com', password: 'wrong' })),
-      ).rejects.toThrow('Invalid credentials');
+      ).rejects.toMatchObject({ message: 'Correo o contraseña inválidos' });
 
       expect(service.status()).toBe('checking');
     });
@@ -270,4 +277,5 @@ describe('AuthService', () => {
       expect(refreshSpy).toHaveBeenCalledTimes(0);
     });
   });
+
 });
