@@ -2,7 +2,7 @@
 > La fuente de verdad es el archivo en inglés: `.github/instructions/doc-translator.instructions.md`.
 > Si existe discrepancia entre este archivo y el EN, el EN prevalece.
 
-<!-- TRANSLATION: IN_SYNC source=.github/instructions/doc-translator.instructions.md ref=1d72175 updated_at=2026-04-06 -->
+<!-- TRANSLATION: IN_SYNC source=.github/instructions/doc-translator.instructions.md ref=b386076 updated_at=2026-04-06 -->
 
 ---
 name: 'Doc Translator Rules'
@@ -76,14 +76,6 @@ El companion en español debe reflejar exactamente el fuente en inglés:
 - Claves JSON y valores identificadores
 - Valores de `data-testid`
 - Nombres de API TypeScript/Angular (`signal`, `computed`, `input`, `FormControl`, etc.)
-
-## Reglas de Calidad de Traducción
-
-1. **Fiel, no literal**: traduce el significado, no solo las palabras. Prefiere la precisión sobre la fluidez.
-2. **Terminología consistente**: usa el glosario a continuación para todos los términos recurrentes. No alternes entre sinónimos.
-3. **Voz imperativa**: los fuentes en inglés usan modo imperativo ("Read", "Write", "Do not"). Mantén el imperativo en español ("Lee", "Escribe", "No hagas").
-4. **Sin reglas nuevas**: si una oración es una regla o prohibición en inglés, debe seguir siendo exactamente esa en español. No suavices, expandas ni reinterpretes.
-5. **Notas del traductor**: si un término o frase es genuinamente ambiguo o no tiene un equivalente español preciso, agrega una nota en una sección `Notas del traductor` al final del archivo, marcada como no normativa.
 
 ## Glosario — Términos Que No Deben Traducirse
 

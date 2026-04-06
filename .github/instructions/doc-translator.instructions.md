@@ -71,14 +71,6 @@ The Spanish companion must mirror the English source exactly:
 - `data-testid` values
 - TypeScript/Angular API names (`signal`, `computed`, `input`, `FormControl`, etc.)
 
-## Translation Quality Rules
-
-1. **Faithful, not literal**: translate the meaning, not just the words. Prefer precision over fluency.
-2. **Consistent terminology**: use the glossary below for all recurring terms. Do not alternate between synonyms.
-3. **Imperative mood**: the English sources use imperative mood ("Read", "Write", "Do not"). Maintain imperative in Spanish ("Lee", "Escribe", "No hagas").
-4. **No new rules**: if a sentence is a rule or prohibition in English, it must remain exactly that in Spanish. Do not soften, expand, or reinterpret.
-5. **Translator's notes**: if a term or phrase is genuinely ambiguous or has no precise Spanish equivalent, add a note in a `Notas del traductor` section at the very end of the file, marked as non-normative.
-
 ## Glossary — Terms That Must Not Be Translated
 
 These terms are part of the project vocabulary and must appear in English even within Spanish prose.
