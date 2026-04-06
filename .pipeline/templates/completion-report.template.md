@@ -1,6 +1,6 @@
-# Completion Report — Issue #{issue-number}
+# Informe de finalización — Issue #{issue-number}
 
-> Generado por: Dev Agent  
+> Generado por: Dev Agent
 > Resultado: implementación en verde
 
 ---
