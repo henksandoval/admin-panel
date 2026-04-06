@@ -1,11 +1,13 @@
 {
   "issue": "auth-security-requirements",
-  "phase": "tech-lead",
-  "status": "needs_revision",
+  "phase": "design",
+  "status": "waiting_for_approval",
   "completed": [
     "spec_creation",
     "spec_approved",
-    "design_produced"
+    "design_produced",
+    "tech_lead_audit",
+    "design_revised"
   ],
   "artifacts": {
     "spec": ".pipeline/auth-security-requirements/spec.md",
@@ -14,22 +16,22 @@
   },
   "cycles": {
     "spec_revisions": 0,
-    "design_revisions": 1
+    "design_revisions": 2
   },
   "complexity": "moderate",
   "findings": {
     "MAYOR": [
-      "MAYOR-1: IdleService.idle signal has no subscriber — no artefact is designated to trigger logout when the 2-minute countdown expires. The spec criterion 'session closes automatically if no action taken in 2 minutes' has no implementation path.",
-      "MAYOR-2: MatDialog.disableClose not specified — default MatDialog allows ESC/backdrop to close the dialog silently, leaving warning signal stuck at true and no re-open mechanism, directly violating the 'bloqueante' requirement."
+      "MAYOR-1: RESOLVED — AuthService adds effect() #2 reacting to idleService.idle() === true (with _status === 'authenticated' guard) to call this.logout(). Documented in Resolution 1 + Rule 9.",
+      "MAYOR-2: RESOLVED — MatDialog.open() must include disableClose: true. LayoutComponent declares private dialogRef: MatDialogRef | null to guard against duplicate instances. Documented in Resolution 2 + Rule 10."
     ],
     "MENOR": [
-      "MENOR-1: IdleWarningDialogComponent placement contradicts its own justification (text says core/auth, file structure says layout/components).",
-      "MENOR-2: MockAuthProvider (GAP-5) excluded from Archivos a modificar despite being identified as a gap.",
-      "MENOR-3: BroadcastChannel has no documented fallback for the ~3% of browsers without support.",
-      "MENOR-4: Rule 7 wording ('NO los debe definir') contradicts styling.instructions.md mandatory data-testid requirement.",
-      "MENOR-5: AuthService will accumulate 12+ responsibilities post-implementation; extraction threshold not documented."
+      "MENOR-1: RESOLVED — IdleWarningDialogComponent definitively placed in layout/components/idle-warning-dialog/. Justification made consistent in Resolution 3.",
+      "MENOR-2: RESOLVED — MockAuthProvider added to 'Archivos a modificar'; localStorage replaced by private sessionActive = false. Resolution 4.",
+      "MENOR-3: RESOLVED — BroadcastChannel fallback (feature detect + no-op mode + AuditService warning) documented in Rule 4 and Resolution 5.",
+      "MENOR-4: RESOLVED — Rule 7 rewritten: Developer Agent must apply data-testid values from QA Agent artefact; must not invent them independently.",
+      "MENOR-5: RESOLVED — AuthService extraction threshold documented: if >15 public methods or 2+ new session concerns added, extract SessionLifecycleService. Resolution 6."
     ]
   },
-  "verdict": "NEEDS_REVISION: Architect must resolve MAYOR-1 (designate subscriber for IdleService.idle logout trigger) and MAYOR-2 (specify disableClose: true in MatDialog config) before QA phase begins.",
-  "notes": "Tech Lead audit completed. Design is architecturally sound in its 4 main decisions. 2 MAYOR findings block QA advance. 5 MENOR findings documented for Architect awareness. Implementation sequence (8 steps) provided in plan.md for use after revision."
+  "verdict": "APPROVED: All MAYOR findings resolved. All MENOR findings addressed or documented as explicit technical debt with activation threshold. Design ready for QA phase.",
+  "notes": "Revision 2 by Architect Agent. Tech Lead audit findings fully incorporated. 6 resolution subsections added. Implementation rules expanded from 8 to 10 (Rules 9-10 are new; Rules 4 and 7 updated). MockAuthProvider added to modification scope. Total file count: 10 (was 9)."
 }

@@ -231,6 +231,118 @@ Si `AuthService` inyecta `IdleService`, se crea una dependencia circular potenci
 
 ---
 
+## Resoluciones post-revisión del Tech Lead
+
+> Las siguientes secciones resuelven los hallazgos MAYOR y MENOR identificados por el Tech Lead en la auditoría de `plan.md`. Las 4 decisiones originales se mantienen intactas; estas resoluciones las complementan con restricciones de implementación adicionales.
+
+---
+
+### Resolución 1 — MAYOR-1: Subscriber para `IdleService.idle` (logout automático)
+
+Como señala el Tech Lead en MAYOR-1, el diseño original especificaba que `LayoutComponent` reacciona a `IdleService.warning()` para abrir el dialog, pero **ningún artefacto estaba designado para reaccionar a `IdleService.idle()`** (t=15min) y disparar el logout automático cuando el countdown de 2 minutos expira.
+
+#### Opciones evaluadas
+
+**Opción A — `AuthService` añade un segundo `effect()` que reacciona a `idleService.idle()`:**
+`AuthService` observa `idleService.idle()` y llama `this.logout(AUTH_DEFAULTS.loginRoute)`. El dialog muestra el countdown visualmente, pero no es el responsable de disparar el logout. Si el usuario no actúa, el `IdleService` emite `idle = true` a t=15min y el `AuthService` reacciona.
+
+**Opción B — `IdleWarningDialogComponent` gestiona su propio countdown y llama `authService.logout()`:**
+El dialog tiene un timer interno de 2 minutos. Al llegar a cero, llama `authService.logout()`. `IdleService.idle` se convierte en dead code (se setea a `true` pero nadie lo consume).
+
+#### Caso en contra de la Opción A (elegida)
+
+En el escenario donde el usuario cierra el browser antes de que el dialog aparezca y lo reabre tras pasar t=15min, el `AuthService` recibe `idle = true` durante la re-hidratación del estado. Si `checkSession()` ya forzó `logout()` por token expirado, este segundo `effect()` dispararía un segundo logout en carrera. El `effect()` debe ser idempotente frente a este caso.
+
+Adicionalmente, si el usuario cierra el dialog mediante un mecanismo no previsto y el `IdleService` no reinicia el timer, el logout se dispara sin que el usuario haya tenido la ventana de 2 minutos real. El dialog pasa a ser decorativo si el `AuthService` tiene el control real.
+
+#### Caso a favor de la Opción A
+
+La Opción A preserva el principio de una única fuente de verdad para decisiones de sesión: **solo `AuthService` toma la decisión de logout**. Con la Opción B, `IdleWarningDialogComponent` (un componente de layout) tomaría decisiones de seguridad — una violación de la regla de dependencia entre capas (`layout/` no debe dictar política de seguridad).
+
+La Opción B también produce dead code documenta por el Tech Lead como consecuencia directa: `IdleService.idle` emitiría a `true` pero ningún artefacto lo leería, haciendo el signal inútil e introduciendo confusión para futuros desarrolladores.
+
+La Opción A es además la más testeable en aislamiento: en `auth.service.spec.ts`, se puede setear `idleService.idle` a `true` y verificar que `logout()` fue llamado, sin necesidad de renderizar el dialog. El comportamiento de logout automático queda completamente cubierto por tests de la capa de servicio.
+
+#### Veredicto
+
+**Se elige la Opción A.** `AuthService` añade un segundo `effect()` que llama `this.logout(AUTH_DEFAULTS.loginRoute).subscribe()` cuando `idleService.idle()` es `true`. El `IdleWarningDialogComponent` es responsable únicamente de la presentación visual del countdown y de ofrecer las acciones al usuario; nunca llama `logout()` directamente. El dialog se cierra cuando `IdleService.warning()` vuelve a `false` (lo cual ocurre cuando el `AuthService` llama `idleService.stop()` dentro de su secuencia de logout).
+
+**Regla de implementación derivada (Regla 9 — ver sección "Restricciones de implementación"):** `AuthService` DEBE contener un segundo `effect()` dedicado exclusivamente a la reacción `idleService.idle() === true → this.logout()`. Este `effect()` debe ser idempotente: debe verificar que `this._status() === 'authenticated'` antes de disparar el logout para evitar llamadas duplicadas durante la re-hidratación.
+
+---
+
+### Resolución 2 — MAYOR-2: `MatDialog.disableClose: true` y guard de instancia única
+
+Como señala el Tech Lead en MAYOR-2, el comportamiento default de `MatDialog` (`disableClose: false`) permite que ESC o un click en el backdrop cierre el dialog silenciosamente. Si esto ocurre:
+
+1. `IdleService.warning` permanece `true` (el signal no cambió).
+2. El `effect()` en `LayoutComponent` **no se re-ejecuta** (Angular Signals solo re-ejecutan effects cuando el valor del signal cambia).
+3. El dialog no se reabre.
+4. El usuario pierde la opción de extender la sesión — violación directa del criterio del spec.
+
+#### Adversarial check sobre la corrección
+
+**Caso en contra:** Forzar `disableClose: true` significa que si hay un bug en el componente dialog (ej: `MatDialogRef.close()` nunca se llama porque un error es lanzado en el handler), la UI queda permanentemente bloqueada. El usuario no puede escapar del overlay.
+
+**Caso a favor:** El riesgo de bloqueo permanente se mitiga con: (a) el logout automático vía `AuthService.idle effect()` que cierra la sesión de todos modos en t=15min, y (b) el botón "Cerrar sesión" siempre disponible en el dialog que llama `MatDialogRef.close()` explícitamente. El requisito del spec de un dialog **"bloqueante"** con **"opción de extender o cerrar sesión"** es incompatible con `disableClose: false`: si el usuario puede cerrar el dialog con ESC sin tomar ninguna acción, la opción de extender la sesión nunca se ejerce y la sesión expira sin que el usuario haya tenido la advertencia real.
+
+**Veredicto:** `disableClose: true` es mandatorio. La justificación de la Decisión 1 original ("el foco es capturado por el modal; el usuario no puede ignorarlo sin interactuar") era correcta en intención pero incompleta en especificación.
+
+**Regla de implementación derivada (Regla 10 — ver sección "Restricciones de implementación"):** El `MatDialog.open()` en `LayoutComponent` DEBE incluir `{ disableClose: true }` en la configuración. Adicionalmente, el `effect()` de `LayoutComponent` DEBE verificar si el dialog ya está abierto antes de abrirlo de nuevo, usando una referencia `private dialogRef: MatDialogRef<IdleWarningDialogComponent> | null = null`. La condición de apertura es: `IdleService.warning() === true && this.dialogRef === null`. El `dialogRef` se setea a `null` en el callback `afterClosed()`.
+
+---
+
+### Resolución 3 — MENOR-1: Ubicación definitiva de `IdleWarningDialogComponent`
+
+Como señala el Tech Lead en MENOR-1, existía una contradicción entre el texto del trade-off de la Decisión 1 (que mencionaba `core/auth/` como ubicación natural) y la estructura de archivos (que ubicaba el componente en `layout/components/`).
+
+**Ubicación elegida: `src/app/layout/components/idle-warning-dialog/`**
+
+**Justificación:** `IdleWarningDialogComponent` es un componente de presentación pura. No contiene lógica de sesión (esa responsabilidad fue asignada a `AuthService` en la Resolución 1). Su único trabajo es renderizar un countdown y dos botones. El componente es instanciado por `LayoutComponent` via `MatDialog` — pertenecer al mismo dominio (`layout/`) mantiene la cohesión de "quién crea a quién". Los servicios de sesión (`IdleService`, `AuthService`) viven en `core/auth/` y son inyectados dentro del dialog como dependencias, respetando la dirección de dependencia: `layout/ → core/auth/`.
+
+El texto del trade-off de la Decisión 1 que mencionaba `core/auth/` como ubicación alternativa debe considerarse superado por esta decisión explícita.
+
+---
+
+### Resolución 4 — MENOR-2: `MockAuthProvider` incluido en archivos a modificar
+
+Como señala el Tech Lead en MENOR-2, `MockAuthProvider` fue identificado en el audit como GAP-5 (usa `localStorage` para persistir sesión mock) pero fue excluido de la lista de archivos a modificar.
+
+**Corrección:** `src/app/core/auth/providers/mock/mock-auth.provider.ts` se añade a la lista de archivos a modificar. El cambio es una sola línea: reemplazar el `localStorage.setItem/getItem/removeItem(this.SESSION_KEY, ...)` por una variable `private sessionActive = false` en memoria. Sin cambios en la interfaz pública del provider. Esto garantiza que los tests que usan `MockAuthProvider` no contaminen `localStorage` y no violan el criterio del spec de no almacenar estado de sesión en localStorage.
+
+---
+
+### Resolución 5 — MENOR-3: Fallback documentado para `BroadcastChannel`
+
+Como señala el Tech Lead en MENOR-3, `SessionSyncService` podría lanzar un `ReferenceError` en el ~3% de navegadores sin soporte para `BroadcastChannel`, potencialmente impidiendo el arranque de la aplicación.
+
+**Mecanismo de fallback:** La implementación de `SessionSyncService` DEBE comenzar con una detección de características:
+
+```
+const supported = typeof BroadcastChannel !== 'undefined';
+```
+
+- Si `supported === true`: inicializar el channel normalmente.
+- Si `supported === false`: registrar un warning en `AuditService` con el mensaje `"BroadcastChannel not supported; multi-tab session sync disabled"` y operar en **modo no-op** (los métodos `broadcast()` y `events$` existen en la interfaz pero no emiten ni suscriben nada). La aplicación continúa funcionando sin sincronización multi-pestaña.
+
+Esta estrategia aplica degradación graceful: la feature de sincronización queda deshabilitada, pero la sesión del usuario en la pestaña activa funciona normalmente. El requisito no funcional del spec de sincronización multi-pestaña queda degradado para ese 3% de casos, lo cual es un trade-off aceptable frente a romper el arranque completo de la app.
+
+**Regla de implementación derivada:** La Regla 4 existente sobre `BroadcastChannel` se extiende con esta condición de fallback (ver sección "Restricciones de implementación").
+
+---
+
+### Resolución 6 — MENOR-5: Umbral de extracción de `AuthService`
+
+Como señala el Tech Lead en MENOR-5, post-implementación `AuthService` acumulará 12+ razones de cambio, degradando el Principio de Responsabilidad Única.
+
+**Umbral de extracción documentado:** Si en iteraciones futuras `AuthService` supera **15 métodos públicos distintos** o si se añaden 2 o más concerns de sesión nuevos (ej: MFA, OAuth, device fingerprinting), se debe evaluar la extracción de `SessionLifecycleService` que encapsule:
+- Gestión del ciclo de vida de `IdleService` (start/stop/idle reaction)
+- Coordinación con `SessionSyncService` (broadcast + eventos entrantes)
+
+Esta extracción no es mandatoria en esta iteración. El umbral es un contrato de deuda técnica documentado para el Tech Lead en futuras revisiones.
+
+---
+
 ## Elementos UI observables
 
 ### Flujo de advertencia de inactividad (GAP-1, GAP-2)
@@ -342,17 +454,22 @@ src/app/layout/components/
 ```
 src/app/core/auth/services/auth.service.ts
   ← Inyectar IdleService + SessionSyncService
-  ← Añadir effect() para start/stop del idle timer
+  ← Añadir effect() #1 para start/stop del idle timer (reacciona a _status)
+  ← Añadir effect() #2 para logout automático (reacciona a idleService.idle(); verifica _status === 'authenticated' antes de disparar) [MAYOR-1]
   ← Normalizar mensajes de error en login()
   ← Llamar sessionSync.broadcast() en clearSession()
 
 src/app/layout/layout.component.ts
-  ← Inyectar MatDialog + IdleWarningDialogComponent
-  ← Añadir effect() que reacciona a IdleService.warning() para abrir el dialog
+  ← Inyectar MatDialog + IdleService
+  ← Declarar private dialogRef: MatDialogRef<IdleWarningDialogComponent> | null = null
+  ← Añadir effect() que reacciona a IdleService.warning(): abre el dialog SOLO SI dialogRef === null; pasa { disableClose: true } en la config de MatDialog.open(); setea dialogRef = null en afterClosed() [MAYOR-2]
 
 src/app/features/auth/pages/login/login.component.ts
   ← Eliminar resolveErrorMessage() privado
   ← El errorMessage llega ya normalizado desde AuthService
+
+src/app/core/auth/providers/mock/mock-auth.provider.ts
+  ← Reemplazar localStorage.setItem/getItem/removeItem(SESSION_KEY, ...) por private sessionActive = false en memoria [MENOR-2]
 ```
 
 ### Reglas de implementación obligatorias
@@ -363,15 +480,24 @@ src/app/features/auth/pages/login/login.component.ts
 
 3. **IdleService wiring**: `AuthService` debe ser el único lugar donde `IdleService.start()` y `IdleService.stop()` son llamados. El `LayoutComponent` solo abre el dialog cuando `IdleService.warning()` es true; no gestiona el ciclo de vida del timer.
 
-4. **BroadcastChannel**: `SessionSyncService` debe cerrar el channel en `ngOnDestroy()`. Los mensajes deben ser tipados (`{ type: 'SESSION_CLEARED' }`). El servicio debe ignorar mensajes que reciba en el mismo tab que los emitió (BroadcastChannel ya hace esto por defecto).
+4. **BroadcastChannel**: `SessionSyncService` debe cerrar el channel en `ngOnDestroy()`. Los mensajes deben ser tipados (`{ type: 'SESSION_CLEARED' }`). El servicio debe ignorar mensajes que reciba en el mismo tab que los emitió (BroadcastChannel ya hace esto por defecto). **Fallback (MENOR-3):** Si `typeof BroadcastChannel === 'undefined'`, el servicio DEBE registrar un warning en `AuditService` (`"BroadcastChannel not supported; multi-tab session sync disabled"`) y operar en modo no-op: los métodos `broadcast()` y `events$` existen en la interfaz pero no emiten ni suscriben nada. La aplicación NO debe lanzar error en arranque por la ausencia de esta API.
 
-5. **Dialog de inactividad**: El componente dialog DEBE usar el patrón `COMPONENT_DEFAULTS` en su `model.ts`. Todos los strings visibles al usuario deben usar `$localize` con `@@id`. No usar CVA. El dialog recibe los tiempos como `input()` desde el model, no hardcoded.
+5. **Dialog de inactividad**: El componente dialog DEBE usar el patrón `COMPONENT_DEFAULTS` en su `model.ts`. Todos los strings visibles al usuario deben usar `$localize` con `@@id`. No usar CVA. El dialog recibe los tiempos como `input()` desde el model, no hardcoded. El componente dialog NO llama `authService.logout()` directamente — el logout es responsabilidad exclusiva de `AuthService` (ver Regla 9).
 
 6. **CSS**: El dialog debe usar clases prefijadas con `app-idle-warning-dialog-`. Los colores usan Material tokens, no clases Tailwind de color. El layout interno del dialog usa Tailwind utilities (`flex`, `gap-4`, etc.).
 
-7. **data-testid**: El QA Agent asignará los `data-testid`. El Developer Agent NO los debe definir al construir el template — esto será provisto como parte del siguiente artefacto de QA.
+7. **data-testid**: El Developer Agent debe aplicar exactamente los `data-testid` que especifique el QA Agent. No debe definirlos por cuenta propia. Los templates deben construirse con los elementos estructuralmente completos para recibir los atributos antes de que el Dev Agent aplique el artefacto de QA.
 
 8. **Dependency direction**: `SessionSyncService` e `IdleService` viven en `core/auth/` y NUNCA deben importar de `features/` ni de `layout/`.
+
+9. **Logout automático por idle (MAYOR-1):** `AuthService` DEBE contener un segundo `effect()` que observe `idleService.idle()`. La condición de disparo es `idleService.idle() === true && this._status() === 'authenticated'`. Cuando se cumple, llama `this.logout(AUTH_DEFAULTS.loginRoute).subscribe()`. Este guard de `_status` garantiza idempotencia frente a re-hidratación de estado. El `IdleWarningDialogComponent` NO llama `logout()` en ningún caso.
+
+10. **Dialog bloqueante — instancia única y disableClose (MAYOR-2):** El `LayoutComponent` DEBE:
+    - Declarar `private dialogRef: MatDialogRef<IdleWarningDialogComponent> | null = null`
+    - Abrir el dialog solo cuando `IdleService.warning() === true && this.dialogRef === null`
+    - Pasar `{ disableClose: true, data: { warningDurationMs: IDLE_WARNING_DIALOG_DEFAULTS.warningDurationMs } }` en `MatDialog.open()`
+    - Setear `this.dialogRef = null` en el callback `afterClosed()` del `MatDialogRef`
+    - El dialog NO puede cerrarse con ESC ni con click en backdrop. Solo se cierra mediante los botones del componente (`MatDialogRef.close()` explícito) o cuando `AuthService` llama `idleService.stop()` durante la secuencia de logout.
 
 ---
 
@@ -384,9 +510,9 @@ src/app/features/auth/pages/login/login.component.ts
 **Justificación:** La auditoría determinó que ~80% de los criterios del spec ya están implementados. El trabajo restante comprende:
 - 5 archivos nuevos: `IdleWarningDialogComponent` (5-file pattern: ts + html + scss + spec + model)
 - 1 archivo nuevo: `SessionSyncService` (ts)
-- 3 archivos modificados: `AuthService`, `LayoutComponent`, `LoginComponent`
+- 4 archivos modificados: `AuthService`, `LayoutComponent`, `LoginComponent`, `MockAuthProvider` (añadido en revisión MENOR-2)
 
-**Total: 9 archivos**. El único cross-domain dependency es `layout/` → `core/auth/` (ya existe este patrón en `LayoutComponent` que usa `LayoutService` de `core/`). No se introducen nuevas dependencias cross-domain. Permanece en `moderate`.
+**Total: 10 archivos**. El único cross-domain dependency es `layout/` → `core/auth/` (ya existe este patrón en `LayoutComponent` que usa `LayoutService` de `core/`). No se introducen nuevas dependencias cross-domain. Permanece en `moderate`.
 
 ---
 
@@ -396,6 +522,8 @@ src/app/features/auth/pages/login/login.component.ts
 - [ ] Mi contexto estaba parcialmente saturado al generar las siguientes secciones
 
 Se leyeron y analizaron completamente: `auth.service.ts`, `idle.service.ts`, `auth.guard.ts` (todos los guards), `auth.interceptor.ts`, `jwt-auth.provider.ts`, `mock-auth.provider.ts`, `auth.model.ts`, `audit.service.ts`, `notification.service.ts`, `login.component.ts` + template, `layout.component.ts`, `app.routes.ts`, `app.config.ts`, `initialization.service.ts`, páginas de error existentes, y los 4 archivos de instrucciones arquitectónicas.
+
+**Revisión post-Tech Lead (MAYOR-1, MAYOR-2, MENOR-1…3, MENOR-5):** Se añadieron 6 secciones de resolución, 2 nuevas reglas de implementación (Reglas 9 y 10), se actualizaron las Reglas 4 y 7, se añadió `MockAuthProvider` a los archivos a modificar, y se documentó el umbral de extracción de `AuthService`. Todos los hallazgos MAYOR están resueltos; todos los hallazgos MENOR están abordados o documentados como deuda técnica con umbral explícito. MENOR-4 fue resuelto mediante la corrección de la Regla 7.
 
 ---
 
@@ -408,3 +536,10 @@ Se leyeron y analizaron completamente: `auth.service.ts`, `idle.service.ts`, `au
 - [x] La sección "Comportamientos observables verificables" está presente y es derivable de la spec
 - [x] La estimación de complejidad está seleccionada (`moderate`)
 - [x] El "Estado del contexto" está completado
+- [x] MAYOR-1 resuelto: `AuthService` effect() #2 designado como subscriber de `IdleService.idle` → logout automático (Resolución 1 + Regla 9)
+- [x] MAYOR-2 resuelto: `disableClose: true` y guard `dialogRef !== null` documentados como Regla 10 y en "Archivos a modificar" (Resolución 2)
+- [x] MENOR-1 resuelto: ubicación definitiva `layout/components/idle-warning-dialog/` con justificación coherente (Resolución 3)
+- [x] MENOR-2 resuelto: `MockAuthProvider` añadido a "Archivos a modificar" (Resolución 4)
+- [x] MENOR-3 resuelto: fallback no-op documentado en Regla 4 (Resolución 5)
+- [x] MENOR-4 resuelto: Regla 7 reescrita con verbo correcto ("debe aplicar" en lugar de "NO debe definir")
+- [x] MENOR-5 resuelto: umbral de extracción (15 métodos públicos) documentado como deuda técnica con condición de activación (Resolución 6)
