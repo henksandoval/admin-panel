@@ -1,15 +1,17 @@
 {
   "issue": "auth-security-requirements",
-  "phase": "spec",
-  "status": "waiting_for_approval",
+  "phase": "design",
+  "status": "in_progress",
   "completed": [
-    "spec_creation"
+    "spec_creation",
+    "spec_approved"
   ],
   "artifacts": {
     "spec": ".pipeline/auth-security-requirements/spec.md"
   },
   "cycles": {
-    "spec_revisions": 0
+    "spec_revisions": 0,
+    "design_revisions": 0
   },
-  "notes": "Spec de seguridad creado por PO. Define requisitos observables de autenticación, autorización, expiración de sesión, logout, y manejo de errores. Listo para validación del PO antes de pasar al equipo técnico para auditoría."
+  "notes": "Spec de seguridad aprobado. Avanzando a Phase 1: Architect Agent diseñará controles de seguridad y decisiones de diseño."
 }

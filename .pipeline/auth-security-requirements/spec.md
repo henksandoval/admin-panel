@@ -1,6 +1,6 @@
 # Spec — Autenticación y Autorización - Requisitos de Seguridad
 
-<!-- STATUS: PENDING - Esperando validación del PO -->
+<!-- STATUS: APPROVED -->
 
 ---
 
