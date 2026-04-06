@@ -110,7 +110,7 @@ Estos términos son parte del vocabulario del proyecto y deben aparecer en ingl�
 | `APPROVED`, `NEEDS_REVISION`, `IN_SYNC` | mantener en inglés |
 | `RED phase`, `GREEN phase` | mantener en inglés |
 | `SDD`, `TDD` | mantener en inglés |
-| `checkpoint` | mantener en inglés o usar "punto de control" con nota |
+| `checkpoint` | mantener en inglés |
 
 ## Glosario — Términos Con Traducciones Acordadas
 
@@ -177,6 +177,20 @@ Estos términos son parte del vocabulario del proyecto y deben aparecer en ingl�
 - Eliminar o reordenar secciones del fuente en inglés
 - Usar herramientas de traducción automática que accedan a redes externas — traduce directamente desde el contenido del archivo ya cargado en el contexto
 - Marcar un companion como `IN_SYNC` sin haber verificado el SHA del commit actual del EN
+
+## Regla de Links de Referencias Cruzadas en Companions
+
+Los links dentro de los archivos `*.es.md` deben apuntar a los archivos fuente en inglés, no a otros companions `*.es.md`.
+
+> **Por qué:** Apuntar a los fuentes EN garantiza que los lectores accedan a la versión normativa cuando siguen un link. También previene links rotos cuando un companion en español aún no existe para el archivo referenciado.
+
+```markdown
+// ❌ No enlaces a companions ES desde dentro de un companion
+[Convenciones de Componentes](./components.instructions.es.md)
+
+// ✅ Enlaza siempre al fuente EN
+[Convenciones de Componentes](./components.instructions.md)
+```
 
 ## Sección de Notas del Traductor (opcional)
 

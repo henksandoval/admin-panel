@@ -32,12 +32,14 @@ Si existe discrepancia entre el EN y el ES, el EN es correcto. El ES puede estar
 
 Todo archivo companion en español debe comenzar con:
 
+Ejemplo (reemplaza los valores entre llaves con los reales):
+
 ```markdown
 > **Referencia humana — no normativa.**
-> La fuente de verdad es el archivo en inglés: `<ruta al archivo EN>`.
+> La fuente de verdad es el archivo en inglés: `.github/agents/po-agent.agent.md`.
 > Si existe discrepancia entre este archivo y el EN, el EN prevalece.
 
-<!-- TRANSLATION: IN_SYNC source=<ruta al EN> ref=<commit-sha> updated_at=YYYY-MM-DD -->
+<!-- TRANSLATION: IN_SYNC source=.github/agents/po-agent.agent.md ref=7f9f248 updated_at=2026-04-06 -->
 ```
 
 - La **cita en bloque** es el aviso legible para humanos.
@@ -109,3 +111,6 @@ No en esta iteración. Los archivos bajo `.github/skills/**` están excluidos.
 
 **¿Puedo agregar aclaraciones que no existen en el EN?**
 Solo en una sección explícita `Notas del traductor` al final del archivo, marcada como no normativa. No modifiques el cuerpo principal para agregar contenido que no exista en el EN.
+
+**¿Los links de referencias cruzadas en los `*.es.md` deben apuntar a los companions ES?**
+No. Los links de referencias cruzadas dentro de los companions ES apuntan siempre a los archivos EN (fuente normativa). Esto es intencional: garantiza que el lector acceda a la versión normativa si sigue un link, y evita links rotos cuando un companion ES aún no existe. El sufijo `.es.md` solo aplica a la lectura directa del archivo companion, no a sus referencias.

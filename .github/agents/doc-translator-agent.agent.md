@@ -104,7 +104,7 @@ These terms are part of the project vocabulary and must appear in English even w
 | `APPROVED`, `NEEDS_REVISION`, `IN_SYNC` | mantener en inglés |
 | `RED phase`, `GREEN phase` | mantener en inglés |
 | `SDD`, `TDD` | mantener en inglés |
-| `checkpoint` | mantener en inglés o usar "punto de control" con nota |
+| `checkpoint` | mantener en inglés |
 
 ## Glossary — Terms With Agreed Translations
 
@@ -171,6 +171,20 @@ These terms are part of the project vocabulary and must appear in English even w
 - Remove or reorder sections from the English source
 - Use machine translation tools that access external networks — translate directly from the file contents already loaded in context
 - Mark a companion as `IN_SYNC` if you have not verified the current EN commit SHA
+
+## Cross-Reference Links in Companions
+
+Links within `*.es.md` files must point to the English source files, not to other `*.es.md` companions.
+
+> **Why:** Pointing to EN sources ensures readers access the normative version when following a link. It also prevents broken links when a Spanish companion does not yet exist for the referenced file.
+
+```markdown
+// ❌ Do not link to ES companions from within a companion
+[Convenciones de Componentes](./components.instructions.es.md)
+
+// ✅ Always link to the EN source
+[Convenciones de Componentes](./components.instructions.md)
+```
 
 ## Translator's Notes Section (optional)
 
