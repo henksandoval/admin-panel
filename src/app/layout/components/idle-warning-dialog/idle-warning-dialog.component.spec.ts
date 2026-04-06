@@ -38,17 +38,26 @@ const WARNING_DURATION_MS = 120_000;
 interface RenderOptions {
   warningDurationMs?: number;
   dialogRefMock?: { close: ReturnType<typeof vi.fn> };
-  authServiceMock?: { logout: ReturnType<typeof vi.fn> };
+  authServiceMock?: { 
+    logout: ReturnType<typeof vi.fn>;
+    resetIdleTimer: ReturnType<typeof vi.fn>;
+  };
 }
 
 function createDialogFixture({
   warningDurationMs = WARNING_DURATION_MS,
   dialogRefMock     = { close: vi.fn() },
-  authServiceMock   = { logout: vi.fn(() => of(undefined as unknown as void)) },
+  authServiceMock   = { 
+    logout: vi.fn(() => of(undefined as unknown as void)),
+    resetIdleTimer: vi.fn(),
+  },
 }: RenderOptions = {}): {
   fixture: ComponentFixture<IdleWarningDialogComponent>;
   dialogRefMock: { close: ReturnType<typeof vi.fn> };
-  authServiceMock: { logout: ReturnType<typeof vi.fn> };
+  authServiceMock: { 
+    logout: ReturnType<typeof vi.fn>;
+    resetIdleTimer: ReturnType<typeof vi.fn>;
+  };
 } {
   TestBed.configureTestingModule({
     imports:   [IdleWarningDialogComponent],
@@ -86,12 +95,17 @@ describe('IdleWarningDialogComponent', () => {
 
   it('closes the dialog when the extend session button is clicked', async () => {
     const dialogRefMock = { close: vi.fn() };
-    createDialogFixture({ dialogRefMock });
+    const authServiceMock = { 
+      logout: vi.fn(() => of(undefined as unknown as void)),
+      resetIdleTimer: vi.fn(),
+    };
+    createDialogFixture({ dialogRefMock, authServiceMock });
 
     const user = userEvent.setup();
     await user.click(screen.getByTestId('idle-warning-extend-button'));
 
     expect(dialogRefMock.close).toHaveBeenCalled();
+    expect(authServiceMock.resetIdleTimer).toHaveBeenCalled();
   });
 
   // ── Circuit #7 — Idle Auto-Logout ──────────────────────────────────────────

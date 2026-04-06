@@ -35,6 +35,11 @@ export class IdleWarningDialogComponent {
   );
   private readonly remainingMs = signal(this.warningDurationMs());
 
+  protected readonly titleText = $localize`:@@idle-warning.title:Sesión por expirar`;
+  protected readonly descriptionText = $localize`:@@idle-warning.message:Tu sesión expirará en:`;
+  protected readonly extendButtonText = $localize`:@@idle-warning.extend:Mantener sesión activa`;
+  protected readonly logoutButtonText = $localize`:@@idle-warning.logout:Cerrar sesión`;
+
   protected readonly countdownDisplay = computed(() => {
     const ms = this.remainingMs();
     const seconds = Math.ceil(ms / 1000);
@@ -73,6 +78,7 @@ export class IdleWarningDialogComponent {
         const next = current - interval;
         if (next <= 0) {
           this.stopCountdown();
+          this.authService.logout().subscribe();
           this.dialogRef.close();
           return 0;
         }
