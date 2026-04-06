@@ -1,0 +1,15 @@
+{
+  "issue": "auth-security-requirements",
+  "phase": "spec",
+  "status": "waiting_for_approval",
+  "completed": [
+    "spec_creation"
+  ],
+  "artifacts": {
+    "spec": ".pipeline/auth-security-requirements/spec.md"
+  },
+  "cycles": {
+    "spec_revisions": 0
+  },
+  "notes": "Spec de seguridad creado por PO. Define requisitos observables de autenticación, autorización, expiración de sesión, logout, y manejo de errores. Listo para validación del PO antes de pasar al equipo técnico para auditoría."
+}
