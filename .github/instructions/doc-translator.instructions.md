@@ -1,7 +1,7 @@
 ---
 name: 'Doc Translator Rules'
 description: 'Translation rules for creating and maintaining Spanish companion files (*.es.md) in .github/agents/ and .github/instructions/. Apply when creating, updating, or auditing Spanish companions of agent or instruction files. Covers companion format, structural isomorphism, glossary, and drift-detection workflows.'
-applyTo: '.github/**/*.es.md'
+applyTo: '.github/**/ES/*.es.md'
 ---
 
 # Doc Translator — Rules and Workflows
@@ -27,12 +27,12 @@ This file defines the complete contract for creating and maintaining Spanish com
 
 ## Companion File Convention
 
-For every English source file `X.md`, the companion is `X.es.md` **in the same folder**:
+For every English source file `X.md`, the companion lives in an `ES/` subfolder inside the same directory, keeping the original filename but adding `.es` before the final `.md`:
 
 | English source (normative) | Spanish companion (human reference) |
 |---|---|
-| `.github/agents/po-agent.agent.md` | `.github/agents/po-agent.agent.es.md` |
-| `.github/instructions/testing.instructions.md` | `.github/instructions/testing.instructions.es.md` |
+| `.github/agents/po-agent.agent.md` | `.github/agents/ES/po-agent.agent.es.md` |
+| `.github/instructions/testing.instructions.md` | `.github/instructions/ES/testing.instructions.es.md` |
 
 ## Required Header in Every `*.es.md` File
 
@@ -117,8 +117,8 @@ Links within `*.es.md` files must always point to the English source files, neve
 // ❌ Never link to another ES companion
 [Convenciones de Componentes](./components.instructions.es.md)
 
-// ✅ Always link to the EN source
-[Convenciones de Componentes](./components.instructions.md)
+// ✅ Always link to the EN source (use ../ to navigate up from ES/ folder)
+[Convenciones de Componentes](../components.instructions.md)
 ```
 
 ## Workflow A — Create a New Companion
@@ -127,7 +127,7 @@ When the `*.es.md` file does not exist:
 
 1. Read the English source file.
 2. Run `git log -1 --format="%h" -- <EN-file-path>` to get the current commit SHA.
-3. Create `<EN-path>.es.md` (add `.es` before the final `.md`):
+3. Create `.github/{domain}/ES/<filename>.es.md` (create the `ES/` directory first if it does not exist):
    - Start with the required header block (blockquote + TRANSLATION comment).
    - Follow with the full translated content, observing the isomorphism rule.
 4. Verify that the heading structure (H1, H2, H3 count and order) matches the English source exactly.
@@ -148,7 +148,7 @@ When the EN file changed after the last translation:
 When auditing the full translation state:
 
 1. List all `*.agent.md` files in `.github/agents/` and all `*.instructions.md` files in `.github/instructions/`.
-2. For each EN file, check if the companion exists. Report `MISSING` if not.
+2. For each EN file, check if the companion exists in the corresponding `ES/` subfolder. Report `MISSING` if not.
 3. For each existing companion, extract `ref=` and compare with `git log -1 --format="%h" -- <EN-file>`.
 4. Report `OUT_OF_DATE: source=<path>, last-ref=<old>, current-ref=<new>` for any drift found.
 5. Report all findings before taking action. Ask for confirmation in automated contexts.

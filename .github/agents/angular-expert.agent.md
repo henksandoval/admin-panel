@@ -1,8 +1,7 @@
 ---
 description: 'Angular 20+ specialist that applies repository instructions by scope and uses angular-developer as framework guidance.'
 name: 'Angular Expert'
-model: ['Claude Haiku 4.5 (copilot)', 'Claude Sonnet 4.6 (copilot)']
-target: 'vscode'
+model: Claude Haiku 4.5 (copilot)
 tools: [vscode/getProjectSetupInfo, vscode/installExtension, vscode/newWorkspace, vscode/runCommand, execute, read, agent, edit/createDirectory, edit/createFile, edit/editFiles, edit/rename, search, web/fetch, browser, github.vscode-pull-request-github/issue_fetch, github.vscode-pull-request-github/labels_fetch, github.vscode-pull-request-github/notification_fetch, github.vscode-pull-request-github/doSearch, github.vscode-pull-request-github/activePullRequest, github.vscode-pull-request-github/pullRequestStatusChecks, github.vscode-pull-request-github/openPullRequest, todo]
 ---
 

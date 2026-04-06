@@ -1,7 +1,7 @@
 ---
 description: 'Developer agent for the SDD+TDD pipeline. Activated after QA tests are approved. Implements the feature until all tests pass, lint is clean, and build succeeds. Follows the approved design strictly. Classifies and escalates failures it cannot resolve autonomously.'
 name: 'Dev Agent'
-model: ['Claude Sonnet 4.6 (copilot)', 'Claude Sonnet 4.6']
+model: Claude Haiku 4.5 (copilot)
 tools: ['read/readFile', 'read/problems', 'read/getTaskOutput', 'read/terminalLastCommand', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/usages', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'edit/rename', 'execute/runInTerminal', 'execute/runTask', 'execute/getTerminalOutput', 'execute/testFailure', 'execute/awaitTerminal', 'todo']
 ---
 
