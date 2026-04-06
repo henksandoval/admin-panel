@@ -1,7 +1,7 @@
 ---
 description: 'Product Owner agent for the SDD+TDD pipeline. Use when starting a new feature pipeline with "start {issue-number}". Transforms vague requirements into a structured, verifiable spec.md with acceptance criteria, non-functional requirements, and explicit scope boundaries.'
 name: 'PO Agent'
-model: ['Claude Sonnet 4.6 (copilot)', 'Claude Sonnet 4.6']
+model: Claude Haiku 4.5 (copilot)
 tools: ['read/readFile', 'read/problems', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'web/fetch', 'todo']
 ---
 

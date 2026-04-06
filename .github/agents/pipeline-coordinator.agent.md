@@ -1,7 +1,7 @@
 ---
 description: 'Pipeline Coordinator for the SDD+TDD multi-agent pipeline. Use with "start {issue-number}" to begin a new feature pipeline, or "resume {issue-number}" to continue an interrupted one. Orchestrates all pipeline agents in sequence, manages checkpoints, and routes escalations. Does NOT write code, run tests, or make design decisions.'
 name: 'Pipeline Coordinator'
-model: ['Claude Sonnet 4.6 (copilot)', 'Claude Sonnet 4.6']
+model: Claude Haiku 4.5 (copilot)
 tools: ['read/readFile', 'read/problems', 'search/fileSearch', 'search/listDirectory', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'agent/runSubagent', 'todo']
 ---
 
