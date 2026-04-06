@@ -33,7 +33,7 @@ El **Pipeline Coordinator** lee `pipeline-state.json`, detecta en qué fase qued
 
 El pipeline tiene **4 checkpoints** donde se requiere intervención humana:
 
-| CP | Fase | Agente | Artefacto | Qué revisar |
+| Checkpoint | Fase | Agente | Artefacto | Qué revisar |
 |---|---|---|---|---|
 | **CP1** | 0 — Spec | PO Agent | `spec.md` | Criterios de aceptación, historias de usuario, fuera de alcance |
 | **CP2** | 1 — Diseño | Architect Agent | `design-decision.md` | Trade-offs, enfoque elegido, justificación adversarial |
