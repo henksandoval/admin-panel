@@ -1,4 +1,4 @@
-# Review Report — Issue #{issue-number}
+# Informe de revisión — Issue #{issue-number}
 
 > Generado por: Architect Reviewer Agent  
 > Artefactos auditados: `design-decision.md` · `completion-report.md` · `dev-decisions.md`

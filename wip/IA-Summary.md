@@ -13,7 +13,7 @@
 4. [Tipos de agentes disponibles](#4-tipos-de-agentes-disponibles)
 5. [Subagentes y orquestación](#5-subagentes-y-orquestación)
 6. [Patrones de trabajo con agentes](#6-patrones-de-trabajo-con-agentes)
-7. [El workflow SDD + TDD Multi-Agente](#7-el-workflow-sdd--tdd-multi-agente)
+7. [El workflow Pipeline multi-agente](#7-el-workflow-pipeline-multi-agente)
    - [7.7 Decisiones de diseño resueltas](#77-decisiones-de-diseño-resueltas)
 8. [Arsenal de técnicas de prompting](#8-arsenal-de-técnicas-de-prompting)
 9. [Las ocho debilidades estructurales](#9-las-ocho-debilidades-estructurales)
@@ -418,7 +418,7 @@ Lista de 20 archivos a migrar
 
 ---
 
-## 7. El workflow SDD + TDD Multi-Agente
+## 7. El workflow Pipeline multi-agente
 
 > Esta sección documenta una visión operativa: reemplazar el trabajo manual en múltiples roles con un pipeline de agentes especializados que colaboran de forma autónoma, coordinada y verificable.
 
@@ -437,7 +437,7 @@ Este rol múltiple crea un cuello de botella: la velocidad del sistema es tu pro
 
 ---
 
-### 7.2 La combinación SDD + TDD
+### 7.2 Principios del Pipeline multi-agente
 
 #### Spec Driven Development (SDD)
 
@@ -1379,7 +1379,7 @@ Un agente configurado como Architect (Opus + instrucciones de arquitecto + frami
    → Usa framing adversarial, no "sé crítico"
 
 8. ¿Es código core crítico?
-   → SDD + TDD: spec → tests → implementación (nunca al revés)
+   → Pipeline multi-agente: spec → tests → implementación (nunca al revés)
 ```
 
 ### Después de que el agente termine

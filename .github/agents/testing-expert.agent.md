@@ -1,5 +1,5 @@
 ---
-description: 'Expert testing engineer for Vitest, @testing-library/angular, and Playwright. Use when designing test scenarios, writing .spec.ts files with black-box philosophy and data-testid discipline, creating E2E tests, or implementing TDD workflows.'
+description: 'Expert testing engineer for Vitest, @testing-library/angular, and Playwright. Use when designing test scenarios, writing .spec.ts files with black-box philosophy and data-testid discipline, creating E2E tests, or implementing test-first workflows.'
 name: 'Testing Expert'
 model: claude-sonnet-4.6
 tools: ['vscode/getProjectSetupInfo', 'vscode/installExtension', 'vscode/newWorkspace', 'vscode/runCommand', 'execute/runNotebookCell', 'execute/testFailure', 'execute/getTerminalOutput', 'execute/awaitTerminal', 'execute/killTerminal', 'execute/runTask', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/getNotebookSummary', 'read/problems', 'read/readFile', 'read/viewImage', 'read/terminalSelection', 'read/terminalLastCommand', 'read/getTaskOutput', 'agent/runSubagent', 'edit/createDirectory', 'edit/createFile', 'edit/createJupyterNotebook', 'edit/editFiles', 'edit/editNotebook', 'edit/rename', 'search/changes', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/usages', 'web/fetch', 'browser/openBrowserPage', 'todo']
@@ -68,7 +68,7 @@ Fix every failing test before considering the task done. Do not ask the user to 
 - **@testing-library/user-event**: `userEvent.setup()`, `user.click()`, `user.type()`, `user.keyboard()`
 - **Playwright**: page object model, `waitForURL`, `waitForSelector`, fixtures, `getByTestId()`
 - **Jest/Karma**: test patterns (this project uses Vitest, but you can reason about migration and syntax differences)
-- **TDD workflow**: writing tests first, driving implementation from failing tests
+- **Test-first workflow**: writing tests before implementation, driving code from failing tests
 
 ## What You Do Not Do
 
@@ -84,7 +84,7 @@ Fix every failing test before considering the task done. Do not ask the user to 
 
 | Reference | When to load |
 |---|---|
-| [Testing Instructions](../instructions/testing.instructions.md) | TDD rules, data-testid discipline, member visibility, naming |
+| [Testing Instructions](../instructions/testing.instructions.md) | Black-box rules, data-testid discipline, member visibility, naming |
 | [E2E Instructions](../instructions/e2e.instructions.md) | Playwright setup, fixtures, page objects, explicit waits |
 | [Components Instructions](../instructions/components.instructions.md) | Component structure, DEFAULTS, signals patterns, public surfaces |
 | [Stubs Catalog](../../src/tests/stubs) | Available test doubles, mocks, and fixtures |

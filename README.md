@@ -47,6 +47,13 @@ src/
 
 Contiene las reglas de estilos, patrones de componentes y ejemplos.
 
+### Pipeline multi-agente
+
+| Documento | Descripción |
+|---|---|
+| [PIPELINE_USAGE.md](docs/PIPELINE_USAGE.md) | Cómo usar el flujo multi-agente: inicio rápido, checkpoints, artefactos, FAQ |
+| [PIPELINE_ESCALATIONS.md](docs/PIPELINE_ESCALATIONS.md) | Matriz de escalaciones y runbooks de resolución de fallos |
+
 ## Temas
 
 6 temas de color × 2 modos (light/dark) = 12 combinaciones.
