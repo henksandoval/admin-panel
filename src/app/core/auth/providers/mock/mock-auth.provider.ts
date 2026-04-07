@@ -13,7 +13,19 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class MockAuthProvider implements IAuthProvider {
-  private sessionActive = false;
+  private static readonly SESSION_KEY = 'mock-session-active';
+
+  private get sessionActive(): boolean {
+    return window.sessionStorage.getItem(MockAuthProvider.SESSION_KEY) === 'true';
+  }
+
+  private set sessionActive(value: boolean) {
+    if (value) {
+      window.sessionStorage.setItem(MockAuthProvider.SESSION_KEY, 'true');
+    } else {
+      window.sessionStorage.removeItem(MockAuthProvider.SESSION_KEY);
+    }
+  }
 
   private readonly MOCK_USER: AuthUser = {
     id: 'mock-user-1',

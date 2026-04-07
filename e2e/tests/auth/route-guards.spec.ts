@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { testConfig } from '../../config/test.config';
-import { interceptAuthLogin, interceptAuthMe, loginAndNavigate } from '../../helpers/auth.helpers';
+import { interceptAuthLogin, interceptAuthMe, interceptAuthRefresh } from '../../helpers/auth.helpers';
 
 test.describe('Route guard — unauthenticated access', () => {
   test('redirects to the login page when accessing a protected route without a session', async ({ page }) => {
@@ -32,10 +32,16 @@ test.describe('Route guard — authenticated access to auth routes', () => {
     if (testConfig.useMock) {
       await interceptAuthLogin(page);
       await interceptAuthMe(page);
+      await interceptAuthRefresh(page);
     }
 
-    await loginAndNavigate(page, '/auth/login');
+    await page.goto('/auth/login');
+    await page.getByTestId('login-email-input').fill(testConfig.credentials.email);
+    await page.getByTestId('login-password-input').fill(testConfig.credentials.password);
+    await page.getByTestId('login-submit-button').click();
+    await page.waitForURL(`**${testConfig.expectedDefaultRedirect}`);
 
+    await page.goto('/auth/login');
     await page.waitForURL(`**${testConfig.expectedDefaultRedirect}`);
 
     await expect(page).toHaveURL(new RegExp(testConfig.expectedDefaultRedirect));
