@@ -13,7 +13,7 @@
 start {issue-number}
 ```
 
-Esto invoca al **Pipeline Coordinator**, que a su vez llama al **PO Agent**, quien:
+Esto invoca al **Pipeline Coordinator**, que a su vez llama al **Product Owner**, quien:
 1. Crea el directorio `.pipeline/{issue-number}/`
 2. Copia la plantilla de spec a `.pipeline/{issue-number}/spec.md`
 3. Inicializa `pipeline-state.json`
@@ -35,10 +35,10 @@ El pipeline tiene **4 checkpoints** donde se requiere intervención humana:
 
 | Checkpoint | Fase | Agente | Artefacto | Qué revisar |
 |---|---|---|---|---|
-| **CP1** | 0 — Spec | PO Agent | `spec.md` | Criterios de aceptación, historias de usuario, fuera de alcance |
-| **CP2** | 1 — Diseño | Architect Agent | `design-decision.md` | Trade-offs, enfoque elegido, justificación adversarial |
-| **CP3** | 3 — Tests | QA Agent | `test-scenarios.md` | Cobertura de criterios, escenarios inferidos, conteo de tests en rojo |
-| **CP4** | 5 — Revisión | Reviewer Agent | `review-report.md` | Solo si hay hallazgos `BLOQUEANTE` |
+| **CP1** | 0 — Spec | Product Owner | `spec.md` | Criterios de aceptación, historias de usuario, fuera de alcance |
+| **CP2** | 1 — Diseño | Software Architect | `design-decision.md` | Trade-offs, enfoque elegido, justificación adversarial |
+| **CP3** | 3 — Tests | QA Analyst | `test-cases.md` | Cobertura de criterios de aceptación, escenarios inferidos, justificación de valor por test case |
+| **CP4** | 5 — Revisión | Code Reviewer | `review-report.md` | Solo si hay hallazgos `BLOQUEANTE` |
 
 ### Cómo aprobar un artefacto
 
@@ -67,12 +67,12 @@ resume {issue-number}
 ## Fases del pipeline
 
 ```
-Fase 0 — Spec         (PO Agent)          → spec.md              → CP1
-Fase 1 — Diseño       (Architect Agent)   → design-decision.md   → CP2
-Fase 2 — Validación   (Tech Lead Agent)   → plan.md              → automático (sin CP)
-Fase 3 — Tests        (QA Agent)          → test-scenarios.md    → CP3
-Fase 4 — Impl.        (Dev Agent)         → completion-report.md → automático
-Fase 5 — Revisión     (Reviewer Agent)    → review-report.md     → CP4 solo si BLOQUEANTE
+Fase 0 — Spec         (Product Owner)          → spec.md              → CP1
+Fase 1 — Diseño       (Software Architect)   → design-decision.md   → CP2
+Fase 2 — Validación   (Tech Lead)   → plan.md              → automático (sin CP)
+Fase 3 — Tests        (QA Analyst)          → test-cases.md    → CP3
+Fase 4 — Impl.        (Developer)         → completion-report.md → automático
+Fase 5 — Revisión     (Code Reviewer)    → review-report.md     → CP4 solo si BLOQUEANTE
 ```
 
 ---
@@ -85,13 +85,13 @@ Todos los artefactos de un issue viven en `.pipeline/{issue-number}/`:
 .pipeline/{issue-number}/
   ├─ PIPELINE.md               (estado visual del pipeline — actualizado en cada fase)
   ├─ pipeline-state.json       (estado machine-readable — no editar manualmente)
-  ├─ spec.md                   (especificación de negocio — PO Agent)
-  ├─ design-decision.md        (decisiones técnicas — Architect Agent)
-  ├─ plan.md                   (auditoría del diseño — Tech Lead Agent)
-  ├─ test-scenarios.md         (escenarios de test — QA Agent)
-  ├─ *.spec.ts                 (tests en rojo — QA Agent)
-  ├─ completion-report.md      (reporte de implementación — Dev Agent)
-  ├─ review-report.md          (auditoría del código — Reviewer Agent)
+  ├─ spec.md                   (especificación de negocio — Product Owner)
+  ├─ design-decision.md        (decisiones técnicas — Software Architect)
+  ├─ plan.md                   (auditoría del diseño — Tech Lead)
+  ├─ test-cases.md         (escenarios de test — QA Analyst)
+  ├─ *.spec.ts                 (tests en rojo — Developer, a partir de test-cases.md)
+  ├─ completion-report.md      (reporte de implementación — Developer)
+  ├─ review-report.md          (auditoría del código — Code Reviewer)
   ├─ waiting-for-approval.md   (presente durante checkpoints — guía de qué revisar)
   └─ dev-assessment.md         (presente en escalaciones del Dev — opcional)
 ```
@@ -102,7 +102,7 @@ Todos los artefactos de un issue viven en `.pipeline/{issue-number}/`:
 |---|---|
 | `spec.md` | `docs/decisions/{issue-number}/spec.md` |
 | `design-decision.md` | `docs/decisions/{issue-number}/design-decision.md` |
-| `plan.md`, `test-scenarios.md`, `completion-report.md`, `review-report.md` | Eliminados por la GitHub Action de cleanup |
+| `plan.md`, `test-cases.md`, `completion-report.md`, `review-report.md` | Eliminados por la GitHub Action de cleanup |
 | `*.spec.ts` | Quedan en `src/` como parte del código base |
 
 ---
@@ -115,7 +115,7 @@ El archivo `.pipeline/config.json` define los límites máximos de iteración:
 |---|---|
 | `max_spec_revisions` | Máximo de revisiones de `spec.md` antes de bloquear |
 | `max_design_revisions` | Máximo de revisiones de `design-decision.md` |
-| `max_dev_iterations` | Máximo de iteraciones del Dev Agent |
+| `max_dev_iterations` | Máximo de iteraciones del Developer (RED + GREEN phases) |
 | `max_review_cycles` | Máximo de ciclos de revisión |
 
 Cuando se supera un límite, el pipeline escribe `PIPELINE_BLOCKED.md` y se detiene. Se requiere intervención humana para desbloquear.
@@ -124,15 +124,16 @@ Cuando se supera un límite, el pipeline escribe `PIPELINE_BLOCKED.md` y se deti
 
 ## Fallos y escalaciones
 
-Si el Dev Agent encuentra un problema que no puede resolver, escribe `dev-assessment.md` con una clasificación:
+Si el Developer encuentra un problema que no puede resolver, escribe `dev-assessment.md` con una clasificación:
 
 | Clasificación | Motivo | Enrutado a |
 |---|---|---|
-| `SPEC_CONFLICT` | El test contradice la spec | QA Agent |
-| `TEST_BUG` | El test parece incorrecto | QA Agent |
+| `SPEC_CONFLICT` | El test contradice la spec | QA Analyst |
+| `TEST_BUG` | El test parece incorrecto | QA Analyst |
+| `TRANSLATION_ERROR` | El `.spec.ts` no implementa correctamente el test case | QA Analyst |
 | `IMPLEMENTATION_BLOCK` | No sabe cómo implementar sin violar el diseño | Tech Lead / Architect |
-| `AMBIGUOUS_REQUIREMENT` | La spec y el diseño son ambiguos | PO Agent (vía humano) |
-| `UNCLASSIFIED` | No puede clasificar el fallo | Reviewer Agent (para clasificar) |
+| `AMBIGUOUS_REQUIREMENT` | La spec y el diseño son ambiguos | Product Owner (vía humano) |
+| `UNCLASSIFIED` | No puede clasificar el fallo | Code Reviewer (para clasificar) |
 
 Ver [PIPELINE_ESCALATIONS.md](./PIPELINE_ESCALATIONS.md) para runbooks detallados de cada tipo de escalación.
 
@@ -141,13 +142,13 @@ Ver [PIPELINE_ESCALATIONS.md](./PIPELINE_ESCALATIONS.md) para runbooks detallado
 ## Preguntas frecuentes
 
 **¿Qué pasa si rechazo un spec en CP1?**  
-Edita `spec.md` con tu feedback y agrega `<!-- STATUS: NEEDS_REVISION: {motivo} -->` como primera línea. Luego ejecuta `resume {issue-number}`. El PO Agent recibirá el motivo y revisará el artefacto.
+Edita `spec.md` con tu feedback y agrega `<!-- STATUS: NEEDS_REVISION: {motivo} -->` como primera línea. Luego ejecuta `resume {issue-number}`. El Product Owner recibirá el motivo y revisará el artefacto.
 
 **¿Puedo modificar los tests aprobados en CP3?**  
-No. Los tests aprobados son inviolables. Si hay un error, el Dev Agent escalará con `dev-assessment.md` y el Coordinator enrutará al QA Agent para corregir. Nunca modificar los `.spec.ts` manualmente después del checkpoint.
+No. Los tests aprobados son inviolables. Si hay un error, el Developer escalará con `dev-assessment.md` y el Coordinator enrutará al QA Analyst para corregir. Nunca modificar los `.spec.ts` manualmente después del checkpoint.
 
 **¿El Tech Lead requiere aprobación humana?**  
-No. La fase del Tech Lead (plan.md) es completamente automática. Si el veredicto es `APPROVED`, el pipeline avanza a QA sin intervención. Si es `NEEDS_REVISION`, el Architect es reinvocado automáticamente.
+No. La fase del Tech Lead (plan.md) es completamente automática. Si el veredicto es `APPROVED`, el pipeline avanza a QA sin intervención. Si es `NEEDS_REVISION`, el Software Architect es reinvocado automáticamente.
 
 **¿Qué significa `APPROVED_WITH_CHANGES`?**  
 Significa que aprobaste el artefacto pero hiciste modificaciones directas en el archivo. El agente de la siguiente fase leerá el `git diff` de ese archivo e incorporará tus cambios como contexto prioritario.
@@ -160,3 +161,4 @@ No directamente. Si necesitas reiniciar desde una fase específica, editar manua
 
 **¿Qué idioma usan los artefactos?**  
 Todos los artefactos (spec, design-decision, plan, test-scenarios, completion-report, review-report) se escriben en **español**. Las claves JSON y los nombres de archivo permanecen en inglés.
+

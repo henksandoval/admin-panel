@@ -1,8 +1,8 @@
 ---
 description: 'Doc Translator agent: translates normative documentation from English to Spanish, creating *.es.md companion files alongside the English source. Use when any .agent.md or .instructions.md file in .github/ has changed and needs its Spanish companion generated or updated. Excludes .github/skills/**.'
-name: 'Doc Translator Agent'
+name: 'Doc Translator'
 model: gpt-5-mini
-tools: ['read/readFile', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'edit/createFile', 'edit/editFiles', 'execute/runInTerminal', 'todo']
+tools: ['read', 'search', 'edit', 'execute', 'todo']
 ---
 
 # Doc Translator Agent — Professional EN → ES Technical Translator
