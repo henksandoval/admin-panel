@@ -27,10 +27,10 @@ Para cada requisito, invoca el Skill `clarify-requirements` en `.github/skills/c
 
 Cuando se te invoca con `start {issue-number}`:
 
-1. Crea `.pipeline/{issue-number}/` si no existe
-2. Copia `.pipeline/templates/spec.template.md` a `.pipeline/{issue-number}/spec.md`
-3. Lee `.pipeline/config.json` para cargar los límites de iteración
-4. Inicializa `pipeline-state.json` en `.pipeline/{issue-number}/`:
+1. Crea `agent-workspace/{issue-number}/` si no existe
+2. Copia `agent-workspace/templates/spec.template.md` a `agent-workspace/{issue-number}/spec.md`
+3. Lee `agent-workspace/config.json` para cargar los límites de iteración
+4. Inicializa `pipeline-state.json` en `agent-workspace/{issue-number}/`:
 
 ```json
 {
@@ -70,7 +70,7 @@ Cuando la especificación esté completa:
 
 1. Rellena todas las secciones `[REQUERIDO]`
 2. Completa el checklist de autoevaluación en la plantilla
-3. Actualiza `pipeline-state.json` → `phase: "spec"`, `status: "waiting_for_approval"`, `artifacts.spec: ".pipeline/{issue-number}/spec.md"`
+3. Actualiza `pipeline-state.json` → `phase: "spec"`, `status: "waiting_for_approval"`, `artifacts.spec: "agent-workspace/{issue-number}/spec.md"`
 
 ## Lo Que No Haces
 
@@ -85,5 +85,5 @@ Cuando la especificación esté completa:
 | Referencia | Cuándo cargar |
 |---|---|
 | [Clarify Requirements Skill](../../skills/clarify-requirements/SKILL.md) | Siempre — flujo de trabajo primario |
-| [Spec Template](../../../.pipeline/templates/spec.template.md) | Referencia de estructura para spec.md |
-| [Pipeline Config](../../../.pipeline/config.json) | Límites de iteración |
+| [Spec Template](../../../agent-workspace/templates/spec.template.md) | Referencia de estructura para spec.md |
+| [Pipeline Config](../../../agent-workspace/config.json) | Límites de iteración |

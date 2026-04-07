@@ -195,7 +195,7 @@ No TS errors or warnings from new code. Bundle build completes with only pre-exi
 - `src/app/layout/components/idle-warning-dialog/idle-warning-dialog.component.scss` (45 lines)
 - `src/app/layout/components/idle-warning-dialog/idle-warning-dialog.component.spec.ts` (3 tests, in spec)
 - `src/app/layout/components/idle-warning-dialog/idle-warning-dialog.component.model.ts` (11 lines)
-- `.pipeline/auth-security-requirements/dev-decisions.md` (this round's decisions)
+- `agent-workspace/auth-security-requirements/dev-decisions.md` (this round's decisions)
 
 ### Modified
 - `src/app/core/auth/services/auth.service.ts` (added 3 effects + error normalization)

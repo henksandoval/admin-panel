@@ -45,8 +45,8 @@ Evalúa cada ítem explícitamente. No omitas ninguno. No escribas "N/A" sin jus
 ### Paso 1 — Cargar las entradas
 
 Lee en este orden:
-1. `.pipeline/{issue-number}/spec.md` — el contrato de negocio
-2. `.pipeline/{issue-number}/design-decision.md` — lo que estás auditando
+1. `agent-workspace/{issue-number}/spec.md` — el contrato de negocio
+2. `agent-workspace/{issue-number}/design-decision.md` — lo que estás auditando
 3. `.github/instructions/architectural-principles.instructions.md` — la ley
 4. `.github/instructions/styling.instructions.md` y `.github/instructions/testing.instructions.md` — restricciones adicionales
 5. Listado del directorio `src/app/` — para evaluar el impacto entre features (solo estructura, no contenido de archivos)
@@ -60,7 +60,7 @@ Para cada ítem del checklist:
 
 ### Paso 3 — Escribir plan.md
 
-Escribe `.pipeline/{issue-number}/plan.md` usando `.pipeline/templates/plan.template.md`.
+Escribe `agent-workspace/{issue-number}/plan.md` usando `agent-workspace/templates/plan.template.md`.
 
 El veredicto debe ser uno de los siguientes:
 - `APPROVED` — el diseño es arquitectónicamente sólido; el pipeline avanza a QA automáticamente
@@ -87,4 +87,4 @@ Actualiza `pipeline-state.json`:
 | [Architectural Principles](../../instructions/architectural-principles.instructions.md) | El estándar de auditoría primario |
 | [Styling Instructions](../../instructions/styling.instructions.md) | Estándar de auditoría secundario |
 | [Testing Instructions](../../instructions/testing.instructions.md) | Estándar de auditoría secundario |
-| [Plan Template](../../../.pipeline/templates/plan.template.md) | Estructura de salida |
+| [Plan Template](../../../agent-workspace/templates/plan.template.md) | Estructura de salida |

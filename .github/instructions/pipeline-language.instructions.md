@@ -1,5 +1,5 @@
 ---
-applyTo: ".pipeline/**"
+applyTo: "agent-workspace/**"
 ---
 
 # Pipeline Language Rules

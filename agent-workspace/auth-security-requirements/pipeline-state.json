@@ -15,12 +15,12 @@
     "all_tests_green_v2"
   ],
   "artifacts": {
-    "spec": ".pipeline/auth-security-requirements/spec.md",
-    "design": ".pipeline/auth-security-requirements/design-decision.md",
-    "plan": ".pipeline/auth-security-requirements/plan.md",
-    "test_scenarios": ".pipeline/auth-security-requirements/test-scenarios.md",
-    "completion_report": ".pipeline/auth-security-requirements/completion-report.md",
-    "dev_decisions": ".pipeline/auth-security-requirements/dev-decisions.md",
+    "spec": "agent-workspace/auth-security-requirements/spec.md",
+    "design": "agent-workspace/auth-security-requirements/design-decision.md",
+    "plan": "agent-workspace/auth-security-requirements/plan.md",
+    "test_scenarios": "agent-workspace/auth-security-requirements/test-scenarios.md",
+    "completion_report": "agent-workspace/auth-security-requirements/completion-report.md",
+    "dev_decisions": "agent-workspace/auth-security-requirements/dev-decisions.md",
     "spec_files": [
       "src/app/layout/components/idle-warning-dialog/idle-warning-dialog.component.spec.ts",
       "src/app/core/auth/services/auth.service.spec.ts"
@@ -46,7 +46,7 @@
       "M-2: tipografía en píxeles crudos en SCSS — MAYOR-2 Ronda 1 sin corregir",
       "M-3: (this.authService as any) innecesario — method exists on type"
     ],
-    "report": ".pipeline/auth-security-requirements/review-report.md"
+    "report": "agent-workspace/auth-security-requirements/review-report.md"
   },
     "total_tests": 380,
     "tests_green": 380,

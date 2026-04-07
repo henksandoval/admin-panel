@@ -676,7 +676,7 @@ El pipeline persiste su estado mediante **tres capas complementarias**, cada una
 
 ```
 CAPA 1 — Artefactos de trabajo (fuente de verdad del contenido)
-  .pipeline/{issue-number}/
+  agent-workspace/{issue-number}/
     spec.md                ← PO Agent output
     design-decision.md     ← Architect Agent output
     plan.md                ← Tech Lead output
@@ -697,8 +697,8 @@ CAPA 2 — pipeline-state.json (memoria operativa del coordinador)
     "status": "waiting_for_approval",
     "completed": ["spec", "design", "tech-lead"],
     "artifacts": {
-      "spec": ".pipeline/123/spec.md",
-      "design": ".pipeline/123/design-decision.md"
+      "spec": "agent-workspace/123/spec.md",
+      "design": "agent-workspace/123/design-decision.md"
     },
     "cycles": { "dev_iterations": 1, "review_cycles": 0 },
     "spec_approved_at": "2026-04-01T10:00:00Z"
@@ -714,9 +714,9 @@ CAPA 3 — PIPELINE.md (visibilidad humana)
 ```
 
 **Ciclo de vida de los artefactos:**
-- Durante el branch: todos los artefactos viven en `.pipeline/{issue-number}/`, commitados y versionados.
+- Durante el branch: todos los artefactos viven en `agent-workspace/{issue-number}/`, commitados y versionados.
 - Post-merge: un **GitHub Action** mueve `spec.md` y `design-decision.md` a `docs/decisions/{issue-number}/` (valor permanente) y elimina el resto (valor ya capturado en código y tests).
-- `.gitattributes` marca `.pipeline/` con `export-ignore` para que no contamine los artefactos de release.
+- `.gitattributes` marca `agent-workspace/` con `export-ignore` para que no contamine los artefactos de release.
 
 **Recuperación ante interrupciones:**
 - El coordinador lee `pipeline-state.json` como **primera acción** en cada invocación.
@@ -759,7 +759,7 @@ Coordinador antes de pausar:
 **Gestión de rechazos:**
 - El humano escribe su feedback en `{phase}-feedback.md`.
 - El coordinador pasa ese archivo como contexto adicional al agente que reinicia la fase.
-- Los límites de iteración están en `.pipeline/config.json`: `{ "max_spec_revisions": 2, "max_design_revisions": 2, "max_dev_iterations": 3, "max_review_cycles": 2 }`.
+- Los límites de iteración están en `agent-workspace/config.json`: `{ "max_spec_revisions": 2, "max_design_revisions": 2, "max_dev_iterations": 3, "max_review_cycles": 2 }`.
 - Al alcanzar el límite: el coordinador escribe `PIPELINE_BLOCKED.md` con historial completo y pausa.
 
 **Revisión de tests (QA checkpoint):** El QA produce **dos artefactos separados**. El humano revisa `test-scenarios.md` (comportamientos en lenguaje natural con trazabilidad a criterios de la spec), no los `.spec.ts`. Si los escenarios son correctos, el código es consecuencia directa.
@@ -770,7 +770,7 @@ Coordinador antes de pausar:
 
 **Cada artefacto tiene una estructura definida y verificable:**
 
-1. **Template obligatorio** en `.pipeline/templates/{phase}.template.md` con secciones marcadas como `[REQUERIDO]` y `[OPCIONAL]`.
+1. **Template obligatorio** en `agent-workspace/templates/{phase}.template.md` con secciones marcadas como `[REQUERIDO]` y `[OPCIONAL]`.
 2. **Checklist de auto-evaluación** como última sección de cada artefacto, que el agente generador debe completar antes de entregar.
 
 El coordinador verifica que todos los ítems de la checklist están marcados `[x]`. Si no, reinvoca al mismo agente con feedback específico sobre qué sección falta.
@@ -892,7 +892,7 @@ MODO CONSERVADOR (ante cualquier duda no cubierta por el árbol):
 Los agentes especialistas son invocables directamente para tareas puntuales (debugging, validación rápida, re-ejecución de una fase). Esto no rompe el pipeline — es uso deliberado y documentado.
 
 **Thin context — el coordinador pasa rutas, no contenido:**
-El coordinador nunca lee artefactos técnicos completos. En lugar de pasar el contenido de la spec al Architect, le indica: _"Lee `.pipeline/{issue-number}/spec.md` antes de proceder."_ El agente accede al contenido fresco directamente del filesystem.
+El coordinador nunca lee artefactos técnicos completos. En lugar de pasar el contenido de la spec al Architect, le indica: _"Lee `agent-workspace/{issue-number}/spec.md` antes de proceder."_ El agente accede al contenido fresco directamente del filesystem.
 
 ---
 
@@ -1004,12 +1004,12 @@ Las siguientes decisiones son aplicables a todos los agentes y al coordinador. S
 
 | Principio | Decisión |
 |---|---|
-| **Estado persistente** | `.pipeline/{issue-number}/` + `pipeline-state.json` + `PIPELINE.md` |
+| **Estado persistente** | `agent-workspace/{issue-number}/` + `pipeline-state.json` + `PIPELINE.md` |
 | **Señal de aprobación** | `<!-- STATUS: APPROVED -->` como primera línea del artefacto revisado |
-| **Validación de artefactos** | Template `.pipeline/templates/{phase}.template.md` + checklist de auto-evaluación al final |
+| **Validación de artefactos** | Template `agent-workspace/templates/{phase}.template.md` + checklist de auto-evaluación al final |
 | **Contexto del coordinador** | Pasa rutas de archivos, nunca contenido; lee solo archivos de control |
 | **Escalada de fallos del Dev** | Clasificación explícita (SPEC_CONFLICT / IMPLEMENTATION_BLOCK / TEST_BUG / AMBIGUOUS_REQUIREMENT) → tabla de enrutado |
-| **Límites de ciclos** | `.pipeline/config.json` define máximos → `PIPELINE_BLOCKED.md` al alcanzarlos |
+| **Límites de ciclos** | `agent-workspace/config.json` define máximos → `PIPELINE_BLOCKED.md` al alcanzarlos |
 | **Contrato inviolable** | Tests aprobados por humano no se modifican sin nuevo checkpoint |
 | **Done invariable** | Mismos criterios para todas las features en v1 |
 | **MVP del pipeline** | Features `simple` y `moderate` únicamente en v1 |

@@ -14,7 +14,7 @@ Un agente genérico es aquel cuya identidad y conocimiento provienen de su **rol
 
 - Las **instructions** (`.github/instructions/*.instructions.md`) — la "ley" del proyecto
 - Las **skills** (`.github/skills/`) — los flujos de trabajo especializados
-- Los **templates y configuración** (`.pipeline/templates/`, `.pipeline/config.json`)
+- Los **templates y configuración** (`agent-workspace/templates/`, `agent-workspace/config.json`)
 
 Cuando las reglas del proyecto se duplican dentro del cuerpo del agente, se crean dos problemas estructurales:
 
@@ -143,12 +143,12 @@ El hecho de que este agente exista es un síntoma del problema del Dev Agent: si
 - Modelo correcto: `claude-haiku-4.5` para un coordinador que hace trabajo de baja complejidad cognitiva (leer JSON, enrutar, escribir markdown)
 
 **Debilidades:**
-- El cuerpo del agente contiene las plantillas completas de PIPELINE.md, waiting-for-approval.md, y PIPELINE_BLOCKED.md. Estas plantillas deberían vivir en archivos independientes del directorio `.pipeline/templates/`, no hardcodeadas en el agente. Si cambia el formato de un artefacto, hay que editar el agente
+- El cuerpo del agente contiene las plantillas completas de PIPELINE.md, waiting-for-approval.md, y PIPELINE_BLOCKED.md. Estas plantillas deberían vivir en archivos independientes del directorio `agent-workspace/templates/`, no hardcodeadas en el agente. Si cambia el formato de un artefacto, hay que editar el agente
 - El protocolo de Checkpoint Protocol (5 pasos detallados con código Markdown) es un workflow procedural que debería ser una skill invocable, no prosa en el cuerpo del agente
 - La sección de Cycle Limits y el template de PIPELINE_BLOCKED.md hacen el agente muy largo — un coordinador "thin" no debería necesitar 200+ líneas
 
 **Aspectos a mejorar:**
-- Mover las plantillas inline a `.pipeline/templates/` y que el agente las referencie
+- Mover las plantillas inline a `agent-workspace/templates/` y que el agente las referencie
 - Crear una skill `checkpoint-protocol` para el procedimiento de pausa y aprobación
 - El PIPELINE.md template hardcodeado es un issue de mantenimiento: si se añade una fase, hay que editar el agente
 
@@ -163,7 +163,7 @@ El hecho de que este agente exista es un síntoma del problema del Dev Agent: si
 - Manejo de requisitos insuficientes con `SPEC_INSUFFICIENT` es una convención limpia
 
 **Debilidades:**
-- **El bloque `Language`** (instrucción de escribir en español) está hardcodeado en 6 de los 7 agentes del pipeline. Esta es la duplicación más simple de eliminar — debería ser una instruction transversal `pipeline.instructions.md` con `applyTo` sobre `.pipeline/**`
+- **El bloque `Language`** (instrucción de escribir en español) está hardcodeado en 6 de los 7 agentes del pipeline. Esta es la duplicación más simple de eliminar — debería ser una instruction transversal `pipeline.instructions.md` con `applyTo` sobre `agent-workspace/**`
 - Los pasos del workflow (Step 1-4) incluyen manipulación directa de `pipeline-state.json`. La gestión de estado del pipeline debería ser responsabilidad exclusiva del Coordinator. El PO debería producir `spec.md` y comunicar su estado; el Coordinator actualiza el JSON
 - `model: claude-haiku-4.5` para el PO puede ser insuficiente — la clarificación de requisitos ambiguos y la escritura de criterios de aceptación precisos requieren capacidad de razonamiento más alta
 
@@ -327,7 +327,7 @@ Todos los artefactos producidos por este agente se escriben en **español**:
 - JSON/datos estructurados: claves en inglés (inmutables), valores en contexto español
 ```
 
-**Solución**: Una instruction file `.github/instructions/pipeline-language.instructions.md` con `applyTo: ".pipeline/**"` que instrumente esta regla una sola vez para todos los agentes del pipeline.
+**Solución**: Una instruction file `.github/instructions/pipeline-language.instructions.md` con `applyTo: "agent-workspace/**"` que instrumente esta regla una sola vez para todos los agentes del pipeline.
 
 ---
 
@@ -372,7 +372,7 @@ Algunos agentes usan aliases simples (`execute`, `read`) y otros usan paths gran
 
 | Item | Agente(s) afectado(s) | Acción |
 |---|---|---|
-| Crear `pipeline-language.instructions.md` | 6 agentes del pipeline | Nueva instruction `applyTo: ".pipeline/**"`; elimina el bloque `Language` de todos los agentes |
+| Crear `pipeline-language.instructions.md` | 6 agentes del pipeline | Nueva instruction `applyTo: "agent-workspace/**"`; elimina el bloque `Language` de todos los agentes |
 | Implementar mecanismo `AGENT_STATUS` | PO, Architect, Tech Lead, QA, Dev, Reviewer | Los agentes añaden marcador al final de su artefacto; el Coordinator es el único que actualiza `pipeline-state.json` |
 | Modelo del Dev Agent | Dev Agent → `Developer` | Elevar a `claude-sonnet-4.6`; es la tarea de mayor complejidad del ecosistema |
 | Eliminar Pre-Implementation Checklist | Dev Agent → `Developer` | Las instructions se aplican automáticamente; el checklist es redundancia pura |
@@ -385,7 +385,7 @@ Algunos agentes usan aliases simples (`execute`, `read`) y otros usan paths gran
 | Convertir `Angular Expert` en prompt file | Angular Expert | `angular.prompt.md` con `agent: Developer`; no requiere agente dedicado |
 | Absorber responsabilidad de `.spec.ts` en `Developer` | Dev Agent | El Developer traduce `test-cases.md` aprobado a código de test antes de implementar |
 | Eliminar pipeline wiring de agentes especializados | PO, Architect, Tech Lead, QA, Reviewer | Cada agente solo produce su artefacto; el Coordinator gestiona el flujo |
-| Templates inline en Coordinator | Pipeline Coordinator | Mover `PIPELINE.md`, `waiting-for-approval.md`, `PIPELINE_BLOCKED.md` a `.pipeline/templates/` |
+| Templates inline en Coordinator | Pipeline Coordinator | Mover `PIPELINE.md`, `waiting-for-approval.md`, `PIPELINE_BLOCKED.md` a `agent-workspace/templates/` |
 
 ### Prioridad Baja — Refinamiento y robustez
 
@@ -434,7 +434,7 @@ tools: ['read', 'edit', 'search'] # mínimo privilegio con aliases uniformes
 [Restricciones de responsabilidad, no duplicación de reglas del proyecto.]
 ```
 
-La característica definitoria: **si eliminas todas las referencias al proyecto (Angular, .pipeline/, etc.), el agente sigue siendo un profesional reconocible que podría trabajar en otro proyecto.**
+La característica definitoria: **si eliminas todas las referencias al proyecto (Angular, agent-workspace/, etc.), el agente sigue siendo un profesional reconocible que podría trabajar en otro proyecto.**
 
 ---
 
@@ -475,7 +475,7 @@ El hecho de que `Angular Expert` y `Dev Agent` coexistan es un síntoma de dise�
 | 4 | `Tech Lead` | Tech Lead Agent | Rol genérico | Checklist en principios, no en nombres de archivos; elimina pipeline wiring |
 | 5 | `Code Reviewer` | Reviewer Agent | Rol genérico | Solo produce veredicto; elimina pipeline wiring |
 | 6 | `Product Owner` | PO Agent | Rol genérico | Elimina pipeline wiring; sube a `sonnet` |
-| 7 | `Pipeline Coordinator` | Pipeline Coordinator | Específico del proceso | Se mantiene; se adelgaza moviendo templates a `.pipeline/templates/` |
+| 7 | `Pipeline Coordinator` | Pipeline Coordinator | Específico del proceso | Se mantiene; se adelgaza moviendo templates a `agent-workspace/templates/` |
 | 8 | `Doc Translator` | Doc Translator Agent | Rol genérico | Verificar nombre del modelo; mínimos cambios |
 
 **Agentes eliminados:**
@@ -526,7 +526,7 @@ La columna "Justificación de valor" es la contribución más importante del QA 
 
 | Archivo | `applyTo` | Propósito | Elimina de |
 |---|---|---|---|
-| `pipeline-language.instructions.md` | `.pipeline/**` | Regla de idioma (español para artefactos, inglés para código) | El bloque `Language` de 6 agentes |
+| `pipeline-language.instructions.md` | `agent-workspace/**` | Regla de idioma (español para artefactos, inglés para código) | El bloque `Language` de 6 agentes |
 | (existente) `architectural-principles.instructions.md` | `src/app/**/*.{ts,html,scss}` | Ya existe; el Developer confía en ella en lugar del checklist embebido | Pre-Implementation Checklist del Dev Agent |
 | (existente) `testing.instructions.md` | `src/**/*.spec.ts` | Ya existe; el Developer y QA Analyst confían en ella | Secciones "What You Do Not Do" del QA Agent y Testing Expert |
 

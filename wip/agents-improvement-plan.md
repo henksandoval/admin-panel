@@ -30,7 +30,7 @@ El plan estará completo cuando:
 | §3.8 | QA Agent mezcla diseño y wiring; duplica testing.instructions.md | Media |
 | §3.1 | Angular Expert no es genérico; coexistencia innecesaria con Dev Agent | Media |
 | §3.2 | Testing Expert — "What You Do Not Do" duplica testing.instructions.md | Media |
-| §3.4 | Coordinator lleva templates inline; debería ser `.pipeline/templates/` | Media |
+| §3.4 | Coordinator lleva templates inline; debería ser `agent-workspace/templates/` | Media |
 | §3.5 | PO Agent usa `claude-haiku-4.5` para tarea de alta complejidad | Baja |
 | §3.6–§3.10 | Pipeline wiring embebido en PO, Architect, TL, Reviewer | Media |
 | §3.3 | Doc Translator: modelo no verificado | Baja |
@@ -50,7 +50,7 @@ El plan estará completo cuando:
 **Contenido mínimo:**
 ```markdown
 ---
-applyTo: ".pipeline/**"
+applyTo: "agent-workspace/**"
 ---
 Todos los artefactos producidos en el contexto del pipeline se escriben en **español**:
 - Títulos de sección, descripciones, comentarios: español
@@ -64,7 +64,7 @@ Todos los artefactos producidos en el contexto del pipeline se escriben en **esp
 
 ### T1.2 — Definir y documentar el mecanismo `AGENT_STATUS`
 
-**Archivo a crear o actualizar:** `.pipeline/README.md` (o el documento de convenciones del pipeline que ya exista)
+**Archivo a crear o actualizar:** `agent-workspace/README.md` (o el documento de convenciones del pipeline que ya exista)
 
 El mecanismo de señalización de estado de salida centraliza en el Coordinator la actualización de `pipeline-state.json`. Cada agente especializado añade al final de su artefacto principal uno de estos marcadores:
 
@@ -248,7 +248,7 @@ Añadir a la sección "Workflow en modo pipeline":
 
 - Eliminar Steps 1, 4, 5 (verificar STATUS, git diff, actualizar state, escalation routing)
 - El Arquitecto recibe la spec aprobada y produce `design-decision.md` + marcador `AGENT_STATUS`
-- Eliminar la restricción hardcodeada de complejidad ("v1 only supports simple and moderate") — externalizarla a `.pipeline/config.json`
+- Eliminar la restricción hardcodeada de complejidad ("v1 only supports simple and moderate") — externalizarla a `agent-workspace/config.json`
 - Eliminar bloque `Language`
 
 ---
@@ -289,12 +289,12 @@ Añadir lógica para:
 
 > **Objetivo**: reducir el cuerpo del Coordinator extrayendo los templates inline a archivos separados y la skill de checkpoint a una skill invocable.
 
-### T6.1 — Crear directorio `.pipeline/templates/`
+### T6.1 — Crear directorio `agent-workspace/templates/`
 
 Crear los siguientes archivos extrayéndolos del cuerpo del Coordinator:
-- `.pipeline/templates/PIPELINE.md` — template del documento de estado del pipeline
-- `.pipeline/templates/waiting-for-approval.md` — template de pausa para aprobación humana
-- `.pipeline/templates/PIPELINE_BLOCKED.md` — template de pipeline bloqueado
+- `agent-workspace/templates/PIPELINE.md` — template del documento de estado del pipeline
+- `agent-workspace/templates/waiting-for-approval.md` — template de pausa para aprobación humana
+- `agent-workspace/templates/PIPELINE_BLOCKED.md` — template de pipeline bloqueado
 
 ---
 
@@ -312,7 +312,7 @@ Extraer el protocolo de Checkpoint (5 pasos con markdown) del cuerpo del Coordin
 
 Reemplazar los bloques de templates inline por referencias simbólicas:
 ```
-Use the template at `.pipeline/templates/PIPELINE.md`
+Use the template at `agent-workspace/templates/PIPELINE.md`
 Invoke skill: checkpoint-protocol
 ```
 
@@ -411,7 +411,7 @@ FASE 5 ─ Pipeline wiring → Coordinator
   T5.5  Coordinator: consumir AGENT_STATUS
 
 FASE 6 ─ Adelgazamiento del Coordinator
-  T6.1  Crear .pipeline/templates/
+  T6.1  Crear agent-workspace/templates/
   T6.2  Crear skill checkpoint-protocol
   T6.3  Coordinator referencia templates y skill
 

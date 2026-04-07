@@ -34,13 +34,13 @@ El Pipeline Coordinator espera comandos explícitos. **Siempre** debes usar uno 
 ```
 
 **Qué hace:**
-- Crea la carpeta `.pipeline/{issue-name}/`
+- Crea la carpeta `agent-workspace/{issue-name}/`
 - Inicializa `pipeline-state.json` y `PIPELINE.md`
 - Invoca el **PO Agent** para crear el spec
 
 **Cuándo usarlo:**
 - Es la primera vez que trabajas en este feature/requisito
-- No existe `.pipeline/{issue-name}/` aún
+- No existe `agent-workspace/{issue-name}/` aún
 
 ---
 
@@ -58,12 +58,12 @@ El Pipeline Coordinator espera comandos explícitos. **Siempre** debes usar uno 
 ```
 
 **Qué hace:**
-- Lee `.pipeline/{issue-name}/pipeline-state.json`
+- Lee `agent-workspace/{issue-name}/pipeline-state.json`
 - Identifica la fase actual y el estado
 - Continúa desde donde se pausó
 
 **Cuándo usarlo:**
-- El pipeline ya existe (hay una carpeta `.pipeline/{issue-name}/`)
+- El pipeline ya existe (hay una carpeta `agent-workspace/{issue-name}/`)
 - Fue interrumpido y necesita continuar
 
 ---
@@ -145,7 +145,7 @@ El `{issue-name}` es el **identificador único** del pipeline. Ejemplos en este 
 ```
 /coordinator start auth-security-requirements
 ```
-→ Crea `.pipeline/auth-security-requirements/`, PO Agent crea spec
+→ Crea `agent-workspace/auth-security-requirements/`, PO Agent crea spec
 
 ### Semana 1: Aprobar el spec
 Agregas `<!-- STATUS: APPROVED -->` en `spec.md`

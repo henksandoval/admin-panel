@@ -39,7 +39,7 @@ El Code Reviewer escala implícitamente cuando emite un veredicto `DO_NOT_MERGE`
 
 ### Escalaciones por límite de ciclos
 
-Cuando se supera un límite configurado en `.pipeline/config.json`:
+Cuando se supera un límite configurado en `agent-workspace/config.json`:
 
 | Límite superado | Estado resultante |
 |---|---|
@@ -169,7 +169,7 @@ Cuando se supera un límite configurado en `.pipeline/config.json`:
 
 ### Runbook: Pipeline bloqueado por límite de ciclos
 
-**Síntoma:** `PIPELINE_BLOCKED.md` existe en `.pipeline/{issue-number}/`.
+**Síntoma:** `PIPELINE_BLOCKED.md` existe en `agent-workspace/{issue-number}/`.
 
 **Pasos:**
 
@@ -178,7 +178,7 @@ Cuando se supera un límite configurado en `.pipeline/config.json`:
 3. Opciones:
    - **Simplificar el requerimiento:** editar `spec.md`, reducir el alcance, reiniciar desde Fase 0
    - **Escalar a diseño manual:** resolver el bloqueo fuera del pipeline y retomar con un artefacto corregido
-   - **Aumentar el límite:** editar `.pipeline/config.json` solo si se tiene certeza de que el ciclo convergerá
+   - **Aumentar el límite:** editar `agent-workspace/config.json` solo si se tiene certeza de que el ciclo convergerá
 4. Una vez resuelto, actualizar `pipeline-state.json` manualmente a un estado válido y ejecutar `resume {issue-number}`
 
 **Resultado esperado:** Pipeline desbloqueado con un camino claro hacia la convergencia

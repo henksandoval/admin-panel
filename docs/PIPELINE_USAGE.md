@@ -14,8 +14,8 @@ start {issue-number}
 ```
 
 Esto invoca al **Pipeline Coordinator**, que a su vez llama al **Product Owner**, quien:
-1. Crea el directorio `.pipeline/{issue-number}/`
-2. Copia la plantilla de spec a `.pipeline/{issue-number}/spec.md`
+1. Crea el directorio `agent-workspace/{issue-number}/`
+2. Copia la plantilla de spec a `agent-workspace/{issue-number}/spec.md`
 3. Inicializa `pipeline-state.json`
 4. Produce el borrador de `spec.md` y pausa en el **Checkpoint 1** para aprobación humana
 
@@ -79,10 +79,10 @@ Fase 5 — Revisión     (Code Reviewer)    → review-report.md     → CP4 sol
 
 ## Estructura de artefactos
 
-Todos los artefactos de un issue viven en `.pipeline/{issue-number}/`:
+Todos los artefactos de un issue viven en `agent-workspace/{issue-number}/`:
 
 ```
-.pipeline/{issue-number}/
+agent-workspace/{issue-number}/
   ├─ PIPELINE.md               (estado visual del pipeline — actualizado en cada fase)
   ├─ pipeline-state.json       (estado machine-readable — no editar manualmente)
   ├─ spec.md                   (especificación de negocio — Product Owner)
@@ -109,7 +109,7 @@ Todos los artefactos de un issue viven en `.pipeline/{issue-number}/`:
 
 ## Límites de ciclos
 
-El archivo `.pipeline/config.json` define los límites máximos de iteración:
+El archivo `agent-workspace/config.json` define los límites máximos de iteración:
 
 | Parámetro | Significado |
 |---|---|

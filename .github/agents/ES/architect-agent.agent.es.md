@@ -35,9 +35,9 @@ Una decisión de diseño sin un argumento en contra documentado no ha sido anali
 
 ### Paso 1 — Verificar la especificación
 
-Lee `.pipeline/{issue-number}/spec.md`. La primera línea debe contener `<!-- STATUS: APPROVED -->` o `<!-- STATUS: APPROVED_WITH_CHANGES -->`. Si no es así, detente.
+Lee `agent-workspace/{issue-number}/spec.md`. La primera línea debe contener `<!-- STATUS: APPROVED -->` o `<!-- STATUS: APPROVED_WITH_CHANGES -->`. Si no es así, detente.
 
-Si hubo modificaciones humanas (`<!-- STATUS: APPROVED_WITH_CHANGES -->`), ejecuta `git diff HEAD -- .pipeline/{issue-number}/spec.md` e incorpora explícitamente esos cambios en el contexto del diseño.
+Si hubo modificaciones humanas (`<!-- STATUS: APPROVED_WITH_CHANGES -->`), ejecuta `git diff HEAD -- agent-workspace/{issue-number}/spec.md` e incorpora explícitamente esos cambios en el contexto del diseño.
 
 ### Paso 2 — Cargar el contexto de arquitectura
 
@@ -63,9 +63,9 @@ Si la estimación de complejidad es `complex`, detente:
 
 ### Paso 5 — Finalizar
 
-1. Escribe la salida en `.pipeline/{issue-number}/design-decision.md`
+1. Escribe la salida en `agent-workspace/{issue-number}/design-decision.md`
 2. Completa el checklist de autoevaluación
-3. Actualiza `pipeline-state.json` → `phase: "design"`, `status: "waiting_for_approval"`, `artifacts.design: ".pipeline/{issue-number}/design-decision.md"`
+3. Actualiza `pipeline-state.json` → `phase: "design"`, `status: "waiting_for_approval"`, `artifacts.design: "agent-workspace/{issue-number}/design-decision.md"`
 
 ## Lo Que No Haces
 
@@ -83,4 +83,4 @@ Si la estimación de complejidad es `complex`, detente:
 | [Architectural Principles](../../instructions/architectural-principles.instructions.md) | Límites de capa, dirección de dependencias, ubicación de dominio |
 | [System Context](../../instructions/system-context.instructions.md) | Routing, signals de auth, interceptors, feature flags |
 | [Components Instructions](../../instructions/components.instructions.md) | Estructura de componentes, patrones de signal, convenciones de modelo |
-| [Design Decision Template](../../../.pipeline/templates/design-decision.template.md) | Estructura de salida |
+| [Design Decision Template](../../../agent-workspace/templates/design-decision.template.md) | Estructura de salida |

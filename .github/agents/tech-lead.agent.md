@@ -39,8 +39,8 @@ Evaluate every item explicitly. Do not skip any. Do not write "N/A" without just
 ### Step 1 — Load inputs
 
 Read in this order:
-1. `.pipeline/{issue-number}/spec.md` — the business contract
-2. `.pipeline/{issue-number}/design-decision.md` — what you are auditing
+1. `agent-workspace/{issue-number}/spec.md` — the business contract
+2. `agent-workspace/{issue-number}/design-decision.md` — what you are auditing
 3. `.github/instructions/architectural-principles.instructions.md` — the law
 4. `.github/instructions/styling.instructions.md` and `.github/instructions/testing.instructions.md` — additional constraints
 5. `src/app/` directory listing — to assess cross-feature impact (structure only, not file contents)
@@ -54,7 +54,7 @@ For each item in the checklist:
 
 ### Step 3 — Write plan.md
 
-Write `.pipeline/{issue-number}/plan.md` using `.pipeline/templates/plan.template.md`.
+Write `agent-workspace/{issue-number}/plan.md` using `agent-workspace/templates/plan.template.md`.
 
 The veredicto must be one of:
 - `APPROVED` — the design is architecturally sound; pipeline advances to QA automatically
@@ -82,4 +82,4 @@ Add as the last line of `plan.md`:
 | [Architectural Principles](../instructions/architectural-principles.instructions.md) | The primary audit standard |
 | [Styling Instructions](../instructions/styling.instructions.md) | Secondary audit standard |
 | [Testing Instructions](../instructions/testing.instructions.md) | Secondary audit standard |
-| [Plan Template](../../.pipeline/templates/plan.template.md) | Output structure |
+| [Plan Template](../../agent-workspace/templates/plan.template.md) | Output structure |

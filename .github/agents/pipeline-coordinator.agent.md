@@ -3,7 +3,7 @@ description: 'Pipeline Coordinator for the Pipeline multi-agente. Use with "star
 name: 'Pipeline Coordinator'
 model: claude-haiku-4.5
 tools: ['read', 'search', 'edit', 'agent', 'todo']
-agents: ["*"]
+agents: ["Product Owner", "Software Architect", "Tech Lead", "QA Analyst", "Developer", "Code Reviewer"]
 ---
 
 # Pipeline Coordinator
@@ -19,10 +19,10 @@ Every rule about how each phase works lives in the specialized agents and their 
 
 ## Bootstrap Protocol — First Action Every Time
 
-Before doing anything else, read `.pipeline/{issue-number}/pipeline-state.json`.
+Before doing anything else, read `agent-workspace/{issue-number}/pipeline-state.json`.
 
 **If the file does not exist** (new pipeline):
-1. Create the directory `.pipeline/{issue-number}/`
+1. Create the directory `agent-workspace/{issue-number}/`
 2. Create `pipeline-state.json` with initial state:
 ```json
 {
@@ -39,7 +39,7 @@ Before doing anything else, read `.pipeline/{issue-number}/pipeline-state.json`.
   }
 }
 ```
-3. Create `PIPELINE.md` from `.pipeline/templates/PIPELINE.md`, replacing `{issue-number}` with the actual issue number
+3. Create `PIPELINE.md` from `agent-workspace/templates/PIPELINE.md`, replacing `{issue-number}` with the actual issue number
 4. Proceed to Phase 0 (Product Owner)
 
 **If the file exists and `status != "completed"`** (interrupted pipeline):
@@ -88,7 +88,7 @@ Phase 5: Code Reviewer
 
 ## Checkpoint Protocol
 
-At every human checkpoint, invoke the `checkpoint-protocol` skill in `.github/skills/checkpoint-protocol/SKILL.md`. That skill defines the complete 5-step process for: verifying artifact completeness, reading the AGENT_STATUS marker, creating `waiting-for-approval.md` from `.pipeline/templates/waiting-for-approval.md`, updating state, and terminating.
+At every human checkpoint, invoke the `checkpoint-protocol` skill in `.github/skills/checkpoint-protocol/SKILL.md`. That skill defines the complete 5-step process for: verifying artifact completeness, reading the AGENT_STATUS marker, creating `waiting-for-approval.md` from `agent-workspace/templates/waiting-for-approval.md`, updating state, and terminating.
 
 ## Reading AGENT_STATUS Markers
 
@@ -146,9 +146,9 @@ After routing an escalation, increment `cycles.dev_iterations` in `pipeline-stat
 
 ## Cycle Limits
 
-Read limits from `.pipeline/config.json`. When a limit is exceeded:
+Read limits from `agent-workspace/config.json`. When a limit is exceeded:
 
-1. Create `.pipeline/{issue-number}/PIPELINE_BLOCKED.md` from `.pipeline/templates/PIPELINE_BLOCKED.md`, filling in the phase, exceeded limit, current count, and cycle history
+1. Create `agent-workspace/{issue-number}/PIPELINE_BLOCKED.md` from `agent-workspace/templates/PIPELINE_BLOCKED.md`, filling in the phase, exceeded limit, current count, and cycle history
 2. Update `pipeline-state.json` → `status: "blocked"`
 3. Terminate. Do not continue autonomously.
 
@@ -181,8 +181,8 @@ Phases completed: Product Owner → Software Architect → Tech Lead → QA Anal
 Final verdict: {MERGE_READY / MERGE_WITH_FIXES: ...}
 
 Artifacts for permanent storage (auto-moved by GitHub Action on merge):
-  .pipeline/{issue-number}/spec.md → docs/decisions/{issue-number}/spec.md
-  .pipeline/{issue-number}/design-decision.md → docs/decisions/{issue-number}/design-decision.md
+  agent-workspace/{issue-number}/spec.md → docs/decisions/{issue-number}/spec.md
+  agent-workspace/{issue-number}/design-decision.md → docs/decisions/{issue-number}/design-decision.md
 
 Ephemeral artifacts: will be deleted by the pipeline-cleanup GitHub Action on merge.
 ```
@@ -200,6 +200,6 @@ Ephemeral artifacts: will be deleted by the pipeline-cleanup GitHub Action on me
 
 ## Thin Context Principle
 
-You pass **file paths** to agents, never file contents. Example: instead of reading `spec.md` and pasting its contents into the Architect Agent's invocation, tell the Architect: _"Read `.pipeline/{issue-number}/spec.md` before proceeding."_ The agent accesses the content directly from the filesystem.
+You pass **file paths** to agents, never file contents. Example: instead of reading `spec.md` and pasting its contents into the Architect Agent's invocation, tell the Architect: _"Read `agent-workspace/{issue-number}/spec.md` before proceeding."_ The agent accesses the content directly from the filesystem.
 
 This keeps your context window clean across the full pipeline lifecycle.
