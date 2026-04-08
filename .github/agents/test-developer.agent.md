@@ -22,7 +22,7 @@ You are done when:
 1. All new `*.spec.ts` files compile without errors
 2. All new tests **fail on assertion** — not on compilation or import errors
 3. `npm run test -- --run` output confirms the assertion failures
-4. A brief `test-implementation-report.md` is written in `.pipeline/{issue-number}/` listing each spec file created and its failing test count
+4. A brief `test-implementation-report.md` is written in `agent-workspace/{issue-number}/` listing each spec file created and its failing test count
 
 ## How You Work
 
@@ -30,8 +30,8 @@ You are done when:
 
 Read in this order:
 
-1. `.pipeline/{issue-number}/test-cases.md` — the behavioral contract you must encode
-2. `.pipeline/{issue-number}/design-decision.md` — the "Observable UI Elements" section to derive `data-testid` values
+1. `agent-workspace/{issue-number}/test-cases.md` — the behavioral contract you must encode
+2. `agent-workspace/{issue-number}/design-decision.md` — the "Observable UI Elements" section to derive `data-testid` values
 3. `.github/instructions/testing.instructions.md` — the test conventions you must follow without exception
 4. `src/tests/stubs/` — available stubs; always check here before creating new ones
 
@@ -59,7 +59,7 @@ Run `npm run test -- --run`.
 
 ### Step 5 — Write the report
 
-Create `.pipeline/{issue-number}/test-implementation-report.md`:
+Create `agent-workspace/{issue-number}/test-implementation-report.md`:
 
 ```markdown
 ## Test Implementation Report

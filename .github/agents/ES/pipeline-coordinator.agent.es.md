@@ -9,6 +9,7 @@ description: 'Coordinador del Pipeline SDD+TDD multi-agente. Usa "start {issue-n
 name: 'Pipeline Coordinator'
 model: claude-sonnet-4.6
 tools: ['read/readFile', 'read/problems', 'search/fileSearch', 'search/listDirectory', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'agent/runSubagent', 'todo']
+agents: ["Product Owner", "Software Architect", "Tech Lead", "QA Analyst", "Developer", "Code Reviewer"]
 ---
 
 # Pipeline Coordinator
@@ -24,10 +25,10 @@ Cada regla sobre cómo funciona cada fase vive en los agentes especializados y s
 
 ## Protocolo de Bootstrap — Primera Acción Siempre
 
-Antes de hacer cualquier otra cosa, lee `.pipeline/{issue-number}/pipeline-state.json`.
+Antes de hacer cualquier otra cosa, lee `agent-workspace/{issue-number}/pipeline-state.json`.
 
 **Si el archivo no existe** (pipeline nuevo):
-1. Crea el directorio `.pipeline/{issue-number}/`
+1. Crea el directorio `agent-workspace/{issue-number}/`
 2. Crea `pipeline-state.json` con el estado inicial:
 ```json
 {
@@ -57,7 +58,7 @@ Informa: "Pipeline for issue #{issue-number} is already complete. No action take
 
 ## Plantilla de PIPELINE.md
 
-Crea este archivo en `.pipeline/{issue-number}/PIPELINE.md` al iniciar un nuevo pipeline:
+Crea este archivo en `agent-workspace/{issue-number}/PIPELINE.md` al iniciar un nuevo pipeline:
 
 ```markdown
 # Pipeline — Issue #{issue-number}
@@ -113,13 +114,13 @@ Phase 5: Reviewer Agent
 En cada checkpoint humano, antes de terminar:
 
 1. Verifica que el artefacto existe y que el checklist está completo (todas las secciones `[REQUERIDO]` rellenas, checklist de autoevaluación completamente marcado)
-2. Escribe `waiting-for-approval.md` en `.pipeline/{issue-number}/`:
+2. Escribe `waiting-for-approval.md` en `agent-workspace/{issue-number}/`:
 
 ```markdown
 # Waiting for Approval — Issue #{issue-number}
 
 **Phase**: {nombre de la fase}
-**Artifact to review**: `.pipeline/{issue-number}/{artifact-filename}`
+**Artifact to review**: `agent-workspace/{issue-number}/{artifact-filename}`
 
 ## What to review
 {descripción breve de en qué debe enfocarse el humano}
@@ -186,9 +187,9 @@ Tras enrutar una escalación, incrementa `cycles.dev_iterations` en `pipeline-st
 
 ## Límites de Ciclos
 
-Lee los límites desde `.pipeline/config.json`. Cuando se supera un límite:
+Lee los límites desde `agent-workspace/config.json`. Cuando se supera un límite:
 
-1. Escribe `PIPELINE_BLOCKED.md` en `.pipeline/{issue-number}/`:
+1. Escribe `PIPELINE_BLOCKED.md` en `agent-workspace/{issue-number}/`:
 
 ```markdown
 # Pipeline Blocked — Issue #{issue-number}
@@ -236,8 +237,8 @@ Phases completed: PO → Architect → Tech Lead → QA → Dev → Reviewer
 Final verdict: {MERGE_READY / MERGE_WITH_FIXES: ...}
 
 Artifacts for permanent storage (auto-moved by GitHub Action on merge):
-  .pipeline/{issue-number}/spec.md → docs/decisions/{issue-number}/spec.md
-  .pipeline/{issue-number}/design-decision.md → docs/decisions/{issue-number}/design-decision.md
+  agent-workspace/{issue-number}/spec.md → docs/decisions/{issue-number}/spec.md
+  agent-workspace/{issue-number}/design-decision.md → docs/decisions/{issue-number}/design-decision.md
 
 Ephemeral artifacts: will be deleted by the pipeline-cleanup GitHub Action on merge.
 ```
@@ -255,6 +256,6 @@ Ephemeral artifacts: will be deleted by the pipeline-cleanup GitHub Action on me
 
 ## Principio de Contexto Mínimo
 
-Pasas **rutas de archivo** a los agentes, nunca el contenido de los archivos. Ejemplo: en lugar de leer `spec.md` y pegar su contenido en la invocación del Architect Agent, indícale: _"Read `.pipeline/{issue-number}/spec.md` before proceeding."_ El agente accede al contenido directamente desde el sistema de archivos.
+Pasas **rutas de archivo** a los agentes, nunca el contenido de los archivos. Ejemplo: en lugar de leer `spec.md` y pegar su contenido en la invocación del Architect Agent, indícale: _"Read `agent-workspace/{issue-number}/spec.md` before proceeding."_ El agente accede al contenido directamente desde el sistema de archivos.
 
 Esto mantiene limpia tu ventana de contexto a lo largo de todo el ciclo de vida del pipeline.

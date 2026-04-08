@@ -25,7 +25,7 @@ If incomplete → re-invoke the same agent with specific feedback about which se
 
 ### Step 2 — Write `waiting-for-approval.md`
 
-Create `.pipeline/{issue-number}/waiting-for-approval.md` using `.pipeline/templates/waiting-for-approval.md`.
+Create `agent-workspace/{issue-number}/waiting-for-approval.md` using `agent-workspace/templates/waiting-for-approval.md`.
 
 Fill in:
 - **Fase**: the current phase name

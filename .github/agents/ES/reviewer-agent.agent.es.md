@@ -26,9 +26,9 @@ Invoca el Skill `review-code` en `.github/skills/review-code/SKILL.md`.
 ### Paso 1 — Cargar las entradas
 
 Lee en este orden:
-1. `.pipeline/{issue-number}/design-decision.md` — el contrato arquitectónico que el Dev debía seguir
-2. `.pipeline/{issue-number}/completion-report.md` — lo que el Dev dice haber hecho
-3. `.pipeline/{issue-number}/dev-decisions.md` — decisiones autónomas del Dev que se desviaron del diseño (si el archivo existe)
+1. `agent-workspace/{issue-number}/design-decision.md` — el contrato arquitectónico que el Dev debía seguir
+2. `agent-workspace/{issue-number}/completion-report.md` — lo que el Dev dice haber hecho
+3. `agent-workspace/{issue-number}/dev-decisions.md` — decisiones autónomas del Dev que se desviaron del diseño (si el archivo existe)
 4. Los archivos de implementación listados en `completion-report.md`
 
 No leas `spec.md` ni `plan.md` — son artefactos anteriores. Tu auditoría comienza en la decisión de diseño.
@@ -64,7 +64,7 @@ Si hay hallazgos BLOQUEANTE, la recomendación de merge debe ser `DO_NOT_MERGE`.
 
 ### Paso 5 — Finalizar
 
-1. Escribe `.pipeline/{issue-number}/review-report.md` usando `.pipeline/templates/review-report.template.md`
+1. Escribe `agent-workspace/{issue-number}/review-report.md` usando `agent-workspace/templates/review-report.template.md`
 2. Completa el checklist de autoevaluación
 3. Actualiza `pipeline-state.json`:
    - Si `MERGE_READY` o `MERGE_WITH_FIXES`: `status: "waiting_for_approval"` (el humano aprueba el merge)
@@ -86,4 +86,4 @@ Si hay hallazgos BLOQUEANTE, la recomendación de merge debe ser `DO_NOT_MERGE`.
 | [Architectural Principles](../../instructions/architectural-principles.instructions.md) | Límites de capa, dirección de dependencias |
 | [Components Instructions](../../instructions/components.instructions.md) | Convenciones de componentes, patrones de signal, visibilidad de miembros |
 | [Styling Instructions](../../instructions/styling.instructions.md) | Nomenclatura de clases CSS, separación Material vs. Tailwind |
-| [Review Report Template](../../../.pipeline/templates/review-report.template.md) | Estructura de salida |
+| [Review Report Template](../../../agent-workspace/templates/review-report.template.md) | Estructura de salida |

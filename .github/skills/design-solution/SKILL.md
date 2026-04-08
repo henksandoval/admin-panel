@@ -13,7 +13,7 @@ Translate an approved business spec into a verifiable technical design. The outp
 
 ### Step 1 — Verify the spec is approved
 
-Read `.pipeline/{issue-number}/spec.md`. Check that the first line contains `<!-- STATUS: APPROVED -->` or `<!-- STATUS: APPROVED_WITH_CHANGES -->`.
+Read `agent-workspace/{issue-number}/spec.md`. Check that the first line contains `<!-- STATUS: APPROVED -->` or `<!-- STATUS: APPROVED_WITH_CHANGES -->`.
 
 If the status marker is missing or is `PENDING`, stop and report: "spec.md has not been approved. Awaiting human approval before proceeding."
 
@@ -91,13 +91,13 @@ If the estimate is `complex`, stop and report: "This feature is classified as co
 
 ### Step 8 — Fill the template
 
-Write the output to `.pipeline/{issue-number}/design-decision.md` using `.pipeline/templates/design-decision.template.md` as the base structure.
+Write the output to `agent-workspace/{issue-number}/design-decision.md` using `agent-workspace/templates/design-decision.template.md` as the base structure.
 
 Complete every `[REQUERIDO]` section. Complete the self-evaluation checklist as the last step.
 
 ### Output
 
-A completed `.pipeline/{issue-number}/design-decision.md` with:
+A completed `agent-workspace/{issue-number}/design-decision.md` with:
 - All `[REQUERIDO]` sections filled
 - At least 2 approaches with explicit trade-offs
 - Adversarial case-against documented before the verdict

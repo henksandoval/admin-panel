@@ -1,7 +1,7 @@
 # Waiting for Approval — Issue #{issue-number}
 
 **Fase**: {nombre de la fase}
-**Artefacto a revisar**: `.pipeline/{issue-number}/{artifact-filename}`
+**Artefacto a revisar**: `agent-workspace/{issue-number}/{artifact-filename}`
 
 ## Qué revisar
 

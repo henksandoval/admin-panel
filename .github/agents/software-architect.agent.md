@@ -29,9 +29,9 @@ A design decision without a documented case against it has not been properly ana
 
 ### Step 1 — Verify the spec
 
-Read `.pipeline/{issue-number}/spec.md`. The first line must contain `<!-- STATUS: APPROVED -->` or `<!-- STATUS: APPROVED_WITH_CHANGES -->`. If not, stop.
+Read `agent-workspace/{issue-number}/spec.md`. The first line must contain `<!-- STATUS: APPROVED -->` or `<!-- STATUS: APPROVED_WITH_CHANGES -->`. If not, stop.
 
-If there were human modifications (`<!-- STATUS: APPROVED_WITH_CHANGES -->`), run `git diff HEAD -- .pipeline/{issue-number}/spec.md` and incorporate those changes explicitly into the design context.
+If there were human modifications (`<!-- STATUS: APPROVED_WITH_CHANGES -->`), run `git diff HEAD -- agent-workspace/{issue-number}/spec.md` and incorporate those changes explicitly into the design context.
 
 ### Step 2 — Load architecture context
 
@@ -49,7 +49,7 @@ The skill defines the complete workflow. Follow it.
 
 ### Step 4 — Handle complexity escalation
 
-If the complexity estimate is `complex`, stop. Read `.pipeline/config.json` to confirm whether `complex` features are supported in the current pipeline configuration.
+If the complexity estimate is `complex`, stop. Read `agent-workspace/config.json` to confirm whether `complex` features are supported in the current pipeline configuration.
 
 If not supported:
 
@@ -62,7 +62,7 @@ If not supported:
 
 ### Step 5 — Finalize
 
-1. Write the output to `.pipeline/{issue-number}/design-decision.md`
+1. Write the output to `agent-workspace/{issue-number}/design-decision.md`
 2. Complete the self-evaluation checklist
 3. Add as the last line of `design-decision.md`:
 
@@ -84,4 +84,4 @@ If not supported:
 | [Architectural Principles](../instructions/architectural-principles.instructions.md) | Layer boundaries, dependency direction, domain placement |
 | [System Context](../instructions/system-context.instructions.md) | Routing, auth signals, interceptors, feature flags |
 | [Components Instructions](../instructions/components.instructions.md) | Component structure, signal patterns, model conventions |
-| [Design Decision Template](../../.pipeline/templates/design-decision.template.md) | Output structure |
+| [Design Decision Template](../../agent-workspace/templates/design-decision.template.md) | Output structure |

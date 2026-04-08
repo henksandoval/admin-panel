@@ -20,9 +20,9 @@ Invoke the `review-code` skill in `.github/skills/review-code/SKILL.md`.
 ### Step 1 — Load your inputs
 
 Read in this order:
-1. `.pipeline/{issue-number}/design-decision.md` — the architectural contract the Dev was supposed to follow
-2. `.pipeline/{issue-number}/completion-report.md` — what the Dev says was done
-3. `.pipeline/{issue-number}/dev-decisions.md` — autonomous decisions the Dev made that deviated from the design (if the file exists)
+1. `agent-workspace/{issue-number}/design-decision.md` — the architectural contract the Dev was supposed to follow
+2. `agent-workspace/{issue-number}/completion-report.md` — what the Dev says was done
+3. `agent-workspace/{issue-number}/dev-decisions.md` — autonomous decisions the Dev made that deviated from the design (if the file exists)
 4. The actual implementation files listed in `completion-report.md`
 
 Do not read `spec.md` or `plan.md` — those are upstream artifacts. Your audit starts at the design decision.
@@ -58,7 +58,7 @@ If there are BLOQUEANTE findings, the merge recommendation must be `DO_NOT_MERGE
 
 ### Step 5 — Finalize
 
-1. Write `.pipeline/{issue-number}/review-report.md` using `.pipeline/templates/review-report.template.md`
+1. Write `agent-workspace/{issue-number}/review-report.md` using `agent-workspace/templates/review-report.template.md`
 2. Complete the self-evaluation checklist
 3. Add as the last line of `review-report.md`:
    - If `MERGE_READY` or `MERGE_WITH_FIXES`: `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->`
@@ -80,4 +80,4 @@ If there are BLOQUEANTE findings, the merge recommendation must be `DO_NOT_MERGE
 | [Architectural Principles](../instructions/architectural-principles.instructions.md) | Layer boundaries, dependency direction |
 | [Components Instructions](../instructions/components.instructions.md) | Component conventions, signal patterns, member visibility |
 | [Styling Instructions](../instructions/styling.instructions.md) | CSS class naming, Material vs. Tailwind split |
-| [Review Report Template](../../.pipeline/templates/review-report.template.md) | Output structure |
+| [Review Report Template](../../agent-workspace/templates/review-report.template.md) | Output structure |

@@ -23,9 +23,9 @@ For every QA task, invoke the `design-tests` skill in `.github/skills/design-tes
 
 Read:
 
-1. `.pipeline/{issue-number}/spec.md` — must have `<!-- STATUS: APPROVED -->`
-2. `.pipeline/{issue-number}/design-decision.md` — must have `<!-- STATUS: APPROVED -->`
-3. `.pipeline/{issue-number}/plan.md` — must show Tech Lead verdict as `APPROVED`
+1. `agent-workspace/{issue-number}/spec.md` — must have `<!-- STATUS: APPROVED -->`
+2. `agent-workspace/{issue-number}/design-decision.md` — must have `<!-- STATUS: APPROVED -->`
+3. `agent-workspace/{issue-number}/plan.md` — must show Tech Lead verdict as `APPROVED`
 
 If any prerequisite is missing or not approved, stop and report which one is missing.
 
@@ -33,7 +33,7 @@ If any prerequisite is missing or not approved, stop and report which one is mis
 
 Apply the `design-tests` skill.
 
-Write `.pipeline/{issue-number}/test-cases.md` using this canonical structure:
+Write `agent-workspace/{issue-number}/test-cases.md` using this canonical structure:
 
 | ID | Tipo | Escenario / Propósito | Precondiciones | Pasos clave | Resultado esperado | Justificación de valor |
 |---|---|---|---|---|---|---|
@@ -78,4 +78,4 @@ Add as the last line of `test-cases.md`:
 | Reference | When to load |
 |---|---|
 | [Design Tests Skill](../skills/design-tests/SKILL.md) | Always — primary workflow |
-| [Spec Template](../../.pipeline/templates/spec.template.md) | Acceptance criteria structure reference |
+| [Spec Template](../../agent-workspace/templates/spec.template.md) | Acceptance criteria structure reference |

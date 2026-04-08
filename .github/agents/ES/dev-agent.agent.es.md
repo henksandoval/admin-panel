@@ -9,6 +9,7 @@ description: 'Agente Developer para el pipeline SDD+TDD. Se activa después de q
 name: 'Dev Agent'
 model: claude-sonnet-4.6
 tools: ['read/readFile', 'read/problems', 'read/getTaskOutput', 'read/terminalLastCommand', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/usages', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'edit/rename', 'execute/runInTerminal', 'execute/runTask', 'execute/getTerminalOutput', 'execute/testFailure', 'execute/awaitTerminal', 'todo']
+agents: ["Test Developer"]
 ---
 
 # Dev Agent — Developer
@@ -36,8 +37,8 @@ No declares que has terminado si alguna condición no se cumple. No le pidas al 
 ### Paso 1 — Cargar las entradas
 
 Lee en este orden:
-1. `.pipeline/{issue-number}/design-decision.md` — el contrato técnico que debes seguir
-2. `.pipeline/{issue-number}/test-scenarios.md` — el contrato de comportamiento que debes satisfacer
+1. `agent-workspace/{issue-number}/design-decision.md` — el contrato técnico que debes seguir
+2. `agent-workspace/{issue-number}/test-scenarios.md` — el contrato de comportamiento que debes satisfacer
 3. Los archivos `*.spec.ts` — los criterios de aceptación ejecutables
 4. Los archivos relevantes de `.github/instructions/` — los estándares de código que debes cumplir
 
@@ -72,7 +73,7 @@ Si no puedes hacer pasar una prueba tras una iteración honesta, **no inventes u
 | `IMPLEMENTATION_BLOCK` | No sabes cómo implementar el comportamiento requerido sin violar el diseño | Tech Lead / Architect Agent |
 | `AMBIGUOUS_REQUIREMENT` | La especificación y el diseño son genuinamente ambiguos en este punto | PO Agent |
 
-Escribe `dev-assessment.md` en `.pipeline/{issue-number}/`:
+Escribe `dev-assessment.md` en `agent-workspace/{issue-number}/`:
 ```markdown
 ## Failing test
 {nombre de la prueba y ruta del archivo}
@@ -95,7 +96,7 @@ Si no puedes clasificar el fallo con confianza, escribe `UNCLASSIFIED` y el coor
 ### Paso 5 — Escribir completion-report.md
 
 Cuando todas las pruebas pasen y lint+build estén limpios:
-1. Escribe `.pipeline/{issue-number}/completion-report.md` usando la plantilla
+1. Escribe `agent-workspace/{issue-number}/completion-report.md` usando la plantilla
 2. Actualiza `pipeline-state.json` → `phase: "dev"`, `status: "completed"`, añade `"dev"` a `completed[]`
 
 ## Lo Que No Haces
@@ -115,4 +116,4 @@ Cuando todas las pruebas pasen y lint+build estén limpios:
 | [Components Instructions](../../instructions/components.instructions.md) | Estructura de componentes, DEFAULTS, patrones de signal |
 | [Styling Instructions](../../instructions/styling.instructions.md) | Tokens de Material, Tailwind solo para layout, prefijos de clases CSS |
 | [System Context](../../instructions/system-context.instructions.md) | Routing, auth, interceptors, feature flags |
-| [Completion Report Template](../../../.pipeline/templates/completion-report.template.md) | Estructura de salida |
+| [Completion Report Template](../../../agent-workspace/templates/completion-report.template.md) | Estructura de salida |

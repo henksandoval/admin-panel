@@ -21,8 +21,8 @@ For every requirement, invoke the `clarify-requirements` skill in `.github/skill
 
 When invoked with `start {issue-number}`:
 
-1. Copy `.pipeline/templates/spec.template.md` to `.pipeline/{issue-number}/spec.md` (the directory was already created by the Coordinator)
-2. Read `.pipeline/config.json` to load iteration limits
+1. Copy `agent-workspace/templates/spec.template.md` to `agent-workspace/{issue-number}/spec.md` (the directory was already created by the Coordinator)
+2. Read `agent-workspace/config.json` to load iteration limits
 
 ### Step 2 — Produce the spec
 
@@ -68,5 +68,5 @@ When the spec is complete:
 | Reference | When to load |
 |---|---|
 | [Clarify Requirements Skill](../skills/clarify-requirements/SKILL.md) | Always — primary workflow |
-| [Spec Template](../../.pipeline/templates/spec.template.md) | Structure reference for spec.md |
-| [Pipeline Config](../../.pipeline/config.json) | Iteration limits |
+| [Spec Template](../../agent-workspace/templates/spec.template.md) | Structure reference for spec.md |
+| [Pipeline Config](../../agent-workspace/config.json) | Iteration limits |
