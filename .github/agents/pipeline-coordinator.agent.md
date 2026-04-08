@@ -40,7 +40,7 @@ Before doing anything else, read `agent-workspace/{issue-number}/pipeline-state.
 }
 ```
 3. Create `PIPELINE.md` from `agent-workspace/templates/PIPELINE.md`, replacing `{issue-number}` with the actual issue number
-4. Proceed to Phase 0 (Product Owner)
+4. Invoke Phase 0 (Product Owner), passing the **exact original text of the human's request** as context: _"The human requested: '{original request text}'. Use this as the raw input to assess whether the requirement is clear enough to produce a complete spec, or whether clarification is needed."_
 
 **If the file exists and `status != "completed"`** (interrupted pipeline):
 1. Read the current `phase` and `status`
@@ -117,7 +117,7 @@ If no status marker is present: report "Artifact has not been reviewed yet. Add 
 |---|---|
 | `phase: "init"` | Begin Phase 0 (Product Owner) |
 | `phase: "spec"`, `status: "waiting_for_approval"` | Check CP1 approval signal on `spec.md` |
-| `phase: "spec"`, `status: "needs_revision"` | Re-invoke Product Owner with revision feedback |
+| `phase: "spec"`, `status: "needs_revision"` | Re-invoke Product Owner with revision feedback **and** the original human request text as context |
 | `phase: "design"`, `status: "waiting_for_approval"` | Check CP2 approval signal on `design-decision.md` |
 | `phase: "design"`, `status: "needs_revision"` | Re-invoke Software Architect with revision feedback |
 | `phase: "tech-lead"`, `status: "in_progress"` | Invoke Tech Lead |

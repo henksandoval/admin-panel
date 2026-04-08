@@ -2,52 +2,52 @@
 > La fuente de verdad es el archivo en inglés: `.github/instructions/testing.instructions.md`.
 > Si existe discrepancia entre este archivo y el EN, el EN prevalece.
 
-<!-- TRANSLATION: IN_SYNC source=.github/instructions/testing.instructions.md ref=c168627 updated_at=2026-04-06 -->
+<!-- TRANSLATION: IN_SYNC source=.github/instructions/testing.instructions.md ref=c168627 updated_at=2026-04-08 -->
 
 ---
 name: 'Testing Standards'
-description: 'Convenciones de pruebas de caja negra para componentes Angular usando Vitest y @testing-library/angular. Úsalas al escribir, revisar o depurar archivos spec. Cubre selectores data-testid, reutilización de stubs y nomenclatura de it().'
+description: 'Convenciones de pruebas de caja negra para componentes Angular usando Vitest y @testing-library/angular. Usar al escribir, revisar o depurar archivos spec. Cubre selectores data-testid, reutilización de Stubs y nomenclatura de it().'
 applyTo: "src/**/*.spec.ts"
 ---
 
-# Testing — Pruebas de Componente e Integración
+# Testing — Tests de Componentes e Integración
 
 ## Filosofía de Caja Negra
 
-Las pruebas verifican el comportamiento observable, no la implementación interna. Acceder a `fixture.componentInstance` para leer estado o invocar métodos está prohibido.
+Los tests verifican el comportamiento observable, no la implementación interna. Acceder a `fixture.componentInstance` para leer estado o invocar métodos está prohibido.
 
-> **Por qué:** Las pruebas que acceden a los internos de un componente se acoplan a detalles de implementación. Cuando la estructura interna cambia (renombrado, refactor, signal→computed), las pruebas se rompen aunque el comportamiento visible no haya cambiado. Las pruebas basadas en el DOM sobreviven a los refactors y demuestran lo que el usuario realmente experimenta.
+> **Por qué:** Los tests que acceden a los internos del componente se acoplan a los detalles de implementación. Cuando la estructura interna cambia (renombrado, refactoring, signal→computed), los tests se rompen aunque el comportamiento visible no haya cambiado. Los tests basados en el DOM sobreviven a los refactorings y demuestran lo que el usuario realmente experimenta.
 
 ```typescript
-// ❌ Mal
+// ❌ Incorrecto
 component.submitForm();
 expect(component.isLoading).toBe(true);
 
-// ✅ Bien
+// ✅ Correcto
 await user.click(screen.getByTestId('submit-button'));
 expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
 ```
 
 ## Selectores
 
-El único selector válido es `data-testid`. Nunca uses clases CSS, IDs ni texto visible. Si la plantilla no tiene `data-testid`, agrégalo antes de escribir la prueba.
+El único selector válido es `data-testid`. Nunca uses clases CSS, IDs ni texto visible. Si la plantilla no tiene `data-testid`, agrégalo antes de escribir el test.
 
-> **Por qué:** Las clases CSS y los IDs son aspectos de estilos y estructura que cambian con frecuencia. El texto visible se rompe cuando cambia el copy o se añaden traducciones. `data-testid` es un contrato explícito y estable entre la plantilla y sus pruebas — comunica intención y sobrevive a cambios de estilo y de copy.
+> **Por qué:** Las clases CSS y los IDs son aspectos de estilo y estructura que cambian con frecuencia. El texto visible se rompe cuando cambia el copy o se añaden traducciones. `data-testid` es un contrato explícito y estable entre la plantilla y sus tests — comunica la intención y sobrevive a cambios de estilo y contenido.
 
 ```typescript
-// ❌ Mal
+// ❌ Incorrecto
 screen.getByText('Guardar');
 container.querySelector('.submit-btn');
 
-// ✅ Bien
+// ✅ Correcto
 screen.getByTestId('submit-button');
 ```
 
 ## Stubs Reutilizables
 
-Comprueba `src/tests/stubs/` antes de crear un stub o mock local. No dupliques stubs entre archivos de prueba.
+Comprueba `src/tests/stubs/` antes de crear un Stub o Mock local. No dupliques Stubs entre archivos de test.
 
-> **Por qué:** Los stubs duplicados divergen con el tiempo — uno se actualiza, los demás no. Un único stub compartido es el contrato de cómo se comporta esa dependencia en las pruebas de todo el proyecto.
+> **Por qué:** Los Stubs duplicados divergen con el tiempo — uno se actualiza, los demás no. Un único Stub compartido es el contrato sobre cómo se comporta esa dependencia en los tests de todo el proyecto.
 
 ```typescript
 import { MatIconStub } from '@stubs/material/mat-icon.stub';
@@ -58,34 +58,34 @@ import { MatIconStub } from '@stubs/material/mat-icon.stub';
 Descriptiva en inglés. Los prefijos `TC-` están prohibidos.
 
 ```typescript
-// ❌ Mal
+// ❌ Incorrecto
 it('TC-01 login', () => { });
 it('muestra error', () => { });
 
-// ✅ Bien
+// ✅ Correcto
 it('shows error message when credentials are invalid', () => { });
 it('redirects to dashboard after successful login', () => { });
 ```
 
-## Visibilidad de Miembros de Componentes
+## Visibilidad en Componentes
 
-Al modificar un archivo `.ts` como parte de una prueba, declara los miembros usados exclusivamente por la plantilla como `protected`, no como `public`.
+Al modificar un archivo `.ts` como parte de un test, declara como `protected` —no como `public`— los miembros usados exclusivamente por la plantilla.
 
 ```typescript
-// ❌ Mal
+// ❌ Incorrecto
 isLoading = signal(false);
 handleSubmit() { }
 
-// ✅ Bien
+// ✅ Correcto
 protected isLoading = signal(false);
 protected handleSubmit() { }
 ```
 
-Excepción: los miembros a los que acceden pruebas o componentes padre deben mantenerse como `public`.
+Excepción: los miembros a los que acceden los tests o los componentes padre deben permanecer `public`.
 
 ---
 
 ## Instrucciones Relacionadas
 
-- [Component Conventions](../components.instructions.md) — los componentes deben declarar `data-testid` en todos los elementos interactivos antes de poder escribir pruebas
-- [E2E Playwright Rules](../e2e.instructions.md) — las mismas convenciones de `data-testid` y nomenclatura se aplican a las pruebas de Playwright
+- [Convenciones de Componentes](../components.instructions.md) — los componentes deben declarar `data-testid` en todos los elementos interactivos antes de poder escribir tests
+- [Reglas E2E Playwright](../e2e.instructions.md) — las mismas convenciones de `data-testid` y nomenclatura aplican a los tests de Playwright
