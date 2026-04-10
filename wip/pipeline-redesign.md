@@ -10,9 +10,9 @@
 
 El pipeline actual asume que el input del `start {input}` es siempre un issue bien formado. En la práctica:
 
-- El input puede ser una idea libre de texto, un ID de ADO o un número de GitHub Issue.
+- El input puede ser una idea libre de texto o un ID de ADO.
 - El Product Owner recibe ese input crudo y debe resolverlo por su cuenta, contaminando su rol con lógica operativa.
-- No hay sincronización entre el `spec.md` aprobado y el backlog (ADO / GitHub).
+- No hay sincronización entre el `spec.md` aprobado y el backlog de ADO.
 - El Software Architect a veces recibe contexto inconsistente o sin WI vinculado.
 
 Este rediseño introduce el **Project Assistant** — un agente operativo que actúa como bookend del Product Owner: prepara el terreno antes de que los especialistas comiencen y registra los resultados una vez que el humano aprueba.
@@ -24,7 +24,7 @@ Este rediseño introduce el **Project Assistant** — un agente operativo que ac
 - **El Coordinator solo orquesta** — no clasifica inputs ni ejecuta MCPs.
 - **El Product Owner solo refina requisitos** — no detecta tipos de input ni sincroniza backlog.
 - **El Software Architect solo diseña** — no crea issues ni hace tareas operativas.
-- **ADO es la fuente de verdad del backlog** — GitHub Issue es un requisito técnico para Copilot cloud, opcional según `config.json`.
+- **ADO es la fuente de verdad del backlog**.
 - **El spec.md aprobado es la fuente de verdad del pipeline** — el WI en ADO se actualiza desde él, nunca al revés.
 - **Los humanos son responsables del flujo** — los agentes facilitan, no suplantan.
 
@@ -41,15 +41,13 @@ start {input}
 │                                                      │
 │  Responsabilidades:                                  │
 │  • Detectar tipo de input:                           │
-│    - ID numérico → consulta ADO MCP primero          │
-│                    si no existe, consulta GitHub MCP │
-│                    si no existe en ninguno → reporta │
+│    - ID numérico → consulta ADO MCP                  │
+│                    si no existe → reporta            │
 │    - Texto libre → lo empaqueta tal cual             │
-│  • Leer WI/Issue si el ID existe                     │
+│  • Leer WI si el ID existe                           │
 │  • Escribir en pipeline-state.json:                  │
 │    intake_mode, raw_input, source,                   │
 │    ado_work_item_id (si existe),                     │
-│    github_issue_number (si existe),                  │
 │    extracted_context (título, descripción, AC)       │
 │                                                      │
 │  Artefacto: pipeline-state.json (intake completado) │
@@ -91,12 +89,8 @@ start {input}
 │                  una vez resuelto: sincronizar WI    │
 │            → No: actualizar WI con campos faltantes  │
 │    → No: crear WI nuevo en ADO con contenido del spec│
-│  • ¿config.require_github_issue = true              │
-│    y no existe github_issue_number?                  │
-│    → Crear GitHub Issue vinculado al WI de ADO      │
 │  • Actualizar pipeline-state.json con:              │
-│    ado_work_item_id, ado_work_item_url,              │
-│    github_issue_number, github_issue_url             │
+│    ado_work_item_id, ado_work_item_url               │
 │                                                      │
 │  Artefacto: pipeline-state.json (sync completado)   │
 │  Checkpoint: ninguno (salvo conflicto de versión)    │
@@ -142,7 +136,7 @@ start {input}
 |---|---|---|---|---|
 | 0 | Project Assistant | intake | `pipeline-state.json` (intake) | ninguno |
 | 1 | Product Owner | — | `spec.md` | CP1 |
-| 1.5 | Project Assistant | sync | `pipeline-state.json` (sync) + ADO WI + GitHub Issue | ninguno (salvo conflicto) |
+| 1.5 | Project Assistant | sync | `pipeline-state.json` (sync) + ADO WI | ninguno (salvo conflicto) |
 | 2 | Software Architect | — | `design-decision.md` | CP2 |
 | 3 | Tech Lead | — | `plan.md` | automático |
 | 4 | QA Analyst | — | `test-cases.md` | CP3 |
@@ -178,9 +172,7 @@ start {input}
     "raw_input": null,
     "source": null,
     "ado_work_item_id": null,
-    "ado_work_item_url": null,
-    "github_issue_number": null,
-    "github_issue_url": null
+            "ado_work_item_url": null
   },
   "cycles": {
     "spec_revisions": 0,
@@ -197,11 +189,9 @@ start {input}
 |---|---|---|
 | `intake_mode` | Project Assistant (intake) | `"id"` o `"free_text"` |
 | `raw_input` | Project Assistant (intake) | El input exacto del humano |
-| `source` | Project Assistant (intake) | `"ado"`, `"github"`, `"free_text"` |
+| `source` | Project Assistant (intake) | `"ado"` o `"free_text"` |
 | `ado_work_item_id` | Project Assistant (sync) | Número entero del WI |
 | `ado_work_item_url` | Project Assistant (sync) | URL completa del WI |
-| `github_issue_number` | Project Assistant (sync) | Número del Issue |
-| `github_issue_url` | Project Assistant (sync) | URL completa del Issue |
 
 ---
 
@@ -210,8 +200,6 @@ start {input}
 ```json
 {
   "ado_base_url": "https://dev.azure.com/{org}/{project}",
-  "github_base_url": "https://github.com/{owner}/{repo}",
-  "require_github_issue": true,
   "max_spec_revisions": 2,
   "max_design_revisions": 2,
   "max_dev_iterations": 3,
@@ -222,8 +210,6 @@ start {input}
 | Campo nuevo | Significado |
 |---|---|
 | `ado_base_url` | Base URL de ADO. Evita hardcodear coordenadas en el agente |
-| `github_base_url` | Base URL del repo de GitHub |
-| `require_github_issue` | Si `true`, el Project Assistant (sync) crea el GitHub Issue cuando no existe |
 
 ---
 
@@ -234,7 +220,7 @@ start {input}
 | `.github/agents/project-assistant.agent.md` | **Crear** | Nuevo agente |
 | `.github/agents/pipeline-coordinator.agent.md` | **Modificar** | Añadir fases 0 y 1.5, actualizar Resumption Map |
 | `.github/agents/product-owner.agent.md` | **Modificar** | Eliminar lógica de clasificación de input |
-| `agent-workspace/config.json` | **Modificar** | Añadir `ado_base_url`, `github_base_url`, `require_github_issue` |
+| `agent-workspace/config.json` | **Modificar** | Añadir `ado_base_url` |
 | `agent-workspace/templates/PIPELINE.md` | **Modificar** | Añadir filas de Project Assistant (intake y sync) |
 | `docs/PIPELINE_USAGE.md` | **Modificar** | Documentar el nuevo flujo y los nuevos campos |
 
