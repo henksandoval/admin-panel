@@ -53,6 +53,7 @@ Contiene las reglas de estilos, patrones de componentes y ejemplos.
 |---|---|
 | [PIPELINE_USAGE.md](docs/PIPELINE_USAGE.md) | Cómo usar el flujo multi-agente: inicio rápido, checkpoints, artefactos, FAQ |
 | [PIPELINE_ESCALATIONS.md](docs/PIPELINE_ESCALATIONS.md) | Matriz de escalaciones y runbooks de resolución de fallos |
+| [PROJECT_MCP_SHARED_SETUP.md](docs/PROJECT_MCP_SHARED_SETUP.md) | Configuración MCP compartida del workspace y pasos para usar Azure MCP en el proyecto |
 
 ## Temas
 
