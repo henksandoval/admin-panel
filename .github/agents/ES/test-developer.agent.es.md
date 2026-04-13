@@ -2,7 +2,7 @@
 > La fuente de verdad es el archivo en inglés: `.github/agents/test-developer.agent.md`.
 > Si existe discrepancia entre este archivo y el EN, el EN prevalece.
 
-<!-- TRANSLATION: IN_SYNC source=.github/agents/test-developer.agent.md ref=7467465 updated_at=2026-04-08 -->
+<!-- TRANSLATION: IN_SYNC source=.github/agents/test-developer.agent.md ref=7467465 updated_at=2026-04-13 -->
 
 ---
 description: 'Agente Test Developer. Especializado en traducir un test-cases.md aprobado a archivos *.spec.ts listos para producción (fase RED). Invocado por el Developer como subagente. Nunca invoca al Developer. No escribe código de implementación.'
@@ -65,15 +65,15 @@ Ejecuta `npm run test -- --run`.
 
 ### Paso 5 — Escribe el informe
 
-Crea `agent-workspace/{issue-number}/test-implementation-report.md`:
+Crea `agent-workspace/{issue-number}/test-implementation-report.md` usando `agent-workspace/templates/test-implementation-report.template.md` y escribe la prosa en español:
 
 ```markdown
-## Test Implementation Report
+## Informe de implementación de tests
 
-### Files created
+### Archivos creados
 - {path/to/spec.file.spec.ts} — {N} tests failing by assertion
 
-### Test case coverage
+### Cobertura de test cases
 | Test Case ID | Spec file | Status |
 |---|---|---|
 | {ID} | {file} | RED ✓ |
@@ -81,7 +81,7 @@ Crea `agent-workspace/{issue-number}/test-implementation-report.md`:
 ### data-testid values introduced
 {list of new data-testid values added to templates}
 
-### Stubs used
+### Stubs reutilizados
 {list of stubs from src/tests/stubs/ that were reused}
 ```
 
@@ -102,3 +102,4 @@ Crea `agent-workspace/{issue-number}/test-implementation-report.md`:
 | [Instrucciones de Testing](../instructions/testing.instructions.md) | Filosofía de caja negra, nomenclatura data-testid, visibilidad de miembros, nomenclatura it() |
 | [Instrucciones E2E](../instructions/e2e.instructions.md) | Cuando los test cases requieran cobertura E2E |
 | [Catálogo de Stubs](../../src/tests/stubs) | Siempre — comprueba antes de crear cualquier Stub |
+| [Plantilla de Test Implementation Report](../../agent-workspace/templates/test-implementation-report.template.md) | Paso 5 — estructura del informe |

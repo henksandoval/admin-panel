@@ -54,7 +54,7 @@ Do not skip step 1. A design that cannot survive adversarial scrutiny is not rea
 
 ### Step 5 — Identify observable UI elements
 
-List every element the user will see or interact with. These become the inputs for the QA Agent when deriving `data-testid` values.
+List every element the user will see or interact with. These become the inputs for QA scenario design and for the Test Developer when deriving `data-testid` values.
 
 Rules for this section:
 - Describe from the user's perspective, not the developer's

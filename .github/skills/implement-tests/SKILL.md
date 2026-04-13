@@ -1,78 +1,67 @@
 ---
 name: "implement-tests"
-description: "Implements .spec.ts files from test scenarios following the project's strict black-box testing conventions. Adds missing data-testid attributes to templates as needed."
+description: "Implements .spec.ts files from approved test-cases.md following the project's strict black-box testing conventions. Adds missing data-testid attributes to templates as needed."
 ---
 
 # Implement Tests
 
 ## Purpose
 
-Translate test scenarios into production-quality `.spec.ts` files. Every test interacts with the DOM as a user would — never with the component's internal state.
+Translate approved `test-cases.md` scenarios into executable `.spec.ts` files that fail for the right reason: missing implementation, not broken test code.
 
 ## Instructions
 
-### Step 1 — Gather context
+### Step 1 — Gather pipeline context
 
-- Find the test scenarios in `docs/specs/{feature-name}.md` (the `## Test Scenarios` section)
-- Read the component's `.ts` file to understand its interface
-- Read the component's `.html` file to audit `data-testid` coverage
-- Check `src/tests/stubs/` for available stubs before creating any
+Read:
 
-If no test scenarios exist, tell the user to run the `design-tests` skill first.
+1. `agent-workspace/{issue-number}/test-cases.md`
+2. `agent-workspace/{issue-number}/design-decision.md`
+3. `.github/instructions/testing.instructions.md`
+4. `src/tests/stubs/`
 
-### Step 2 — Add missing data-testid attributes
+If `test-cases.md` does not exist, stop and tell the user to run the `design-tests` skill first.
 
-Before writing the spec, ensure every element that a test scenario needs to query or interact with has a `data-testid`. Add them to the template now:
-- Interactive elements: `data-testid="submit-button"`, `data-testid="cancel-link"`
-- Observable elements: `data-testid="error-message"`, `data-testid="loading-spinner"`, `data-testid="empty-state"`
-- Content containers: `data-testid="user-list"`, `data-testid="form-title"`
+### Step 2 — Add missing `data-testid` coverage
 
-### Step 3 — Write the spec
+Use the "Elementos UI observables" section of `design-decision.md` to determine which UI elements need stable selectors.
 
-**Absolute rules — any violation makes the test invalid:**
+Before writing tests:
 
-**Selectors:** Only `screen.getByTestId('...')`. Never `getByText`, `querySelector`, CSS classes, IDs, or element tags.
+- add `data-testid` to every interactive element the scenario touches,
+- add `data-testid` to every observable message, loading state, or content region the assertions need,
+- keep naming consistent with the project's testing instructions.
 
-**Black box:** Never access `fixture.componentInstance`. All interactions via `userEvent`, all assertions via DOM matchers.
+### Step 3 — Write the specs
 
-**Stubs:** Import from `src/tests/stubs/`. Create new stubs there if needed — never inline in the spec.
+Absolute rules:
 
-**Naming:** All `it()` descriptions in English, specific and behavior-focused. `TC-` prefix is prohibited.
+- Use `screen.getByTestId(...)` / `queryByTestId(...)` selectors only
+- Never access `fixture.componentInstance`
+- Reuse stubs from `src/tests/stubs/` before creating new ones
+- Keep every `it()` description in English and behavior-focused
+- Make the new tests compile cleanly before checking RED behavior
 
-```typescript
-import { render, screen } from '@testing-library/angular';
-import { userEvent } from '@testing-library/user-event';
+### Step 4 — Verify RED state
 
-describe('ComponentNameComponent', () => {
-  describe('critical path', () => {
-    it('displays success message after valid form submission', async () => {
-      await render(ComponentNameComponent, {
-        imports: [...],
-        providers: [...]
-      });
-      const user = userEvent.setup();
-
-      await user.type(screen.getByTestId('email-input'), 'user@example.com');
-      await user.click(screen.getByTestId('submit-button'));
-
-      expect(screen.getByTestId('success-message')).toBeInTheDocument();
-    });
-  });
-
-  describe('error states', () => {
-    it('shows validation error when email format is invalid', async () => {
-      // ...
-    });
-  });
-});
-```
-
-### Step 4 — Run and verify
+Run:
 
 ```bash
-npm test -- --run --reporter=verbose
+npm run test -- --run
 ```
 
-If tests fail because the component is not yet implemented, that is expected — the tests are written first (TDD). If they fail for unexpected reasons (wrong selector, setup error), fix the spec.
+All new tests must fail by assertion. If any new test fails because of compilation, setup, or selector mistakes, fix the test first.
 
-Report the outcome clearly: which tests pass, which are pending (component not yet built), which failed unexpectedly.
+### Step 5 — Write `test-implementation-report.md`
+
+Write `agent-workspace/{issue-number}/test-implementation-report.md` in Spanish using `agent-workspace/templates/test-implementation-report.template.md`.
+
+Keep code identifiers, file paths, `data-testid` values, and `it()` descriptions in English.
+
+### Output
+
+Report:
+
+- the spec files created or updated,
+- the number of tests failing by assertion,
+- any `data-testid` values introduced in templates.

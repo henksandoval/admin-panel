@@ -1,3 +1,8 @@
+---
+name: "checkpoint-protocol"
+description: "Standardized procedure for requesting human approval at pipeline checkpoints. Invoked by the Pipeline Coordinator at every phase that requires human review before advancing."
+---
+
 # Checkpoint Protocol
 
 ## Purpose
@@ -6,10 +11,10 @@ Standardized procedure for requesting human approval at pipeline checkpoints. In
 
 ## When to Invoke
 
-- After Phase 0 (Product Owner produces `spec.md`) → CP1
-- After Phase 1 (Software Architect produces `design-decision.md`) → CP2
-- After Phase 3 (QA Analyst produces `test-cases.md`) → CP3
-- After Phase 5 when review contains BLOQUEANTE findings → CP4
+- After Phase 1 (Product Owner produces `spec.md`) → CP1
+- After Phase 2 (Software Architect produces `design-decision.md`) → CP2
+- After Phase 4 (QA Analyst produces `test-cases.md`) → CP3
+- After Phase 6 only when `review-report.md` contains a `DO_NOT_MERGE` verdict → CP4
 
 ## Protocol Steps
 
@@ -25,7 +30,7 @@ If incomplete → re-invoke the same agent with specific feedback about which se
 
 ### Step 2 — Write `waiting-for-approval.md`
 
-Create `agent-workspace/{issue-number}/waiting-for-approval.md` using `agent-workspace/templates/waiting-for-approval.md`.
+Create `agent-workspace/{issue-number}/waiting-for-approval.md` using `agent-workspace/templates/waiting-for-approval.template.md`.
 
 Fill in:
 - **Fase**: the current phase name

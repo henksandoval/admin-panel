@@ -17,7 +17,7 @@
 
 ## Decisiones autónomas tomadas [REQUERIDO]
 
-> Cualquier decisión de implementación que no estaba especificada en `design-decision.md` o `test-scenarios.md`.
+> Cualquier decisión de implementación que no estaba especificada en `design-decision.md` o `test-cases.md`.
 > El Reviewer Agent usa esta sección para auditar las micro-decisiones del Dev.
 > Si no hubo ninguna, escribir: "Ninguna. La implementación siguió el diseño sin desviaciones."
 

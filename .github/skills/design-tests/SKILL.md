@@ -1,90 +1,61 @@
 ---
 name: "design-tests"
-description: "Designs what to test and why from a spec — outputs prioritized test scenarios without writing code. Applies the principle that testing more does not mean testing better."
+description: "Designs what to test and why from approved pipeline artifacts — outputs prioritized human-readable test cases without writing code. Applies the principle that testing more does not mean testing better."
 ---
 
 # Design Tests
 
 ## Purpose
 
-Decide **what to test and why** before writing a single line of test code. Every test case must earn its place. A bloated test suite is a maintenance liability, not a quality asset.
+Decide what deserves to be tested before any `.spec.ts` file is written. In this repository, the output is a standalone `test-cases.md` artifact that remains technology-agnostic and human-reviewable.
 
 ## Instructions
 
-### Step 1 — Locate the spec
+### Step 1 — Load pipeline artifacts
 
-Look in `docs/specs/` for the relevant spec file. If none exists, tell the user to run the `clarify-requirements` skill first.
+Read:
 
-Also explore the codebase to understand:
-- The structure of what will be implemented
-- How similar components in the project were tested
-- What `data-testid` attributes the component will need
+1. `agent-workspace/{issue-number}/spec.md`
+2. `agent-workspace/{issue-number}/design-decision.md`
+3. `agent-workspace/{issue-number}/plan.md`
+4. `agent-workspace/templates/test-cases.template.md`
 
-### Step 2 — Identify testable behaviors
+If the approved spec or design is missing, stop and report that the prerequisite checkpoint has not been completed.
 
-From the spec, extract every distinct **behavior** — something the component does in response to a user action, state change, or external input. Not implementation details.
+### Step 2 — Extract behaviors, not implementation details
 
-For each behavior, ask:
-- "Can this break silently?" → high priority
-- "Would a user notice if it was wrong?" → high priority
-- "Is this obvious from reading the code?" → low priority, consider skipping
+From the spec and design, derive every distinct user-observable behavior:
 
-### Step 3 — Prioritize and eliminate
+- critical path outcomes,
+- error and validation states,
+- loading and empty states,
+- boundary and resilience scenarios that matter to the business outcome.
 
-Group scenarios by category and eliminate redundancy:
-- **Critical path** — the main happy path the user follows
-- **Error states** — API failures, validation errors, permission denials
-- **Edge cases** — empty states, boundary values, concurrent interactions
-- **UX states** — loading, disabled, keyboard navigation (if applicable)
+Never introduce framework or implementation details. Do not mention `data-testid`, Angular, component names, services, or internal state.
 
-If two scenarios test the same logical behavior through different means, keep only the most meaningful one.
+### Step 3 — Prioritize and de-duplicate
 
-### Step 4 — Write scenarios
+For each candidate scenario, ask:
 
-Each scenario follows this format:
-```
-[Priority: critical | high | medium | low]
-GIVEN [initial state or precondition]
-WHEN  [user action or system event]
-THEN  [observable outcome in the DOM — never internal state]
-```
+- Would a user notice if this breaks?
+- Can this fail silently?
+- Does this cover a unique acceptance criterion or edge case?
 
-**Never write:**
-- "THEN the component's `isLoading` property is true" — internal state
-- "THEN the service method is called" — implementation detail
+If two scenarios cover the same logical behavior, keep the more valuable one and document the other as intentionally skipped.
 
-**Always write:**
-- "THEN the loading spinner is visible"
-- "THEN the submit button is disabled"
+### Step 4 — Write `test-cases.md`
 
-### Step 5 — Document skipped cases
+Write `agent-workspace/{issue-number}/test-cases.md` using `agent-workspace/templates/test-cases.template.md`.
 
-Be explicit about what you are NOT testing and why:
-```
-### Skipped (reason)
-- "Verify service is called" → implementation detail, not observable behavior
-- "Check all 15 input permutations" → covered by the validation boundary test
-```
+Rules:
+
+- Every acceptance criterion in `spec.md` must map to at least one scenario
+- Additional inferred scenarios must be clearly marked as inferred
+- The "Justificación de valor" field is mandatory
+- The coverage summary must state which acceptance criteria are covered and which are intentionally uncovered
 
 ### Output
 
-Add a `## Test Scenarios` section to the spec file:
+After saving, report:
 
-```markdown
-## Test Scenarios
-
-### Critical Path
-1. [critical] GIVEN ... / WHEN ... / THEN ...
-
-### Error States
-2. [high] GIVEN ... / WHEN ... / THEN ...
-
-### Edge Cases
-3. [medium] GIVEN ... / WHEN ... / THEN ...
-
-### Skipped (reason)
-- ...
-```
-
-After updating the spec, tell the user:
-> Test scenarios added. Use the `implement-tests` skill to write the test code.
+> Test cases saved to `agent-workspace/{issue-number}/test-cases.md`. Ready for checkpoint CP3.

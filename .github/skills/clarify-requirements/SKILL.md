@@ -7,95 +7,67 @@ description: "Transforms a vague or abstract request into a structured implement
 
 ## Purpose
 
-Bridge the gap between a vague idea and a concrete, actionable spec that any developer or agent can execute without ambiguity. Never start writing code until this skill produces a spec.
+Transform a vague request into a concrete business spec that the pipeline can audit, approve, and hand off without ambiguity. In this repository, the canonical output lives inside `agent-workspace/{issue-number}/spec.md`.
 
 ## Instructions
 
-### Phase 1 — Explore before asking
+### Phase 1 — Load pipeline context first
 
-Silently search the codebase to understand:
-- What already exists that relates to the request
-- Which architectural layer it belongs to (atom / molecule / organism / feature / core)
-- What conventions apply to that layer
-- What similar components or features are already implemented that can serve as reference
+Before asking anything:
 
-Use this exploration to make your questions specific and informed — not generic checklists.
+1. Read `agent-workspace/{issue-number}/pipeline-state.json`
+2. Use `artifacts.raw_input`, `artifacts.source`, `artifacts.ado_work_item_id`, and `artifacts.ado_work_item_url` as the incoming requirement context
+3. Read `agent-workspace/templates/spec.template.md`
+4. Silently explore the codebase only enough to understand whether the request appears to modify existing behavior or introduce a new capability
 
-### Phase 2 — Ask targeted questions
+Do not invent technical structure, file paths, or implementation details at this stage.
 
-Ask only what is genuinely unclear after your exploration. Cover these dimensions:
+### Phase 2 — Ask only the questions that unblock the spec
+
+Ask targeted questions only for gaps that prevent a complete business artifact. Prioritize:
 
 **Scope**
-- What is the user story? (who does what, and what happens as a result)
-- Is this new or a modification of something existing?
-- What is explicitly out of scope?
-
-**Structure**
-- Which architectural layer? (ui-kit atom/molecule/organism, feature, core)
-- Reusable across the app or feature-specific?
-- Should it extend, wrap, or replace an existing component?
+- Who is the user or role?
+- What outcome should become possible?
+- What is explicitly out of scope for this iteration?
 
 **Behavior**
-- What are the inputs (Angular `input()` signals, route params, service injections)?
-- What are the outputs or side effects?
-- What are the loading, empty, and error states?
-- What edge cases are in scope?
+- What should the user see, do, and receive as feedback?
+- What are the loading, empty, success, and error expectations?
+- Which edge cases are important enough to be contractual?
 
-**Compliance**
-- Role/permission requirements?
-- Feature flag requirements?
-- Which strings are user-visible and need `$localize`?
-- New API contracts or existing ones?
+**Constraints**
+- Are there permissions, roles, compliance, accessibility, or timing expectations?
+- Is there an existing external source of truth that the approved spec must remain aligned with?
 
-### Phase 3 — Produce the spec
+Do not ask implementation questions about Angular, components, services, signals, DTOs, or test selectors.
 
-Once you have enough answers, create `docs/specs/{feature-name}.md` (kebab-case filename):
+### Phase 3 — Write `spec.md`
 
-```markdown
-# Spec: {Feature Name}
+Write `agent-workspace/{issue-number}/spec.md` using `agent-workspace/templates/spec.template.md`.
 
-## Summary
-One paragraph describing what this builds and why.
+Rules:
 
-## Layer
-[atom | molecule | organism | feature | core-service]
-Path: `src/app/{layer}/{component-name}/`
+- Write in Spanish because it is a pipeline artifact
+- Stay at the level of observable business behavior
+- Acceptance criteria must describe what the user can see or do
+- Do not mention Angular, services, signals, routes, DTOs, HTTP, or internal architecture
+- Fill every `[REQUERIDO]` section in the template
 
-## User Story
-As a [role], I want to [action] so that [outcome].
+### Phase 4 — Handle incomplete input honestly
 
-## Inputs & Outputs
-### Inputs
-- `inputName` (type, required/optional): description
+If the requirement is still incomplete after reasonable clarification:
 
-### Outputs / Side Effects
-- description of what changes in the UI, state, or backend
+1. Fill the known sections
+2. Mark concrete gaps as `[PENDIENTE: {pregunta puntual}]`
+3. Add the last line:
 
-## Acceptance Criteria
-- [ ] Criterion 1
-- [ ] Criterion 2
+`<!-- AGENT_STATUS: NEEDS_REVISION: awaiting_human_input -->`
 
-## States to Handle
-- **Loading**: description
-- **Empty**: description
-- **Error**: description
-- **Success**: description
+Do not fabricate requirements to make the template look complete.
 
-## Components & Services to Reuse
-- List existing components, services, or utilities this should use
+### Output
 
-## API Contracts (if applicable)
-- Endpoint, method, DTO reference
+After saving, report:
 
-## i18n Strings
-- `@@localize-id`: "Default English text"
-
-## Out of Scope
-- Explicitly listed exclusions
-
-## Open Questions
-- Unresolved decisions the developer must make
-```
-
-After saving, tell the user:
-> Spec saved to `docs/specs/{feature-name}.md`. Use the `design-tests` skill next to define what to test.
+> Spec saved to `agent-workspace/{issue-number}/spec.md`. Ready for checkpoint CP1.

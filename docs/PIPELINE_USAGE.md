@@ -37,7 +37,7 @@ El pipeline tiene **4 checkpoints** donde se requiere intervencion humana:
 | **CP1** | 1 - Spec | Product Owner | `spec.md` | Criterios de aceptacion, historias de usuario, fuera de alcance |
 | **CP2** | 2 - Diseno | Software Architect | `design-decision.md` | Trade-offs, enfoque elegido, justificacion adversarial |
 | **CP3** | 4 - Tests | QA Analyst | `test-cases.md` | Cobertura de criterios de aceptacion, escenarios inferidos, justificacion de valor por test case |
-| **CP4** | 6 - Revision | Code Reviewer | `review-report.md` | Solo si hay hallazgos `BLOQUEANTE` |
+| **CP4** | 6 - Revision | Code Reviewer | `review-report.md` | Solo si el veredicto es `DO_NOT_MERGE` |
 
 ### Como aprobar un artefacto
 
@@ -73,7 +73,7 @@ Fase 2 - Diseno       (Software Architect)   -> design-decision.md    -> CP2
 Fase 3 - Validacion   (Tech Lead)            -> plan.md               -> automatico (sin CP)
 Fase 4 - Tests        (QA Analyst)           -> test-cases.md         -> CP3
 Fase 5 - Impl.        (Developer)            -> completion-report.md  -> automatico
-Fase 6 - Revision     (Code Reviewer)        -> review-report.md      -> CP4 solo si BLOQUEANTE
+Fase 6 - Revision     (Code Reviewer)        -> review-report.md      -> `MERGE_READY` auto / `MERGE_WITH_FIXES` vuelve a Dev / `DO_NOT_MERGE` -> CP4
 ```
 
 ### Intake y sincronizacion ADO
@@ -81,7 +81,8 @@ Fase 6 - Revision     (Code Reviewer)        -> review-report.md      -> CP4 sol
 - Si `start {input}` recibe un numero, se intenta resolver como Work Item de Azure DevOps.
 - Si recibe texto libre o el ID no existe, se conserva como contexto para Product Owner.
 - Tras CP1 (`spec.md` aprobado), Project Assistant sincroniza el Work Item en ADO.
-- Si hay conflicto relevante entre `spec.md` aprobado y el Work Item existente, se crea `waiting-for-approval.md` (CP1b) para decision humana.
+- Si hay conflicto relevante entre `spec.md` aprobado y el Work Item existente, se crea `waiting-for-approval.md` (CP1b) para decisión humana.
+- Si la integración autenticada con ADO no está disponible en el runtime, Project Assistant deja el spec listo y genera `waiting-for-approval.md` para sincronización manual.
 
 ---
 
@@ -93,12 +94,13 @@ Todos los artefactos de un issue viven en `agent-workspace/{issue-number}/`:
 agent-workspace/{issue-number}/
   |- PIPELINE.md               (estado visual del pipeline - actualizado en cada fase)
   |- pipeline-state.json       (estado machine-readable - no editar manualmente)
-  |- waiting-for-approval.md   (presente en checkpoints, incluido conflicto de sync ADO)
+  |- waiting-for-approval.md    (instancia generada desde `waiting-for-approval.template.md`)
   |- spec.md                   (especificacion de negocio - Product Owner)
   |- design-decision.md        (decisiones tecnicas - Software Architect)
   |- plan.md                   (auditoria del diseno - Tech Lead)
-  |- test-cases.md             (escenarios de test - QA Analyst)
-  |- *.spec.ts                 (tests en rojo - Developer, a partir de test-cases.md)
+  |- test-cases.md             (test cases legibles por humanos - QA Analyst)
+  |- test-implementation-report.md (reporte RED del Test Developer)
+  |- *.spec.ts                 (tests en rojo - Test Developer, a partir de test-cases.md)
   |- completion-report.md      (reporte de implementacion - Developer)
   |- review-report.md          (auditoria del codigo - Code Reviewer)
   \- dev-assessment.md         (presente en escalaciones del Dev - opcional)
@@ -148,7 +150,6 @@ Si el Developer encuentra un problema que no puede resolver, escribe `dev-assess
 |---|---|---|
 | `SPEC_CONFLICT` | El test contradice la spec | QA Analyst |
 | `TEST_BUG` | El test parece incorrecto | QA Analyst |
-| `TRANSLATION_ERROR` | El `.spec.ts` no implementa correctamente el test case | QA Analyst |
 | `IMPLEMENTATION_BLOCK` | No sabe como implementar sin violar el diseno | Tech Lead / Architect |
 | `AMBIGUOUS_REQUIREMENT` | La spec y el diseno son ambiguos | Product Owner (via humano) |
 | `UNCLASSIFIED` | No puede clasificar el fallo | Code Reviewer (para clasificar) |
@@ -167,6 +168,9 @@ No. Los tests aprobados son inviolables. Si hay un error, el Developer escalara 
 
 **El Tech Lead requiere aprobacion humana?**
 No. La fase del Tech Lead (`plan.md`) es completamente automatica. Si el veredicto es `APPROVED`, el pipeline avanza a QA sin intervencion. Si es `NEEDS_REVISION`, el Software Architect es reinvocado automaticamente.
+
+**Que pasa con `MERGE_WITH_FIXES`?**
+No cierra el pipeline. El Code Reviewer devuelve el flujo al Developer con `review-report.md` como contexto prioritario para corregir los hallazgos `MAYOR`/`MENOR` sin requerir checkpoint humano.
 
 **Que significa `APPROVED_WITH_CHANGES`?**
 Significa que aprobaste el artefacto pero hiciste modificaciones directas en el archivo. El agente de la siguiente fase leera el `git diff` de ese archivo e incorporara tus cambios como contexto prioritario.

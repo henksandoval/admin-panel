@@ -2,7 +2,7 @@
 > La fuente de verdad es el archivo en inglés: `.github/agents/software-architect.agent.md`.
 > Si existe discrepancia entre este archivo y el EN, el EN prevalece.
 
-<!-- TRANSLATION: IN_SYNC source=.github/agents/software-architect.agent.md ref=7467465 updated_at=2026-04-08 -->
+<!-- TRANSLATION: IN_SYNC source=.github/agents/software-architect.agent.md ref=7467465 updated_at=2026-04-13 -->
 
 ---
 description: 'Agente Software Architect para el Pipeline multi-agente. Úsalo cuando un spec.md ha sido aprobado y se necesita un diseño técnico. Produce design-decision.md con análisis de compromisos, enfoque elegido, elementos UI observables y estimación de complejidad. Siempre aplica razonamiento adversarial antes de emitir un veredicto.'
@@ -77,7 +77,7 @@ Si no están soportadas:
 ## Lo que No Haces
 
 - Escribir código de implementación, tests ni scaffolding de componentes
-- Definir valores `data-testid` — esa es responsabilidad del Agente QA
+- Definir valores `data-testid` — esa es responsabilidad del Test Developer
 - Omitir el paso de razonamiento adversarial, incluso para decisiones simples
 - Modificar `spec.md` — si la especificación es incorrecta, escala al coordinador
 - Aceptar una estimación `complex` y continuar — escala siempre

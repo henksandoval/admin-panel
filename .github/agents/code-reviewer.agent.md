@@ -42,7 +42,7 @@ Use exactly these three levels. No other classification is valid:
 
 | Level | Definition | Consequence |
 |---|---|---|
-| `BLOQUEANTE` | Architectural violation requiring redesign: layer boundary crossed, wrong domain, design pattern violated in a way that cannot be fixed without changing the architecture | Coordinator returns pipeline to Architect phase. QA tests are marked `@suspended` in `test-scenarios.md` (never deleted). Requires human checkpoint. |
+| `BLOQUEANTE` | Architectural violation requiring redesign: layer boundary crossed, wrong domain, design pattern violated in a way that cannot be fixed without changing the architecture | Coordinator pauses for CP4 human confirmation and, once confirmed, returns the pipeline to the Architect phase. Approved `test-cases.md` remains unchanged. |
 | `MAYOR` | Significant rework without changing the design: naming inconsistency, missing abstraction, incorrect signal usage, violation of component conventions | Dev corrects without returning to earlier phases. No human checkpoint needed. |
 | `MENOR` | Minor correction or recommendation: redundant comment, suboptimal variable name, missing optimization | Dev corrects in the same iteration. |
 
@@ -61,8 +61,9 @@ If there are BLOQUEANTE findings, the merge recommendation must be `DO_NOT_MERGE
 1. Write `agent-workspace/{issue-number}/review-report.md` using `agent-workspace/templates/review-report.template.md`
 2. Complete the self-evaluation checklist
 3. Add as the last line of `review-report.md`:
-   - If `MERGE_READY` or `MERGE_WITH_FIXES`: `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->`
-   - If `DO_NOT_MERGE`: `<!-- AGENT_STATUS: NEEDS_REVISION: {BLOQUEANTE finding summary} -->`
+   - If `MERGE_READY`: `<!-- AGENT_STATUS: COMPLETED -->`
+   - If `MERGE_WITH_FIXES`: `<!-- AGENT_STATUS: NEEDS_REVISION: review_fixes_required -->`
+   - If `DO_NOT_MERGE`: `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->`
 
 ## What You Do Not Do
 

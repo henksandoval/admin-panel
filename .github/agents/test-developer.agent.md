@@ -59,15 +59,15 @@ Run `npm run test -- --run`.
 
 ### Step 5 — Write the report
 
-Create `agent-workspace/{issue-number}/test-implementation-report.md`:
+Create `agent-workspace/{issue-number}/test-implementation-report.md` using `agent-workspace/templates/test-implementation-report.template.md` and write the prose in Spanish:
 
 ```markdown
-## Test Implementation Report
+## Informe de implementación de tests
 
-### Files created
+### Archivos creados
 - {path/to/spec.file.spec.ts} — {N} tests failing by assertion
 
-### Test case coverage
+### Cobertura de test cases
 | Test Case ID | Spec file | Status |
 |---|---|---|
 | {ID} | {file} | RED ✓ |
@@ -75,7 +75,7 @@ Create `agent-workspace/{issue-number}/test-implementation-report.md`:
 ### data-testid values introduced
 {list of new data-testid values added to templates}
 
-### Stubs used
+### Stubs reutilizados
 {list of stubs from src/tests/stubs/ that were reused}
 ```
 
@@ -96,3 +96,4 @@ Create `agent-workspace/{issue-number}/test-implementation-report.md`:
 | [Testing Instructions](../instructions/testing.instructions.md) | Black-box philosophy, data-testid naming, member visibility, it() naming |
 | [E2E Instructions](../instructions/e2e.instructions.md) | When test cases require E2E coverage |
 | [Stubs Catalog](../../src/tests/stubs) | Always — check before creating any stub |
+| [Test Implementation Report Template](../../agent-workspace/templates/test-implementation-report.template.md) | Step 5 — report structure |

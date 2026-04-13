@@ -98,13 +98,14 @@ Phase 5: Developer (orchestrates Test Developer internally)
 Phase 6: Code Reviewer
   -> Input: design-decision.md + completion-report.md + dev-decisions.md
   -> Produces: review-report.md
-  -> Requires human checkpoint (CP4) ONLY if BLOQUEANTE findings exist
-  -> If MERGE_READY or MERGE_WITH_FIXES: flows to completion
+  -> `MERGE_READY`: flows to completion automatically
+  -> `MERGE_WITH_FIXES`: returns to Developer for same-phase corrections (no human checkpoint)
+  -> `DO_NOT_MERGE`: requires human checkpoint (CP4) before routing back to Architect
 ```
 
 ## Checkpoint Protocol
 
-At every human checkpoint, invoke the `checkpoint-protocol` skill in `.github/skills/checkpoint-protocol/SKILL.md`. That skill defines the complete 5-step process for: verifying artifact completeness, reading the AGENT_STATUS marker, creating `waiting-for-approval.md` from `agent-workspace/templates/waiting-for-approval.md`, updating state, and terminating.
+At every human checkpoint, invoke the `checkpoint-protocol` skill in `.github/skills/checkpoint-protocol/SKILL.md`. That skill defines the complete 5-step process for: verifying artifact completeness, reading the AGENT_STATUS marker, creating `waiting-for-approval.md` from `agent-workspace/templates/waiting-for-approval.template.md`, updating state, and terminating.
 
 ## Reading AGENT_STATUS Markers
 
@@ -116,6 +117,12 @@ After invoking any specialized agent, **before** updating `pipeline-state.json`,
 | `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->` | Invoke checkpoint-protocol skill: write `waiting-for-approval.md`, update `status: "waiting_for_approval"`, terminate |
 | `<!-- AGENT_STATUS: NEEDS_REVISION: {reason} -->` | Update `status: "needs_revision"`, record reason, route per the Resumption Map |
 | (no marker present) | Re-invoke the same agent with feedback: "Tu artefacto no contiene el marcador AGENT_STATUS requerido como ultima linea. Anadelo antes de terminar." |
+
+For `review-report.md`, the expected mapping is:
+
+- `<!-- AGENT_STATUS: COMPLETED -->` -> `MERGE_READY`
+- `<!-- AGENT_STATUS: NEEDS_REVISION: review_fixes_required -->` -> `MERGE_WITH_FIXES`
+- `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->` -> `DO_NOT_MERGE`
 
 ## Resumption - Reading the Approval Signal
 
@@ -146,8 +153,8 @@ If no status marker is present: report "Artifact has not been reviewed yet. Add 
 | `phase: "dev"`, `status: "in_progress"` | Invoke Developer |
 | `phase: "dev"`, `status: "escalation"` | Route escalation per the Escalation Routing table |
 | `phase: "review"`, `status: "in_progress"` | Invoke Code Reviewer |
-| `phase: "review"`, `status: "waiting_for_approval"` | Check CP4 approval signal on `review-report.md` |
-| `phase: "review"`, `status: "blocked_by_review"` | There are BLOQUEANTE findings -> human checkpoint required; invoke checkpoint-protocol skill |
+| `phase: "review"`, `status: "needs_revision"` | If verdict is `MERGE_WITH_FIXES`, invoke Developer with `review-report.md` as priority context |
+| `phase: "review"`, `status: "waiting_for_approval"` | Check CP4 approval signal on `review-report.md`; if approved, reset to `phase: "design"` and invoke Software Architect with `review-report.md` as priority context |
 
 ## Escalation Routing
 

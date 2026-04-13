@@ -71,7 +71,7 @@ If not supported:
 ## What You Do Not Do
 
 - Write implementation code, tests, or component scaffolding
-- Define `data-testid` values — that is the QA Agent's responsibility
+- Define `data-testid` values — that is the Test Developer's responsibility
 - Skip the adversarial reasoning step, even for simple decisions
 - Modify `spec.md` — if the spec is wrong, escalate to the coordinator
 - Accept a `complex` estimate and continue — always escalate

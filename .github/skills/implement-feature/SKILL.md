@@ -1,89 +1,76 @@
 ---
 name: "implement-feature"
-description: "Implements a feature or component following all project conventions. Reads the spec, finds the closest existing analog, creates all required files, and validates with lint and tests."
+description: "Implements a feature or component following all project conventions. Reads the approved pipeline artifacts or explicit spec, finds the closest existing analog, creates all required files, and validates with lint, tests, and build."
 ---
 
 # Implement Feature
 
 ## Purpose
 
-Build a feature or component that is correct, idiomatic, and compliant with every project rule. The implementation is done when lint passes and tests pass — not before.
+Build a feature or component that is correct, idiomatic, and compliant with every project rule. The implementation is done only when lint, tests, and build are all clean.
 
 ## Instructions
 
-### Step 1 — Read the spec
+### Step 1 — Determine the working mode
 
-Find `docs/specs/{feature-name}.md`. If it doesn't exist, use the `clarify-requirements` skill first.
+For this repository, prefer the pipeline inputs when they exist:
 
-If test files already exist for this feature, read them — they are the acceptance criteria.
+- `agent-workspace/{issue-number}/design-decision.md`
+- `agent-workspace/{issue-number}/test-cases.md`
+- existing `.spec.ts` files created in the RED phase
+
+If no pipeline artifacts exist, use the explicit spec or requirements provided by the user. If no reliable spec exists, run the `clarify-requirements` skill first.
 
 ### Step 2 — Pre-implementation research
 
 Before writing code:
 
-1. **Find the closest existing analog** in the codebase. Read all its files (`.ts`, `.html`, `.scss`, `.model.ts`). This is your reference implementation — follow its patterns exactly.
+1. Find the closest existing analog in the codebase and read all of its relevant files
+2. Check `src/app/ui-kit/` for PDS wrappers before using raw Material components
+3. Reuse existing services and models from `src/app/core/` when appropriate
+4. Inspect `src/tests/stubs/` if the implementation touches test setup
 
-2. **Check for PDS wrappers** in `src/app/ui-kit/` before using Material components directly (`app-button`, `app-card`, `app-form-input`, etc.).
+### Step 3 — Implement to the approved contract
 
-3. **Identify reusable services** in `src/app/core/` — inject them instead of reimplementing.
+Use the design decision as the technical contract and the approved tests as the executable contract.
 
-4. **Check stubs** in `src/tests/stubs/` if you will be writing tests too.
+Rules:
 
-### Step 3 — Create files in this exact order
+- do not redesign the feature while implementing it,
+- do not modify approved tests unless a higher-level escalation explicitly changes them,
+- document any unavoidable deviation in `dev-decisions.md`.
 
-1. **`{name}.model.ts`** — always first
-   ```typescript
-   export const COMPONENT_DEFAULTS = {
-     size: 'medium',
-     disabled: false,
-   } as const;
-   ```
+### Step 4 — Apply the conventions checklist
 
-2. **`{name}.component.ts`**
-   ```typescript
-   @Component({ standalone: true, changeDetection: ChangeDetectionStrategy.OnPush, ... })
-   export class NameComponent {
-     readonly size = input<Size>(COMPONENT_DEFAULTS.size);
-     protected readonly classes = computed(() => ({
-       'app-name--large': this.size() === 'large',
-     }));
-   }
-   ```
+Before validation, confirm:
 
-3. **`{name}.component.html`** — add `data-testid` on every interactive and observable element
+- no forbidden Tailwind color or typography classes,
+- defaults live in `.model.ts`,
+- CSS classes use the `app-{component-name}-` prefix,
+- user-visible strings use `$localize` with `@@` IDs,
+- dynamic classes use `computed()`,
+- form components use `control = input.required<FormControl>()`,
+- template-only members are `protected`,
+- `data-testid` exists on interactive and observable elements,
+- `ChangeDetectionStrategy.OnPush` is present where required.
 
-4. **`{name}.component.scss`** — all classes prefixed `app-{name}-`
+### Step 5 — Validate in repository order
 
-5. **Register the component** in its parent (route, parent component imports array, etc.)
-
-### Step 4 — Apply conventions checklist
-
-Before running validation, verify:
-- [ ] No Tailwind color/typography classes (`bg-*`, `text-{color}-*`, `font-*`, `dark:*`, `text-sm`)
-- [ ] `DEFAULTS` exported from `.model.ts`
-- [ ] All CSS classes prefixed `app-{component-name}-`
-- [ ] All user-visible strings use `$localize` with `@@` IDs
-- [ ] Dynamic classes use `computed()`, never methods
-- [ ] Forms use `control = input.required<FormControl>()`, not CVA
-- [ ] Template-only members are `protected`
-- [ ] PDS wrappers used where available
-- [ ] `data-testid` on all interactive and observable elements
-- [ ] `ChangeDetectionStrategy.OnPush` on all components
-
-### Step 5 — Validate
-
-Run in this exact order, fix every error before moving to the next:
+Run in this exact order:
 
 ```bash
 npm run lint
-npm test -- --run
+npm run test -- --run
+npm run build
 ```
 
-Do not ask the user to run these. Run them yourself, read the output, and fix what breaks.
+Fix every error before moving to the next command.
 
 ### Output
 
 Report:
-- Files created and their paths
-- Lint result (must be clean)
-- Test result (must pass, or clearly explain why tests are pending)
+
+- files created or modified,
+- lint result,
+- test result,
+- build result.

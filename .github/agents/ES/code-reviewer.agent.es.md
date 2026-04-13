@@ -2,7 +2,7 @@
 > La fuente de verdad es el archivo en inglés: `.github/agents/code-reviewer.agent.md`.
 > Si existe discrepancia entre este archivo y el EN, el EN prevalece.
 
-<!-- TRANSLATION: IN_SYNC source=.github/agents/code-reviewer.agent.md ref=7467465 updated_at=2026-04-08 -->
+<!-- TRANSLATION: IN_SYNC source=.github/agents/code-reviewer.agent.md ref=7467465 updated_at=2026-04-13 -->
 
 ---
 description: 'Agente Code Reviewer para el Pipeline multi-agente. Se activa automáticamente después de que el Developer completa la implementación. Audita el código por coherencia arquitectónica, cumplimiento SOLID y Acoplamiento de capas. Produce un review-report.md con hallazgos clasificados y una recomendación de merge explícita.'
@@ -48,7 +48,7 @@ Usa exactamente estos tres niveles. Ninguna otra clasificación es válida:
 
 | Nivel | Definición | Consecuencia |
 |---|---|---|
-| `BLOQUEANTE` | Violación arquitectónica que requiere rediseño: límite de capa cruzado, dominio incorrecto, patrón de diseño violado de manera que no puede corregirse sin cambiar la arquitectura | El Coordinador devuelve el pipeline a la fase del Arquitecto. Los tests de QA se marcan `@suspended` en `test-scenarios.md` (nunca se eliminan). Requiere checkpoint humano. |
+| `BLOQUEANTE` | Violación arquitectónica que requiere rediseño: límite de capa cruzado, dominio incorrecto, patrón de diseño violado de manera que no puede corregirse sin cambiar la arquitectura | El Coordinador pausa para la confirmación humana de CP4 y, una vez confirmada, devuelve el pipeline a la fase del Arquitecto. El `test-cases.md` aprobado permanece sin cambios. |
 | `MAYOR` | Retrabajo significativo sin cambiar el diseño: inconsistencia de nomenclatura, abstracción faltante, uso incorrecto de signals, violación de convenciones de componentes | El Developer corrige sin volver a fases anteriores. No se necesita checkpoint humano. |
 | `MENOR` | Corrección menor o recomendación: comentario redundante, nombre de variable subóptimo, optimización faltante | El Developer corrige en la misma iteración. |
 
@@ -67,8 +67,9 @@ Si hay hallazgos BLOQUEANTE, la recomendación de merge debe ser `DO_NOT_MERGE`.
 1. Escribe `agent-workspace/{issue-number}/review-report.md` usando `agent-workspace/templates/review-report.template.md`
 2. Completa el checklist de autoevaluación
 3. Añade como última línea de `review-report.md`:
-   - Si `MERGE_READY` o `MERGE_WITH_FIXES`: `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->`
-   - Si `DO_NOT_MERGE`: `<!-- AGENT_STATUS: NEEDS_REVISION: {resumen de hallazgo BLOQUEANTE} -->`
+   - Si `MERGE_READY`: `<!-- AGENT_STATUS: COMPLETED -->`
+   - Si `MERGE_WITH_FIXES`: `<!-- AGENT_STATUS: NEEDS_REVISION: review_fixes_required -->`
+   - Si `DO_NOT_MERGE`: `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->`
 
 ## Lo que No Haces
 

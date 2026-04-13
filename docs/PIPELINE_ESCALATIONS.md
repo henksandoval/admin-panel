@@ -33,7 +33,7 @@ El Code Reviewer escala implícitamente cuando emite un veredicto `DO_NOT_MERGE`
 
 | Veredicto | Condición | Acción del Coordinator |
 |---|---|---|
-| `MERGE_READY` | Sin hallazgos o solo MENOR | Pipeline avanza a completado (CP4 opcional) |
+| `MERGE_READY` | Sin hallazgos o solo MENOR | Pipeline avanza a completado automáticamente |
 | `MERGE_WITH_FIXES: {lista}` | Hallazgos MAYOR/MENOR que requieren corrección | Dev Agent corrige; sin retroceder fases |
 | `DO_NOT_MERGE: {razón}` | Hallazgos BLOQUEANTE — violación arquitectónica | Pipeline retrocede a Architect; CP4 humano obligatorio |
 
@@ -85,22 +85,6 @@ Cuando se supera un límite configurado en `agent-workspace/config.json`:
 
 ---
 
-### Runbook: `TRANSLATION_ERROR`
-
-**Síntoma:** El test case está bien definido en `test-cases.md` pero el `.spec.ts` generado por el Developer no lo implementa correctamente (selector incorrecto, assertion equivocada, paso clave omitido).
-
-**Pasos:**
-
-1. Leer `dev-assessment.md` — identificar qué test case y qué `.spec.ts` están desalineados
-2. Leer `test-cases.md` y el `.spec.ts` mencionado en paralelo para confirmar el desajuste
-3. Ejecutar `resume {issue-number}` — el Coordinator invocará al QA Analyst con `dev-assessment.md` como contexto
-4. El QA Analyst verificará si el test case original es sufícientemente claro o necesita precisión adicional
-5. El Developer corregirá el `.spec.ts` para alinearlo con el test case aprobado
-
-**Resultado esperado:** `.spec.ts` alineado con `test-cases.md` → Developer retoma con el test corregido
-
----
-
 ### Runbook: `IMPLEMENTATION_BLOCK`
 
 **Síntoma:** El Developer no sabe cómo implementar el comportamiento requerido sin:
@@ -143,7 +127,7 @@ Cuando se supera un límite configurado en `agent-workspace/config.json`:
 **Pasos:**
 
 1. Ejecutar `resume {issue-number}` — el Coordinator invocará al Code Reviewer con `dev-assessment.md` como contexto
-2. El Code Reviewer clasifica el fallo como `SPEC_CONFLICT`, `TEST_BUG`, `TRANSLATION_ERROR`, `IMPLEMENTATION_BLOCK`, o `AMBIGUOUS_REQUIREMENT`
+2. El Code Reviewer clasifica el fallo como `SPEC_CONFLICT`, `TEST_BUG`, `IMPLEMENTATION_BLOCK`, o `AMBIGUOUS_REQUIREMENT`
 3. El Coordinator enruta según la clasificación resultante (ver runbooks anteriores)
 
 **Resultado esperado:** Fallo clasificado → pipeline enrutado según la clasificación del Reviewer
@@ -205,7 +189,7 @@ El archivo tiene esta estructura:
 {enfoques intentados y por qué no funcionaron}
 
 ## Classification
-{SPEC_CONFLICT / TEST_BUG / TRANSLATION_ERROR / IMPLEMENTATION_BLOCK / AMBIGUOUS_REQUIREMENT / UNCLASSIFIED}
+{SPEC_CONFLICT / TEST_BUG / IMPLEMENTATION_BLOCK / AMBIGUOUS_REQUIREMENT / UNCLASSIFIED}
 ```
 
 **Checklist de revisión:**
