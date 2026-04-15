@@ -80,7 +80,7 @@ These terms are part of the project vocabulary and must appear in English even w
 | `data-testid` | keep in English |
 | `signal`, `computed`, `input` | keep in English |
 | `FormControl`, `NgModule`, `BehaviorSubject`, `ControlValueAccessor` | keep in English |
-| `spec.md`, `design-decision.md`, `pipeline-state.json` | keep in English |
+| `spec.md`, `product-backlog.md`, `design-decision.md`, `pipeline-state.json` | keep in English |
 | `BLOQUEANTE`, `MAYOR`, `MENOR` | keep in English (system classification labels) |
 | `MERGE_READY`, `MERGE_WITH_FIXES`, `DO_NOT_MERGE` | keep in English |
 | `APPROVED`, `NEEDS_REVISION`, `IN_SYNC` | keep in English |

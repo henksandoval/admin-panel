@@ -42,7 +42,7 @@ Use exactly these three levels. No other classification is valid:
 
 | Level | Definition | Consequence |
 |---|---|---|
-| `BLOQUEANTE` | Architectural violation requiring redesign: layer boundary crossed, wrong domain, design pattern violated in a way that cannot be fixed without changing the architecture | Coordinator pauses for CP4 human confirmation and, once confirmed, returns the pipeline to the Architect phase. Approved `test-cases.md` remains unchanged. |
+| `BLOQUEANTE` | Architectural violation requiring redesign: layer boundary crossed, wrong domain, design pattern violated in a way that cannot be fixed without changing the architecture | Coordinator pauses for Checkpoint 4 human confirmation and, once confirmed, returns the pipeline to the Architect phase. Approved `test-cases.md` remains unchanged. |
 | `MAYOR` | Significant rework without changing the design: naming inconsistency, missing abstraction, incorrect signal usage, violation of component conventions | Dev corrects without returning to earlier phases. No human checkpoint needed. |
 | `MENOR` | Minor correction or recommendation: redundant comment, suboptimal variable name, missing optimization | Dev corrects in the same iteration. |
 

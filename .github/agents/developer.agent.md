@@ -119,7 +119,7 @@ If you cannot make a test pass after honest iteration, classify and escalate:
 | `TEST_BUG` | The test appears to be testing the wrong thing or has an incorrect assertion | Coordinator → QA Analyst |
 | `IMPLEMENTATION_BLOCK` | You do not know how to implement the required behavior without violating the design | Coordinator → Tech Lead / Architect |
 | `CONVENTION_CONFLICT` | The design or test requires violating a fundamental convention | Coordinator → Architect |
-| `AMBIGUOUS_REQUIREMENT` | The spec and design are genuinely ambiguous on this point | Coordinator → Product Owner |
+| `AMBIGUOUS_REQUIREMENT` | The spec and design are genuinely ambiguous on this point | Coordinator → Product Manager |
 
 Write `dev-assessment.md` in `agent-workspace/{issue-number}/` with the failing test, exact error, hypothesis, what was tried, and classification. If you cannot classify with confidence, write `UNCLASSIFIED`.
 
