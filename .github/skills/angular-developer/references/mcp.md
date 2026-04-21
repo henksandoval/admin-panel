@@ -88,6 +88,10 @@ Create `.vscode/mcp.json`:
     "angular-cli": {
       "command": "npx",
       "args": ["-y", "@angular/cli", "mcp"]
+    },
+    "azure-mcp": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp@latest", "server", "start"]
     }
   }
 }
@@ -106,3 +110,31 @@ Example for read-only mode with experimental tools enabled:
 ```json
 "args": ["-y", "@angular/cli", "mcp", "--read-only", "-E", "build", "-E", "modernize"]
 ```
+
+---
+
+# Azure MCP Server
+
+The [Azure MCP Server](https://github.com/Azure/azure-mcp) (`@azure/mcp`) provides AI assistants with tools to interact with Azure services directly — querying resources, reading storage, managing subscriptions, and more.
+
+## Configuration
+
+### VS Code
+
+Already included in the combined `.vscode/mcp.json` above.
+
+```json
+{
+  "servers": {
+    "azure-mcp": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp@latest", "server", "start"]
+    }
+  }
+}
+```
+
+## Prerequisites
+
+- Azure CLI installed and authenticated (`az login`)
+- Active Azure subscription
