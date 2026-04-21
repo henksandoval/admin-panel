@@ -87,7 +87,11 @@ Invoke the `Test Developer` subagent with this context:
 - Path to `design-decision.md`
 - The issue number
 
-Wait for the Test Developer to deliver `test-implementation-report.md`. Verify it confirms all tests are failing by assertion before proceeding. If the Test Developer reports compilation errors, ask it to fix them before advancing.
+Wait for the Test Developer to deliver `test-implementation-report.md`. Read its **last line** for the `AGENT_STATUS` marker:
+
+- `<!-- AGENT_STATUS: COMPLETED -->` — all tests compiled and are failing by assertion. Proceed to Step 3.
+- `<!-- AGENT_STATUS: NEEDS_REVISION: compilation_failed: {reason} -->` — the Test Developer could not resolve compilation errors. Do **not** ask it to retry again. Write `dev-assessment.md` with classification `IMPLEMENTATION_BLOCK`, quoting the compilation error and `{reason}` from the marker, and escalate to the Coordinator immediately.
+- (no marker present) — ask the Test Developer to add the required `AGENT_STATUS` marker before you proceed.
 
 Do not write `*.spec.ts` files yourself — that is the Test Developer's responsibility.
 

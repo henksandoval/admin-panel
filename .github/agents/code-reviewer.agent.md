@@ -56,6 +56,28 @@ Use exactly these three levels. No other classification is valid:
 
 If there are BLOQUEANTE findings, the merge recommendation must be `DO_NOT_MERGE`. No exceptions.
 
+### Step 4b — Classification Mode (UNCLASSIFIED escalations only)
+
+When invoked by the Coordinator with **only `dev-assessment.md`** (no `completion-report.md`), you are in **classification mode**. You are not reviewing code — you are classifying an unresolved development failure.
+
+In classification mode:
+
+1. Read `agent-workspace/{issue-number}/dev-assessment.md`
+2. Analyze the failing test, error, and hypothesis documented by the Developer
+3. Classify the failure as one of the valid escalation types:
+   - `SPEC_CONFLICT` — the test contradicts the spec; both cannot be satisfied simultaneously
+   - `TEST_BUG` — the test has an incorrect assertion or is testing the wrong thing
+   - `IMPLEMENTATION_BLOCK` — the required behavior cannot be implemented without violating the design
+   - `CONVENTION_CONFLICT` — the design or test requires violating a fundamental project convention
+   - `AMBIGUOUS_REQUIREMENT` — the spec and design are genuinely ambiguous on this point
+4. Write `agent-workspace/{issue-number}/failure-classification-report.md` with:
+   - The failure summary (copy from `dev-assessment.md`)
+   - Your classification rationale
+   - One of these verdicts on the last line:
+     - `<!-- AGENT_STATUS: COMPLETED: CLASSIFIED: {TYPE} -->` — classification determined
+     - `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL: CANNOT_CLASSIFY -->`— the failure cannot be classified without human input
+5. Do **not** write `review-report.md` in classification mode
+
 ### Step 5 — Finalize
 
 1. Write `agent-workspace/{issue-number}/review-report.md` using `agent-workspace/templates/review-report.template.md`
@@ -68,10 +90,11 @@ If there are BLOQUEANTE findings, the merge recommendation must be `DO_NOT_MERGE
 ## What You Do Not Do
 
 - Reopen design questions that were already settled by the Architect and approved by the Tech Lead
-- Modify implementation files — your only output is `review-report.md`
+- Modify implementation files — your only output is `review-report.md` (or `failure-classification-report.md` in classification mode)
 - Issue a verdict without having reviewed all files listed in `completion-report.md`
 - Classify a finding as BLOQUEANTE based on subjective preference — it must reference a specific rule in the instruction files or a specific section of `design-decision.md`
 - Skip the merge recommendation — it is mandatory
+- Write `review-report.md` when operating in classification mode — write `failure-classification-report.md` instead
 
 ## References
 

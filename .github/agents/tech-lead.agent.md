@@ -68,7 +68,10 @@ The veredicto must be one of:
 Add as the last line of `plan.md`:
 
 - If `APPROVED`: `<!-- AGENT_STATUS: COMPLETED -->`
-- If `NEEDS_REVISION`: `<!-- AGENT_STATUS: NEEDS_REVISION: {brief reason} -->`
+- If `NEEDS_REVISION: design`: `<!-- AGENT_STATUS: NEEDS_REVISION: design: {brief reason for the Architect} -->`
+- If `NEEDS_REVISION: test-cases`: `<!-- AGENT_STATUS: NEEDS_REVISION: test-cases: {brief reason for the QA Analyst} -->`
+
+The Coordinator normalizes the compound reason automatically: the part after the second `: ` is stored as `reason_detail` and passed as feedback context to the re-invoked agent. Keep the reason brief and actionable (one sentence).
 
 ## What You Do Not Do
 

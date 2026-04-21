@@ -79,6 +79,17 @@ Create `agent-workspace/{issue-number}/test-implementation-report.md` using `age
 {list of stubs from src/tests/stubs/ that were reused}
 ```
 
+### Step 6 — Add AGENT_STATUS marker
+
+Add as the **last line** of `test-implementation-report.md`:
+
+- If all tests compiled and fail by assertion (RED state confirmed):
+  `<!-- AGENT_STATUS: COMPLETED -->`
+- If compilation errors remain unresolved after honest iteration:
+  `<!-- AGENT_STATUS: NEEDS_REVISION: compilation_failed: {brief description of the unresolved error} -->`
+
+Do not emit `COMPLETED` if any test fails by compilation or import error rather than assertion.
+
 ## What You Do Not Do
 
 - Write implementation code (components, services, models) — that is the Developer's job

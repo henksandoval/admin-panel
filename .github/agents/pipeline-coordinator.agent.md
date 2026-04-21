@@ -45,6 +45,8 @@ Before doing anything else, read `agent-workspace/{issue-number}/pipeline-state.
   "cycles": {
     "backlog_revisions": 0,
     "design_revisions": 0,
+    "qa_design_revision_cycles": 0,
+    "tech_lead_revision_cycles": 0,
     "dev_iterations": 0,
     "review_cycles": 0
   }
@@ -146,6 +148,30 @@ After invoking any specialized agent, **before** updating `pipeline-state.json`,
 | `<!-- AGENT_STATUS: NEEDS_REVISION: escalation:{type} -->` | Set `phase: "dev"`, `status: "escalation"`, record `{type}` in `pipeline-state.json`; route per the Escalation Routing table |
 | (no marker present) | Re-invoke the same agent with feedback: "Tu artefacto no contiene el marcador AGENT_STATUS requerido como ultima linea. Anadelo antes de terminar." |
 
+### Normalization Rule for Compound NEEDS_REVISION Markers
+
+When the marker reason contains more than one colon-separated segment (e.g., `NEEDS_REVISION: design: the auth layer is violated`), store the status **normalized** in `pipeline-state.json`:
+
+- Split the reason string by the first `: ` after `NEEDS_REVISION:`: the first token is the `{classification}`, everything after is the `{detail}`.
+- Store `status: "needs_revision: {classification}"` — this is the key used for Resumption Map routing.
+- Store `reason_detail: "{detail}"` as a separate field in `pipeline-state.json` — this is passed as feedback context when re-invoking the next agent.
+
+**Examples:**
+- `NEEDS_REVISION: backlog_insufficient: input too vague` → `status: "needs_revision: backlog_insufficient"`, `reason_detail: "input too vague"`
+- `NEEDS_REVISION: pbi_technically_infeasible: contradicts auth layer` → `status: "needs_revision: pbi_technically_infeasible"`, `reason_detail: "contradicts auth layer"`
+- `NEEDS_REVISION: design: auth layer coupling detected` → `status: "needs_revision: design"`, `reason_detail: "auth layer coupling detected"`
+- `NEEDS_REVISION: complexity_escalation` (single segment) → `status: "needs_revision: complexity_escalation"`, no `reason_detail`
+
+### Exception — Project Assistant
+
+The Project Assistant's primary artifact is `pipeline-state.json` (JSON — no HTML markers). Read its status from the `status` field directly; do not search for HTML markers in that file:
+
+| `pipeline-state.json` `status` field | Treat as |
+|---|---|
+| `"intake_failed"` | `WAITING_FOR_APPROVAL` — report error to human; do not retry |
+| `"waiting_for_approval"` | `WAITING_FOR_APPROVAL` |
+| `"completed"` | `COMPLETED` — advance normally |
+
 For `review-report.md`, the expected mapping is:
 
 - `<!-- AGENT_STATUS: COMPLETED -->` -> `MERGE_READY`
@@ -168,7 +194,8 @@ If no status marker is present: report "Artifact has not been reviewed yet. Add 
 |---|---|
 | `phase: "backlog"`, `status: "in_progress"` | Invoke Product Manager |
 | `phase: "backlog"`, `status: "waiting_for_approval"` | Check Checkpoint 1 approval signal on `product-backlog.md` |
-| `phase: "backlog"`, `status: "needs_revision"` | Re-invoke Product Manager with revision feedback |
+| `phase: "backlog"`, `status: "needs_revision: awaiting_human_input"` | Invoke checkpoint-protocol → present the PM's `[PENDIENTE]` questions from `product-backlog.md` to the human; increment `cycles.backlog_revisions`; terminate. Do not re-invoke PM until the human provides clarifications and runs `resume {issue-number}`. |
+| `phase: "backlog"`, `status: "needs_revision"` | 1. Increment `cycles.backlog_revisions`. 2. Read `max_spec_revisions` from `config.json`. If `cycles.backlog_revisions >= max_spec_revisions`: trigger PIPELINE_BLOCKED. 3. Otherwise: re-invoke Product Manager with revision feedback and `reason_detail` (if present) as context. |
 | `phase: "backlog"`, `status: "needs_revision: backlog_insufficient"` | Invoke checkpoint-protocol; present human with the specific gaps listed in `product-backlog.md`; do not re-invoke Product Manager until human provides clarification |
 | `phase: "sync-discovery"`, `status: "in_progress"` | Invoke Project Assistant in Discovery Sync mode |
 | `phase: "sync-discovery"`, `status: "waiting_for_approval"` | Human manual sync required on `waiting-for-approval.md` |
@@ -181,22 +208,24 @@ If no status marker is present: report "Artifact has not been reviewed yet. Add 
 | `phase: "design"`, `status: "needs_revision: complexity_escalation"` | Invoke checkpoint-protocol → ask human to decompose the PBI before re-entering the pipeline with a simpler scope |
 | `phase: "qa"`, `status: "in_progress"` | Invoke QA Analyst |
 | `phase: "qa"`, `status: "waiting_for_approval"` | **Do NOT invoke checkpoint-protocol.** QA advances automatically to Tech Lead. Set `status: "in_progress"`, `phase: "tech-lead"`, invoke Tech Lead. |
-| `phase: "qa"`, `status: "needs_revision: design_not_testable"` | Re-invoke Software Architect with QA feedback as priority context; reset `phase: "design"`; do NOT require Checkpoint 2 again unless Architect issues a new `WAITING_FOR_APPROVAL` |
+| `phase: "qa"`, `status: "needs_revision: design_not_testable"` | 1. Increment `cycles.qa_design_revision_cycles`. 2. Read `max_design_revisions` from `config.json`. If `cycles.qa_design_revision_cycles >= max_design_revisions`: trigger PIPELINE_BLOCKED (phase: "qa", limit: "max_design_revisions — design repeatedly untestable"). 3. Otherwise: re-invoke Software Architect with QA feedback and `reason_detail` as priority context; reset `phase: "design"`; do NOT require Checkpoint 2 again unless Architect issues a new `WAITING_FOR_APPROVAL`. |
 | `phase: "tech-lead"`, `status: "in_progress"` | Invoke Tech Lead |
 | `phase: "tech-lead"`, `status: "waiting_for_approval"` | Check Checkpoint 3 approval signal on `plan.md` (and `test-cases.md`) |
-| `phase: "tech-lead"`, `status: "needs_revision: design"` | Re-invoke Software Architect with Tech Lead feedback; reset `phase: "design"` |
-| `phase: "tech-lead"`, `status: "needs_revision: test-cases"` | Re-invoke QA Analyst with Tech Lead feedback; reset `phase: "qa"` |
+| `phase: "tech-lead"`, `status: "needs_revision: design"` | 1. Increment `cycles.tech_lead_revision_cycles`. 2. Read `max_design_revisions` from `config.json`. If `cycles.tech_lead_revision_cycles >= max_design_revisions`: trigger PIPELINE_BLOCKED (phase: "tech-lead", limit: "max_design_revisions — repeated design issues"). 3. Otherwise: re-invoke Software Architect with Tech Lead feedback and `reason_detail` as priority context; reset `phase: "design"`. |
+| `phase: "tech-lead"`, `status: "needs_revision: test-cases"` | 1. Increment `cycles.tech_lead_revision_cycles`. 2. Read `max_design_revisions` from `config.json`. If `cycles.tech_lead_revision_cycles >= max_design_revisions`: trigger PIPELINE_BLOCKED (phase: "tech-lead", limit: "max_design_revisions — repeated test-case issues"). 3. Otherwise: re-invoke QA Analyst with Tech Lead feedback and `reason_detail` as priority context; reset `phase: "qa"`. |
 | `phase: "dev"`, `status: "in_progress"` | Invoke Developer |
 | `phase: "dev"`, `status: "escalation"` | Route escalation per the Escalation Routing table |
 | `phase: "review"`, `status: "in_progress"` | Invoke Code Reviewer |
 | `phase: "review"`, `status: "needs_revision"` | If verdict is `MERGE_WITH_FIXES`: 1. Increment `cycles.review_cycles` in `pipeline-state.json`. 2. Read `config.json` → `max_review_cycles`. 3. If `cycles.review_cycles >= max_review_cycles`: trigger PIPELINE_BLOCKED (create `PIPELINE_BLOCKED.md`, set `status: "blocked"`, terminate). 4. Otherwise: invoke Developer with `review-report.md` as priority context |
-| `phase: "review"`, `status: "waiting_for_approval"` | Check Checkpoint 4 approval signal on `review-report.md`; if `DO_NOT_MERGE` approved for rework: 1. In `pipeline-state.json`, reset `cycles.dev_iterations = 0` and `cycles.review_cycles = 0`. 2. Increment `cycles.design_revisions` (macro counter; no auto circuit-breaker). 3. Mark `artifacts.test_cases_status: "invalidated"` in `pipeline-state.json`. 4. Reset to `phase: "design"` and invoke Software Architect with `review-report.md` as priority context. **After Architect delivers new `design-decision.md` with `WAITING_FOR_APPROVAL`**: proceed to Checkpoint 2 for the new design. After Checkpoint 2 approval: re-execute Fase 3.1 (QA Analyst) with the new design, then re-execute Fase 3.2 (Tech Lead), then require Checkpoint 3 approval before proceeding to Developer. |
+| `phase: "review"`, `status: "waiting_for_approval"` | Check Checkpoint 4 approval signal on `review-report.md`; if `DO_NOT_MERGE` approved for rework: 1. Increment `cycles.design_revisions`. 2. Read `max_design_revisions` from `config.json`. **If `cycles.design_revisions >= max_design_revisions`**: trigger PIPELINE_BLOCKED (phase: "review", limit: "max_design_revisions — repeated BLOQUEANTE findings; PBI may need decomposition") — do NOT re-enter design phase automatically. 3. If below the limit: reset `cycles.dev_iterations = 0` and `cycles.review_cycles = 0` and `cycles.qa_design_revision_cycles = 0` and `cycles.tech_lead_revision_cycles = 0`. 4. Mark `artifacts.test_cases_status: "invalidated"` in `pipeline-state.json`. 5. Reset to `phase: "design"` and invoke Software Architect with `review-report.md` as priority context. When writing `waiting-for-approval.md` for the resulting Checkpoint 2, prepend: `⚠️ REDISEÑO #{cycles.design_revisions}: ciclos previos produjeron hallazgos BLOQUEANTE. Evalúe si el PBI necesita simplificación antes de aprobar.` **After Architect delivers new `design-decision.md` with `WAITING_FOR_APPROVAL`**: proceed to Checkpoint 2 for the new design. After Checkpoint 2 approval: re-execute Fase 3.1 (QA Analyst) with the new design, then re-execute Fase 3.2 (Tech Lead), then require Checkpoint 3 approval before proceeding to Developer. |
 | `phase: "close"`, `status: "in_progress"` | Invoke Project Assistant in Close mode |
 | `phase: "close"`, `status: "waiting_for_approval"` | Human manual Azure DevOps close required on `waiting-for-approval.md` |
 
 ## Escalation Routing
 
 When the Dev Agent writes `dev-assessment.md` with an escalation:
+
+> **Before routing any escalation:** read `cycles.dev_iterations` and `max_dev_iterations` from `config.json`. If `cycles.dev_iterations >= max_dev_iterations`: trigger PIPELINE_BLOCKED (phase: "dev", limit: "max_dev_iterations"). Do not route the escalation. Then increment `cycles.dev_iterations` and route per the classification table below.
 
 | Classification | Action |
 |---|---|
@@ -205,7 +234,7 @@ When the Dev Agent writes `dev-assessment.md` with an escalation:
 | `IMPLEMENTATION_BLOCK` | Invoke Tech Lead with `dev-assessment.md` as context; if unresolved, escalate to Software Architect |
 | `CONVENTION_CONFLICT` | Invoke Software Architect with `dev-assessment.md` as priority context to resolve the convention violation. If the Architect determines a redesign is required, invoke checkpoint-protocol to escalate to human. |
 | `AMBIGUOUS_REQUIREMENT` | Pause and invoke checkpoint-protocol skill directing human to clarify the requirement; escalate to Product Manager after human clarification |
-| `UNCLASSIFIED` | Invoke Code Reviewer with `dev-assessment.md` as context to classify the failure; then re-route per the classification |
+| `UNCLASSIFIED` | Invoke Code Reviewer in **classification mode**: provide only `dev-assessment.md` as input (do NOT provide `completion-report.md`). Read `failure-classification-report.md` for the result. If `COMPLETED: CLASSIFIED: {TYPE}`: re-route per the classification type above. If `WAITING_FOR_APPROVAL: CANNOT_CLASSIFY`: invoke checkpoint-protocol to escalate to human. Do NOT process `failure-classification-report.md` as a normal code review verdict. |
 
 After routing an escalation, increment `cycles.dev_iterations` in `pipeline-state.json`.
 

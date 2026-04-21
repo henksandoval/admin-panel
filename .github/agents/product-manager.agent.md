@@ -50,8 +50,9 @@ The golden rule:
 If the idea is too vague to produce a complete backlog:
 
 1. Produce a draft backlog with gaps marked as `[PENDIENTE: {concrete question}]`
-2. Add as the last line of the draft `product-backlog.md`: `<!-- AGENT_STATUS: NEEDS_REVISION: awaiting_human_input -->`
-3. Do not advance until the human fills the gaps and re-invokes you
+2. Add as the last line of the draft `product-backlog.md`:
+   `<!-- AGENT_STATUS: NEEDS_REVISION: awaiting_human_input -->`
+3. Stop — **do not attempt to fill the gaps yourself**. The Coordinator will pause the pipeline and present the pending questions to the human. Do not advance until the human provides clarifications and re-invokes the pipeline.
 
 If after 2 revision cycles the backlog is still incomplete:
 
