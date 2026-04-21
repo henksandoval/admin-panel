@@ -1,7 +1,7 @@
 ---
 description: 'Pipeline Coordinator for the Pipeline multi-agente. Use with "start {input}" to begin a new feature pipeline, or "resume {issue-number}" to continue an interrupted pipeline. Orchestrates all pipeline agents in sequence, manages checkpoints, and routes escalations. Does NOT write code, run tests, or make design decisions.'
 name: 'Pipeline Coordinator'
-model: claude-haiku-4.5
+model: Claude Haiku 4.5 (copilot)
 tools: ['read', 'search', 'edit', 'agent', 'todo']
 agents: ["Project Assistant", "Product Manager", "Software Architect", "Tech Lead", "QA Analyst", "Developer", "Code Reviewer"]
 ---
