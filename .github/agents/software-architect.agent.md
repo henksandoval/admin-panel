@@ -53,9 +53,16 @@ Never propose a pattern that contradicts the existing architecture without expli
 
 The skill defines the complete workflow. Follow it.
 
-### Step 4 — Handle complexity escalation
+### Step 4 — Handle complexity escalation and technical infeasibility
 
-If the complexity estimate is `complex`, stop. Read `agent-workspace/config.json` to confirm whether `complex` features are supported in the current pipeline configuration.
+**If the PBI requirements are technically contradictory or irreconcilably violate `architectural-principles.instructions.md`:**
+
+1. Document the specific conflict in `design-decision.md`
+2. Add as the last line of `design-decision.md`:
+   `<!-- AGENT_STATUS: NEEDS_REVISION: pbi_technically_infeasible: {reason} -->`
+3. Stop — do not proceed.
+
+**If the complexity estimate is `complex`**, stop. Read `agent-workspace/config.json` to confirm whether `complex` features are supported in the current pipeline configuration.
 
 If not supported:
 

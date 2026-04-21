@@ -60,6 +60,14 @@ At the end of `test-cases.md`, add a summary section:
 
 ### Step 4 — Finalize
 
+If **"Elementos UI observables"** in `design-decision.md` is empty OR no verifiable behaviors can be derived from `pbi_acceptance_criteria`:
+
+1. Add as the last line of `test-cases.md`:
+   `<!-- AGENT_STATUS: NEEDS_REVISION: design_not_testable: {missing_elements} -->`
+2. Stop — do not advance.
+
+Otherwise, when test cases are complete:
+
 Add as the last line of `test-cases.md`:
 
 `<!-- AGENT_STATUS: COMPLETED -->`

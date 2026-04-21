@@ -11,11 +11,16 @@ Translate an approved business spec into a verifiable technical design. The outp
 
 ## Instructions
 
-### Step 1 — Verify the spec is approved
+### Step 1 — Verify PBI context
 
-Read `agent-workspace/{issue-number}/spec.md`. Check that the first line contains `<!-- STATUS: APPROVED -->` or `<!-- STATUS: APPROVED_WITH_CHANGES -->`.
+Read `agent-workspace/{issue-number}/pipeline-state.json`.
+Verify all of the following fields are non-empty:
 
-If the status marker is missing or is `PENDING`, stop and report: "spec.md has not been approved. Awaiting human approval before proceeding."
+- `artifacts.pbi_title`
+- `artifacts.pbi_description`
+- `artifacts.pbi_acceptance_criteria`
+
+If any field is missing or empty: stop and report which field is absent. Do not proceed.
 
 ### Step 2 — Load the architecture context
 

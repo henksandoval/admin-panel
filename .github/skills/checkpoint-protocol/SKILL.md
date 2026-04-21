@@ -11,10 +11,10 @@ Standardized procedure for requesting human approval at pipeline checkpoints. In
 
 ## When to Invoke
 
-- After Phase 1 (Product Owner produces `spec.md`) → CP1
-- After Phase 2 (Software Architect produces `design-decision.md`) → CP2
-- After Phase 4 (QA Analyst produces `test-cases.md`) → CP3
-- After Phase 6 only when `review-report.md` contains a `DO_NOT_MERGE` verdict → CP4
+- After Fase 1.1-1.2 (Product Manager produces `product-backlog.md`) → CP1
+- After Fase 2.2 (Software Architect produces `design-decision.md`) → CP2
+- After Fase 3.2 (Tech Lead produces `plan.md`, together with `test-cases.md`) → CP3
+- After Fase 4.2 when `review-report.md` contains `DO_NOT_MERGE` verdict → CP4
 
 ## Protocol Steps
 
@@ -38,20 +38,30 @@ Fill in:
 - **Qué revisar**: brief summary of what the human should focus on
 - **Secciones críticas**: list the sections requiring most attention
 
-### Step 3 — Update state
+### Step 3 — Read the AGENT_STATUS marker
+
+Before writing any state, read the last line of the artifact for the `AGENT_STATUS` marker:
+
+- `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->` → expected; proceed with Steps 4–6
+- `<!-- AGENT_STATUS: COMPLETED -->` → agent expects automatic advancement; skip checkpoint entirely (do not write `waiting-for-approval.md`, do not update state to `waiting_for_approval`)
+- `<!-- AGENT_STATUS: NEEDS_REVISION: {reason} -->` → route per the Resumption Map
+- (no marker) → re-invoke the agent with feedback: "Missing AGENT_STATUS marker in your artifact"
+
+### Step 4 — Write `waiting-for-approval.md`
+
+Create `agent-workspace/{issue-number}/waiting-for-approval.md` using `agent-workspace/templates/waiting-for-approval.template.md`.
+
+Fill in:
+- **Fase**: the current phase name
+- **Artefacto a revisar**: the exact file path
+- **Qué revisar**: brief summary of what the human should focus on
+- **Secciones críticas**: list the sections requiring most attention
+
+### Step 5 — Update state
 
 Update `pipeline-state.json` → `status: "waiting_for_approval"`.
 Update `PIPELINE.md` to mark the current phase as ⚠️ awaiting approval.
 
-### Step 4 — Read the AGENT_STATUS marker
-
-Before executing Step 3, read the last line of the artifact for the `AGENT_STATUS` marker:
-
-- `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->` → expected; proceed with Steps 2–5
-- `<!-- AGENT_STATUS: COMPLETED -->` → agent expects automatic advancement; skip checkpoint
-- `<!-- AGENT_STATUS: NEEDS_REVISION: {reason} -->` → route per the Resumption Map
-- (no marker) → re-invoke the agent with feedback: "Missing AGENT_STATUS marker in your artifact"
-
-### Step 5 — Terminate
+### Step 6 — Terminate
 
 **Terminate execution.** Do not wait. Do not poll. The human will resume the pipeline by adding a STATUS marker and running `resume {issue-number}`.

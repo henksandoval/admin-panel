@@ -53,7 +53,12 @@ If the idea is too vague to produce a complete backlog:
 2. Add as the last line of the draft `product-backlog.md`: `<!-- AGENT_STATUS: NEEDS_REVISION: awaiting_human_input -->`
 3. Do not advance until the human fills the gaps and re-invokes you
 
-If after 2 revision cycles the backlog is still incomplete, write `BACKLOG_INSUFFICIENT: {reason}` as the first line of `product-backlog.md` and stop. Do not fabricate requirements.
+If after 2 revision cycles the backlog is still incomplete:
+
+1. Document all unresolvable gaps in `product-backlog.md`
+2. Add as the **last line** of `product-backlog.md`:
+   `<!-- AGENT_STATUS: NEEDS_REVISION: backlog_insufficient: {reason} -->`
+3. Stop. Do not fabricate requirements.
 
 ### Step 4 — Finalize
 

@@ -169,14 +169,19 @@ If no status marker is present: report "Artifact has not been reviewed yet. Add 
 | `phase: "backlog"`, `status: "in_progress"` | Invoke Product Manager |
 | `phase: "backlog"`, `status: "waiting_for_approval"` | Check Checkpoint 1 approval signal on `product-backlog.md` |
 | `phase: "backlog"`, `status: "needs_revision"` | Re-invoke Product Manager with revision feedback |
+| `phase: "backlog"`, `status: "needs_revision: backlog_insufficient"` | Invoke checkpoint-protocol; present human with the specific gaps listed in `product-backlog.md`; do not re-invoke Product Manager until human provides clarification |
 | `phase: "sync-discovery"`, `status: "in_progress"` | Invoke Project Assistant in Discovery Sync mode |
 | `phase: "sync-discovery"`, `status: "waiting_for_approval"` | Human manual sync required on `waiting-for-approval.md` |
 | `phase: "intake"`, `status: "in_progress"` | Invoke Project Assistant in Delivery Intake mode |
+| `phase: "intake"`, `status: "intake_failed"` | Report error to human; request valid PBI ID; terminate. Do not retry autonomously. |
 | `phase: "design"`, `status: "in_progress"` | Invoke Software Architect |
 | `phase: "design"`, `status: "waiting_for_approval"` | Check Checkpoint 2 approval signal on `design-decision.md` |
 | `phase: "design"`, `status: "needs_revision"` | Re-invoke Software Architect with revision feedback |
+| `phase: "design"`, `status: "needs_revision: pbi_technically_infeasible"` | Invoke checkpoint-protocol → present to human; if instructed, re-invoke Product Manager with Architect's feedback; reset `phase: "backlog"` |
+| `phase: "design"`, `status: "needs_revision: complexity_escalation"` | Invoke checkpoint-protocol → ask human to decompose the PBI before re-entering the pipeline with a simpler scope |
 | `phase: "qa"`, `status: "in_progress"` | Invoke QA Analyst |
 | `phase: "qa"`, `status: "waiting_for_approval"` | **Do NOT invoke checkpoint-protocol.** QA advances automatically to Tech Lead. Set `status: "in_progress"`, `phase: "tech-lead"`, invoke Tech Lead. |
+| `phase: "qa"`, `status: "needs_revision: design_not_testable"` | Re-invoke Software Architect with QA feedback as priority context; reset `phase: "design"`; do NOT require Checkpoint 2 again unless Architect issues a new `WAITING_FOR_APPROVAL` |
 | `phase: "tech-lead"`, `status: "in_progress"` | Invoke Tech Lead |
 | `phase: "tech-lead"`, `status: "waiting_for_approval"` | Check Checkpoint 3 approval signal on `plan.md` (and `test-cases.md`) |
 | `phase: "tech-lead"`, `status: "needs_revision: design"` | Re-invoke Software Architect with Tech Lead feedback; reset `phase: "design"` |
@@ -184,8 +189,8 @@ If no status marker is present: report "Artifact has not been reviewed yet. Add 
 | `phase: "dev"`, `status: "in_progress"` | Invoke Developer |
 | `phase: "dev"`, `status: "escalation"` | Route escalation per the Escalation Routing table |
 | `phase: "review"`, `status: "in_progress"` | Invoke Code Reviewer |
-| `phase: "review"`, `status: "needs_revision"` | If verdict is `MERGE_WITH_FIXES`, invoke Developer with `review-report.md` as priority context |
-| `phase: "review"`, `status: "waiting_for_approval"` | Check Checkpoint 4 approval signal on `review-report.md`; if `DO_NOT_MERGE` approved for rework, reset to `phase: "design"` and invoke Software Architect with `review-report.md` as priority context |
+| `phase: "review"`, `status: "needs_revision"` | If verdict is `MERGE_WITH_FIXES`: 1. Increment `cycles.review_cycles` in `pipeline-state.json`. 2. Read `config.json` → `max_review_cycles`. 3. If `cycles.review_cycles >= max_review_cycles`: trigger PIPELINE_BLOCKED (create `PIPELINE_BLOCKED.md`, set `status: "blocked"`, terminate). 4. Otherwise: invoke Developer with `review-report.md` as priority context |
+| `phase: "review"`, `status: "waiting_for_approval"` | Check Checkpoint 4 approval signal on `review-report.md`; if `DO_NOT_MERGE` approved for rework: 1. In `pipeline-state.json`, reset `cycles.dev_iterations = 0` and `cycles.review_cycles = 0`. 2. Increment `cycles.design_revisions` (macro counter; no auto circuit-breaker). 3. Mark `artifacts.test_cases_status: "invalidated"` in `pipeline-state.json`. 4. Reset to `phase: "design"` and invoke Software Architect with `review-report.md` as priority context. **After Architect delivers new `design-decision.md` with `WAITING_FOR_APPROVAL`**: proceed to Checkpoint 2 for the new design. After Checkpoint 2 approval: re-execute Fase 3.1 (QA Analyst) with the new design, then re-execute Fase 3.2 (Tech Lead), then require Checkpoint 3 approval before proceeding to Developer. |
 | `phase: "close"`, `status: "in_progress"` | Invoke Project Assistant in Close mode |
 | `phase: "close"`, `status: "waiting_for_approval"` | Human manual Azure DevOps close required on `waiting-for-approval.md` |
 

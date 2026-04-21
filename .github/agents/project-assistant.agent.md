@@ -44,7 +44,14 @@ Activated by the Coordinator when invoked with a numeric PBI ID (`start 12345`).
 **Responsibilities:**
 
 1. Attempt to load the PBI context from Azure DevOps using the provided ID
-2. If the ID cannot be resolved to a Work Item: report the error and stop — do not continue
+2. If the ID cannot be resolved to a Work Item:
+   1. Write `agent-workspace/{issue-number}/waiting-for-approval.md` explaining the resolution failure with the specific ID
+   2. Update `pipeline-state.json`:
+      - `status: "intake_failed"`
+      - `error: "PBI ID {id} not found in Azure DevOps at {timestamp}"`
+   3. Add as the last line of `waiting-for-approval.md`:
+      `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->`
+   4. Stop — do not continue
 3. Extract and persist the following in `pipeline-state.json`:
    - `artifacts.intake_mode`: `"id"`
    - `artifacts.raw_input`: exact user input

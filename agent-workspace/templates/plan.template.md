@@ -1,7 +1,7 @@
 # Plan de validación técnica — Issue #{issue-number}
 
 > Generado por: Tech Lead Agent  
-> Artefactos auditados: `spec.md` · `design-decision.md`
+> Artefactos auditados: `design-decision.md` · `test-cases.md` · PBI Acceptance Criteria (`pipeline-state.json`)
 
 ---
 
