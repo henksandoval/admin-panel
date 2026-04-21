@@ -123,6 +123,15 @@ If you cannot make a test pass after honest iteration, classify and escalate:
 
 Write `dev-assessment.md` in `agent-workspace/{issue-number}/` with the failing test, exact error, hypothesis, what was tried, and classification. If you cannot classify with confidence, write `UNCLASSIFIED`.
 
+Add as the **last line** of `dev-assessment.md`:
+
+`<!-- AGENT_STATUS: NEEDS_REVISION: escalation:{CLASSIFICATION} -->`
+
+Example: `<!-- AGENT_STATUS: NEEDS_REVISION: escalation:SPEC_CONFLICT -->`
+
+This marker is required for the Coordinator to detect the escalation and route it correctly.
+Without it, the Coordinator will re-invoke you with the same blocked state indefinitely.
+
 ### Step 6 — Finalize
 
 When all tests pass and lint+build are clean:

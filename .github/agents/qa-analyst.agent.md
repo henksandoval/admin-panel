@@ -62,7 +62,11 @@ At the end of `test-cases.md`, add a summary section:
 
 Add as the last line of `test-cases.md`:
 
-`<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->`
+`<!-- AGENT_STATUS: COMPLETED -->`
+
+> The human checkpoint for `test-cases.md` is co-located with `plan.md` at **Checkpoint 3**,
+> after the Tech Lead completes its audit (Fase 3.2). Do not emit `WAITING_FOR_APPROVAL` here —
+> that would trigger a spurious checkpoint before the Tech Lead runs.
 
 ## What You Do Not Do
 

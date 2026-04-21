@@ -143,6 +143,7 @@ After invoking any specialized agent, **before** updating `pipeline-state.json`,
 | `<!-- AGENT_STATUS: COMPLETED -->` | Advance automatically: update `pipeline-state.json` -> `status: "completed"`, add phase to `completed[]`, proceed to next phase |
 | `<!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->` | Invoke checkpoint-protocol skill: write `waiting-for-approval.md`, update `status: "waiting_for_approval"`, terminate |
 | `<!-- AGENT_STATUS: NEEDS_REVISION: {reason} -->` | Update `status: "needs_revision"`, record reason, route per the Resumption Map |
+| `<!-- AGENT_STATUS: NEEDS_REVISION: escalation:{type} -->` | Set `phase: "dev"`, `status: "escalation"`, record `{type}` in `pipeline-state.json`; route per the Escalation Routing table |
 | (no marker present) | Re-invoke the same agent with feedback: "Tu artefacto no contiene el marcador AGENT_STATUS requerido como ultima linea. Anadelo antes de terminar." |
 
 For `review-report.md`, the expected mapping is:
@@ -175,6 +176,7 @@ If no status marker is present: report "Artifact has not been reviewed yet. Add 
 | `phase: "design"`, `status: "waiting_for_approval"` | Check Checkpoint 2 approval signal on `design-decision.md` |
 | `phase: "design"`, `status: "needs_revision"` | Re-invoke Software Architect with revision feedback |
 | `phase: "qa"`, `status: "in_progress"` | Invoke QA Analyst |
+| `phase: "qa"`, `status: "waiting_for_approval"` | **Do NOT invoke checkpoint-protocol.** QA advances automatically to Tech Lead. Set `status: "in_progress"`, `phase: "tech-lead"`, invoke Tech Lead. |
 | `phase: "tech-lead"`, `status: "in_progress"` | Invoke Tech Lead |
 | `phase: "tech-lead"`, `status: "waiting_for_approval"` | Check Checkpoint 3 approval signal on `plan.md` (and `test-cases.md`) |
 | `phase: "tech-lead"`, `status: "needs_revision: design"` | Re-invoke Software Architect with Tech Lead feedback; reset `phase: "design"` |
@@ -196,6 +198,7 @@ When the Dev Agent writes `dev-assessment.md` with an escalation:
 | `SPEC_CONFLICT` | Invoke QA Analyst with `dev-assessment.md` as context to review the conflicting test |
 | `TEST_BUG` | Invoke QA Analyst with `dev-assessment.md` as context to fix the test |
 | `IMPLEMENTATION_BLOCK` | Invoke Tech Lead with `dev-assessment.md` as context; if unresolved, escalate to Software Architect |
+| `CONVENTION_CONFLICT` | Invoke Software Architect with `dev-assessment.md` as priority context to resolve the convention violation. If the Architect determines a redesign is required, invoke checkpoint-protocol to escalate to human. |
 | `AMBIGUOUS_REQUIREMENT` | Pause and invoke checkpoint-protocol skill directing human to clarify the requirement; escalate to Product Manager after human clarification |
 | `UNCLASSIFIED` | Invoke Code Reviewer with `dev-assessment.md` as context to classify the failure; then re-route per the classification |
 
