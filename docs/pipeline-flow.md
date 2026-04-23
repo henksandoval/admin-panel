@@ -13,17 +13,26 @@
 | **Project Manager** | El Retador. Evalúa el valor de negocio de la idea cruda, detecta riesgos de alcance (scope creep) y propone un MVP. Produce `product-strategy.md`. | Claude Sonnet 4.6 |
 | **Product Owner** | El Escriba. Transforma la estrategia aprobada en un `product-backlog.md` estructurado (Épica → Feature → PBI + BDD en Gherkin). | Claude Sonnet 4.6 |
 | **Project Assistant** | Operaciones de sincronización con Azure DevOps en tres momentos: Discovery Sync, Delivery Intake y Close. | Claude Haiku 4.5 |
-| **Software Architect** | Diseña la solución técnica. Produce `design-decision.md` con análisis de trade-offs y razonamiento adversarial. | Claude Sonnet 4.6 |
+| **Software Architect** | Diseña la solución técnica. Produce `design-decision.md` con análisis de trade-offs. Utiliza la *Skill de Arquitectura* correspondiente al stack del proyecto. | Claude Sonnet 4.6 |
 | **QA Analyst** | Diseña los casos de prueba en lenguaje humano, tecnológicamente agnóstico. Produce `test-cases.md`. | Claude Sonnet 4.6 |
-| **Tech Lead** | Auditor adversarial. Valida simultáneamente el diseño y los test cases contra el PBI y la arquitectura. Produce `plan.md`. | Claude Sonnet 4.6 |
-| **Developer** | Implementa la feature siguiendo un ciclo TDD estricto (Red-Green-Refactor). Ejecuta las fases GREEN y REFACTOR hasta que todos los tests pasen y el código cumpla los estándares. | Claude Sonnet 4.6 |
-| **Test Developer** | Subagente del Developer. Ejecuta la fase RED del TDD. Traduce `test-cases.md` a código real (`*.spec.ts`, `*.e2e.ts`, etc.) garantizando que compilen y fallen estrictamente por aserción (lógica no implementada). | Claude Sonnet 4.6 |
-| **Code Reviewer** | Última línea de defensa antes del merge. Audita coherencia arquitectónica, SOLID y acoplamiento de capas. | Claude Sonnet 4.6 |
+| **Tech Lead** | Auditor adversarial. Valida simultáneamente el diseño y los test cases contra el PBI y la arquitectura base del proyecto. Produce `plan.md`. | Claude Sonnet 4.6 |
+| **Developer** | Implementa la feature siguiendo un ciclo TDD estricto (Red-Green-Refactor). Adopta el stack del proyecto. | Claude Sonnet 4.6 |
+| **Test Developer** | Subagente del Developer. Ejecuta la fase RED del TDD. Traduce `test-cases.md` a código de prueba real según el framework del proyecto, garantizando que compilen y fallen estrictamente por aserción. | Claude Sonnet 4.6 |
+| **Code Reviewer** | Última línea de defensa antes del merge. Audita coherencia arquitectónica, principios SOLID y convenciones específicas del stack del proyecto. | Claude Sonnet 4.6 |
 | **Doc Translator** | Fuera del pipeline principal. Traduce documentación normativa de inglés a español cuando cambian archivos `.agent.md` o `.instructions.md`. | GPT-5 Mini |
 
 ---
 
-## 2. Los Dos Pipelines
+## 2. Abstracción Tecnológica y Skills
+
+Para permitir que el pipeline opere en múltiples tecnologías (.NET, Angular, React, Python, etc.), los agentes son tecnológicamente agnósticos por defecto y se contextualizan dinámicamente:
+
+1. **Project Context (`project-config.json`):** Define el stack tecnológico, convenciones de arquitectura y comandos estándar del proyecto (ej. cómo compilar, cómo ejecutar tests, cómo pasar el linter).
+2. **Inyección de Skills:** Cuando un agente técnico (Architect, Developer, Reviewer) es invocado, el agente utilizará un MCP para obtener las skills especificas que le hagan falta según el stack del proyecto (ej. `skills/dotnet-csharp.md` o `skills/angular-ts.md`).
+
+---
+
+## 3. Los Dos Pipelines
 
 El sistema tiene **dos pipelines separados** que se conectan a través de Azure DevOps como frontera.
 
@@ -45,9 +54,9 @@ El sistema tiene **dos pipelines separados** que se conectan a través de Azure 
 
 ---
 
-## 3. Camino Feliz (Happy Path)
+## 4. Camino Feliz (Happy Path)
 
-### 3.1 Pipeline de Discovery: Texto libre → Azure DevOps
+### 4.1 Pipeline de Discovery: Texto libre → Azure DevOps
 
 ```
 Usuario: "start {idea en texto libre}"
@@ -96,7 +105,7 @@ FIN del pipeline de Discovery
 
 ---
 
-### 3.2 Pipeline de Delivery: PBI ID → Código mergeado
+### 4.2 Pipeline de Delivery: PBI ID → Código mergeado
 
 ```
 Usuario: "start {ID numérico del PBI}"
@@ -117,10 +126,10 @@ Usuario: "start {ID numérico del PBI}"
 ▼
 [FASE 2.2] Software Architect
   · Lee contexto del PBI desde pipeline-state.json
-  · Escanea src/app/ para entender lo que ya existe
+  · Escanea el código base para entender la estructura existente según el framework
   · Aplica razonamiento adversarial: primero el caso en contra, luego el caso a favor
   · Estima complejidad
-  · Salida: design-decision.md (con "Elementos UI observables", trade-offs, approach elegido)
+  · Salida: design-decision.md (con "Elementos UI/API observables", trade-offs, approach elegido)
   · Emite: <!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->
 │
 ▼
@@ -130,7 +139,7 @@ Usuario: "start {ID numérico del PBI}"
 ▼
 [FASE 3.1] QA Analyst
   · Lee pbi_acceptance_criteria (pipeline-state.json) + design-decision.md
-  · Por cada criterio de aceptación: deriva al menos 1 test case
+  · Por cada criterio de aceptación: deriva al menos 1 test case (agnóstico de tecnología)
   · Estructura: tabla con ID, Tipo, Escenario, Precondiciones, Pasos, Resultado, Justificación
   · Salida: test-cases.md
   · Emite: <!-- AGENT_STATUS: COMPLETED -->  ← NO pide checkpoint (avanza automáticamente)
@@ -155,8 +164,8 @@ Usuario: "start {ID numérico del PBI}"
   · Lee: design-decision.md + test-cases.md + plan.md
   │
   ├─ [1. Subfase RED - Test Developer]
-  │    · Traduce test-cases.md a código real (*.spec.ts, *.e2e.ts, etc.) cubriendo unit, integration y/o E2E según aplique.
-  │    · Crea las interfaces/tipos mínimos necesarios para que el test compile.
+  │    · Traduce test-cases.md a código de prueba real (unit, integration, E2E) usando el framework de testing del proyecto (ej. xUnit, Jest, PyTest).
+  │    · Crea las interfaces/tipos mínimos necesarios para que el test compile en el lenguaje destino.
   │    · EJECUTA LOS TESTS: Debe demostrar y registrar que los tests fallan estrictamente por aserción (lógica no implementada) y NO por errores de sintaxis o dependencias faltantes.
   │    · Produce: test-implementation-report.md (con el log de los tests fallando).
   │    · Emite: <!-- AGENT_STATUS: COMPLETED -->
@@ -164,12 +173,12 @@ Usuario: "start {ID numérico del PBI}"
   ├─ [2. Subfase GREEN - Developer]
   │    · Toma el control. Su único objetivo es hacer que los tests pasen.
   │    · Implementa la lógica de negocio siguiendo estrictamente design-decision.md.
-  │    · Loop: implementa → npm run test --run
+  │    · Loop: implementa → ejecuta tests
   │    · Repite hasta que el 100% de los tests escritos en la fase RED estén en verde.
   │
   └─ [3. Subfase REFACTOR - Developer]
-       · Con los tests en verde, limpia el código, elimina duplicidad y asegura cumplimiento SOLID y de linting.
-       · Loop: refactoriza → npm run lint → npm run test --run → npm run build
+       · Con los tests en verde, limpia el código, elimina duplicidad y asegura cumplimiento SOLID.
+       · Loop: refactoriza → ejecuta linter → ejecuta tests → ejecuta build commands
        · Repite hasta: 0 errores de lint + 0 tests fallidos + build exitoso.
        · Salida: código final + completion-report.md
        · Emite: <!-- AGENT_STATUS: COMPLETED -->
@@ -179,9 +188,9 @@ Usuario: "start {ID numérico del PBI}"
 ▼
 [FASE 4.2] Code Reviewer
   · Lee: design-decision.md + completion-report.md + archivos de implementación
-  · Audita: coherencia con el diseño, SOLID, acoplamiento de capas
+  · Audita: coherencia con el diseño, SOLID, acoplamiento de capas y buenas prácticas del stack específico.
   · Clasifica hallazgos: BLOQUEANTE / MAYOR / MENOR
-  · Emite veredicto de merge (ver sección 5)
+  · Emite veredicto de merge (ver sección 6)
 │
 ▼
 [CHECKPOINT 5] Revisión humana para merge
@@ -198,9 +207,9 @@ FIN del pipeline de Delivery ✅
 
 ---
 
-## 4. Estados y Transiciones
+## 5. Estados y Transiciones
 
-### 4.1 Marcadores que emiten los agentes (AGENT_STATUS)
+### 5.1 Marcadores que emiten los agentes (AGENT_STATUS)
 
 Cada agente escribe un marcador HTML en la **última línea** de su artefacto principal. El Coordinator lee ese marcador para decidir qué hacer a continuación.
 
@@ -218,7 +227,7 @@ Cada agente escribe un marcador HTML en la **última línea** de su artefacto pr
 > - `"waiting_for_approval"` → invocar checkpoint
 > - `"intake_failed"` → reportar error al humano, no reintentar
 
-### 4.2 Marcadores que escribe el humano (STATUS)
+### 5.2 Marcadores que escribe el humano (STATUS)
 
 Cuando el humano revisa un artefacto en un checkpoint, escribe en la **primera línea** del archivo:
 
@@ -228,7 +237,7 @@ Cuando el humano revisa un artefacto en un checkpoint, escribe en la **primera l
 | `<!-- STATUS: APPROVED_WITH_CHANGES -->` | Aprobado con modificaciones | El Coordinator ejecuta `git diff` del artefacto e incluye el diff como contexto prioritario al siguiente agente |
 | `<!-- STATUS: NEEDS_REVISION: {razón} -->` | Rechazado, retrabajo necesario | Re-invoca al mismo agente con la razón como contexto; incrementa el contador de revisiones |
 
-### 4.3 Veredictos del Code Reviewer
+### 5.3 Veredictos del Code Reviewer
 
 | Veredicto | AGENT_STATUS emitido | Consecuencia |
 |---|---|---|
@@ -236,7 +245,7 @@ Cuando el humano revisa un artefacto en un checkpoint, escribe en la **primera l
 | `MERGE_WITH_FIXES` | `NEEDS_REVISION: review_fixes_required` | Vuelve al Developer **sin checkpoint**; el Developer corrige |
 | `DO_NOT_MERGE` | `WAITING_FOR_APPROVAL` | Pausa en Checkpoint 5; si el humano aprueba el rework: reinicia desde diseño |
 
-### 4.4 Regla de normalización de razones compuestas
+### 5.4 Regla de normalización de razones compuestas
 
 Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISION: design: auth layer violated`), el Coordinator lo normaliza:
 - `status: "needs_revision: design"` → clave de enrutamiento
@@ -244,9 +253,9 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
 
 ---
 
-## 5. Bucles y Rechazos
+## 6. Bucles y Rechazos
 
-### 5.1 Diagrama de bucles
+### 6.1 Diagrama de bucles
 
 ```
                     ┌─────────────────────┐
@@ -309,7 +318,7 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
                                         └─────────────────────┘
 ```
 
-### 5.2 Bucles por agente — detalle
+### 6.2 Bucles por agente — detalle
 
 #### Bucle 1A: Project Manager → Project Manager
 - **Disparador:** Humano rechaza en Checkpoint 1 con `NEEDS_REVISION` O el Manager necesita más contexto.
@@ -378,7 +387,7 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
 
 ---
 
-## 6. Estados del pipeline-state.json
+## 7. Estados del pipeline-state.json
 
 El `pipeline-state.json` es el cerebro de estado del Coordinator. Sus campos clave:
 
@@ -400,7 +409,7 @@ completed_at   → timestamp ISO cuando finaliza
 
 ---
 
-## 7. Condición de Bloqueo (PIPELINE_BLOCKED)
+## 8. Condición de Bloqueo (PIPELINE_BLOCKED)
 
 Cuando cualquier contador de ciclos alcanza su límite (definido en `agent-workspace/config.json`):
 
@@ -412,7 +421,7 @@ El humano debe intervenir manualmente para desbloquear (generalmente simplifican
 
 ---
 
-## 8. Artefactos por Fase
+## 9. Artefactos por Fase
 
 | Fase | Agente | Artefacto de salida | Destino permanente |
 |---|---|---|---|
@@ -423,18 +432,19 @@ El humano debe intervenir manualmente para desbloquear (generalmente simplifican
 | 2.2 | Software Architect | `design-decision.md` | `docs/decisions/{issue}/design-decision.md` |
 | 3.1 | QA Analyst | `test-cases.md` | `docs/decisions/{issue}/test-cases.md` |
 | 3.2 | Tech Lead | `plan.md` | `docs/decisions/{issue}/plan.md` |
-| 4.1 | Developer + Test Developer | `*.spec.ts`, `*.e2e.ts` + código + `test-implementation-report.md` + `completion-report.md` | `src/` |
+| 4.1 | Developer + Test Developer | Archivos de código y pruebas (según stack) + `test-implementation-report.md` + `completion-report.md` | Repositorio destino |
 | 4.2 | Code Reviewer | `review-report.md` | — (efímero) |
 | 4.3 | Project Assistant | pipeline-state.json (completed_at) | — |
 
-Los artefactos permanentes (`design-decision.md`, `test-cases.md`, `plan.md`) son movidos automáticamente por un GitHub Action al hacer merge.
+Los artefactos permanentes (`design-decision.md`, `test-cases.md`, `plan.md`) son movidos automáticamente por un script de integración al hacer merge.
 Los artefactos efímeros son eliminados por `pipeline-cleanup` al hacer merge.
 
 ---
 
-## 9. Principios del Coordinator
+## 10. Principios del Coordinator
 
-- **Thin orchestrator:** solo orquesta, nunca ejecuta lógica de negocio ni escribe código
-- **Thin context:** pasa rutas de archivo a los agentes, nunca el contenido de los archivos
-- **Conservative mode:** cualquier situación no cubierta por las tablas de decisión → pausa y consulta al humano
-- **Artifact verification:** antes de avanzar desde cualquier fase, verifica que el checklist de autoevaluación del artefacto esté completo y todos los `[REQUERIDO]` estén rellenos
+- **Thin orchestrator:** solo orquesta, nunca ejecuta lógica de negocio ni escribe código.
+- **Thin context:** pasa rutas de archivo a los agentes, nunca el contenido de los archivos.
+- **Agnóstico:** Delega la ejecución de comandos de compilación y pruebas a las configuraciones del proyecto
+- **Conservative mode:** cualquier situación no cubierta por las tablas de decisión → pausa y consulta al humano.
+- **Artifact verification:** antes de avanzar desde cualquier fase, verifica que el checklist de autoevaluación del artefacto esté completo y todos los `[REQUERIDO]` estén rellenos.
