@@ -1,92 +1,91 @@
-# Dirección vertical (de arriba a abajo)
 direction: down
 
-# --- DEFINICIÓN DE ESTILOS (CLASES) ---
+# --- CLASES Y ESTILOS ---
 classes: {
   agent: {
     shape: rectangle
-    style: {
-      fill: "#2563eb"
-      stroke: "#1e3a8a"
-      border-radius: 8
-      font-color: white
-      bold: true
-    }
+    style: { fill: "#2563eb"; stroke: "#1e3a8a"; border-radius: 8; font-color: white; bold: true }
   }
   human: {
     shape: oval
-    style: {
-      fill: "#facc15"
-      stroke: "#ca8a04"
-      stroke-width: 2
-      font-color: "#713f12"
-      bold: true
-    }
+    style: { fill: "#facc15"; stroke: "#ca8a04"; stroke-width: 2; font-color: "#713f12"; bold: true }
+  }
+  system: {
+    shape: cylinder
+    style: { fill: "#64748b"; stroke: "#334155"; font-color: white; bold: true }
   }
   happy_path: {
-    style: {
-      stroke: "#10b981"
-      stroke-width: 2
-    }
+    style: { stroke: "#10b981"; stroke-width: 2 }
   }
   loop: {
-    style: {
-      stroke: "#ef4444"
-      stroke-width: 2
-      stroke-dash: 5
-      animated: true
-    }
+    style: { stroke: "#ef4444"; stroke-width: 2; stroke-dash: 5; animated: true }
   }
 }
 
-# --- FASE 1: REQUISITOS ---
-Fase 1 Requisitos: {
-  style: { fill: "#eff6ff"; stroke: "#bfdbfe"; border-radius: 10 }
+# --- 1. PIPELINE DE DISCOVERY ---
+Discovery Pipeline: {
+  style: { fill: "#f8fafc"; stroke: "#cbd5e1"; border-radius: 10 }
   
-  PA: Project Assistant { class: agent }
   PM: Product Manager { class: agent }
-  H1: Humano (PO) { class: human }
+  CP1: Checkpoint 1 (Humano) { class: human }
+  PA_Sync: Project Assistant (Sync) { class: agent }
 
-  PA -> PM: PBI Válido { class: happy_path }
-  PM -> H1: WAITING { class: happy_path }
+  # Camino Feliz
+  PM -> CP1: WAITING_FOR_APPROVAL { class: happy_path }
+  CP1 -> PA_Sync: APPROVED { class: happy_path }
+
+  # Bucle 1
+  CP1 -> PM: NEEDS_REVISION { class: loop }
 }
 
-# --- FASE 2: ARQUITECTURA Y QA ---
-Fase 2 Arquitectura: {
-  style: { fill: "#eef2ff"; stroke: "#c7d2fe"; border-radius: 10 }
+# --- FRONTERA ---
+ADO: Azure DevOps { class: system }
+
+Discovery Pipeline.PA_Sync -> ADO: Crea Work Items { class: happy_path }
+
+# --- 2. PIPELINE DE DELIVERY ---
+Delivery Pipeline: {
+  style: { fill: "#f0fdf4"; stroke: "#bbf7d0"; border-radius: 10 }
   
+  PA_Intake: Project Assistant (Intake) { class: agent }
   SA: Software Architect { class: agent }
+  CP2: Checkpoint 2 (Humano) { class: human }
   QA: QA Analyst { class: agent }
   TL: Tech Lead { class: agent }
-  H2: Humano (Aprobación) { class: human }
-
-  SA -> QA: Diseño Propuesto { class: happy_path }
-  QA -> TL: Validado { class: happy_path }
-  TL -> H2: Auditoría OK { class: happy_path }
-  
-  # Bucles internos de la Fase 2
-  QA -> SA: NEEDS_REVISION { class: loop }
-  TL -> SA: NEEDS_REVISION { class: loop }
-}
-
-# --- FASE 3: DESARROLLO ---
-Fase 3 Desarrollo: {
-  style: { fill: "#f0fdfa"; stroke: "#ccfbf1"; border-radius: 10 }
-  
-  DEV: Developer { class: agent }
+  CP3: Checkpoint 3 (Humano) { class: human }
+  DEV: Developer (+ Test Dev) { class: agent }
   CR: Code Reviewer { class: agent }
-  H3: Humano (Merge) { class: human }
+  CP4: Checkpoint 4 (Humano) { class: human }
+  PA_Close: Project Assistant (Close) { class: agent }
 
-  DEV -> CR: Código Listo { class: happy_path }
-  CR -> H3: MERGE_READY { class: happy_path }
-  
-  # Bucle interno de la Fase 3
-  CR -> DEV: NEEDS_REVISION { class: loop }
+  # Camino Feliz
+  PA_Intake -> SA: Contexto PBI { class: happy_path }
+  SA -> CP2: WAITING_FOR_APPROVAL { class: happy_path }
+  CP2 -> QA: APPROVED { class: happy_path }
+  QA -> TL: COMPLETED { class: happy_path }
+  TL -> CP3: COMPLETED { class: happy_path }
+  CP3 -> DEV: APPROVED { class: happy_path }
+  DEV -> CR: COMPLETED { class: happy_path }
+  CR -> CP4: MERGE_READY { class: happy_path }
+  CP4 -> PA_Close: APPROVED { class: happy_path }
+
+  # Bucles Internos de Delivery
+  CP2 -> SA: NEEDS_REVISION { class: loop }
+  QA -> SA: design_not_testable { class: loop }
+  TL -> SA: design { class: loop }
+  TL -> QA: test-cases { class: loop }
+  CP3 -> TL: NEEDS_REVISION { class: loop }
+  CR -> DEV: MERGE_WITH_FIXES { class: loop }
+  CP4 -> CR: NEEDS_REVISION { class: loop }
 }
 
-# --- CONEXIONES ENTRE FASES (Camino Feliz) ---
-Fase 1 Requisitos.H1 -> Fase 2 Arquitectura.SA: Aprobado { class: happy_path }
-Fase 2 Arquitectura.H2 -> Fase 3 Desarrollo.DEV: Aprobado { class: happy_path }
+ADO -> Delivery Pipeline.PA_Intake: Descarga PBI { class: happy_path }
 
-# --- MACRO-BUCLES (Escalaciones) ---
-Fase 3 Desarrollo.H3 -> Fase 2 Arquitectura.SA: MACRO-REWORK { class: loop }
+# --- MACRO-BUCLES Y ESCALACIONES ---
+# Escalaciones del Developer (Bucle 5)
+Delivery Pipeline.DEV -> Delivery Pipeline.QA: Escalación (SPEC_CONFLICT / TEST_BUG) { class: loop }
+Delivery Pipeline.DEV -> Delivery Pipeline.TL: Escalación (IMPLEMENTATION_BLOCK) { class: loop }
+Delivery Pipeline.DEV -> Delivery Pipeline.SA: Escalación (CONVENTION_CONFLICT) { class: loop }
+
+# DO_NOT_MERGE (Bucle 7)
+Delivery Pipeline.CR -> Delivery Pipeline.SA: DO_NOT_MERGE (Rediseño) { class: loop }
