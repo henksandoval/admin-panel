@@ -1,0 +1,92 @@
+# Dirección vertical (de arriba a abajo)
+direction: down
+
+# --- DEFINICIÓN DE ESTILOS (CLASES) ---
+classes: {
+  agent: {
+    shape: rectangle
+    style: {
+      fill: "#2563eb"
+      stroke: "#1e3a8a"
+      border-radius: 8
+      font-color: white
+      bold: true
+    }
+  }
+  human: {
+    shape: oval
+    style: {
+      fill: "#facc15"
+      stroke: "#ca8a04"
+      stroke-width: 2
+      font-color: "#713f12"
+      bold: true
+    }
+  }
+  happy_path: {
+    style: {
+      stroke: "#10b981"
+      stroke-width: 2
+    }
+  }
+  loop: {
+    style: {
+      stroke: "#ef4444"
+      stroke-width: 2
+      stroke-dash: 5
+      animated: true
+    }
+  }
+}
+
+# --- FASE 1: REQUISITOS ---
+Fase 1 Requisitos: {
+  style: { fill: "#eff6ff"; stroke: "#bfdbfe"; border-radius: 10 }
+  
+  PA: Project Assistant { class: agent }
+  PM: Product Manager { class: agent }
+  H1: Humano (PO) { class: human }
+
+  PA -> PM: PBI Válido { class: happy_path }
+  PM -> H1: WAITING { class: happy_path }
+}
+
+# --- FASE 2: ARQUITECTURA Y QA ---
+Fase 2 Arquitectura: {
+  style: { fill: "#eef2ff"; stroke: "#c7d2fe"; border-radius: 10 }
+  
+  SA: Software Architect { class: agent }
+  QA: QA Analyst { class: agent }
+  TL: Tech Lead { class: agent }
+  H2: Humano (Aprobación) { class: human }
+
+  SA -> QA: Diseño Propuesto { class: happy_path }
+  QA -> TL: Validado { class: happy_path }
+  TL -> H2: Auditoría OK { class: happy_path }
+  
+  # Bucles internos de la Fase 2
+  QA -> SA: NEEDS_REVISION { class: loop }
+  TL -> SA: NEEDS_REVISION { class: loop }
+}
+
+# --- FASE 3: DESARROLLO ---
+Fase 3 Desarrollo: {
+  style: { fill: "#f0fdfa"; stroke: "#ccfbf1"; border-radius: 10 }
+  
+  DEV: Developer { class: agent }
+  CR: Code Reviewer { class: agent }
+  H3: Humano (Merge) { class: human }
+
+  DEV -> CR: Código Listo { class: happy_path }
+  CR -> H3: MERGE_READY { class: happy_path }
+  
+  # Bucle interno de la Fase 3
+  CR -> DEV: NEEDS_REVISION { class: loop }
+}
+
+# --- CONEXIONES ENTRE FASES (Camino Feliz) ---
+Fase 1 Requisitos.H1 -> Fase 2 Arquitectura.SA: Aprobado { class: happy_path }
+Fase 2 Arquitectura.H2 -> Fase 3 Desarrollo.DEV: Aprobado { class: happy_path }
+
+# --- MACRO-BUCLES (Escalaciones) ---
+Fase 3 Desarrollo.H3 -> Fase 2 Arquitectura.SA: MACRO-REWORK { class: loop }
