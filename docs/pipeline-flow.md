@@ -10,13 +10,14 @@
 | Actor | Rol en el Pipeline | Modelo |
 |---|---|---|
 | **Pipeline Coordinator** | Thin orchestrator. No escribe código ni toma decisiones técnicas. Solo decide qué ocurre a continuación y en qué orden. | Claude Haiku 4.5 |
-| **Product Manager** | Transforma una idea en texto libre en un `product-backlog.md` estructurado (Épica → Feature → PBI + BDD). | Claude Sonnet 4.6 |
+| **Project Manager** | El Retador. Evalúa el valor de negocio de la idea cruda, detecta riesgos de alcance (scope creep) y propone un MVP. Produce `product-strategy.md`. | Claude Sonnet 4.6 |
+| **Product Owner** | El Escriba. Transforma la estrategia aprobada en un `product-backlog.md` estructurado (Épica → Feature → PBI + BDD en Gherkin). | Claude Sonnet 4.6 |
 | **Project Assistant** | Operaciones de sincronización con Azure DevOps en tres momentos: Discovery Sync, Delivery Intake y Close. | Claude Haiku 4.5 |
 | **Software Architect** | Diseña la solución técnica. Produce `design-decision.md` con análisis de trade-offs y razonamiento adversarial. | Claude Sonnet 4.6 |
 | **QA Analyst** | Diseña los casos de prueba en lenguaje humano, tecnológicamente agnóstico. Produce `test-cases.md`. | Claude Sonnet 4.6 |
 | **Tech Lead** | Auditor adversarial. Valida simultáneamente el diseño y los test cases contra el PBI y la arquitectura. Produce `plan.md`. | Claude Sonnet 4.6 |
-| **Developer** | Implementa la feature. Delega la fase RED al Test Developer; luego implementa (fase GREEN) hasta que todos los tests pasen. | Claude Sonnet 4.6 |
-| **Test Developer** | Subagente del Developer. Traduce `test-cases.md` a archivos `*.spec.ts` en estado RED (fallan por aserción). | Claude Sonnet 4.6 |
+| **Developer** | Implementa la feature siguiendo un ciclo TDD estricto (Red-Green-Refactor). Ejecuta las fases GREEN y REFACTOR hasta que todos los tests pasen y el código cumpla los estándares. | Claude Sonnet 4.6 |
+| **Test Developer** | Subagente del Developer. Ejecuta la fase RED del TDD. Traduce `test-cases.md` a código real (`*.spec.ts`, `*.e2e.ts`, etc.) garantizando que compilen y fallen estrictamente por aserción (lógica no implementada). | Claude Sonnet 4.6 |
 | **Code Reviewer** | Última línea de defensa antes del merge. Audita coherencia arquitectónica, SOLID y acoplamiento de capas. | Claude Sonnet 4.6 |
 | **Doc Translator** | Fuera del pipeline principal. Traduce documentación normativa de inglés a español cuando cambian archivos `.agent.md` o `.instructions.md`. | GPT-5 Mini |
 
@@ -58,15 +59,28 @@ Usuario: "start {idea en texto libre}"
   · Crea PIPELINE.md
 │
 ▼
-[FASE 1.1 & 1.2] Product Manager
+[FASE 1.1] Project Manager (El Retador)
+  · Lee la idea cruda del usuario.
+  · Evalúa valor de negocio, recorta el alcance (scope creep) y propone un MVP.
+  · Salida: product-strategy.md
+  · Emite: <!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->
+│
+▼
+[CHECKPOINT 1] Revisión humana de la Estrategia (Filtro de Negocio)
+  · Human evalúa si el MVP propuesto es correcto.
+  · Human añade: <!-- STATUS: APPROVED -->
+│
+▼
+[FASE 1.2] Product Owner (El Escriba)
+  · Lee product-strategy.md aprobado.
   · Copia template product-backlog.md
-  · Estructura la idea: Épica → Feature → PBI + criterios BDD
-  · Si input insuficiente: marca [PENDIENTE: pregunta concreta]
+  · Estructura la idea para AzureDevOps(ADO): Épica → Feature → PBI + criterios BDD (Gherkin).
   · Salida: product-backlog.md
   · Emite: <!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->
 │
 ▼
-[CHECKPOINT 1] Revisión humana del backlog
+[CHECKPOINT 2] Revisión humana del Backlog (Filtro Técnico/Funcional)
+  · Human revisa que los BDDs y la estructura sean correctos.
   · Human añade: <!-- STATUS: APPROVED -->
 │
 ▼
@@ -110,7 +124,7 @@ Usuario: "start {ID numérico del PBI}"
   · Emite: <!-- AGENT_STATUS: WAITING_FOR_APPROVAL -->
 │
 ▼
-[CHECKPOINT 2] Revisión humana del diseño arquitectónico
+[CHECKPOINT 3] Revisión humana del diseño arquitectónico
   · Human añade: <!-- STATUS: APPROVED -->
 │
 ▼
@@ -130,27 +144,34 @@ Usuario: "start {ID numérico del PBI}"
   · Clasifica hallazgos: BLOQUEANTE / MAYOR / MENOR
   · Salida: plan.md
   · Emite: <!-- AGENT_STATUS: COMPLETED -->
-  · Coordinator convierte esto en WAITING_FOR_APPROVAL para Checkpoint 3
+  · Coordinator convierte esto en WAITING_FOR_APPROVAL para Checkpoint 4
 │
 ▼
-[CHECKPOINT 3] Revisión humana conjunta: plan.md + test-cases.md
+[CHECKPOINT 4] Revisión humana conjunta: plan.md + test-cases.md
   · Human añade: <!-- STATUS: APPROVED -->
 │
 ▼
-[FASE 4.1] Developer
+[FASE 4.1] Developer (Ciclo TDD Estricto)
   · Lee: design-decision.md + test-cases.md + plan.md
   │
-  ├─ [Subfase RED] Delega al Test Developer:
-  │    · Traduce test-cases.md → *.spec.ts
-  │    · Tests deben compilar y FALLAR por aserción (no por error de compilación)
-  │    · Produce: test-implementation-report.md
+  ├─ [1. Subfase RED - Test Developer]
+  │    · Traduce test-cases.md a código real (*.spec.ts, *.e2e.ts, etc.) cubriendo unit, integration y/o E2E según aplique.
+  │    · Crea las interfaces/tipos mínimos necesarios para que el test compile.
+  │    · EJECUTA LOS TESTS: Debe demostrar y registrar que los tests fallan estrictamente por aserción (lógica no implementada) y NO por errores de sintaxis o dependencias faltantes.
+  │    · Produce: test-implementation-report.md (con el log de los tests fallando).
   │    · Emite: <!-- AGENT_STATUS: COMPLETED -->
   │
-  └─ [Subfase GREEN] Developer implementa la feature:
-       · Sigue estrictamente design-decision.md
-       · Loop: implementa → npm run lint → npm run test --run → npm run build
-       · Repite hasta: 0 errores de lint + 0 tests fallidos + build exitoso
-       · Salida: código + completion-report.md
+  ├─ [2. Subfase GREEN - Developer]
+  │    · Toma el control. Su único objetivo es hacer que los tests pasen.
+  │    · Implementa la lógica de negocio siguiendo estrictamente design-decision.md.
+  │    · Loop: implementa → npm run test --run
+  │    · Repite hasta que el 100% de los tests escritos en la fase RED estén en verde.
+  │
+  └─ [3. Subfase REFACTOR - Developer]
+       · Con los tests en verde, limpia el código, elimina duplicidad y asegura cumplimiento SOLID y de linting.
+       · Loop: refactoriza → npm run lint → npm run test --run → npm run build
+       · Repite hasta: 0 errores de lint + 0 tests fallidos + build exitoso.
+       · Salida: código final + completion-report.md
        · Emite: <!-- AGENT_STATUS: COMPLETED -->
 │
 ▼  (automático)
@@ -163,7 +184,7 @@ Usuario: "start {ID numérico del PBI}"
   · Emite veredicto de merge (ver sección 5)
 │
 ▼
-[CHECKPOINT 4] Revisión humana para merge
+[CHECKPOINT 5] Revisión humana para merge
   · Human añade: <!-- STATUS: APPROVED -->
 │
 ▼
@@ -211,9 +232,9 @@ Cuando el humano revisa un artefacto en un checkpoint, escribe en la **primera l
 
 | Veredicto | AGENT_STATUS emitido | Consecuencia |
 |---|---|---|
-| `MERGE_READY` | `COMPLETED` | Avanza a Checkpoint 4 |
+| `MERGE_READY` | `COMPLETED` | Avanza a Checkpoint 5 |
 | `MERGE_WITH_FIXES` | `NEEDS_REVISION: review_fixes_required` | Vuelve al Developer **sin checkpoint**; el Developer corrige |
-| `DO_NOT_MERGE` | `WAITING_FOR_APPROVAL` | Pausa en Checkpoint 4; si el humano aprueba el rework: reinicia desde diseño |
+| `DO_NOT_MERGE` | `WAITING_FOR_APPROVAL` | Pausa en Checkpoint 5; si el humano aprueba el rework: reinicia desde diseño |
 
 ### 4.4 Regla de normalización de razones compuestas
 
@@ -229,10 +250,17 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
 
 ```
                     ┌─────────────────────┐
-                    │   Product Manager   │◄──── NEEDS_REVISION (max: max_spec_revisions)
+                    │  Project Manager    │◄──── NEEDS_REVISION (max: max_strategy_revisions)
                     └──────────┬──────────┘
                                │ WAITING_FOR_APPROVAL
                          [Checkpoint 1]
+                               │ APPROVED
+                               ▼
+                    ┌─────────────────────┐
+                    │    Product Owner    │◄──── NEEDS_REVISION (max: max_spec_revisions)
+                    └──────────┬──────────┘
+                               │ WAITING_FOR_APPROVAL
+                         [Checkpoint 2]
                                │ APPROVED
                                ▼
                     ┌─────────────────────┐
@@ -247,7 +275,7 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
      │ testable)     │   needs_revision:│                     │◄─── DO_NOT_MERGE aprobado
      └───────────────┘   design)        └──────────┬──────────┘     (desde Reviewer)
                                                    │ WAITING_FOR_APPROVAL
-                                             [Checkpoint 2]
+                                             [Checkpoint 3]
                                                    │ APPROVED
                                                    ▼
                                         ┌─────────────────────┐
@@ -259,20 +287,20 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
                                         │     Tech Lead       │
                                         └──────────┬──────────┘
                                                    │ COMPLETED
-                                             [Checkpoint 3]
+                                             [Checkpoint 4]
                                                    │ APPROVED
                                                    ▼
                                         ┌─────────────────────┐
           ┌─────────────────────────────┤      Developer      │◄─── MERGE_WITH_FIXES
           │ Escalación a QA / TechLead  │  (+ Test Developer) │     (desde Reviewer, sin checkpoint)
-          │ / Architect / PM            └──────────┬──────────┘
+          │ / Architect / PO            └──────────┬──────────┘
           └─────────────────────────────►          │ COMPLETED
                                                    ▼
                                         ┌─────────────────────┐
                                         │   Code Reviewer     │
                                         └──────────┬──────────┘
                                                    │
-                                             [Checkpoint 4]
+                                             [Checkpoint 5]
                                                    │ APPROVED
                                                    ▼
                                         ┌─────────────────────┐
@@ -283,8 +311,14 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
 
 ### 5.2 Bucles por agente — detalle
 
-#### Bucle 1: Product Manager → Product Manager
-- **Disparador:** Humano rechaza en Checkpoint 1 con `NEEDS_REVISION` O el PM no tiene suficiente información (`awaiting_human_input`)
+#### Bucle 1A: Project Manager → Project Manager
+- **Disparador:** Humano rechaza en Checkpoint 1 con `NEEDS_REVISION` O el Manager necesita más contexto.
+- **Condición de salida:** Estrategia/MVP aprobado.
+- **Límite:** `max_strategy_revisions` (config.json)
+- **Si supera el límite:** → `PIPELINE_BLOCKED`
+
+#### Bucle 1B: Product Owner → Product Owner
+- **Disparador:** Humano rechaza en Checkpoint 2 con `NEEDS_REVISION` por BDDs incorrectos.
 - **Condición de salida del bucle:** backlog completo y aprobado
 - **Límite:** `max_spec_revisions` (config.json)
 - **Si supera el límite:** → `PIPELINE_BLOCKED`
@@ -292,7 +326,7 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
 #### Bucle 2: QA Analyst detecta diseño no testeable → Software Architect
 - **Disparador:** QA Analyst emite `NEEDS_REVISION: design_not_testable: {elementos faltantes}`
 - **Acción:** El Coordinator re-invoca al Software Architect con el feedback de QA como contexto prioritario
-- **Checkpoint 2:** Solo se requiere de nuevo si el Architect emite `WAITING_FOR_APPROVAL` en su nueva versión
+- **Checkpoint 3:** Solo se requiere de nuevo si el Architect emite `WAITING_FOR_APPROVAL` en su nueva versión
 - **Límite:** `max_design_revisions` (contado en `cycles.qa_design_revision_cycles`)
 - **Si supera el límite:** → `PIPELINE_BLOCKED`
 
@@ -318,7 +352,7 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
   | `TEST_BUG` | QA Analyst | El test tiene una aserción incorrecta o prueba lo incorrecto |
   | `IMPLEMENTATION_BLOCK` | Tech Lead (→ Architect si no resuelto) | No puede implementar sin violar el diseño |
   | `CONVENTION_CONFLICT` | Software Architect | El diseño o test requiere violar una convención fundamental |
-  | `AMBIGUOUS_REQUIREMENT` | Checkpoint humano → Product Manager | Spec y diseño genuinamente ambiguos |
+  | `AMBIGUOUS_REQUIREMENT` | Checkpoint humano → Product Owner | Spec y diseño genuinamente ambiguos |
   | `UNCLASSIFIED` | Code Reviewer (modo clasificación) | El Developer no pudo clasificar el fallo |
 
 - **Límite:** `max_dev_iterations` (config.json)
@@ -331,15 +365,15 @@ Cuando un marcador tiene más de un segmento separado por `:` (ej: `NEEDS_REVISI
 - **Si supera el límite:** → `PIPELINE_BLOCKED`
 
 #### Bucle 7: Code Reviewer → Software Architect (DO_NOT_MERGE — hallazgos BLOQUEANTE)
-- **Disparador:** Code Reviewer emite `DO_NOT_MERGE` y el humano aprueba el rework en Checkpoint 4
+- **Disparador:** Code Reviewer emite `DO_NOT_MERGE` y el humano aprueba el rework en Checkpoint 5
 - **Acción completa del Coordinator:**
   1. Incrementa `cycles.design_revisions`
   2. Verifica límite `max_design_revisions`; si supera → `PIPELINE_BLOCKED`
   3. Resetea contadores: `dev_iterations = 0`, `review_cycles = 0`, `qa_design_revision_cycles = 0`, `tech_lead_revision_cycles = 0`
   4. Marca `artifacts.test_cases_status: "invalidated"` (los test cases aprobados se invalidan)
   5. Re-invoca Software Architect con `review-report.md` como contexto
-  6. Nuevo Checkpoint 2 (con advertencia de rediseño #{N})
-  7. Luego: QA Analyst → Tech Lead → Checkpoint 3 → Developer → Code Reviewer
+  6. Nuevo Checkpoint 3 (con advertencia de rediseño #{N})
+  7. Luego: QA Analyst → Tech Lead → Checkpoint 4 → Developer → Code Reviewer
 - **Advertencia en waiting-for-approval.md:** `⚠️ REDISEÑO #{N}: ciclos previos produjeron hallazgos BLOQUEANTE. Evalúe si el PBI necesita simplificación.`
 
 ---
@@ -359,7 +393,7 @@ completed_at   → timestamp ISO cuando finaliza
 ```
 
 **Fases posibles (`phase`):**
-`backlog` → `sync-discovery` → `intake` → `design` → `qa` → `tech-lead` → `dev` → `review` → `close`
+`strategy` → `backlog` → `sync-discovery` → `intake` → `design` → `qa` → `tech-lead` → `dev` → `review` → `close`
 
 **Valores de `status` posibles:**
 `in_progress` | `waiting_for_approval` | `completed` | `needs_revision` | `needs_revision: {clasificación}` | `escalation` | `intake_failed` | `blocked`
@@ -382,13 +416,14 @@ El humano debe intervenir manualmente para desbloquear (generalmente simplifican
 
 | Fase | Agente | Artefacto de salida | Destino permanente |
 |---|---|---|---|
-| 1.1 & 1.2 | Product Manager | `product-backlog.md` | — |
+| 1.1 | Project Manager | `product-strategy.md` | — |
+| 1.2 | Product Owner | `product-backlog.md` | — |
 | 1.3 | Project Assistant | pipeline-state.json (Work Item IDs) | — |
 | 2.1 | Project Assistant | pipeline-state.json (PBI context) | — |
 | 2.2 | Software Architect | `design-decision.md` | `docs/decisions/{issue}/design-decision.md` |
 | 3.1 | QA Analyst | `test-cases.md` | `docs/decisions/{issue}/test-cases.md` |
 | 3.2 | Tech Lead | `plan.md` | `docs/decisions/{issue}/plan.md` |
-| 4.1 | Developer + Test Developer | `*.spec.ts` + código + `completion-report.md` | `src/` |
+| 4.1 | Developer + Test Developer | `*.spec.ts`, `*.e2e.ts` + código + `test-implementation-report.md` + `completion-report.md` | `src/` |
 | 4.2 | Code Reviewer | `review-report.md` | — (efímero) |
 | 4.3 | Project Assistant | pipeline-state.json (completed_at) | — |
 
