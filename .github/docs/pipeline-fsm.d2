@@ -26,16 +26,21 @@ classes: {
 Discovery Pipeline: {
   style: { fill: "#f8fafc"; stroke: "#cbd5e1"; border-radius: 10 }
   
-  PM: Product Manager { class: agent }
-  CP1: Checkpoint 1 (Humano) { class: human }
+  PS: Product Strategist (Retador) { class: agent }
+  CP_Strat: Checkpoint Estrategia (Humano) { class: human }
+  PO: Product Owner (Escriba) { class: agent }
+  CP_Backlog: Checkpoint Backlog (Humano) { class: human }
   PA_Sync: Project Assistant (Sync) { class: agent }
 
   # Camino Feliz
-  PM -> CP1: WAITING_FOR_APPROVAL { class: happy_path }
-  CP1 -> PA_Sync: APPROVED { class: happy_path }
+  PS -> CP_Strat: WAITING_FOR_APPROVAL\n(Propuesta MVP) { class: happy_path }
+  CP_Strat -> PO: APPROVED { class: happy_path }
+  PO -> CP_Backlog: WAITING_FOR_APPROVAL\n(BDDs) { class: happy_path }
+  CP_Backlog -> PA_Sync: APPROVED { class: happy_path }
 
-  # Bucle 1
-  CP1 -> PM: NEEDS_REVISION { class: loop }
+  # Bucles de Rechazo en Discovery
+  CP_Strat -> PS: NEEDS_REVISION\n(Ajustar alcance) { class: loop }
+  CP_Backlog -> PO: NEEDS_REVISION\n(Corregir BDDs) { class: loop }
 }
 
 # --- FRONTERA ---
@@ -49,43 +54,40 @@ Delivery Pipeline: {
   
   PA_Intake: Project Assistant (Intake) { class: agent }
   SA: Software Architect { class: agent }
-  CP2: Checkpoint 2 (Humano) { class: human }
+  CP_Design: Checkpoint Diseño (Humano) { class: human }
   QA: QA Analyst { class: agent }
   TL: Tech Lead { class: agent }
-  CP3: Checkpoint 3 (Humano) { class: human }
+  CP_Plan: Checkpoint Plan (Humano) { class: human }
   DEV: Developer (+ Test Dev) { class: agent }
   CR: Code Reviewer { class: agent }
-  CP4: Checkpoint 4 (Humano) { class: human }
+  CP_Merge: Checkpoint Merge (Humano) { class: human }
   PA_Close: Project Assistant (Close) { class: agent }
 
   # Camino Feliz
   PA_Intake -> SA: Contexto PBI { class: happy_path }
-  SA -> CP2: WAITING_FOR_APPROVAL { class: happy_path }
-  CP2 -> QA: APPROVED { class: happy_path }
+  SA -> CP_Design: WAITING_FOR_APPROVAL { class: happy_path }
+  CP_Design -> QA: APPROVED { class: happy_path }
   QA -> TL: COMPLETED { class: happy_path }
-  TL -> CP3: COMPLETED { class: happy_path }
-  CP3 -> DEV: APPROVED { class: happy_path }
+  TL -> CP_Plan: COMPLETED { class: happy_path }
+  CP_Plan -> DEV: APPROVED { class: happy_path }
   DEV -> CR: COMPLETED { class: happy_path }
-  CR -> CP4: MERGE_READY { class: happy_path }
-  CP4 -> PA_Close: APPROVED { class: happy_path }
+  CR -> CP_Merge: MERGE_READY { class: happy_path }
+  CP_Merge -> PA_Close: APPROVED { class: happy_path }
 
   # Bucles Internos de Delivery
-  CP2 -> SA: NEEDS_REVISION { class: loop }
+  CP_Design -> SA: NEEDS_REVISION { class: loop }
   QA -> SA: design_not_testable { class: loop }
   TL -> SA: design { class: loop }
   TL -> QA: test-cases { class: loop }
-  CP3 -> TL: NEEDS_REVISION { class: loop }
+  CP_Plan -> TL: NEEDS_REVISION { class: loop }
   CR -> DEV: MERGE_WITH_FIXES { class: loop }
-  CP4 -> CR: NEEDS_REVISION { class: loop }
+  CP_Merge -> CR: NEEDS_REVISION { class: loop }
 }
 
 ADO -> Delivery Pipeline.PA_Intake: Descarga PBI { class: happy_path }
 
 # --- MACRO-BUCLES Y ESCALACIONES ---
-# Escalaciones del Developer (Bucle 5)
 Delivery Pipeline.DEV -> Delivery Pipeline.QA: Escalación (SPEC_CONFLICT / TEST_BUG) { class: loop }
 Delivery Pipeline.DEV -> Delivery Pipeline.TL: Escalación (IMPLEMENTATION_BLOCK) { class: loop }
 Delivery Pipeline.DEV -> Delivery Pipeline.SA: Escalación (CONVENTION_CONFLICT) { class: loop }
-
-# DO_NOT_MERGE (Bucle 7)
 Delivery Pipeline.CR -> Delivery Pipeline.SA: DO_NOT_MERGE (Rediseño) { class: loop }
